@@ -1,11 +1,15 @@
 {
   "conceptSetId": 284,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
     {
       "conceptId": 1073500,
       "conceptName": "Adjusted ideal body weight",
       "vocabularyId": "SNOMED",
-      "domainId": "Observation",
+      "domainId": "Measurement",
       "conceptClassId": "Observable Entity",
       "conceptCode": "1304200008",
       "standardConcept": "S"
@@ -14,7 +18,7 @@
       "conceptId": 4062985,
       "conceptName": "Ideal body weight",
       "vocabularyId": "SNOMED",
-      "domainId": "Observation",
+      "domainId": "Measurement",
       "conceptClassId": "Observable Entity",
       "conceptCode": "170804003",
       "standardConcept": "S"

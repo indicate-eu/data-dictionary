@@ -1,6 +1,28 @@
 {
   "conceptSetId": 235,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
+    {
+      "conceptId": 1244063,
+      "conceptName": "Vancomycin resistant Enterococcus faecalis genotype vanB",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "661000112100",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4214183,
+      "conceptName": "Enterococcus faecalis variant",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "416397000",
+      "standardConcept": "S"
+    },
     {
       "conceptId": 4302157,
       "conceptName": "Enterococcus faecalis",
@@ -20,12 +42,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4214183,
-      "conceptName": "Enterococcus faecalis variant",
+      "conceptId": 37204333,
+      "conceptName": "Vancomycin susceptible Enterococcus faecalis",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "416397000",
+      "conceptCode": "782958000",
       "standardConcept": "S"
     },
     {
@@ -44,24 +66,6 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "712663006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1244063,
-      "conceptName": "Vancomycin resistant Enterococcus faecalis genotype vanB",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "661000112100",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37204333,
-      "conceptName": "Vancomycin susceptible Enterococcus faecalis",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "782958000",
       "standardConcept": "S"
     }
   ]

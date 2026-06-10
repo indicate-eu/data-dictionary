@@ -1,1228 +1,27 @@
 {
   "conceptSetId": 70,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "RxNorm": "RxNorm 20260105",
+    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+  },
   "resolvedConcepts": [
     {
-      "conceptId": 43041271,
-      "conceptName": "10 ML Caspofungin 5 MG/ML Injectable Solution",
+      "conceptId": 783376,
+      "conceptName": "Caspofungin Injectable Solution [Caspofungin Teva]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP4856301",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP4831206",
       "standardConcept": "S"
     },
     {
-      "conceptId": 43041272,
-      "conceptName": "10 ML Caspofungin 5 MG/ML Injectable Solution by Dr Reddy's",
+      "conceptId": 783377,
+      "conceptName": "Caspofungin Injectable Solution [Caspofungine Mylan]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4856302",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43041273,
-      "conceptName": "10 ML Caspofungin 5 MG/ML Injectable Solution by Fresenius",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4856303",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43041274,
-      "conceptName": "10 ML Caspofungin 7 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP4856304",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43041275,
-      "conceptName": "10 ML Caspofungin 7 MG/ML Injectable Solution by Dr Reddy's",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4856305",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43041276,
-      "conceptName": "10 ML Caspofungin 7 MG/ML Injectable Solution by Fresenius",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4856306",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36234499,
-      "conceptName": "Cancidas Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1172244",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 43031252,
-      "conceptName": "Caspofungin 5 MG/ML",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP4846316",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43031253,
-      "conceptName": "Caspofungin 5 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP4846317",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40837466,
-      "conceptName": "Caspofungin 50 MG Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP2035428",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40993331,
-      "conceptName": "Caspofungin 50 MG Injectable Solution Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2191293",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735077,
-      "conceptName": "Caspofungin 50 MG Injectable Solution Box of 1 by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722609",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735082,
-      "conceptName": "Caspofungin 50 MG Injectable Solution Box of 1 by Altan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722604",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735076,
-      "conceptName": "Caspofungin 50 MG Injectable Solution Box of 1 by Dr Reddy's",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722610",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735075,
-      "conceptName": "Caspofungin 50 MG Injectable Solution Box of 1 by Flynn",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722611",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735079,
-      "conceptName": "Caspofungin 50 MG Injectable Solution Box of 1 by Mylan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722607",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735074,
-      "conceptName": "Caspofungin 50 MG Injectable Solution Box of 1 by TEVA",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722612",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735078,
-      "conceptName": "Caspofungin 50 MG Injectable Solution Box of 1 by Tillomed",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722608",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735080,
-      "conceptName": "Caspofungin 50 MG Injectable Solution Box of 1 by Wockhardt",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722606",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735081,
-      "conceptName": "Caspofungin 50 MG Injectable Solution Box of 1 by Zentiva",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722605",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735073,
-      "conceptName": "Caspofungin 50 MG Injectable Solution [Cancidas]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4722613",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735071,
-      "conceptName": "Caspofungin 50 MG Injectable Solution [Cancidas] Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP4722615",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 783385,
-      "conceptName": "Caspofungin 50 MG Injectable Solution [Cancidas] Box of 1 by MSD",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4831215",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735070,
-      "conceptName": "Caspofungin 50 MG Injectable Solution [Cancidas] Box of 1 by Merck",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722616",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42657030,
-      "conceptName": "Caspofungin 50 MG Injectable Solution [Cancidas] by MSD",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4868598",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735072,
-      "conceptName": "Caspofungin 50 MG Injectable Solution [Cancidas] by Merck",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722614",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41161113,
-      "conceptName": "Caspofungin 50 MG Injectable Solution [Caspofungin Merck]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2359075",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40848747,
-      "conceptName": "Caspofungin 50 MG Injectable Solution [Caspofungin Merck] Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2046709",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 783386,
-      "conceptName": "Caspofungin 50 MG Injectable Solution [Caspofungin Teva]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4831216",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 783387,
-      "conceptName": "Caspofungin 50 MG Injectable Solution [Caspofungin Teva] Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP4831217",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 783388,
-      "conceptName": "Caspofungin 50 MG Injectable Solution [Caspofungin Teva] Box of 1 by TEVA",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4831218",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 783389,
-      "conceptName": "Caspofungin 50 MG Injectable Solution [Caspofungine Mylan]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4831219",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 783390,
-      "conceptName": "Caspofungin 50 MG Injectable Solution [Caspofungine Mylan] Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP4831220",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 783391,
-      "conceptName": "Caspofungin 50 MG Injectable Solution [Caspofungine Mylan] Box of 1 by Mylan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4831221",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735086,
-      "conceptName": "Caspofungin 50 MG Injectable Solution by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722600",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735091,
-      "conceptName": "Caspofungin 50 MG Injectable Solution by Altan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722595",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735085,
-      "conceptName": "Caspofungin 50 MG Injectable Solution by Dr Reddy's",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722601",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43031251,
-      "conceptName": "Caspofungin 50 MG Injectable Solution by Eurogenerics",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4846315",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735084,
-      "conceptName": "Caspofungin 50 MG Injectable Solution by Flynn",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722602",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735088,
-      "conceptName": "Caspofungin 50 MG Injectable Solution by Mylan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722598",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43031250,
-      "conceptName": "Caspofungin 50 MG Injectable Solution by OHRE",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4846314",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735083,
-      "conceptName": "Caspofungin 50 MG Injectable Solution by TEVA",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722603",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735087,
-      "conceptName": "Caspofungin 50 MG Injectable Solution by Tillomed",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722599",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735089,
-      "conceptName": "Caspofungin 50 MG Injectable Solution by Wockhardt",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722597",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735090,
-      "conceptName": "Caspofungin 50 MG Injectable Solution by Zentiva",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722596",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44059003,
-      "conceptName": "Caspofungin 50 MG Injectable Suspension",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP1053634",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40837465,
-      "conceptName": "Caspofungin 50 MG Injectable Suspension Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2035427",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735055,
-      "conceptName": "Caspofungin 50 MG Injectable Suspension Box of 1 by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722631",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735060,
-      "conceptName": "Caspofungin 50 MG Injectable Suspension Box of 1 by Altan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722626",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735054,
-      "conceptName": "Caspofungin 50 MG Injectable Suspension Box of 1 by Dr Reddy's",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722632",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735053,
-      "conceptName": "Caspofungin 50 MG Injectable Suspension Box of 1 by Flynn",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722633",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735057,
-      "conceptName": "Caspofungin 50 MG Injectable Suspension Box of 1 by Mylan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722629",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735052,
-      "conceptName": "Caspofungin 50 MG Injectable Suspension Box of 1 by TEVA",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722634",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735056,
-      "conceptName": "Caspofungin 50 MG Injectable Suspension Box of 1 by Tillomed",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722630",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735058,
-      "conceptName": "Caspofungin 50 MG Injectable Suspension Box of 1 by Wockhardt",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722628",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735059,
-      "conceptName": "Caspofungin 50 MG Injectable Suspension Box of 1 by Zentiva",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722627",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44112644,
-      "conceptName": "Caspofungin 50 MG Injectable Suspension [Cancidas]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP1107275",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40942245,
-      "conceptName": "Caspofungin 50 MG Injectable Suspension [Cancidas] Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2140207",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41168638,
-      "conceptName": "Caspofungin 50 MG Injectable Suspension [Cancidas] Box of 1 by Cc",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2366600",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41292999,
-      "conceptName": "Caspofungin 50 MG Injectable Suspension [Cancidas] Box of 1 by Emra-Med",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2490961",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41292998,
-      "conceptName": "Caspofungin 50 MG Injectable Suspension [Cancidas] Box of 1 by Eurim-Pharm",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2490960",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41012150,
-      "conceptName": "Caspofungin 50 MG Injectable Suspension [Cancidas] Box of 1 by Kohlpharma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2210112",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41200021,
-      "conceptName": "Caspofungin 50 MG Injectable Suspension [Cancidas] Box of 1 by Merck",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2397983",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44077052,
-      "conceptName": "Caspofungin 50 MG Injectable Suspension [Cancidas] by Merck",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP1071683",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41098342,
-      "conceptName": "Caspofungin 50 MG Injectable Suspension [Caspofungin Merck]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2296304",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40910927,
-      "conceptName": "Caspofungin 50 MG Injectable Suspension [Caspofungin Merck] Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2108889",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735064,
-      "conceptName": "Caspofungin 50 MG Injectable Suspension by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722622",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735069,
-      "conceptName": "Caspofungin 50 MG Injectable Suspension by Altan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722617",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735063,
-      "conceptName": "Caspofungin 50 MG Injectable Suspension by Dr Reddy's",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722623",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735062,
-      "conceptName": "Caspofungin 50 MG Injectable Suspension by Flynn",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722624",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735066,
-      "conceptName": "Caspofungin 50 MG Injectable Suspension by Mylan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722620",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735061,
-      "conceptName": "Caspofungin 50 MG Injectable Suspension by TEVA",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722625",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735065,
-      "conceptName": "Caspofungin 50 MG Injectable Suspension by Tillomed",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722621",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735067,
-      "conceptName": "Caspofungin 50 MG Injectable Suspension by Wockhardt",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722619",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735068,
-      "conceptName": "Caspofungin 50 MG Injectable Suspension by Zentiva",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722618",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21026392,
-      "conceptName": "Caspofungin 50 MG Injection Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP258551",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735037,
-      "conceptName": "Caspofungin 50 MG Injection Box of 1 by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722649",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735042,
-      "conceptName": "Caspofungin 50 MG Injection Box of 1 by Altan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722644",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735036,
-      "conceptName": "Caspofungin 50 MG Injection Box of 1 by Dr Reddy's",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722650",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735035,
-      "conceptName": "Caspofungin 50 MG Injection Box of 1 by Flynn",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722651",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735039,
-      "conceptName": "Caspofungin 50 MG Injection Box of 1 by Mylan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722647",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735034,
-      "conceptName": "Caspofungin 50 MG Injection Box of 1 by TEVA",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722652",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735038,
-      "conceptName": "Caspofungin 50 MG Injection Box of 1 by Tillomed",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722648",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735040,
-      "conceptName": "Caspofungin 50 MG Injection Box of 1 by Wockhardt",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722646",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735041,
-      "conceptName": "Caspofungin 50 MG Injection Box of 1 by Zentiva",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722645",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21104936,
-      "conceptName": "Caspofungin 50 MG Injection [Cancidas] Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP258553",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40918486,
-      "conceptName": "Caspofungin 50 MG Injection [Cancidas] Box of 1 by Emra-Med",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2116448",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41231113,
-      "conceptName": "Caspofungin 50 MG Injection [Cancidas] Box of 1 by Eurim-Pharm",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2429075",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44164108,
-      "conceptName": "Caspofungin 50 MG Injection [Cancidas] Box of 1 by Kohlpharma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3040831",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21154085,
-      "conceptName": "Caspofungin 50 MG Injection [Cancidas] Box of 1 by Merck",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP258554",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36263816,
-      "conceptName": "Caspofungin 50 MG Injection [Cancidas] by MSD",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3114691",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21104935,
-      "conceptName": "Caspofungin 50 MG Injection [Cancidas] by Merck",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP258552",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36268365,
-      "conceptName": "Caspofungin 50 MG Injection [Caspofungin Teva]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP3119240",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36268987,
-      "conceptName": "Caspofungin 50 MG Injection [Caspofungin Teva] by TEVA",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3119862",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735046,
-      "conceptName": "Caspofungin 50 MG Injection by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722640",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735051,
-      "conceptName": "Caspofungin 50 MG Injection by Altan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722635",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735045,
-      "conceptName": "Caspofungin 50 MG Injection by Dr Reddy's",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722641",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735044,
-      "conceptName": "Caspofungin 50 MG Injection by Flynn",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722642",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735048,
-      "conceptName": "Caspofungin 50 MG Injection by Mylan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722638",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735043,
-      "conceptName": "Caspofungin 50 MG Injection by TEVA",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722643",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735047,
-      "conceptName": "Caspofungin 50 MG Injection by Tillomed",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722639",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735049,
-      "conceptName": "Caspofungin 50 MG Injection by Wockhardt",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722637",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735050,
-      "conceptName": "Caspofungin 50 MG Injection by Zentiva",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722636",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785495,
-      "conceptName": "Caspofungin 50 MG Intravenous Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP4773776",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785494,
-      "conceptName": "Caspofungin 50 MG Intravenous Solution Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP4773775",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785493,
-      "conceptName": "Caspofungin 50 MG Intravenous Solution [Cancidas]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4773774",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785492,
-      "conceptName": "Caspofungin 50 MG Intravenous Solution [Cancidas] Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP4773773",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785491,
-      "conceptName": "Caspofungin 50 MG Intravenous Solution [Cancidas] Box of 1 by MSD",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4773772",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785490,
-      "conceptName": "Caspofungin 50 MG Intravenous Solution [Caspofungin Teva] Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP4773771",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785489,
-      "conceptName": "Caspofungin 50 MG Intravenous Solution [Caspofungin Teva] Box of 1 by TEVA",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4773770",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785498,
-      "conceptName": "Caspofungin 50 MG Intravenous Solution [Caspofungine Mylan]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4773779",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785497,
-      "conceptName": "Caspofungin 50 MG Intravenous Solution [Caspofungine Mylan] Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP4773778",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785496,
-      "conceptName": "Caspofungin 50 MG Intravenous Solution [Caspofungine Mylan] Box of 1 by Mylan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4773777",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36885964,
-      "conceptName": "Caspofungin 50 MG Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP1006131",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36882116,
-      "conceptName": "Caspofungin 50 MG Prefilled Syringe Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP1002229",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36889054,
-      "conceptName": "Caspofungin 50 MG Prefilled Syringe [Cancidas]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP990968",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36886107,
-      "conceptName": "Caspofungin 50 MG Prefilled Syringe [Cancidas] Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP1005454",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43171075,
-      "conceptName": "Caspofungin 50 MG Prefilled Syringe [Cancidas] Box of 1 by Merck",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP475788",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41266551,
-      "conceptName": "Caspofungin 50 MG [Caspofungin Merck]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP2464513",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36271945,
-      "conceptName": "Caspofungin 50 MG [Caspofungin Teva]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP3122820",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785499,
-      "conceptName": "Caspofungin 50 MG [Caspofungine Mylan]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4773780",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43031254,
-      "conceptName": "Caspofungin 7 MG/ML",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP4846318",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43031255,
-      "conceptName": "Caspofungin 7 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP4846319",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40837464,
-      "conceptName": "Caspofungin 70 MG Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP2035426",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41149820,
-      "conceptName": "Caspofungin 70 MG Injectable Solution Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2347782",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734433,
-      "conceptName": "Caspofungin 70 MG Injectable Solution Box of 1 by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722667",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734438,
-      "conceptName": "Caspofungin 70 MG Injectable Solution Box of 1 by Altan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722662",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734432,
-      "conceptName": "Caspofungin 70 MG Injectable Solution Box of 1 by Dr Reddy's",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722668",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734431,
-      "conceptName": "Caspofungin 70 MG Injectable Solution Box of 1 by Flynn",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722669",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734435,
-      "conceptName": "Caspofungin 70 MG Injectable Solution Box of 1 by Mylan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722665",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734430,
-      "conceptName": "Caspofungin 70 MG Injectable Solution Box of 1 by TEVA",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722670",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734434,
-      "conceptName": "Caspofungin 70 MG Injectable Solution Box of 1 by Tillomed",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722666",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734436,
-      "conceptName": "Caspofungin 70 MG Injectable Solution Box of 1 by Wockhardt",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722664",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734437,
-      "conceptName": "Caspofungin 70 MG Injectable Solution Box of 1 by Zentiva",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722663",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734429,
-      "conceptName": "Caspofungin 70 MG Injectable Solution [Cancidas]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4722671",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734427,
-      "conceptName": "Caspofungin 70 MG Injectable Solution [Cancidas] Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP4722673",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP4831207",
       "standardConcept": "S"
     },
     {
@@ -1232,51 +31,6 @@
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
       "conceptCode": "OMOP4831208",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734426,
-      "conceptName": "Caspofungin 70 MG Injectable Solution [Cancidas] Box of 1 by Merck",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722674",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42657031,
-      "conceptName": "Caspofungin 70 MG Injectable Solution [Cancidas] by MSD",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4868599",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734428,
-      "conceptName": "Caspofungin 70 MG Injectable Solution [Cancidas] by Merck",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722672",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40910926,
-      "conceptName": "Caspofungin 70 MG Injectable Solution [Caspofungin Merck]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2108888",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41254286,
-      "conceptName": "Caspofungin 70 MG Injectable Solution [Caspofungin Merck] Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2452248",
       "standardConcept": "S"
     },
     {
@@ -1334,858 +88,66 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 40735028,
-      "conceptName": "Caspofungin 70 MG Injectable Solution by A A H",
+      "conceptId": 783385,
+      "conceptName": "Caspofungin 50 MG Injectable Solution [Cancidas] Box of 1 by MSD",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722658",
+      "conceptCode": "OMOP4831215",
       "standardConcept": "S"
     },
     {
-      "conceptId": 40735033,
-      "conceptName": "Caspofungin 70 MG Injectable Solution by Altan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722653",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734441,
-      "conceptName": "Caspofungin 70 MG Injectable Solution by Dr Reddy's",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722659",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43031257,
-      "conceptName": "Caspofungin 70 MG Injectable Solution by Eurogenerics",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4846321",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734440,
-      "conceptName": "Caspofungin 70 MG Injectable Solution by Flynn",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722660",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735030,
-      "conceptName": "Caspofungin 70 MG Injectable Solution by Mylan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722656",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43031256,
-      "conceptName": "Caspofungin 70 MG Injectable Solution by OHRE",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4846320",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734439,
-      "conceptName": "Caspofungin 70 MG Injectable Solution by TEVA",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722661",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735029,
-      "conceptName": "Caspofungin 70 MG Injectable Solution by Tillomed",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722657",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735031,
-      "conceptName": "Caspofungin 70 MG Injectable Solution by Wockhardt",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722655",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735032,
-      "conceptName": "Caspofungin 70 MG Injectable Solution by Zentiva",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722654",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44123689,
-      "conceptName": "Caspofungin 70 MG Injectable Suspension",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP1118320",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41274111,
-      "conceptName": "Caspofungin 70 MG Injectable Suspension Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2472073",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734411,
-      "conceptName": "Caspofungin 70 MG Injectable Suspension Box of 1 by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722689",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734416,
-      "conceptName": "Caspofungin 70 MG Injectable Suspension Box of 1 by Altan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722684",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734410,
-      "conceptName": "Caspofungin 70 MG Injectable Suspension Box of 1 by Dr Reddy's",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722690",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734409,
-      "conceptName": "Caspofungin 70 MG Injectable Suspension Box of 1 by Flynn",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722691",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734413,
-      "conceptName": "Caspofungin 70 MG Injectable Suspension Box of 1 by Mylan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722687",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734398,
-      "conceptName": "Caspofungin 70 MG Injectable Suspension Box of 1 by TEVA",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722692",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734412,
-      "conceptName": "Caspofungin 70 MG Injectable Suspension Box of 1 by Tillomed",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722688",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734414,
-      "conceptName": "Caspofungin 70 MG Injectable Suspension Box of 1 by Wockhardt",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722686",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734415,
-      "conceptName": "Caspofungin 70 MG Injectable Suspension Box of 1 by Zentiva",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722685",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44125817,
-      "conceptName": "Caspofungin 70 MG Injectable Suspension [Cancidas]",
+      "conceptId": 783386,
+      "conceptName": "Caspofungin 50 MG Injectable Solution [Caspofungin Teva]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP1120448",
+      "conceptCode": "OMOP4831216",
       "standardConcept": "S"
     },
     {
-      "conceptId": 40848746,
-      "conceptName": "Caspofungin 70 MG Injectable Suspension [Cancidas] Box of 1",
+      "conceptId": 783387,
+      "conceptName": "Caspofungin 50 MG Injectable Solution [Caspofungin Teva] Box of 1",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2046708",
+      "conceptCode": "OMOP4831217",
       "standardConcept": "S"
     },
     {
-      "conceptId": 40856287,
-      "conceptName": "Caspofungin 70 MG Injectable Suspension [Cancidas] Box of 1 by Merck",
+      "conceptId": 783388,
+      "conceptName": "Caspofungin 50 MG Injectable Solution [Caspofungin Teva] Box of 1 by TEVA",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2054249",
+      "conceptCode": "OMOP4831218",
       "standardConcept": "S"
     },
     {
-      "conceptId": 44051320,
-      "conceptName": "Caspofungin 70 MG Injectable Suspension [Cancidas] by Merck",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP1045951",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41192271,
-      "conceptName": "Caspofungin 70 MG Injectable Suspension [Caspofungin Merck]",
+      "conceptId": 783389,
+      "conceptName": "Caspofungin 50 MG Injectable Solution [Caspofungine Mylan]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2390233",
+      "conceptCode": "OMOP4831219",
       "standardConcept": "S"
     },
     {
-      "conceptId": 41035627,
-      "conceptName": "Caspofungin 70 MG Injectable Suspension [Caspofungin Merck] Box of 1",
+      "conceptId": 783390,
+      "conceptName": "Caspofungin 50 MG Injectable Solution [Caspofungine Mylan] Box of 1",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2233589",
+      "conceptCode": "OMOP4831220",
       "standardConcept": "S"
     },
     {
-      "conceptId": 40734420,
-      "conceptName": "Caspofungin 70 MG Injectable Suspension by A A H",
+      "conceptId": 783391,
+      "conceptName": "Caspofungin 50 MG Injectable Solution [Caspofungine Mylan] Box of 1 by Mylan",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722680",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734425,
-      "conceptName": "Caspofungin 70 MG Injectable Suspension by Altan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722675",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734419,
-      "conceptName": "Caspofungin 70 MG Injectable Suspension by Dr Reddy's",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722681",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734418,
-      "conceptName": "Caspofungin 70 MG Injectable Suspension by Flynn",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722682",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734422,
-      "conceptName": "Caspofungin 70 MG Injectable Suspension by Mylan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722678",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734417,
-      "conceptName": "Caspofungin 70 MG Injectable Suspension by TEVA",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722683",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734421,
-      "conceptName": "Caspofungin 70 MG Injectable Suspension by Tillomed",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722679",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734423,
-      "conceptName": "Caspofungin 70 MG Injectable Suspension by Wockhardt",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722677",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734424,
-      "conceptName": "Caspofungin 70 MG Injectable Suspension by Zentiva",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722676",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21055777,
-      "conceptName": "Caspofungin 70 MG Injection Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP258546",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734383,
-      "conceptName": "Caspofungin 70 MG Injection Box of 1 by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722707",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734388,
-      "conceptName": "Caspofungin 70 MG Injection Box of 1 by Altan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722702",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734382,
-      "conceptName": "Caspofungin 70 MG Injection Box of 1 by Dr Reddy's",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722708",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734381,
-      "conceptName": "Caspofungin 70 MG Injection Box of 1 by Flynn",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722709",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734385,
-      "conceptName": "Caspofungin 70 MG Injection Box of 1 by Mylan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722705",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734380,
-      "conceptName": "Caspofungin 70 MG Injection Box of 1 by TEVA",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722710",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734384,
-      "conceptName": "Caspofungin 70 MG Injection Box of 1 by Tillomed",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722706",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734386,
-      "conceptName": "Caspofungin 70 MG Injection Box of 1 by Wockhardt",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722704",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734387,
-      "conceptName": "Caspofungin 70 MG Injection Box of 1 by Zentiva",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722703",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21095069,
-      "conceptName": "Caspofungin 70 MG Injection [Cancidas] Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP258548",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21046019,
-      "conceptName": "Caspofungin 70 MG Injection [Cancidas] Box of 1 by Merck",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP258549",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36260876,
-      "conceptName": "Caspofungin 70 MG Injection [Cancidas] by MSD",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3111751",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21144158,
-      "conceptName": "Caspofungin 70 MG Injection [Cancidas] by Merck",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP258547",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36268363,
-      "conceptName": "Caspofungin 70 MG Injection [Caspofungin Teva]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP3119238",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36263700,
-      "conceptName": "Caspofungin 70 MG Injection [Caspofungin Teva] by TEVA",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3114575",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734392,
-      "conceptName": "Caspofungin 70 MG Injection by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722698",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734397,
-      "conceptName": "Caspofungin 70 MG Injection by Altan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722693",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734391,
-      "conceptName": "Caspofungin 70 MG Injection by Dr Reddy's",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722699",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734390,
-      "conceptName": "Caspofungin 70 MG Injection by Flynn",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722700",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734394,
-      "conceptName": "Caspofungin 70 MG Injection by Mylan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722696",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734389,
-      "conceptName": "Caspofungin 70 MG Injection by TEVA",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722701",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734393,
-      "conceptName": "Caspofungin 70 MG Injection by Tillomed",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722697",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734395,
-      "conceptName": "Caspofungin 70 MG Injection by Wockhardt",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722695",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734396,
-      "conceptName": "Caspofungin 70 MG Injection by Zentiva",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4722694",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785507,
-      "conceptName": "Caspofungin 70 MG Intravenous Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP4773787",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785506,
-      "conceptName": "Caspofungin 70 MG Intravenous Solution Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP4773786",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785505,
-      "conceptName": "Caspofungin 70 MG Intravenous Solution [Cancidas]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4773785",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785504,
-      "conceptName": "Caspofungin 70 MG Intravenous Solution [Cancidas] Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP4773784",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785503,
-      "conceptName": "Caspofungin 70 MG Intravenous Solution [Cancidas] Box of 1 by MSD",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4773783",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785502,
-      "conceptName": "Caspofungin 70 MG Intravenous Solution [Caspofungin Teva] Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP4773782",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785500,
-      "conceptName": "Caspofungin 70 MG Intravenous Solution [Caspofungin Teva] Box of 1 by TEVA",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4773781",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785510,
-      "conceptName": "Caspofungin 70 MG Intravenous Solution [Caspofungine Mylan]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4773790",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785509,
-      "conceptName": "Caspofungin 70 MG Intravenous Solution [Caspofungine Mylan] Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP4773789",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785508,
-      "conceptName": "Caspofungin 70 MG Intravenous Solution [Caspofungine Mylan] Box of 1 by Mylan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4773788",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36881170,
-      "conceptName": "Caspofungin 70 MG Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP1002459",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36884962,
-      "conceptName": "Caspofungin 70 MG Prefilled Syringe Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP992582",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36894932,
-      "conceptName": "Caspofungin 70 MG Prefilled Syringe [Cancidas]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP988995",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36882259,
-      "conceptName": "Caspofungin 70 MG Prefilled Syringe [Cancidas] Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP990852",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43182073,
-      "conceptName": "Caspofungin 70 MG Prefilled Syringe [Cancidas] Box of 1 by Merck",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP475790",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41235655,
-      "conceptName": "Caspofungin 70 MG [Caspofungin Merck]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP2433617",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36269394,
-      "conceptName": "Caspofungin 70 MG [Caspofungin Teva]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP3120269",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785511,
-      "conceptName": "Caspofungin 70 MG [Caspofungine Mylan]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4773791",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40955431,
-      "conceptName": "Caspofungin Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP2153393",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40735092,
-      "conceptName": "Caspofungin Injectable Solution [Cancidas]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4722594",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41113823,
-      "conceptName": "Caspofungin Injectable Solution [Caspofungin Merck]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP2311785",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 783376,
-      "conceptName": "Caspofungin Injectable Solution [Caspofungin Teva]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4831206",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 783377,
-      "conceptName": "Caspofungin Injectable Solution [Caspofungine Mylan]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4831207",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44081748,
-      "conceptName": "Caspofungin Injectable Suspension",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP1076379",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44109092,
-      "conceptName": "Caspofungin Injectable Suspension [Cancidas]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP1103723",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44057510,
-      "conceptName": "Caspofungin Injectable Suspension [Caspofungin For]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP1052141",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41145414,
-      "conceptName": "Caspofungin Injectable Suspension [Caspofungin Merck]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP2343376",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36272239,
-      "conceptName": "Caspofungin Injection [Caspofungin Teva]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP3123114",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785513,
-      "conceptName": "Caspofungin Intravenous Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP4773793",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785512,
-      "conceptName": "Caspofungin Intravenous Solution [Cancidas]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4773792",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785514,
-      "conceptName": "Caspofungin Intravenous Solution [Caspofungine Mylan]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4773794",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36882753,
-      "conceptName": "Caspofungin Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP1003165",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36893551,
-      "conceptName": "Caspofungin Prefilled Syringe [Cancidas]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP999389",
+      "conceptCode": "OMOP4831221",
       "standardConcept": "S"
     },
     {
@@ -2195,438 +157,6 @@
       "domainId": "Drug",
       "conceptClassId": "Ingredient",
       "conceptCode": "140108",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36948557,
-      "conceptName": "caspofungin 50 MG Injectable Solution Box of 1 by Altan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5199780",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36120135,
-      "conceptName": "caspofungin 50 MG Injectable Solution Box of 1 by Consilient",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5049062",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36062056,
-      "conceptName": "caspofungin 50 MG Injectable Solution Box of 1 by Sun",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4988036",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36922217,
-      "conceptName": "caspofungin 50 MG Injectable Solution Box of 1 by Viatris Healthcare",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5199779",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1831268,
-      "conceptName": "caspofungin 50 MG Injectable Solution [Caspofungin Sandoz]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5156515",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1831269,
-      "conceptName": "caspofungin 50 MG Injectable Solution [Caspofungin Sandoz] by Sandoz",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5156516",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36922463,
-      "conceptName": "caspofungin 50 MG Injectable Solution by Altan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5199778",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36120134,
-      "conceptName": "caspofungin 50 MG Injectable Solution by Consilient",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5049061",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36062057,
-      "conceptName": "caspofungin 50 MG Injectable Solution by Sun",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4988037",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36949265,
-      "conceptName": "caspofungin 50 MG Injectable Solution by Viatris Healthcare",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5199777",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1971635,
-      "conceptName": "caspofungin 50 MG Injectable Suspension by Betapharm",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5164207",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2918066,
-      "conceptName": "caspofungin 50 MG Injection [Cancigin]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5134893",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2918062,
-      "conceptName": "caspofungin 50 MG Injection by Amneal",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5134889",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2918065,
-      "conceptName": "caspofungin 50 MG Injection by Mayne",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5134892",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2918063,
-      "conceptName": "caspofungin 50 MG Injection by Panpharma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5134890",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2918064,
-      "conceptName": "caspofungin 50 MG Injection by Sandoz",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5134891",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2918067,
-      "conceptName": "caspofungin 50 MG [Cancigin]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP5134894",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1831267,
-      "conceptName": "caspofungin 50 MG [Caspofungin Sandoz]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP5156514",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36966704,
-      "conceptName": "caspofungin 70 MG Injectable Solution Box of 1 by Altan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5199784",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36120137,
-      "conceptName": "caspofungin 70 MG Injectable Solution Box of 1 by Consilient",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5049064",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36062054,
-      "conceptName": "caspofungin 70 MG Injectable Solution Box of 1 by Sun",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4988034",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36923316,
-      "conceptName": "caspofungin 70 MG Injectable Solution Box of 1 by Viatris Healthcare",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5199783",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36933948,
-      "conceptName": "caspofungin 70 MG Injectable Solution [Cancidas] Box of 1 by Organon",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5199786",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36958361,
-      "conceptName": "caspofungin 70 MG Injectable Solution [Cancidas] by Organon",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5199785",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1831271,
-      "conceptName": "caspofungin 70 MG Injectable Solution [Caspofungin Sandoz]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5156518",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1831272,
-      "conceptName": "caspofungin 70 MG Injectable Solution [Caspofungin Sandoz] by Sandoz",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5156519",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36950223,
-      "conceptName": "caspofungin 70 MG Injectable Solution by Altan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5199782",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36120136,
-      "conceptName": "caspofungin 70 MG Injectable Solution by Consilient",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5049063",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36062055,
-      "conceptName": "caspofungin 70 MG Injectable Solution by Sun",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4988035",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36948668,
-      "conceptName": "caspofungin 70 MG Injectable Solution by Viatris Healthcare",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5199781",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2918060,
-      "conceptName": "caspofungin 70 MG Injection [Cancigin]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5134887",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2918056,
-      "conceptName": "caspofungin 70 MG Injection by Amneal",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5134883",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2918059,
-      "conceptName": "caspofungin 70 MG Injection by Mayne",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5134886",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2918057,
-      "conceptName": "caspofungin 70 MG Injection by Panpharma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5134884",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2918058,
-      "conceptName": "caspofungin 70 MG Injection by Sandoz",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5134885",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2918061,
-      "conceptName": "caspofungin 70 MG [Cancigin]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP5134888",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1831270,
-      "conceptName": "caspofungin 70 MG [Caspofungin Sandoz]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP5156517",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36216527,
-      "conceptName": "caspofungin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1151754",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 1831266,
-      "conceptName": "caspofungin Injectable Solution [Caspofungin Sandoz]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP5156513",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35606496,
-      "conceptName": "caspofungin Injection",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "1734691",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35606498,
-      "conceptName": "caspofungin Injection [Cancidas]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "1734694",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42614505,
-      "conceptName": "caspofungin Injection [Cancigin]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP5159581",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2916500,
-      "conceptName": "caspofungin Injection [Cancigin]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP5133341",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35606495,
-      "conceptName": "caspofungin acetate 50 MG",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "1734690",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1718059,
-      "conceptName": "caspofungin acetate 50 MG Injection",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "828755",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1718060,
-      "conceptName": "caspofungin acetate 50 MG Injection [Cancidas]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "828757",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35606497,
-      "conceptName": "caspofungin acetate 50 MG [Cancidas]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "1734693",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35606499,
-      "conceptName": "caspofungin acetate 70 MG",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "1734696",
       "standardConcept": "S"
     },
     {
@@ -2648,12 +178,2442 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 1718059,
+      "conceptName": "caspofungin acetate 50 MG Injection",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "828755",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1718060,
+      "conceptName": "caspofungin acetate 50 MG Injection [Cancidas]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "828757",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1831266,
+      "conceptName": "caspofungin Injectable Solution [Caspofungin Sandoz]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP5156513",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1831267,
+      "conceptName": "caspofungin 50 MG [Caspofungin Sandoz]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP5156514",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1831268,
+      "conceptName": "caspofungin 50 MG Injectable Solution [Caspofungin Sandoz]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP5156515",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1831269,
+      "conceptName": "caspofungin 50 MG Injectable Solution [Caspofungin Sandoz] by Sandoz",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5156516",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1831270,
+      "conceptName": "caspofungin 70 MG [Caspofungin Sandoz]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP5156517",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1831271,
+      "conceptName": "caspofungin 70 MG Injectable Solution [Caspofungin Sandoz]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP5156518",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1831272,
+      "conceptName": "caspofungin 70 MG Injectable Solution [Caspofungin Sandoz] by Sandoz",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5156519",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1971635,
+      "conceptName": "caspofungin 50 MG Injectable Suspension by Betapharm",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5164207",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2916500,
+      "conceptName": "caspofungin Injection [Cancigin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP5133341",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2918056,
+      "conceptName": "caspofungin 70 MG Injection by Amneal",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5134883",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2918057,
+      "conceptName": "caspofungin 70 MG Injection by Panpharma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5134884",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2918058,
+      "conceptName": "caspofungin 70 MG Injection by Sandoz",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5134885",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2918059,
+      "conceptName": "caspofungin 70 MG Injection by Mayne",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5134886",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2918060,
+      "conceptName": "caspofungin 70 MG Injection [Cancigin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP5134887",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2918061,
+      "conceptName": "caspofungin 70 MG [Cancigin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP5134888",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2918062,
+      "conceptName": "caspofungin 50 MG Injection by Amneal",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5134889",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2918063,
+      "conceptName": "caspofungin 50 MG Injection by Panpharma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5134890",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2918064,
+      "conceptName": "caspofungin 50 MG Injection by Sandoz",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5134891",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2918065,
+      "conceptName": "caspofungin 50 MG Injection by Mayne",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5134892",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2918066,
+      "conceptName": "caspofungin 50 MG Injection [Cancigin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP5134893",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2918067,
+      "conceptName": "caspofungin 50 MG [Cancigin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP5134894",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21026392,
+      "conceptName": "Caspofungin 50 MG Injection Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP258551",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21046019,
+      "conceptName": "Caspofungin 70 MG Injection [Cancidas] Box of 1 by Merck",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP258549",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21055777,
+      "conceptName": "Caspofungin 70 MG Injection Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP258546",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21095069,
+      "conceptName": "Caspofungin 70 MG Injection [Cancidas] Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP258548",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21104935,
+      "conceptName": "Caspofungin 50 MG Injection [Cancidas] by Merck",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP258552",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21104936,
+      "conceptName": "Caspofungin 50 MG Injection [Cancidas] Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP258553",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21144158,
+      "conceptName": "Caspofungin 70 MG Injection [Cancidas] by Merck",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP258547",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21154085,
+      "conceptName": "Caspofungin 50 MG Injection [Cancidas] Box of 1 by Merck",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP258554",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35606495,
+      "conceptName": "caspofungin acetate 50 MG",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "1734690",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35606496,
+      "conceptName": "caspofungin Injection",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "1734691",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35606497,
+      "conceptName": "caspofungin acetate 50 MG [Cancidas]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "1734693",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35606498,
+      "conceptName": "caspofungin Injection [Cancidas]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "1734694",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35606499,
+      "conceptName": "caspofungin acetate 70 MG",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "1734696",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 35606500,
       "conceptName": "caspofungin acetate 70 MG [Cancidas]",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Comp",
       "conceptCode": "1734698",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36062054,
+      "conceptName": "caspofungin 70 MG Injectable Solution Box of 1 by Sun",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4988034",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36062055,
+      "conceptName": "caspofungin 70 MG Injectable Solution by Sun",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4988035",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36062056,
+      "conceptName": "caspofungin 50 MG Injectable Solution Box of 1 by Sun",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4988036",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36062057,
+      "conceptName": "caspofungin 50 MG Injectable Solution by Sun",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4988037",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36120134,
+      "conceptName": "caspofungin 50 MG Injectable Solution by Consilient",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5049061",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36120135,
+      "conceptName": "caspofungin 50 MG Injectable Solution Box of 1 by Consilient",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5049062",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36120136,
+      "conceptName": "caspofungin 70 MG Injectable Solution by Consilient",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5049063",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36120137,
+      "conceptName": "caspofungin 70 MG Injectable Solution Box of 1 by Consilient",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5049064",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36216527,
+      "conceptName": "caspofungin Injectable Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Dose Group",
+      "conceptCode": "1151754",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36234499,
+      "conceptName": "Cancidas Injectable Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Dose Group",
+      "conceptCode": "1172244",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36260876,
+      "conceptName": "Caspofungin 70 MG Injection [Cancidas] by MSD",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3111751",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36263700,
+      "conceptName": "Caspofungin 70 MG Injection [Caspofungin Teva] by TEVA",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3114575",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36263816,
+      "conceptName": "Caspofungin 50 MG Injection [Cancidas] by MSD",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3114691",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36268363,
+      "conceptName": "Caspofungin 70 MG Injection [Caspofungin Teva]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP3119238",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36268365,
+      "conceptName": "Caspofungin 50 MG Injection [Caspofungin Teva]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP3119240",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36268987,
+      "conceptName": "Caspofungin 50 MG Injection [Caspofungin Teva] by TEVA",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3119862",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36269394,
+      "conceptName": "Caspofungin 70 MG [Caspofungin Teva]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP3120269",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36271945,
+      "conceptName": "Caspofungin 50 MG [Caspofungin Teva]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP3122820",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36272239,
+      "conceptName": "Caspofungin Injection [Caspofungin Teva]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP3123114",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785489,
+      "conceptName": "Caspofungin 50 MG Intravenous Solution [Caspofungin Teva] Box of 1 by TEVA",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4773770",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785490,
+      "conceptName": "Caspofungin 50 MG Intravenous Solution [Caspofungin Teva] Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP4773771",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785491,
+      "conceptName": "Caspofungin 50 MG Intravenous Solution [Cancidas] Box of 1 by MSD",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4773772",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785492,
+      "conceptName": "Caspofungin 50 MG Intravenous Solution [Cancidas] Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP4773773",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785493,
+      "conceptName": "Caspofungin 50 MG Intravenous Solution [Cancidas]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4773774",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785494,
+      "conceptName": "Caspofungin 50 MG Intravenous Solution Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP4773775",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785495,
+      "conceptName": "Caspofungin 50 MG Intravenous Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP4773776",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785496,
+      "conceptName": "Caspofungin 50 MG Intravenous Solution [Caspofungine Mylan] Box of 1 by Mylan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4773777",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785497,
+      "conceptName": "Caspofungin 50 MG Intravenous Solution [Caspofungine Mylan] Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP4773778",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785498,
+      "conceptName": "Caspofungin 50 MG Intravenous Solution [Caspofungine Mylan]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4773779",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785499,
+      "conceptName": "Caspofungin 50 MG [Caspofungine Mylan]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4773780",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785500,
+      "conceptName": "Caspofungin 70 MG Intravenous Solution [Caspofungin Teva] Box of 1 by TEVA",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4773781",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785502,
+      "conceptName": "Caspofungin 70 MG Intravenous Solution [Caspofungin Teva] Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP4773782",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785503,
+      "conceptName": "Caspofungin 70 MG Intravenous Solution [Cancidas] Box of 1 by MSD",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4773783",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785504,
+      "conceptName": "Caspofungin 70 MG Intravenous Solution [Cancidas] Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP4773784",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785505,
+      "conceptName": "Caspofungin 70 MG Intravenous Solution [Cancidas]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4773785",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785506,
+      "conceptName": "Caspofungin 70 MG Intravenous Solution Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP4773786",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785507,
+      "conceptName": "Caspofungin 70 MG Intravenous Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP4773787",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785508,
+      "conceptName": "Caspofungin 70 MG Intravenous Solution [Caspofungine Mylan] Box of 1 by Mylan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4773788",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785509,
+      "conceptName": "Caspofungin 70 MG Intravenous Solution [Caspofungine Mylan] Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP4773789",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785510,
+      "conceptName": "Caspofungin 70 MG Intravenous Solution [Caspofungine Mylan]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4773790",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785511,
+      "conceptName": "Caspofungin 70 MG [Caspofungine Mylan]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4773791",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785512,
+      "conceptName": "Caspofungin Intravenous Solution [Cancidas]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP4773792",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785513,
+      "conceptName": "Caspofungin Intravenous Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP4773793",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785514,
+      "conceptName": "Caspofungin Intravenous Solution [Caspofungine Mylan]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP4773794",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36881170,
+      "conceptName": "Caspofungin 70 MG Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP1002459",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36882116,
+      "conceptName": "Caspofungin 50 MG Prefilled Syringe Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP1002229",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36882259,
+      "conceptName": "Caspofungin 70 MG Prefilled Syringe [Cancidas] Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP990852",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36882753,
+      "conceptName": "Caspofungin Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP1003165",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36884962,
+      "conceptName": "Caspofungin 70 MG Prefilled Syringe Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP992582",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36885964,
+      "conceptName": "Caspofungin 50 MG Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP1006131",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36886107,
+      "conceptName": "Caspofungin 50 MG Prefilled Syringe [Cancidas] Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP1005454",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36889054,
+      "conceptName": "Caspofungin 50 MG Prefilled Syringe [Cancidas]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP990968",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36893551,
+      "conceptName": "Caspofungin Prefilled Syringe [Cancidas]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP999389",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36894932,
+      "conceptName": "Caspofungin 70 MG Prefilled Syringe [Cancidas]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP988995",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36922217,
+      "conceptName": "caspofungin 50 MG Injectable Solution Box of 1 by Viatris Healthcare",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5199779",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36923316,
+      "conceptName": "caspofungin 70 MG Injectable Solution Box of 1 by Viatris Healthcare",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5199783",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36933948,
+      "conceptName": "caspofungin 70 MG Injectable Solution [Cancidas] Box of 1 by Organon",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5199786",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36948668,
+      "conceptName": "caspofungin 70 MG Injectable Solution by Viatris Healthcare",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5199781",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36949265,
+      "conceptName": "caspofungin 50 MG Injectable Solution by Viatris Healthcare",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5199777",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36958361,
+      "conceptName": "caspofungin 70 MG Injectable Solution [Cancidas] by Organon",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5199785",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734380,
+      "conceptName": "Caspofungin 70 MG Injection Box of 1 by TEVA",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722710",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734381,
+      "conceptName": "Caspofungin 70 MG Injection Box of 1 by Flynn",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722709",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734382,
+      "conceptName": "Caspofungin 70 MG Injection Box of 1 by Dr Reddy's",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722708",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734383,
+      "conceptName": "Caspofungin 70 MG Injection Box of 1 by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722707",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734384,
+      "conceptName": "Caspofungin 70 MG Injection Box of 1 by Tillomed",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722706",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734385,
+      "conceptName": "Caspofungin 70 MG Injection Box of 1 by Mylan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722705",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734386,
+      "conceptName": "Caspofungin 70 MG Injection Box of 1 by Wockhardt",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722704",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734387,
+      "conceptName": "Caspofungin 70 MG Injection Box of 1 by Zentiva",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722703",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734388,
+      "conceptName": "Caspofungin 70 MG Injection Box of 1 by Altan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722702",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734389,
+      "conceptName": "Caspofungin 70 MG Injection by TEVA",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722701",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734390,
+      "conceptName": "Caspofungin 70 MG Injection by Flynn",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722700",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734391,
+      "conceptName": "Caspofungin 70 MG Injection by Dr Reddy's",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722699",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734392,
+      "conceptName": "Caspofungin 70 MG Injection by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722698",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734393,
+      "conceptName": "Caspofungin 70 MG Injection by Tillomed",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722697",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734394,
+      "conceptName": "Caspofungin 70 MG Injection by Mylan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722696",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734395,
+      "conceptName": "Caspofungin 70 MG Injection by Wockhardt",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722695",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734396,
+      "conceptName": "Caspofungin 70 MG Injection by Zentiva",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722694",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734397,
+      "conceptName": "Caspofungin 70 MG Injection by Altan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722693",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734398,
+      "conceptName": "Caspofungin 70 MG Injectable Suspension Box of 1 by TEVA",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722692",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734409,
+      "conceptName": "Caspofungin 70 MG Injectable Suspension Box of 1 by Flynn",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722691",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734410,
+      "conceptName": "Caspofungin 70 MG Injectable Suspension Box of 1 by Dr Reddy's",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722690",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734411,
+      "conceptName": "Caspofungin 70 MG Injectable Suspension Box of 1 by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722689",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734412,
+      "conceptName": "Caspofungin 70 MG Injectable Suspension Box of 1 by Tillomed",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722688",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734413,
+      "conceptName": "Caspofungin 70 MG Injectable Suspension Box of 1 by Mylan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722687",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734414,
+      "conceptName": "Caspofungin 70 MG Injectable Suspension Box of 1 by Wockhardt",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722686",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734415,
+      "conceptName": "Caspofungin 70 MG Injectable Suspension Box of 1 by Zentiva",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722685",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734416,
+      "conceptName": "Caspofungin 70 MG Injectable Suspension Box of 1 by Altan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722684",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734417,
+      "conceptName": "Caspofungin 70 MG Injectable Suspension by TEVA",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722683",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734418,
+      "conceptName": "Caspofungin 70 MG Injectable Suspension by Flynn",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722682",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734419,
+      "conceptName": "Caspofungin 70 MG Injectable Suspension by Dr Reddy's",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722681",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734420,
+      "conceptName": "Caspofungin 70 MG Injectable Suspension by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722680",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734421,
+      "conceptName": "Caspofungin 70 MG Injectable Suspension by Tillomed",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722679",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734422,
+      "conceptName": "Caspofungin 70 MG Injectable Suspension by Mylan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722678",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734423,
+      "conceptName": "Caspofungin 70 MG Injectable Suspension by Wockhardt",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722677",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734424,
+      "conceptName": "Caspofungin 70 MG Injectable Suspension by Zentiva",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722676",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734425,
+      "conceptName": "Caspofungin 70 MG Injectable Suspension by Altan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722675",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734426,
+      "conceptName": "Caspofungin 70 MG Injectable Solution [Cancidas] Box of 1 by Merck",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722674",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734427,
+      "conceptName": "Caspofungin 70 MG Injectable Solution [Cancidas] Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP4722673",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734428,
+      "conceptName": "Caspofungin 70 MG Injectable Solution [Cancidas] by Merck",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722672",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734429,
+      "conceptName": "Caspofungin 70 MG Injectable Solution [Cancidas]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4722671",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734430,
+      "conceptName": "Caspofungin 70 MG Injectable Solution Box of 1 by TEVA",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722670",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734431,
+      "conceptName": "Caspofungin 70 MG Injectable Solution Box of 1 by Flynn",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722669",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734432,
+      "conceptName": "Caspofungin 70 MG Injectable Solution Box of 1 by Dr Reddy's",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722668",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734433,
+      "conceptName": "Caspofungin 70 MG Injectable Solution Box of 1 by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722667",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734434,
+      "conceptName": "Caspofungin 70 MG Injectable Solution Box of 1 by Tillomed",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722666",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734435,
+      "conceptName": "Caspofungin 70 MG Injectable Solution Box of 1 by Mylan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722665",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734436,
+      "conceptName": "Caspofungin 70 MG Injectable Solution Box of 1 by Wockhardt",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722664",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734437,
+      "conceptName": "Caspofungin 70 MG Injectable Solution Box of 1 by Zentiva",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722663",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734438,
+      "conceptName": "Caspofungin 70 MG Injectable Solution Box of 1 by Altan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722662",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734439,
+      "conceptName": "Caspofungin 70 MG Injectable Solution by TEVA",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722661",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734440,
+      "conceptName": "Caspofungin 70 MG Injectable Solution by Flynn",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722660",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734441,
+      "conceptName": "Caspofungin 70 MG Injectable Solution by Dr Reddy's",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722659",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735028,
+      "conceptName": "Caspofungin 70 MG Injectable Solution by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722658",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735029,
+      "conceptName": "Caspofungin 70 MG Injectable Solution by Tillomed",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722657",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735030,
+      "conceptName": "Caspofungin 70 MG Injectable Solution by Mylan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722656",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735031,
+      "conceptName": "Caspofungin 70 MG Injectable Solution by Wockhardt",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722655",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735032,
+      "conceptName": "Caspofungin 70 MG Injectable Solution by Zentiva",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722654",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735033,
+      "conceptName": "Caspofungin 70 MG Injectable Solution by Altan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722653",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735034,
+      "conceptName": "Caspofungin 50 MG Injection Box of 1 by TEVA",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722652",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735035,
+      "conceptName": "Caspofungin 50 MG Injection Box of 1 by Flynn",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722651",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735036,
+      "conceptName": "Caspofungin 50 MG Injection Box of 1 by Dr Reddy's",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722650",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735037,
+      "conceptName": "Caspofungin 50 MG Injection Box of 1 by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722649",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735038,
+      "conceptName": "Caspofungin 50 MG Injection Box of 1 by Tillomed",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722648",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735039,
+      "conceptName": "Caspofungin 50 MG Injection Box of 1 by Mylan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722647",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735040,
+      "conceptName": "Caspofungin 50 MG Injection Box of 1 by Wockhardt",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722646",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735041,
+      "conceptName": "Caspofungin 50 MG Injection Box of 1 by Zentiva",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722645",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735042,
+      "conceptName": "Caspofungin 50 MG Injection Box of 1 by Altan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722644",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735043,
+      "conceptName": "Caspofungin 50 MG Injection by TEVA",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722643",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735044,
+      "conceptName": "Caspofungin 50 MG Injection by Flynn",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722642",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735045,
+      "conceptName": "Caspofungin 50 MG Injection by Dr Reddy's",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722641",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735046,
+      "conceptName": "Caspofungin 50 MG Injection by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722640",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735047,
+      "conceptName": "Caspofungin 50 MG Injection by Tillomed",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722639",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735048,
+      "conceptName": "Caspofungin 50 MG Injection by Mylan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722638",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735049,
+      "conceptName": "Caspofungin 50 MG Injection by Wockhardt",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722637",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735050,
+      "conceptName": "Caspofungin 50 MG Injection by Zentiva",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722636",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735051,
+      "conceptName": "Caspofungin 50 MG Injection by Altan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722635",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735052,
+      "conceptName": "Caspofungin 50 MG Injectable Suspension Box of 1 by TEVA",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722634",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735053,
+      "conceptName": "Caspofungin 50 MG Injectable Suspension Box of 1 by Flynn",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722633",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735054,
+      "conceptName": "Caspofungin 50 MG Injectable Suspension Box of 1 by Dr Reddy's",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722632",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735055,
+      "conceptName": "Caspofungin 50 MG Injectable Suspension Box of 1 by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722631",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735056,
+      "conceptName": "Caspofungin 50 MG Injectable Suspension Box of 1 by Tillomed",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722630",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735057,
+      "conceptName": "Caspofungin 50 MG Injectable Suspension Box of 1 by Mylan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722629",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735058,
+      "conceptName": "Caspofungin 50 MG Injectable Suspension Box of 1 by Wockhardt",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722628",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735059,
+      "conceptName": "Caspofungin 50 MG Injectable Suspension Box of 1 by Zentiva",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722627",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735060,
+      "conceptName": "Caspofungin 50 MG Injectable Suspension Box of 1 by Altan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722626",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735061,
+      "conceptName": "Caspofungin 50 MG Injectable Suspension by TEVA",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722625",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735062,
+      "conceptName": "Caspofungin 50 MG Injectable Suspension by Flynn",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722624",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735063,
+      "conceptName": "Caspofungin 50 MG Injectable Suspension by Dr Reddy's",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722623",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735064,
+      "conceptName": "Caspofungin 50 MG Injectable Suspension by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722622",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735065,
+      "conceptName": "Caspofungin 50 MG Injectable Suspension by Tillomed",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722621",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735066,
+      "conceptName": "Caspofungin 50 MG Injectable Suspension by Mylan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722620",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735067,
+      "conceptName": "Caspofungin 50 MG Injectable Suspension by Wockhardt",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722619",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735068,
+      "conceptName": "Caspofungin 50 MG Injectable Suspension by Zentiva",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722618",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735069,
+      "conceptName": "Caspofungin 50 MG Injectable Suspension by Altan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722617",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735070,
+      "conceptName": "Caspofungin 50 MG Injectable Solution [Cancidas] Box of 1 by Merck",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722616",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735071,
+      "conceptName": "Caspofungin 50 MG Injectable Solution [Cancidas] Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP4722615",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735072,
+      "conceptName": "Caspofungin 50 MG Injectable Solution [Cancidas] by Merck",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722614",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735073,
+      "conceptName": "Caspofungin 50 MG Injectable Solution [Cancidas]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4722613",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735074,
+      "conceptName": "Caspofungin 50 MG Injectable Solution Box of 1 by TEVA",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722612",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735075,
+      "conceptName": "Caspofungin 50 MG Injectable Solution Box of 1 by Flynn",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722611",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735076,
+      "conceptName": "Caspofungin 50 MG Injectable Solution Box of 1 by Dr Reddy's",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722610",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735077,
+      "conceptName": "Caspofungin 50 MG Injectable Solution Box of 1 by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722609",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735078,
+      "conceptName": "Caspofungin 50 MG Injectable Solution Box of 1 by Tillomed",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722608",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735079,
+      "conceptName": "Caspofungin 50 MG Injectable Solution Box of 1 by Mylan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722607",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735080,
+      "conceptName": "Caspofungin 50 MG Injectable Solution Box of 1 by Wockhardt",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722606",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735081,
+      "conceptName": "Caspofungin 50 MG Injectable Solution Box of 1 by Zentiva",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722605",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735082,
+      "conceptName": "Caspofungin 50 MG Injectable Solution Box of 1 by Altan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722604",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735083,
+      "conceptName": "Caspofungin 50 MG Injectable Solution by TEVA",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722603",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735084,
+      "conceptName": "Caspofungin 50 MG Injectable Solution by Flynn",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722602",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735085,
+      "conceptName": "Caspofungin 50 MG Injectable Solution by Dr Reddy's",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722601",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735086,
+      "conceptName": "Caspofungin 50 MG Injectable Solution by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722600",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735087,
+      "conceptName": "Caspofungin 50 MG Injectable Solution by Tillomed",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722599",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735088,
+      "conceptName": "Caspofungin 50 MG Injectable Solution by Mylan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722598",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735089,
+      "conceptName": "Caspofungin 50 MG Injectable Solution by Wockhardt",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722597",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735090,
+      "conceptName": "Caspofungin 50 MG Injectable Solution by Zentiva",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722596",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735091,
+      "conceptName": "Caspofungin 50 MG Injectable Solution by Altan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4722595",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40735092,
+      "conceptName": "Caspofungin Injectable Solution [Cancidas]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP4722594",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40837464,
+      "conceptName": "Caspofungin 70 MG Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP2035426",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40837465,
+      "conceptName": "Caspofungin 50 MG Injectable Suspension Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2035427",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40837466,
+      "conceptName": "Caspofungin 50 MG Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP2035428",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40848746,
+      "conceptName": "Caspofungin 70 MG Injectable Suspension [Cancidas] Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2046708",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40848747,
+      "conceptName": "Caspofungin 50 MG Injectable Solution [Caspofungin Merck] Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2046709",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40856287,
+      "conceptName": "Caspofungin 70 MG Injectable Suspension [Cancidas] Box of 1 by Merck",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2054249",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40910926,
+      "conceptName": "Caspofungin 70 MG Injectable Solution [Caspofungin Merck]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2108888",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40910927,
+      "conceptName": "Caspofungin 50 MG Injectable Suspension [Caspofungin Merck] Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2108889",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40918486,
+      "conceptName": "Caspofungin 50 MG Injection [Cancidas] Box of 1 by Emra-Med",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2116448",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40942245,
+      "conceptName": "Caspofungin 50 MG Injectable Suspension [Cancidas] Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2140207",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40955431,
+      "conceptName": "Caspofungin Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP2153393",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40993331,
+      "conceptName": "Caspofungin 50 MG Injectable Solution Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2191293",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41012150,
+      "conceptName": "Caspofungin 50 MG Injectable Suspension [Cancidas] Box of 1 by Kohlpharma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2210112",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41035627,
+      "conceptName": "Caspofungin 70 MG Injectable Suspension [Caspofungin Merck] Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2233589",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41098342,
+      "conceptName": "Caspofungin 50 MG Injectable Suspension [Caspofungin Merck]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2296304",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41113823,
+      "conceptName": "Caspofungin Injectable Solution [Caspofungin Merck]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP2311785",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41145414,
+      "conceptName": "Caspofungin Injectable Suspension [Caspofungin Merck]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP2343376",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41149820,
+      "conceptName": "Caspofungin 70 MG Injectable Solution Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2347782",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41161113,
+      "conceptName": "Caspofungin 50 MG Injectable Solution [Caspofungin Merck]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2359075",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41168638,
+      "conceptName": "Caspofungin 50 MG Injectable Suspension [Cancidas] Box of 1 by Cc",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2366600",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41192271,
+      "conceptName": "Caspofungin 70 MG Injectable Suspension [Caspofungin Merck]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2390233",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41200021,
+      "conceptName": "Caspofungin 50 MG Injectable Suspension [Cancidas] Box of 1 by Merck",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2397983",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41231113,
+      "conceptName": "Caspofungin 50 MG Injection [Cancidas] Box of 1 by Eurim-Pharm",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2429075",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41235655,
+      "conceptName": "Caspofungin 70 MG [Caspofungin Merck]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP2433617",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41254286,
+      "conceptName": "Caspofungin 70 MG Injectable Solution [Caspofungin Merck] Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2452248",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41266551,
+      "conceptName": "Caspofungin 50 MG [Caspofungin Merck]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP2464513",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41274111,
+      "conceptName": "Caspofungin 70 MG Injectable Suspension Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2472073",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41292998,
+      "conceptName": "Caspofungin 50 MG Injectable Suspension [Cancidas] Box of 1 by Eurim-Pharm",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2490960",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41292999,
+      "conceptName": "Caspofungin 50 MG Injectable Suspension [Cancidas] Box of 1 by Emra-Med",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2490961",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42657030,
+      "conceptName": "Caspofungin 50 MG Injectable Solution [Cancidas] by MSD",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4868598",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42657031,
+      "conceptName": "Caspofungin 70 MG Injectable Solution [Cancidas] by MSD",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4868599",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43031250,
+      "conceptName": "Caspofungin 50 MG Injectable Solution by OHRE",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4846314",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43031251,
+      "conceptName": "Caspofungin 50 MG Injectable Solution by Eurogenerics",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4846315",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43031252,
+      "conceptName": "Caspofungin 5 MG/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP4846316",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43031253,
+      "conceptName": "Caspofungin 5 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP4846317",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43031254,
+      "conceptName": "Caspofungin 7 MG/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP4846318",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43031255,
+      "conceptName": "Caspofungin 7 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP4846319",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43031256,
+      "conceptName": "Caspofungin 70 MG Injectable Solution by OHRE",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4846320",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43031257,
+      "conceptName": "Caspofungin 70 MG Injectable Solution by Eurogenerics",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4846321",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43041271,
+      "conceptName": "10 ML Caspofungin 5 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP4856301",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43041272,
+      "conceptName": "10 ML Caspofungin 5 MG/ML Injectable Solution by Dr Reddy's",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4856302",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43041273,
+      "conceptName": "10 ML Caspofungin 5 MG/ML Injectable Solution by Fresenius",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4856303",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43041274,
+      "conceptName": "10 ML Caspofungin 7 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP4856304",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43041275,
+      "conceptName": "10 ML Caspofungin 7 MG/ML Injectable Solution by Dr Reddy's",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4856305",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43041276,
+      "conceptName": "10 ML Caspofungin 7 MG/ML Injectable Solution by Fresenius",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4856306",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43171075,
+      "conceptName": "Caspofungin 50 MG Prefilled Syringe [Cancidas] Box of 1 by Merck",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP475788",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43182073,
+      "conceptName": "Caspofungin 70 MG Prefilled Syringe [Cancidas] Box of 1 by Merck",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP475790",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44051320,
+      "conceptName": "Caspofungin 70 MG Injectable Suspension [Cancidas] by Merck",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP1045951",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44057510,
+      "conceptName": "Caspofungin Injectable Suspension [Caspofungin For]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP1052141",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44059003,
+      "conceptName": "Caspofungin 50 MG Injectable Suspension",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP1053634",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44077052,
+      "conceptName": "Caspofungin 50 MG Injectable Suspension [Cancidas] by Merck",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP1071683",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44081748,
+      "conceptName": "Caspofungin Injectable Suspension",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP1076379",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44109092,
+      "conceptName": "Caspofungin Injectable Suspension [Cancidas]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP1103723",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44112644,
+      "conceptName": "Caspofungin 50 MG Injectable Suspension [Cancidas]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP1107275",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44123689,
+      "conceptName": "Caspofungin 70 MG Injectable Suspension",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP1118320",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44125817,
+      "conceptName": "Caspofungin 70 MG Injectable Suspension [Cancidas]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP1120448",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44164108,
+      "conceptName": "Caspofungin 50 MG Injection [Cancidas] Box of 1 by Kohlpharma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3040831",
       "standardConcept": "S"
     }
   ]

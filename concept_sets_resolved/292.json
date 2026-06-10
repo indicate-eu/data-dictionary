@@ -1,15 +1,10 @@
 {
   "conceptSetId": 292,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
-    {
-      "conceptId": 37206602,
-      "conceptName": "Arteriovenous extracorporeal membrane oxygenation",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "786452006",
-      "standardConcept": "S"
-    },
     {
       "conceptId": 4052536,
       "conceptName": "Extracorporeal membrane oxygenation",
@@ -26,6 +21,15 @@
       "domainId": "Procedure",
       "conceptClassId": "Procedure",
       "conceptCode": "786451004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37206602,
+      "conceptName": "Arteriovenous extracorporeal membrane oxygenation",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "786452006",
       "standardConcept": "S"
     },
     {

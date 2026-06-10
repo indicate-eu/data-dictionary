@@ -1,5 +1,9 @@
 {
   "conceptSetId": 169,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80"
+  },
   "resolvedConcepts": [
     {
       "conceptId": 1616312,
@@ -11,21 +15,21 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 1618662,
+      "conceptName": "Fibrinogen | Blood | Coagulation",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP422984-7",
+      "standardConcept": "C"
+    },
+    {
       "conceptId": 3016407,
       "conceptName": "Fibrinogen [Mass/volume] in Platelet poor plasma by Coagulation assay",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
       "conceptCode": "3255-7",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3052964,
-      "conceptName": "Fibrinogen [Mass/volume] in Platelet poor plasma by Coagulation.derived",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "48664-7",
       "standardConcept": "S"
     },
     {
@@ -38,13 +42,13 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 1618662,
-      "conceptName": "Fibrinogen | Blood | Coagulation",
+      "conceptId": 3052964,
+      "conceptName": "Fibrinogen [Mass/volume] in Platelet poor plasma by Coagulation.derived",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP422984-7",
-      "standardConcept": "C"
+      "conceptClassId": "Lab Test",
+      "conceptCode": "48664-7",
+      "standardConcept": "S"
     },
     {
       "conceptId": 37032427,

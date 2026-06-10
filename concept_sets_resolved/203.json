@@ -1,33 +1,10 @@
 {
   "conceptSetId": 203,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80"
+  },
   "resolvedConcepts": [
-    {
-      "conceptId": 3008152,
-      "conceptName": "Bicarbonate [Moles/volume] in Arterial blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "1960-4",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3006576,
-      "conceptName": "Bicarbonate [Moles/volume] in Blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "1959-6",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3015235,
-      "conceptName": "Bicarbonate [Moles/volume] in Capillary blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "1961-2",
-      "standardConcept": "S"
-    },
     {
       "conceptId": 1616794,
       "conceptName": "Bicarbonate [Moles/volume] in Central venous blood",
@@ -35,69 +12,6 @@
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
       "conceptCode": "97543-3",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3025817,
-      "conceptName": "Bicarbonate [Moles/volume] in Mixed venous blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "19229-4",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40757490,
-      "conceptName": "Bicarbonate [Moles/volume] in Plasma --post dialysis",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "54359-5",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3050416,
-      "conceptName": "Bicarbonate [Moles/volume] in Serum --post dialysis",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "48631-6",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3016293,
-      "conceptName": "Bicarbonate [Moles/volume] in Serum or Plasma",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "1963-8",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3027273,
-      "conceptName": "Bicarbonate [Moles/volume] in Venous blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "14627-4",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3014218,
-      "conceptName": "Bicarbonate [Moles/volume] standard in Arterial blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "19230-2",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3004490,
-      "conceptName": "Bicarbonate [Moles/volume] standard in Capillary blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "19231-0",
       "standardConcept": "S"
     },
     {
@@ -110,6 +24,24 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 1618525,
+      "conceptName": "Bicarbonate | Blood central venous | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP426950-4",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 3004490,
+      "conceptName": "Bicarbonate [Moles/volume] standard in Capillary blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "19231-0",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 3006538,
       "conceptName": "Bicarbonate [Moles/volume] standard in Mixed venous blood",
       "vocabularyId": "LOINC",
@@ -119,12 +51,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 42868453,
-      "conceptName": "Bicarbonate [Moles/volume] standard in Plasma",
+      "conceptId": 3006576,
+      "conceptName": "Bicarbonate [Moles/volume] in Blood",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
-      "conceptCode": "69964-5",
+      "conceptCode": "1959-6",
       "standardConcept": "S"
     },
     {
@@ -135,6 +67,114 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "19232-8",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 3008152,
+      "conceptName": "Bicarbonate [Moles/volume] in Arterial blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "1960-4",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3014218,
+      "conceptName": "Bicarbonate [Moles/volume] standard in Arterial blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "19230-2",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3015235,
+      "conceptName": "Bicarbonate [Moles/volume] in Capillary blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "1961-2",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3016293,
+      "conceptName": "Bicarbonate [Moles/volume] in Serum or Plasma",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "1963-8",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3025817,
+      "conceptName": "Bicarbonate [Moles/volume] in Mixed venous blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "19229-4",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3027273,
+      "conceptName": "Bicarbonate [Moles/volume] in Venous blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "14627-4",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3050416,
+      "conceptName": "Bicarbonate [Moles/volume] in Serum --post dialysis",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "48631-6",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37025013,
+      "conceptName": "Bicarbonate | Serum or Plasma | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP386569-0",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37043622,
+      "conceptName": "Bicarbonate | Serum | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP386568-2",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37052094,
+      "conceptName": "Bicarbonate | Blood venous | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP386559-1",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37053332,
+      "conceptName": "Bicarbonate | Plasma | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP386565-8",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37057819,
+      "conceptName": "Bicarbonate | Blood | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP386552-6",
+      "standardConcept": "C"
     },
     {
       "conceptId": 37068572,
@@ -155,15 +195,6 @@
       "standardConcept": "C"
     },
     {
-      "conceptId": 1618525,
-      "conceptName": "Bicarbonate | Blood central venous | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP426950-4",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 37077887,
       "conceptName": "Bicarbonate | Blood mixed venous | Chemistry - non-challenge",
       "vocabularyId": "LOINC",
@@ -173,49 +204,22 @@
       "standardConcept": "C"
     },
     {
-      "conceptId": 37052094,
-      "conceptName": "Bicarbonate | Blood venous | Chemistry - non-challenge",
+      "conceptId": 40757490,
+      "conceptName": "Bicarbonate [Moles/volume] in Plasma --post dialysis",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP386559-1",
-      "standardConcept": "C"
+      "conceptClassId": "Lab Test",
+      "conceptCode": "54359-5",
+      "standardConcept": "S"
     },
     {
-      "conceptId": 37057819,
-      "conceptName": "Bicarbonate | Blood | Chemistry - non-challenge",
+      "conceptId": 42868453,
+      "conceptName": "Bicarbonate [Moles/volume] standard in Plasma",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP386552-6",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37053332,
-      "conceptName": "Bicarbonate | Plasma | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP386565-8",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37025013,
-      "conceptName": "Bicarbonate | Serum or Plasma | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP386569-0",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37043622,
-      "conceptName": "Bicarbonate | Serum | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP386568-2",
-      "standardConcept": "C"
+      "conceptClassId": "Lab Test",
+      "conceptCode": "69964-5",
+      "standardConcept": "S"
     }
   ]
 }

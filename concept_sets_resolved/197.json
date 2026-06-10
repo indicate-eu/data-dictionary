@@ -1,6 +1,19 @@
 {
   "conceptSetId": 197,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80"
+  },
   "resolvedConcepts": [
+    {
+      "conceptId": 1092234,
+      "conceptName": "Monocytes [#/volume] in Blood by Flow cytometry (FC)",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "104548-3",
+      "standardConcept": "S"
+    },
     {
       "conceptId": 3001604,
       "conceptName": "Monocytes [#/volume] in Blood",
@@ -17,15 +30,6 @@
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
       "conceptCode": "742-7",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1092234,
-      "conceptName": "Monocytes [#/volume] in Blood by Flow cytometry (FC)",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "104548-3",
       "standardConcept": "S"
     },
     {

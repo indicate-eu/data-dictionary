@@ -1,31 +1,36 @@
 {
   "conceptSetId": 53,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "RxNorm": "RxNorm 20260105",
+    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+  },
   "resolvedConcepts": [
     {
-      "conceptId": 2034229,
-      "conceptName": "0.3 ML parnaparin 10700 UNT/ML Prefilled Syringe",
+      "conceptId": 2033499,
+      "conceptName": "0.6 ML parnaparin 10700 UNT/ML Prefilled Syringe",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP4933329",
+      "conceptCode": "OMOP4932506",
       "standardConcept": "S"
     },
     {
-      "conceptId": 2034230,
-      "conceptName": "0.3 ML parnaparin 10700 UNT/ML Prefilled Syringe [FLUXUM]",
+      "conceptId": 2033500,
+      "conceptName": "0.6 ML parnaparin 10700 UNT/ML Prefilled Syringe [FLUXUM]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP4933330",
+      "conceptCode": "OMOP4932507",
       "standardConcept": "S"
     },
     {
-      "conceptId": 2034231,
-      "conceptName": "0.3 ML parnaparin 10700 UNT/ML Prefilled Syringe [FLUXUM] by Samoh",
+      "conceptId": 2033501,
+      "conceptName": "0.6 ML parnaparin 10700 UNT/ML Prefilled Syringe [FLUXUM] by Samoh",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4933331",
+      "conceptCode": "OMOP4932508",
       "standardConcept": "S"
     },
     {
@@ -56,219 +61,30 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 2033499,
-      "conceptName": "0.6 ML parnaparin 10700 UNT/ML Prefilled Syringe",
+      "conceptId": 2034229,
+      "conceptName": "0.3 ML parnaparin 10700 UNT/ML Prefilled Syringe",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP4932506",
+      "conceptCode": "OMOP4933329",
       "standardConcept": "S"
     },
     {
-      "conceptId": 2033500,
-      "conceptName": "0.6 ML parnaparin 10700 UNT/ML Prefilled Syringe [FLUXUM]",
+      "conceptId": 2034230,
+      "conceptName": "0.3 ML parnaparin 10700 UNT/ML Prefilled Syringe [FLUXUM]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP4932507",
+      "conceptCode": "OMOP4933330",
       "standardConcept": "S"
     },
     {
-      "conceptId": 2033501,
-      "conceptName": "0.6 ML parnaparin 10700 UNT/ML Prefilled Syringe [FLUXUM] by Samoh",
+      "conceptId": 2034231,
+      "conceptName": "0.3 ML parnaparin 10700 UNT/ML Prefilled Syringe [FLUXUM] by Samoh",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4932508",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35137846,
-      "conceptName": "20 ML parnaparin 100 UNT/ML Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP4795017",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35147260,
-      "conceptName": "20 ML parnaparin 100 UNT/ML Prefilled Syringe [Lowhepa]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP4804335",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35157542,
-      "conceptName": "20 ML parnaparin 100 UNT/ML Prefilled Syringe [Minihepa]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP4814547",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35139835,
-      "conceptName": "20 ML parnaparin 150 UNT/ML Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP4796986",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35160973,
-      "conceptName": "20 ML parnaparin 150 UNT/ML Prefilled Syringe [Lowhepa]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP4817946",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35137168,
-      "conceptName": "20 ML parnaparin 150 UNT/ML Prefilled Syringe [Minihepa]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP4794343",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35142069,
-      "conceptName": "20 ML parnaparin 200 UNT/ML Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP4799190",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35141222,
-      "conceptName": "20 ML parnaparin 200 UNT/ML Prefilled Syringe [Lowhepa]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP4798352",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35159717,
-      "conceptName": "20 ML parnaparin 200 UNT/ML Prefilled Syringe [Minihepa]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP4816700",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19008276,
-      "conceptName": "parnaparin",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Ingredient",
-      "conceptCode": "69528",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35130099,
-      "conceptName": "parnaparin 100 UNT/ML",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP4787358",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35145372,
-      "conceptName": "parnaparin 100 UNT/ML Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP4802463",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35137978,
-      "conceptName": "parnaparin 100 UNT/ML Prefilled Syringe [Lowhepa]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4795149",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35157548,
-      "conceptName": "parnaparin 100 UNT/ML Prefilled Syringe [Minihepa]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4814553",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35141186,
-      "conceptName": "parnaparin 100 UNT/ML [Lowhepa]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4798317",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35151564,
-      "conceptName": "parnaparin 100 UNT/ML [Minihepa]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4808611",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2046469,
-      "conceptName": "parnaparin 10600 UNT/ML",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP4946684",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2046467,
-      "conceptName": "parnaparin 10600 UNT/ML Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP4946682",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2046468,
-      "conceptName": "parnaparin 10600 UNT/ML Prefilled Syringe [FLUXUM]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4946683",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2046470,
-      "conceptName": "parnaparin 10600 UNT/ML [FLUXUM]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4946685",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2046465,
-      "conceptName": "parnaparin 10700 UNT/ML",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP4946680",
+      "conceptCode": "OMOP4933331",
       "standardConcept": "S"
     },
     {
@@ -290,6 +106,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 2046465,
+      "conceptName": "parnaparin 10700 UNT/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP4946680",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 2046466,
       "conceptName": "parnaparin 10700 UNT/ML [FLUXUM]",
       "vocabularyId": "RxNorm Extension",
@@ -299,201 +124,39 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 35161536,
-      "conceptName": "parnaparin 150 UNT/ML",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP4818505",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35148230,
-      "conceptName": "parnaparin 150 UNT/ML Prefilled Syringe",
+      "conceptId": 2046467,
+      "conceptName": "parnaparin 10600 UNT/ML Prefilled Syringe",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP4805292",
+      "conceptCode": "OMOP4946682",
       "standardConcept": "S"
     },
     {
-      "conceptId": 35131696,
-      "conceptName": "parnaparin 150 UNT/ML Prefilled Syringe [Lowhepa]",
+      "conceptId": 2046468,
+      "conceptName": "parnaparin 10600 UNT/ML Prefilled Syringe [FLUXUM]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4788931",
+      "conceptCode": "OMOP4946683",
       "standardConcept": "S"
     },
     {
-      "conceptId": 35156853,
-      "conceptName": "parnaparin 150 UNT/ML Prefilled Syringe [Minihepa]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4813861",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35159183,
-      "conceptName": "parnaparin 150 UNT/ML [Lowhepa]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4816167",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35161431,
-      "conceptName": "parnaparin 150 UNT/ML [Minihepa]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4818402",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35129751,
-      "conceptName": "parnaparin 200 UNT/ML",
+      "conceptId": 2046469,
+      "conceptName": "parnaparin 10600 UNT/ML",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP4787014",
+      "conceptCode": "OMOP4946684",
       "standardConcept": "S"
     },
     {
-      "conceptId": 35162150,
-      "conceptName": "parnaparin 200 UNT/ML Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP4819112",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35130720,
-      "conceptName": "parnaparin 200 UNT/ML Prefilled Syringe [Lowhepa]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4787968",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35133749,
-      "conceptName": "parnaparin 200 UNT/ML Prefilled Syringe [Minihepa]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4790955",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35161175,
-      "conceptName": "parnaparin 200 UNT/ML [Lowhepa]",
+      "conceptId": 2046470,
+      "conceptName": "parnaparin 10600 UNT/ML [FLUXUM]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4818149",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35132105,
-      "conceptName": "parnaparin 200 UNT/ML [Minihepa]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4789334",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35131426,
-      "conceptName": "parnaparin 5000 UNT",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP4788668",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35130087,
-      "conceptName": "parnaparin 5000 UNT Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP4787346",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35137808,
-      "conceptName": "parnaparin 5000 UNT Injectable Solution [Lowhepa]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4794979",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35159761,
-      "conceptName": "parnaparin 5000 UNT Injectable Solution [Minihepa]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4816744",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35146486,
-      "conceptName": "parnaparin 5000 UNT [Lowhepa]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4803901",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35159699,
-      "conceptName": "parnaparin 5000 UNT [Minihepa]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4816682",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35830971,
-      "conceptName": "parnaparin Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP5038162",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35830970,
-      "conceptName": "parnaparin Injectable Solution [Lowhepa]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP5038163",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35830969,
-      "conceptName": "parnaparin Injectable Solution [Minihepa]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP5038164",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35146399,
-      "conceptName": "parnaparin Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP4803478",
+      "conceptCode": "OMOP4946685",
       "standardConcept": "S"
     },
     {
@@ -506,12 +169,66 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 35134959,
-      "conceptName": "parnaparin Prefilled Syringe [Lowhepa]",
+      "conceptId": 19008276,
+      "conceptName": "parnaparin",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Ingredient",
+      "conceptCode": "69528",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35129751,
+      "conceptName": "parnaparin 200 UNT/ML",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4792157",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP4787014",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35130087,
+      "conceptName": "parnaparin 5000 UNT Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP4787346",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35130099,
+      "conceptName": "parnaparin 100 UNT/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP4787358",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35130720,
+      "conceptName": "parnaparin 200 UNT/ML Prefilled Syringe [Lowhepa]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4787968",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35131426,
+      "conceptName": "parnaparin 5000 UNT",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP4788668",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35131696,
+      "conceptName": "parnaparin 150 UNT/ML Prefilled Syringe [Lowhepa]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4788931",
       "standardConcept": "S"
     },
     {
@@ -521,6 +238,294 @@
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "OMOP4789017",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35132105,
+      "conceptName": "parnaparin 200 UNT/ML [Minihepa]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4789334",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35133749,
+      "conceptName": "parnaparin 200 UNT/ML Prefilled Syringe [Minihepa]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4790955",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35134959,
+      "conceptName": "parnaparin Prefilled Syringe [Lowhepa]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP4792157",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35137168,
+      "conceptName": "20 ML parnaparin 150 UNT/ML Prefilled Syringe [Minihepa]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP4794343",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35137808,
+      "conceptName": "parnaparin 5000 UNT Injectable Solution [Lowhepa]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4794979",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35137846,
+      "conceptName": "20 ML parnaparin 100 UNT/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP4795017",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35137978,
+      "conceptName": "parnaparin 100 UNT/ML Prefilled Syringe [Lowhepa]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4795149",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35139835,
+      "conceptName": "20 ML parnaparin 150 UNT/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP4796986",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35141186,
+      "conceptName": "parnaparin 100 UNT/ML [Lowhepa]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4798317",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35141222,
+      "conceptName": "20 ML parnaparin 200 UNT/ML Prefilled Syringe [Lowhepa]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP4798352",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35142069,
+      "conceptName": "20 ML parnaparin 200 UNT/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP4799190",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35145372,
+      "conceptName": "parnaparin 100 UNT/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP4802463",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35145536,
+      "conceptName": "parnaparin Injectable Solution [Lowhepa]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP4802625",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35146399,
+      "conceptName": "parnaparin Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP4803478",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35146486,
+      "conceptName": "parnaparin 5000 UNT [Lowhepa]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4803901",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35147260,
+      "conceptName": "20 ML parnaparin 100 UNT/ML Prefilled Syringe [Lowhepa]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP4804335",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35148230,
+      "conceptName": "parnaparin 150 UNT/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP4805292",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35151564,
+      "conceptName": "parnaparin 100 UNT/ML [Minihepa]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4808611",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35152444,
+      "conceptName": "parnaparin Injectable Solution [Minihepa]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP4809477",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35156853,
+      "conceptName": "parnaparin 150 UNT/ML Prefilled Syringe [Minihepa]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4813861",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35157542,
+      "conceptName": "20 ML parnaparin 100 UNT/ML Prefilled Syringe [Minihepa]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP4814547",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35157548,
+      "conceptName": "parnaparin 100 UNT/ML Prefilled Syringe [Minihepa]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4814553",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35159183,
+      "conceptName": "parnaparin 150 UNT/ML [Lowhepa]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4816167",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35159699,
+      "conceptName": "parnaparin 5000 UNT [Minihepa]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4816682",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35159717,
+      "conceptName": "20 ML parnaparin 200 UNT/ML Prefilled Syringe [Minihepa]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP4816700",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35159761,
+      "conceptName": "parnaparin 5000 UNT Injectable Solution [Minihepa]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4816744",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35160973,
+      "conceptName": "20 ML parnaparin 150 UNT/ML Prefilled Syringe [Lowhepa]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP4817946",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35161175,
+      "conceptName": "parnaparin 200 UNT/ML [Lowhepa]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4818149",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35161431,
+      "conceptName": "parnaparin 150 UNT/ML [Minihepa]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4818402",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35161536,
+      "conceptName": "parnaparin 150 UNT/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP4818505",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35162150,
+      "conceptName": "parnaparin 200 UNT/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP4819112",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35830971,
+      "conceptName": "parnaparin Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP5038162",
       "standardConcept": "S"
     }
   ]

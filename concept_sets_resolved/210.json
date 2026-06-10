@@ -1,13 +1,17 @@
 {
   "conceptSetId": 210,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80"
+  },
   "resolvedConcepts": [
     {
-      "conceptId": 3024232,
-      "conceptName": "Phosphate [Mass/volume] in Blood",
+      "conceptId": 3003458,
+      "conceptName": "Phosphate [Moles/volume] in Serum or Plasma",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
-      "conceptCode": "2774-8",
+      "conceptCode": "14879-1",
       "standardConcept": "S"
     },
     {
@@ -20,12 +24,21 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 3050450,
-      "conceptName": "Phosphate [Mass/volume] in Serum or Plasma --post dialysis",
+      "conceptId": 3018913,
+      "conceptName": "Phosphate [Moles/volume] in Blood",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
-      "conceptCode": "48617-5",
+      "conceptCode": "24519-1",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3024232,
+      "conceptName": "Phosphate [Mass/volume] in Blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "2774-8",
       "standardConcept": "S"
     },
     {
@@ -38,31 +51,22 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 3018913,
-      "conceptName": "Phosphate [Moles/volume] in Blood",
+      "conceptId": 3050450,
+      "conceptName": "Phosphate [Mass/volume] in Serum or Plasma --post dialysis",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
-      "conceptCode": "24519-1",
+      "conceptCode": "48617-5",
       "standardConcept": "S"
     },
     {
-      "conceptId": 3003458,
-      "conceptName": "Phosphate [Moles/volume] in Serum or Plasma",
+      "conceptId": 37062662,
+      "conceptName": "Phosphate | Serum or Plasma | Chemistry - non-challenge",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "14879-1",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40759093,
-      "conceptName": "Phosphate [Moles/volume] in Serum or Plasma --post dialysis",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "55972-4",
-      "standardConcept": "S"
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP386057-6",
+      "standardConcept": "C"
     },
     {
       "conceptId": 37064066,
@@ -74,13 +78,13 @@
       "standardConcept": "C"
     },
     {
-      "conceptId": 37062662,
-      "conceptName": "Phosphate | Serum or Plasma | Chemistry - non-challenge",
+      "conceptId": 40759093,
+      "conceptName": "Phosphate [Moles/volume] in Serum or Plasma --post dialysis",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP386057-6",
-      "standardConcept": "C"
+      "conceptClassId": "Lab Test",
+      "conceptCode": "55972-4",
+      "standardConcept": "S"
     }
   ]
 }

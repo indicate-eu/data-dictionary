@@ -1,15 +1,10 @@
 {
   "conceptSetId": 256,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
-    {
-      "conceptId": 37311342,
-      "conceptName": "Carbapenem-resistant Serratia marcescens",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "816049003",
-      "standardConcept": "S"
-    },
     {
       "conceptId": 3657175,
       "conceptName": "Carbapenemase-producing Serratia marcescens",
@@ -20,21 +15,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 37151813,
-      "conceptName": "Extended spectrum beta-lactamase producing Serratia marcescens",
+      "conceptId": 4018272,
+      "conceptName": "Serratia marcescens, Biogroup I",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "1107301000112107",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37395793,
-      "conceptName": "Multiple drug-resistant Serratia marcescens",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "715354005",
+      "conceptCode": "115006001",
       "standardConcept": "S"
     },
     {
@@ -65,12 +51,30 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4018272,
-      "conceptName": "Serratia marcescens, Biogroup I",
+      "conceptId": 37151813,
+      "conceptName": "Extended spectrum beta-lactamase producing Serratia marcescens",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "115006001",
+      "conceptCode": "1107301000112107",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37311342,
+      "conceptName": "Carbapenem-resistant Serratia marcescens",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "816049003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37395793,
+      "conceptName": "Multiple drug-resistant Serratia marcescens",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "715354005",
       "standardConcept": "S"
     }
   ]

@@ -1,5 +1,9 @@
 {
   "conceptSetId": 173,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80"
+  },
   "resolvedConcepts": [
     {
       "conceptId": 3001110,
@@ -20,15 +24,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 46235077,
-      "conceptName": "Alkaline phosphatase [Enzymatic activity/volume] in Serum, Plasma or Blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "77141-0",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 40652549,
       "conceptName": "Alkaline phosphatase|Catalytic Concentration|Moment in time|Blood, Serum or Plasma",
       "vocabularyId": "LOINC",
@@ -36,6 +31,15 @@
       "conceptClassId": "LOINC Group",
       "conceptCode": "LG5665-7",
       "standardConcept": "C"
+    },
+    {
+      "conceptId": 46235077,
+      "conceptName": "Alkaline phosphatase [Enzymatic activity/volume] in Serum, Plasma or Blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "77141-0",
+      "standardConcept": "S"
     }
   ]
 }

@@ -1,1003 +1,27 @@
 {
   "conceptSetId": 34,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "RxNorm": "RxNorm 20260105",
+    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+  },
   "resolvedConcepts": [
     {
-      "conceptId": 36246295,
-      "conceptName": "Eliquis Oral Product",
+      "conceptId": 792336,
+      "conceptName": "{74 (apixaban 5 MG Oral Tablet) } Pack",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1364439",
-      "standardConcept": "C"
+      "conceptClassId": "Clinical Pack",
+      "conceptCode": "1992427",
+      "standardConcept": "S"
     },
     {
-      "conceptId": 36246296,
-      "conceptName": "Eliquis Pill",
+      "conceptId": 793646,
+      "conceptName": "{74 (apixaban 5 MG Oral Tablet [Eliquis]) } Pack [Eliquis 30-Day Starter Pack]",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1364440",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 43013024,
-      "conceptName": "apixaban",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Ingredient",
-      "conceptCode": "1364430",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43013025,
-      "conceptName": "apixaban 2.5 MG",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "1364431",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43139238,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP486584",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43216129,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP486585",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36924127,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet Box of 10 by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5196976",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36937259,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet Box of 10 by Alliance",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5196975",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36948971,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet Box of 10 by Sandoz",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5196978",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36963030,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet Box of 10 by TEVA",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5196977",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36963992,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet Box of 10 by Viatris Healthcare",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5196974",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36783421,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet Box of 168",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP4771704",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43216130,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet Box of 20",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP486586",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36953558,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet Box of 20 by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5196981",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36939595,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet Box of 20 by Alliance",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5196980",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36923671,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet Box of 20 by Sandoz",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5196983",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36938514,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet Box of 20 by TEVA",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5196982",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36956419,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet Box of 20 by Viatris Healthcare",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5196979",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41025112,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet Box of 200",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2223074",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43205224,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet Box of 60",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP486587",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36925423,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet Box of 60 by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5196986",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36956239,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet Box of 60 by Alliance",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5196985",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36954532,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet Box of 60 by Sandoz",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5196988",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36963976,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet Box of 60 by TEVA",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5196987",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36929070,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet Box of 60 by Viatris Healthcare",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5196984",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43161365,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP486588",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43150163,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP486589",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43205225,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis] Box of 10 by Bristol Myers Squibb",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP486590",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40856898,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis] Box of 10 by Pfizer",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2054860",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36783420,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis] Box of 168",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP4771703",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36783419,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis] Box of 168 by Bristol Myers Squibb",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4771702",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43194262,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis] Box of 20",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP486591",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43161366,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis] Box of 20 by Bristol Myers Squibb",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP486592",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40950370,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis] Box of 20 by Kohlpharma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2148332",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41012773,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis] Box of 20 by Pfizer",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2210735",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35765757,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis] Box of 20 by Waymade",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2767218",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41255664,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis] Box of 200",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2453626",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43172320,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis] Box of 60",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP486593",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43205226,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis] Box of 60 by Bristol Myers Squibb",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP486594",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44179239,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis] Box of 60 by Cc",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3055962",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44160413,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis] Box of 60 by Docpharm",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3037136",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44167990,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis] Box of 60 by Emra-Med",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3044713",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40888233,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis] Box of 60 by Kohlpharma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2086195",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44160412,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis] Box of 60 by Pfizer",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3037135",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35761678,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis] by Bristol Myers Squibb",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2763139",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35749175,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis] by Waymade",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2750636",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36955270,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5196971",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36929050,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet by Alliance",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5196970",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36920789,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet by Sandoz",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5196973",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36946814,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet by TEVA",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5196972",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36949612,
-      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet by Viatris Healthcare",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5196969",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43013026,
-      "conceptName": "apixaban 2.5 MG Oral Tablet",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "1364435",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21021650,
-      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP328638",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36924166,
-      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 10 by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5196996",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36941486,
-      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 10 by Alliance",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5196995",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36968478,
-      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 10 by Sandoz",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5196998",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36953857,
-      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 10 by TEVA",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5196997",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36934555,
-      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 10 by Viatris Healthcare",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5196994",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43291279,
-      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP558918",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2930369,
-      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 14",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP5147151",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36257285,
-      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 168",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP3108160",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21168985,
-      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 20",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP328649",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36955190,
-      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 20 by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36942628,
-      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 20 by Alliance",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197000",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36942925,
-      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 20 by Sandoz",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197003",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36958873,
-      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 20 by TEVA",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197002",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36942371,
-      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 20 by Viatris Healthcare",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5196999",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41181668,
-      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 200",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2379630",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43285911,
-      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 30",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP558917",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21051084,
-      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 60",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP328660",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36942783,
-      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 60 by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36949363,
-      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 60 by Alliance",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197005",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36938959,
-      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 60 by Sandoz",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36959358,
-      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 60 by TEVA",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36919602,
-      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 60 by Viatris Healthcare",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197004",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065784,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [ANTIXABAN]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4967115",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065785,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [ANTIXABAN] by Hutecs",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4967116",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2012925,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [APIC-Q]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4967117",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2012926,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [APIC-Q] by Hanlim",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4967118",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065786,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [APIQUIS]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4967119",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065787,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [APIQUIS] by Huons",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4967120",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065791,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [APIXAGEN]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4967125",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065792,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [APIXAGEN] by Alvogen",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4967126",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065519,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [APIXA]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4967123",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065790,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [APIXA] by Medicakorea",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4967124",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065793,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [APIXBAN]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4967127",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065794,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [APIXBAN] by Hanmi",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4967128",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065795,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [APIXFLO]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4967129",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065796,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [APIXFLO] by Korea Kolmar",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4967130",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065788,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [APIX]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4967121",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065789,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [APIX] by Huvist",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4967122",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065797,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [ELIBAN]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4967131",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065798,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [ELIBAN] by Aju",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4967132",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065799,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [ELIPIXA]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4967133",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065800,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [ELIPIXA] by Guju",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4967134",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065801,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [ELIXABAN]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4967135",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065802,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [ELIXABAN] by Inist",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4967136",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065803,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [ELIXABAN] by Samik",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4967137",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065804,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [ELSA]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4967138",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065805,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [ELSA] by Dongkwang",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4967139",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065806,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [ELXABAN]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4967140",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065807,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [ELXABAN] by Samjin",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4967141",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43013027,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "1364441",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21139398,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP328702",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21109985,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 10 by Bristol Myers Squibb",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP328713",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36067079,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 10 by CST",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4993548",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41262455,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 10 by Emra-Med",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2460417",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41231715,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 10 by Pfizer",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2429677",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43269558,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP558920",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2930368,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 14",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP5147150",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36265872,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 168",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP3116747",
+      "conceptClassId": "Branded Pack",
+      "conceptCode": "1992428",
       "standardConcept": "S"
     },
     {
@@ -1010,183 +34,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36261069,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 168 by Bristol Myers Squibb",
+      "conceptId": 1830313,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 168 by Abacus Medicine",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3111944",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36926458,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 20",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP5197011",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21021651,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 20",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP328724",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36961933,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 20 by Bristol Myers Squibb",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197012",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21159172,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 20 by Bristol Myers Squibb",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP328746",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41138123,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 20 by Emra-Med",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2336085",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41106708,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 20 by Kohlpharma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2304670",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36067078,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 20 by Mawdsley-Brooks",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4993547",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40950369,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 20 by Pfizer",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2148331",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21168986,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 20 by Waymade",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP328735",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41162423,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 200",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2360385",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40919167,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 200 by Pfizer",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2117129",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43296671,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 30",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP558919",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21159173,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 60",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP328757",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21119737,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 60 by Bristol Myers Squibb",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP328768",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36067074,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 60 by CST",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4993543",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41262454,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 60 by Cc",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2460416",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36067073,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 60 by DE",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4993542",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41075266,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 60 by Docpharm",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2273228",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41106709,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 60 by Emra-Med",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2304671",
+      "conceptCode": "OMOP5155568",
       "standardConcept": "S"
     },
     {
@@ -1196,1068 +49,6 @@
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
       "conceptCode": "OMOP5163153",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41231714,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 60 by Kohlpharma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2429676",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36067072,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 60 by Mawdsley-Brooks",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4993541",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36067075,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 60 by Originalis B.V.",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4993544",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41138122,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 60 by Pfizer",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2336084",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36067076,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 60 by Pharmaram",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4993545",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36067077,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 60 by Pilsco",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4993546",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21090247,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] by Bristol Myers Squibb",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP328692",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36067082,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] by CST",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4993551",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36067081,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] by DE",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4993550",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36067080,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] by Mawdsley-Brooks",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4993549",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36067083,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] by Originalis B.V.",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4993552",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36067084,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] by Pharmaram",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4993553",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36067085,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] by Pilsco",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4993554",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36932452,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] by Waymade",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197010",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21100177,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] by Waymade",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP328681",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065808,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [FLOXABAN]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4967142",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065809,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [FLOXABAN] by Ildong",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4967143",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065810,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [HUEPIXABAN]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4967144",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065811,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [HUEPIXABAN] by Humedix",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4967145",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065812,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [JERIXABAN]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4967146",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065813,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [JERIXABAN] by Jeil",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4967147",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065814,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [LIQUISIA]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4967148",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065815,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [LIQUISIA] by Chongkundang",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4967149",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065816,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [ONEPIXABAN]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4967150",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065817,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [ONEPIXABAN] by Hana",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4967151",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065818,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [YUPIX]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4967152",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065819,
-      "conceptName": "apixaban 2.5 MG Oral Tablet [YUPIX] by Yooyoung",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4967153",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36928894,
-      "conceptName": "apixaban 2.5 MG Oral Tablet by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5196991",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36944943,
-      "conceptName": "apixaban 2.5 MG Oral Tablet by Alliance",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5196990",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065781,
-      "conceptName": "apixaban 2.5 MG Oral Tablet by Myungin",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4967112",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065782,
-      "conceptName": "apixaban 2.5 MG Oral Tablet by Pharvis",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4967113",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36948906,
-      "conceptName": "apixaban 2.5 MG Oral Tablet by Sandoz",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5196993",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36963735,
-      "conceptName": "apixaban 2.5 MG Oral Tablet by TEVA",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5196992",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36935781,
-      "conceptName": "apixaban 2.5 MG Oral Tablet by Viatris Healthcare",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5196989",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065783,
-      "conceptName": "apixaban 2.5 MG Oral Tablet by Yuhan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4967114",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065820,
-      "conceptName": "apixaban 2.5 MG [ANTIXABAN]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4967154",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2012927,
-      "conceptName": "apixaban 2.5 MG [APIC-Q]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4967155",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065821,
-      "conceptName": "apixaban 2.5 MG [APIQUIS]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4967156",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065824,
-      "conceptName": "apixaban 2.5 MG [APIXAGEN]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4967159",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065823,
-      "conceptName": "apixaban 2.5 MG [APIXA]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4967158",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065825,
-      "conceptName": "apixaban 2.5 MG [APIXBAN]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4967160",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065826,
-      "conceptName": "apixaban 2.5 MG [APIXFLO]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4967161",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065822,
-      "conceptName": "apixaban 2.5 MG [APIX]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4967157",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065827,
-      "conceptName": "apixaban 2.5 MG [ELIBAN]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4967162",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065828,
-      "conceptName": "apixaban 2.5 MG [ELIPIXA]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4967163",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065829,
-      "conceptName": "apixaban 2.5 MG [ELIXABAN]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4967164",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065830,
-      "conceptName": "apixaban 2.5 MG [ELSA]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4967165",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065831,
-      "conceptName": "apixaban 2.5 MG [ELXABAN]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4967166",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43013028,
-      "conceptName": "apixaban 2.5 MG [Eliquis]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "1364437",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065832,
-      "conceptName": "apixaban 2.5 MG [FLOXABAN]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4967167",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065833,
-      "conceptName": "apixaban 2.5 MG [HUEPIXABAN]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4967168",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065834,
-      "conceptName": "apixaban 2.5 MG [JERIXABAN]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4967169",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065835,
-      "conceptName": "apixaban 2.5 MG [LIQUISIA]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4967170",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065836,
-      "conceptName": "apixaban 2.5 MG [ONEPIXABAN]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4967171",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065729,
-      "conceptName": "apixaban 2.5 MG [YUPIX]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4967172",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43013029,
-      "conceptName": "apixaban 5 MG",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "1364444",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43139239,
-      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP486595",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43183267,
-      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP486597",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36783418,
-      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet Box of 168",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP4771701",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40900439,
-      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet Box of 20",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2098401",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41274931,
-      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet Box of 200",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2472893",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35762469,
-      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet Box of 28",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2763930",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36965382,
-      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet Box of 28 by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197020",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36948480,
-      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet Box of 28 by Alliance",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197019",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36938336,
-      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet Box of 28 by Sandoz",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197022",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36956013,
-      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet Box of 28 by TEVA",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197021",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36939141,
-      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet Box of 28 by Viatris Healthcare",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197018",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35762468,
-      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet Box of 56",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2763929",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36946346,
-      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet Box of 56 by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197025",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36949267,
-      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet Box of 56 by Alliance",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197024",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36931205,
-      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet Box of 56 by Sandoz",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197027",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36933247,
-      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet Box of 56 by TEVA",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197026",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36949684,
-      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet Box of 56 by Viatris Healthcare",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197023",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43194263,
-      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet Box of 60",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP486596",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43161367,
-      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet [Eliquis]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP486598",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43172321,
-      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet [Eliquis] Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP486602",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43183268,
-      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet [Eliquis] Box of 100 by Bristol Myers Squibb",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP486603",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36783370,
-      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet [Eliquis] Box of 168",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP4771700",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36783417,
-      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet [Eliquis] Box of 168 by Bristol Myers Squibb",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4771699",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41318035,
-      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet [Eliquis] Box of 20",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2515997",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41005948,
-      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet [Eliquis] Box of 200",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2203910",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44175474,
-      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet [Eliquis] Box of 200 by Eurim-Pharm",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3052197",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35763063,
-      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet [Eliquis] Box of 28",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2764524",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35774342,
-      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet [Eliquis] Box of 28 by Bristol Myers Squibb",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2775803",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35771499,
-      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet [Eliquis] Box of 56",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2772960",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35757517,
-      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet [Eliquis] Box of 56 by Bristol Myers Squibb",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2758978",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43161368,
-      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet [Eliquis] Box of 60",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP486599",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43216131,
-      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet [Eliquis] Box of 60 by Bristol Myers Squibb",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP486601",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44179240,
-      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet [Eliquis] Box of 60 by Eurim-Pharm",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3055963",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35770083,
-      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet [Eliquis] by Bristol Myers Squibb",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2771544",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36963819,
-      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197015",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36937257,
-      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet by Alliance",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197014",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36945571,
-      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet by Sandoz",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197017",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36949968,
-      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet by TEVA",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197016",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36938542,
-      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet by Viatris Healthcare",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197013",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43013030,
-      "conceptName": "apixaban 5 MG Oral Tablet",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "1364445",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40931536,
-      "conceptName": "apixaban 5 MG Oral Tablet Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2129498",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2930366,
-      "conceptName": "apixaban 5 MG Oral Tablet Box of 112",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP5147148",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2930365,
-      "conceptName": "apixaban 5 MG Oral Tablet Box of 120",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP5147147",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2930367,
-      "conceptName": "apixaban 5 MG Oral Tablet Box of 14",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP5147149",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36262346,
-      "conceptName": "apixaban 5 MG Oral Tablet Box of 168",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP3113221",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40838273,
-      "conceptName": "apixaban 5 MG Oral Tablet Box of 20",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2036235",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41119102,
-      "conceptName": "apixaban 5 MG Oral Tablet Box of 200",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2317064",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21070835,
-      "conceptName": "apixaban 5 MG Oral Tablet Box of 28",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP328520",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36967693,
-      "conceptName": "apixaban 5 MG Oral Tablet Box of 28 by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197035",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36967642,
-      "conceptName": "apixaban 5 MG Oral Tablet Box of 28 by Alliance",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197034",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36941597,
-      "conceptName": "apixaban 5 MG Oral Tablet Box of 28 by Sandoz",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197037",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36946285,
-      "conceptName": "apixaban 5 MG Oral Tablet Box of 28 by TEVA",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197036",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36939743,
-      "conceptName": "apixaban 5 MG Oral Tablet Box of 28 by Viatris Healthcare",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197033",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21031386,
-      "conceptName": "apixaban 5 MG Oral Tablet Box of 56",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP328531",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36919471,
-      "conceptName": "apixaban 5 MG Oral Tablet Box of 56 by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197040",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36957298,
-      "conceptName": "apixaban 5 MG Oral Tablet Box of 56 by Alliance",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197039",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36923547,
-      "conceptName": "apixaban 5 MG Oral Tablet Box of 56 by Sandoz",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197042",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36931226,
-      "conceptName": "apixaban 5 MG Oral Tablet Box of 56 by TEVA",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197041",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36934972,
-      "conceptName": "apixaban 5 MG Oral Tablet Box of 56 by Viatris Healthcare",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197038",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41274932,
-      "conceptName": "apixaban 5 MG Oral Tablet Box of 60",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2472894",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065727,
-      "conceptName": "apixaban 5 MG Oral Tablet [ANTIXABAN]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4967054",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065728,
-      "conceptName": "apixaban 5 MG Oral Tablet [ANTIXABAN] by Hutecs",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4967055",
       "standardConcept": "S"
     },
     {
@@ -2279,6 +70,150 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 2012924,
+      "conceptName": "apixaban 5 MG [APIC-Q]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4967094",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2012925,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [APIC-Q]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4967117",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2012926,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [APIC-Q] by Hanlim",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4967118",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2012927,
+      "conceptName": "apixaban 2.5 MG [APIC-Q]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4967155",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2012928,
+      "conceptName": "apixaban Oral Tablet [APIC-Q]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP4967174",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2062518,
+      "conceptName": "apixaban 5 MG [YUPIX]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4967111",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065395,
+      "conceptName": "apixaban 5 MG Oral Tablet [APIXA]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4967062",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065519,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [APIXA]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4967123",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065576,
+      "conceptName": "apixaban Oral Tablet [ELXABAN]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP4967185",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065673,
+      "conceptName": "apixaban Oral Tablet [ELIBAN]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP4967181",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065723,
+      "conceptName": "apixaban 5 MG Oral Tablet by Myungin",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4967051",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065725,
+      "conceptName": "apixaban 5 MG Oral Tablet by Pharvis",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4967052",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065726,
+      "conceptName": "apixaban 5 MG Oral Tablet by Yuhan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4967053",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065727,
+      "conceptName": "apixaban 5 MG Oral Tablet [ANTIXABAN]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4967054",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065728,
+      "conceptName": "apixaban 5 MG Oral Tablet [ANTIXABAN] by Hutecs",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4967055",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065729,
+      "conceptName": "apixaban 2.5 MG [YUPIX]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4967172",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 2065730,
       "conceptName": "apixaban 5 MG Oral Tablet [APIQUIS]",
       "vocabularyId": "RxNorm Extension",
@@ -2297,6 +232,33 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 2065732,
+      "conceptName": "apixaban 5 MG Oral Tablet [APIX]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4967060",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065733,
+      "conceptName": "apixaban 5 MG Oral Tablet [APIX] by Huvist",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4967061",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065734,
+      "conceptName": "apixaban 5 MG Oral Tablet [APIXA] by Medicakorea",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4967063",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 2065735,
       "conceptName": "apixaban 5 MG Oral Tablet [APIXAGEN]",
       "vocabularyId": "RxNorm Extension",
@@ -2312,24 +274,6 @@
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
       "conceptCode": "OMOP4967065",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065395,
-      "conceptName": "apixaban 5 MG Oral Tablet [APIXA]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4967062",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065734,
-      "conceptName": "apixaban 5 MG Oral Tablet [APIXA] by Medicakorea",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4967063",
       "standardConcept": "S"
     },
     {
@@ -2366,24 +310,6 @@
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
       "conceptCode": "OMOP4967069",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065732,
-      "conceptName": "apixaban 5 MG Oral Tablet [APIX]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4967060",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065733,
-      "conceptName": "apixaban 5 MG Oral Tablet [APIX] by Huvist",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4967061",
       "standardConcept": "S"
     },
     {
@@ -2483,402 +409,6 @@
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
       "conceptCode": "OMOP4967080",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43013031,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "1364447",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41005949,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2203911",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40919168,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 100 by Pfizer",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2117130",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2930363,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 112",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP5147145",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2930362,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 120",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP5147144",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2930364,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 14",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP5147146",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36263316,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 168",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP3114191",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1830313,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 168 by Abacus Medicine",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5155568",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36276630,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 168 by Bristol Myers Squibb",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3127505",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40912348,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 20",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2110310",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40950371,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 20 by Pfizer",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2148333",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41224699,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 200",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2422661",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44179241,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 200 by Axicorp",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3055964",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41293666,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 200 by Eurim-Pharm",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2491628",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40823818,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 200 by Pfizer",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2021780",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21119735,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 28",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP328563",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21119736,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 28 by Bristol Myers Squibb",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP328574",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21021649,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 56",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP328585",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36957714,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 56",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP5197044",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21041270,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 56 by Bristol Myers Squibb",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP328597",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36952101,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 56 by Bristol Myers Squibb",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197045",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36067063,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 56 by CST",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4993532",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36067062,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 56 by DE",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4993531",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36067064,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 56 by Originalis B.V.",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4993533",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36067065,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 56 by Pilsco",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4993534",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40974550,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 60",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2172512",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44160414,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 60 by Axicorp",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3037137",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36067058,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 60 by CST",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4993528",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40919169,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 60 by Cc",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2117131",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36067057,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 60 by DE",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4993527",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40856899,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 60 by Emra-Med",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2054861",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41231717,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 60 by Eurim-Pharm",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2429679",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41262456,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 60 by Kohlpharma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2460418",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36067056,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 60 by Mawdsley-Brooks",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4993526",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41231716,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 60 by Pfizer",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2429678",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36067060,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 60 by Pharmaram",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4993529",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36067061,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 60 by Pilsco",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4993530",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21119734,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] by Bristol Myers Squibb",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP328552",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36067068,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] by CST",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4993537",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36067067,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] by DE",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4993536",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36067066,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] by Mawdsley-Brooks",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4993535",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36067069,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] by Originalis B.V.",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4993538",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36067070,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] by Pharmaram",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4993539",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36067071,
-      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] by Pilsco",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4993540",
       "standardConcept": "S"
     },
     {
@@ -2990,93 +520,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36931747,
-      "conceptName": "apixaban 5 MG Oral Tablet by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197030",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36953518,
-      "conceptName": "apixaban 5 MG Oral Tablet by Alliance",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197029",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065723,
-      "conceptName": "apixaban 5 MG Oral Tablet by Myungin",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4967051",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065725,
-      "conceptName": "apixaban 5 MG Oral Tablet by Pharvis",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4967052",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36955700,
-      "conceptName": "apixaban 5 MG Oral Tablet by Sandoz",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197032",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36963431,
-      "conceptName": "apixaban 5 MG Oral Tablet by TEVA",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197031",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36957556,
-      "conceptName": "apixaban 5 MG Oral Tablet by Viatris Healthcare",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5197028",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065726,
-      "conceptName": "apixaban 5 MG Oral Tablet by Yuhan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4967053",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 2065764,
       "conceptName": "apixaban 5 MG [ANTIXABAN]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Comp",
       "conceptCode": "OMOP4967093",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2012924,
-      "conceptName": "apixaban 5 MG [APIC-Q]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4967094",
       "standardConcept": "S"
     },
     {
@@ -3089,12 +538,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 2065768,
-      "conceptName": "apixaban 5 MG [APIXAGEN]",
+      "conceptId": 2065766,
+      "conceptName": "apixaban 5 MG [APIX]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4967098",
+      "conceptCode": "OMOP4967096",
       "standardConcept": "S"
     },
     {
@@ -3104,6 +553,15 @@
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Comp",
       "conceptCode": "OMOP4967097",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065768,
+      "conceptName": "apixaban 5 MG [APIXAGEN]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4967098",
       "standardConcept": "S"
     },
     {
@@ -3122,15 +580,6 @@
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Comp",
       "conceptCode": "OMOP4967100",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065766,
-      "conceptName": "apixaban 5 MG [APIX]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4967096",
       "standardConcept": "S"
     },
     {
@@ -3179,15 +628,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 43013032,
-      "conceptName": "apixaban 5 MG [Eliquis]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "1364446",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 2065776,
       "conceptName": "apixaban 5 MG [FLOXABAN]",
       "vocabularyId": "RxNorm Extension",
@@ -3233,48 +673,507 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 2062518,
-      "conceptName": "apixaban 5 MG [YUPIX]",
+      "conceptId": 2065781,
+      "conceptName": "apixaban 2.5 MG Oral Tablet by Myungin",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4967112",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065782,
+      "conceptName": "apixaban 2.5 MG Oral Tablet by Pharvis",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4967113",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065783,
+      "conceptName": "apixaban 2.5 MG Oral Tablet by Yuhan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4967114",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065784,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [ANTIXABAN]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4967115",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065785,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [ANTIXABAN] by Hutecs",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4967116",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065786,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [APIQUIS]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4967119",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065787,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [APIQUIS] by Huons",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4967120",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065788,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [APIX]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4967121",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065789,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [APIX] by Huvist",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4967122",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065790,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [APIXA] by Medicakorea",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4967124",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065791,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [APIXAGEN]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4967125",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065792,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [APIXAGEN] by Alvogen",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4967126",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065793,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [APIXBAN]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4967127",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065794,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [APIXBAN] by Hanmi",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4967128",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065795,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [APIXFLO]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4967129",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065796,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [APIXFLO] by Korea Kolmar",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4967130",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065797,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [ELIBAN]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4967131",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065798,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [ELIBAN] by Aju",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4967132",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065799,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [ELIPIXA]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4967133",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065800,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [ELIPIXA] by Guju",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4967134",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065801,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [ELIXABAN]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4967135",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065802,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [ELIXABAN] by Inist",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4967136",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065803,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [ELIXABAN] by Samik",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4967137",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065804,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [ELSA]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4967138",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065805,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [ELSA] by Dongkwang",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4967139",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065806,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [ELXABAN]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4967140",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065807,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [ELXABAN] by Samjin",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4967141",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065808,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [FLOXABAN]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4967142",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065809,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [FLOXABAN] by Ildong",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4967143",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065810,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [HUEPIXABAN]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4967144",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065811,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [HUEPIXABAN] by Humedix",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4967145",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065812,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [JERIXABAN]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4967146",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065813,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [JERIXABAN] by Jeil",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4967147",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065814,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [LIQUISIA]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4967148",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065815,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [LIQUISIA] by Chongkundang",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4967149",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065816,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [ONEPIXABAN]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4967150",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065817,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [ONEPIXABAN] by Hana",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4967151",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065818,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [YUPIX]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4967152",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065819,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [YUPIX] by Yooyoung",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4967153",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065820,
+      "conceptName": "apixaban 2.5 MG [ANTIXABAN]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4967111",
+      "conceptCode": "OMOP4967154",
       "standardConcept": "S"
     },
     {
-      "conceptId": 43139237,
-      "conceptName": "apixaban Delayed Release Oral Tablet",
+      "conceptId": 2065821,
+      "conceptName": "apixaban 2.5 MG [APIQUIS]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP486581",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4967156",
       "standardConcept": "S"
     },
     {
-      "conceptId": 43172319,
-      "conceptName": "apixaban Delayed Release Oral Tablet [Eliquis]",
+      "conceptId": 2065822,
+      "conceptName": "apixaban 2.5 MG [APIX]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP486582",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4967157",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36246293,
-      "conceptName": "apixaban Oral Product",
-      "vocabularyId": "RxNorm",
+      "conceptId": 2065823,
+      "conceptName": "apixaban 2.5 MG [APIXA]",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1364432",
-      "standardConcept": "C"
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4967158",
+      "standardConcept": "S"
     },
     {
-      "conceptId": 43013033,
-      "conceptName": "apixaban Oral Tablet",
-      "vocabularyId": "RxNorm",
+      "conceptId": 2065824,
+      "conceptName": "apixaban 2.5 MG [APIXAGEN]",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "1364434",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4967159",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065825,
+      "conceptName": "apixaban 2.5 MG [APIXBAN]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4967160",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065826,
+      "conceptName": "apixaban 2.5 MG [APIXFLO]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4967161",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065827,
+      "conceptName": "apixaban 2.5 MG [ELIBAN]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4967162",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065828,
+      "conceptName": "apixaban 2.5 MG [ELIPIXA]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4967163",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065829,
+      "conceptName": "apixaban 2.5 MG [ELIXABAN]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4967164",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065830,
+      "conceptName": "apixaban 2.5 MG [ELSA]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4967165",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065831,
+      "conceptName": "apixaban 2.5 MG [ELXABAN]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4967166",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065832,
+      "conceptName": "apixaban 2.5 MG [FLOXABAN]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4967167",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065833,
+      "conceptName": "apixaban 2.5 MG [HUEPIXABAN]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4967168",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065834,
+      "conceptName": "apixaban 2.5 MG [JERIXABAN]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4967169",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065835,
+      "conceptName": "apixaban 2.5 MG [LIQUISIA]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4967170",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065836,
+      "conceptName": "apixaban 2.5 MG [ONEPIXABAN]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4967171",
       "standardConcept": "S"
     },
     {
@@ -3287,15 +1186,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 2012928,
-      "conceptName": "apixaban Oral Tablet [APIC-Q]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4967174",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 2065838,
       "conceptName": "apixaban Oral Tablet [APIQUIS]",
       "vocabularyId": "RxNorm Extension",
@@ -3305,12 +1195,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 2065841,
-      "conceptName": "apixaban Oral Tablet [APIXAGEN]",
+      "conceptId": 2065839,
+      "conceptName": "apixaban Oral Tablet [APIX]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4967178",
+      "conceptCode": "OMOP4967176",
       "standardConcept": "S"
     },
     {
@@ -3320,6 +1210,15 @@
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "OMOP4967177",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2065841,
+      "conceptName": "apixaban Oral Tablet [APIXAGEN]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP4967178",
       "standardConcept": "S"
     },
     {
@@ -3338,24 +1237,6 @@
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "OMOP4967180",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065839,
-      "conceptName": "apixaban Oral Tablet [APIX]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4967176",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065673,
-      "conceptName": "apixaban Oral Tablet [ELIBAN]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4967181",
       "standardConcept": "S"
     },
     {
@@ -3383,24 +1264,6 @@
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "OMOP4967184",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2065576,
-      "conceptName": "apixaban Oral Tablet [ELXABAN]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4967185",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43013034,
-      "conceptName": "apixaban Oral Tablet [Eliquis]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "1364438",
       "standardConcept": "S"
     },
     {
@@ -3458,6 +1321,609 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 2930362,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 120",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP5147144",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2930363,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 112",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP5147145",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2930364,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 14",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP5147146",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2930365,
+      "conceptName": "apixaban 5 MG Oral Tablet Box of 120",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP5147147",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2930366,
+      "conceptName": "apixaban 5 MG Oral Tablet Box of 112",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP5147148",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2930367,
+      "conceptName": "apixaban 5 MG Oral Tablet Box of 14",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP5147149",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2930368,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 14",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP5147150",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2930369,
+      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 14",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP5147151",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21021649,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 56",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP328585",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21021650,
+      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP328638",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21021651,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 20",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP328724",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21031386,
+      "conceptName": "apixaban 5 MG Oral Tablet Box of 56",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP328531",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21041270,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 56 by Bristol Myers Squibb",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP328597",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21051084,
+      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 60",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP328660",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21070835,
+      "conceptName": "apixaban 5 MG Oral Tablet Box of 28",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP328520",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21090247,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] by Bristol Myers Squibb",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP328692",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21100177,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] by Waymade",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP328681",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21109985,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 10 by Bristol Myers Squibb",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP328713",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21119734,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] by Bristol Myers Squibb",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP328552",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21119735,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 28",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP328563",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21119736,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 28 by Bristol Myers Squibb",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP328574",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21119737,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 60 by Bristol Myers Squibb",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP328768",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21139398,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP328702",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21159172,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 20 by Bristol Myers Squibb",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP328746",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21159173,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 60",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP328757",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21168985,
+      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 20",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP328649",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21168986,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 20 by Waymade",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP328735",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35749175,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis] by Waymade",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2750636",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35757517,
+      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet [Eliquis] Box of 56 by Bristol Myers Squibb",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2758978",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35761678,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis] by Bristol Myers Squibb",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2763139",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35762468,
+      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet Box of 56",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2763929",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35762469,
+      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet Box of 28",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2763930",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35763063,
+      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet [Eliquis] Box of 28",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2764524",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35765757,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis] Box of 20 by Waymade",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2767218",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35770083,
+      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet [Eliquis] by Bristol Myers Squibb",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2771544",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35771499,
+      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet [Eliquis] Box of 56",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2772960",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35774342,
+      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet [Eliquis] Box of 28 by Bristol Myers Squibb",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2775803",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36067056,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 60 by Mawdsley-Brooks",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4993526",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36067057,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 60 by DE",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4993527",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36067058,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 60 by CST",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4993528",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36067060,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 60 by Pharmaram",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4993529",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36067061,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 60 by Pilsco",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4993530",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36067062,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 56 by DE",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4993531",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36067063,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 56 by CST",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4993532",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36067064,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 56 by Originalis B.V.",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4993533",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36067065,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 56 by Pilsco",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4993534",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36067066,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] by Mawdsley-Brooks",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4993535",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36067067,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] by DE",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4993536",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36067068,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] by CST",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4993537",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36067069,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] by Originalis B.V.",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4993538",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36067070,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] by Pharmaram",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4993539",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36067071,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] by Pilsco",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4993540",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36067072,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 60 by Mawdsley-Brooks",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4993541",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36067073,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 60 by DE",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4993542",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36067074,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 60 by CST",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4993543",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36067075,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 60 by Originalis B.V.",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4993544",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36067076,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 60 by Pharmaram",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4993545",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36067077,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 60 by Pilsco",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4993546",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36067078,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 20 by Mawdsley-Brooks",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4993547",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36067079,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 10 by CST",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4993548",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36067080,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] by Mawdsley-Brooks",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4993549",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36067081,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] by DE",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4993550",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36067082,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] by CST",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4993551",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36067083,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] by Originalis B.V.",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4993552",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36067084,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] by Pharmaram",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4993553",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36067085,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] by Pilsco",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4993554",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36246293,
+      "conceptName": "apixaban Oral Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Dose Group",
+      "conceptCode": "1364432",
+      "standardConcept": "C"
+    },
+    {
       "conceptId": 36246294,
       "conceptName": "apixaban Pill",
       "vocabularyId": "RxNorm",
@@ -3467,21 +1933,1515 @@
       "standardConcept": "C"
     },
     {
-      "conceptId": 793646,
-      "conceptName": "{74 (apixaban 5 MG Oral Tablet [Eliquis]) } Pack [Eliquis 30-Day Starter Pack]",
+      "conceptId": 36246295,
+      "conceptName": "Eliquis Oral Product",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Branded Pack",
-      "conceptCode": "1992428",
+      "conceptClassId": "Branded Dose Group",
+      "conceptCode": "1364439",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36246296,
+      "conceptName": "Eliquis Pill",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Dose Group",
+      "conceptCode": "1364440",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36257285,
+      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 168",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP3108160",
       "standardConcept": "S"
     },
     {
-      "conceptId": 792336,
-      "conceptName": "{74 (apixaban 5 MG Oral Tablet) } Pack",
+      "conceptId": 36261069,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 168 by Bristol Myers Squibb",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3111944",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36262346,
+      "conceptName": "apixaban 5 MG Oral Tablet Box of 168",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP3113221",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36263316,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 168",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP3114191",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36265872,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 168",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP3116747",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36276630,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 168 by Bristol Myers Squibb",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3127505",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36783370,
+      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet [Eliquis] Box of 168",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP4771700",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36783417,
+      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet [Eliquis] Box of 168 by Bristol Myers Squibb",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4771699",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36783418,
+      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet Box of 168",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP4771701",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36783419,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis] Box of 168 by Bristol Myers Squibb",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4771702",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36783420,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis] Box of 168",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP4771703",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36783421,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet Box of 168",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP4771704",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36919471,
+      "conceptName": "apixaban 5 MG Oral Tablet Box of 56 by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5197040",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36919602,
+      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 60 by Viatris Healthcare",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5197004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36920789,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet by Sandoz",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5196973",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36923547,
+      "conceptName": "apixaban 5 MG Oral Tablet Box of 56 by Sandoz",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5197042",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36923671,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet Box of 20 by Sandoz",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5196983",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36924127,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet Box of 10 by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5196976",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36924166,
+      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 10 by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5196996",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36925423,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet Box of 60 by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5196986",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36928894,
+      "conceptName": "apixaban 2.5 MG Oral Tablet by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5196991",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36929050,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet by Alliance",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5196970",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36929070,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet Box of 60 by Viatris Healthcare",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5196984",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36931205,
+      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet Box of 56 by Sandoz",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5197027",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36931226,
+      "conceptName": "apixaban 5 MG Oral Tablet Box of 56 by TEVA",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5197041",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36931747,
+      "conceptName": "apixaban 5 MG Oral Tablet by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5197030",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36933247,
+      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet Box of 56 by TEVA",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5197026",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36934555,
+      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 10 by Viatris Healthcare",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5196994",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36934972,
+      "conceptName": "apixaban 5 MG Oral Tablet Box of 56 by Viatris Healthcare",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5197038",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36935781,
+      "conceptName": "apixaban 2.5 MG Oral Tablet by Viatris Healthcare",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5196989",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36937257,
+      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet by Alliance",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5197014",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36937259,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet Box of 10 by Alliance",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5196975",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36938336,
+      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet Box of 28 by Sandoz",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5197022",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36938514,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet Box of 20 by TEVA",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5196982",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36938542,
+      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet by Viatris Healthcare",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5197013",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36938959,
+      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 60 by Sandoz",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5197008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36939141,
+      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet Box of 28 by Viatris Healthcare",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5197018",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36939595,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet Box of 20 by Alliance",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5196980",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36939743,
+      "conceptName": "apixaban 5 MG Oral Tablet Box of 28 by Viatris Healthcare",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5197033",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36941486,
+      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 10 by Alliance",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5196995",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36941597,
+      "conceptName": "apixaban 5 MG Oral Tablet Box of 28 by Sandoz",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5197037",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36942371,
+      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 20 by Viatris Healthcare",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5196999",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36942628,
+      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 20 by Alliance",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5197000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36942783,
+      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 60 by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5197006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36942925,
+      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 20 by Sandoz",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5197003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36944943,
+      "conceptName": "apixaban 2.5 MG Oral Tablet by Alliance",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5196990",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36945571,
+      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet by Sandoz",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5197017",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36946285,
+      "conceptName": "apixaban 5 MG Oral Tablet Box of 28 by TEVA",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5197036",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36946346,
+      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet Box of 56 by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5197025",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36946814,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet by TEVA",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5196972",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36948480,
+      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet Box of 28 by Alliance",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5197019",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36948906,
+      "conceptName": "apixaban 2.5 MG Oral Tablet by Sandoz",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5196993",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36948971,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet Box of 10 by Sandoz",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5196978",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36949267,
+      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet Box of 56 by Alliance",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5197024",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36949363,
+      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 60 by Alliance",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5197005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36949612,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet by Viatris Healthcare",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5196969",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36949684,
+      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet Box of 56 by Viatris Healthcare",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5197023",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36949968,
+      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet by TEVA",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5197016",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36953518,
+      "conceptName": "apixaban 5 MG Oral Tablet by Alliance",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5197029",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36953558,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet Box of 20 by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5196981",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36953857,
+      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 10 by TEVA",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5196997",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36954532,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet Box of 60 by Sandoz",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5196988",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36955190,
+      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 20 by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5197001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36955270,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5196971",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36955700,
+      "conceptName": "apixaban 5 MG Oral Tablet by Sandoz",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5197032",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36956013,
+      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet Box of 28 by TEVA",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5197021",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36956239,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet Box of 60 by Alliance",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5196985",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36956419,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet Box of 20 by Viatris Healthcare",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5196979",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36957298,
+      "conceptName": "apixaban 5 MG Oral Tablet Box of 56 by Alliance",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5197039",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36957556,
+      "conceptName": "apixaban 5 MG Oral Tablet by Viatris Healthcare",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5197028",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36958873,
+      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 20 by TEVA",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5197002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36959358,
+      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 60 by TEVA",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5197007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36963030,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet Box of 10 by TEVA",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5196977",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36963431,
+      "conceptName": "apixaban 5 MG Oral Tablet by TEVA",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5197031",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36963735,
+      "conceptName": "apixaban 2.5 MG Oral Tablet by TEVA",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5196992",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36963819,
+      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5197015",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36963976,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet Box of 60 by TEVA",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5196987",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36963992,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet Box of 10 by Viatris Healthcare",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5196974",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36965382,
+      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet Box of 28 by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5197020",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36967642,
+      "conceptName": "apixaban 5 MG Oral Tablet Box of 28 by Alliance",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5197034",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36967693,
+      "conceptName": "apixaban 5 MG Oral Tablet Box of 28 by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5197035",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36968478,
+      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 10 by Sandoz",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5196998",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40823818,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 200 by Pfizer",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2021780",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40838273,
+      "conceptName": "apixaban 5 MG Oral Tablet Box of 20",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2036235",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40856898,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis] Box of 10 by Pfizer",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2054860",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40856899,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 60 by Emra-Med",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2054861",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40888233,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis] Box of 60 by Kohlpharma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2086195",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40900439,
+      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet Box of 20",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2098401",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40912348,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 20",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2110310",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40919167,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 200 by Pfizer",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2117129",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40919168,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 100 by Pfizer",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2117130",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40919169,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 60 by Cc",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2117131",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40931536,
+      "conceptName": "apixaban 5 MG Oral Tablet Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2129498",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40950369,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 20 by Pfizer",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2148331",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40950370,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis] Box of 20 by Kohlpharma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2148332",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40950371,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 20 by Pfizer",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2148333",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40974550,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 60",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2172512",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41005948,
+      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet [Eliquis] Box of 200",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2203910",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41005949,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2203911",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41012773,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis] Box of 20 by Pfizer",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2210735",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41025112,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet Box of 200",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2223074",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41075266,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 60 by Docpharm",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2273228",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41106708,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 20 by Kohlpharma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2304670",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41106709,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 60 by Emra-Med",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2304671",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41119102,
+      "conceptName": "apixaban 5 MG Oral Tablet Box of 200",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2317064",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41138122,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 60 by Pfizer",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2336084",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41138123,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 20 by Emra-Med",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2336085",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41162423,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 200",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2360385",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41181668,
+      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 200",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2379630",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41224699,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 200",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2422661",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41231714,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 60 by Kohlpharma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2429676",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41231715,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 10 by Pfizer",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2429677",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41231716,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 60 by Pfizer",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2429678",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41231717,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 60 by Eurim-Pharm",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2429679",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41255664,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis] Box of 200",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2453626",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41262454,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 60 by Cc",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2460416",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41262455,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 10 by Emra-Med",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2460417",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41262456,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 60 by Kohlpharma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2460418",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41274931,
+      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet Box of 200",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2472893",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41274932,
+      "conceptName": "apixaban 5 MG Oral Tablet Box of 60",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2472894",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41293666,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 200 by Eurim-Pharm",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2491628",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41318035,
+      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet [Eliquis] Box of 20",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2515997",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43013024,
+      "conceptName": "apixaban",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Pack",
-      "conceptCode": "1992427",
+      "conceptClassId": "Ingredient",
+      "conceptCode": "1364430",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43013025,
+      "conceptName": "apixaban 2.5 MG",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "1364431",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43013026,
+      "conceptName": "apixaban 2.5 MG Oral Tablet",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "1364435",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43013027,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "1364441",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43013028,
+      "conceptName": "apixaban 2.5 MG [Eliquis]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "1364437",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43013029,
+      "conceptName": "apixaban 5 MG",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "1364444",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43013030,
+      "conceptName": "apixaban 5 MG Oral Tablet",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "1364445",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43013031,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "1364447",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43013032,
+      "conceptName": "apixaban 5 MG [Eliquis]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "1364446",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43013033,
+      "conceptName": "apixaban Oral Tablet",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "1364434",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43013034,
+      "conceptName": "apixaban Oral Tablet [Eliquis]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "1364438",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43139237,
+      "conceptName": "apixaban Delayed Release Oral Tablet",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP486581",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43139238,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP486584",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43139239,
+      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP486595",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43150163,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP486589",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43161365,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP486588",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43161366,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis] Box of 20 by Bristol Myers Squibb",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP486592",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43161367,
+      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet [Eliquis]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP486598",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43161368,
+      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet [Eliquis] Box of 60",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP486599",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43172319,
+      "conceptName": "apixaban Delayed Release Oral Tablet [Eliquis]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP486582",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43172320,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis] Box of 60",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP486593",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43172321,
+      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet [Eliquis] Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP486602",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43183267,
+      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP486597",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43183268,
+      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet [Eliquis] Box of 100 by Bristol Myers Squibb",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP486603",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43194262,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis] Box of 20",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP486591",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43194263,
+      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet Box of 60",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP486596",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43205224,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet Box of 60",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP486587",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43205225,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis] Box of 10 by Bristol Myers Squibb",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP486590",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43205226,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis] Box of 60 by Bristol Myers Squibb",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP486594",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43216129,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP486585",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43216130,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet Box of 20",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP486586",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43216131,
+      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet [Eliquis] Box of 60 by Bristol Myers Squibb",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP486601",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43269558,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP558920",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43285911,
+      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 30",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP558917",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43291279,
+      "conceptName": "apixaban 2.5 MG Oral Tablet Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP558918",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43296671,
+      "conceptName": "apixaban 2.5 MG Oral Tablet [Eliquis] Box of 30",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP558919",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44160412,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis] Box of 60 by Pfizer",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3037135",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44160413,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis] Box of 60 by Docpharm",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3037136",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44160414,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 60 by Axicorp",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3037137",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44167990,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis] Box of 60 by Emra-Med",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3044713",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44175474,
+      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet [Eliquis] Box of 200 by Eurim-Pharm",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3052197",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44179239,
+      "conceptName": "apixaban 2.5 MG Delayed Release Oral Tablet [Eliquis] Box of 60 by Cc",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3055962",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44179240,
+      "conceptName": "apixaban 5 MG Delayed Release Oral Tablet [Eliquis] Box of 60 by Eurim-Pharm",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3055963",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44179241,
+      "conceptName": "apixaban 5 MG Oral Tablet [Eliquis] Box of 200 by Axicorp",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3055964",
       "standardConcept": "S"
     }
   ]

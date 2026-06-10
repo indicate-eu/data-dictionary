@@ -1,1408 +1,72 @@
 {
   "conceptSetId": 128,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "RxNorm": "RxNorm 20260105",
+    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+  },
   "resolvedConcepts": [
     {
-      "conceptId": 43842394,
-      "conceptName": "1 ML Alfentanil 0.5 MG/ML Injectable Solution",
+      "conceptId": 2028034,
+      "conceptName": "5 ML alfentanil 0.5 MG/ML Injectable Solution by Hana",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4926766",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2028035,
+      "conceptName": "5 ML alfentanil 0.544 MG/ML Injectable Solution [ALFENIL]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP4926767",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2028036,
+      "conceptName": "5 ML alfentanil 0.544 MG/ML Injectable Solution [ALFENIL] by Daewon",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4926768",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2028037,
+      "conceptName": "5 ML alfentanil 0.544 MG/ML Injectable Solution",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP736271",
+      "conceptCode": "OMOP4926769",
       "standardConcept": "S"
     },
     {
-      "conceptId": 40718345,
-      "conceptName": "1 ML Alfentanil 0.5 MG/ML Injectable Solution Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP4739327",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43734327,
-      "conceptName": "1 ML Alfentanil 0.5 MG/ML Injectable Solution [Alfentanil Hameln]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP736272",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43752220,
-      "conceptName": "1 ML Alfentanil 0.5 MG/ML Injectable Solution [Alfentanil Hameln] by Hameln",
+      "conceptId": 2028038,
+      "conceptName": "5 ML alfentanil 0.544 MG/ML Injectable Solution by Hana",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP736273",
+      "conceptCode": "OMOP4926770",
       "standardConcept": "S"
     },
     {
-      "conceptId": 21028453,
-      "conceptName": "1 ML Alfentanil 0.5 MG/ML Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP298055",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21116716,
-      "conceptName": "1 ML Alfentanil 1 MG/ML Nasal Spray",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP298053",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35777778,
-      "conceptName": "1 ML Alfentanil 1 MG/ML Nasal Spray by Drug Tariff Special Order",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2779239",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35777934,
-      "conceptName": "1 ML Alfentanil 5 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP2779395",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35777641,
-      "conceptName": "1 ML Alfentanil 5 MG/ML Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2779102",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35776079,
-      "conceptName": "1 ML Alfentanil 5 MG/ML Injectable Solution Box of 10 by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2777540",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35776080,
-      "conceptName": "1 ML Alfentanil 5 MG/ML Injectable Solution Box of 10 by Hameln",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2777541",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35777090,
-      "conceptName": "1 ML Alfentanil 5 MG/ML Injectable Solution [Rapifen Intensive Care]",
+      "conceptId": 2028039,
+      "conceptName": "5 ML alfentanil 0.544 MG/ML Injectable Solution [SPANAL]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2778551",
+      "conceptCode": "OMOP4926771",
       "standardConcept": "S"
     },
     {
-      "conceptId": 35776268,
-      "conceptName": "1 ML Alfentanil 5 MG/ML Injectable Solution [Rapifen Intensive Care] Box of 10",
+      "conceptId": 2028040,
+      "conceptName": "5 ML alfentanil 0.544 MG/ML Injectable Solution [SPANAL] by BC World",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2777729",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35776359,
-      "conceptName": "1 ML Alfentanil 5 MG/ML Injectable Solution [Rapifen Intensive Care] Box of 10 by Janssen",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2777820",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35778070,
-      "conceptName": "1 ML Alfentanil 5 MG/ML Injectable Solution [Rapifen Intensive Care] by Janssen",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2779531",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40718344,
-      "conceptName": "1 ML Alfentanil 5 MG/ML Injectable Solution [Rapifen]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP4739328",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40718342,
-      "conceptName": "1 ML Alfentanil 5 MG/ML Injectable Solution [Rapifen] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP4739330",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40718341,
-      "conceptName": "1 ML Alfentanil 5 MG/ML Injectable Solution [Rapifen] Box of 10 by Piramal",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4739331",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40718343,
-      "conceptName": "1 ML Alfentanil 5 MG/ML Injectable Solution [Rapifen] by Piramal",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4739329",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35776081,
-      "conceptName": "1 ML Alfentanil 5 MG/ML Injectable Solution by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2777542",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35776360,
-      "conceptName": "1 ML Alfentanil 5 MG/ML Injectable Solution by Hameln",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2777821",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21136341,
-      "conceptName": "1 ML Alfentanil 5 MG/ML Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP298042",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21087324,
-      "conceptName": "1 ML Alfentanil 5 MG/ML Prefilled Syringe Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP298045",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21057878,
-      "conceptName": "1 ML Alfentanil 5 MG/ML Prefilled Syringe Box of 10 by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP298047",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21077610,
-      "conceptName": "1 ML Alfentanil 5 MG/ML Prefilled Syringe Box of 10 by Hameln",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP298046",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21048077,
-      "conceptName": "1 ML Alfentanil 5 MG/ML Prefilled Syringe [Rapifen Intensive Care]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP298048",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21057879,
-      "conceptName": "1 ML Alfentanil 5 MG/ML Prefilled Syringe [Rapifen Intensive Care] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP298050",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21048078,
-      "conceptName": "1 ML Alfentanil 5 MG/ML Prefilled Syringe [Rapifen Intensive Care] Box of 10 by Janssen",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP298052",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21067741,
-      "conceptName": "1 ML Alfentanil 5 MG/ML Prefilled Syringe [Rapifen Intensive Care] by Janssen",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP298049",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21136342,
-      "conceptName": "1 ML Alfentanil 5 MG/ML Prefilled Syringe by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP298044",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21028452,
-      "conceptName": "1 ML Alfentanil 5 MG/ML Prefilled Syringe by Hameln",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP298043",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36895576,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP994225",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43808092,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP785053",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35782159,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution Box of 10 by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2783620",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35782319,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution Box of 10 by Alliance",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2783780",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36808932,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution Box of 10 by Hameln",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4822970",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35782318,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution Box of 10 by Martindale",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2783779",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43808094,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP785061",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35782464,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution Box of 5 by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2783925",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35782018,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution Box of 5 by Hameln",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2783479",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41370563,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2568525",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41361887,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution [Alfentanil Hameln]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2559849",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43646318,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution [Alfentanil Hameln] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP785067",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43772147,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution [Alfentanil Hameln] Box of 10 by Hameln",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP785068",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41368606,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution [Alfentanil Hameln] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2566568",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43844266,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution [Alfentanil Hameln] Box of 5 by Hameln",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP785065",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43610122,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution [Alfentanil Hameln] by Hameln",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP785063",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43700343,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP785054",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43718061,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP785059",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43682319,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 10 by Janssen",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP785060",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43041552,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 10 by Piramal",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4856581",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43862459,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP785056",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43718060,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 5 by Janssen",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP785058",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40715304,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 5 by Piramal",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4742361",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41365581,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2563543",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36279632,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 50 by Janssen",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3130507",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42683760,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 50 by Piramal",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4912779",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43808093,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] by Janssen",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP785055",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40715305,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] by Piramal",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4742360",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35782628,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2784089",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35782160,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution by Alliance",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2783621",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35781567,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution by Hameln",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2783028",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35782320,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution by Martindale",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2783781",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43518526,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injection Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2805641",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43275469,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injection Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP563535",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43286282,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injection [Rapifen]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP563536",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43264430,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injection [Rapifen] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP563537",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42483058,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP417361",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21087995,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Prefilled Syringe Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP311099",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21029129,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Prefilled Syringe Box of 10 by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP311101",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21146900,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Prefilled Syringe Box of 10 by Alliance",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP311100",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21078221,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Prefilled Syringe Box of 10 by Martindale",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP311102",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21097824,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Prefilled Syringe Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP311095",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21078220,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Prefilled Syringe Box of 5 by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP311098",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21107684,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Prefilled Syringe Box of 5 by Hameln",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP311097",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21068474,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Prefilled Syringe [Rapifen]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP311103",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43197163,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Prefilled Syringe [Rapifen] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP516019",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43153202,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Prefilled Syringe [Rapifen] Box of 10 by Janssen",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP516020",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21156889,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Prefilled Syringe [Rapifen] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP311105",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21038964,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Prefilled Syringe [Rapifen] Box of 5 by Janssen",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP311106",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21127156,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Prefilled Syringe [Rapifen] by Janssen",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP311104",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21087994,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Prefilled Syringe by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP311093",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21146899,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Prefilled Syringe by Alliance",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP311092",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21068473,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Prefilled Syringe by Hameln",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP311091",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21156888,
-      "conceptName": "10 ML Alfentanil 0.5 MG/ML Prefilled Syringe by Martindale",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP311094",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35885018,
-      "conceptName": "10 ML alfentanil 0.5 MG/ML Injectable Solution Box of 5 by As Kalceks",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5032272",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36965159,
-      "conceptName": "10 ML alfentanil 0.5 MG/ML Injectable Solution Box of 5 by Kent",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5210783",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35885020,
-      "conceptName": "10 ML alfentanil 0.5 MG/ML Injectable Solution by As Kalceks",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5032273",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36949997,
-      "conceptName": "10 ML alfentanil 0.5 MG/ML Injectable Solution by Kent",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5210782",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35606192,
-      "conceptName": "10 ML alfentanil 0.5 MG/ML Injection",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "1723208",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2903092,
-      "conceptName": "10 ML alfentanil 0.5 MG/ML Injection Box of 10 by Medicianz",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5119942",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2903093,
-      "conceptName": "10 ML alfentanil 0.5 MG/ML Injection Box of 10 by Medsurge",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5119943",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2903094,
-      "conceptName": "10 ML alfentanil 0.5 MG/ML Injection Box of 5 by Medicianz",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5119944",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2903095,
-      "conceptName": "10 ML alfentanil 0.5 MG/ML Injection Box of 5 by Medsurge",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5119945",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35606199,
-      "conceptName": "10 ML alfentanil 0.5 MG/ML Injection [Alfenta]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "1723221",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2903096,
-      "conceptName": "10 ML alfentanil 0.5 MG/ML Injection by Medicianz",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5119946",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2903097,
-      "conceptName": "10 ML alfentanil 0.5 MG/ML Injection by Medsurge",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5119947",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41344792,
-      "conceptName": "2 ML Alfentanil 0.25 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP2542754",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41344212,
-      "conceptName": "2 ML Alfentanil 0.25 MG/ML Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2542174",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41342510,
-      "conceptName": "2 ML Alfentanil 0.25 MG/ML Injectable Solution Box of 10 by Hameln",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2540472",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36895209,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP1007182",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43626867,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP753678",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35779238,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution Box of 10 by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2780699",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35779096,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution Box of 10 by Alliance",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2780557",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35778299,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution Box of 10 by Hameln",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2779760",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35778432,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution Box of 10 by Martindale",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2779893",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36278067,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution Box of 30",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP3128942",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43681067,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP753670",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41343708,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2541670",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41341833,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution [Alfentanil Hameln]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2539795",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41346105,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution [Alfentanil Hameln] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2544067",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43752813,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution [Alfentanil Hameln] Box of 10 by Hameln",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP753686",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41339227,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution [Alfentanil Hameln] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2537189",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43645050,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution [Alfentanil Hameln] Box of 5 by Hameln",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP753684",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43842975,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution [Alfentanil Hameln] by Hameln",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP753680",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42921867,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution [HANA ALFENTANIL]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP4648686",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43788683,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP753671",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43842974,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP753676",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43861171,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 10 by Janssen",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP753677",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40717016,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 10 by Piramal",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4740096",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36278200,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 30",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP3129075",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36278309,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 30 by Janssen",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3129184",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42683818,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 30 by Piramal",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4912721",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43681068,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP753674",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43824928,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 5 by Janssen",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP753675",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43039574,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 5 by Piramal",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4854610",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41345563,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2543525",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43752812,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] by Janssen",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP753672",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40717017,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] by Piramal",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4740095",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35779239,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2780700",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35778433,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution by Alliance",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2779894",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35778434,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution by Hameln",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2779895",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35778978,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution by Martindale",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2780439",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43518110,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injection Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2805225",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43275262,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injection Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP561432",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43269719,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injection [Rapifen]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP561434",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43275263,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injection [Rapifen] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP561435",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42479528,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP417360",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21156494,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Prefilled Syringe Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP304032",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21146511,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Prefilled Syringe Box of 10 by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP304035",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21166254,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Prefilled Syringe Box of 10 by Alliance",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP304034",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21097444,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Prefilled Syringe Box of 10 by Hameln",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP304033",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21028766,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Prefilled Syringe Box of 10 by Martindale",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP304036",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43218553,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Prefilled Syringe Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP510543",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21038579,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Prefilled Syringe [Rapifen]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP304037",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21058144,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Prefilled Syringe [Rapifen] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP304040",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21087638,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Prefilled Syringe [Rapifen] Box of 10 by Janssen",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP304041",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43174781,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Prefilled Syringe [Rapifen] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP510545",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43163797,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Prefilled Syringe [Rapifen] Box of 5 by Janssen",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP510546",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21048388,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Prefilled Syringe [Rapifen] by Janssen",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP304038",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21048387,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Prefilled Syringe by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP304030",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21136666,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Prefilled Syringe by Alliance",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP304029",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21176009,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Prefilled Syringe by Hameln",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP304027",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21077886,
-      "conceptName": "2 ML Alfentanil 0.5 MG/ML Prefilled Syringe by Martindale",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP304031",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35885329,
-      "conceptName": "2 ML alfentanil 0.5 MG/ML Injectable Solution Box of 10 by As Kalceks",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5032600",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36959379,
-      "conceptName": "2 ML alfentanil 0.5 MG/ML Injectable Solution Box of 10 by Kent",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5209118",
+      "conceptCode": "OMOP4926772",
       "standardConcept": "S"
     },
     {
@@ -1442,30 +106,192 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 35885330,
-      "conceptName": "2 ML alfentanil 0.5 MG/ML Injectable Solution by As Kalceks",
+      "conceptId": 2029215,
+      "conceptName": "2 ML alfentanil 0.544 MG/ML Injectable Solution [ALFENIL]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5032601",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP4927949",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36938461,
-      "conceptName": "2 ML alfentanil 0.5 MG/ML Injectable Solution by Kent",
+      "conceptId": 2029216,
+      "conceptName": "2 ML alfentanil 0.544 MG/ML Injectable Solution [ALFENIL] by Daewon",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5209117",
+      "conceptCode": "OMOP4927950",
       "standardConcept": "S"
     },
     {
-      "conceptId": 35606190,
-      "conceptName": "2 ML alfentanil 0.5 MG/ML Injection",
-      "vocabularyId": "RxNorm",
+      "conceptId": 2029217,
+      "conceptName": "2 ML alfentanil 0.544 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "1723206",
+      "conceptCode": "OMOP4927951",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2029218,
+      "conceptName": "2 ML alfentanil 0.544 MG/ML Injectable Solution by Hana",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4927952",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2029219,
+      "conceptName": "2 ML alfentanil 0.544 MG/ML Injectable Solution [SPANAL]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP4927953",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2029220,
+      "conceptName": "2 ML alfentanil 0.544 MG/ML Injectable Solution [SPANAL] by BC World",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4927954",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2043056,
+      "conceptName": "alfentanil 0.5 MG/ML Injectable Solution [SPANAL]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4943030",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2043057,
+      "conceptName": "alfentanil 0.5 MG/ML [SPANAL]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4943031",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2043058,
+      "conceptName": "alfentanil 0.544 MG/ML Injectable Solution [ALFENIL]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4943032",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2043059,
+      "conceptName": "alfentanil 0.544 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP4943033",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2043060,
+      "conceptName": "alfentanil 0.544 MG/ML Injectable Solution [SPANAL]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4943034",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2043061,
+      "conceptName": "alfentanil 0.544 MG/ML [ALFENIL]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4943035",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2043062,
+      "conceptName": "alfentanil 0.544 MG/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP4943036",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2043063,
+      "conceptName": "alfentanil 0.544 MG/ML [SPANAL]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4943037",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2043064,
+      "conceptName": "alfentanil Injectable Solution [SPANAL]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP4943038",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2903092,
+      "conceptName": "10 ML alfentanil 0.5 MG/ML Injection Box of 10 by Medicianz",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5119942",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2903093,
+      "conceptName": "10 ML alfentanil 0.5 MG/ML Injection Box of 10 by Medsurge",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5119943",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2903094,
+      "conceptName": "10 ML alfentanil 0.5 MG/ML Injection Box of 5 by Medicianz",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5119944",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2903095,
+      "conceptName": "10 ML alfentanil 0.5 MG/ML Injection Box of 5 by Medsurge",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5119945",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2903096,
+      "conceptName": "10 ML alfentanil 0.5 MG/ML Injection by Medicianz",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5119946",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2903097,
+      "conceptName": "10 ML alfentanil 0.5 MG/ML Injection by Medsurge",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5119947",
       "standardConcept": "S"
     },
     {
@@ -1505,15 +331,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 35606198,
-      "conceptName": "2 ML alfentanil 0.5 MG/ML Injection [Alfenta]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "1723220",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 2905812,
       "conceptName": "2 ML alfentanil 0.5 MG/ML Injection by Medicianz",
       "vocabularyId": "RxNorm Extension",
@@ -1532,489 +349,192 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 2029217,
-      "conceptName": "2 ML alfentanil 0.544 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP4927951",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2029215,
-      "conceptName": "2 ML alfentanil 0.544 MG/ML Injectable Solution [ALFENIL]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP4927949",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2029216,
-      "conceptName": "2 ML alfentanil 0.544 MG/ML Injectable Solution [ALFENIL] by Daewon",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4927950",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2029219,
-      "conceptName": "2 ML alfentanil 0.544 MG/ML Injectable Solution [SPANAL]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP4927953",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2029220,
-      "conceptName": "2 ML alfentanil 0.544 MG/ML Injectable Solution [SPANAL] by BC World",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4927954",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2029218,
-      "conceptName": "2 ML alfentanil 0.544 MG/ML Injectable Solution by Hana",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4927952",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35606193,
-      "conceptName": "20 ML alfentanil 0.5 MG/ML Injection",
+      "conceptId": 19002645,
+      "conceptName": "alfentanil 0.1 MG/ML Injectable Solution",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "1723209",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "103746",
       "standardConcept": "S"
     },
     {
-      "conceptId": 35606200,
-      "conceptName": "20 ML alfentanil 0.5 MG/ML Injection [Alfenta]",
+      "conceptId": 19009034,
+      "conceptName": "alfentanil 5 MG/ML Injectable Solution",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "1723222",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "106500",
       "standardConcept": "S"
     },
     {
-      "conceptId": 42921107,
-      "conceptName": "5 ML Alfentanil 0.5 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP4647943",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42921108,
-      "conceptName": "5 ML Alfentanil 0.5 MG/ML Injectable Solution [ALFENIL]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP4647944",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21156718,
-      "conceptName": "5 ML Alfentanil 1 MG/ML Nasal Spray",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP308301",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35780610,
-      "conceptName": "5 ML Alfentanil 1 MG/ML Nasal Spray by Drug Tariff Special Order",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2782071",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2028034,
-      "conceptName": "5 ML alfentanil 0.5 MG/ML Injectable Solution by Hana",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4926766",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35606194,
-      "conceptName": "5 ML alfentanil 0.5 MG/ML Injection",
+      "conceptId": 19009035,
+      "conceptName": "alfentanil 5 MG/ML Injectable Solution [Rapifen Intensive Care]",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "1723210",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "106501",
       "standardConcept": "S"
     },
     {
-      "conceptId": 35606196,
-      "conceptName": "5 ML alfentanil 0.5 MG/ML Injection [Alfenta]",
+      "conceptId": 19010052,
+      "conceptName": "alfentanil 0.1 MG/ML Injectable Solution [Alfenta]",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "1723218",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "108271",
       "standardConcept": "S"
     },
     {
-      "conceptId": 2028037,
-      "conceptName": "5 ML alfentanil 0.544 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP4926769",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2028035,
-      "conceptName": "5 ML alfentanil 0.544 MG/ML Injectable Solution [ALFENIL]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP4926767",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2028036,
-      "conceptName": "5 ML alfentanil 0.544 MG/ML Injectable Solution [ALFENIL] by Daewon",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4926768",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2028039,
-      "conceptName": "5 ML alfentanil 0.544 MG/ML Injectable Solution [SPANAL]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP4926771",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2028040,
-      "conceptName": "5 ML alfentanil 0.544 MG/ML Injectable Solution [SPANAL] by BC World",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4926772",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2028038,
-      "conceptName": "5 ML alfentanil 0.544 MG/ML Injectable Solution by Hana",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4926770",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40713163,
-      "conceptName": "50 ML Alfentanil 0.5 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP4743887",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40713005,
-      "conceptName": "50 ML Alfentanil 0.5 MG/ML Injectable Solution Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP4743889",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40713004,
-      "conceptName": "50 ML Alfentanil 0.5 MG/ML Injectable Solution Box of 1 by Hameln",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4743890",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40713006,
-      "conceptName": "50 ML Alfentanil 0.5 MG/ML Injectable Solution by Hameln",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4743888",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36228765,
-      "conceptName": "Alfenta Injectable Product",
+      "conceptId": 19010053,
+      "conceptName": "alfentanil 5 MG/ML Injectable Solution [Rapifen Concentrate]",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1175508",
-      "standardConcept": "C"
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "108272",
+      "standardConcept": "S"
     },
     {
-      "conceptId": 41264358,
-      "conceptName": "Alfentanil 0.25 MG/ML",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 19010054,
+      "conceptName": "alfentanil 0.1 MG/ML Injectable Solution [Rapifen Concentrate]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "108273",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19059481,
+      "conceptName": "alfentanil 0.5 MG/ML [Alfenta]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "564334",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19059528,
+      "conceptName": "alfentanil",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Ingredient",
+      "conceptCode": "480",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19059551,
+      "conceptName": "alfentanil 0.5 MG/ML",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP2462320",
+      "conceptCode": "328828",
       "standardConcept": "S"
     },
     {
-      "conceptId": 40900745,
-      "conceptName": "Alfentanil 0.25 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 19100089,
+      "conceptName": "alfentanil 5 MG/ML",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP2098707",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "360846",
       "standardConcept": "S"
     },
     {
-      "conceptId": 41025439,
-      "conceptName": "Alfentanil 0.25 MG/ML Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 19100139,
+      "conceptName": "alfentanil 0.1 MG/ML",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2223401",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "360905",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36887746,
-      "conceptName": "Alfentanil 0.5 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 19116403,
+      "conceptName": "alfentanil 5 MG/ML [Rapifen Intensive Care]",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP991873",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "564335",
       "standardConcept": "S"
     },
     {
-      "conceptId": 35770744,
-      "conceptName": "Alfentanil 0.5 MG/ML Injectable Solution Box of 1",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 19116525,
+      "conceptName": "alfentanil 0.1 MG/ML [Alfenta]",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2772205",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "564484",
       "standardConcept": "S"
     },
     {
-      "conceptId": 43748670,
-      "conceptName": "Alfentanil 0.5 MG/ML Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 19116526,
+      "conceptName": "alfentanil 5 MG/ML [Rapifen Concentrate]",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP669742",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "564485",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36264968,
-      "conceptName": "Alfentanil 0.5 MG/ML Injectable Solution Box of 30",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 19116527,
+      "conceptName": "alfentanil 0.1 MG/ML [Rapifen Concentrate]",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP3115843",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "564486",
       "standardConcept": "S"
     },
     {
-      "conceptId": 43622724,
-      "conceptName": "Alfentanil 0.5 MG/ML Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP669736",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41181954,
-      "conceptName": "Alfentanil 0.5 MG/ML Injectable Solution Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2379916",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42931426,
-      "conceptName": "Alfentanil 0.5 MG/ML Injectable Solution [ALFENIL]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4658189",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41131577,
-      "conceptName": "Alfentanil 0.5 MG/ML Injectable Solution [Alfentanil Hameln]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2329539",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41037536,
-      "conceptName": "Alfentanil 0.5 MG/ML Injectable Solution [Alfentanil Hameln] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2235498",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40975081,
-      "conceptName": "Alfentanil 0.5 MG/ML Injectable Solution [Alfentanil Hameln] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2173043",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42931425,
-      "conceptName": "Alfentanil 0.5 MG/ML Injectable Solution [HANA ALFENTANIL]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4658188",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43677072,
-      "conceptName": "Alfentanil 0.5 MG/ML Injectable Solution [Rapifen]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP669737",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43802671,
-      "conceptName": "Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP669739",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36265923,
-      "conceptName": "Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 30",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP3116798",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43766688,
-      "conceptName": "Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP669738",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40975080,
-      "conceptName": "Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2173042",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43516342,
-      "conceptName": "Alfentanil 0.5 MG/ML Injection Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2803457",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43268905,
-      "conceptName": "Alfentanil 0.5 MG/ML Injection Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP552801",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44090699,
-      "conceptName": "Alfentanil 0.5 MG/ML Injection [Alfenta] by Janssen",
+      "conceptId": 21028452,
+      "conceptName": "1 ML Alfentanil 5 MG/ML Prefilled Syringe by Hameln",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP1085330",
+      "conceptCode": "OMOP298043",
       "standardConcept": "S"
     },
     {
-      "conceptId": 43279783,
-      "conceptName": "Alfentanil 0.5 MG/ML Injection [Rapifen]",
+      "conceptId": 21028453,
+      "conceptName": "1 ML Alfentanil 0.5 MG/ML Prefilled Syringe",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP552802",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP298055",
       "standardConcept": "S"
     },
     {
-      "conceptId": 43285202,
-      "conceptName": "Alfentanil 0.5 MG/ML Injection [Rapifen] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP552803",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44065045,
-      "conceptName": "Alfentanil 0.5 MG/ML Injection by Sandoz",
+      "conceptId": 21028766,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Prefilled Syringe Box of 10 by Martindale",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP1059676",
+      "conceptCode": "OMOP304036",
       "standardConcept": "S"
     },
     {
-      "conceptId": 42480119,
-      "conceptName": "Alfentanil 0.5 MG/ML Prefilled Syringe",
+      "conceptId": 21029129,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Prefilled Syringe Box of 10 by A A H",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP417359",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP311101",
       "standardConcept": "S"
     },
     {
-      "conceptId": 21153339,
-      "conceptName": "Alfentanil 0.5 MG/ML Prefilled Syringe Box of 1",
+      "conceptId": 21038579,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Prefilled Syringe [Rapifen]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP409357",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP304037",
       "standardConcept": "S"
     },
     {
-      "conceptId": 21084523,
-      "conceptName": "Alfentanil 0.5 MG/ML Prefilled Syringe Box of 10",
+      "conceptId": 21038964,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Prefilled Syringe [Rapifen] Box of 5 by Janssen",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP409347",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP311106",
       "standardConcept": "S"
     },
     {
@@ -2036,15 +556,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 21133472,
-      "conceptName": "Alfentanil 0.5 MG/ML Prefilled Syringe [Rapifen] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP409350",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 21045230,
       "conceptName": "Alfentanil 0.5 MG/ML Prefilled Syringe [Rapifen] Box of 5",
       "vocabularyId": "RxNorm Extension",
@@ -2054,30 +565,192 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 42931428,
-      "conceptName": "Alfentanil 0.5 MG/ML [ALFENIL]",
+      "conceptId": 21048077,
+      "conceptName": "1 ML Alfentanil 5 MG/ML Prefilled Syringe [Rapifen Intensive Care]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4658191",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP298048",
       "standardConcept": "S"
     },
     {
-      "conceptId": 40892586,
-      "conceptName": "Alfentanil 0.5 MG/ML [Alfentanil Hameln]",
+      "conceptId": 21048078,
+      "conceptName": "1 ML Alfentanil 5 MG/ML Prefilled Syringe [Rapifen Intensive Care] Box of 10 by Janssen",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP2090548",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP298052",
       "standardConcept": "S"
     },
     {
-      "conceptId": 42931427,
-      "conceptName": "Alfentanil 0.5 MG/ML [HANA ALFENTANIL]",
+      "conceptId": 21048387,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Prefilled Syringe by A A H",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4658190",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP304030",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21048388,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Prefilled Syringe [Rapifen] by Janssen",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP304038",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21057878,
+      "conceptName": "1 ML Alfentanil 5 MG/ML Prefilled Syringe Box of 10 by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP298047",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21057879,
+      "conceptName": "1 ML Alfentanil 5 MG/ML Prefilled Syringe [Rapifen Intensive Care] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP298050",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21058144,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Prefilled Syringe [Rapifen] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP304040",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21064887,
+      "conceptName": "Alfentanil Prefilled Syringe [Rapifen]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP409341",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21064888,
+      "conceptName": "Alfentanil 5 MG/ML Prefilled Syringe Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP409351",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21067741,
+      "conceptName": "1 ML Alfentanil 5 MG/ML Prefilled Syringe [Rapifen Intensive Care] by Janssen",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP298049",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21068473,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Prefilled Syringe by Hameln",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP311091",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21068474,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Prefilled Syringe [Rapifen]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP311103",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21077610,
+      "conceptName": "1 ML Alfentanil 5 MG/ML Prefilled Syringe Box of 10 by Hameln",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP298046",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21077886,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Prefilled Syringe by Martindale",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP304031",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21078220,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Prefilled Syringe Box of 5 by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP311098",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21078221,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Prefilled Syringe Box of 10 by Martindale",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP311102",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21084523,
+      "conceptName": "Alfentanil 0.5 MG/ML Prefilled Syringe Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP409347",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21087324,
+      "conceptName": "1 ML Alfentanil 5 MG/ML Prefilled Syringe Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP298045",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21087638,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Prefilled Syringe [Rapifen] Box of 10 by Janssen",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP304041",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21087994,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Prefilled Syringe by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP311093",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21087995,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Prefilled Syringe Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP311099",
       "standardConcept": "S"
     },
     {
@@ -2099,6 +772,33 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 21097444,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Prefilled Syringe Box of 10 by Hameln",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP304033",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21097824,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Prefilled Syringe Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP311095",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21107684,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Prefilled Syringe Box of 5 by Hameln",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP311097",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 21113992,
       "conceptName": "Alfentanil 1 MG/ML Nasal Spray",
       "vocabularyId": "RxNorm Extension",
@@ -2108,75 +808,129 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 35751300,
-      "conceptName": "Alfentanil 1 MG/ML Nasal Spray by Drug Tariff Special Order",
+      "conceptId": 21116716,
+      "conceptName": "1 ML Alfentanil 1 MG/ML Nasal Spray",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP298053",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21127156,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Prefilled Syringe [Rapifen] by Janssen",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2752761",
+      "conceptCode": "OMOP311104",
       "standardConcept": "S"
     },
     {
-      "conceptId": 35745609,
-      "conceptName": "Alfentanil 5 MG/ML Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2747070",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35775326,
-      "conceptName": "Alfentanil 5 MG/ML Injectable Solution [Rapifen Intensive Care] Box of 10",
+      "conceptId": 21133472,
+      "conceptName": "Alfentanil 0.5 MG/ML Prefilled Syringe [Rapifen] Box of 10",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2776787",
+      "conceptCode": "OMOP409350",
       "standardConcept": "S"
     },
     {
-      "conceptId": 40723814,
-      "conceptName": "Alfentanil 5 MG/ML Injectable Solution [Rapifen]",
+      "conceptId": 21136341,
+      "conceptName": "1 ML Alfentanil 5 MG/ML Prefilled Syringe",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4733211",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP298042",
       "standardConcept": "S"
     },
     {
-      "conceptId": 40723813,
-      "conceptName": "Alfentanil 5 MG/ML Injectable Solution [Rapifen] Box of 10",
+      "conceptId": 21136342,
+      "conceptName": "1 ML Alfentanil 5 MG/ML Prefilled Syringe by A A H",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP4733212",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP298044",
       "standardConcept": "S"
     },
     {
-      "conceptId": 42480120,
-      "conceptName": "Alfentanil 5 MG/ML Prefilled Syringe",
+      "conceptId": 21136666,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Prefilled Syringe by Alliance",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP417362",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP304029",
       "standardConcept": "S"
     },
     {
-      "conceptId": 21064888,
-      "conceptName": "Alfentanil 5 MG/ML Prefilled Syringe Box of 10",
+      "conceptId": 21146511,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Prefilled Syringe Box of 10 by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP304035",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21146899,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Prefilled Syringe by Alliance",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP311092",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21146900,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Prefilled Syringe Box of 10 by Alliance",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP311100",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21153339,
+      "conceptName": "Alfentanil 0.5 MG/ML Prefilled Syringe Box of 1",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP409351",
+      "conceptCode": "OMOP409357",
       "standardConcept": "S"
     },
     {
-      "conceptId": 42480121,
-      "conceptName": "Alfentanil 5 MG/ML Prefilled Syringe [Rapifen Intensive Care]",
+      "conceptId": 21156494,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Prefilled Syringe Box of 10",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP417363",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP304032",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21156718,
+      "conceptName": "5 ML Alfentanil 1 MG/ML Nasal Spray",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP308301",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21156888,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Prefilled Syringe by Martindale",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP311094",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21156889,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Prefilled Syringe [Rapifen] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP311105",
       "standardConcept": "S"
     },
     {
@@ -2189,57 +943,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 40723815,
-      "conceptName": "Alfentanil 5 MG/ML [Rapifen]",
+      "conceptId": 21166254,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Prefilled Syringe Box of 10 by Alliance",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4733210",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42931430,
-      "conceptName": "Alfentanil Injectable Solution [ALFENIL]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4658193",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40958090,
-      "conceptName": "Alfentanil Injectable Solution [Alfentanil Hameln]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP2156052",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42931429,
-      "conceptName": "Alfentanil Injectable Solution [HANA ALFENTANIL]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4658192",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43838840,
-      "conceptName": "Alfentanil Injectable Solution [Rapifen]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP669735",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43296010,
-      "conceptName": "Alfentanil Injection [Rapifen]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP552799",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP304034",
       "standardConcept": "S"
     },
     {
@@ -2252,31 +961,472 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 42481271,
-      "conceptName": "Alfentanil Prefilled Syringe",
+      "conceptId": 21176009,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Prefilled Syringe by Hameln",
       "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP304027",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35606189,
+      "conceptName": "alfentanil Injection",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP417357",
+      "conceptCode": "1723205",
       "standardConcept": "S"
     },
     {
-      "conceptId": 42481272,
-      "conceptName": "Alfentanil Prefilled Syringe [Rapifen Intensive Care]",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 35606190,
+      "conceptName": "2 ML alfentanil 0.5 MG/ML Injection",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP417358",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "1723206",
       "standardConcept": "S"
     },
     {
-      "conceptId": 21064887,
-      "conceptName": "Alfentanil Prefilled Syringe [Rapifen]",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 35606191,
+      "conceptName": "alfentanil 0.5 MG/ML Injection",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "1723207",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35606192,
+      "conceptName": "10 ML alfentanil 0.5 MG/ML Injection",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "1723208",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35606193,
+      "conceptName": "20 ML alfentanil 0.5 MG/ML Injection",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "1723209",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35606194,
+      "conceptName": "5 ML alfentanil 0.5 MG/ML Injection",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "1723210",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35606195,
+      "conceptName": "alfentanil Injection [Alfenta]",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP409341",
+      "conceptCode": "1723217",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 35606196,
+      "conceptName": "5 ML alfentanil 0.5 MG/ML Injection [Alfenta]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "1723218",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35606197,
+      "conceptName": "alfentanil 0.5 MG/ML Injection [Alfenta]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "1723219",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35606198,
+      "conceptName": "2 ML alfentanil 0.5 MG/ML Injection [Alfenta]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "1723220",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35606199,
+      "conceptName": "10 ML alfentanil 0.5 MG/ML Injection [Alfenta]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "1723221",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35606200,
+      "conceptName": "20 ML alfentanil 0.5 MG/ML Injection [Alfenta]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "1723222",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35745609,
+      "conceptName": "Alfentanil 5 MG/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2747070",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35751300,
+      "conceptName": "Alfentanil 1 MG/ML Nasal Spray by Drug Tariff Special Order",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2752761",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35770744,
+      "conceptName": "Alfentanil 0.5 MG/ML Injectable Solution Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2772205",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35775326,
+      "conceptName": "Alfentanil 5 MG/ML Injectable Solution [Rapifen Intensive Care] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2776787",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35776079,
+      "conceptName": "1 ML Alfentanil 5 MG/ML Injectable Solution Box of 10 by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2777540",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35776080,
+      "conceptName": "1 ML Alfentanil 5 MG/ML Injectable Solution Box of 10 by Hameln",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2777541",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35776081,
+      "conceptName": "1 ML Alfentanil 5 MG/ML Injectable Solution by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2777542",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35776268,
+      "conceptName": "1 ML Alfentanil 5 MG/ML Injectable Solution [Rapifen Intensive Care] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2777729",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35776359,
+      "conceptName": "1 ML Alfentanil 5 MG/ML Injectable Solution [Rapifen Intensive Care] Box of 10 by Janssen",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2777820",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35776360,
+      "conceptName": "1 ML Alfentanil 5 MG/ML Injectable Solution by Hameln",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2777821",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35777090,
+      "conceptName": "1 ML Alfentanil 5 MG/ML Injectable Solution [Rapifen Intensive Care]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2778551",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35777641,
+      "conceptName": "1 ML Alfentanil 5 MG/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2779102",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35777778,
+      "conceptName": "1 ML Alfentanil 1 MG/ML Nasal Spray by Drug Tariff Special Order",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2779239",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35777934,
+      "conceptName": "1 ML Alfentanil 5 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP2779395",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35778070,
+      "conceptName": "1 ML Alfentanil 5 MG/ML Injectable Solution [Rapifen Intensive Care] by Janssen",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2779531",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35778299,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution Box of 10 by Hameln",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2779760",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35778432,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution Box of 10 by Martindale",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2779893",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35778433,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution by Alliance",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2779894",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35778434,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution by Hameln",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2779895",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35778978,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution by Martindale",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2780439",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35779096,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution Box of 10 by Alliance",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2780557",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35779238,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution Box of 10 by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2780699",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35779239,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2780700",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35780610,
+      "conceptName": "5 ML Alfentanil 1 MG/ML Nasal Spray by Drug Tariff Special Order",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2782071",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35781567,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution by Hameln",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2783028",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35782018,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution Box of 5 by Hameln",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2783479",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35782159,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution Box of 10 by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2783620",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35782160,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution by Alliance",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2783621",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35782318,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution Box of 10 by Martindale",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2783779",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35782319,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution Box of 10 by Alliance",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2783780",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35782320,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution by Martindale",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2783781",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35782464,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution Box of 5 by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2783925",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35782628,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2784089",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35885018,
+      "conceptName": "10 ML alfentanil 0.5 MG/ML Injectable Solution Box of 5 by As Kalceks",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5032272",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35885020,
+      "conceptName": "10 ML alfentanil 0.5 MG/ML Injectable Solution by As Kalceks",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5032273",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35885329,
+      "conceptName": "2 ML alfentanil 0.5 MG/ML Injectable Solution Box of 10 by As Kalceks",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5032600",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35885330,
+      "conceptName": "2 ML alfentanil 0.5 MG/ML Injectable Solution by As Kalceks",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5032601",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36215540,
+      "conceptName": "alfentanil Injectable Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Dose Group",
+      "conceptCode": "1154625",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36228765,
+      "conceptName": "Alfenta Injectable Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Dose Group",
+      "conceptCode": "1175508",
+      "standardConcept": "C"
     },
     {
       "conceptId": 36230160,
@@ -2297,238 +1447,130 @@
       "standardConcept": "C"
     },
     {
-      "conceptId": 19059528,
-      "conceptName": "alfentanil",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Ingredient",
-      "conceptCode": "480",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19100139,
-      "conceptName": "alfentanil 0.1 MG/ML",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "360905",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19002645,
-      "conceptName": "alfentanil 0.1 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "103746",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19010052,
-      "conceptName": "alfentanil 0.1 MG/ML Injectable Solution [Alfenta]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "108271",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19010054,
-      "conceptName": "alfentanil 0.1 MG/ML Injectable Solution [Rapifen Concentrate]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "108273",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19116525,
-      "conceptName": "alfentanil 0.1 MG/ML [Alfenta]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "564484",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19116527,
-      "conceptName": "alfentanil 0.1 MG/ML [Rapifen Concentrate]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "564486",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19059551,
-      "conceptName": "alfentanil 0.5 MG/ML",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "328828",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2043056,
-      "conceptName": "alfentanil 0.5 MG/ML Injectable Solution [SPANAL]",
+      "conceptId": 36264968,
+      "conceptName": "Alfentanil 0.5 MG/ML Injectable Solution Box of 30",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4943030",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP3115843",
       "standardConcept": "S"
     },
     {
-      "conceptId": 35606191,
-      "conceptName": "alfentanil 0.5 MG/ML Injection",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "1723207",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35606197,
-      "conceptName": "alfentanil 0.5 MG/ML Injection [Alfenta]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "1723219",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19059481,
-      "conceptName": "alfentanil 0.5 MG/ML [Alfenta]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "564334",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2043057,
-      "conceptName": "alfentanil 0.5 MG/ML [SPANAL]",
+      "conceptId": 36265923,
+      "conceptName": "Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 30",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4943031",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP3116798",
       "standardConcept": "S"
     },
     {
-      "conceptId": 2043062,
-      "conceptName": "alfentanil 0.544 MG/ML",
+      "conceptId": 36278067,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution Box of 30",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP4943036",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP3128942",
       "standardConcept": "S"
     },
     {
-      "conceptId": 2043059,
-      "conceptName": "alfentanil 0.544 MG/ML Injectable Solution",
+      "conceptId": 36278200,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 30",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP3129075",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36278309,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 30 by Janssen",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3129184",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36279632,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 50 by Janssen",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3130507",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36808932,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution Box of 10 by Hameln",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4822970",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36887746,
+      "conceptName": "Alfentanil 0.5 MG/ML Injectable Solution",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP4943033",
+      "conceptCode": "OMOP991873",
       "standardConcept": "S"
     },
     {
-      "conceptId": 2043058,
-      "conceptName": "alfentanil 0.544 MG/ML Injectable Solution [ALFENIL]",
+      "conceptId": 36895209,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4943032",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP1007182",
       "standardConcept": "S"
     },
     {
-      "conceptId": 2043060,
-      "conceptName": "alfentanil 0.544 MG/ML Injectable Solution [SPANAL]",
+      "conceptId": 36895576,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4943034",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP994225",
       "standardConcept": "S"
     },
     {
-      "conceptId": 2043061,
-      "conceptName": "alfentanil 0.544 MG/ML [ALFENIL]",
+      "conceptId": 36938461,
+      "conceptName": "2 ML alfentanil 0.5 MG/ML Injectable Solution by Kent",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4943035",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5209117",
       "standardConcept": "S"
     },
     {
-      "conceptId": 2043063,
-      "conceptName": "alfentanil 0.544 MG/ML [SPANAL]",
+      "conceptId": 36949997,
+      "conceptName": "10 ML alfentanil 0.5 MG/ML Injectable Solution by Kent",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4943037",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5210782",
       "standardConcept": "S"
     },
     {
-      "conceptId": 19100089,
-      "conceptName": "alfentanil 5 MG/ML",
-      "vocabularyId": "RxNorm",
+      "conceptId": 36959379,
+      "conceptName": "2 ML alfentanil 0.5 MG/ML Injectable Solution Box of 10 by Kent",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "360846",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5209118",
       "standardConcept": "S"
     },
     {
-      "conceptId": 19009034,
-      "conceptName": "alfentanil 5 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm",
+      "conceptId": 36965159,
+      "conceptName": "10 ML alfentanil 0.5 MG/ML Injectable Solution Box of 5 by Kent",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "106500",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5210783",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 19010053,
-      "conceptName": "alfentanil 5 MG/ML Injectable Solution [Rapifen Concentrate]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "108272",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19009035,
-      "conceptName": "alfentanil 5 MG/ML Injectable Solution [Rapifen Intensive Care]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "106501",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19116526,
-      "conceptName": "alfentanil 5 MG/ML [Rapifen Concentrate]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "564485",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19116403,
-      "conceptName": "alfentanil 5 MG/ML [Rapifen Intensive Care]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "564335",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36215540,
-      "conceptName": "alfentanil Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1154625",
-      "standardConcept": "C"
     },
     {
       "conceptId": 40007160,
@@ -2537,15 +1579,6 @@
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Form",
       "conceptCode": "370546",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40007165,
-      "conceptName": "alfentanil Injectable Solution [Alfenta]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "91732",
       "standardConcept": "S"
     },
     {
@@ -2567,30 +1600,993 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 2043064,
-      "conceptName": "alfentanil Injectable Solution [SPANAL]",
+      "conceptId": 40007165,
+      "conceptName": "alfentanil Injectable Solution [Alfenta]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "91732",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40713004,
+      "conceptName": "50 ML Alfentanil 0.5 MG/ML Injectable Solution Box of 1 by Hameln",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4743890",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40713005,
+      "conceptName": "50 ML Alfentanil 0.5 MG/ML Injectable Solution Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP4743889",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40713006,
+      "conceptName": "50 ML Alfentanil 0.5 MG/ML Injectable Solution by Hameln",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4743888",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40713163,
+      "conceptName": "50 ML Alfentanil 0.5 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP4743887",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40715304,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 5 by Piramal",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4742361",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40715305,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] by Piramal",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4742360",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40717016,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 10 by Piramal",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4740096",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40717017,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] by Piramal",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4740095",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40718341,
+      "conceptName": "1 ML Alfentanil 5 MG/ML Injectable Solution [Rapifen] Box of 10 by Piramal",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4739331",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40718342,
+      "conceptName": "1 ML Alfentanil 5 MG/ML Injectable Solution [Rapifen] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP4739330",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40718343,
+      "conceptName": "1 ML Alfentanil 5 MG/ML Injectable Solution [Rapifen] by Piramal",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4739329",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40718344,
+      "conceptName": "1 ML Alfentanil 5 MG/ML Injectable Solution [Rapifen]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP4739328",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40718345,
+      "conceptName": "1 ML Alfentanil 0.5 MG/ML Injectable Solution Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP4739327",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40723813,
+      "conceptName": "Alfentanil 5 MG/ML Injectable Solution [Rapifen] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP4733212",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40723815,
+      "conceptName": "Alfentanil 5 MG/ML [Rapifen]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4733210",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40892586,
+      "conceptName": "Alfentanil 0.5 MG/ML [Alfentanil Hameln]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP2090548",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40900745,
+      "conceptName": "Alfentanil 0.25 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP2098707",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40958090,
+      "conceptName": "Alfentanil Injectable Solution [Alfentanil Hameln]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4943038",
+      "conceptCode": "OMOP2156052",
       "standardConcept": "S"
     },
     {
-      "conceptId": 35606189,
-      "conceptName": "alfentanil Injection",
-      "vocabularyId": "RxNorm",
+      "conceptId": 40975080,
+      "conceptName": "Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2173042",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40975081,
+      "conceptName": "Alfentanil 0.5 MG/ML Injectable Solution [Alfentanil Hameln] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2173043",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41025439,
+      "conceptName": "Alfentanil 0.25 MG/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2223401",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41037536,
+      "conceptName": "Alfentanil 0.5 MG/ML Injectable Solution [Alfentanil Hameln] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2235498",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41131577,
+      "conceptName": "Alfentanil 0.5 MG/ML Injectable Solution [Alfentanil Hameln]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2329539",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41181954,
+      "conceptName": "Alfentanil 0.5 MG/ML Injectable Solution Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2379916",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41264358,
+      "conceptName": "Alfentanil 0.25 MG/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP2462320",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41339227,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution [Alfentanil Hameln] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2537189",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41341833,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution [Alfentanil Hameln]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2539795",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41342510,
+      "conceptName": "2 ML Alfentanil 0.25 MG/ML Injectable Solution Box of 10 by Hameln",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2540472",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41343708,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2541670",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41344212,
+      "conceptName": "2 ML Alfentanil 0.25 MG/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2542174",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41344792,
+      "conceptName": "2 ML Alfentanil 0.25 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP2542754",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41345563,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2543525",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41346105,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution [Alfentanil Hameln] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2544067",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41361887,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution [Alfentanil Hameln]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2559849",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41365581,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2563543",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41368606,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution [Alfentanil Hameln] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2566568",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41370563,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2568525",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42479528,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP417360",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42480119,
+      "conceptName": "Alfentanil 0.5 MG/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP417359",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42480120,
+      "conceptName": "Alfentanil 5 MG/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP417362",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42480121,
+      "conceptName": "Alfentanil 5 MG/ML Prefilled Syringe [Rapifen Intensive Care]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP417363",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42481271,
+      "conceptName": "Alfentanil Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "1723205",
+      "conceptCode": "OMOP417357",
       "standardConcept": "S"
     },
     {
-      "conceptId": 35606195,
-      "conceptName": "alfentanil Injection [Alfenta]",
-      "vocabularyId": "RxNorm",
+      "conceptId": 42481272,
+      "conceptName": "Alfentanil Prefilled Syringe [Rapifen Intensive Care]",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Form",
-      "conceptCode": "1723217",
+      "conceptCode": "OMOP417358",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42483058,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP417361",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42683760,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 50 by Piramal",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4912779",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42683818,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 30 by Piramal",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4912721",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42921107,
+      "conceptName": "5 ML Alfentanil 0.5 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP4647943",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42921108,
+      "conceptName": "5 ML Alfentanil 0.5 MG/ML Injectable Solution [ALFENIL]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP4647944",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42921867,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution [HANA ALFENTANIL]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP4648686",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42931425,
+      "conceptName": "Alfentanil 0.5 MG/ML Injectable Solution [HANA ALFENTANIL]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4658188",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42931426,
+      "conceptName": "Alfentanil 0.5 MG/ML Injectable Solution [ALFENIL]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4658189",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42931427,
+      "conceptName": "Alfentanil 0.5 MG/ML [HANA ALFENTANIL]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4658190",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42931428,
+      "conceptName": "Alfentanil 0.5 MG/ML [ALFENIL]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4658191",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42931429,
+      "conceptName": "Alfentanil Injectable Solution [HANA ALFENTANIL]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP4658192",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42931430,
+      "conceptName": "Alfentanil Injectable Solution [ALFENIL]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP4658193",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43039574,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 5 by Piramal",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4854610",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43041552,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 10 by Piramal",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4856581",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43153202,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Prefilled Syringe [Rapifen] Box of 10 by Janssen",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP516020",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43163797,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Prefilled Syringe [Rapifen] Box of 5 by Janssen",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP510546",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43174781,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Prefilled Syringe [Rapifen] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP510545",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43197163,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Prefilled Syringe [Rapifen] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP516019",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43218553,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Prefilled Syringe Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP510543",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43264430,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injection [Rapifen] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP563537",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43268905,
+      "conceptName": "Alfentanil 0.5 MG/ML Injection Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP552801",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43269719,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injection [Rapifen]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP561434",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43275262,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injection Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP561432",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43275263,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injection [Rapifen] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP561435",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43275469,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injection Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP563535",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43279783,
+      "conceptName": "Alfentanil 0.5 MG/ML Injection [Rapifen]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP552802",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43285202,
+      "conceptName": "Alfentanil 0.5 MG/ML Injection [Rapifen] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP552803",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43286282,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injection [Rapifen]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP563536",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43296010,
+      "conceptName": "Alfentanil Injection [Rapifen]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP552799",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43516342,
+      "conceptName": "Alfentanil 0.5 MG/ML Injection Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2803457",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43518110,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injection Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2805225",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43518526,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injection Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2805641",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43610122,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution [Alfentanil Hameln] by Hameln",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP785063",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43622724,
+      "conceptName": "Alfentanil 0.5 MG/ML Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP669736",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43626867,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP753678",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43645050,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution [Alfentanil Hameln] Box of 5 by Hameln",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP753684",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43646318,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution [Alfentanil Hameln] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP785067",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43677072,
+      "conceptName": "Alfentanil 0.5 MG/ML Injectable Solution [Rapifen]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP669737",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43681067,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP753670",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43681068,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP753674",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43682319,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 10 by Janssen",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP785060",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43700343,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP785054",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43718060,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 5 by Janssen",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP785058",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43718061,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP785059",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43734327,
+      "conceptName": "1 ML Alfentanil 0.5 MG/ML Injectable Solution [Alfentanil Hameln]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP736272",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43748670,
+      "conceptName": "Alfentanil 0.5 MG/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP669742",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43752220,
+      "conceptName": "1 ML Alfentanil 0.5 MG/ML Injectable Solution [Alfentanil Hameln] by Hameln",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP736273",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43752812,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] by Janssen",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP753672",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43752813,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution [Alfentanil Hameln] Box of 10 by Hameln",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP753686",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43766688,
+      "conceptName": "Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP669738",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43772147,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution [Alfentanil Hameln] Box of 10 by Hameln",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP785068",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43788683,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP753671",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43802671,
+      "conceptName": "Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP669739",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43808092,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP785053",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43808093,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] by Janssen",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP785055",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43808094,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP785061",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43824928,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 5 by Janssen",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP753675",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43838840,
+      "conceptName": "Alfentanil Injectable Solution [Rapifen]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP669735",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43842394,
+      "conceptName": "1 ML Alfentanil 0.5 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP736271",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43842974,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP753676",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43842975,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution [Alfentanil Hameln] by Hameln",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP753680",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43844266,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution [Alfentanil Hameln] Box of 5 by Hameln",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP785065",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43861171,
+      "conceptName": "2 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 10 by Janssen",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP753677",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43862459,
+      "conceptName": "10 ML Alfentanil 0.5 MG/ML Injectable Solution [Rapifen] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP785056",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44065045,
+      "conceptName": "Alfentanil 0.5 MG/ML Injection by Sandoz",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP1059676",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44090699,
+      "conceptName": "Alfentanil 0.5 MG/ML Injection [Alfenta] by Janssen",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP1085330",
       "standardConcept": "S"
     }
   ]

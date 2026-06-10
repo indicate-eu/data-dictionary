@@ -1,24 +1,10 @@
 {
   "conceptSetId": 275,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
-    {
-      "conceptId": 4268280,
-      "conceptName": "Baseline weight",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "400967004",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4264825,
-      "conceptName": "Birth weight",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "364589006",
-      "standardConcept": "S"
-    },
     {
       "conceptId": 4099154,
       "conceptName": "Body weight",
@@ -26,6 +12,15 @@
       "domainId": "Measurement",
       "conceptClassId": "Observable Entity",
       "conceptCode": "27113001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4175354,
+      "conceptName": "Body weight without shoes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "425024002",
       "standardConcept": "S"
     },
     {
@@ -47,48 +42,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4175354,
-      "conceptName": "Body weight without shoes",
+      "conceptId": 37160439,
+      "conceptName": "Pre-amputation measured body weight",
       "vocabularyId": "SNOMED",
       "domainId": "Measurement",
       "conceptClassId": "Observable Entity",
-      "conceptCode": "425024002",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42536495,
-      "conceptName": "Current body weight",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "735395000",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37160426,
-      "conceptName": "Dosing body weight",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "1162388008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40484200,
-      "conceptName": "Dry body weight",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "445541000",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40480593,
-      "conceptName": "Estimated weight using Broselow Luten pediatric weight estimation",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "443245006",
+      "conceptCode": "1162416001",
       "standardConcept": "S"
     },
     {
@@ -101,24 +60,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 37160437,
-      "conceptName": "Pre-amputation estimated body weight",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "1162414003",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37160439,
-      "conceptName": "Pre-amputation measured body weight",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "1162416001",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 37160447,
       "conceptName": "Pre-dialysis body weight",
       "vocabularyId": "SNOMED",
@@ -128,39 +69,21 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4093981,
-      "conceptName": "Previous well-weight",
+      "conceptId": 40484200,
+      "conceptName": "Dry body weight",
       "vocabularyId": "SNOMED",
       "domainId": "Measurement",
       "conceptClassId": "Observable Entity",
-      "conceptCode": "248351003",
+      "conceptCode": "445541000",
       "standardConcept": "S"
     },
     {
-      "conceptId": 37205098,
-      "conceptName": "Self reported body weight",
+      "conceptId": 42536495,
+      "conceptName": "Current body weight",
       "vocabularyId": "SNOMED",
       "domainId": "Measurement",
       "conceptClassId": "Observable Entity",
-      "conceptCode": "784399000",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37164397,
-      "conceptName": "Self reported peak body weight",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "1230277003",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37160427,
-      "conceptName": "Self reported pre-pregnancy body weight",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "1162389000",
+      "conceptCode": "735395000",
       "standardConcept": "S"
     }
   ]

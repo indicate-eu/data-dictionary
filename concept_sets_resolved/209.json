@@ -1,15 +1,10 @@
 {
   "conceptSetId": 209,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80"
+  },
   "resolvedConcepts": [
-    {
-      "conceptId": 3006916,
-      "conceptName": "Magnesium [Mass/volume] in Blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "21377-7",
-      "standardConcept": "S"
-    },
     {
       "conceptId": 3001420,
       "conceptName": "Magnesium [Mass/volume] in Serum or Plasma",
@@ -20,12 +15,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 3033836,
-      "conceptName": "Magnesium [Moles/volume] in Blood",
+      "conceptId": 3006916,
+      "conceptName": "Magnesium [Mass/volume] in Blood",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
-      "conceptCode": "2593-2",
+      "conceptCode": "21377-7",
       "standardConcept": "S"
     },
     {
@@ -38,13 +33,22 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 40759058,
-      "conceptName": "Magnesium [Moles/volume] in Serum or Plasma --post dialysis",
+      "conceptId": 3033836,
+      "conceptName": "Magnesium [Moles/volume] in Blood",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
-      "conceptCode": "55937-7",
+      "conceptCode": "2593-2",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 37062081,
+      "conceptName": "Magnesium | Serum or Plasma | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP386028-7",
+      "standardConcept": "C"
     },
     {
       "conceptId": 37064897,
@@ -56,13 +60,13 @@
       "standardConcept": "C"
     },
     {
-      "conceptId": 37062081,
-      "conceptName": "Magnesium | Serum or Plasma | Chemistry - non-challenge",
+      "conceptId": 40759058,
+      "conceptName": "Magnesium [Moles/volume] in Serum or Plasma --post dialysis",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP386028-7",
-      "standardConcept": "C"
+      "conceptClassId": "Lab Test",
+      "conceptCode": "55937-7",
+      "standardConcept": "S"
     }
   ]
 }

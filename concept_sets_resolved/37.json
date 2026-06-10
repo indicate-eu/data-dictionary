@@ -1,24 +1,10 @@
 {
   "conceptSetId": 37,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "RxNorm": "RxNorm 20260105"
+  },
   "resolvedConcepts": [
-    {
-      "conceptId": 1592997,
-      "conceptName": "Bevyxxa Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1927860",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 1592998,
-      "conceptName": "Bevyxxa Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1927861",
-      "standardConcept": "C"
-    },
     {
       "conceptId": 1592988,
       "conceptName": "betrixaban",
@@ -38,6 +24,33 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 1592990,
+      "conceptName": "betrixaban Oral Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Dose Group",
+      "conceptCode": "1927853",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 1592991,
+      "conceptName": "betrixaban Pill",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Dose Group",
+      "conceptCode": "1927854",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 1592992,
+      "conceptName": "betrixaban Oral Capsule",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "1927855",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 1592993,
       "conceptName": "betrixaban 40 MG Oral Capsule",
       "vocabularyId": "RxNorm",
@@ -47,21 +60,48 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 1592999,
-      "conceptName": "betrixaban 40 MG Oral Capsule [Bevyxxa]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "1927862",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 1592995,
       "conceptName": "betrixaban 40 MG [Bevyxxa]",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Comp",
       "conceptCode": "1927858",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1592996,
+      "conceptName": "betrixaban Oral Capsule [Bevyxxa]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "1927859",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1592997,
+      "conceptName": "Bevyxxa Oral Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Dose Group",
+      "conceptCode": "1927860",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 1592998,
+      "conceptName": "Bevyxxa Pill",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Dose Group",
+      "conceptCode": "1927861",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 1592999,
+      "conceptName": "betrixaban 40 MG Oral Capsule [Bevyxxa]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "1927862",
       "standardConcept": "S"
     },
     {
@@ -83,15 +123,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 1593003,
-      "conceptName": "betrixaban 80 MG Oral Capsule [Bevyxxa]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "1927866",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 1593002,
       "conceptName": "betrixaban 80 MG [Bevyxxa]",
       "vocabularyId": "RxNorm",
@@ -101,40 +132,13 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 1592992,
-      "conceptName": "betrixaban Oral Capsule",
+      "conceptId": 1593003,
+      "conceptName": "betrixaban 80 MG Oral Capsule [Bevyxxa]",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "1927855",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "1927866",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 1592996,
-      "conceptName": "betrixaban Oral Capsule [Bevyxxa]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "1927859",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1592990,
-      "conceptName": "betrixaban Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1927853",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 1592991,
-      "conceptName": "betrixaban Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1927854",
-      "standardConcept": "C"
     }
   ]
 }

@@ -1,13 +1,80 @@
 {
   "conceptSetId": 245,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
     {
-      "conceptId": 40480223,
-      "conceptName": "Lysinibacillus",
+      "conceptId": 601808,
+      "conceptName": "Lysinibacillus antri",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "444611003",
+      "conceptCode": "471191000124106",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4179088,
+      "conceptName": "Lysinibacillus odysseyi",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "428958007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4186714,
+      "conceptName": "Lysinibacillus macroides",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "413620008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36712899,
+      "conceptName": "Lysinibacillus contaminans",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "14421000146106",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36712900,
+      "conceptName": "Lysinibacillus manganicus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "14431000146108",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37155063,
+      "conceptName": "Lysinibacillus composti",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "24731000181107",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37155533,
+      "conceptName": "Lysinibacillus endophyticus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "24741000181100",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37158771,
+      "conceptName": "Lysinibacillus yapensis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "1269284007",
       "standardConcept": "S"
     },
     {
@@ -20,12 +87,48 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 601808,
-      "conceptName": "Lysinibacillus antri",
+      "conceptId": 37159311,
+      "conceptName": "Lysinibacillus parviboronicapiens",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "471191000124106",
+      "conceptCode": "24751000181102",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40480223,
+      "conceptName": "Lysinibacillus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "444611003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40482047,
+      "conceptName": "Ureibacillus massiliensis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "445083002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40484255,
+      "conceptName": "Lysinibacillus sphaericus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "445591001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40484284,
+      "conceptName": "Lysinibacillus fusiformis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "445617008",
       "standardConcept": "S"
     },
     {
@@ -47,111 +150,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 37155063,
-      "conceptName": "Lysinibacillus composti",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "24731000181107",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36712899,
-      "conceptName": "Lysinibacillus contaminans",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "14421000146106",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37155533,
-      "conceptName": "Lysinibacillus endophyticus",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "24741000181100",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40484284,
-      "conceptName": "Lysinibacillus fusiformis",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "445617008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4186714,
-      "conceptName": "Lysinibacillus macroides",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "413620008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36712900,
-      "conceptName": "Lysinibacillus manganicus",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "14431000146108",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4179088,
-      "conceptName": "Lysinibacillus odysseyi",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "428958007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37159311,
-      "conceptName": "Lysinibacillus parviboronicapiens",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "24751000181102",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40484255,
-      "conceptName": "Lysinibacillus sphaericus",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "445591001",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 42872423,
       "conceptName": "Lysinibacillus xylanilyticus",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "450414001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37158771,
-      "conceptName": "Lysinibacillus yapensis",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1269284007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40482047,
-      "conceptName": "Ureibacillus massiliensis",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "445083002",
       "standardConcept": "S"
     }
   ]

@@ -1,15 +1,10 @@
 {
   "conceptSetId": 265,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
-    {
-      "conceptId": 4246822,
-      "conceptName": "Streptococcus dysgalactiae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "40812000",
-      "standardConcept": "S"
-    },
     {
       "conceptId": 4015113,
       "conceptName": "Streptococcus dysgalactiae subsp. dysgalactiae",
@@ -26,6 +21,15 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "128338004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4246822,
+      "conceptName": "Streptococcus dysgalactiae",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "40812000",
       "standardConcept": "S"
     }
   ]

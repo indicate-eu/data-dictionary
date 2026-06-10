@@ -1,13 +1,26 @@
 {
   "conceptSetId": 242,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
     {
-      "conceptId": 37151800,
-      "conceptName": "AmpC beta-lactamase producing Klebsiella oxytoca",
+      "conceptId": 1244054,
+      "conceptName": "Carbapenemase-producing Klebsiella oxytoca",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "1097401000112108",
+      "conceptCode": "51271000087100",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4254213,
+      "conceptName": "Klebsiella oxytoca",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "40886007",
       "standardConcept": "S"
     },
     {
@@ -20,15 +33,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 1244054,
-      "conceptName": "Carbapenemase-producing Klebsiella oxytoca",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "51271000087100",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 37017621,
       "conceptName": "Extended spectrum beta-lactamase producing Klebsiella oxytoca",
       "vocabularyId": "SNOMED",
@@ -38,12 +42,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4254213,
-      "conceptName": "Klebsiella oxytoca",
+      "conceptId": 37151800,
+      "conceptName": "AmpC beta-lactamase producing Klebsiella oxytoca",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "40886007",
+      "conceptCode": "1097401000112108",
       "standardConcept": "S"
     }
   ]

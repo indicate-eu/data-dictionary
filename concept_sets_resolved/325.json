@@ -1,6 +1,29 @@
 {
   "conceptSetId": 325,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
+    {
+      "conceptId": 3000333,
+      "conceptName": "Central venous pressure (CVP) Mean",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "8591-0",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4182861,
+      "conceptName": "Measurement of central venous pressure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Procedure",
+      "conceptCode": "54654001",
+      "standardConcept": null
+    },
     {
       "conceptId": 4323687,
       "conceptName": "Central venous pressure",
@@ -29,15 +52,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 3000333,
-      "conceptName": "Central venous pressure (CVP) Mean",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "8591-0",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 21490677,
       "conceptName": "Central venous pressure (CVP) Systolic",
       "vocabularyId": "LOINC",
@@ -45,15 +59,6 @@
       "conceptClassId": "Clinical Observation",
       "conceptCode": "60987-5",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 4182861,
-      "conceptName": "Measurement of central venous pressure",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Procedure",
-      "conceptCode": "54654001",
-      "standardConcept": null
     }
   ]
 }

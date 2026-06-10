@@ -1,15 +1,10 @@
 {
   "conceptSetId": 182,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80"
+  },
   "resolvedConcepts": [
-    {
-      "conceptId": 3031569,
-      "conceptName": "Natriuretic peptide B [Mass/volume] in Blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "42637-9",
-      "standardConcept": "S"
-    },
     {
       "conceptId": 3011960,
       "conceptName": "Natriuretic peptide B [Mass/volume] in Serum or Plasma",
@@ -17,6 +12,15 @@
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
       "conceptCode": "30934-4",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3031569,
+      "conceptName": "Natriuretic peptide B [Mass/volume] in Blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "42637-9",
       "standardConcept": "S"
     },
     {

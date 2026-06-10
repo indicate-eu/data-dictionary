@@ -1,6 +1,20 @@
 {
   "conceptSetId": 302,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
+    {
+      "conceptId": 3005629,
+      "conceptName": "Inhaled oxygen flow rate",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "3151-8",
+      "standardConcept": "S"
+    },
     {
       "conceptId": 4141684,
       "conceptName": "Delivered oxygen flow rate",
@@ -17,15 +31,6 @@
       "domainId": "Measurement",
       "conceptClassId": "Observable Entity",
       "conceptCode": "698833004",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3005629,
-      "conceptName": "Inhaled oxygen flow rate",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "3151-8",
       "standardConcept": "S"
     }
   ]

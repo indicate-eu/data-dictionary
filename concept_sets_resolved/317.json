@@ -1,69 +1,11 @@
 {
   "conceptSetId": 317,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
-    {
-      "conceptId": 4144329,
-      "conceptName": "Expiratory minute volume",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "426168008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42527120,
-      "conceptName": "Expired minute Volume during Mechanical ventilation",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "76008-2",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4141207,
-      "conceptName": "Inspiratory minute volume",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "426102006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21490754,
-      "conceptName": "Inspired minute Volume",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "75960-5",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42527121,
-      "conceptName": "Inspired minute Volume during Mechanical ventilation",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "76009-0",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4108447,
-      "conceptName": "Mandatory minute volume",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "250815008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4353621,
-      "conceptName": "Minute volume",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "250811004",
-      "standardConcept": "S"
-    },
     {
       "conceptId": 3045410,
       "conceptName": "Minute volume setting Ventilator",
@@ -71,15 +13,6 @@
       "domainId": "Measurement",
       "conceptClassId": "Clinical Observation",
       "conceptCode": "33425-0",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4108000,
-      "conceptName": "Spontaneous minute volume",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "250813001",
       "standardConcept": "S"
     },
     {
@@ -92,12 +25,84 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 4108000,
+      "conceptName": "Spontaneous minute volume",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "250813001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4108447,
+      "conceptName": "Mandatory minute volume",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "250815008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4141207,
+      "conceptName": "Inspiratory minute volume",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "426102006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4144329,
+      "conceptName": "Expiratory minute volume",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "426168008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4353621,
+      "conceptName": "Minute volume",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "250811004",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4353945,
       "conceptName": "Triggered minute volume",
       "vocabularyId": "SNOMED",
       "domainId": "Measurement",
       "conceptClassId": "Observable Entity",
       "conceptCode": "250814007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21490754,
+      "conceptName": "Inspired minute Volume",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "75960-5",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42527120,
+      "conceptName": "Expired minute Volume during Mechanical ventilation",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "76008-2",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42527121,
+      "conceptName": "Inspired minute Volume during Mechanical ventilation",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "76009-0",
       "standardConcept": "S"
     }
   ]

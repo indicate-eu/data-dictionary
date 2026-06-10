@@ -1,49 +1,342 @@
 {
   "conceptSetId": 50,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "RxNorm": "RxNorm 20260105",
+    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+  },
   "resolvedConcepts": [
     {
-      "conceptId": 41406355,
-      "conceptName": "0.4 ML lepirudin 50 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP2604317",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41407095,
-      "conceptName": "0.4 ML lepirudin 50 MG/ML Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2605057",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41406742,
-      "conceptName": "0.4 ML lepirudin 50 MG/ML Injectable Solution [Refludan]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2604704",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41406987,
-      "conceptName": "0.4 ML lepirudin 50 MG/ML Injectable Solution [Refludan] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2604949",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41406397,
-      "conceptName": "0.4 ML lepirudin 50 MG/ML Injectable Solution [Refludan] Box of 10 by Celgene",
+      "conceptId": 2041735,
+      "conceptName": "lepirudin 50 MG Injection [Refludan] by Celgene",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2604359",
+      "conceptCode": "OMOP4941445",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2041736,
+      "conceptName": "lepirudin 50 MG Injection [Refludan]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4941446",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2041737,
+      "conceptName": "lepirudin Injection [Refludan]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP4941447",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19023526,
+      "conceptName": "lepirudin 50 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "200322",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19092139,
+      "conceptName": "lepirudin",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Ingredient",
+      "conceptCode": "237057",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19092140,
+      "conceptName": "lepirudin 50 MG/ML Injectable Solution [Refludan]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "226437",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19092161,
+      "conceptName": "lepirudin 50 MG/ML",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "335132",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19120487,
+      "conceptName": "lepirudin 50 MG/ML [Refludan]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "573990",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21043483,
+      "conceptName": "lepirudin 50 MG Injection Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP377217",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21073007,
+      "conceptName": "lepirudin 50 MG",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP377213",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21082680,
+      "conceptName": "lepirudin 50 MG [Refludan]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP377214",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21112177,
+      "conceptName": "lepirudin 50 MG Injection",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP377215",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35743756,
+      "conceptName": "lepirudin 50 MG Injectable Suspension [Refludan] by Celgene",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2745217",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35752067,
+      "conceptName": "lepirudin 50 MG Injectable Suspension [Refludan] Box of 1 by Celgene",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2753528",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35752068,
+      "conceptName": "lepirudin 50 MG Prefilled Syringe [Refludan] by Celgene",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2753529",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35754567,
+      "conceptName": "lepirudin 50 MG Prefilled Syringe [Refludan] Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2756028",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35754568,
+      "conceptName": "lepirudin 50 MG Injectable Suspension [Refludan] Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2756029",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35756313,
+      "conceptName": "lepirudin 50 MG Prefilled Syringe [Refludan] Box of 1 by Celgene",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2757774",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35758195,
+      "conceptName": "lepirudin 50 MG Prefilled Syringe Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2759656",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35766490,
+      "conceptName": "lepirudin 50 MG Injectable Suspension Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2767951",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36219867,
+      "conceptName": "lepirudin Injectable Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Dose Group",
+      "conceptCode": "1163190",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36230875,
+      "conceptName": "Refludan Injectable Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Dose Group",
+      "conceptCode": "1179586",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36404011,
+      "conceptName": "lepirudin 50 MG Injectable Solution [Refludan] by Celgene",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3096053",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36405314,
+      "conceptName": "lepirudin 50 MG Injectable Solution [Refludan] Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP3097356",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36407650,
+      "conceptName": "lepirudin 50 MG Injectable Solution [Refludan]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP3099692",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36408175,
+      "conceptName": "lepirudin 50 MG Injectable Solution Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP3100217",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36408604,
+      "conceptName": "lepirudin 50 MG Injectable Solution [Refludan] Box of 1 by Celgene",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3100646",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36408950,
+      "conceptName": "lepirudin 50 MG Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP3100992",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36883971,
+      "conceptName": "lepirudin 50 MG Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP996876",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36887556,
+      "conceptName": "lepirudin Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP989965",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36887603,
+      "conceptName": "lepirudin Prefilled Syringe [Refludan]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP992495",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36890001,
+      "conceptName": "lepirudin 50 MG Prefilled Syringe [Refludan]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP999638",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40058579,
+      "conceptName": "lepirudin Injectable Solution",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "376893",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40058580,
+      "conceptName": "lepirudin Injectable Solution [Refludan]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "363452",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40844255,
+      "conceptName": "lepirudin 50 MG/ML Injectable Solution [Refludan] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2042217",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41022337,
+      "conceptName": "lepirudin 50 MG/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2220299",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41329138,
+      "conceptName": "1 ML lepirudin 50 MG/ML Injectable Solution [Refludan] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2527100",
       "standardConcept": "S"
     },
     {
@@ -65,24 +358,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 41337824,
-      "conceptName": "1 ML lepirudin 50 MG/ML Injectable Solution [Refludan]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2535786",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41329138,
-      "conceptName": "1 ML lepirudin 50 MG/ML Injectable Solution [Refludan] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2527100",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 41337430,
       "conceptName": "1 ML lepirudin 50 MG/ML Injectable Solution [Refludan] Box of 10 by Celgene",
       "vocabularyId": "RxNorm Extension",
@@ -92,390 +367,57 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36230875,
-      "conceptName": "Refludan Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1179586",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 19092139,
-      "conceptName": "lepirudin",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Ingredient",
-      "conceptCode": "237057",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21073007,
-      "conceptName": "lepirudin 50 MG",
+      "conceptId": 41337824,
+      "conceptName": "1 ML lepirudin 50 MG/ML Injectable Solution [Refludan]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP377213",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2535786",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36408950,
-      "conceptName": "lepirudin 50 MG Injectable Solution",
+      "conceptId": 41406355,
+      "conceptName": "0.4 ML lepirudin 50 MG/ML Injectable Solution",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP3100992",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP2604317",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36408175,
-      "conceptName": "lepirudin 50 MG Injectable Solution Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP3100217",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36407650,
-      "conceptName": "lepirudin 50 MG Injectable Solution [Refludan]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP3099692",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36405314,
-      "conceptName": "lepirudin 50 MG Injectable Solution [Refludan] Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP3097356",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36408604,
-      "conceptName": "lepirudin 50 MG Injectable Solution [Refludan] Box of 1 by Celgene",
+      "conceptId": 41406397,
+      "conceptName": "0.4 ML lepirudin 50 MG/ML Injectable Solution [Refludan] Box of 10 by Celgene",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3100646",
+      "conceptCode": "OMOP2604359",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36404011,
-      "conceptName": "lepirudin 50 MG Injectable Solution [Refludan] by Celgene",
+      "conceptId": 41406742,
+      "conceptName": "0.4 ML lepirudin 50 MG/ML Injectable Solution [Refludan]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3096053",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2604704",
       "standardConcept": "S"
     },
     {
-      "conceptId": 44071379,
-      "conceptName": "lepirudin 50 MG Injectable Suspension",
+      "conceptId": 41406987,
+      "conceptName": "0.4 ML lepirudin 50 MG/ML Injectable Solution [Refludan] Box of 10",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP1066010",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2604949",
       "standardConcept": "S"
     },
     {
-      "conceptId": 35766490,
-      "conceptName": "lepirudin 50 MG Injectable Suspension Box of 1",
+      "conceptId": 41407095,
+      "conceptName": "0.4 ML lepirudin 50 MG/ML Injectable Solution Box of 10",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2767951",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44110033,
-      "conceptName": "lepirudin 50 MG Injectable Suspension Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP1104664",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44086134,
-      "conceptName": "lepirudin 50 MG Injectable Suspension [Refludan]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP1080765",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35754568,
-      "conceptName": "lepirudin 50 MG Injectable Suspension [Refludan] Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2756029",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35752067,
-      "conceptName": "lepirudin 50 MG Injectable Suspension [Refludan] Box of 1 by Celgene",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2753528",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44099102,
-      "conceptName": "lepirudin 50 MG Injectable Suspension [Refludan] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP1093733",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44075964,
-      "conceptName": "lepirudin 50 MG Injectable Suspension [Refludan] Box of 10 by Bayer",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP1070595",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35743756,
-      "conceptName": "lepirudin 50 MG Injectable Suspension [Refludan] by Celgene",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2745217",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21112177,
-      "conceptName": "lepirudin 50 MG Injection",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP377215",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21043483,
-      "conceptName": "lepirudin 50 MG Injection Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP377217",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2041736,
-      "conceptName": "lepirudin 50 MG Injection [Refludan]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4941446",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2041735,
-      "conceptName": "lepirudin 50 MG Injection [Refludan] by Celgene",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4941445",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36883971,
-      "conceptName": "lepirudin 50 MG Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP996876",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35758195,
-      "conceptName": "lepirudin 50 MG Prefilled Syringe Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2759656",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43183401,
-      "conceptName": "lepirudin 50 MG Prefilled Syringe Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP487945",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36890001,
-      "conceptName": "lepirudin 50 MG Prefilled Syringe [Refludan]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP999638",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35754567,
-      "conceptName": "lepirudin 50 MG Prefilled Syringe [Refludan] Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2756028",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35756313,
-      "conceptName": "lepirudin 50 MG Prefilled Syringe [Refludan] Box of 1 by Celgene",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2757774",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43216268,
-      "conceptName": "lepirudin 50 MG Prefilled Syringe [Refludan] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP487946",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43150328,
-      "conceptName": "lepirudin 50 MG Prefilled Syringe [Refludan] Box of 10 by Celgene",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP487947",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35752068,
-      "conceptName": "lepirudin 50 MG Prefilled Syringe [Refludan] by Celgene",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2753529",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21082680,
-      "conceptName": "lepirudin 50 MG [Refludan]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP377214",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19092161,
-      "conceptName": "lepirudin 50 MG/ML",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "335132",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19023526,
-      "conceptName": "lepirudin 50 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "200322",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41022337,
-      "conceptName": "lepirudin 50 MG/ML Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2220299",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19092140,
-      "conceptName": "lepirudin 50 MG/ML Injectable Solution [Refludan]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "226437",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40844255,
-      "conceptName": "lepirudin 50 MG/ML Injectable Solution [Refludan] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2042217",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19120487,
-      "conceptName": "lepirudin 50 MG/ML [Refludan]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "573990",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36219867,
-      "conceptName": "lepirudin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1163190",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 40058579,
-      "conceptName": "lepirudin Injectable Solution",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "376893",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40058580,
-      "conceptName": "lepirudin Injectable Solution [Refludan]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "363452",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44094518,
-      "conceptName": "lepirudin Injectable Suspension",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP1089149",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44121646,
-      "conceptName": "lepirudin Injectable Suspension [Refludan]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP1116277",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2605057",
       "standardConcept": "S"
     },
     {
@@ -488,30 +430,93 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 2041737,
-      "conceptName": "lepirudin Injection [Refludan]",
+      "conceptId": 43150328,
+      "conceptName": "lepirudin 50 MG Prefilled Syringe [Refludan] Box of 10 by Celgene",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4941447",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP487947",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36887556,
-      "conceptName": "lepirudin Prefilled Syringe",
+      "conceptId": 43183401,
+      "conceptName": "lepirudin 50 MG Prefilled Syringe Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP487945",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43216268,
+      "conceptName": "lepirudin 50 MG Prefilled Syringe [Refludan] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP487946",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44071379,
+      "conceptName": "lepirudin 50 MG Injectable Suspension",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP1066010",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44075964,
+      "conceptName": "lepirudin 50 MG Injectable Suspension [Refludan] Box of 10 by Bayer",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP1070595",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44086134,
+      "conceptName": "lepirudin 50 MG Injectable Suspension [Refludan]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP1080765",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44094518,
+      "conceptName": "lepirudin Injectable Suspension",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP989965",
+      "conceptCode": "OMOP1089149",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36887603,
-      "conceptName": "lepirudin Prefilled Syringe [Refludan]",
+      "conceptId": 44099102,
+      "conceptName": "lepirudin 50 MG Injectable Suspension [Refludan] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP1093733",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44110033,
+      "conceptName": "lepirudin 50 MG Injectable Suspension Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP1104664",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44121646,
+      "conceptName": "lepirudin Injectable Suspension [Refludan]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP992495",
+      "conceptCode": "OMOP1116277",
       "standardConcept": "S"
     }
   ]

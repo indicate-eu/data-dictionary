@@ -1,15 +1,10 @@
 {
   "conceptSetId": 222,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80"
+  },
   "resolvedConcepts": [
-    {
-      "conceptId": 3034734,
-      "conceptName": "Urea [Mass/volume] in Urine",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "3092-4",
-      "standardConcept": "S"
-    },
     {
       "conceptId": 3012898,
       "conceptName": "Urea [Moles/volume] in Urine",
@@ -17,6 +12,15 @@
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
       "conceptCode": "22700-9",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3034734,
+      "conceptName": "Urea [Mass/volume] in Urine",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "3092-4",
       "standardConcept": "S"
     },
     {

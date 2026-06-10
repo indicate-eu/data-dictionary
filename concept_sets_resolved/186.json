@@ -1,5 +1,9 @@
 {
   "conceptSetId": 186,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80"
+  },
   "resolvedConcepts": [
     {
       "conceptId": 3004905,
@@ -9,6 +13,15 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "3040-3",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 37021730,
+      "conceptName": "Triacylglycerol lipase | Serum or Plasma | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP383262-5",
+      "standardConcept": "C"
     }
   ]
 }

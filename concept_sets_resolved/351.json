@@ -1,24 +1,10 @@
 {
   "conceptSetId": 351,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80"
+  },
   "resolvedConcepts": [
-    {
-      "conceptId": 3020059,
-      "conceptName": "Calcium [Moles/volume] corrected for albumin in Serum or Plasma",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "29265-6",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3047107,
-      "conceptName": "Calcium [Mass/volume] corrected for albumin in Serum or Plasma",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "46099-8",
-      "standardConcept": "S"
-    },
     {
       "conceptId": 3004064,
       "conceptName": "Calcium [Moles/volume] corrected for total protein in Serum or Plasma",
@@ -29,12 +15,30 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 3020059,
+      "conceptName": "Calcium [Moles/volume] corrected for albumin in Serum or Plasma",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "29265-6",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 3030597,
       "conceptName": "Calcium [Mass/volume] corrected for total protein in Serum or Plasma",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
       "conceptCode": "34907-6",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3047107,
+      "conceptName": "Calcium [Mass/volume] corrected for albumin in Serum or Plasma",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "46099-8",
       "standardConcept": "S"
     },
     {

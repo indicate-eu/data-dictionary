@@ -1,5 +1,9 @@
 {
   "conceptSetId": 226,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
     {
       "conceptId": 3657162,
@@ -17,15 +21,6 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "1089901000112108",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37155969,
-      "conceptName": "Carbapenemase-producing Citrobacter freundii complex",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "44601000087107",
       "standardConcept": "S"
     },
     {
@@ -56,42 +51,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4269070,
-      "conceptName": "Citrobacter freundii",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "6265002",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36684336,
-      "conceptName": "Citrobacter freundii complex",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "782522004",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4220438,
-      "conceptName": "Citrobacter gillenii",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "416990006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4221194,
-      "conceptName": "Citrobacter murliniae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "417581000",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 4016449,
       "conceptName": "Citrobacter sedlakii",
       "vocabularyId": "SNOMED",
@@ -119,12 +78,57 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 4220438,
+      "conceptName": "Citrobacter gillenii",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "416990006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4221194,
+      "conceptName": "Citrobacter murliniae",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "417581000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4269070,
+      "conceptName": "Citrobacter freundii",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "6265002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36684336,
+      "conceptName": "Citrobacter freundii complex",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "782522004",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 36716066,
       "conceptName": "ESBL Citrobacter freundii",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "721909006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37155969,
+      "conceptName": "Carbapenemase-producing Citrobacter freundii complex",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "44601000087107",
       "standardConcept": "S"
     },
     {

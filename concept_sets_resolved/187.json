@@ -1,14 +1,27 @@
 {
   "conceptSetId": 187,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80"
+  },
   "resolvedConcepts": [
     {
-      "conceptId": 42870364,
-      "conceptName": "Natriuretic peptide.B prohormone N-Terminal [Mass/volume] in Blood by Immunoassay",
+      "conceptId": 1469712,
+      "conceptName": "Natriuretic peptide.B prohormone N-Terminal [Mass/volume] in Serum, Plasma or Blood by Rapid immunoassay",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
-      "conceptCode": "71425-3",
+      "conceptCode": "106735-4",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 1470767,
+      "conceptName": "Natriuretic peptide.B prohormone N-Terminal | Serum, Plasma or Blood | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP444069-1",
+      "standardConcept": "C"
     },
     {
       "conceptId": 3029187,
@@ -17,24 +30,6 @@
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
       "conceptCode": "33762-6",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42529224,
-      "conceptName": "Natriuretic peptide.B prohormone N-Terminal [Mass/volume] in Serum or Plasma by Immunoassay",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "83107-3",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1469712,
-      "conceptName": "Natriuretic peptide.B prohormone N-Terminal [Mass/volume] in Serum, Plasma or Blood by Rapid immunoassay",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "106735-4",
       "standardConcept": "S"
     },
     {
@@ -47,13 +42,13 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 42529225,
-      "conceptName": "Natriuretic peptide.B prohormone N-Terminal [Moles/volume] in Serum or Plasma by Immunoassay",
+      "conceptId": 37059079,
+      "conceptName": "Natriuretic peptide.B prohormone N-Terminal | Serum or Plasma | Chemistry - non-challenge",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "83108-1",
-      "standardConcept": "S"
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP385939-6",
+      "standardConcept": "C"
     },
     {
       "conceptId": 37072564,
@@ -65,22 +60,31 @@
       "standardConcept": "C"
     },
     {
-      "conceptId": 37059079,
-      "conceptName": "Natriuretic peptide.B prohormone N-Terminal | Serum or Plasma | Chemistry - non-challenge",
+      "conceptId": 42529224,
+      "conceptName": "Natriuretic peptide.B prohormone N-Terminal [Mass/volume] in Serum or Plasma by Immunoassay",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP385939-6",
-      "standardConcept": "C"
+      "conceptClassId": "Lab Test",
+      "conceptCode": "83107-3",
+      "standardConcept": "S"
     },
     {
-      "conceptId": 1470767,
-      "conceptName": "Natriuretic peptide.B prohormone N-Terminal | Serum, Plasma or Blood | Chemistry - non-challenge",
+      "conceptId": 42529225,
+      "conceptName": "Natriuretic peptide.B prohormone N-Terminal [Moles/volume] in Serum or Plasma by Immunoassay",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP444069-1",
-      "standardConcept": "C"
+      "conceptClassId": "Lab Test",
+      "conceptCode": "83108-1",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42870364,
+      "conceptName": "Natriuretic peptide.B prohormone N-Terminal [Mass/volume] in Blood by Immunoassay",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "71425-3",
+      "standardConcept": "S"
     }
   ]
 }

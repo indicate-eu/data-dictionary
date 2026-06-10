@@ -1,213 +1,11 @@
 {
   "conceptSetId": 45,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "RxNorm": "RxNorm 20260105",
+    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+  },
   "resolvedConcepts": [
-    {
-      "conceptId": 36248614,
-      "conceptName": "Savaysa Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1599547",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36248615,
-      "conceptName": "Savaysa Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1599548",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 45892847,
-      "conceptName": "edoxaban",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Ingredient",
-      "conceptCode": "1599538",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 45892848,
-      "conceptName": "edoxaban 15 MG",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "1599539",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36787912,
-      "conceptName": "edoxaban 15 MG Delayed Release Oral Tablet",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP4776175",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36787911,
-      "conceptName": "edoxaban 15 MG Delayed Release Oral Tablet Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP4776174",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36787910,
-      "conceptName": "edoxaban 15 MG Delayed Release Oral Tablet [Lixiana]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4776173",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36787909,
-      "conceptName": "edoxaban 15 MG Delayed Release Oral Tablet [Lixiana] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP4776172",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36787908,
-      "conceptName": "edoxaban 15 MG Delayed Release Oral Tablet [Lixiana] Box of 10 by Daiichi Sankyo",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4776171",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35141149,
-      "conceptName": "edoxaban 15 MG Disintegrating Oral Tablet",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP4798279",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35134327,
-      "conceptName": "edoxaban 15 MG Disintegrating Oral Tablet [Lixiana]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4791530",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 45892850,
-      "conceptName": "edoxaban 15 MG Oral Tablet",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "1599543",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21139734,
-      "conceptName": "edoxaban 15 MG Oral Tablet Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP344227",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21071147,
-      "conceptName": "edoxaban 15 MG Oral Tablet [Lixiana]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP344228",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21071148,
-      "conceptName": "edoxaban 15 MG Oral Tablet [Lixiana] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP344232",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21041626,
-      "conceptName": "edoxaban 15 MG Oral Tablet [Lixiana] Box of 10 by Daiichi Sankyo",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP344233",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21120045,
-      "conceptName": "edoxaban 15 MG Oral Tablet [Lixiana] by Daiichi Sankyo",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP344229",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 45892854,
-      "conceptName": "edoxaban 15 MG Oral Tablet [Savaysa]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "1599549",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21159531,
-      "conceptName": "edoxaban 15 MG [Lixiana]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP344226",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 45892852,
-      "conceptName": "edoxaban 15 MG [Savaysa]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "1599545",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 45892855,
-      "conceptName": "edoxaban 30 MG",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "1599550",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36787920,
-      "conceptName": "edoxaban 30 MG Delayed Release Oral Tablet",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP4776183",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36787919,
-      "conceptName": "edoxaban 30 MG Delayed Release Oral Tablet Box of 28",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP4776182",
-      "standardConcept": "S"
-    },
     {
       "conceptId": 1971034,
       "conceptName": "edoxaban 30 MG Delayed Release Oral Tablet Box of 90",
@@ -215,42 +13,6 @@
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Box",
       "conceptCode": "OMOP5163612",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36787918,
-      "conceptName": "edoxaban 30 MG Delayed Release Oral Tablet Box of 98",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP4776181",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36787917,
-      "conceptName": "edoxaban 30 MG Delayed Release Oral Tablet [Lixiana]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4776180",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36787916,
-      "conceptName": "edoxaban 30 MG Delayed Release Oral Tablet [Lixiana] Box of 28",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP4776179",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36787915,
-      "conceptName": "edoxaban 30 MG Delayed Release Oral Tablet [Lixiana] Box of 28 by Daiichi Sankyo",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4776178",
       "standardConcept": "S"
     },
     {
@@ -272,24 +34,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36787914,
-      "conceptName": "edoxaban 30 MG Delayed Release Oral Tablet [Lixiana] Box of 98",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP4776177",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36787913,
-      "conceptName": "edoxaban 30 MG Delayed Release Oral Tablet [Lixiana] Box of 98 by Daiichi Sankyo",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4776176",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 1971037,
       "conceptName": "edoxaban 30 MG Delayed Release Oral Tablet [Lixiana] Box of 98 by Kohlpharma",
       "vocabularyId": "RxNorm Extension",
@@ -299,174 +43,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36504962,
-      "conceptName": "edoxaban 30 MG Delayed Release Oral Tablet [Lixiana] by Daiichi Sankyo",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4835719",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35137111,
-      "conceptName": "edoxaban 30 MG Disintegrating Oral Tablet",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP4794287",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35135523,
-      "conceptName": "edoxaban 30 MG Disintegrating Oral Tablet [Lixiana]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4792713",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 45892856,
-      "conceptName": "edoxaban 30 MG Oral Tablet",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "1599551",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40992443,
-      "conceptName": "edoxaban 30 MG Oral Tablet Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2190405",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41117437,
-      "conceptName": "edoxaban 30 MG Oral Tablet Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2315399",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21169295,
-      "conceptName": "edoxaban 30 MG Oral Tablet Box of 28",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP344242",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36941765,
-      "conceptName": "edoxaban 30 MG Oral Tablet Box of 30",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP5198657",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 1971038,
       "conceptName": "edoxaban 30 MG Oral Tablet Box of 90",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Box",
       "conceptCode": "OMOP5163616",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40867658,
-      "conceptName": "edoxaban 30 MG Oral Tablet Box of 98",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2065620",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21041628,
-      "conceptName": "edoxaban 30 MG Oral Tablet [Lixiana]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP344243",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41096445,
-      "conceptName": "edoxaban 30 MG Oral Tablet [Lixiana] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2294407",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40979948,
-      "conceptName": "edoxaban 30 MG Oral Tablet [Lixiana] Box of 10 by Daiichi Sankyo",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2177910",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40846865,
-      "conceptName": "edoxaban 30 MG Oral Tablet [Lixiana] Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2044827",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40917588,
-      "conceptName": "edoxaban 30 MG Oral Tablet [Lixiana] Box of 100 by Daiichi Sankyo",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2115550",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21080826,
-      "conceptName": "edoxaban 30 MG Oral Tablet [Lixiana] Box of 28",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP344245",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21021966,
-      "conceptName": "edoxaban 30 MG Oral Tablet [Lixiana] Box of 28 by Daiichi Sankyo",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP344246",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36943833,
-      "conceptName": "edoxaban 30 MG Oral Tablet [Lixiana] Box of 30",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP5198659",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36932831,
-      "conceptName": "edoxaban 30 MG Oral Tablet [Lixiana] Box of 30 by Pharmaram",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5198660",
       "standardConcept": "S"
     },
     {
@@ -488,24 +70,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 41190331,
-      "conceptName": "edoxaban 30 MG Oral Tablet [Lixiana] Box of 98",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2388293",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40948933,
-      "conceptName": "edoxaban 30 MG Oral Tablet [Lixiana] Box of 98 by Daiichi Sankyo",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2146895",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 1971041,
       "conceptName": "edoxaban 30 MG Oral Tablet [Lixiana] Box of 98 by Kohlpharma",
       "vocabularyId": "RxNorm Extension",
@@ -515,120 +79,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 21149592,
-      "conceptName": "edoxaban 30 MG Oral Tablet [Lixiana] by Daiichi Sankyo",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP344244",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36969061,
-      "conceptName": "edoxaban 30 MG Oral Tablet [Lixiana] by Pharmaram",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5198658",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 45892858,
-      "conceptName": "edoxaban 30 MG Oral Tablet [Savaysa]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "1599553",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21110321,
-      "conceptName": "edoxaban 30 MG [Lixiana]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP344241",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 45892857,
-      "conceptName": "edoxaban 30 MG [Savaysa]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "1599552",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 45892859,
-      "conceptName": "edoxaban 60 MG",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "1599554",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36787907,
-      "conceptName": "edoxaban 60 MG Delayed Release Oral Tablet",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP4776170",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36787906,
-      "conceptName": "edoxaban 60 MG Delayed Release Oral Tablet Box of 28",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP4776169",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 1971042,
       "conceptName": "edoxaban 60 MG Delayed Release Oral Tablet Box of 90",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Box",
       "conceptCode": "OMOP5163620",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36787905,
-      "conceptName": "edoxaban 60 MG Delayed Release Oral Tablet Box of 98",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP4776168",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36787904,
-      "conceptName": "edoxaban 60 MG Delayed Release Oral Tablet [Lixiana]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4776167",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36787903,
-      "conceptName": "edoxaban 60 MG Delayed Release Oral Tablet [Lixiana] Box of 28",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP4776166",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36787902,
-      "conceptName": "edoxaban 60 MG Delayed Release Oral Tablet [Lixiana] Box of 28 by Daiichi Sankyo",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4776165",
       "standardConcept": "S"
     },
     {
@@ -650,183 +106,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36787901,
-      "conceptName": "edoxaban 60 MG Delayed Release Oral Tablet [Lixiana] Box of 98",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP4776164",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36787900,
-      "conceptName": "edoxaban 60 MG Delayed Release Oral Tablet [Lixiana] Box of 98 by Daiichi Sankyo",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4776163",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35137677,
-      "conceptName": "edoxaban 60 MG Disintegrating Oral Tablet",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP4794851",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35144092,
-      "conceptName": "edoxaban 60 MG Disintegrating Oral Tablet [Lixiana]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4801188",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 45892860,
-      "conceptName": "edoxaban 60 MG Oral Tablet",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "1599555",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41054625,
-      "conceptName": "edoxaban 60 MG Oral Tablet Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2252587",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40898752,
-      "conceptName": "edoxaban 60 MG Oral Tablet Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2096714",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21159532,
-      "conceptName": "edoxaban 60 MG Oral Tablet Box of 28",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP344235",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36967730,
-      "conceptName": "edoxaban 60 MG Oral Tablet Box of 30",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP5198661",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 1971045,
       "conceptName": "edoxaban 60 MG Oral Tablet Box of 90",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Box",
       "conceptCode": "OMOP5163623",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41180003,
-      "conceptName": "edoxaban 60 MG Oral Tablet Box of 98",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2377965",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21041627,
-      "conceptName": "edoxaban 60 MG Oral Tablet [Lixiana]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP344236",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41221506,
-      "conceptName": "edoxaban 60 MG Oral Tablet [Lixiana] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2419468",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40979947,
-      "conceptName": "edoxaban 60 MG Oral Tablet [Lixiana] Box of 10 by Daiichi Sankyo",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2177909",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41127731,
-      "conceptName": "edoxaban 60 MG Oral Tablet [Lixiana] Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2325693",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40948932,
-      "conceptName": "edoxaban 60 MG Oral Tablet [Lixiana] Box of 100 by Daiichi Sankyo",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2146894",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21100522,
-      "conceptName": "edoxaban 60 MG Oral Tablet [Lixiana] Box of 28",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP344238",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21149591,
-      "conceptName": "edoxaban 60 MG Oral Tablet [Lixiana] Box of 28 by Daiichi Sankyo",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP344239",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36943566,
-      "conceptName": "edoxaban 60 MG Oral Tablet [Lixiana] Box of 30",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP5198663",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36962042,
-      "conceptName": "edoxaban 60 MG Oral Tablet [Lixiana] Box of 30 by Pharmaram",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5198664",
       "standardConcept": "S"
     },
     {
@@ -848,48 +133,39 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 41064884,
-      "conceptName": "edoxaban 60 MG Oral Tablet [Lixiana] Box of 98",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2262846",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41292124,
-      "conceptName": "edoxaban 60 MG Oral Tablet [Lixiana] Box of 98 by Daiichi Sankyo",
+      "conceptId": 21021966,
+      "conceptName": "edoxaban 30 MG Oral Tablet [Lixiana] Box of 28 by Daiichi Sankyo",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2490086",
+      "conceptCode": "OMOP344246",
       "standardConcept": "S"
     },
     {
-      "conceptId": 21110320,
-      "conceptName": "edoxaban 60 MG Oral Tablet [Lixiana] by Daiichi Sankyo",
+      "conceptId": 21041626,
+      "conceptName": "edoxaban 15 MG Oral Tablet [Lixiana] Box of 10 by Daiichi Sankyo",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP344237",
+      "conceptCode": "OMOP344233",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36949551,
-      "conceptName": "edoxaban 60 MG Oral Tablet [Lixiana] by Pharmaram",
+      "conceptId": 21041627,
+      "conceptName": "edoxaban 60 MG Oral Tablet [Lixiana]",
       "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5198662",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 45892862,
-      "conceptName": "edoxaban 60 MG Oral Tablet [Savaysa]",
-      "vocabularyId": "RxNorm",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug",
-      "conceptCode": "1599557",
+      "conceptCode": "OMOP344236",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21041628,
+      "conceptName": "edoxaban 30 MG Oral Tablet [Lixiana]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP344243",
       "standardConcept": "S"
     },
     {
@@ -902,66 +178,30 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 45892861,
-      "conceptName": "edoxaban 60 MG [Savaysa]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "1599556",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36787922,
-      "conceptName": "edoxaban Delayed Release Oral Tablet",
+      "conceptId": 21071147,
+      "conceptName": "edoxaban 15 MG Oral Tablet [Lixiana]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP4776185",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP344228",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36787921,
-      "conceptName": "edoxaban Delayed Release Oral Tablet [Lixiana]",
+      "conceptId": 21071148,
+      "conceptName": "edoxaban 15 MG Oral Tablet [Lixiana] Box of 10",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4776184",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP344232",
       "standardConcept": "S"
     },
     {
-      "conceptId": 35131134,
-      "conceptName": "edoxaban Disintegrating Oral Tablet",
+      "conceptId": 21080826,
+      "conceptName": "edoxaban 30 MG Oral Tablet [Lixiana] Box of 28",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP4788379",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35144911,
-      "conceptName": "edoxaban Disintegrating Oral Tablet [Lixiana]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4802000",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36249022,
-      "conceptName": "edoxaban Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1599540",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 45892849,
-      "conceptName": "edoxaban Oral Tablet",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "1599542",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP344245",
       "standardConcept": "S"
     },
     {
@@ -974,12 +214,165 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 45892853,
-      "conceptName": "edoxaban Oral Tablet [Savaysa]",
-      "vocabularyId": "RxNorm",
+      "conceptId": 21100522,
+      "conceptName": "edoxaban 60 MG Oral Tablet [Lixiana] Box of 28",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP344238",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21110320,
+      "conceptName": "edoxaban 60 MG Oral Tablet [Lixiana] by Daiichi Sankyo",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP344237",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21110321,
+      "conceptName": "edoxaban 30 MG [Lixiana]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP344241",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21120045,
+      "conceptName": "edoxaban 15 MG Oral Tablet [Lixiana] by Daiichi Sankyo",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP344229",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21139734,
+      "conceptName": "edoxaban 15 MG Oral Tablet Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP344227",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21149591,
+      "conceptName": "edoxaban 60 MG Oral Tablet [Lixiana] Box of 28 by Daiichi Sankyo",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP344239",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21149592,
+      "conceptName": "edoxaban 30 MG Oral Tablet [Lixiana] by Daiichi Sankyo",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP344244",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21159531,
+      "conceptName": "edoxaban 15 MG [Lixiana]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP344226",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21159532,
+      "conceptName": "edoxaban 60 MG Oral Tablet Box of 28",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP344235",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21169295,
+      "conceptName": "edoxaban 30 MG Oral Tablet Box of 28",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP344242",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35131134,
+      "conceptName": "edoxaban Disintegrating Oral Tablet",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP4788379",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35134327,
+      "conceptName": "edoxaban 15 MG Disintegrating Oral Tablet [Lixiana]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4791530",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35135523,
+      "conceptName": "edoxaban 30 MG Disintegrating Oral Tablet [Lixiana]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4792713",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35137111,
+      "conceptName": "edoxaban 30 MG Disintegrating Oral Tablet",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP4794287",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35137677,
+      "conceptName": "edoxaban 60 MG Disintegrating Oral Tablet",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP4794851",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35141149,
+      "conceptName": "edoxaban 15 MG Disintegrating Oral Tablet",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP4798279",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35144092,
+      "conceptName": "edoxaban 60 MG Disintegrating Oral Tablet [Lixiana]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4801188",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35144911,
+      "conceptName": "edoxaban Disintegrating Oral Tablet [Lixiana]",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Form",
-      "conceptCode": "1599546",
+      "conceptCode": "OMOP4802000",
       "standardConcept": "S"
     },
     {
@@ -990,6 +383,618 @@
       "conceptClassId": "Clinical Dose Group",
       "conceptCode": "1599541",
       "standardConcept": "C"
+    },
+    {
+      "conceptId": 36248614,
+      "conceptName": "Savaysa Oral Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Dose Group",
+      "conceptCode": "1599547",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36248615,
+      "conceptName": "Savaysa Pill",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Dose Group",
+      "conceptCode": "1599548",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36249022,
+      "conceptName": "edoxaban Oral Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Dose Group",
+      "conceptCode": "1599540",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36504962,
+      "conceptName": "edoxaban 30 MG Delayed Release Oral Tablet [Lixiana] by Daiichi Sankyo",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4835719",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36787900,
+      "conceptName": "edoxaban 60 MG Delayed Release Oral Tablet [Lixiana] Box of 98 by Daiichi Sankyo",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4776163",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36787901,
+      "conceptName": "edoxaban 60 MG Delayed Release Oral Tablet [Lixiana] Box of 98",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP4776164",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36787902,
+      "conceptName": "edoxaban 60 MG Delayed Release Oral Tablet [Lixiana] Box of 28 by Daiichi Sankyo",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4776165",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36787903,
+      "conceptName": "edoxaban 60 MG Delayed Release Oral Tablet [Lixiana] Box of 28",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP4776166",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36787904,
+      "conceptName": "edoxaban 60 MG Delayed Release Oral Tablet [Lixiana]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4776167",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36787905,
+      "conceptName": "edoxaban 60 MG Delayed Release Oral Tablet Box of 98",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP4776168",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36787906,
+      "conceptName": "edoxaban 60 MG Delayed Release Oral Tablet Box of 28",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP4776169",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36787907,
+      "conceptName": "edoxaban 60 MG Delayed Release Oral Tablet",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP4776170",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36787908,
+      "conceptName": "edoxaban 15 MG Delayed Release Oral Tablet [Lixiana] Box of 10 by Daiichi Sankyo",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4776171",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36787909,
+      "conceptName": "edoxaban 15 MG Delayed Release Oral Tablet [Lixiana] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP4776172",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36787910,
+      "conceptName": "edoxaban 15 MG Delayed Release Oral Tablet [Lixiana]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4776173",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36787911,
+      "conceptName": "edoxaban 15 MG Delayed Release Oral Tablet Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP4776174",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36787912,
+      "conceptName": "edoxaban 15 MG Delayed Release Oral Tablet",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP4776175",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36787913,
+      "conceptName": "edoxaban 30 MG Delayed Release Oral Tablet [Lixiana] Box of 98 by Daiichi Sankyo",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4776176",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36787914,
+      "conceptName": "edoxaban 30 MG Delayed Release Oral Tablet [Lixiana] Box of 98",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP4776177",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36787915,
+      "conceptName": "edoxaban 30 MG Delayed Release Oral Tablet [Lixiana] Box of 28 by Daiichi Sankyo",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4776178",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36787916,
+      "conceptName": "edoxaban 30 MG Delayed Release Oral Tablet [Lixiana] Box of 28",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP4776179",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36787917,
+      "conceptName": "edoxaban 30 MG Delayed Release Oral Tablet [Lixiana]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4776180",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36787918,
+      "conceptName": "edoxaban 30 MG Delayed Release Oral Tablet Box of 98",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP4776181",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36787919,
+      "conceptName": "edoxaban 30 MG Delayed Release Oral Tablet Box of 28",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP4776182",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36787920,
+      "conceptName": "edoxaban 30 MG Delayed Release Oral Tablet",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP4776183",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36787921,
+      "conceptName": "edoxaban Delayed Release Oral Tablet [Lixiana]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP4776184",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36787922,
+      "conceptName": "edoxaban Delayed Release Oral Tablet",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP4776185",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36932831,
+      "conceptName": "edoxaban 30 MG Oral Tablet [Lixiana] Box of 30 by Pharmaram",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5198660",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36941765,
+      "conceptName": "edoxaban 30 MG Oral Tablet Box of 30",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP5198657",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36943566,
+      "conceptName": "edoxaban 60 MG Oral Tablet [Lixiana] Box of 30",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP5198663",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36943833,
+      "conceptName": "edoxaban 30 MG Oral Tablet [Lixiana] Box of 30",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP5198659",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36949551,
+      "conceptName": "edoxaban 60 MG Oral Tablet [Lixiana] by Pharmaram",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5198662",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36962042,
+      "conceptName": "edoxaban 60 MG Oral Tablet [Lixiana] Box of 30 by Pharmaram",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5198664",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36967730,
+      "conceptName": "edoxaban 60 MG Oral Tablet Box of 30",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP5198661",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36969061,
+      "conceptName": "edoxaban 30 MG Oral Tablet [Lixiana] by Pharmaram",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5198658",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40846865,
+      "conceptName": "edoxaban 30 MG Oral Tablet [Lixiana] Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2044827",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40867658,
+      "conceptName": "edoxaban 30 MG Oral Tablet Box of 98",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2065620",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40898752,
+      "conceptName": "edoxaban 60 MG Oral Tablet Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2096714",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40917588,
+      "conceptName": "edoxaban 30 MG Oral Tablet [Lixiana] Box of 100 by Daiichi Sankyo",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2115550",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40948932,
+      "conceptName": "edoxaban 60 MG Oral Tablet [Lixiana] Box of 100 by Daiichi Sankyo",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2146894",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40948933,
+      "conceptName": "edoxaban 30 MG Oral Tablet [Lixiana] Box of 98 by Daiichi Sankyo",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2146895",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40979947,
+      "conceptName": "edoxaban 60 MG Oral Tablet [Lixiana] Box of 10 by Daiichi Sankyo",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2177909",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40979948,
+      "conceptName": "edoxaban 30 MG Oral Tablet [Lixiana] Box of 10 by Daiichi Sankyo",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2177910",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40992443,
+      "conceptName": "edoxaban 30 MG Oral Tablet Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2190405",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41054625,
+      "conceptName": "edoxaban 60 MG Oral Tablet Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2252587",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41064884,
+      "conceptName": "edoxaban 60 MG Oral Tablet [Lixiana] Box of 98",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2262846",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41096445,
+      "conceptName": "edoxaban 30 MG Oral Tablet [Lixiana] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2294407",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41117437,
+      "conceptName": "edoxaban 30 MG Oral Tablet Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2315399",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41127731,
+      "conceptName": "edoxaban 60 MG Oral Tablet [Lixiana] Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2325693",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41180003,
+      "conceptName": "edoxaban 60 MG Oral Tablet Box of 98",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2377965",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41190331,
+      "conceptName": "edoxaban 30 MG Oral Tablet [Lixiana] Box of 98",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2388293",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41221506,
+      "conceptName": "edoxaban 60 MG Oral Tablet [Lixiana] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2419468",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41292124,
+      "conceptName": "edoxaban 60 MG Oral Tablet [Lixiana] Box of 98 by Daiichi Sankyo",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2490086",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45892847,
+      "conceptName": "edoxaban",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Ingredient",
+      "conceptCode": "1599538",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45892848,
+      "conceptName": "edoxaban 15 MG",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "1599539",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45892849,
+      "conceptName": "edoxaban Oral Tablet",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "1599542",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45892850,
+      "conceptName": "edoxaban 15 MG Oral Tablet",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "1599543",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45892852,
+      "conceptName": "edoxaban 15 MG [Savaysa]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "1599545",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45892853,
+      "conceptName": "edoxaban Oral Tablet [Savaysa]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "1599546",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45892854,
+      "conceptName": "edoxaban 15 MG Oral Tablet [Savaysa]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "1599549",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45892855,
+      "conceptName": "edoxaban 30 MG",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "1599550",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45892856,
+      "conceptName": "edoxaban 30 MG Oral Tablet",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "1599551",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45892857,
+      "conceptName": "edoxaban 30 MG [Savaysa]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "1599552",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45892858,
+      "conceptName": "edoxaban 30 MG Oral Tablet [Savaysa]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "1599553",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45892859,
+      "conceptName": "edoxaban 60 MG",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "1599554",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45892860,
+      "conceptName": "edoxaban 60 MG Oral Tablet",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "1599555",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45892861,
+      "conceptName": "edoxaban 60 MG [Savaysa]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "1599556",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45892862,
+      "conceptName": "edoxaban 60 MG Oral Tablet [Savaysa]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "1599557",
+      "standardConcept": "S"
     }
   ]
 }

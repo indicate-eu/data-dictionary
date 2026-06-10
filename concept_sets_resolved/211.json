@@ -1,24 +1,10 @@
 {
   "conceptSetId": 211,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80"
+  },
   "resolvedConcepts": [
-    {
-      "conceptId": 21490733,
-      "conceptName": "Potassium [Mass/volume] in Blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "75940-7",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3043409,
-      "conceptName": "Potassium [Moles/volume] in Arterial blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "32713-0",
-      "standardConcept": "S"
-    },
     {
       "conceptId": 3005456,
       "conceptName": "Potassium [Moles/volume] in Blood",
@@ -26,33 +12,6 @@
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
       "conceptCode": "6298-4",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3040893,
-      "conceptName": "Potassium [Moles/volume] in Capillary blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "39790-1",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3031219,
-      "conceptName": "Potassium [Moles/volume] in Mixed venous blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "41656-0",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3023103,
-      "conceptName": "Potassium [Moles/volume] in Serum or Plasma",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "2823-3",
       "standardConcept": "S"
     },
     {
@@ -65,6 +24,24 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 3023103,
+      "conceptName": "Potassium [Moles/volume] in Serum or Plasma",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "2823-3",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3031219,
+      "conceptName": "Potassium [Moles/volume] in Mixed venous blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "41656-0",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 3039651,
       "conceptName": "Potassium [Moles/volume] in Serum or Plasma --pre dialysis",
       "vocabularyId": "LOINC",
@@ -74,12 +51,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 46235078,
-      "conceptName": "Potassium [Moles/volume] in Serum, Plasma or Blood",
+      "conceptId": 3040893,
+      "conceptName": "Potassium [Moles/volume] in Capillary blood",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
-      "conceptCode": "77142-8",
+      "conceptCode": "39790-1",
       "standardConcept": "S"
     },
     {
@@ -92,39 +69,30 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 37042511,
-      "conceptName": "Potassium | Blood arterial | Chemistry - non-challenge",
+      "conceptId": 3043409,
+      "conceptName": "Potassium [Moles/volume] in Arterial blood",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP386602-9",
-      "standardConcept": "C"
+      "conceptClassId": "Lab Test",
+      "conceptCode": "32713-0",
+      "standardConcept": "S"
     },
     {
-      "conceptId": 37055673,
-      "conceptName": "Potassium | Blood capillary | Chemistry - non-challenge",
+      "conceptId": 21490733,
+      "conceptName": "Potassium [Mass/volume] in Blood",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP386603-7",
-      "standardConcept": "C"
+      "conceptClassId": "Lab Test",
+      "conceptCode": "75940-7",
+      "standardConcept": "S"
     },
     {
-      "conceptId": 37077388,
-      "conceptName": "Potassium | Blood mixed venous | Chemistry - non-challenge",
+      "conceptId": 37021931,
+      "conceptName": "Potassium | Plasma | Chemistry - non-challenge",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP386604-5",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37049716,
-      "conceptName": "Potassium | Blood venous | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP386605-2",
+      "conceptCode": "LP386615-1",
       "standardConcept": "C"
     },
     {
@@ -137,12 +105,39 @@
       "standardConcept": "C"
     },
     {
-      "conceptId": 37021931,
-      "conceptName": "Potassium | Plasma | Chemistry - non-challenge",
+      "conceptId": 37039728,
+      "conceptName": "Potassium | Serum, Plasma or Blood | Chemistry - non-challenge",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP386615-1",
+      "conceptCode": "LP386619-3",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37042511,
+      "conceptName": "Potassium | Blood arterial | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP386602-9",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37049716,
+      "conceptName": "Potassium | Blood venous | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP386605-2",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37055673,
+      "conceptName": "Potassium | Blood capillary | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP386603-7",
       "standardConcept": "C"
     },
     {
@@ -155,13 +150,22 @@
       "standardConcept": "C"
     },
     {
-      "conceptId": 37039728,
-      "conceptName": "Potassium | Serum, Plasma or Blood | Chemistry - non-challenge",
+      "conceptId": 37077388,
+      "conceptName": "Potassium | Blood mixed venous | Chemistry - non-challenge",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP386619-3",
+      "conceptCode": "LP386604-5",
       "standardConcept": "C"
+    },
+    {
+      "conceptId": 46235078,
+      "conceptName": "Potassium [Moles/volume] in Serum, Plasma or Blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "77142-8",
+      "standardConcept": "S"
     }
   ]
 }

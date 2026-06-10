@@ -1,31 +1,18 @@
 {
   "conceptSetId": 42,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "RxNorm": "RxNorm 20260105",
+    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+  },
   "resolvedConcepts": [
     {
-      "conceptId": 2902115,
-      "conceptName": "0.6 ML danaparoid 1250 IU/ML Injection",
+      "conceptId": 1832082,
+      "conceptName": "0.6 ML danaparoid 1250 UNT/ML Injectable Solution [Orgaran] Box of 10 by Mylan",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP5118988",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2902114,
-      "conceptName": "0.6 ML danaparoid 1250 IU/ML Injection Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP5118987",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2902113,
-      "conceptName": "0.6 ML danaparoid 1250 IU/ML Injection [Orgaran]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP5118986",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5157326",
       "standardConcept": "S"
     },
     {
@@ -38,165 +25,147 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 43684331,
-      "conceptName": "0.6 ML danaparoid 1250 UNT/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP720759",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43810114,
-      "conceptName": "0.6 ML danaparoid 1250 UNT/ML Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP720760",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40719233,
-      "conceptName": "0.6 ML danaparoid 1250 UNT/ML Injectable Solution Box of 10 by Alliance",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4738040",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40719232,
-      "conceptName": "0.6 ML danaparoid 1250 UNT/ML Injectable Solution Box of 10 by Aspen",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4738041",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36120953,
-      "conceptName": "0.6 ML danaparoid 1250 UNT/ML Injectable Solution Box of 10 by Mylan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5049940",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36947159,
-      "conceptName": "0.6 ML danaparoid 1250 UNT/ML Injectable Solution Box of 10 by Viatris Healthcare",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5207963",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43791956,
-      "conceptName": "0.6 ML danaparoid 1250 UNT/ML Injectable Solution [Orgaran]",
+      "conceptId": 2902113,
+      "conceptName": "0.6 ML danaparoid 1250 IU/ML Injection [Orgaran]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP720761",
+      "conceptCode": "OMOP5118986",
       "standardConcept": "S"
     },
     {
-      "conceptId": 43774186,
-      "conceptName": "0.6 ML danaparoid 1250 UNT/ML Injectable Solution [Orgaran] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP720763",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43630274,
-      "conceptName": "0.6 ML danaparoid 1250 UNT/ML Injectable Solution [Orgaran] Box of 10 by Aspen",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP720764",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41410487,
-      "conceptName": "0.6 ML danaparoid 1250 UNT/ML Injectable Solution [Orgaran] Box of 10 by Merck",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2608449",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1832082,
-      "conceptName": "0.6 ML danaparoid 1250 UNT/ML Injectable Solution [Orgaran] Box of 10 by Mylan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5157326",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43684332,
-      "conceptName": "0.6 ML danaparoid 1250 UNT/ML Injectable Solution [Orgaran] by Aspen",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP720762",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40719235,
-      "conceptName": "0.6 ML danaparoid 1250 UNT/ML Injectable Solution by Alliance",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4738038",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40719234,
-      "conceptName": "0.6 ML danaparoid 1250 UNT/ML Injectable Solution by Aspen",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4738039",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36120952,
-      "conceptName": "0.6 ML danaparoid 1250 UNT/ML Injectable Solution by Mylan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5049939",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36958135,
-      "conceptName": "0.6 ML danaparoid 1250 UNT/ML Injectable Solution by Viatris Healthcare",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5207962",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43270346,
-      "conceptName": "0.6 ML danaparoid 1250 UNT/ML Injection",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP559985",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43297461,
-      "conceptName": "0.6 ML danaparoid 1250 UNT/ML Injection Box of 10",
+      "conceptId": 2902114,
+      "conceptName": "0.6 ML danaparoid 1250 IU/ML Injection Box of 10",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP559986",
+      "conceptCode": "OMOP5118987",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2902115,
+      "conceptName": "0.6 ML danaparoid 1250 IU/ML Injection",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP5118988",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2913856,
+      "conceptName": "danaparoid 1250 IU/ML Injection [Orgaran] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP5130652",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2913857,
+      "conceptName": "danaparoid 1250 IU/ML Injection [Orgaran]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP5130653",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2913858,
+      "conceptName": "danaparoid 1250 IU/ML Injection Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP5130654",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2913859,
+      "conceptName": "danaparoid 1250 IU/ML Injection",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP5130655",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2913860,
+      "conceptName": "danaparoid 1250 IU/ML [Orgaran]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP5130656",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2913861,
+      "conceptName": "danaparoid 1250 IU/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP5130657",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2913862,
+      "conceptName": "danaparoid Injection [Orgaran]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP5130658",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19012389,
+      "conceptName": "danaparoid 1250 UNT/ML Injectable Solution [Orgaran]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "150721",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19026343,
+      "conceptName": "danaparoid",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Ingredient",
+      "conceptCode": "78484",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19076071,
+      "conceptName": "danaparoid 1250 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "309644",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19080846,
+      "conceptName": "danaparoid 1250 UNT/ML [Orgaran]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "564781",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19083607,
+      "conceptName": "danaparoid 1250 UNT/ML",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "329160",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21050335,
+      "conceptName": "danaparoid 1250 UNT/ML Prefilled Syringe [Orgaran] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP366382",
       "standardConcept": "S"
     },
     {
@@ -209,12 +178,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 21157504,
-      "conceptName": "0.6 ML danaparoid 1250 UNT/ML Prefilled Syringe Box of 10",
+      "conceptId": 21098479,
+      "conceptName": "0.6 ML danaparoid 1250 UNT/ML Prefilled Syringe [Orgaran] by Aspen",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP287527",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP287529",
       "standardConcept": "S"
     },
     {
@@ -236,30 +205,30 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 21128779,
+      "conceptName": "danaparoid 1250 UNT/ML Prefilled Syringe Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP366368",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21157504,
+      "conceptName": "0.6 ML danaparoid 1250 UNT/ML Prefilled Syringe Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP287527",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 21177054,
       "conceptName": "0.6 ML danaparoid 1250 UNT/ML Prefilled Syringe [Orgaran] Box of 10 by Aspen",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
       "conceptCode": "OMOP287531",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21098479,
-      "conceptName": "0.6 ML danaparoid 1250 UNT/ML Prefilled Syringe [Orgaran] by Aspen",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP287529",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35154054,
-      "conceptName": "1 ML danaparoid 1250 UNT/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP4811081",
       "standardConcept": "S"
     },
     {
@@ -272,58 +241,40 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 43645746,
-      "conceptName": "6 ML danaparoid 1250 UNT/ML Injectable Solution",
+      "conceptId": 35154054,
+      "conceptName": "1 ML danaparoid 1250 UNT/ML Injectable Solution",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP774112",
+      "conceptCode": "OMOP4811081",
       "standardConcept": "S"
     },
     {
-      "conceptId": 43843721,
-      "conceptName": "6 ML danaparoid 1250 UNT/ML Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP774113",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43843722,
-      "conceptName": "6 ML danaparoid 1250 UNT/ML Injectable Solution [Orgaran]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP774114",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43681764,
-      "conceptName": "6 ML danaparoid 1250 UNT/ML Injectable Solution [Orgaran] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP774116",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43645747,
-      "conceptName": "6 ML danaparoid 1250 UNT/ML Injectable Solution [Orgaran] Box of 10 by Aspen",
+      "conceptId": 36120952,
+      "conceptName": "0.6 ML danaparoid 1250 UNT/ML Injectable Solution by Mylan",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP774117",
+      "conceptCode": "OMOP5049939",
       "standardConcept": "S"
     },
     {
-      "conceptId": 43735694,
-      "conceptName": "6 ML danaparoid 1250 UNT/ML Injectable Solution [Orgaran] by Aspen",
+      "conceptId": 36120953,
+      "conceptName": "0.6 ML danaparoid 1250 UNT/ML Injectable Solution Box of 10 by Mylan",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP774115",
+      "conceptCode": "OMOP5049940",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 36215430,
+      "conceptName": "danaparoid Injectable Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Dose Group",
+      "conceptCode": "1156651",
+      "standardConcept": "C"
     },
     {
       "conceptId": 36242678,
@@ -335,184 +286,31 @@
       "standardConcept": "C"
     },
     {
-      "conceptId": 19026343,
-      "conceptName": "danaparoid",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Ingredient",
-      "conceptCode": "78484",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2913861,
-      "conceptName": "danaparoid 1250 IU/ML",
+      "conceptId": 36881780,
+      "conceptName": "danaparoid Injection",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP5130657",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP993345",
       "standardConcept": "S"
     },
     {
-      "conceptId": 2913859,
-      "conceptName": "danaparoid 1250 IU/ML Injection",
+      "conceptId": 36947159,
+      "conceptName": "0.6 ML danaparoid 1250 UNT/ML Injectable Solution Box of 10 by Viatris Healthcare",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP5130655",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5207963",
       "standardConcept": "S"
     },
     {
-      "conceptId": 2913858,
-      "conceptName": "danaparoid 1250 IU/ML Injection Box of 10",
+      "conceptId": 36958135,
+      "conceptName": "0.6 ML danaparoid 1250 UNT/ML Injectable Solution by Viatris Healthcare",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP5130654",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5207962",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 2913857,
-      "conceptName": "danaparoid 1250 IU/ML Injection [Orgaran]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5130653",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2913856,
-      "conceptName": "danaparoid 1250 IU/ML Injection [Orgaran] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP5130652",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2913860,
-      "conceptName": "danaparoid 1250 IU/ML [Orgaran]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP5130656",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19083607,
-      "conceptName": "danaparoid 1250 UNT/ML",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "329160",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19076071,
-      "conceptName": "danaparoid 1250 UNT/ML Injectable Solution",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "309644",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43696782,
-      "conceptName": "danaparoid 1250 UNT/ML Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP703667",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19012389,
-      "conceptName": "danaparoid 1250 UNT/ML Injectable Solution [Orgaran]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "150721",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43732700,
-      "conceptName": "danaparoid 1250 UNT/ML Injectable Solution [Orgaran] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP703670",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43285310,
-      "conceptName": "danaparoid 1250 UNT/ML Injection",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP553710",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43274534,
-      "conceptName": "danaparoid 1250 UNT/ML Injection Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP553711",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42479142,
-      "conceptName": "danaparoid 1250 UNT/ML Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP420072",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21128779,
-      "conceptName": "danaparoid 1250 UNT/ML Prefilled Syringe Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP366368",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42481502,
-      "conceptName": "danaparoid 1250 UNT/ML Prefilled Syringe [Orgaran]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP420073",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21050335,
-      "conceptName": "danaparoid 1250 UNT/ML Prefilled Syringe [Orgaran] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP366382",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19080846,
-      "conceptName": "danaparoid 1250 UNT/ML [Orgaran]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "564781",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36215430,
-      "conceptName": "danaparoid Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1156651",
-      "standardConcept": "C"
     },
     {
       "conceptId": 40060271,
@@ -533,30 +331,75 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36881780,
-      "conceptName": "danaparoid Injection",
+      "conceptId": 40719232,
+      "conceptName": "0.6 ML danaparoid 1250 UNT/ML Injectable Solution Box of 10 by Aspen",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP993345",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4738041",
       "standardConcept": "S"
     },
     {
-      "conceptId": 2913862,
-      "conceptName": "danaparoid Injection [Orgaran]",
+      "conceptId": 40719233,
+      "conceptName": "0.6 ML danaparoid 1250 UNT/ML Injectable Solution Box of 10 by Alliance",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP5130658",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4738040",
       "standardConcept": "S"
     },
     {
-      "conceptId": 42614784,
-      "conceptName": "danaparoid Injection [Orgaran]",
+      "conceptId": 40719234,
+      "conceptName": "0.6 ML danaparoid 1250 UNT/ML Injectable Solution by Aspen",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4738039",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40719235,
+      "conceptName": "0.6 ML danaparoid 1250 UNT/ML Injectable Solution by Alliance",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4738038",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41410487,
+      "conceptName": "0.6 ML danaparoid 1250 UNT/ML Injectable Solution [Orgaran] Box of 10 by Merck",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2608449",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42479142,
+      "conceptName": "danaparoid 1250 UNT/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP420072",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42481502,
+      "conceptName": "danaparoid 1250 UNT/ML Prefilled Syringe [Orgaran]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP420073",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42482118,
+      "conceptName": "danaparoid Prefilled Syringe [Orgaran]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP5159861",
+      "conceptCode": "OMOP420071",
       "standardConcept": "S"
     },
     {
@@ -569,12 +412,165 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 42482118,
-      "conceptName": "danaparoid Prefilled Syringe [Orgaran]",
+      "conceptId": 43270346,
+      "conceptName": "0.6 ML danaparoid 1250 UNT/ML Injection",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP420071",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP559985",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43274534,
+      "conceptName": "danaparoid 1250 UNT/ML Injection Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP553711",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43285310,
+      "conceptName": "danaparoid 1250 UNT/ML Injection",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP553710",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43297461,
+      "conceptName": "0.6 ML danaparoid 1250 UNT/ML Injection Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP559986",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43630274,
+      "conceptName": "0.6 ML danaparoid 1250 UNT/ML Injectable Solution [Orgaran] Box of 10 by Aspen",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP720764",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43645746,
+      "conceptName": "6 ML danaparoid 1250 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP774112",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43645747,
+      "conceptName": "6 ML danaparoid 1250 UNT/ML Injectable Solution [Orgaran] Box of 10 by Aspen",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP774117",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43681764,
+      "conceptName": "6 ML danaparoid 1250 UNT/ML Injectable Solution [Orgaran] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP774116",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43684331,
+      "conceptName": "0.6 ML danaparoid 1250 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP720759",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43684332,
+      "conceptName": "0.6 ML danaparoid 1250 UNT/ML Injectable Solution [Orgaran] by Aspen",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP720762",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43696782,
+      "conceptName": "danaparoid 1250 UNT/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP703667",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43732700,
+      "conceptName": "danaparoid 1250 UNT/ML Injectable Solution [Orgaran] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP703670",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43735694,
+      "conceptName": "6 ML danaparoid 1250 UNT/ML Injectable Solution [Orgaran] by Aspen",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP774115",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43774186,
+      "conceptName": "0.6 ML danaparoid 1250 UNT/ML Injectable Solution [Orgaran] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP720763",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43791956,
+      "conceptName": "0.6 ML danaparoid 1250 UNT/ML Injectable Solution [Orgaran]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP720761",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43810114,
+      "conceptName": "0.6 ML danaparoid 1250 UNT/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP720760",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43843721,
+      "conceptName": "6 ML danaparoid 1250 UNT/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP774113",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43843722,
+      "conceptName": "6 ML danaparoid 1250 UNT/ML Injectable Solution [Orgaran]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP774114",
       "standardConcept": "S"
     }
   ]

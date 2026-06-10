@@ -1,483 +1,11 @@
 {
   "conceptSetId": 33,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "RxNorm": "RxNorm 20260105",
+    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+  },
   "resolvedConcepts": [
-    {
-      "conceptId": 21034922,
-      "conceptName": "Acenocoumarol 1 MG Oral Tablet Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP401336",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21152834,
-      "conceptName": "Acenocoumarol 1 MG Oral Tablet Box of 100 by Lexon",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP401339",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21103730,
-      "conceptName": "Acenocoumarol 1 MG Oral Tablet Box of 100 by Waymade",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP401338",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43163502,
-      "conceptName": "Acenocoumarol 1 MG Oral Tablet Box of 20",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP505466",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43185355,
-      "conceptName": "Acenocoumarol 1 MG Oral Tablet [MINISINTROM]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP505467",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43218263,
-      "conceptName": "Acenocoumarol 1 MG Oral Tablet [MINISINTROM] Box of 20",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP505468",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43196352,
-      "conceptName": "Acenocoumarol 1 MG Oral Tablet [MINISINTROM] Box of 20 by Merus Luxco",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP505469",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21044799,
-      "conceptName": "Acenocoumarol 1 MG Oral Tablet [Sinthrome]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP401340",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21093833,
-      "conceptName": "Acenocoumarol 1 MG Oral Tablet [Sinthrome] Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP401346",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21034924,
-      "conceptName": "Acenocoumarol 1 MG Oral Tablet [Sinthrome] Box of 100 by DE",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP401351",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21113546,
-      "conceptName": "Acenocoumarol 1 MG Oral Tablet [Sinthrome] Box of 100 by Lexon",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP401352",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21044800,
-      "conceptName": "Acenocoumarol 1 MG Oral Tablet [Sinthrome] Box of 100 by Mawdsley-Brooks",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP401347",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21113545,
-      "conceptName": "Acenocoumarol 1 MG Oral Tablet [Sinthrome] Box of 100 by Merus Luxco",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP401350",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21054624,
-      "conceptName": "Acenocoumarol 1 MG Oral Tablet [Sinthrome] Box of 100 by Waymade",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP401349",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21034923,
-      "conceptName": "Acenocoumarol 1 MG Oral Tablet [Sinthrome] by DE",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP401344",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21103731,
-      "conceptName": "Acenocoumarol 1 MG Oral Tablet [Sinthrome] by Lexon",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP401345",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21123146,
-      "conceptName": "Acenocoumarol 1 MG Oral Tablet [Sinthrome] by Mawdsley-Brooks",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP401341",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21054623,
-      "conceptName": "Acenocoumarol 1 MG Oral Tablet [Sinthrome] by Merus Luxco",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP401343",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44039153,
-      "conceptName": "Acenocoumarol 1 MG Oral Tablet [Sinthrome] by Paladin",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP1033784",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21133013,
-      "conceptName": "Acenocoumarol 1 MG Oral Tablet [Sinthrome] by Waymade",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP401342",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36268540,
-      "conceptName": "Acenocoumarol 1 MG Oral Tablet [Sintrom]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP3119415",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36260830,
-      "conceptName": "Acenocoumarol 1 MG Oral Tablet [Sintrom] Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP3111705",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36260914,
-      "conceptName": "Acenocoumarol 1 MG Oral Tablet [Sintrom] Box of 100 by Merus Luxco",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3111789",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21172450,
-      "conceptName": "Acenocoumarol 1 MG Oral Tablet by Lexon",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP401335",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21152833,
-      "conceptName": "Acenocoumarol 1 MG Oral Tablet by Waymade",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP401334",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43174507,
-      "conceptName": "Acenocoumarol 1 MG [MINISINTROM]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP505465",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21054622,
-      "conceptName": "Acenocoumarol 1 MG [Sinthrome]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP401333",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36274544,
-      "conceptName": "Acenocoumarol 1 MG [Sintrom]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP3125419",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41025651,
-      "conceptName": "Acenocoumarol 4 MG Oral Tablet Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2223613",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40932057,
-      "conceptName": "Acenocoumarol 4 MG Oral Tablet Box of 20",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2130019",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41182182,
-      "conceptName": "Acenocoumarol 4 MG Oral Tablet Box of 200",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2380144",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43218262,
-      "conceptName": "Acenocoumarol 4 MG Oral Tablet Box of 30",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP505461",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41056857,
-      "conceptName": "Acenocoumarol 4 MG Oral Tablet Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2254819",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41100579,
-      "conceptName": "Acenocoumarol 4 MG Oral Tablet [Sinthrome] Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2298541",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41044235,
-      "conceptName": "Acenocoumarol 4 MG Oral Tablet [Sinthrome] Box of 100 by Novartis",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2242197",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40975391,
-      "conceptName": "Acenocoumarol 4 MG Oral Tablet [Sinthrome] Box of 20",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2173353",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41013128,
-      "conceptName": "Acenocoumarol 4 MG Oral Tablet [Sinthrome] Box of 20 by Novartis",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2211090",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41163235,
-      "conceptName": "Acenocoumarol 4 MG Oral Tablet [Sinthrome] Box of 200",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2361197",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43141295,
-      "conceptName": "Acenocoumarol 4 MG Oral Tablet [Sinthrome] Box of 30",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP505462",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43185354,
-      "conceptName": "Acenocoumarol 4 MG Oral Tablet [Sinthrome] Box of 30 by Merus Luxco",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP505464",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40882140,
-      "conceptName": "Acenocoumarol 4 MG Oral Tablet [Sinthrome] Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2080102",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41232085,
-      "conceptName": "Acenocoumarol 4 MG Oral Tablet [Sinthrome] Box of 50 by Novartis",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2430047",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44129850,
-      "conceptName": "Acenocoumarol 4 MG Oral Tablet [Sinthrome] by Paladin",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP1124481",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36260832,
-      "conceptName": "Acenocoumarol 4 MG Oral Tablet [Sintrom]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP3111707",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36260831,
-      "conceptName": "Acenocoumarol 4 MG Oral Tablet [Sintrom] Box of 20",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP3111706",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36274198,
-      "conceptName": "Acenocoumarol 4 MG Oral Tablet [Sintrom] Box of 20 by Merus Luxco",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3125073",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43026546,
-      "conceptName": "Acenocoumarol 4 MG Oral Tablet [Sintrom] Box of 30",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP4841642",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43026547,
-      "conceptName": "Acenocoumarol 4 MG Oral Tablet [Sintrom] Box of 30 by Merus Luxco",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4841643",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36274545,
-      "conceptName": "Acenocoumarol 4 MG [Sintrom]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP3125420",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43196351,
-      "conceptName": "Acenocoumarol Oral Tablet [MINISINTROM]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP505460",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36277395,
-      "conceptName": "Acenocoumarol Oral Tablet [Sintrom]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP3128270",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36241758,
-      "conceptName": "Sinthrome Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1183697",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36241759,
-      "conceptName": "Sinthrome Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1183698",
-      "standardConcept": "C"
-    },
     {
       "conceptId": 19024063,
       "conceptName": "acenocoumarol",
@@ -485,6 +13,33 @@
       "domainId": "Drug",
       "conceptClassId": "Ingredient",
       "conceptCode": "154",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19024142,
+      "conceptName": "acenocoumarol 4 MG Oral Tablet [Sinthrome]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "200893",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19060033,
+      "conceptName": "acenocoumarol 1 MG Oral Tablet",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "246018",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19060034,
+      "conceptName": "acenocoumarol 4 MG Oral Tablet",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "246019",
       "standardConcept": "S"
     },
     {
@@ -497,12 +52,183 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 19060033,
-      "conceptName": "acenocoumarol 1 MG Oral Tablet",
+      "conceptId": 19086520,
+      "conceptName": "acenocoumarol 4 MG",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "246018",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "330878",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19117308,
+      "conceptName": "acenocoumarol 4 MG [Sinthrome]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "565542",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21034922,
+      "conceptName": "Acenocoumarol 1 MG Oral Tablet Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP401336",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21034923,
+      "conceptName": "Acenocoumarol 1 MG Oral Tablet [Sinthrome] by DE",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP401344",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21034924,
+      "conceptName": "Acenocoumarol 1 MG Oral Tablet [Sinthrome] Box of 100 by DE",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP401351",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21044799,
+      "conceptName": "Acenocoumarol 1 MG Oral Tablet [Sinthrome]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP401340",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21044800,
+      "conceptName": "Acenocoumarol 1 MG Oral Tablet [Sinthrome] Box of 100 by Mawdsley-Brooks",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP401347",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21054622,
+      "conceptName": "Acenocoumarol 1 MG [Sinthrome]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP401333",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21054623,
+      "conceptName": "Acenocoumarol 1 MG Oral Tablet [Sinthrome] by Merus Luxco",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP401343",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21054624,
+      "conceptName": "Acenocoumarol 1 MG Oral Tablet [Sinthrome] Box of 100 by Waymade",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP401349",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21093833,
+      "conceptName": "Acenocoumarol 1 MG Oral Tablet [Sinthrome] Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP401346",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21103730,
+      "conceptName": "Acenocoumarol 1 MG Oral Tablet Box of 100 by Waymade",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP401338",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21103731,
+      "conceptName": "Acenocoumarol 1 MG Oral Tablet [Sinthrome] by Lexon",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP401345",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21113545,
+      "conceptName": "Acenocoumarol 1 MG Oral Tablet [Sinthrome] Box of 100 by Merus Luxco",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP401350",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21113546,
+      "conceptName": "Acenocoumarol 1 MG Oral Tablet [Sinthrome] Box of 100 by Lexon",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP401352",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21123146,
+      "conceptName": "Acenocoumarol 1 MG Oral Tablet [Sinthrome] by Mawdsley-Brooks",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP401341",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21133013,
+      "conceptName": "Acenocoumarol 1 MG Oral Tablet [Sinthrome] by Waymade",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP401342",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21152833,
+      "conceptName": "Acenocoumarol 1 MG Oral Tablet by Waymade",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP401334",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21152834,
+      "conceptName": "Acenocoumarol 1 MG Oral Tablet Box of 100 by Lexon",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP401339",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21172450,
+      "conceptName": "Acenocoumarol 1 MG Oral Tablet by Lexon",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP401335",
       "standardConcept": "S"
     },
     {
@@ -524,42 +250,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 19086520,
-      "conceptName": "acenocoumarol 4 MG",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "330878",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19060034,
-      "conceptName": "acenocoumarol 4 MG Oral Tablet",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "246019",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19024142,
-      "conceptName": "acenocoumarol 4 MG Oral Tablet [Sinthrome]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "200893",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19117308,
-      "conceptName": "acenocoumarol 4 MG [Sinthrome]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "565542",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 36212687,
       "conceptName": "acenocoumarol Oral Product",
       "vocabularyId": "RxNorm",
@@ -567,6 +257,114 @@
       "conceptClassId": "Clinical Dose Group",
       "conceptCode": "1153963",
       "standardConcept": "C"
+    },
+    {
+      "conceptId": 36212688,
+      "conceptName": "acenocoumarol Pill",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Dose Group",
+      "conceptCode": "1153964",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36241758,
+      "conceptName": "Sinthrome Oral Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Dose Group",
+      "conceptCode": "1183697",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36241759,
+      "conceptName": "Sinthrome Pill",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Dose Group",
+      "conceptCode": "1183698",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36260830,
+      "conceptName": "Acenocoumarol 1 MG Oral Tablet [Sintrom] Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP3111705",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36260831,
+      "conceptName": "Acenocoumarol 4 MG Oral Tablet [Sintrom] Box of 20",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP3111706",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36260832,
+      "conceptName": "Acenocoumarol 4 MG Oral Tablet [Sintrom]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP3111707",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36260914,
+      "conceptName": "Acenocoumarol 1 MG Oral Tablet [Sintrom] Box of 100 by Merus Luxco",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3111789",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36268540,
+      "conceptName": "Acenocoumarol 1 MG Oral Tablet [Sintrom]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP3119415",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36274198,
+      "conceptName": "Acenocoumarol 4 MG Oral Tablet [Sintrom] Box of 20 by Merus Luxco",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3125073",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36274544,
+      "conceptName": "Acenocoumarol 1 MG [Sintrom]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP3125419",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36274545,
+      "conceptName": "Acenocoumarol 4 MG [Sintrom]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP3125420",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36277395,
+      "conceptName": "Acenocoumarol Oral Tablet [Sintrom]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP3128270",
+      "standardConcept": "S"
     },
     {
       "conceptId": 40003464,
@@ -587,13 +385,220 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36212688,
-      "conceptName": "acenocoumarol Pill",
-      "vocabularyId": "RxNorm",
+      "conceptId": 40882140,
+      "conceptName": "Acenocoumarol 4 MG Oral Tablet [Sinthrome] Box of 50",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1153964",
-      "standardConcept": "C"
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2080102",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40932057,
+      "conceptName": "Acenocoumarol 4 MG Oral Tablet Box of 20",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2130019",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40975391,
+      "conceptName": "Acenocoumarol 4 MG Oral Tablet [Sinthrome] Box of 20",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2173353",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41013128,
+      "conceptName": "Acenocoumarol 4 MG Oral Tablet [Sinthrome] Box of 20 by Novartis",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2211090",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41025651,
+      "conceptName": "Acenocoumarol 4 MG Oral Tablet Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2223613",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41044235,
+      "conceptName": "Acenocoumarol 4 MG Oral Tablet [Sinthrome] Box of 100 by Novartis",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2242197",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41056857,
+      "conceptName": "Acenocoumarol 4 MG Oral Tablet Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2254819",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41100579,
+      "conceptName": "Acenocoumarol 4 MG Oral Tablet [Sinthrome] Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2298541",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41163235,
+      "conceptName": "Acenocoumarol 4 MG Oral Tablet [Sinthrome] Box of 200",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2361197",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41182182,
+      "conceptName": "Acenocoumarol 4 MG Oral Tablet Box of 200",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2380144",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41232085,
+      "conceptName": "Acenocoumarol 4 MG Oral Tablet [Sinthrome] Box of 50 by Novartis",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2430047",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43026546,
+      "conceptName": "Acenocoumarol 4 MG Oral Tablet [Sintrom] Box of 30",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP4841642",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43026547,
+      "conceptName": "Acenocoumarol 4 MG Oral Tablet [Sintrom] Box of 30 by Merus Luxco",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4841643",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43141295,
+      "conceptName": "Acenocoumarol 4 MG Oral Tablet [Sinthrome] Box of 30",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP505462",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43163502,
+      "conceptName": "Acenocoumarol 1 MG Oral Tablet Box of 20",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP505466",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43174507,
+      "conceptName": "Acenocoumarol 1 MG [MINISINTROM]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP505465",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43185354,
+      "conceptName": "Acenocoumarol 4 MG Oral Tablet [Sinthrome] Box of 30 by Merus Luxco",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP505464",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43185355,
+      "conceptName": "Acenocoumarol 1 MG Oral Tablet [MINISINTROM]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP505467",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43196351,
+      "conceptName": "Acenocoumarol Oral Tablet [MINISINTROM]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP505460",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43196352,
+      "conceptName": "Acenocoumarol 1 MG Oral Tablet [MINISINTROM] Box of 20 by Merus Luxco",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP505469",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43218262,
+      "conceptName": "Acenocoumarol 4 MG Oral Tablet Box of 30",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP505461",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43218263,
+      "conceptName": "Acenocoumarol 1 MG Oral Tablet [MINISINTROM] Box of 20",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP505468",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44039153,
+      "conceptName": "Acenocoumarol 1 MG Oral Tablet [Sinthrome] by Paladin",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP1033784",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44129850,
+      "conceptName": "Acenocoumarol 4 MG Oral Tablet [Sinthrome] by Paladin",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP1124481",
+      "standardConcept": "S"
     }
   ]
 }

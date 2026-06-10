@@ -1,5 +1,9 @@
 {
   "conceptSetId": 200,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80"
+  },
   "resolvedConcepts": [
     {
       "conceptId": 3023520,
@@ -8,24 +12,6 @@
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
       "conceptCode": "14196-0",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40763528,
-      "conceptName": "Reticulocytes [#/volume] in Blood by Automated count",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "60474-4",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3041154,
-      "conceptName": "Reticulocytes [#/volume] in Blood by Manual count",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "40665-2",
       "standardConcept": "S"
     },
     {
@@ -38,6 +24,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 3041154,
+      "conceptName": "Reticulocytes [#/volume] in Blood by Manual count",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "40665-2",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 40654117,
       "conceptName": "Reticulocytes|Number Concentration (count/vol)|Moment in time|Blood",
       "vocabularyId": "LOINC",
@@ -45,6 +40,15 @@
       "conceptClassId": "LOINC Group",
       "conceptCode": "LG32882-9",
       "standardConcept": "C"
+    },
+    {
+      "conceptId": 40763528,
+      "conceptName": "Reticulocytes [#/volume] in Blood by Automated count",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "60474-4",
+      "standardConcept": "S"
     }
   ]
 }

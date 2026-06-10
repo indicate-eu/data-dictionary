@@ -1,177 +1,10 @@
 {
   "conceptSetId": 155,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80"
+  },
   "resolvedConcepts": [
-    {
-      "conceptId": 40762534,
-      "conceptName": "Calcium.ionized [Mass/volume] adjusted to pH 7.4 in Arterial blood by Ion-selective membrane electrode (ISE)",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "59472-1",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40760451,
-      "conceptName": "Calcium.ionized [Mass/volume] adjusted to pH 7.4 in Serum or Plasma by Ion-selective membrane electrode (ISE)",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "57333-7",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40762535,
-      "conceptName": "Calcium.ionized [Mass/volume] adjusted to pH 7.4 in Venous blood by Ion-selective membrane electrode (ISE)",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "59473-9",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40762532,
-      "conceptName": "Calcium.ionized [Mass/volume] in Arterial blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "59470-5",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3036426,
-      "conceptName": "Calcium.ionized [Mass/volume] in Blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "38230-9",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3027694,
-      "conceptName": "Calcium.ionized [Mass/volume] in Serum or Plasma",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "17863-2",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3024250,
-      "conceptName": "Calcium.ionized [Mass/volume] in Serum or Plasma by Ion-selective membrane electrode (ISE)",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "17864-0",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40762533,
-      "conceptName": "Calcium.ionized [Mass/volume] in Venous blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "59471-3",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3041706,
-      "conceptName": "Calcium.ionized [Moles/volume] adjusted to pH 7.4 in Arterial blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "53138-4",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3048816,
-      "conceptName": "Calcium.ionized [Moles/volume] adjusted to pH 7.4 in Blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "47598-8",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3039602,
-      "conceptName": "Calcium.ionized [Moles/volume] adjusted to pH 7.4 in Capillary blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "53139-2",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3016431,
-      "conceptName": "Calcium.ionized [Moles/volume] adjusted to pH 7.4 in Serum or Plasma",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "19072-8",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3041671,
-      "conceptName": "Calcium.ionized [Moles/volume] adjusted to pH 7.4 in Venous blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "53140-0",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3044331,
-      "conceptName": "Calcium.ionized [Moles/volume] in Arterial blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "34581-9",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3021119,
-      "conceptName": "Calcium.ionized [Moles/volume] in Blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "1994-3",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3050068,
-      "conceptName": "Calcium.ionized [Moles/volume] in Blood by Ion-selective membrane electrode (ISE)",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "47596-2",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3035279,
-      "conceptName": "Calcium.ionized [Moles/volume] in Capillary blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "41644-6",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3032271,
-      "conceptName": "Calcium.ionized [Moles/volume] in Mixed venous blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "41646-1",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3021347,
-      "conceptName": "Calcium.ionized [Moles/volume] in Serum or Plasma",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "1995-0",
-      "standardConcept": "S"
-    },
     {
       "conceptId": 3013784,
       "conceptName": "Calcium.ionized [Moles/volume] in Serum or Plasma by Ion-selective membrane electrode (ISE)",
@@ -191,12 +24,138 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 3016431,
+      "conceptName": "Calcium.ionized [Moles/volume] adjusted to pH 7.4 in Serum or Plasma",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "19072-8",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3021119,
+      "conceptName": "Calcium.ionized [Moles/volume] in Blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "1994-3",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3021347,
+      "conceptName": "Calcium.ionized [Moles/volume] in Serum or Plasma",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "1995-0",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3024250,
+      "conceptName": "Calcium.ionized [Mass/volume] in Serum or Plasma by Ion-selective membrane electrode (ISE)",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "17864-0",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3027694,
+      "conceptName": "Calcium.ionized [Mass/volume] in Serum or Plasma",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "17863-2",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3032271,
+      "conceptName": "Calcium.ionized [Moles/volume] in Mixed venous blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "41646-1",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 3033705,
       "conceptName": "Calcium.ionized [Moles/volume] in Venous blood",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
       "conceptCode": "41645-3",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3035279,
+      "conceptName": "Calcium.ionized [Moles/volume] in Capillary blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "41644-6",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3036426,
+      "conceptName": "Calcium.ionized [Mass/volume] in Blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "38230-9",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3039602,
+      "conceptName": "Calcium.ionized [Moles/volume] adjusted to pH 7.4 in Capillary blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "53139-2",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3041671,
+      "conceptName": "Calcium.ionized [Moles/volume] adjusted to pH 7.4 in Venous blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "53140-0",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3041706,
+      "conceptName": "Calcium.ionized [Moles/volume] adjusted to pH 7.4 in Arterial blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "53138-4",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3044331,
+      "conceptName": "Calcium.ionized [Moles/volume] in Arterial blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "34581-9",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3048816,
+      "conceptName": "Calcium.ionized [Moles/volume] adjusted to pH 7.4 in Blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "47598-8",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3050068,
+      "conceptName": "Calcium.ionized [Moles/volume] in Blood by Ion-selective membrane electrode (ISE)",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "47596-2",
       "standardConcept": "S"
     },
     {
@@ -209,12 +168,12 @@
       "standardConcept": "C"
     },
     {
-      "conceptId": 37073269,
-      "conceptName": "Calcium.ionized | Blood capillary | Chemistry - non-challenge",
+      "conceptId": 37058150,
+      "conceptName": "Calcium.ionized | Serum or Plasma | Chemistry - non-challenge",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP385975-0",
+      "conceptCode": "LP385983-4",
       "standardConcept": "C"
     },
     {
@@ -245,13 +204,58 @@
       "standardConcept": "C"
     },
     {
-      "conceptId": 37058150,
-      "conceptName": "Calcium.ionized | Serum or Plasma | Chemistry - non-challenge",
+      "conceptId": 37073269,
+      "conceptName": "Calcium.ionized | Blood capillary | Chemistry - non-challenge",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP385983-4",
+      "conceptCode": "LP385975-0",
       "standardConcept": "C"
+    },
+    {
+      "conceptId": 40760451,
+      "conceptName": "Calcium.ionized [Mass/volume] adjusted to pH 7.4 in Serum or Plasma by Ion-selective membrane electrode (ISE)",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "57333-7",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40762532,
+      "conceptName": "Calcium.ionized [Mass/volume] in Arterial blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "59470-5",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40762533,
+      "conceptName": "Calcium.ionized [Mass/volume] in Venous blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "59471-3",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40762534,
+      "conceptName": "Calcium.ionized [Mass/volume] adjusted to pH 7.4 in Arterial blood by Ion-selective membrane electrode (ISE)",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "59472-1",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40762535,
+      "conceptName": "Calcium.ionized [Mass/volume] adjusted to pH 7.4 in Venous blood by Ion-selective membrane electrode (ISE)",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "59473-9",
+      "standardConcept": "S"
     }
   ]
 }

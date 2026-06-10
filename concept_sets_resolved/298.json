@@ -1,5 +1,9 @@
 {
   "conceptSetId": 298,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
     {
       "conceptId": 4049846,
@@ -8,6 +12,33 @@
       "domainId": "Procedure",
       "conceptClassId": "Procedure",
       "conceptCode": "233590002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4050862,
+      "conceptName": "Intermittent hemodialysis with continuous ultrafiltration",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "233577009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4051326,
+      "conceptName": "Intermittent hemodialysis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "233575001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4051327,
+      "conceptName": "Intermittent hemodialysis with sequential ultrafiltration",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "233576000",
       "standardConcept": "S"
     },
     {
@@ -26,33 +57,6 @@
       "domainId": "Procedure",
       "conceptClassId": "Procedure",
       "conceptCode": "233585000",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4051326,
-      "conceptName": "Intermittent hemodialysis",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "233575001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4050862,
-      "conceptName": "Intermittent hemodialysis with continuous ultrafiltration",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "233577009",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4051327,
-      "conceptName": "Intermittent hemodialysis with sequential ultrafiltration",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "233576000",
       "standardConcept": "S"
     }
   ]

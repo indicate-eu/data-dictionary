@@ -1,4 +1,7 @@
 {
   "conceptSetId": 161,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26"
+  },
   "resolvedConcepts": []
 }

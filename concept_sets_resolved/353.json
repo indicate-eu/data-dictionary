@@ -1,13 +1,17 @@
 {
   "conceptSetId": 353,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80"
+  },
   "resolvedConcepts": [
     {
-      "conceptId": 3019240,
-      "conceptName": "Oxygen [Partial pressure] adjusted to patient's actual temperature in Capillary blood",
+      "conceptId": 1616654,
+      "conceptName": "Oxygen [Partial pressure] in Central venous blood",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
-      "conceptCode": "19256-7",
+      "conceptCode": "97540-9",
       "standardConcept": "S"
     },
     {
@@ -20,13 +24,13 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 3019464,
-      "conceptName": "Oxygen [Partial pressure] adjusted to patient's actual temperature in Mixed venous blood",
+      "conceptId": 1618012,
+      "conceptName": "Oxygen | Blood central venous | Chemistry - non-challenge",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "19257-5",
-      "standardConcept": "S"
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP426943-9",
+      "standardConcept": "C"
     },
     {
       "conceptId": 3004529,
@@ -38,30 +42,21 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 3028626,
-      "conceptName": "Oxygen [Partial pressure] in Capillary blood",
+      "conceptId": 3019240,
+      "conceptName": "Oxygen [Partial pressure] adjusted to patient's actual temperature in Capillary blood",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
-      "conceptCode": "2704-5",
+      "conceptCode": "19256-7",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1616654,
-      "conceptName": "Oxygen [Partial pressure] in Central venous blood",
+      "conceptId": 3019464,
+      "conceptName": "Oxygen [Partial pressure] adjusted to patient's actual temperature in Mixed venous blood",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
-      "conceptCode": "97540-9",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3038071,
-      "conceptName": "Oxygen [Partial pressure] in Mixed venous blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "19211-2",
+      "conceptCode": "19257-5",
       "standardConcept": "S"
     },
     {
@@ -74,22 +69,22 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 37026802,
-      "conceptName": "Oxygen | Blood capillary | Chemistry - non-challenge",
+      "conceptId": 3028626,
+      "conceptName": "Oxygen [Partial pressure] in Capillary blood",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP383362-3",
-      "standardConcept": "C"
+      "conceptClassId": "Lab Test",
+      "conceptCode": "2704-5",
+      "standardConcept": "S"
     },
     {
-      "conceptId": 1618012,
-      "conceptName": "Oxygen | Blood central venous | Chemistry - non-challenge",
+      "conceptId": 3038071,
+      "conceptName": "Oxygen [Partial pressure] in Mixed venous blood",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP426943-9",
-      "standardConcept": "C"
+      "conceptClassId": "Lab Test",
+      "conceptCode": "19211-2",
+      "standardConcept": "S"
     },
     {
       "conceptId": 37023555,
@@ -98,6 +93,15 @@
       "domainId": "Measurement",
       "conceptClassId": "LOINC Hierarchy",
       "conceptCode": "LP383366-4",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37026802,
+      "conceptName": "Oxygen | Blood capillary | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP383362-3",
       "standardConcept": "C"
     },
     {

@@ -1,5 +1,10 @@
 {
   "conceptSetId": 332,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
     {
       "conceptId": 1175625,
@@ -11,66 +16,30 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4154772,
-      "conceptName": "Rate of spontaneous respiration",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "271625008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3024171,
-      "conceptName": "Respiratory rate",
+      "conceptId": 3006396,
+      "conceptName": "Respiratory rate by Spirometry --at maximum voluntary ventilation",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Clinical Observation",
-      "conceptCode": "9279-1",
+      "conceptCode": "19841-6",
       "standardConcept": "S"
     },
     {
-      "conceptId": 4313591,
-      "conceptName": "Respiratory rate",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "86290005",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36305182,
-      "conceptName": "Respiratory rate --W exercise",
+      "conceptId": 3010057,
+      "conceptName": "Respiratory rate --pre inhalation therapy",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Clinical Observation",
-      "conceptCode": "89274-5",
+      "conceptCode": "9302-1",
       "standardConcept": "S"
     },
     {
-      "conceptId": 3022705,
-      "conceptName": "Respiratory rate --at maximum voluntary ventilation",
+      "conceptId": 3010647,
+      "conceptName": "Respiratory rate --resting",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Clinical Observation",
-      "conceptCode": "19842-4",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36305857,
-      "conceptName": "Respiratory rate --during anesthesia",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "89279-4",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3013606,
-      "conceptName": "Respiratory rate --post bronchoscopy",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "9295-7",
+      "conceptCode": "9303-9",
       "standardConcept": "S"
     },
     {
@@ -83,21 +52,30 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 3012933,
+      "conceptName": "Respiratory rate --pre conscious sedation",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "9301-3",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3013606,
+      "conceptName": "Respiratory rate --post bronchoscopy",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "9295-7",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 3014664,
       "conceptName": "Respiratory rate --post conscious sedation",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Clinical Observation",
       "conceptCode": "9297-3",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3038563,
-      "conceptName": "Respiratory rate --post exercise",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "40441-8",
       "standardConcept": "S"
     },
     {
@@ -119,6 +97,24 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 3022705,
+      "conceptName": "Respiratory rate --at maximum voluntary ventilation",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "19842-4",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3024171,
+      "conceptName": "Respiratory rate",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "9279-1",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 3026416,
       "conceptName": "Respiratory rate --pre cardioversion",
       "vocabularyId": "LOINC",
@@ -128,30 +124,39 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 3012933,
-      "conceptName": "Respiratory rate --pre conscious sedation",
+      "conceptId": 3038563,
+      "conceptName": "Respiratory rate --post exercise",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Clinical Observation",
-      "conceptCode": "9301-3",
+      "conceptCode": "40441-8",
       "standardConcept": "S"
     },
     {
-      "conceptId": 3010057,
-      "conceptName": "Respiratory rate --pre inhalation therapy",
-      "vocabularyId": "LOINC",
+      "conceptId": 4108446,
+      "conceptName": "Total breath rate",
+      "vocabularyId": "SNOMED",
       "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "9302-1",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "250810003",
       "standardConcept": "S"
     },
     {
-      "conceptId": 3010647,
-      "conceptName": "Respiratory rate --resting",
-      "vocabularyId": "LOINC",
+      "conceptId": 4154772,
+      "conceptName": "Rate of spontaneous respiration",
+      "vocabularyId": "SNOMED",
       "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "9303-9",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "271625008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4313591,
+      "conceptName": "Respiratory rate",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "86290005",
       "standardConcept": "S"
     },
     {
@@ -200,30 +205,30 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 36305182,
+      "conceptName": "Respiratory rate --W exercise",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "89274-5",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36305857,
+      "conceptName": "Respiratory rate --during anesthesia",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "89279-4",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 42527123,
       "conceptName": "Respiratory rate by Pulse oximetry.plethysmograph",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Clinical Observation",
       "conceptCode": "76174-2",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3006396,
-      "conceptName": "Respiratory rate by Spirometry --at maximum voluntary ventilation",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "19841-6",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4108446,
-      "conceptName": "Total breath rate",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "250810003",
       "standardConcept": "S"
     }
   ]

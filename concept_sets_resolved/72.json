@@ -1,14 +1,136 @@
 {
   "conceptSetId": 72,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "RxNorm": "RxNorm 20260105",
+    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+  },
   "resolvedConcepts": [
     {
-      "conceptId": 37498018,
-      "conceptName": "Fetroja Injectable Product",
-      "vocabularyId": "RxNorm",
+      "conceptId": 35885666,
+      "conceptName": "cefiderocol 1000 MG Injection Box of 10 by Shionogi",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2265710",
-      "standardConcept": "C"
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5032953",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35885667,
+      "conceptName": "cefiderocol 1000 MG Injection Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP5032954",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35885668,
+      "conceptName": "cefiderocol 1000 MG Injection by Shionogi",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5032955",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35885669,
+      "conceptName": "cefiderocol 1000 MG Injectable Solution Box of 10 by Shionogi",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5032956",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35885670,
+      "conceptName": "cefiderocol 1000 MG Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP5032957",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35885671,
+      "conceptName": "cefiderocol 1000 MG Injectable Solution by Shionogi",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5032958",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35885672,
+      "conceptName": "cefiderocol 1000 MG Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP5032959",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35885673,
+      "conceptName": "cefiderocol Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP5032960",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35896940,
+      "conceptName": "cefiderocol 1000 MG Injectable Solution [Fetcroja] Box of 10 by Shionogi",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5041175",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35896941,
+      "conceptName": "cefiderocol 1000 MG Injectable Solution [Fetcroja] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP5041176",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35896942,
+      "conceptName": "cefiderocol 1000 MG Injectable Solution [Fetcroja] by Shionogi",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5041177",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35896943,
+      "conceptName": "cefiderocol 1000 MG Injectable Solution [Fetcroja]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP5041178",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35896944,
+      "conceptName": "cefiderocol 1000 MG [Fetcroja]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP5041179",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35896945,
+      "conceptName": "cefiderocol Injectable Solution [Fetcroja]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP5041180",
+      "standardConcept": "S"
     },
     {
       "conceptId": 37498010,
@@ -29,75 +151,21 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 35885672,
-      "conceptName": "cefiderocol 1000 MG Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 37498012,
+      "conceptName": "cefiderocol Injectable Product",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP5032959",
-      "standardConcept": "S"
+      "conceptClassId": "Clinical Dose Group",
+      "conceptCode": "2265704",
+      "standardConcept": "C"
     },
     {
-      "conceptId": 35885670,
-      "conceptName": "cefiderocol 1000 MG Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 37498013,
+      "conceptName": "cefiderocol Injection",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP5032957",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35885669,
-      "conceptName": "cefiderocol 1000 MG Injectable Solution Box of 10 by Shionogi",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5032956",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35896943,
-      "conceptName": "cefiderocol 1000 MG Injectable Solution [Fetcroja]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5041178",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35896941,
-      "conceptName": "cefiderocol 1000 MG Injectable Solution [Fetcroja] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP5041176",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35896940,
-      "conceptName": "cefiderocol 1000 MG Injectable Solution [Fetcroja] Box of 10 by Shionogi",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5041175",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35896942,
-      "conceptName": "cefiderocol 1000 MG Injectable Solution [Fetcroja] by Shionogi",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5041177",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35885671,
-      "conceptName": "cefiderocol 1000 MG Injectable Solution by Shionogi",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5032958",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "2265705",
       "standardConcept": "S"
     },
     {
@@ -110,51 +178,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 35885667,
-      "conceptName": "cefiderocol 1000 MG Injection Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP5032954",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35885666,
-      "conceptName": "cefiderocol 1000 MG Injection Box of 10 by Shionogi",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5032953",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37498019,
-      "conceptName": "cefiderocol 1000 MG Injection [Fetroja]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "2265711",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35885668,
-      "conceptName": "cefiderocol 1000 MG Injection by Shionogi",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5032955",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35896944,
-      "conceptName": "cefiderocol 1000 MG [Fetcroja]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP5041179",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 37498016,
       "conceptName": "cefiderocol 1000 MG [Fetroja]",
       "vocabularyId": "RxNorm",
@@ -164,48 +187,30 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 37498012,
-      "conceptName": "cefiderocol Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "2265704",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 35885673,
-      "conceptName": "cefiderocol Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP5032960",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35896945,
-      "conceptName": "cefiderocol Injectable Solution [Fetcroja]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP5041180",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37498013,
-      "conceptName": "cefiderocol Injection",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "2265705",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 37498017,
       "conceptName": "cefiderocol Injection [Fetroja]",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "2265709",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37498018,
+      "conceptName": "Fetroja Injectable Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Dose Group",
+      "conceptCode": "2265710",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37498019,
+      "conceptName": "cefiderocol 1000 MG Injection [Fetroja]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "2265711",
       "standardConcept": "S"
     }
   ]

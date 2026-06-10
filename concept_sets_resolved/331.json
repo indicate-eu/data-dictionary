@@ -1,6 +1,83 @@
 {
   "conceptSetId": 331,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
+    {
+      "conceptId": 3008071,
+      "conceptName": "Urine output 24 hour",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "9192-6",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3008828,
+      "conceptName": "Urine output 8 hour",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "9189-2",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3013533,
+      "conceptName": "Urine output 10 hour",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "9190-0",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3014315,
+      "conceptName": "Urine output",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "9187-6",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3014835,
+      "conceptName": "Urine output 1 hour",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "9188-4",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3016267,
+      "conceptName": "Urine output by in and out urethral catheter",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "9195-9",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3018727,
+      "conceptName": "Urine output 12 hour",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "9191-8",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4065542,
+      "conceptName": "Measurement of urine volume over 6 hours",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Procedure",
+      "conceptCode": "167578005",
+      "standardConcept": "S"
+    },
     {
       "conceptId": 4191836,
       "conceptName": "24 hour urine output",
@@ -29,12 +106,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4065542,
-      "conceptName": "Measurement of urine volume over 6 hours",
-      "vocabularyId": "SNOMED",
+      "conceptId": 21491173,
+      "conceptName": "Urine output measured by nephrostomy",
+      "vocabularyId": "LOINC",
       "domainId": "Measurement",
-      "conceptClassId": "Procedure",
-      "conceptCode": "167578005",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "79549-2",
       "standardConcept": "S"
     },
     {
@@ -44,78 +121,6 @@
       "domainId": "Measurement",
       "conceptClassId": "Observable Entity",
       "conceptCode": "1027231000000106",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3014315,
-      "conceptName": "Urine output",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "9187-6",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3014835,
-      "conceptName": "Urine output 1 hour",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "9188-4",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3013533,
-      "conceptName": "Urine output 10 hour",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "9190-0",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3018727,
-      "conceptName": "Urine output 12 hour",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "9191-8",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3008071,
-      "conceptName": "Urine output 24 hour",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "9192-6",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3008828,
-      "conceptName": "Urine output 8 hour",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "9189-2",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3016267,
-      "conceptName": "Urine output by in and out urethral catheter",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "9195-9",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21491173,
-      "conceptName": "Urine output measured by nephrostomy",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "79549-2",
       "standardConcept": "S"
     },
     {

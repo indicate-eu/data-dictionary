@@ -1,15 +1,10 @@
 {
   "conceptSetId": 287,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
-    {
-      "conceptId": 4022415,
-      "conceptName": "Energy requirement",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "226244007",
-      "standardConcept": "S"
-    },
     {
       "conceptId": 604877,
       "conceptName": "Estimated required quantity of energy in 24 hours",
@@ -26,6 +21,15 @@
       "domainId": "Observation",
       "conceptClassId": "Observable Entity",
       "conceptCode": "1003838006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4022415,
+      "conceptName": "Energy requirement",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "226244007",
       "standardConcept": "S"
     },
     {

@@ -1,166 +1,71 @@
 {
   "conceptSetId": 229,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
     {
-      "conceptId": 4259120,
-      "conceptName": "Aerobic diphtheroids",
+      "conceptId": 604385,
+      "conceptName": "Corynebacterium aquatimens",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "44661006",
+      "conceptCode": "890451007",
       "standardConcept": "S"
     },
     {
-      "conceptId": 4097227,
-      "conceptName": "Anaerobic diphtheroids",
+      "conceptId": 605839,
+      "conceptName": "Corynebacterium fournieri",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "26481006",
+      "conceptCode": "1141654003",
       "standardConcept": "S"
     },
     {
-      "conceptId": 4348018,
-      "conceptName": "CDC Corynebacterium group",
+      "conceptId": 618656,
+      "conceptName": "Corynebacterium hadale",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "243267009",
+      "conceptCode": "890449008",
       "standardConcept": "S"
     },
     {
-      "conceptId": 4348019,
-      "conceptName": "CDC Corynebacterium group A-3",
+      "conceptId": 618657,
+      "conceptName": "Corynebacterium gottingense",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "243268004",
+      "conceptCode": "890450008",
       "standardConcept": "S"
     },
     {
-      "conceptId": 4348159,
-      "conceptName": "CDC Corynebacterium group A-4",
+      "conceptId": 1074188,
+      "conceptName": "Corynebacterium pollutisoli",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "243269007",
+      "conceptCode": "1336079000",
       "standardConcept": "S"
     },
     {
-      "conceptId": 4352618,
-      "conceptName": "CDC Corynebacterium group A-5",
+      "conceptId": 1074734,
+      "conceptName": "Corynebacterium lujinxingii",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "243270008",
+      "conceptCode": "51521000087102",
       "standardConcept": "S"
     },
     {
-      "conceptId": 4352619,
-      "conceptName": "CDC Corynebacterium group B-1",
+      "conceptId": 1243460,
+      "conceptName": "Corynebacterium parakroppenstedtii",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "243271007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4352620,
-      "conceptName": "CDC Corynebacterium group B-3",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "243272000",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4348020,
-      "conceptName": "CDC Corynebacterium group C",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "243274004",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4352621,
-      "conceptName": "CDC Corynebacterium group D-1",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "243275003",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4348021,
-      "conceptName": "CDC Corynebacterium group E",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "243276002",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4352622,
-      "conceptName": "CDC Corynebacterium group F-1",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "243277006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4348317,
-      "conceptName": "CDC Corynebacterium group F-2",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "243278001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4348161,
-      "conceptName": "CDC Corynebacterium group G-2",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "243280007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4348318,
-      "conceptName": "CDC Corynebacterium group I-1",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "243281006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4348022,
-      "conceptName": "CDC Corynebacterium group I-2",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "243282004",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4299363,
-      "conceptName": "Corynebacterium",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "77086004",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4352616,
-      "conceptName": "Corynebacterium accolens",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "243254006",
+      "conceptCode": "1296582000",
       "standardConcept": "S"
     },
     {
@@ -170,6 +75,33 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "113608003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4012162,
+      "conceptName": "Corynebacterium propinquum",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "113612009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4012163,
+      "conceptName": "Corynebacterium urealyticum",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "113613004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4014182,
+      "conceptName": "Corynebacterium ulcerans",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "103428000",
       "standardConcept": "S"
     },
     {
@@ -209,75 +141,102 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4307996,
-      "conceptName": "Corynebacterium appendicis",
+      "conceptId": 4020762,
+      "conceptName": "Corynebacterium variabile",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "423659000",
+      "conceptCode": "11575001",
       "standardConcept": "S"
     },
     {
-      "conceptId": 604385,
-      "conceptName": "Corynebacterium aquatimens",
+      "conceptId": 4022584,
+      "conceptName": "Corynebacterium falsenii",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "890451007",
+      "conceptCode": "116389005",
       "standardConcept": "S"
     },
     {
-      "conceptId": 4308772,
-      "conceptName": "Corynebacterium aquilae",
+      "conceptId": 4023065,
+      "conceptName": "Corynebacterium vitaeruminis",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "424012003",
+      "conceptCode": "116390001",
       "standardConcept": "S"
     },
     {
-      "conceptId": 4217245,
-      "conceptName": "Corynebacterium argentoratense",
+      "conceptId": 4023089,
+      "conceptName": "Corynebacterium coyleae",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "417499006",
+      "conceptCode": "116461008",
       "standardConcept": "S"
     },
     {
-      "conceptId": 4314471,
-      "conceptName": "Corynebacterium atypicum",
+      "conceptId": 4023090,
+      "conceptName": "Corynebacterium phocae",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "424209005",
+      "conceptCode": "116462001",
       "standardConcept": "S"
     },
     {
-      "conceptId": 4300249,
-      "conceptName": "Corynebacterium aurimucosum",
+      "conceptId": 4024967,
+      "conceptName": "Corynebacterium pseudodiphtheriticum",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "385503009",
+      "conceptCode": "12050008",
       "standardConcept": "S"
     },
     {
-      "conceptId": 4185322,
-      "conceptName": "Corynebacterium auris",
+      "conceptId": 4028997,
+      "conceptName": "Corynebacterium diphtheriae type mitis",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "413925000",
+      "conceptCode": "13755001",
       "standardConcept": "S"
     },
     {
-      "conceptId": 4309073,
-      "conceptName": "Corynebacterium auriscanis",
+      "conceptId": 4037753,
+      "conceptName": "Corynebacterium riegelii",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "424389005",
+      "conceptCode": "131241009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4097227,
+      "conceptName": "Anaerobic diphtheroids",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "26481006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4098568,
+      "conceptName": "Corynebacterium xerosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "27101006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4116051,
+      "conceptName": "Corynebacterium murisepticum",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "302583000",
       "standardConcept": "S"
     },
     {
@@ -290,12 +249,246 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4260521,
-      "conceptName": "Corynebacterium bovis",
+      "conceptId": 4162489,
+      "conceptName": "Corynebacterium glaucum",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "44885001",
+      "conceptCode": "432808003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4166118,
+      "conceptName": "Corynebacterium thomssenii",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "416311000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4166370,
+      "conceptName": "Corynebacterium flavescens",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "47802009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4178902,
+      "conceptName": "Corynebacterium cystitidis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "50169005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4181036,
+      "conceptName": "Corynebacterium kroppenstedtii",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "363777001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4181656,
+      "conceptName": "Corynebacterium macginleyi",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "363772007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4184593,
+      "conceptName": "Diphtheroids",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "54642001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4185322,
+      "conceptName": "Corynebacterium auris",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "413925000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4185323,
+      "conceptName": "Corynebacterium imitans",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "413928003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4187048,
+      "conceptName": "Corynebacterium species, not Corynebacterium diphtheriae",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "413931002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4188993,
+      "conceptName": "Corynebacterium durum",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "413926004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4188994,
+      "conceptName": "Corynebacterium mucifaciens",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "413929006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4188995,
+      "conceptName": "Corynebacterium species not Corynebacterium jeikeium",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "413930001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4204706,
+      "conceptName": "Corynebacterium pseudotuberculosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "55084001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4212069,
+      "conceptName": "Corynebacterium lipophiloflavum",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "416863001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4212779,
+      "conceptName": "Corynebacterium glucuronolyticum",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "413927008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4213391,
+      "conceptName": "Corynebacterium confusum",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "417134008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4215222,
+      "conceptName": "Corynebacterium otitidis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "415763004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4216389,
+      "conceptName": "Corynebacterium tenuis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "72243003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4217245,
+      "conceptName": "Corynebacterium argentoratense",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "417499006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4217867,
+      "conceptName": "Corynebacterium simulans",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "416655000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4218174,
+      "conceptName": "Corynebacterium freneyi",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "416914001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4218567,
+      "conceptName": "Corynebacterium pilosum",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "81368007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4219544,
+      "conceptName": "Corynebacterium tuberculostearicum",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "416356007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4219696,
+      "conceptName": "Corynebacterium pseudotuberculostearicum",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "416570006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4227580,
+      "conceptName": "Corynebacterium kutscheri",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "88575000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4230057,
+      "conceptName": "Corynebacterium glutamicum",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "89651003",
       "standardConcept": "S"
     },
     {
@@ -308,6 +501,204 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 4231721,
+      "conceptName": "Corynebacterium matruchotii",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "89922004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4241690,
+      "conceptName": "Corynebacterium diphtheriae",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "5851001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4243338,
+      "conceptName": "Corynebacterium mycetoides",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "58879005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4259120,
+      "conceptName": "Aerobic diphtheroids",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "44661006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4260521,
+      "conceptName": "Corynebacterium bovis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "44885001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4265178,
+      "conceptName": "Toxigenic Corynebacterium",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "397426001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4265637,
+      "conceptName": "Corynebacterium renale",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "62000003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4269491,
+      "conceptName": "Corynebacterium jeikeium",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "63410006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4274350,
+      "conceptName": "Corynebacterium striatum",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "63815007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4299363,
+      "conceptName": "Corynebacterium",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "77086004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4300249,
+      "conceptName": "Corynebacterium aurimucosum",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "385503009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4306777,
+      "conceptName": "Corynebacterium minutissimum",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "83594007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4306916,
+      "conceptName": "Corynebacterium diphtheriae type gravis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "83675005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4307713,
+      "conceptName": "Corynebacterium sphenisci",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "422705004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4307839,
+      "conceptName": "Corynebacterium caspium",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "422791000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4307996,
+      "conceptName": "Corynebacterium appendicis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "423659000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4308323,
+      "conceptName": "Corynebacterium terpenotabidum",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "422496009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4308757,
+      "conceptName": "Corynebacterium efficiens",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "423379003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4308772,
+      "conceptName": "Corynebacterium aquilae",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "424012003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4309073,
+      "conceptName": "Corynebacterium auriscanis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "424389005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4309084,
+      "conceptName": "Corynebacterium ciconiae",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "424459004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4309700,
+      "conceptName": "Corynebacterium suicordis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "423784007",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4309854,
       "conceptName": "Corynebacterium camporealensis",
       "vocabularyId": "SNOMED",
@@ -317,12 +708,21 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 37204816,
-      "conceptName": "Corynebacterium canis",
+      "conceptId": 4311141,
+      "conceptName": "Corynebacterium felinum",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "783720000",
+      "conceptCode": "423568009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4311983,
+      "conceptName": "Corynebacterium singulare",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "422898002",
       "standardConcept": "S"
     },
     {
@@ -344,759 +744,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4307839,
-      "conceptName": "Corynebacterium caspium",
+      "conceptId": 4314471,
+      "conceptName": "Corynebacterium atypicum",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "422791000",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4309084,
-      "conceptName": "Corynebacterium ciconiae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "424459004",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4213391,
-      "conceptName": "Corynebacterium confusum",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "417134008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4023089,
-      "conceptName": "Corynebacterium coyleae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "116461008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4178902,
-      "conceptName": "Corynebacterium cystitidis",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "50169005",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4241690,
-      "conceptName": "Corynebacterium diphtheriae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "5851001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4306916,
-      "conceptName": "Corynebacterium diphtheriae type gravis",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "83675005",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4321988,
-      "conceptName": "Corynebacterium diphtheriae type intermedius",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "70876001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4028997,
-      "conceptName": "Corynebacterium diphtheriae type mitis",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "13755001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4352617,
-      "conceptName": "Corynebacterium diphtheriae var belfanti",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "243255007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37155732,
-      "conceptName": "Corynebacterium doosanense",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "30371000087101",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4188993,
-      "conceptName": "Corynebacterium durum",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "413926004",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4308757,
-      "conceptName": "Corynebacterium efficiens",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "423379003",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4022584,
-      "conceptName": "Corynebacterium falsenii",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "116389005",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4311141,
-      "conceptName": "Corynebacterium felinum",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "423568009",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4166370,
-      "conceptName": "Corynebacterium flavescens",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "47802009",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 605839,
-      "conceptName": "Corynebacterium fournieri",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1141654003",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42537852,
-      "conceptName": "Corynebacterium frankenforstense",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "737512003",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37159417,
-      "conceptName": "Corynebacterium freiburgense",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "30381000087104",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4218174,
-      "conceptName": "Corynebacterium freneyi",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "416914001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4348015,
-      "conceptName": "Corynebacterium genitalium",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "243260006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4162489,
-      "conceptName": "Corynebacterium glaucum",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "432808003",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4212779,
-      "conceptName": "Corynebacterium glucuronolyticum",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "413927008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4230057,
-      "conceptName": "Corynebacterium glutamicum",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "89651003",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37159418,
-      "conceptName": "Corynebacterium glyciniphilum",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "30391000087102",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 618657,
-      "conceptName": "Corynebacterium gottingense",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "890450008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 618656,
-      "conceptName": "Corynebacterium hadale",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "890449008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4314813,
-      "conceptName": "Corynebacterium halotolerans",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "424529007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37016405,
-      "conceptName": "Corynebacterium hansenii",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "4131000146102",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37159419,
-      "conceptName": "Corynebacterium humireducens",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "30401000087104",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4185323,
-      "conceptName": "Corynebacterium imitans",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "413928003",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4269491,
-      "conceptName": "Corynebacterium jeikeium",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "63410006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4181036,
-      "conceptName": "Corynebacterium kroppenstedtii",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "363777001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4227580,
-      "conceptName": "Corynebacterium kutscheri",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "88575000",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4212069,
-      "conceptName": "Corynebacterium lipophiloflavum",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "416863001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35621876,
-      "conceptName": "Corynebacterium lowii",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "763137009",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37155733,
-      "conceptName": "Corynebacterium lubricantis",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "30411000087102",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1074734,
-      "conceptName": "Corynebacterium lujinxingii",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "51521000087102",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4181656,
-      "conceptName": "Corynebacterium macginleyi",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "363772007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4348156,
-      "conceptName": "Corynebacterium manihot",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "243261005",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40487003,
-      "conceptName": "Corynebacterium massiliense",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "446285007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4314845,
-      "conceptName": "Corynebacterium mastitidis",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "424709009",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4231721,
-      "conceptName": "Corynebacterium matruchotii",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "89922004",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4348157,
-      "conceptName": "Corynebacterium mediolanum",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "243262003",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4306777,
-      "conceptName": "Corynebacterium minutissimum",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "83594007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4188994,
-      "conceptName": "Corynebacterium mucifaciens",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "413929006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4116051,
-      "conceptName": "Corynebacterium murisepticum",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "302583000",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37159420,
-      "conceptName": "Corynebacterium mustelae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "30421000087105",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4243338,
-      "conceptName": "Corynebacterium mycetoides",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "58879005",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4348016,
-      "conceptName": "Corynebacterium nephridii",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "243263008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35622378,
-      "conceptName": "Corynebacterium oculi",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "763838002",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4215222,
-      "conceptName": "Corynebacterium otitidis",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "415763004",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1243460,
-      "conceptName": "Corynebacterium parakroppenstedtii",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1296582000",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4023090,
-      "conceptName": "Corynebacterium phocae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "116462001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37159137,
-      "conceptName": "Corynebacterium phoceense",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1287340008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40491447,
-      "conceptName": "Corynebacterium pilbarense",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "448715005",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4218567,
-      "conceptName": "Corynebacterium pilosum",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "81368007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1074188,
-      "conceptName": "Corynebacterium pollutisoli",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1336079000",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4012162,
-      "conceptName": "Corynebacterium propinquum",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "113612009",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37151666,
-      "conceptName": "Corynebacterium provencense",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "13721000181104",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4024967,
-      "conceptName": "Corynebacterium pseudodiphtheriticum",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "12050008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4348316,
-      "conceptName": "Corynebacterium pseudogenitalium",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "243264002",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4204706,
-      "conceptName": "Corynebacterium pseudotuberculosis",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "55084001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4219696,
-      "conceptName": "Corynebacterium pseudotuberculostearicum",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "416570006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42873130,
-      "conceptName": "Corynebacterium pyruviciproducens",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "450383002",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4265637,
-      "conceptName": "Corynebacterium renale",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "62000003",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40485317,
-      "conceptName": "Corynebacterium resistens",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "442804004",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4037753,
-      "conceptName": "Corynebacterium riegelii",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "131241009",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4348017,
-      "conceptName": "Corynebacterium rubrum",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "243265001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37016387,
-      "conceptName": "Corynebacterium sanguinis",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "390533571000087108",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4217867,
-      "conceptName": "Corynebacterium simulans",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "416655000",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4311983,
-      "conceptName": "Corynebacterium singulare",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "422898002",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4188995,
-      "conceptName": "Corynebacterium species not Corynebacterium jeikeium",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "413930001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37204327,
-      "conceptName": "Corynebacterium species not Corynebacterium urealyticum",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "782950007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4187048,
-      "conceptName": "Corynebacterium species, not Corynebacterium diphtheriae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "413931002",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4307713,
-      "conceptName": "Corynebacterium sphenisci",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "422705004",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4333774,
-      "conceptName": "Corynebacterium spheniscorum",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "432362008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37155734,
-      "conceptName": "Corynebacterium sputi",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "30431000087107",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37018580,
-      "conceptName": "Corynebacterium stationis",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "7841000146107",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4274350,
-      "conceptName": "Corynebacterium striatum",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "63815007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4309700,
-      "conceptName": "Corynebacterium suicordis",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "423784007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4322403,
-      "conceptName": "Corynebacterium sundsvallense",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "425307003",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4216389,
-      "conceptName": "Corynebacterium tenuis",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "72243003",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4308323,
-      "conceptName": "Corynebacterium terpenotabidum",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "422496009",
+      "conceptCode": "424209005",
       "standardConcept": "S"
     },
     {
@@ -1109,75 +762,39 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4166118,
-      "conceptName": "Corynebacterium thomssenii",
+      "conceptId": 4314813,
+      "conceptName": "Corynebacterium halotolerans",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "416311000",
+      "conceptCode": "424529007",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36675082,
-      "conceptName": "Corynebacterium timonense",
+      "conceptId": 4314845,
+      "conceptName": "Corynebacterium mastitidis",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "771381004",
+      "conceptCode": "424709009",
       "standardConcept": "S"
     },
     {
-      "conceptId": 4219544,
-      "conceptName": "Corynebacterium tuberculostearicum",
+      "conceptId": 4321988,
+      "conceptName": "Corynebacterium diphtheriae type intermedius",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "416356007",
+      "conceptCode": "70876001",
       "standardConcept": "S"
     },
     {
-      "conceptId": 42873156,
-      "conceptName": "Corynebacterium tuscaniense",
+      "conceptId": 4322403,
+      "conceptName": "Corynebacterium sundsvallense",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "450409000",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37158572,
-      "conceptName": "Corynebacterium uberis",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1264296002",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4014182,
-      "conceptName": "Corynebacterium ulcerans",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "103428000",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37159421,
-      "conceptName": "Corynebacterium ulceribovis",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "30441000087101",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4012163,
-      "conceptName": "Corynebacterium urealyticum",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "113613004",
+      "conceptCode": "425307003",
       "standardConcept": "S"
     },
     {
@@ -1190,12 +807,102 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4020762,
-      "conceptName": "Corynebacterium variabile",
+      "conceptId": 4333774,
+      "conceptName": "Corynebacterium spheniscorum",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "11575001",
+      "conceptCode": "432362008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4348015,
+      "conceptName": "Corynebacterium genitalium",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "243260006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4348016,
+      "conceptName": "Corynebacterium nephridii",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "243263008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4348017,
+      "conceptName": "Corynebacterium rubrum",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "243265001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4348018,
+      "conceptName": "CDC Corynebacterium group",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "243267009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4348019,
+      "conceptName": "CDC Corynebacterium group A-3",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "243268004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4348020,
+      "conceptName": "CDC Corynebacterium group C",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "243274004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4348021,
+      "conceptName": "CDC Corynebacterium group E",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "243276002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4348022,
+      "conceptName": "CDC Corynebacterium group I-2",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "243282004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4348156,
+      "conceptName": "Corynebacterium manihot",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "243261005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4348157,
+      "conceptName": "Corynebacterium mediolanum",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "243262003",
       "standardConcept": "S"
     },
     {
@@ -1208,39 +915,165 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4023065,
-      "conceptName": "Corynebacterium vitaeruminis",
+      "conceptId": 4348159,
+      "conceptName": "CDC Corynebacterium group A-4",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "116390001",
+      "conceptCode": "243269007",
       "standardConcept": "S"
     },
     {
-      "conceptId": 4098568,
-      "conceptName": "Corynebacterium xerosis",
+      "conceptId": 4348161,
+      "conceptName": "CDC Corynebacterium group G-2",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "27101006",
+      "conceptCode": "243280007",
       "standardConcept": "S"
     },
     {
-      "conceptId": 4184593,
-      "conceptName": "Diphtheroids",
+      "conceptId": 4348316,
+      "conceptName": "Corynebacterium pseudogenitalium",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "54642001",
+      "conceptCode": "243264002",
       "standardConcept": "S"
     },
     {
-      "conceptId": 40481458,
-      "conceptName": "Nontoxigenic Corynebacterium diphtheriae",
+      "conceptId": 4348317,
+      "conceptName": "CDC Corynebacterium group F-2",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "443401009",
+      "conceptCode": "243278001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4348318,
+      "conceptName": "CDC Corynebacterium group I-1",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "243281006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4352616,
+      "conceptName": "Corynebacterium accolens",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "243254006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4352617,
+      "conceptName": "Corynebacterium diphtheriae var belfanti",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "243255007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4352618,
+      "conceptName": "CDC Corynebacterium group A-5",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "243270008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4352619,
+      "conceptName": "CDC Corynebacterium group B-1",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "243271007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4352620,
+      "conceptName": "CDC Corynebacterium group B-3",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "243272000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4352621,
+      "conceptName": "CDC Corynebacterium group D-1",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "243275003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4352622,
+      "conceptName": "CDC Corynebacterium group F-1",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "243277006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35621876,
+      "conceptName": "Corynebacterium lowii",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "763137009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35622378,
+      "conceptName": "Corynebacterium oculi",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "763838002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36675082,
+      "conceptName": "Corynebacterium timonense",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "771381004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36714611,
+      "conceptName": "Toxigenic Corynebacterium ulcerans",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "719913002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36716285,
+      "conceptName": "Nontoxigenic Corynebacterium ulcerans",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "722245004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36716286,
+      "conceptName": "Toxigenic Corynebacterium pseudotuberculosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "722246003",
       "standardConcept": "S"
     },
     {
@@ -1262,66 +1095,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36716661,
-      "conceptName": "Nontoxigenic Corynebacterium diphtheriae type intermedius",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "722790009",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 36716358,
       "conceptName": "Nontoxigenic Corynebacterium diphtheriae type mitis",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "722339005",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36717543,
-      "conceptName": "Nontoxigenic Corynebacterium pseudotuberculosis",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "722247007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36716285,
-      "conceptName": "Nontoxigenic Corynebacterium ulcerans",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "722245004",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4265178,
-      "conceptName": "Toxigenic Corynebacterium",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "397426001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40481430,
-      "conceptName": "Toxigenic Corynebacterium diphtheriae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "443377006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36716660,
-      "conceptName": "Toxigenic Corynebacterium diphtheriae type belfanti",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "722789000",
       "standardConcept": "S"
     },
     {
@@ -1352,21 +1131,246 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36716286,
-      "conceptName": "Toxigenic Corynebacterium pseudotuberculosis",
+      "conceptId": 36716660,
+      "conceptName": "Toxigenic Corynebacterium diphtheriae type belfanti",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "722246003",
+      "conceptCode": "722789000",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36714611,
-      "conceptName": "Toxigenic Corynebacterium ulcerans",
+      "conceptId": 36716661,
+      "conceptName": "Nontoxigenic Corynebacterium diphtheriae type intermedius",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "719913002",
+      "conceptCode": "722790009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36717543,
+      "conceptName": "Nontoxigenic Corynebacterium pseudotuberculosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "722247007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37016387,
+      "conceptName": "Corynebacterium sanguinis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "390533571000087108",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37016405,
+      "conceptName": "Corynebacterium hansenii",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "4131000146102",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37018580,
+      "conceptName": "Corynebacterium stationis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "7841000146107",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37151666,
+      "conceptName": "Corynebacterium provencense",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "13721000181104",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37155732,
+      "conceptName": "Corynebacterium doosanense",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "30371000087101",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37155733,
+      "conceptName": "Corynebacterium lubricantis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "30411000087102",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37155734,
+      "conceptName": "Corynebacterium sputi",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "30431000087107",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37158572,
+      "conceptName": "Corynebacterium uberis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "1264296002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37159137,
+      "conceptName": "Corynebacterium phoceense",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "1287340008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37159417,
+      "conceptName": "Corynebacterium freiburgense",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "30381000087104",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37159418,
+      "conceptName": "Corynebacterium glyciniphilum",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "30391000087102",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37159419,
+      "conceptName": "Corynebacterium humireducens",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "30401000087104",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37159420,
+      "conceptName": "Corynebacterium mustelae",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "30421000087105",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37159421,
+      "conceptName": "Corynebacterium ulceribovis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "30441000087101",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37204327,
+      "conceptName": "Corynebacterium species not Corynebacterium urealyticum",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "782950007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37204816,
+      "conceptName": "Corynebacterium canis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "783720000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40481430,
+      "conceptName": "Toxigenic Corynebacterium diphtheriae",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "443377006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40481458,
+      "conceptName": "Nontoxigenic Corynebacterium diphtheriae",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "443401009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40485317,
+      "conceptName": "Corynebacterium resistens",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442804004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40487003,
+      "conceptName": "Corynebacterium massiliense",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "446285007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40491447,
+      "conceptName": "Corynebacterium pilbarense",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "448715005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42537852,
+      "conceptName": "Corynebacterium frankenforstense",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "737512003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42873130,
+      "conceptName": "Corynebacterium pyruviciproducens",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "450383002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42873156,
+      "conceptName": "Corynebacterium tuscaniense",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "450409000",
       "standardConcept": "S"
     }
   ]

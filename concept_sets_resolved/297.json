@@ -1,5 +1,9 @@
 {
   "conceptSetId": 297,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
     {
       "conceptId": 4049372,
@@ -11,21 +15,21 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4076662,
-      "conceptName": "Therapeutic plasma exchange",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "225067007",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 4055766,
       "conceptName": "Therapeutic plasmapheresis using plasma as the major replacement fluid",
       "vocabularyId": "SNOMED",
       "domainId": "Procedure",
       "conceptClassId": "Procedure",
       "conceptCode": "19647005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4076662,
+      "conceptName": "Therapeutic plasma exchange",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "225067007",
       "standardConcept": "S"
     }
   ]

@@ -1,15 +1,10 @@
 {
   "conceptSetId": 159,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80"
+  },
   "resolvedConcepts": [
-    {
-      "conceptId": 3035561,
-      "conceptName": "Lactate [Mass/volume] in Arterial blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "30242-2",
-      "standardConcept": "S"
-    },
     {
       "conceptId": 3018405,
       "conceptName": "Lactate [Moles/volume] in Arterial blood",
@@ -26,6 +21,15 @@
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
       "conceptCode": "32132-3",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3035561,
+      "conceptName": "Lactate [Mass/volume] in Arterial blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "30242-2",
       "standardConcept": "S"
     },
     {

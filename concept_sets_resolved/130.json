@@ -1,472 +1,234 @@
 {
   "conceptSetId": 130,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "RxNorm": "RxNorm 20260105",
+    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+  },
   "resolvedConcepts": [
     {
-      "conceptId": 35781483,
-      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP2782944",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35782544,
-      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Injectable Solution Box of 4",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2784005",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36808894,
-      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Injectable Solution Box of 4 by Ever Valinject",
+      "conceptId": 588521,
+      "conceptName": "Dexmedetomidine 0.1 MG/ML Injectable Solution [Precedex] by Hospira",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4822934",
+      "conceptCode": "OMOP3136470",
       "standardConcept": "S"
     },
     {
-      "conceptId": 43041265,
-      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Injectable Solution Box of 5",
+      "conceptId": 588915,
+      "conceptName": "Dexmedetomidine 0.1 MG/ML Injectable Solution [Precedex]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP4856295",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP3137299",
       "standardConcept": "S"
     },
     {
-      "conceptId": 43041266,
-      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Injectable Solution Box of 5 by Ever Valinject",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4856296",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35782109,
-      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Injectable Solution [Dexdor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2783570",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35781510,
-      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Injectable Solution [Dexdor] Box of 4",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2782971",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35781997,
-      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Injectable Solution [Dexdor] Box of 4 by Orion",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2783458",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35781999,
-      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Injectable Solution [Dexdor] by Orion",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2783460",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36808931,
-      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Injectable Solution by Ever Valinject",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4822969",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21029150,
-      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Injection",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP311661",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21127199,
-      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Injection Box of 4",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP311662",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21166658,
-      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Injection [Dexdor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP311663",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21097856,
-      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Injection [Dexdor] Box of 4",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP311666",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21088028,
-      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Injection [Dexdor] Box of 4 by Orion",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP311667",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21097855,
-      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Injection [Dexdor] by Orion",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP311665",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36780186,
-      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Intravenous Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP4768490",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36780185,
-      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Intravenous Solution Box of 4",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP4768489",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36780184,
-      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Intravenous Solution [Dexdor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP4768488",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36780183,
-      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Intravenous Solution [Dexdor] Box of 4",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP4768487",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36780182,
-      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Intravenous Solution [Dexdor] Box of 4 by Orion",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4768486",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35782082,
-      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP2783543",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35782081,
-      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Prefilled Syringe Box of 4",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2783542",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35782404,
-      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Prefilled Syringe [Dexdor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2783865",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35781809,
-      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Prefilled Syringe [Dexdor] Box of 4",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2783270",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35782444,
-      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Prefilled Syringe [Dexdor] Box of 4 by Orion",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2783905",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35781998,
-      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Prefilled Syringe [Dexdor] by Orion",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2783459",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41368929,
-      "conceptName": "10 ML Dexmedetomidine 0.118 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP2566891",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41361444,
-      "conceptName": "10 ML Dexmedetomidine 0.118 MG/ML Injectable Solution Box of 4",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2559406",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41370814,
-      "conceptName": "10 ML Dexmedetomidine 0.118 MG/ML Injectable Solution [Dexdor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2568776",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41373085,
-      "conceptName": "10 ML Dexmedetomidine 0.118 MG/ML Injectable Solution [Dexdor] Box of 4",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2571047",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35896482,
-      "conceptName": "10 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 4 by Accord",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5040717",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35885015,
-      "conceptName": "10 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 4 by As Kalceks",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5032269",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36121291,
-      "conceptName": "10 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 4 by Kent",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5050299",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35885014,
-      "conceptName": "10 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 5 by Accord",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5032268",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35885017,
-      "conceptName": "10 ML dexmedetomidine 0.1 MG/ML Injectable Solution by Accord",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5032271",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35885016,
-      "conceptName": "10 ML dexmedetomidine 0.1 MG/ML Injectable Solution by As Kalceks",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5032270",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36121290,
-      "conceptName": "10 ML dexmedetomidine 0.1 MG/ML Injectable Solution by Kent",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5050298",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2903090,
-      "conceptName": "10 ML dexmedetomidine 0.1 MG/ML Injection Box of 4 by Ever",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5119940",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2903089,
-      "conceptName": "10 ML dexmedetomidine 0.1 MG/ML Injection Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP5119939",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2903088,
-      "conceptName": "10 ML dexmedetomidine 0.1 MG/ML Injection Box of 5 by Ever",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5119938",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2903091,
-      "conceptName": "10 ML dexmedetomidine 0.1 MG/ML Injection by Ever",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5119941",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36121864,
-      "conceptName": "100 ML dexmedetomidine 0.004 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP5050925",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36121866,
-      "conceptName": "100 ML dexmedetomidine 0.004 MG/ML Injectable Solution Box of 4",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP5050927",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36933730,
-      "conceptName": "100 ML dexmedetomidine 0.004 MG/ML Injectable Solution Box of 4 by Altan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5212311",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36121867,
-      "conceptName": "100 ML dexmedetomidine 0.004 MG/ML Injectable Solution Box of 4 by Altan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5050928",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36121865,
-      "conceptName": "100 ML dexmedetomidine 0.004 MG/ML Injectable Solution by Altan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5050926",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35603044,
-      "conceptName": "100 ML dexmedetomidine 0.004 MG/ML Injection",
+      "conceptId": 740188,
+      "conceptName": "dexmedetomidine hydrochloride 0.5 MG/ML [Sedexodine]",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "1718909",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "2532529",
       "standardConcept": "S"
     },
     {
-      "conceptId": 2902754,
-      "conceptName": "100 ML dexmedetomidine 0.004 MG/ML Injection Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP5119608",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36121869,
-      "conceptName": "100 ML dexmedetomidine 0.004 MG/ML Injection Box of 4",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP5050930",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36121870,
-      "conceptName": "100 ML dexmedetomidine 0.004 MG/ML Injection Box of 4 by Altan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5050931",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35603045,
-      "conceptName": "100 ML dexmedetomidine 0.004 MG/ML Injection [Precedex]",
+      "conceptId": 740189,
+      "conceptName": "dexmedetomidine Injectable Solution [Sedexodine]",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "1718910",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "2532530",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 740190,
+      "conceptName": "Sedexodine Injectable Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Dose Group",
+      "conceptCode": "2532531",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 740191,
+      "conceptName": "dexmedetomidine hydrochloride 0.5 MG/ML Injectable Solution [Sedexodine]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "2532532",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 746705,
+      "conceptName": "dexmedetomidine hydrochloride 0.5 MG/ML [Dexmedvet]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "2665894",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 746706,
+      "conceptName": "Dexmedvet Injectable Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Dose Group",
+      "conceptCode": "2665895",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 746707,
+      "conceptName": "dexmedetomidine Injectable Solution [Dexmedvet]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "2665896",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 746708,
+      "conceptName": "dexmedetomidine hydrochloride 0.5 MG/ML Injectable Solution [Dexmedvet]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "2665898",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 779646,
+      "conceptName": "dexmedetomidine 0.12 MG",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "2601115",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 779647,
+      "conceptName": "dexmedetomidine Sublingual Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Dose Group",
+      "conceptCode": "2601116",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 779648,
+      "conceptName": "dexmedetomidine Oral Film Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Dose Group",
+      "conceptCode": "2601117",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 779649,
+      "conceptName": "dexmedetomidine Sublingual Film",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "2601118",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 779650,
+      "conceptName": "dexmedetomidine 0.12 MG Sublingual Film",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "2601119",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 779652,
+      "conceptName": "dexmedetomidine 0.12 MG [Igalmi]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "2601121",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 779653,
+      "conceptName": "Igalmi Oral Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Dose Group",
+      "conceptCode": "2601122",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 779654,
+      "conceptName": "Igalmi Sublingual Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Dose Group",
+      "conceptCode": "2601123",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 779655,
+      "conceptName": "Igalmi Oral Film Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Dose Group",
+      "conceptCode": "2601124",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 779656,
+      "conceptName": "dexmedetomidine Sublingual Film [Igalmi]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "2601125",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 779657,
+      "conceptName": "dexmedetomidine 0.12 MG Sublingual Film [Igalmi]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "2601126",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 779658,
+      "conceptName": "dexmedetomidine 0.18 MG",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "2601128",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 779659,
+      "conceptName": "dexmedetomidine 0.18 MG Sublingual Film",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "2601129",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 779660,
+      "conceptName": "dexmedetomidine 0.18 MG [Igalmi]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "2601130",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 779661,
+      "conceptName": "dexmedetomidine 0.18 MG Sublingual Film [Igalmi]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "2601131",
       "standardConcept": "S"
     },
     {
@@ -479,669 +241,66 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36121868,
-      "conceptName": "100 ML dexmedetomidine 0.004 MG/ML Injection by Altan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5050929",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35778523,
-      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP2779984",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35778221,
-      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injectable Solution Box of 25",
+      "conceptId": 2902754,
+      "conceptName": "100 ML dexmedetomidine 0.004 MG/ML Injection Box of 10",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2779682",
+      "conceptCode": "OMOP5119608",
       "standardConcept": "S"
     },
     {
-      "conceptId": 43039399,
-      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injectable Solution Box of 25 by Mylan",
+      "conceptId": 2903088,
+      "conceptName": "10 ML dexmedetomidine 0.1 MG/ML Injection Box of 5 by Ever",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4854436",
+      "conceptCode": "OMOP5119938",
       "standardConcept": "S"
     },
     {
-      "conceptId": 35778780,
-      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injectable Solution Box of 5",
+      "conceptId": 2903089,
+      "conceptName": "10 ML dexmedetomidine 0.1 MG/ML Injection Box of 5",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2780241",
+      "conceptCode": "OMOP5119939",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36809631,
-      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injectable Solution Box of 5 by Ever Valinject",
+      "conceptId": 2903090,
+      "conceptName": "10 ML dexmedetomidine 0.1 MG/ML Injection Box of 4 by Ever",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4823668",
+      "conceptCode": "OMOP5119940",
       "standardConcept": "S"
     },
     {
-      "conceptId": 35779186,
-      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injectable Solution [Dexdor]",
+      "conceptId": 2903091,
+      "conceptName": "10 ML dexmedetomidine 0.1 MG/ML Injection by Ever",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2780647",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5119941",
       "standardConcept": "S"
     },
     {
-      "conceptId": 35778549,
-      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injectable Solution [Dexdor] Box of 25",
+      "conceptId": 2905169,
+      "conceptName": "20 ML dexmedetomidine 0.004 MG/ML Injection [Precedex] Box of 10",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2780010",
+      "conceptCode": "OMOP5121973",
       "standardConcept": "S"
     },
     {
-      "conceptId": 35778960,
-      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injectable Solution [Dexdor] Box of 25 by Orion",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2780421",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35778390,
-      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injectable Solution [Dexdor] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2779851",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35778961,
-      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injectable Solution [Dexdor] Box of 5 by Orion",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2780422",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35778704,
-      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injectable Solution [Dexdor] by Orion",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2780165",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36809587,
-      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injectable Solution by Ever Valinject",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4823624",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35159159,
-      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injectable Solution by Maruishi",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4816143",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35134990,
-      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injectable Solution by Pfizer",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4792189",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21097463,
-      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injection Box of 25",
+      "conceptId": 2905170,
+      "conceptName": "20 ML dexmedetomidine 0.004 MG/ML Injection Box of 10",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP304424",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21156509,
-      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injection Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP304423",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21097464,
-      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injection [Dexdor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP304425",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21166267,
-      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injection [Dexdor] Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP304430",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21048407,
-      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injection [Dexdor] Box of 25 by Orion",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP304431",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21028788,
-      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injection [Dexdor] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP304427",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21136694,
-      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injection [Dexdor] Box of 5 by Orion",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP304429",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21136693,
-      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injection [Dexdor] by Orion",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP304426",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43269722,
-      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injection [Precedex] Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP561450",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43269721,
-      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injection [Precedex] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP561449",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36781288,
-      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Intravenous Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP4769578",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36781287,
-      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Intravenous Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP4769577",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36781286,
-      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Intravenous Solution [Dexdor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP4769576",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36781285,
-      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Intravenous Solution [Dexdor] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP4769575",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36781284,
-      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Intravenous Solution [Dexdor] Box of 5 by Orion",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4769574",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36895257,
-      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP993675",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36895225,
-      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Prefilled Syringe Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP989846",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35778222,
-      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Prefilled Syringe Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2779683",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36895240,
-      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Prefilled Syringe [Dexdor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP993516",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43185675,
-      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Prefilled Syringe [Dexdor] Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP510660",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43163810,
-      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Prefilled Syringe [Dexdor] Box of 25 by Orion",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP510661",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35778673,
-      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Prefilled Syringe [Dexdor] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2780134",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35778283,
-      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Prefilled Syringe [Dexdor] Box of 5 by Orion",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2779744",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35779086,
-      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Prefilled Syringe [Dexdor] by Orion",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2780547",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41341529,
-      "conceptName": "2 ML Dexmedetomidine 0.118 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP2539491",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41344734,
-      "conceptName": "2 ML Dexmedetomidine 0.118 MG/ML Injectable Solution Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2542696",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41338921,
-      "conceptName": "2 ML Dexmedetomidine 0.118 MG/ML Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2536883",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41338624,
-      "conceptName": "2 ML Dexmedetomidine 0.118 MG/ML Injectable Solution [Dexdor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2536586",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41341772,
-      "conceptName": "2 ML Dexmedetomidine 0.118 MG/ML Injectable Solution [Dexdor] Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2539734",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41343360,
-      "conceptName": "2 ML Dexmedetomidine 0.118 MG/ML Injectable Solution [Dexdor] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2541322",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2905794,
-      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 25 by Accord",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5122586",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2905790,
-      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 25 by Alphapharm",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5122582",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35885326,
-      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 25 by As Kalceks",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5032597",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2905793,
-      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 25 by Ever",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5122585",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2905789,
-      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 25 by Kabi",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5122581",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2905791,
-      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 25 by Sandoz",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5122583",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2905792,
-      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 25 by TEVA",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5122584",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2905801,
-      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 5 by Accord",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5122592",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2905796,
-      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 5 by Alphapharm",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5122588",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35885327,
-      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 5 by As Kalceks",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5032598",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2905799,
-      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 5 by Ever",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5122590",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2905795,
-      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 5 by Kabi",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5122587",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36121139,
-      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 5 by Kent",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5050132",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2905800,
-      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 5 by Mylan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5122591",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2905798,
-      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 5 by TEVA",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5122589",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2905807,
-      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution by Accord",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5122598",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2905803,
-      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution by Alphapharm",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5122594",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35885328,
-      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution by As Kalceks",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5032599",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2905805,
-      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution by Ever",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5122596",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2905802,
-      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution by Kabi",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5122593",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36121138,
-      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution by Kent",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5050131",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2905806,
-      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution by Mylan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5122597",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35829473,
-      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution by Nipro",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5039580",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35829472,
-      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution by Sandoz",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5039581",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2905804,
-      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution by TEVA",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5122595",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19076175,
-      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injection",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "309710",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2905775,
-      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injection Box of 25 by Accord",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5122567",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2905770,
-      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injection Box of 25 by Alphapharm",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5122562",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2905773,
-      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injection Box of 25 by Ever",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5122565",
+      "conceptCode": "OMOP5121974",
       "standardConcept": "S"
     },
     {
@@ -1154,12 +313,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 2905774,
-      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injection Box of 25 by Mylan",
+      "conceptId": 2905770,
+      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injection Box of 25 by Alphapharm",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5122566",
+      "conceptCode": "OMOP5122562",
       "standardConcept": "S"
     },
     {
@@ -1181,30 +340,30 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 2905781,
-      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injection Box of 5 by Accord",
+      "conceptId": 2905773,
+      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injection Box of 25 by Ever",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5122573",
+      "conceptCode": "OMOP5122565",
       "standardConcept": "S"
     },
     {
-      "conceptId": 2905777,
-      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injection Box of 5 by Alphapharm",
+      "conceptId": 2905774,
+      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injection Box of 25 by Mylan",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5122569",
+      "conceptCode": "OMOP5122566",
       "standardConcept": "S"
     },
     {
-      "conceptId": 2905779,
-      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injection Box of 5 by Ever",
+      "conceptId": 2905775,
+      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injection Box of 25 by Accord",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5122571",
+      "conceptCode": "OMOP5122567",
       "standardConcept": "S"
     },
     {
@@ -1217,12 +376,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 2905780,
-      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injection Box of 5 by Mylan",
+      "conceptId": 2905777,
+      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injection Box of 5 by Alphapharm",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5122572",
+      "conceptCode": "OMOP5122569",
       "standardConcept": "S"
     },
     {
@@ -1235,39 +394,30 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 19061089,
-      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injection [Precedex]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "284397",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2905788,
-      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injection by Accord",
+      "conceptId": 2905779,
+      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injection Box of 5 by Ever",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5122580",
+      "conceptCode": "OMOP5122571",
       "standardConcept": "S"
     },
     {
-      "conceptId": 2905783,
-      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injection by Alphapharm",
+      "conceptId": 2905780,
+      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injection Box of 5 by Mylan",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5122575",
+      "conceptCode": "OMOP5122572",
       "standardConcept": "S"
     },
     {
-      "conceptId": 2905786,
-      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injection by Ever",
+      "conceptId": 2905781,
+      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injection Box of 5 by Accord",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5122578",
+      "conceptCode": "OMOP5122573",
       "standardConcept": "S"
     },
     {
@@ -1280,12 +430,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 2905787,
-      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injection by Mylan",
+      "conceptId": 2905783,
+      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injection by Alphapharm",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5122579",
+      "conceptCode": "OMOP5122575",
       "standardConcept": "S"
     },
     {
@@ -1307,138 +457,390 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 35603037,
-      "conceptName": "20 ML dexmedetomidine 0.004 MG/ML Injection",
-      "vocabularyId": "RxNorm",
+      "conceptId": 2905786,
+      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injection by Ever",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "1718900",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5122578",
       "standardConcept": "S"
     },
     {
-      "conceptId": 2905170,
-      "conceptName": "20 ML dexmedetomidine 0.004 MG/ML Injection Box of 10",
+      "conceptId": 2905787,
+      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injection by Mylan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5122579",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2905788,
+      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injection by Accord",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5122580",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2905789,
+      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 25 by Kabi",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5122581",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2905790,
+      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 25 by Alphapharm",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5122582",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2905791,
+      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 25 by Sandoz",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5122583",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2905792,
+      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 25 by TEVA",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5122584",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2905793,
+      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 25 by Ever",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5122585",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2905794,
+      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 25 by Accord",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5122586",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2905795,
+      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 5 by Kabi",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5122587",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2905796,
+      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 5 by Alphapharm",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5122588",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2905798,
+      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 5 by TEVA",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5122589",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2905799,
+      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 5 by Ever",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5122590",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2905800,
+      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 5 by Mylan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5122591",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2905801,
+      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 5 by Accord",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5122592",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2905802,
+      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution by Kabi",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5122593",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2905803,
+      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution by Alphapharm",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5122594",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2905804,
+      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution by TEVA",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5122595",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2905805,
+      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution by Ever",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5122596",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2905806,
+      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution by Mylan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5122597",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2905807,
+      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution by Accord",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5122598",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2906791,
+      "conceptName": "4 ML dexmedetomidine 0.1 MG/ML Injection Box of 5 by Ever",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5123563",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2906792,
+      "conceptName": "4 ML dexmedetomidine 0.1 MG/ML Injection Box of 5",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP5121974",
+      "conceptCode": "OMOP5123564",
       "standardConcept": "S"
     },
     {
-      "conceptId": 35603039,
-      "conceptName": "20 ML dexmedetomidine 0.004 MG/ML Injection [Precedex]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "1718902",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2905169,
-      "conceptName": "20 ML dexmedetomidine 0.004 MG/ML Injection [Precedex] Box of 10",
+      "conceptId": 2906793,
+      "conceptName": "4 ML dexmedetomidine 0.1 MG/ML Injection Box of 4 by Ever",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP5121973",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5123565",
       "standardConcept": "S"
     },
     {
-      "conceptId": 37003612,
-      "conceptName": "250 ML dexmedetomidine 0.004 MG/ML Injection",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "2396891",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37003613,
-      "conceptName": "250 ML dexmedetomidine 0.004 MG/ML Injection [Precedex]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "2396892",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35779863,
-      "conceptName": "4 ML Dexmedetomidine 0.1 MG/ML Injectable Solution",
+      "conceptId": 2906794,
+      "conceptName": "4 ML dexmedetomidine 0.1 MG/ML Injection by Ever",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP2781324",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5123566",
       "standardConcept": "S"
     },
     {
-      "conceptId": 35779889,
-      "conceptName": "4 ML Dexmedetomidine 0.1 MG/ML Injectable Solution Box of 4",
+      "conceptId": 2906795,
+      "conceptName": "4 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 5 by Ever",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5123567",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2906796,
+      "conceptName": "4 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 5",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2781350",
+      "conceptCode": "OMOP5123568",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36809814,
-      "conceptName": "4 ML Dexmedetomidine 0.1 MG/ML Injectable Solution Box of 4 by Ever Valinject",
+      "conceptId": 2906797,
+      "conceptName": "4 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 4 by Ever",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4823848",
+      "conceptCode": "OMOP5123569",
       "standardConcept": "S"
     },
     {
-      "conceptId": 35779839,
-      "conceptName": "4 ML Dexmedetomidine 0.1 MG/ML Injectable Solution [Dexdor]",
+      "conceptId": 2906798,
+      "conceptName": "4 ML dexmedetomidine 0.1 MG/ML Injectable Solution by Ever",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2781300",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5123570",
       "standardConcept": "S"
     },
     {
-      "conceptId": 35779868,
-      "conceptName": "4 ML Dexmedetomidine 0.1 MG/ML Injectable Solution [Dexdor] Box of 4",
+      "conceptId": 2907450,
+      "conceptName": "50 ML dexmedetomidine 0.004 MG/ML Injection [Precedex] Box of 20",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2781329",
+      "conceptCode": "OMOP5124202",
       "standardConcept": "S"
     },
     {
-      "conceptId": 35779963,
-      "conceptName": "4 ML Dexmedetomidine 0.1 MG/ML Injectable Solution [Dexdor] Box of 4 by Orion",
+      "conceptId": 2907451,
+      "conceptName": "50 ML dexmedetomidine 0.004 MG/ML Injection Box of 20",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2781424",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP5124203",
       "standardConcept": "S"
     },
     {
-      "conceptId": 35779986,
-      "conceptName": "4 ML Dexmedetomidine 0.1 MG/ML Injectable Solution [Dexdor] by Orion",
+      "conceptId": 2912759,
+      "conceptName": "dexmedetomidine 0.004 MG/ML Injection [Precedex] Box of 20",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2781447",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP5129547",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36809817,
-      "conceptName": "4 ML Dexmedetomidine 0.1 MG/ML Injectable Solution by Ever Valinject",
+      "conceptId": 2912760,
+      "conceptName": "dexmedetomidine 0.004 MG/ML Injection [Precedex] Box of 10",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4823851",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP5129548",
       "standardConcept": "S"
     },
     {
-      "conceptId": 21126895,
-      "conceptName": "4 ML Dexmedetomidine 0.1 MG/ML Injection",
+      "conceptId": 2912761,
+      "conceptName": "dexmedetomidine 0.004 MG/ML Injection Box of 20",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP5129549",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2912762,
+      "conceptName": "dexmedetomidine 0.004 MG/ML Injection Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP5129550",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19061088,
+      "conceptName": "dexmedetomidine",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Ingredient",
+      "conceptCode": "48937",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19061089,
+      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injection [Precedex]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "284397",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19076175,
+      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injection",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "309710",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19084904,
+      "conceptName": "dexmedetomidine 0.1 MG/ML",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "330316",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19120718,
+      "conceptName": "dexmedetomidine 0.1 MG/ML [Precedex]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "574840",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21028788,
+      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injection [Dexdor] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP304427",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21029150,
+      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Injection",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP306481",
+      "conceptCode": "OMOP311661",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21036547,
+      "conceptName": "Dexmedetomidine 0.1 MG/ML Injection [Dexdor] Box of 4",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP265409",
       "standardConcept": "S"
     },
     {
@@ -1451,12 +853,30 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 21097555,
-      "conceptName": "4 ML Dexmedetomidine 0.1 MG/ML Injection [Dexdor]",
+      "conceptId": 21048407,
+      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injection [Dexdor] Box of 25 by Orion",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP306483",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP304431",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21066016,
+      "conceptName": "Dexmedetomidine 0.1 MG/ML Injection Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP265406",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21066017,
+      "conceptName": "Dexmedetomidine 0.1 MG/ML Injection [Dexdor] Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP265411",
       "standardConcept": "S"
     },
     {
@@ -1469,12 +889,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 21078010,
-      "conceptName": "4 ML Dexmedetomidine 0.1 MG/ML Injection [Dexdor] Box of 4 by Orion",
+      "conceptId": 21075947,
+      "conceptName": "Dexmedetomidine 0.1 MG/ML Injection Box of 5",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP306486",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP265405",
       "standardConcept": "S"
     },
     {
@@ -1487,48 +907,579 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36780923,
-      "conceptName": "4 ML Dexmedetomidine 0.1 MG/ML Intravenous Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP4769217",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36780922,
-      "conceptName": "4 ML Dexmedetomidine 0.1 MG/ML Intravenous Solution Box of 4",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP4769216",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36780921,
-      "conceptName": "4 ML Dexmedetomidine 0.1 MG/ML Intravenous Solution [Dexdor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP4769215",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36780920,
-      "conceptName": "4 ML Dexmedetomidine 0.1 MG/ML Intravenous Solution [Dexdor] Box of 4",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP4769214",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36780919,
-      "conceptName": "4 ML Dexmedetomidine 0.1 MG/ML Intravenous Solution [Dexdor] Box of 4 by Orion",
+      "conceptId": 21078010,
+      "conceptName": "4 ML Dexmedetomidine 0.1 MG/ML Injection [Dexdor] Box of 4 by Orion",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4769213",
+      "conceptCode": "OMOP306486",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21085664,
+      "conceptName": "Dexmedetomidine 0.1 MG/ML [Dexdor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP265403",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21085665,
+      "conceptName": "Dexmedetomidine 0.1 MG/ML Injection Box of 4",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP265404",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21088028,
+      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Injection [Dexdor] Box of 4 by Orion",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP311667",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21097463,
+      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injection Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP304424",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21097464,
+      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injection [Dexdor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP304425",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21097555,
+      "conceptName": "4 ML Dexmedetomidine 0.1 MG/ML Injection [Dexdor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP306483",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21097855,
+      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Injection [Dexdor] by Orion",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP311665",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21097856,
+      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Injection [Dexdor] Box of 4",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP311666",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21124715,
+      "conceptName": "Dexmedetomidine 0.1 MG/ML Injection [Dexdor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP265414",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21126895,
+      "conceptName": "4 ML Dexmedetomidine 0.1 MG/ML Injection",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP306481",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21127199,
+      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Injection Box of 4",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP311662",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21136693,
+      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injection [Dexdor] by Orion",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP304426",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21136694,
+      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injection [Dexdor] Box of 5 by Orion",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP304429",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21156509,
+      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injection Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP304423",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21164276,
+      "conceptName": "Dexmedetomidine 0.1 MG/ML Injection [Dexdor] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP265410",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21166267,
+      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injection [Dexdor] Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP304430",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21166658,
+      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Injection [Dexdor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP311663",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21174040,
+      "conceptName": "Dexmedetomidine Injection [Dexdor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP265402",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35134990,
+      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injectable Solution by Pfizer",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4792189",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35159159,
+      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injectable Solution by Maruishi",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4816143",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35603036,
+      "conceptName": "dexmedetomidine Injection",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "1718899",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35603037,
+      "conceptName": "20 ML dexmedetomidine 0.004 MG/ML Injection",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "1718900",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35603038,
+      "conceptName": "dexmedetomidine Injection [Precedex]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "1718901",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35603039,
+      "conceptName": "20 ML dexmedetomidine 0.004 MG/ML Injection [Precedex]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "1718902",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35603040,
+      "conceptName": "dexmedetomidine 0.004 MG/ML Injection",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "1718903",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35603041,
+      "conceptName": "dexmedetomidine 0.004 MG/ML Injection [Precedex]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "1718904",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35603042,
+      "conceptName": "50 ML dexmedetomidine 0.004 MG/ML Injection",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "1718906",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35603043,
+      "conceptName": "50 ML dexmedetomidine 0.004 MG/ML Injection [Precedex]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "1718907",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35603044,
+      "conceptName": "100 ML dexmedetomidine 0.004 MG/ML Injection",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "1718909",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35603045,
+      "conceptName": "100 ML dexmedetomidine 0.004 MG/ML Injection [Precedex]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "1718910",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35603083,
+      "conceptName": "dexmedetomidine 0.1 MG/ML Injection",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "1719792",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35603084,
+      "conceptName": "dexmedetomidine 0.1 MG/ML Injection [Precedex]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "1719793",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35604437,
+      "conceptName": "dexmedetomidine 0.1 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "1788947",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35606044,
+      "conceptName": "dexmedetomidine 0.00009 MG/MG",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "1732664",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35606045,
+      "conceptName": "dexmedetomidine Oral Gel",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "1732667",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35606046,
+      "conceptName": "dexmedetomidine 0.00009 MG/MG Oral Gel",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "1732668",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35606048,
+      "conceptName": "dexmedetomidine 0.00009 MG/MG [Sileo]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "1732670",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35606049,
+      "conceptName": "dexmedetomidine Oral Gel [Sileo]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "1732671",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35606050,
+      "conceptName": "dexmedetomidine 0.00009 MG/MG Oral Gel [Sileo]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "1732674",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35745891,
+      "conceptName": "Dexmedetomidine 0.1 MG/ML Injectable Solution [Dexdor] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2747352",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35745892,
+      "conceptName": "Dexmedetomidine 0.1 MG/ML Injectable Solution [Dexdor] Box of 4",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2747353",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35749752,
+      "conceptName": "Dexmedetomidine 0.1 MG/ML Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2751213",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35750068,
+      "conceptName": "Dexmedetomidine 0.1 MG/ML Injectable Solution [Dexdor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2751529",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35766364,
+      "conceptName": "Dexmedetomidine 0.1 MG/ML Prefilled Syringe Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2767825",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35770694,
+      "conceptName": "Dexmedetomidine 0.1 MG/ML Injectable Solution Box of 4",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2772155",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35771015,
+      "conceptName": "Dexmedetomidine 0.1 MG/ML Injectable Solution [Dexdor] Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2772476",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35771016,
+      "conceptName": "Dexmedetomidine 0.1 MG/ML Prefilled Syringe [Dexdor] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2772477",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35771017,
+      "conceptName": "Dexmedetomidine 0.1 MG/ML Prefilled Syringe [Dexdor] Box of 4",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2772478",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35774953,
+      "conceptName": "Dexmedetomidine 0.1 MG/ML Injectable Solution Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2776414",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35774954,
+      "conceptName": "Dexmedetomidine 0.1 MG/ML Prefilled Syringe Box of 4",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2776415",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35778221,
+      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injectable Solution Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2779682",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35778222,
+      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Prefilled Syringe Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2779683",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35778283,
+      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Prefilled Syringe [Dexdor] Box of 5 by Orion",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2779744",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35778390,
+      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injectable Solution [Dexdor] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2779851",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35778523,
+      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP2779984",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35778549,
+      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injectable Solution [Dexdor] Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2780010",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35778673,
+      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Prefilled Syringe [Dexdor] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2780134",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35778704,
+      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injectable Solution [Dexdor] by Orion",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2780165",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35778780,
+      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2780241",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35778960,
+      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injectable Solution [Dexdor] Box of 25 by Orion",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2780421",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35778961,
+      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injectable Solution [Dexdor] Box of 5 by Orion",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2780422",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35779086,
+      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Prefilled Syringe [Dexdor] by Orion",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2780547",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35779186,
+      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injectable Solution [Dexdor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2780647",
       "standardConcept": "S"
     },
     {
@@ -1541,15 +1492,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 35779912,
-      "conceptName": "4 ML Dexmedetomidine 0.1 MG/ML Prefilled Syringe Box of 4",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2781373",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 35779838,
       "conceptName": "4 ML Dexmedetomidine 0.1 MG/ML Prefilled Syringe [Dexdor]",
       "vocabularyId": "RxNorm Extension",
@@ -1559,12 +1501,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 35779867,
-      "conceptName": "4 ML Dexmedetomidine 0.1 MG/ML Prefilled Syringe [Dexdor] Box of 4",
+      "conceptId": 35779839,
+      "conceptName": "4 ML Dexmedetomidine 0.1 MG/ML Injectable Solution [Dexdor]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2781328",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2781300",
       "standardConcept": "S"
     },
     {
@@ -1586,57 +1528,327 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 41351268,
-      "conceptName": "4 ML Dexmedetomidine 0.118 MG/ML Injectable Solution",
+      "conceptId": 35779863,
+      "conceptName": "4 ML Dexmedetomidine 0.1 MG/ML Injectable Solution",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP2549230",
+      "conceptCode": "OMOP2781324",
       "standardConcept": "S"
     },
     {
-      "conceptId": 41351404,
-      "conceptName": "4 ML Dexmedetomidine 0.118 MG/ML Injectable Solution Box of 4",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2549366",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41351298,
-      "conceptName": "4 ML Dexmedetomidine 0.118 MG/ML Injectable Solution [Dexdor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2549260",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41351030,
-      "conceptName": "4 ML Dexmedetomidine 0.118 MG/ML Injectable Solution [Dexdor] Box of 4",
+      "conceptId": 35779867,
+      "conceptName": "4 ML Dexmedetomidine 0.1 MG/ML Prefilled Syringe [Dexdor] Box of 4",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2548992",
+      "conceptCode": "OMOP2781328",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36922349,
-      "conceptName": "4 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 4 by Accord",
+      "conceptId": 35779868,
+      "conceptName": "4 ML Dexmedetomidine 0.1 MG/ML Injectable Solution [Dexdor] Box of 4",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5209765",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2781329",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36950718,
-      "conceptName": "4 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 4 by Altan",
+      "conceptId": 35779889,
+      "conceptName": "4 ML Dexmedetomidine 0.1 MG/ML Injectable Solution Box of 4",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2781350",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35779912,
+      "conceptName": "4 ML Dexmedetomidine 0.1 MG/ML Prefilled Syringe Box of 4",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2781373",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35779963,
+      "conceptName": "4 ML Dexmedetomidine 0.1 MG/ML Injectable Solution [Dexdor] Box of 4 by Orion",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5209766",
+      "conceptCode": "OMOP2781424",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35779986,
+      "conceptName": "4 ML Dexmedetomidine 0.1 MG/ML Injectable Solution [Dexdor] by Orion",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2781447",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35781483,
+      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP2782944",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35781510,
+      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Injectable Solution [Dexdor] Box of 4",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2782971",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35781809,
+      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Prefilled Syringe [Dexdor] Box of 4",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2783270",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35781997,
+      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Injectable Solution [Dexdor] Box of 4 by Orion",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2783458",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35781998,
+      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Prefilled Syringe [Dexdor] by Orion",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2783459",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35781999,
+      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Injectable Solution [Dexdor] by Orion",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2783460",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35782081,
+      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Prefilled Syringe Box of 4",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2783542",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35782082,
+      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP2783543",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35782109,
+      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Injectable Solution [Dexdor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2783570",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35782404,
+      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Prefilled Syringe [Dexdor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2783865",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35782444,
+      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Prefilled Syringe [Dexdor] Box of 4 by Orion",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2783905",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35782544,
+      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Injectable Solution Box of 4",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2784005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35828368,
+      "conceptName": "50 ML dexmedetomidine 0.004 MG/ML Prefilled Syringe by Pfizer",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5039866",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35828369,
+      "conceptName": "50 ML dexmedetomidine 0.004 MG/ML Prefilled Syringe by Maruishi",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5039865",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35828370,
+      "conceptName": "50 ML dexmedetomidine 0.004 MG/ML Prefilled Syringe by Nipro",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5039864",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35829472,
+      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution by Sandoz",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5039581",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35829473,
+      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution by Nipro",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5039580",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35829710,
+      "conceptName": "dexmedetomidine 0.004 MG/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP5038511",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35832153,
+      "conceptName": "50 ML dexmedetomidine 0.004 MG/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP5039863",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35854158,
+      "conceptName": "dexmedetomidine 0.1 MG/ML Injectable Solution [Leweijia]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP5011068",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35854159,
+      "conceptName": "dexmedetomidine 0.1 MG/ML [Leweijia]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP5011069",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35854160,
+      "conceptName": "dexmedetomidine Injectable Solution [Leweijia]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP5011070",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35885014,
+      "conceptName": "10 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 5 by Accord",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5032268",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35885015,
+      "conceptName": "10 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 4 by As Kalceks",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5032269",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35885016,
+      "conceptName": "10 ML dexmedetomidine 0.1 MG/ML Injectable Solution by As Kalceks",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5032270",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35885017,
+      "conceptName": "10 ML dexmedetomidine 0.1 MG/ML Injectable Solution by Accord",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5032271",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35885326,
+      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 25 by As Kalceks",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5032597",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35885327,
+      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 5 by As Kalceks",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5032598",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35885328,
+      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution by As Kalceks",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5032599",
       "standardConcept": "S"
     },
     {
@@ -1649,60 +1861,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 2906797,
-      "conceptName": "4 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 4 by Ever",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5123569",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36121213,
-      "conceptName": "4 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 4 by Kent",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5050211",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2906796,
-      "conceptName": "4 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP5123568",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2906795,
-      "conceptName": "4 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 5 by Ever",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5123567",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36956920,
-      "conceptName": "4 ML dexmedetomidine 0.1 MG/ML Injectable Solution by Accord",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5209763",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36941549,
-      "conceptName": "4 ML dexmedetomidine 0.1 MG/ML Injectable Solution by Altan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5209764",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 35885436,
       "conceptName": "4 ML dexmedetomidine 0.1 MG/ML Injectable Solution by As Kalceks",
       "vocabularyId": "RxNorm Extension",
@@ -1712,12 +1870,93 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 2906798,
-      "conceptName": "4 ML dexmedetomidine 0.1 MG/ML Injectable Solution by Ever",
+      "conceptId": 35896482,
+      "conceptName": "10 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 4 by Accord",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5123570",
+      "conceptCode": "OMOP5040717",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36026829,
+      "conceptName": "dexmedetomidine hydrochloride 0.5 MG/ML [Dexased]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "2535253",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36026830,
+      "conceptName": "dexmedetomidine Injectable Solution [Dexased]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "2535254",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36026831,
+      "conceptName": "Dexased Injectable Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Dose Group",
+      "conceptCode": "2535255",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36026832,
+      "conceptName": "dexmedetomidine hydrochloride 0.5 MG/ML Injectable Solution [Dexased]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "2535256",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36120551,
+      "conceptName": "dexmedetomidine 0.004 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP5049511",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36120552,
+      "conceptName": "dexmedetomidine 0.004 MG/ML Injectable Solution Box of 4",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP5049512",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36120553,
+      "conceptName": "dexmedetomidine 0.004 MG/ML Injection Box of 4",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP5049513",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36121138,
+      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution by Kent",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5050131",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36121139,
+      "conceptName": "2 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 5 by Kent",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5050132",
       "standardConcept": "S"
     },
     {
@@ -1730,39 +1969,849 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 2906793,
-      "conceptName": "4 ML dexmedetomidine 0.1 MG/ML Injection Box of 4 by Ever",
+      "conceptId": 36121213,
+      "conceptName": "4 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 4 by Kent",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5123565",
+      "conceptCode": "OMOP5050211",
       "standardConcept": "S"
     },
     {
-      "conceptId": 2906792,
-      "conceptName": "4 ML dexmedetomidine 0.1 MG/ML Injection Box of 5",
+      "conceptId": 36121290,
+      "conceptName": "10 ML dexmedetomidine 0.1 MG/ML Injectable Solution by Kent",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5050298",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36121291,
+      "conceptName": "10 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 4 by Kent",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5050299",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36121864,
+      "conceptName": "100 ML dexmedetomidine 0.004 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP5050925",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36121865,
+      "conceptName": "100 ML dexmedetomidine 0.004 MG/ML Injectable Solution by Altan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5050926",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36121866,
+      "conceptName": "100 ML dexmedetomidine 0.004 MG/ML Injectable Solution Box of 4",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP5123564",
+      "conceptCode": "OMOP5050927",
       "standardConcept": "S"
     },
     {
-      "conceptId": 2906791,
-      "conceptName": "4 ML dexmedetomidine 0.1 MG/ML Injection Box of 5 by Ever",
+      "conceptId": 36121867,
+      "conceptName": "100 ML dexmedetomidine 0.004 MG/ML Injectable Solution Box of 4 by Altan",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5123563",
+      "conceptCode": "OMOP5050928",
       "standardConcept": "S"
     },
     {
-      "conceptId": 2906794,
-      "conceptName": "4 ML dexmedetomidine 0.1 MG/ML Injection by Ever",
+      "conceptId": 36121868,
+      "conceptName": "100 ML dexmedetomidine 0.004 MG/ML Injection by Altan",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5123566",
+      "conceptCode": "OMOP5050929",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36121869,
+      "conceptName": "100 ML dexmedetomidine 0.004 MG/ML Injection Box of 4",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP5050930",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36121870,
+      "conceptName": "100 ML dexmedetomidine 0.004 MG/ML Injection Box of 4 by Altan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5050931",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36215272,
+      "conceptName": "dexmedetomidine Injectable Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Dose Group",
+      "conceptCode": "1154546",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36228091,
+      "conceptName": "Dexdomitor Injectable Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Dose Group",
+      "conceptCode": "1175262",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36242194,
+      "conceptName": "Precedex Injectable Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Dose Group",
+      "conceptCode": "1185233",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36248209,
+      "conceptName": "dexmedetomidine Oral Gel Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Dose Group",
+      "conceptCode": "1732665",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36248210,
+      "conceptName": "dexmedetomidine Oral Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Dose Group",
+      "conceptCode": "1732666",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36248211,
+      "conceptName": "Sileo Oral Gel Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Dose Group",
+      "conceptCode": "1732672",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36248212,
+      "conceptName": "Sileo Oral Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Dose Group",
+      "conceptCode": "1732673",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36780182,
+      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Intravenous Solution [Dexdor] Box of 4 by Orion",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4768486",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36780183,
+      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Intravenous Solution [Dexdor] Box of 4",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP4768487",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36780184,
+      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Intravenous Solution [Dexdor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP4768488",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36780185,
+      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Intravenous Solution Box of 4",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP4768489",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36780186,
+      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Intravenous Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP4768490",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36780919,
+      "conceptName": "4 ML Dexmedetomidine 0.1 MG/ML Intravenous Solution [Dexdor] Box of 4 by Orion",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4769213",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36780920,
+      "conceptName": "4 ML Dexmedetomidine 0.1 MG/ML Intravenous Solution [Dexdor] Box of 4",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP4769214",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36780921,
+      "conceptName": "4 ML Dexmedetomidine 0.1 MG/ML Intravenous Solution [Dexdor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP4769215",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36780922,
+      "conceptName": "4 ML Dexmedetomidine 0.1 MG/ML Intravenous Solution Box of 4",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP4769216",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36780923,
+      "conceptName": "4 ML Dexmedetomidine 0.1 MG/ML Intravenous Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP4769217",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36781284,
+      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Intravenous Solution [Dexdor] Box of 5 by Orion",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4769574",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36781285,
+      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Intravenous Solution [Dexdor] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP4769575",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36781286,
+      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Intravenous Solution [Dexdor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP4769576",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36781287,
+      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Intravenous Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP4769577",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36781288,
+      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Intravenous Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP4769578",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785638,
+      "conceptName": "Dexmedetomidine 0.1 MG/ML Intravenous Solution [Dexdor] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP4773919",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785639,
+      "conceptName": "Dexmedetomidine 0.1 MG/ML Intravenous Solution [Dexdor] Box of 4",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP4773920",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785640,
+      "conceptName": "Dexmedetomidine 0.1 MG/ML Intravenous Solution [Dexdor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4773921",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785641,
+      "conceptName": "Dexmedetomidine 0.1 MG/ML Intravenous Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP4773922",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785642,
+      "conceptName": "Dexmedetomidine 0.1 MG/ML Intravenous Solution Box of 4",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP4773923",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785643,
+      "conceptName": "Dexmedetomidine 0.1 MG/ML Intravenous Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP4773924",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785644,
+      "conceptName": "Dexmedetomidine Intravenous Solution [Dexdor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP4773925",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785645,
+      "conceptName": "Dexmedetomidine Intravenous Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP4773926",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36808894,
+      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Injectable Solution Box of 4 by Ever Valinject",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4822934",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36808931,
+      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Injectable Solution by Ever Valinject",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4822969",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36809587,
+      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injectable Solution by Ever Valinject",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4823624",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36809631,
+      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injectable Solution Box of 5 by Ever Valinject",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4823668",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36809814,
+      "conceptName": "4 ML Dexmedetomidine 0.1 MG/ML Injectable Solution Box of 4 by Ever Valinject",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4823848",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36809817,
+      "conceptName": "4 ML Dexmedetomidine 0.1 MG/ML Injectable Solution by Ever Valinject",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4823851",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36881278,
+      "conceptName": "Dexmedetomidine 0.1 MG/ML Prefilled Syringe [Dexdor] Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP1005570",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36884118,
+      "conceptName": "Dexmedetomidine 0.1 MG/ML Prefilled Syringe [Dexdor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP1003412",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36885812,
+      "conceptName": "Dexmedetomidine 0.1 MG/ML Prefilled Syringe Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP991116",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36891555,
+      "conceptName": "Dexmedetomidine Prefilled Syringe [Dexdor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP999554",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36891706,
+      "conceptName": "Dexmedetomidine 0.1 MG/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP992428",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36893479,
+      "conceptName": "Dexmedetomidine Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP1002099",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36895225,
+      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Prefilled Syringe Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP989846",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36895240,
+      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Prefilled Syringe [Dexdor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP993516",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36895257,
+      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP993675",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36922349,
+      "conceptName": "4 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 4 by Accord",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5209765",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36941549,
+      "conceptName": "4 ML dexmedetomidine 0.1 MG/ML Injectable Solution by Altan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5209764",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36950718,
+      "conceptName": "4 ML dexmedetomidine 0.1 MG/ML Injectable Solution Box of 4 by Altan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5209766",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36956920,
+      "conceptName": "4 ML dexmedetomidine 0.1 MG/ML Injectable Solution by Accord",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5209763",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37003612,
+      "conceptName": "250 ML dexmedetomidine 0.004 MG/ML Injection",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "2396891",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37003613,
+      "conceptName": "250 ML dexmedetomidine 0.004 MG/ML Injection [Precedex]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "2396892",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37498276,
+      "conceptName": "dexmedetomidine hydrochloride 0.5 MG/ML [Dexmedesed]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "2268607",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37498277,
+      "conceptName": "dexmedetomidine Injectable Solution [Dexmedesed]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "2268608",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37498278,
+      "conceptName": "Dexmedesed Injectable Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Dose Group",
+      "conceptCode": "2268609",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37498279,
+      "conceptName": "dexmedetomidine hydrochloride 0.5 MG/ML Injectable Solution [Dexmedesed]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "2268610",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40028652,
+      "conceptName": "dexmedetomidine Injectable Solution",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "377219",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40169171,
+      "conceptName": "dexmedetomidine Injectable Solution [Dexdomitor]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "897076",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40822989,
+      "conceptName": "Dexmedetomidine 0.118 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP2020951",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40847554,
+      "conceptName": "Dexmedetomidine 0.118 MG/ML Injectable Solution [Dexdor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2045516",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40867924,
+      "conceptName": "Dexmedetomidine 0.118 MG/ML Injectable Solution Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2065886",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40954105,
+      "conceptName": "Dexmedetomidine 0.118 MG/ML [Dexdor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP2152067",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41019511,
+      "conceptName": "Dexmedetomidine Injectable Solution [Dexdor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP2217473",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41034455,
+      "conceptName": "Dexmedetomidine 0.118 MG/ML Injectable Solution [Dexdor] Box of 4",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2232417",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41054883,
+      "conceptName": "Dexmedetomidine 0.118 MG/ML Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2252845",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41076773,
+      "conceptName": "Dexmedetomidine 0.118 MG/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP2274735",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41086416,
+      "conceptName": "Dexmedetomidine 0.118 MG/ML Injectable Solution Box of 4",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2284378",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41191037,
+      "conceptName": "Dexmedetomidine 0.118 MG/ML Injectable Solution [Dexdor] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2388999",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41315354,
+      "conceptName": "Dexmedetomidine 0.118 MG/ML Injectable Solution [Dexdor] Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2513316",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41338624,
+      "conceptName": "2 ML Dexmedetomidine 0.118 MG/ML Injectable Solution [Dexdor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2536586",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41338921,
+      "conceptName": "2 ML Dexmedetomidine 0.118 MG/ML Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2536883",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41341529,
+      "conceptName": "2 ML Dexmedetomidine 0.118 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP2539491",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41341772,
+      "conceptName": "2 ML Dexmedetomidine 0.118 MG/ML Injectable Solution [Dexdor] Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2539734",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41343360,
+      "conceptName": "2 ML Dexmedetomidine 0.118 MG/ML Injectable Solution [Dexdor] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2541322",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41344734,
+      "conceptName": "2 ML Dexmedetomidine 0.118 MG/ML Injectable Solution Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2542696",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41351030,
+      "conceptName": "4 ML Dexmedetomidine 0.118 MG/ML Injectable Solution [Dexdor] Box of 4",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2548992",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41351268,
+      "conceptName": "4 ML Dexmedetomidine 0.118 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP2549230",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41351298,
+      "conceptName": "4 ML Dexmedetomidine 0.118 MG/ML Injectable Solution [Dexdor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2549260",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41351404,
+      "conceptName": "4 ML Dexmedetomidine 0.118 MG/ML Injectable Solution Box of 4",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2549366",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41361444,
+      "conceptName": "10 ML Dexmedetomidine 0.118 MG/ML Injectable Solution Box of 4",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2559406",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41368929,
+      "conceptName": "10 ML Dexmedetomidine 0.118 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP2566891",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41370814,
+      "conceptName": "10 ML Dexmedetomidine 0.118 MG/ML Injectable Solution [Dexdor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2568776",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41373085,
+      "conceptName": "10 ML Dexmedetomidine 0.118 MG/ML Injectable Solution [Dexdor] Box of 4",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2571047",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42706767,
+      "conceptName": "dexmedetomidine 0.004 MG/ML",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "1249680",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43039399,
+      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injectable Solution Box of 25 by Mylan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4854436",
       "standardConcept": "S"
     },
     {
@@ -1793,255 +2842,39 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 35603042,
-      "conceptName": "50 ML dexmedetomidine 0.004 MG/ML Injection",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "1718906",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2907451,
-      "conceptName": "50 ML dexmedetomidine 0.004 MG/ML Injection Box of 20",
+      "conceptId": 43041265,
+      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Injectable Solution Box of 5",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP5124203",
+      "conceptCode": "OMOP4856295",
       "standardConcept": "S"
     },
     {
-      "conceptId": 35603043,
-      "conceptName": "50 ML dexmedetomidine 0.004 MG/ML Injection [Precedex]",
-      "vocabularyId": "RxNorm",
+      "conceptId": 43041266,
+      "conceptName": "10 ML Dexmedetomidine 0.1 MG/ML Injectable Solution Box of 5 by Ever Valinject",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "1718907",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4856296",
       "standardConcept": "S"
     },
     {
-      "conceptId": 2907450,
-      "conceptName": "50 ML dexmedetomidine 0.004 MG/ML Injection [Precedex] Box of 20",
+      "conceptId": 43163810,
+      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Prefilled Syringe [Dexdor] Box of 25 by Orion",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP510661",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43185675,
+      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Prefilled Syringe [Dexdor] Box of 25",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP5124202",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35832153,
-      "conceptName": "50 ML dexmedetomidine 0.004 MG/ML Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP5039863",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35828369,
-      "conceptName": "50 ML dexmedetomidine 0.004 MG/ML Prefilled Syringe by Maruishi",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5039865",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35828370,
-      "conceptName": "50 ML dexmedetomidine 0.004 MG/ML Prefilled Syringe by Nipro",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5039864",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35828368,
-      "conceptName": "50 ML dexmedetomidine 0.004 MG/ML Prefilled Syringe by Pfizer",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5039866",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36026831,
-      "conceptName": "Dexased Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2535255",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36228091,
-      "conceptName": "Dexdomitor Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1175262",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37498278,
-      "conceptName": "Dexmedesed Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2268609",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 44037844,
-      "conceptName": "Dexmedetomidine 0.004 MG/ML Injection [Precedex] by Hospira",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP1032475",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35774953,
-      "conceptName": "Dexmedetomidine 0.1 MG/ML Injectable Solution Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2776414",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35770694,
-      "conceptName": "Dexmedetomidine 0.1 MG/ML Injectable Solution Box of 4",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2772155",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35749752,
-      "conceptName": "Dexmedetomidine 0.1 MG/ML Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2751213",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35750068,
-      "conceptName": "Dexmedetomidine 0.1 MG/ML Injectable Solution [Dexdor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2751529",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35771015,
-      "conceptName": "Dexmedetomidine 0.1 MG/ML Injectable Solution [Dexdor] Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2772476",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35745892,
-      "conceptName": "Dexmedetomidine 0.1 MG/ML Injectable Solution [Dexdor] Box of 4",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2747353",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35745891,
-      "conceptName": "Dexmedetomidine 0.1 MG/ML Injectable Solution [Dexdor] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2747352",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 588915,
-      "conceptName": "Dexmedetomidine 0.1 MG/ML Injectable Solution [Precedex]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP3137299",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 588521,
-      "conceptName": "Dexmedetomidine 0.1 MG/ML Injectable Solution [Precedex] by Hospira",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3136470",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21066016,
-      "conceptName": "Dexmedetomidine 0.1 MG/ML Injection Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP265406",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21085665,
-      "conceptName": "Dexmedetomidine 0.1 MG/ML Injection Box of 4",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP265404",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21075947,
-      "conceptName": "Dexmedetomidine 0.1 MG/ML Injection Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP265405",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21124715,
-      "conceptName": "Dexmedetomidine 0.1 MG/ML Injection [Dexdor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP265414",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21066017,
-      "conceptName": "Dexmedetomidine 0.1 MG/ML Injection [Dexdor] Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP265411",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21036547,
-      "conceptName": "Dexmedetomidine 0.1 MG/ML Injection [Dexdor] Box of 4",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP265409",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21164276,
-      "conceptName": "Dexmedetomidine 0.1 MG/ML Injection [Dexdor] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP265410",
+      "conceptCode": "OMOP510660",
       "standardConcept": "S"
     },
     {
@@ -2054,525 +2887,30 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 43269721,
+      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injection [Precedex] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP561449",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43269722,
+      "conceptName": "2 ML Dexmedetomidine 0.1 MG/ML Injection [Precedex] Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP561450",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 43274549,
       "conceptName": "Dexmedetomidine 0.1 MG/ML Injection [Precedex] Box of 5",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Box",
       "conceptCode": "OMOP553833",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44128582,
-      "conceptName": "Dexmedetomidine 0.1 MG/ML Injection [Precedex] by Hospira",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP1123213",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785643,
-      "conceptName": "Dexmedetomidine 0.1 MG/ML Intravenous Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP4773924",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785642,
-      "conceptName": "Dexmedetomidine 0.1 MG/ML Intravenous Solution Box of 4",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP4773923",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785641,
-      "conceptName": "Dexmedetomidine 0.1 MG/ML Intravenous Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP4773922",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785640,
-      "conceptName": "Dexmedetomidine 0.1 MG/ML Intravenous Solution [Dexdor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4773921",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785639,
-      "conceptName": "Dexmedetomidine 0.1 MG/ML Intravenous Solution [Dexdor] Box of 4",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP4773920",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785638,
-      "conceptName": "Dexmedetomidine 0.1 MG/ML Intravenous Solution [Dexdor] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP4773919",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36891706,
-      "conceptName": "Dexmedetomidine 0.1 MG/ML Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP992428",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36885812,
-      "conceptName": "Dexmedetomidine 0.1 MG/ML Prefilled Syringe Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP991116",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35774954,
-      "conceptName": "Dexmedetomidine 0.1 MG/ML Prefilled Syringe Box of 4",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2776415",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35766364,
-      "conceptName": "Dexmedetomidine 0.1 MG/ML Prefilled Syringe Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2767825",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36884118,
-      "conceptName": "Dexmedetomidine 0.1 MG/ML Prefilled Syringe [Dexdor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP1003412",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36881278,
-      "conceptName": "Dexmedetomidine 0.1 MG/ML Prefilled Syringe [Dexdor] Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP1005570",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35771017,
-      "conceptName": "Dexmedetomidine 0.1 MG/ML Prefilled Syringe [Dexdor] Box of 4",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2772478",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35771016,
-      "conceptName": "Dexmedetomidine 0.1 MG/ML Prefilled Syringe [Dexdor] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2772477",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21085664,
-      "conceptName": "Dexmedetomidine 0.1 MG/ML [Dexdor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP265403",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41076773,
-      "conceptName": "Dexmedetomidine 0.118 MG/ML",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP2274735",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40822989,
-      "conceptName": "Dexmedetomidine 0.118 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP2020951",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40867924,
-      "conceptName": "Dexmedetomidine 0.118 MG/ML Injectable Solution Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2065886",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41086416,
-      "conceptName": "Dexmedetomidine 0.118 MG/ML Injectable Solution Box of 4",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2284378",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41054883,
-      "conceptName": "Dexmedetomidine 0.118 MG/ML Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2252845",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40847554,
-      "conceptName": "Dexmedetomidine 0.118 MG/ML Injectable Solution [Dexdor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2045516",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41315354,
-      "conceptName": "Dexmedetomidine 0.118 MG/ML Injectable Solution [Dexdor] Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2513316",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41034455,
-      "conceptName": "Dexmedetomidine 0.118 MG/ML Injectable Solution [Dexdor] Box of 4",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2232417",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41191037,
-      "conceptName": "Dexmedetomidine 0.118 MG/ML Injectable Solution [Dexdor] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2388999",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40954105,
-      "conceptName": "Dexmedetomidine 0.118 MG/ML [Dexdor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP2152067",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41019511,
-      "conceptName": "Dexmedetomidine Injectable Solution [Dexdor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP2217473",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44057343,
-      "conceptName": "Dexmedetomidine Injectable Solution [Precedex]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP1051974",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21174040,
-      "conceptName": "Dexmedetomidine Injection [Dexdor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP265402",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785645,
-      "conceptName": "Dexmedetomidine Intravenous Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP4773926",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785644,
-      "conceptName": "Dexmedetomidine Intravenous Solution [Dexdor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4773925",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36893479,
-      "conceptName": "Dexmedetomidine Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP1002099",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36891555,
-      "conceptName": "Dexmedetomidine Prefilled Syringe [Dexdor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP999554",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 746706,
-      "conceptName": "Dexmedvet Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2665895",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 779655,
-      "conceptName": "Igalmi Oral Film Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2601124",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 779653,
-      "conceptName": "Igalmi Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2601122",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 779654,
-      "conceptName": "Igalmi Sublingual Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2601123",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36242194,
-      "conceptName": "Precedex Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1185233",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 740190,
-      "conceptName": "Sedexodine Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2532531",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36248211,
-      "conceptName": "Sileo Oral Gel Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1732672",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36248212,
-      "conceptName": "Sileo Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1732673",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 19061088,
-      "conceptName": "dexmedetomidine",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Ingredient",
-      "conceptCode": "48937",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35606044,
-      "conceptName": "dexmedetomidine 0.00009 MG/MG",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "1732664",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35606046,
-      "conceptName": "dexmedetomidine 0.00009 MG/MG Oral Gel",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "1732668",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35606050,
-      "conceptName": "dexmedetomidine 0.00009 MG/MG Oral Gel [Sileo]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "1732674",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35606048,
-      "conceptName": "dexmedetomidine 0.00009 MG/MG [Sileo]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "1732670",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42706767,
-      "conceptName": "dexmedetomidine 0.004 MG/ML",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "1249680",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36120551,
-      "conceptName": "dexmedetomidine 0.004 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP5049511",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36120552,
-      "conceptName": "dexmedetomidine 0.004 MG/ML Injectable Solution Box of 4",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP5049512",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35603040,
-      "conceptName": "dexmedetomidine 0.004 MG/ML Injection",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "1718903",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2912762,
-      "conceptName": "dexmedetomidine 0.004 MG/ML Injection Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP5129550",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2912761,
-      "conceptName": "dexmedetomidine 0.004 MG/ML Injection Box of 20",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP5129549",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36120553,
-      "conceptName": "dexmedetomidine 0.004 MG/ML Injection Box of 4",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP5049513",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35603041,
-      "conceptName": "dexmedetomidine 0.004 MG/ML Injection [Precedex]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "1718904",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2912760,
-      "conceptName": "dexmedetomidine 0.004 MG/ML Injection [Precedex] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP5129548",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2912759,
-      "conceptName": "dexmedetomidine 0.004 MG/ML Injection [Precedex] Box of 20",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP5129547",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35829710,
-      "conceptName": "dexmedetomidine 0.004 MG/ML Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP5038511",
       "standardConcept": "S"
     },
     {
@@ -2585,301 +2923,31 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 19084904,
-      "conceptName": "dexmedetomidine 0.1 MG/ML",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "330316",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35604437,
-      "conceptName": "dexmedetomidine 0.1 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "1788947",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35854158,
-      "conceptName": "dexmedetomidine 0.1 MG/ML Injectable Solution [Leweijia]",
+      "conceptId": 44037844,
+      "conceptName": "Dexmedetomidine 0.004 MG/ML Injection [Precedex] by Hospira",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5011068",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP1032475",
       "standardConcept": "S"
     },
     {
-      "conceptId": 35603083,
-      "conceptName": "dexmedetomidine 0.1 MG/ML Injection",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "1719792",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35603084,
-      "conceptName": "dexmedetomidine 0.1 MG/ML Injection [Precedex]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "1719793",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35854159,
-      "conceptName": "dexmedetomidine 0.1 MG/ML [Leweijia]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP5011069",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19120718,
-      "conceptName": "dexmedetomidine 0.1 MG/ML [Precedex]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "574840",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 779646,
-      "conceptName": "dexmedetomidine 0.12 MG",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "2601115",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 779650,
-      "conceptName": "dexmedetomidine 0.12 MG Sublingual Film",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "2601119",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 779657,
-      "conceptName": "dexmedetomidine 0.12 MG Sublingual Film [Igalmi]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "2601126",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 779652,
-      "conceptName": "dexmedetomidine 0.12 MG [Igalmi]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "2601121",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 779658,
-      "conceptName": "dexmedetomidine 0.18 MG",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "2601128",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 779659,
-      "conceptName": "dexmedetomidine 0.18 MG Sublingual Film",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "2601129",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 779661,
-      "conceptName": "dexmedetomidine 0.18 MG Sublingual Film [Igalmi]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "2601131",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 779660,
-      "conceptName": "dexmedetomidine 0.18 MG [Igalmi]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "2601130",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36215272,
-      "conceptName": "dexmedetomidine Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1154546",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 40028652,
-      "conceptName": "dexmedetomidine Injectable Solution",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "377219",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36026830,
-      "conceptName": "dexmedetomidine Injectable Solution [Dexased]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "2535254",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40169171,
-      "conceptName": "dexmedetomidine Injectable Solution [Dexdomitor]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "897076",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37498277,
-      "conceptName": "dexmedetomidine Injectable Solution [Dexmedesed]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "2268608",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 746707,
-      "conceptName": "dexmedetomidine Injectable Solution [Dexmedvet]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "2665896",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35854160,
-      "conceptName": "dexmedetomidine Injectable Solution [Leweijia]",
+      "conceptId": 44057343,
+      "conceptName": "Dexmedetomidine Injectable Solution [Precedex]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP5011070",
+      "conceptCode": "OMOP1051974",
       "standardConcept": "S"
     },
     {
-      "conceptId": 740189,
-      "conceptName": "dexmedetomidine Injectable Solution [Sedexodine]",
-      "vocabularyId": "RxNorm",
+      "conceptId": 44128582,
+      "conceptName": "Dexmedetomidine 0.1 MG/ML Injection [Precedex] by Hospira",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "2532530",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP1123213",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 35603036,
-      "conceptName": "dexmedetomidine Injection",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "1718899",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35603038,
-      "conceptName": "dexmedetomidine Injection [Precedex]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "1718901",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 779648,
-      "conceptName": "dexmedetomidine Oral Film Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "2601117",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 35606045,
-      "conceptName": "dexmedetomidine Oral Gel",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "1732667",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36248209,
-      "conceptName": "dexmedetomidine Oral Gel Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1732665",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 35606049,
-      "conceptName": "dexmedetomidine Oral Gel [Sileo]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "1732671",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36248210,
-      "conceptName": "dexmedetomidine Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1732666",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 779649,
-      "conceptName": "dexmedetomidine Sublingual Film",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "2601118",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 779656,
-      "conceptName": "dexmedetomidine Sublingual Film [Igalmi]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "2601125",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 779647,
-      "conceptName": "dexmedetomidine Sublingual Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "2601116",
-      "standardConcept": "C"
     },
     {
       "conceptId": 44817782,
@@ -2888,24 +2956,6 @@
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Comp",
       "conceptCode": "1535223",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44818165,
-      "conceptName": "dexmedetomidine hydrochloride 0.1 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "1535224",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44818166,
-      "conceptName": "dexmedetomidine hydrochloride 0.1 MG/ML Injectable Solution [Dexdomitor]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "1535226",
       "standardConcept": "S"
     },
     {
@@ -2927,69 +2977,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 44818167,
-      "conceptName": "dexmedetomidine hydrochloride 0.5 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "1535228",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36026832,
-      "conceptName": "dexmedetomidine hydrochloride 0.5 MG/ML Injectable Solution [Dexased]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "2535256",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44818168,
-      "conceptName": "dexmedetomidine hydrochloride 0.5 MG/ML Injectable Solution [Dexdomitor]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "1535230",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37498279,
-      "conceptName": "dexmedetomidine hydrochloride 0.5 MG/ML Injectable Solution [Dexmedesed]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "2268610",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 746708,
-      "conceptName": "dexmedetomidine hydrochloride 0.5 MG/ML Injectable Solution [Dexmedvet]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "2665898",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 740191,
-      "conceptName": "dexmedetomidine hydrochloride 0.5 MG/ML Injectable Solution [Sedexodine]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "2532532",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36026829,
-      "conceptName": "dexmedetomidine hydrochloride 0.5 MG/ML [Dexased]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "2535253",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 44817785,
       "conceptName": "dexmedetomidine hydrochloride 0.5 MG/ML [Dexdomitor]",
       "vocabularyId": "RxNorm",
@@ -2999,30 +2986,39 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 37498276,
-      "conceptName": "dexmedetomidine hydrochloride 0.5 MG/ML [Dexmedesed]",
+      "conceptId": 44818165,
+      "conceptName": "dexmedetomidine hydrochloride 0.1 MG/ML Injectable Solution",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "2268607",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "1535224",
       "standardConcept": "S"
     },
     {
-      "conceptId": 746705,
-      "conceptName": "dexmedetomidine hydrochloride 0.5 MG/ML [Dexmedvet]",
+      "conceptId": 44818166,
+      "conceptName": "dexmedetomidine hydrochloride 0.1 MG/ML Injectable Solution [Dexdomitor]",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "2665894",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "1535226",
       "standardConcept": "S"
     },
     {
-      "conceptId": 740188,
-      "conceptName": "dexmedetomidine hydrochloride 0.5 MG/ML [Sedexodine]",
+      "conceptId": 44818167,
+      "conceptName": "dexmedetomidine hydrochloride 0.5 MG/ML Injectable Solution",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "2532529",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "1535228",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44818168,
+      "conceptName": "dexmedetomidine hydrochloride 0.5 MG/ML Injectable Solution [Dexdomitor]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "1535230",
       "standardConcept": "S"
     }
   ]

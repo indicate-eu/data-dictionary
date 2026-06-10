@@ -1,177 +1,11 @@
 {
   "conceptSetId": 322,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
-    {
-      "conceptId": 44782827,
-      "conceptName": "Expiratory tidal volume",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "698824001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44782826,
-      "conceptName": "Inspiratory tidal volume",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "698823007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4353946,
-      "conceptName": "Mandatory tidal volume",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "250817000",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4108448,
-      "conceptName": "Spontaneous tidal volume",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "250816009",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4029625,
-      "conceptName": "Tidal volume",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "13621006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21490854,
-      "conceptName": "Tidal volume Ventilator --on ventilator",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "76222-9",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21490752,
-      "conceptName": "Tidal volume expired Respiratory system airway",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "75958-9",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21490789,
-      "conceptName": "Tidal volume expired Respiratory system airway --on ventilator",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "76007-4",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3011767,
-      "conceptName": "Tidal volume expired spontaneous corrected for compressible gas volume Respiratory system airway --on ventilator",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "20106-1",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3020572,
-      "conceptName": "Tidal volume expired spontaneous uncorrected for compressible gas volume setting Ventilator",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "20105-3",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3015016,
-      "conceptName": "Tidal volume expired spontaneous+mechanical Respiratory system airway --on ventilator",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "20107-9",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3009097,
-      "conceptName": "Tidal volume expired spontaneous+mechanical corrected for compressible gas volume --on ventilator",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "20108-7",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3033780,
-      "conceptName": "Tidal volume inspired spontaneous+mechanical --on ventilator",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "20110-3",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3016166,
-      "conceptName": "Tidal volume inspired spontaneous+mechanical Measured --on ventilator",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "20109-5",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3021470,
-      "conceptName": "Tidal volume inspired spontaneous+mechanical corrected for compressible gas volume --on ventilator",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "20111-1",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3012410,
-      "conceptName": "Tidal volume setting Ventilator",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "20112-9",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3008805,
-      "conceptName": "Tidal volume sigh spontaneous+mechanical --on ventilator",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "20114-5",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36303816,
-      "conceptName": "Tidal volume.inspired",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "76221-1",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3017594,
-      "conceptName": "Tidal volume.spontaneous --on ventilator",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "20116-0",
-      "standardConcept": "S"
-    },
     {
       "conceptId": 3004732,
       "conceptName": "Tidal volume.spontaneous+mechanical --on ventilator",
@@ -188,6 +22,87 @@
       "domainId": "Measurement",
       "conceptClassId": "Clinical Observation",
       "conceptCode": "20119-4",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3008805,
+      "conceptName": "Tidal volume sigh spontaneous+mechanical --on ventilator",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "20114-5",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3009097,
+      "conceptName": "Tidal volume expired spontaneous+mechanical corrected for compressible gas volume --on ventilator",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "20108-7",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3011767,
+      "conceptName": "Tidal volume expired spontaneous corrected for compressible gas volume Respiratory system airway --on ventilator",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "20106-1",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3012410,
+      "conceptName": "Tidal volume setting Ventilator",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "20112-9",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3015016,
+      "conceptName": "Tidal volume expired spontaneous+mechanical Respiratory system airway --on ventilator",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "20107-9",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3016166,
+      "conceptName": "Tidal volume inspired spontaneous+mechanical Measured --on ventilator",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "20109-5",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3016864,
+      "conceptName": "Tidal volume.spontaneous+mechanical/Body weight [Volume/mass] corrected for compressible gas volume --on ventilator",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "20120-2",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3017054,
+      "conceptName": "Tidal volume.spontaneous/Body weight [Volume/mass] --on ventilator",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "20115-2",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3017594,
+      "conceptName": "Tidal volume.spontaneous --on ventilator",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "20116-0",
       "standardConcept": "S"
     },
     {
@@ -209,21 +124,111 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 3016864,
-      "conceptName": "Tidal volume.spontaneous+mechanical/Body weight [Volume/mass] corrected for compressible gas volume --on ventilator",
+      "conceptId": 3020572,
+      "conceptName": "Tidal volume expired spontaneous uncorrected for compressible gas volume setting Ventilator",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Clinical Observation",
-      "conceptCode": "20120-2",
+      "conceptCode": "20105-3",
       "standardConcept": "S"
     },
     {
-      "conceptId": 3017054,
-      "conceptName": "Tidal volume.spontaneous/Body weight [Volume/mass] --on ventilator",
+      "conceptId": 3021470,
+      "conceptName": "Tidal volume inspired spontaneous+mechanical corrected for compressible gas volume --on ventilator",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Clinical Observation",
-      "conceptCode": "20115-2",
+      "conceptCode": "20111-1",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3033780,
+      "conceptName": "Tidal volume inspired spontaneous+mechanical --on ventilator",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "20110-3",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4029625,
+      "conceptName": "Tidal volume",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "13621006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4108448,
+      "conceptName": "Spontaneous tidal volume",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "250816009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4353946,
+      "conceptName": "Mandatory tidal volume",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "250817000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21490752,
+      "conceptName": "Tidal volume expired Respiratory system airway",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "75958-9",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21490789,
+      "conceptName": "Tidal volume expired Respiratory system airway --on ventilator",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "76007-4",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21490854,
+      "conceptName": "Tidal volume Ventilator --on ventilator",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "76222-9",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36303816,
+      "conceptName": "Tidal volume.inspired",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "76221-1",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44782826,
+      "conceptName": "Inspiratory tidal volume",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "698823007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44782827,
+      "conceptName": "Expiratory tidal volume",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "698824001",
       "standardConcept": "S"
     }
   ]

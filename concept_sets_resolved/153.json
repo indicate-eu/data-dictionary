@@ -1,6 +1,19 @@
 {
   "conceptSetId": 153,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80"
+  },
   "resolvedConcepts": [
+    {
+      "conceptId": 3016502,
+      "conceptName": "Oxygen saturation in Arterial blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "2708-6",
+      "standardConcept": "S"
+    },
     {
       "conceptId": 3039426,
       "conceptName": "Oxygen saturation Calculated from oxygen partial pressure in Arterial blood",
@@ -26,15 +39,6 @@
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
       "conceptCode": "71852-8",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3016502,
-      "conceptName": "Oxygen saturation in Arterial blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "2708-6",
       "standardConcept": "S"
     }
   ]

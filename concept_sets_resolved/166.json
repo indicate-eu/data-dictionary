@@ -1,51 +1,10 @@
 {
   "conceptSetId": 166,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
-    {
-      "conceptId": 4122283,
-      "conceptName": "Whole blood specimen",
-      "vocabularyId": "SNOMED",
-      "domainId": "Specimen",
-      "conceptClassId": "Specimen",
-      "conceptCode": "258580003",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1447859,
-      "conceptName": "Whole blood specimen with citrate",
-      "vocabularyId": "SNOMED",
-      "domainId": "Specimen",
-      "conceptClassId": "Specimen",
-      "conceptCode": "1351816006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37155361,
-      "conceptName": "Whole blood specimen with edetic acid",
-      "vocabularyId": "SNOMED",
-      "domainId": "Specimen",
-      "conceptClassId": "Specimen",
-      "conceptCode": "57921000052103",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44808077,
-      "conceptName": "Whole blood specimen with fluoride oxalate",
-      "vocabularyId": "SNOMED",
-      "domainId": "Specimen",
-      "conceptClassId": "Specimen",
-      "conceptCode": "838981000000102",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44808076,
-      "conceptName": "Whole blood specimen with heparin",
-      "vocabularyId": "SNOMED",
-      "domainId": "Specimen",
-      "conceptClassId": "Specimen",
-      "conceptCode": "838971000000104",
-      "standardConcept": "S"
-    },
     {
       "conceptId": 1447857,
       "conceptName": "Whole blood specimen with hirudin",
@@ -62,6 +21,51 @@
       "domainId": "Specimen",
       "conceptClassId": "Specimen",
       "conceptCode": "1351815005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1447859,
+      "conceptName": "Whole blood specimen with citrate",
+      "vocabularyId": "SNOMED",
+      "domainId": "Specimen",
+      "conceptClassId": "Specimen",
+      "conceptCode": "1351816006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4122283,
+      "conceptName": "Whole blood specimen",
+      "vocabularyId": "SNOMED",
+      "domainId": "Specimen",
+      "conceptClassId": "Specimen",
+      "conceptCode": "258580003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37155361,
+      "conceptName": "Whole blood specimen with edetic acid",
+      "vocabularyId": "SNOMED",
+      "domainId": "Specimen",
+      "conceptClassId": "Specimen",
+      "conceptCode": "57921000052103",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44808076,
+      "conceptName": "Whole blood specimen with heparin",
+      "vocabularyId": "SNOMED",
+      "domainId": "Specimen",
+      "conceptClassId": "Specimen",
+      "conceptCode": "838971000000104",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44808077,
+      "conceptName": "Whole blood specimen with fluoride oxalate",
+      "vocabularyId": "SNOMED",
+      "domainId": "Specimen",
+      "conceptClassId": "Specimen",
+      "conceptCode": "838981000000102",
       "standardConcept": "S"
     },
     {

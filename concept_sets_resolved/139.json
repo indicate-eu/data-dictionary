@@ -1,6 +1,65 @@
 {
   "conceptSetId": 139,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "RxNorm": "RxNorm 20260105",
+    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+  },
   "resolvedConcepts": [
+    {
+      "conceptId": 700253,
+      "conceptName": "thiopental",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Ingredient",
+      "conceptCode": "10493",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 700263,
+      "conceptName": "thiopental 5 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "313341",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 700264,
+      "conceptName": "thiopental 50 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "313349",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 700265,
+      "conceptName": "thiopental 20 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "314258",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 700266,
+      "conceptName": "thiopental 25 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "314259",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 700267,
+      "conceptName": "thiopental 400 MG/ML Enema",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "328163",
+      "standardConcept": "S"
+    },
     {
       "conceptId": 700293,
       "conceptName": "10 ML thiopental 25 MG/ML Prefilled Syringe",
@@ -8,888 +67,6 @@
       "domainId": "Drug",
       "conceptClassId": "Quant Clinical Drug",
       "conceptCode": "727928",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19127244,
-      "conceptName": "10 ML thiopental 25 MG/ML Prefilled Syringe [Pentothal]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "727930",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41421613,
-      "conceptName": "100 ML Thiopental 25 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP2619575",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41417300,
-      "conceptName": "100 ML Thiopental 25 MG/ML Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2615262",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41416423,
-      "conceptName": "100 ML Thiopental 25 MG/ML Injectable Solution Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2614385",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41426695,
-      "conceptName": "100 ML Thiopental 25 MG/ML Injectable Solution Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2624657",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41414227,
-      "conceptName": "100 ML Thiopental 25 MG/ML Injectable Solution [Trapanal]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2612189",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41414226,
-      "conceptName": "100 ML Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2612188",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41424043,
-      "conceptName": "100 ML Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 10 by Takeda",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2622005",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41422811,
-      "conceptName": "100 ML Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2620773",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41421066,
-      "conceptName": "100 ML Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2619028",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41416422,
-      "conceptName": "100 ML Thiopental 50 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP2614384",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41416421,
-      "conceptName": "100 ML Thiopental 50 MG/ML Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2614383",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41417299,
-      "conceptName": "100 ML Thiopental 50 MG/ML Injectable Solution Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2615261",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41419925,
-      "conceptName": "100 ML Thiopental 50 MG/ML Injectable Solution Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2617887",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41426199,
-      "conceptName": "100 ML Thiopental 50 MG/ML Injectable Solution [Trapanal]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2624161",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41426976,
-      "conceptName": "100 ML Thiopental 50 MG/ML Injectable Solution [Trapanal] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2624938",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41425344,
-      "conceptName": "100 ML Thiopental 50 MG/ML Injectable Solution [Trapanal] Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2623306",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41424459,
-      "conceptName": "100 ML Thiopental 50 MG/ML Injectable Solution [Trapanal] Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2622421",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1236272,
-      "conceptName": "100 ML lidocaine 10 MG/ML / thiopental 20 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP5216982",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43813753,
-      "conceptName": "1000 MG Thiopental 1 MG/MG Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP875263",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43679855,
-      "conceptName": "1000 MG Thiopental 1 MG/MG Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP730258",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43589611,
-      "conceptName": "1000 MG Thiopental 1 MG/MG Injectable Solution Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP730259",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43859908,
-      "conceptName": "1000 MG Thiopental 1 MG/MG Injectable Solution Box of 250",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP730260",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43859909,
-      "conceptName": "1000 MG Thiopental 1 MG/MG Injectable Solution Box of 500",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP730261",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43661896,
-      "conceptName": "1000 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP730262",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43643825,
-      "conceptName": "1000 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP730264",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43697742,
-      "conceptName": "1000 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] Box of 10 by Inresa",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP730265",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43751592,
-      "conceptName": "1000 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP730266",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43625547,
-      "conceptName": "1000 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] Box of 25 by Inresa",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP730268",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43679856,
-      "conceptName": "1000 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] Box of 250",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP730269",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43607639,
-      "conceptName": "1000 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] Box of 250 by Inresa",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP730270",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43697743,
-      "conceptName": "1000 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] Box of 500",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP730271",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43643826,
-      "conceptName": "1000 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] Box of 500 by Inresa",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP730272",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43787491,
-      "conceptName": "1000 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] by Inresa",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP730263",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43759629,
-      "conceptName": "1000 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Rotexmedica]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP875264",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43723686,
-      "conceptName": "1000 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Rotexmedica] by Rotexmedica",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP875265",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41344630,
-      "conceptName": "2 ML Thiopental 25 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP2542592",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41342524,
-      "conceptName": "2 ML Thiopental 25 MG/ML Injectable Solution Box of 20",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2540486",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41346376,
-      "conceptName": "2 ML Thiopental 25 MG/ML Injectable Solution [Trapanal]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2544338",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41340084,
-      "conceptName": "2 ML Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 20",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2538046",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41341443,
-      "conceptName": "2 ML Thiopental 250 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP2539405",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41341442,
-      "conceptName": "2 ML Thiopental 250 MG/ML Injectable Solution Box of 20",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2539404",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41344826,
-      "conceptName": "2 ML Thiopental 250 MG/ML Injectable Solution [Trapanal]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2542788",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41342122,
-      "conceptName": "2 ML Thiopental 250 MG/ML Injectable Solution [Trapanal] Box of 20",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2540084",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41340851,
-      "conceptName": "2 ML Thiopental 250 MG/ML Injectable Solution [Trapanal] Box of 20 by Takeda",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2538813",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44193403,
-      "conceptName": "20 ML Thiopental 1.25 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP3070126",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44194000,
-      "conceptName": "20 ML Thiopental 1.25 MG/ML Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP3070723",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44193864,
-      "conceptName": "20 ML Thiopental 1.25 MG/ML Injectable Solution Box of 10 by Inresa",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3070587",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41380396,
-      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP2578358",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41380840,
-      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2578802",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41377406,
-      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2575368",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43042202,
-      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution Box of 10 by Panpharma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4857226",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41379212,
-      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution Box of 10 by Rotexmedica",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2577174",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41376657,
-      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2574619",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41382008,
-      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution Box of 20",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2579970",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41379266,
-      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution Box of 200",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2577228",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41380007,
-      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2577969",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41377359,
-      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution Box of 25 by Inresa",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2575321",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41376604,
-      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution Box of 25 by Nycomed",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2574566",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41381591,
-      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution Box of 250",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2579553",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41380839,
-      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2578801",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41378887,
-      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2576849",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41380006,
-      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution Box of 500",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2577968",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41376429,
-      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution [Thiopental Rotexmedica]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2574391",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41380161,
-      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution [Thiopental Rotexmedica] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2578123",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41377192,
-      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution [Thiopental Rotexmedica] Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2575154",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41377193,
-      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution [Trapanal]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2575155",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41377909,
-      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2575871",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41381386,
-      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2579348",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41376431,
-      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2574393",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41377908,
-      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 20",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2575870",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41376430,
-      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 200",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2574392",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41381757,
-      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2579719",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41378639,
-      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 250",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2576601",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41381387,
-      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2579349",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43042201,
-      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution by Medipha",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4857225",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21039116,
-      "conceptName": "20 ML Thiopental 25 MG/ML Prefilled Syringe Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP313521",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21117567,
-      "conceptName": "20 ML Thiopental 25 MG/ML Prefilled Syringe Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP313525",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21029253,
-      "conceptName": "20 ML Thiopental 25 MG/ML Prefilled Syringe Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP313523",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41376263,
-      "conceptName": "20 ML Thiopental 50 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP2574225",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41380005,
-      "conceptName": "20 ML Thiopental 50 MG/ML Injectable Solution Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2577967",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41376654,
-      "conceptName": "20 ML Thiopental 50 MG/ML Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2574616",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41376655,
-      "conceptName": "20 ML Thiopental 50 MG/ML Injectable Solution Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2574617",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41376656,
-      "conceptName": "20 ML Thiopental 50 MG/ML Injectable Solution Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2574618",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41376603,
-      "conceptName": "20 ML Thiopental 50 MG/ML Injectable Solution Box of 25 by Nycomed",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2574565",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41378119,
-      "conceptName": "20 ML Thiopental 50 MG/ML Injectable Solution Box of 250",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2576081",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41376262,
-      "conceptName": "20 ML Thiopental 50 MG/ML Injectable Solution Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2574224",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41378486,
-      "conceptName": "20 ML Thiopental 50 MG/ML Injectable Solution Box of 500",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2576448",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41380160,
-      "conceptName": "20 ML Thiopental 50 MG/ML Injectable Solution [Thiopental Rotexmedica]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2578122",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41378274,
-      "conceptName": "20 ML Thiopental 50 MG/ML Injectable Solution [Thiopental Rotexmedica] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2576236",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41377191,
-      "conceptName": "20 ML Thiopental 50 MG/ML Injectable Solution [Thiopental Rotexmedica] Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2575153",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41378837,
-      "conceptName": "20 ML Thiopental 50 MG/ML Injectable Solution [Thiopental Rotexmedica] Box of 50 by Rotexmedica",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2576799",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41376819,
-      "conceptName": "20 ML Thiopental 50 MG/ML Injectable Solution [Trapanal]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2574781",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41380585,
-      "conceptName": "20 ML Thiopental 50 MG/ML Injectable Solution [Trapanal] Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2578547",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41381756,
-      "conceptName": "20 ML Thiopental 50 MG/ML Injectable Solution [Trapanal] Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2579718",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41381004,
-      "conceptName": "20 ML Thiopental 50 MG/ML Injectable Solution [Trapanal] Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2578966",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41378275,
-      "conceptName": "20 ML Thiopental 50 MG/ML Injectable Solution [Trapanal] Box of 250",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2576237",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1236226,
-      "conceptName": "20 ML lidocaine 10 MG/ML / thiopental 100 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP5216936",
       "standardConcept": "S"
     },
     {
@@ -902,15 +79,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 19127245,
-      "conceptName": "20 ML thiopental 20 MG/ML Prefilled Syringe [Pentothal]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "727932",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 700295,
       "conceptName": "20 ML thiopental 25 MG/ML Prefilled Syringe",
       "vocabularyId": "RxNorm",
@@ -920,1623 +88,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 19127246,
-      "conceptName": "20 ML thiopental 25 MG/ML Prefilled Syringe [Pentothal]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "727934",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43596052,
-      "conceptName": "2500 MG Thiopental 1 MG/MG Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP757269",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43704153,
-      "conceptName": "2500 MG Thiopental 1 MG/MG Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP757270",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43596053,
-      "conceptName": "2500 MG Thiopental 1 MG/MG Injectable Solution [Trapanal]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP757272",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43775935,
-      "conceptName": "2500 MG Thiopental 1 MG/MG Injectable Solution [Trapanal] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP757274",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43650267,
-      "conceptName": "2500 MG Thiopental 1 MG/MG Injectable Solution [Trapanal] Box of 10 by Inresa",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP757275",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43775934,
-      "conceptName": "2500 MG Thiopental 1 MG/MG Injectable Solution [Trapanal] by Inresa",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP757273",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43740849,
-      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP862450",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43738016,
-      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP717591",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43666279,
-      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution Box of 2",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP717589",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43827998,
-      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP717592",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43611969,
-      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution Box of 250",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP717593",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43648155,
-      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP717590",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43791770,
-      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution Box of 500",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP717594",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43630089,
-      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP717595",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43773977,
-      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP717597",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43755936,
-      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] Box of 10 by Inresa",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP717598",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43827999,
-      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP717600",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43719876,
-      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] Box of 25 by Inresa",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP717601",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43791771,
-      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] Box of 250",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP717602",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43702166,
-      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] Box of 250 by Inresa",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP717603",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43846044,
-      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] Box of 500",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP717604",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43648156,
-      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] Box of 500 by Inresa",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP717605",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43684161,
-      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] by Inresa",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP717596",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43596832,
-      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Rotexmedica]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP862451",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43794645,
-      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Rotexmedica] by Rotexmedica",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP862452",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43648157,
-      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution [Trapanal]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP717606",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43773978,
-      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution [Trapanal] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP717613",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43755937,
-      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution [Trapanal] Box of 10 by Inresa",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP717614",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43864300,
-      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution [Trapanal] Box of 2",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP717608",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43630090,
-      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution [Trapanal] Box of 2 by Inresa",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP717609",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43630091,
-      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution [Trapanal] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP717611",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43594014,
-      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution [Trapanal] Box of 5 by Inresa",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP717612",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43666280,
-      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution [Trapanal] by Inresa",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP717607",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36233249,
-      "conceptName": "Intraval Sodium Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1173441",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36242159,
-      "conceptName": "Pentothal Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1185192",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36242160,
-      "conceptName": "Pentothal Rectal Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1185193",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 43674993,
-      "conceptName": "Thiopental 1 MG/MG",
+      "conceptId": 1234491,
+      "conceptName": "thiopental 100 MG/ML",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP939268",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43746575,
-      "conceptName": "Thiopental 1 MG/MG Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP939270",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43746576,
-      "conceptName": "Thiopental 1 MG/MG Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP939276",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43836809,
-      "conceptName": "Thiopental 1 MG/MG Injectable Solution Box of 2",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP939274",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43620652,
-      "conceptName": "Thiopental 1 MG/MG Injectable Solution Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP939277",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43782669,
-      "conceptName": "Thiopental 1 MG/MG Injectable Solution Box of 250",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP939278",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43836810,
-      "conceptName": "Thiopental 1 MG/MG Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP939275",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43638773,
-      "conceptName": "Thiopental 1 MG/MG Injectable Solution Box of 500",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP939279",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43674995,
-      "conceptName": "Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP939280",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43674996,
-      "conceptName": "Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP939281",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43836811,
-      "conceptName": "Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP939282",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43728650,
-      "conceptName": "Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] Box of 250",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP939283",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43638774,
-      "conceptName": "Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] Box of 500",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP939284",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43638772,
-      "conceptName": "Thiopental 1 MG/MG Injectable Solution [Thiopental Rotexmedica]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP939271",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43674997,
-      "conceptName": "Thiopental 1 MG/MG Injectable Solution [Trapanal]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP939286",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43818649,
-      "conceptName": "Thiopental 1 MG/MG Injectable Solution [Trapanal] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP939289",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43854747,
-      "conceptName": "Thiopental 1 MG/MG Injectable Solution [Trapanal] Box of 2",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP939287",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43638775,
-      "conceptName": "Thiopental 1 MG/MG Injectable Solution [Trapanal] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP939288",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43692724,
-      "conceptName": "Thiopental 1 MG/MG [Thiopental Inresa]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP939272",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43800519,
-      "conceptName": "Thiopental 1 MG/MG [Thiopental Rotexmedica]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP939269",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43674994,
-      "conceptName": "Thiopental 1 MG/MG [Trapanal]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP939273",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44175556,
-      "conceptName": "Thiopental 1.25 MG/ML",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP3052279",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44187283,
-      "conceptName": "Thiopental 1.25 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP3064006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44176043,
-      "conceptName": "Thiopental 1.25 MG/ML Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP3052766",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44065414,
-      "conceptName": "Thiopental 1000 MG",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP1060045",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43037046,
-      "conceptName": "Thiopental 1000 MG Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP4852086",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43037048,
-      "conceptName": "Thiopental 1000 MG Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP4852088",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43037050,
-      "conceptName": "Thiopental 1000 MG Injectable Solution Box of 10 by Panpharma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4852089",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43037047,
-      "conceptName": "Thiopental 1000 MG Injectable Solution by Medipha",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4852087",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44109682,
-      "conceptName": "Thiopental 1000 MG Injectable Suspension",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP1104313",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44100732,
-      "conceptName": "Thiopental 1000 MG Injectable Suspension by Hospira",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP1095363",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40833992,
-      "conceptName": "Thiopental 25 MG/ML Injectable Solution Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2031954",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40833993,
-      "conceptName": "Thiopental 25 MG/ML Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2031955",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40865109,
-      "conceptName": "Thiopental 25 MG/ML Injectable Solution Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2063071",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40958557,
-      "conceptName": "Thiopental 25 MG/ML Injectable Solution Box of 20",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2156519",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41239805,
-      "conceptName": "Thiopental 25 MG/ML Injectable Solution Box of 200",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2437767",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40833991,
-      "conceptName": "Thiopental 25 MG/ML Injectable Solution Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2031953",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41020794,
-      "conceptName": "Thiopental 25 MG/ML Injectable Solution Box of 250",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2218756",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41239806,
-      "conceptName": "Thiopental 25 MG/ML Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2437768",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40927299,
-      "conceptName": "Thiopental 25 MG/ML Injectable Solution Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2125261",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41270664,
-      "conceptName": "Thiopental 25 MG/ML Injectable Solution Box of 500",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2468626",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40870882,
-      "conceptName": "Thiopental 25 MG/ML Injectable Solution [Thiopental Rotexmedica]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2068844",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41089359,
-      "conceptName": "Thiopental 25 MG/ML Injectable Solution [Thiopental Rotexmedica] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2287321",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40933072,
-      "conceptName": "Thiopental 25 MG/ML Injectable Solution [Thiopental Rotexmedica] Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2131034",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41214541,
-      "conceptName": "Thiopental 25 MG/ML Injectable Solution [Trapanal]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2412503",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40901916,
-      "conceptName": "Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2099878",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40933075,
-      "conceptName": "Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2131037",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40933073,
-      "conceptName": "Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2131035",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40901915,
-      "conceptName": "Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 20",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2099877",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41120596,
-      "conceptName": "Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 200",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2318558",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41057816,
-      "conceptName": "Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2255778",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41120595,
-      "conceptName": "Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 250",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2318557",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41026640,
-      "conceptName": "Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2224602",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40964306,
-      "conceptName": "Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2162268",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44071005,
-      "conceptName": "Thiopental 25 MG/ML Injectable Suspension",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP1065636",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44098330,
-      "conceptName": "Thiopental 25 MG/ML Injectable Suspension [Pentothal]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP1092961",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44049103,
-      "conceptName": "Thiopental 25 MG/ML Injectable Suspension [Pentothal] by Hospira",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP1043734",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21169375,
-      "conceptName": "Thiopental 25 MG/ML Prefilled Syringe Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP345647",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21031778,
-      "conceptName": "Thiopental 25 MG/ML Prefilled Syringe Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP345649",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21051498,
-      "conceptName": "Thiopental 25 MG/ML Prefilled Syringe Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP345648",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41014866,
-      "conceptName": "Thiopental 25 MG/ML [Thiopental Rotexmedica]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP2212828",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41264628,
-      "conceptName": "Thiopental 25 MG/ML [Trapanal]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP2462590",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44039364,
-      "conceptName": "Thiopental 250 MG",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP1033995",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44096792,
-      "conceptName": "Thiopental 250 MG Injectable Suspension",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP1091423",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44072556,
-      "conceptName": "Thiopental 250 MG Injectable Suspension [Pentothal Ready To Mix]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP1067187",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44049102,
-      "conceptName": "Thiopental 250 MG Injectable Suspension [Pentothal Ready To Mix] by Hospira",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP1043733",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42928143,
-      "conceptName": "Thiopental 250 MG Injection",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP4654942",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42928144,
-      "conceptName": "Thiopental 250 MG Injection [PENTOTAL SODIUM]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4654943",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42928145,
-      "conceptName": "Thiopental 250 MG [PENTOTAL SODIUM]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4654944",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44040721,
-      "conceptName": "Thiopental 250 MG [Pentothal Ready To Mix]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP1035352",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41051993,
-      "conceptName": "Thiopental 250 MG/ML Injectable Solution Box of 20",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2249955",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40933074,
-      "conceptName": "Thiopental 250 MG/ML Injectable Solution [Trapanal]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2131036",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41152192,
-      "conceptName": "Thiopental 250 MG/ML Injectable Solution [Trapanal] Box of 20",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2350154",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41077439,
-      "conceptName": "Thiopental 250 MG/ML [Trapanal]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP2275401",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35134534,
-      "conceptName": "Thiopental 300 MG",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP4791735",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35149018,
-      "conceptName": "Thiopental 300 MG Injection",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP4806078",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35135845,
-      "conceptName": "Thiopental 300 MG Injection [Ravonal]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4793032",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35155652,
-      "conceptName": "Thiopental 300 MG [Ravonal]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4812667",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36890401,
-      "conceptName": "Thiopental 470 MG",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP1006536",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36883101,
-      "conceptName": "Thiopental 470 MG Injection",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP995372",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43285571,
-      "conceptName": "Thiopental 470 MG Injection by Omegapharm",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP555934",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40833990,
-      "conceptName": "Thiopental 50 MG/ML Injectable Solution Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2031952",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40958556,
-      "conceptName": "Thiopental 50 MG/ML Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2156518",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41270663,
-      "conceptName": "Thiopental 50 MG/ML Injectable Solution Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2468625",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40989829,
-      "conceptName": "Thiopental 50 MG/ML Injectable Solution Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2187791",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41020793,
-      "conceptName": "Thiopental 50 MG/ML Injectable Solution Box of 250",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2218755",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40865108,
-      "conceptName": "Thiopental 50 MG/ML Injectable Solution Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2063070",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41270662,
-      "conceptName": "Thiopental 50 MG/ML Injectable Solution Box of 500",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2468624",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40964305,
-      "conceptName": "Thiopental 50 MG/ML Injectable Solution [Thiopental Rotexmedica]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2162267",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41307524,
-      "conceptName": "Thiopental 50 MG/ML Injectable Solution [Thiopental Rotexmedica] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2505486",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41152191,
-      "conceptName": "Thiopental 50 MG/ML Injectable Solution [Thiopental Rotexmedica] Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2350153",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40870881,
-      "conceptName": "Thiopental 50 MG/ML Injectable Solution [Trapanal]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2068843",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41245472,
-      "conceptName": "Thiopental 50 MG/ML Injectable Solution [Trapanal] Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2443434",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41120594,
-      "conceptName": "Thiopental 50 MG/ML Injectable Solution [Trapanal] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2318556",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40995598,
-      "conceptName": "Thiopental 50 MG/ML Injectable Solution [Trapanal] Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2193560",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41026639,
-      "conceptName": "Thiopental 50 MG/ML Injectable Solution [Trapanal] Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2224601",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40870880,
-      "conceptName": "Thiopental 50 MG/ML Injectable Solution [Trapanal] Box of 250",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2068842",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41214540,
-      "conceptName": "Thiopental 50 MG/ML Injectable Solution [Trapanal] Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2412502",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40827784,
-      "conceptName": "Thiopental 50 MG/ML [Thiopental Rotexmedica]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP2025746",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40921328,
-      "conceptName": "Thiopental 50 MG/ML [Trapanal]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP2119290",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21110393,
-      "conceptName": "Thiopental 500 MG",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP345639",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36405930,
-      "conceptName": "Thiopental 500 MG Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP3097972",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40721048,
-      "conceptName": "Thiopental 500 MG Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP4735911",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40721046,
-      "conceptName": "Thiopental 500 MG Injectable Solution Box of 10 by Kyowa Kirin",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4735912",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36408193,
-      "conceptName": "Thiopental 500 MG Injectable Solution Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP3100235",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36409465,
-      "conceptName": "Thiopental 500 MG Injectable Solution Box of 25 by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3101507",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40721045,
-      "conceptName": "Thiopental 500 MG Injectable Solution Box of 25 by Kyowa Kirin",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4735913",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36404077,
-      "conceptName": "Thiopental 500 MG Injectable Solution Box of 25 by ProStrakan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3096119",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43258329,
-      "conceptName": "Thiopental 500 MG Injectable Solution [Pentothal]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP555936",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36409466,
-      "conceptName": "Thiopental 500 MG Injectable Solution by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3101508",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40721049,
-      "conceptName": "Thiopental 500 MG Injectable Solution by Kyowa Kirin",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4735910",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36404853,
-      "conceptName": "Thiopental 500 MG Injectable Solution by ProStrakan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3096895",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44045169,
-      "conceptName": "Thiopental 500 MG Injectable Suspension",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP1039800",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35766548,
-      "conceptName": "Thiopental 500 MG Injectable Suspension Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2768009",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35774275,
-      "conceptName": "Thiopental 500 MG Injectable Suspension Box of 25 by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2775736",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35765689,
-      "conceptName": "Thiopental 500 MG Injectable Suspension Box of 25 by ProStrakan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2767150",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44111205,
-      "conceptName": "Thiopental 500 MG Injectable Suspension [Pentothal]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP1105836",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44074837,
-      "conceptName": "Thiopental 500 MG Injectable Suspension [Pentothal] by Hospira",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP1069468",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35769991,
-      "conceptName": "Thiopental 500 MG Injectable Suspension by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2771452",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35742407,
-      "conceptName": "Thiopental 500 MG Injectable Suspension by ProStrakan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2743868",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21139810,
-      "conceptName": "Thiopental 500 MG Injection",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP345640",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21051497,
-      "conceptName": "Thiopental 500 MG Injection Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP345643",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21031777,
-      "conceptName": "Thiopental 500 MG Injection Box of 25 by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP345645",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21110394,
-      "conceptName": "Thiopental 500 MG Injection Box of 25 by ProStrakan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP345646",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42928146,
-      "conceptName": "Thiopental 500 MG Injection [PENTOTAL SODIUM]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4654945",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35153412,
-      "conceptName": "Thiopental 500 MG Injection [Ravonal]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4810440",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21120117,
-      "conceptName": "Thiopental 500 MG Injection by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP345641",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21149670,
-      "conceptName": "Thiopental 500 MG Injection by ProStrakan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP345642",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42928147,
-      "conceptName": "Thiopental 500 MG [PENTOTAL SODIUM]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4654946",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43269241,
-      "conceptName": "Thiopental 500 MG [Pentothal]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP555935",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35142675,
-      "conceptName": "Thiopental 500 MG [Ravonal]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4799786",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44104104,
-      "conceptName": "Thiopental 5000 MG",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP1098735",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44083871,
-      "conceptName": "Thiopental 5000 MG Injectable Suspension",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP1078502",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44035999,
-      "conceptName": "Thiopental 5000 MG Injectable Suspension by Hospira",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP1030630",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43584635,
-      "conceptName": "Thiopental Injectable Solution [Thiopental Inresa]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP939264",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43836808,
-      "conceptName": "Thiopental Injectable Solution [Thiopental Rotexmedica]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP939265",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43854746,
-      "conceptName": "Thiopental Injectable Solution [Trapanal]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP939267",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44068671,
-      "conceptName": "Thiopental Injectable Suspension",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP1063302",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44056567,
-      "conceptName": "Thiopental Injectable Suspension [Pentothal Ready To Mix]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP1051198",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44108120,
-      "conceptName": "Thiopental Injectable Suspension [Pentothal]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP1102751",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42480696,
-      "conceptName": "Thiopental Injection",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP418595",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42928148,
-      "conceptName": "Thiopental Injection [PENTOTAL SODIUM]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4654947",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35160531,
-      "conceptName": "Thiopental Injection [Ravonal]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4817509",
+      "conceptCode": "OMOP5215195",
       "standardConcept": "S"
     },
     {
@@ -2567,354 +124,21 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 700253,
-      "conceptName": "thiopental",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Ingredient",
-      "conceptCode": "10493",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1234491,
-      "conceptName": "thiopental 100 MG/ML",
+      "conceptId": 1236226,
+      "conceptName": "20 ML lidocaine 10 MG/ML / thiopental 100 MG/ML Injectable Solution",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP5215195",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP5216936",
       "standardConcept": "S"
     },
     {
-      "conceptId": 19084792,
-      "conceptName": "thiopental 20 MG/ML",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "330267",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 700265,
-      "conceptName": "thiopental 20 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "314258",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19038291,
-      "conceptName": "thiopental 20 MG/ML Injectable Solution [Pentothal]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "208352",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42903144,
-      "conceptName": "thiopental 20 MG/ML Prefilled Syringe",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "1360257",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42902504,
-      "conceptName": "thiopental 20 MG/ML Prefilled Syringe [Pentothal]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "1359617",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19118630,
-      "conceptName": "thiopental 20 MG/ML [Pentothal]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "569056",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19084793,
-      "conceptName": "thiopental 25 MG/ML",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "330268",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 700266,
-      "conceptName": "thiopental 25 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "314259",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19008978,
-      "conceptName": "thiopental 25 MG/ML Injectable Solution [Intraval Sodium]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "106488",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19038292,
-      "conceptName": "thiopental 25 MG/ML Injectable Solution [Pentothal]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "208355",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42903051,
-      "conceptName": "thiopental 25 MG/ML Prefilled Syringe",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "1360164",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42903027,
-      "conceptName": "thiopental 25 MG/ML Prefilled Syringe [Pentothal]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "1360140",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19116399,
-      "conceptName": "thiopental 25 MG/ML [Intraval Sodium]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "564329",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19118632,
-      "conceptName": "thiopental 25 MG/ML [Pentothal]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "569059",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19101175,
-      "conceptName": "thiopental 250 MG/ML",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "385470",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19002644,
-      "conceptName": "thiopental 250 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "103739",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2073141,
-      "conceptName": "thiopental 265 MG",
+      "conceptId": 1236272,
+      "conceptName": "100 ML lidocaine 10 MG/ML / thiopental 20 MG/ML Injectable Solution",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP4974795",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2073139,
-      "conceptName": "thiopental 265 MG Injection",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP4974793",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2073137,
-      "conceptName": "thiopental 265 MG Injection [PENTOTAL SODIUM]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4974791",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2073138,
-      "conceptName": "thiopental 265 MG Injection [PENTOTAL SODIUM] by JW",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4974792",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2073140,
-      "conceptName": "thiopental 265 MG [PENTOTAL SODIUM]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4974794",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19085452,
-      "conceptName": "thiopental 400 MG/ML",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "330511",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 700267,
-      "conceptName": "thiopental 400 MG/ML Enema",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "328163",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19132812,
-      "conceptName": "thiopental 400 MG/ML Enema [Pentothal]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "809588",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19118634,
-      "conceptName": "thiopental 400 MG/ML [Pentothal]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "569061",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19095991,
-      "conceptName": "thiopental 5 MG/ML",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "346308",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 700263,
-      "conceptName": "thiopental 5 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "313341",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19095033,
-      "conceptName": "thiopental 50 MG/ML",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "342901",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 700264,
-      "conceptName": "thiopental 50 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "313349",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19038270,
-      "conceptName": "thiopental 50 MG/ML Injectable Solution [Pentothal]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "208351",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19118629,
-      "conceptName": "thiopental 50 MG/ML [Pentothal]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "569055",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36069557,
-      "conceptName": "thiopental 500 MG Injectable Solution Box of 10 by AMCo",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4996270",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36069556,
-      "conceptName": "thiopental 500 MG Injectable Solution Box of 10 by Panpharma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4996269",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36069559,
-      "conceptName": "thiopental 500 MG Injectable Solution by AMCo",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4996272",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36069558,
-      "conceptName": "thiopental 500 MG Injectable Solution by Panpharma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4996271",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2073136,
-      "conceptName": "thiopental 530 MG",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP4974790",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2073134,
-      "conceptName": "thiopental 530 MG Injection",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP4974788",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP5216982",
       "standardConcept": "S"
     },
     {
@@ -2936,6 +160,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 2073134,
+      "conceptName": "thiopental 530 MG Injection",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP4974788",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 2073135,
       "conceptName": "thiopental 530 MG [PENTOTAL SODIUM]",
       "vocabularyId": "RxNorm Extension",
@@ -2945,21 +178,507 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 40085409,
-      "conceptName": "thiopental Enema",
-      "vocabularyId": "RxNorm",
+      "conceptId": 2073136,
+      "conceptName": "thiopental 530 MG",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "376539",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP4974790",
       "standardConcept": "S"
     },
     {
-      "conceptId": 40154833,
-      "conceptName": "thiopental Enema [Pentothal]",
-      "vocabularyId": "RxNorm",
+      "conceptId": 2073137,
+      "conceptName": "thiopental 265 MG Injection [PENTOTAL SODIUM]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4974791",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2073138,
+      "conceptName": "thiopental 265 MG Injection [PENTOTAL SODIUM] by JW",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4974792",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2073139,
+      "conceptName": "thiopental 265 MG Injection",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP4974793",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2073140,
+      "conceptName": "thiopental 265 MG [PENTOTAL SODIUM]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4974794",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2073141,
+      "conceptName": "thiopental 265 MG",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP4974795",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2935810,
+      "conceptName": "thiopental Injection [Pentothal]",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Form",
-      "conceptCode": "809587",
+      "conceptCode": "OMOP5152542",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19002644,
+      "conceptName": "thiopental 250 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "103739",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19008978,
+      "conceptName": "thiopental 25 MG/ML Injectable Solution [Intraval Sodium]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "106488",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19038270,
+      "conceptName": "thiopental 50 MG/ML Injectable Solution [Pentothal]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "208351",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19038291,
+      "conceptName": "thiopental 20 MG/ML Injectable Solution [Pentothal]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "208352",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19038292,
+      "conceptName": "thiopental 25 MG/ML Injectable Solution [Pentothal]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "208355",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19084792,
+      "conceptName": "thiopental 20 MG/ML",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "330267",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19084793,
+      "conceptName": "thiopental 25 MG/ML",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "330268",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19085452,
+      "conceptName": "thiopental 400 MG/ML",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "330511",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19095033,
+      "conceptName": "thiopental 50 MG/ML",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "342901",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19095991,
+      "conceptName": "thiopental 5 MG/ML",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "346308",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19101175,
+      "conceptName": "thiopental 250 MG/ML",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "385470",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19116399,
+      "conceptName": "thiopental 25 MG/ML [Intraval Sodium]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "564329",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19118629,
+      "conceptName": "thiopental 50 MG/ML [Pentothal]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "569055",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19118630,
+      "conceptName": "thiopental 20 MG/ML [Pentothal]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "569056",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19118632,
+      "conceptName": "thiopental 25 MG/ML [Pentothal]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "569059",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19118634,
+      "conceptName": "thiopental 400 MG/ML [Pentothal]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "569061",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19127244,
+      "conceptName": "10 ML thiopental 25 MG/ML Prefilled Syringe [Pentothal]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "727930",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19127245,
+      "conceptName": "20 ML thiopental 20 MG/ML Prefilled Syringe [Pentothal]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "727932",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19127246,
+      "conceptName": "20 ML thiopental 25 MG/ML Prefilled Syringe [Pentothal]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "727934",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19132812,
+      "conceptName": "thiopental 400 MG/ML Enema [Pentothal]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "809588",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21029253,
+      "conceptName": "20 ML Thiopental 25 MG/ML Prefilled Syringe Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP313523",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21031777,
+      "conceptName": "Thiopental 500 MG Injection Box of 25 by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP345645",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21031778,
+      "conceptName": "Thiopental 25 MG/ML Prefilled Syringe Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP345649",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21039116,
+      "conceptName": "20 ML Thiopental 25 MG/ML Prefilled Syringe Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP313521",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21051497,
+      "conceptName": "Thiopental 500 MG Injection Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP345643",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21051498,
+      "conceptName": "Thiopental 25 MG/ML Prefilled Syringe Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP345648",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21110393,
+      "conceptName": "Thiopental 500 MG",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP345639",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21110394,
+      "conceptName": "Thiopental 500 MG Injection Box of 25 by ProStrakan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP345646",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21117567,
+      "conceptName": "20 ML Thiopental 25 MG/ML Prefilled Syringe Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP313525",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21120117,
+      "conceptName": "Thiopental 500 MG Injection by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP345641",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21139810,
+      "conceptName": "Thiopental 500 MG Injection",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP345640",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21149670,
+      "conceptName": "Thiopental 500 MG Injection by ProStrakan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP345642",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21169375,
+      "conceptName": "Thiopental 25 MG/ML Prefilled Syringe Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP345647",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35134534,
+      "conceptName": "Thiopental 300 MG",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP4791735",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35135845,
+      "conceptName": "Thiopental 300 MG Injection [Ravonal]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4793032",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35142675,
+      "conceptName": "Thiopental 500 MG [Ravonal]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4799786",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35149018,
+      "conceptName": "Thiopental 300 MG Injection",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP4806078",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35153412,
+      "conceptName": "Thiopental 500 MG Injection [Ravonal]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4810440",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35155652,
+      "conceptName": "Thiopental 300 MG [Ravonal]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4812667",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35160531,
+      "conceptName": "Thiopental Injection [Ravonal]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP4817509",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35742407,
+      "conceptName": "Thiopental 500 MG Injectable Suspension by ProStrakan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2743868",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35765689,
+      "conceptName": "Thiopental 500 MG Injectable Suspension Box of 25 by ProStrakan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2767150",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35766548,
+      "conceptName": "Thiopental 500 MG Injectable Suspension Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2768009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35769991,
+      "conceptName": "Thiopental 500 MG Injectable Suspension by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2771452",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35774275,
+      "conceptName": "Thiopental 500 MG Injectable Suspension Box of 25 by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2775736",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36069556,
+      "conceptName": "thiopental 500 MG Injectable Solution Box of 10 by Panpharma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4996269",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36069557,
+      "conceptName": "thiopental 500 MG Injectable Solution Box of 10 by AMCo",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4996270",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36069558,
+      "conceptName": "thiopental 500 MG Injectable Solution by Panpharma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4996271",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36069559,
+      "conceptName": "thiopental 500 MG Injectable Solution by AMCo",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4996272",
       "standardConcept": "S"
     },
     {
@@ -2970,6 +689,123 @@
       "conceptClassId": "Clinical Dose Group",
       "conceptCode": "1165528",
       "standardConcept": "C"
+    },
+    {
+      "conceptId": 36220009,
+      "conceptName": "thiopental Rectal Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Dose Group",
+      "conceptCode": "1165529",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36233249,
+      "conceptName": "Intraval Sodium Injectable Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Dose Group",
+      "conceptCode": "1173441",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36242159,
+      "conceptName": "Pentothal Injectable Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Dose Group",
+      "conceptCode": "1185192",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36242160,
+      "conceptName": "Pentothal Rectal Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Dose Group",
+      "conceptCode": "1185193",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36404077,
+      "conceptName": "Thiopental 500 MG Injectable Solution Box of 25 by ProStrakan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3096119",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36404853,
+      "conceptName": "Thiopental 500 MG Injectable Solution by ProStrakan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3096895",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36405930,
+      "conceptName": "Thiopental 500 MG Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP3097972",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36408193,
+      "conceptName": "Thiopental 500 MG Injectable Solution Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP3100235",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36409465,
+      "conceptName": "Thiopental 500 MG Injectable Solution Box of 25 by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3101507",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36409466,
+      "conceptName": "Thiopental 500 MG Injectable Solution by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3101508",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36883101,
+      "conceptName": "Thiopental 470 MG Injection",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP995372",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36890401,
+      "conceptName": "Thiopental 470 MG",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP1006536",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40085409,
+      "conceptName": "thiopental Enema",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "376539",
+      "standardConcept": "S"
     },
     {
       "conceptId": 40085410,
@@ -2999,24 +835,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 2935810,
-      "conceptName": "thiopental Injection [Pentothal]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP5152542",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42613298,
-      "conceptName": "thiopental Injection [Pentothal]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP5158457",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 40141441,
       "conceptName": "thiopental Prefilled Syringe",
       "vocabularyId": "RxNorm",
@@ -3035,13 +853,2191 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36220009,
-      "conceptName": "thiopental Rectal Product",
+      "conceptId": 40154833,
+      "conceptName": "thiopental Enema [Pentothal]",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1165529",
-      "standardConcept": "C"
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "809587",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40721045,
+      "conceptName": "Thiopental 500 MG Injectable Solution Box of 25 by Kyowa Kirin",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4735913",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40721046,
+      "conceptName": "Thiopental 500 MG Injectable Solution Box of 10 by Kyowa Kirin",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4735912",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40721048,
+      "conceptName": "Thiopental 500 MG Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP4735911",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40721049,
+      "conceptName": "Thiopental 500 MG Injectable Solution by Kyowa Kirin",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4735910",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40827784,
+      "conceptName": "Thiopental 50 MG/ML [Thiopental Rotexmedica]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP2025746",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40833990,
+      "conceptName": "Thiopental 50 MG/ML Injectable Solution Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2031952",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40833991,
+      "conceptName": "Thiopental 25 MG/ML Injectable Solution Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2031953",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40833992,
+      "conceptName": "Thiopental 25 MG/ML Injectable Solution Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2031954",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40833993,
+      "conceptName": "Thiopental 25 MG/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2031955",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40865108,
+      "conceptName": "Thiopental 50 MG/ML Injectable Solution Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2063070",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40865109,
+      "conceptName": "Thiopental 25 MG/ML Injectable Solution Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2063071",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40870880,
+      "conceptName": "Thiopental 50 MG/ML Injectable Solution [Trapanal] Box of 250",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2068842",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40870881,
+      "conceptName": "Thiopental 50 MG/ML Injectable Solution [Trapanal]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2068843",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40870882,
+      "conceptName": "Thiopental 25 MG/ML Injectable Solution [Thiopental Rotexmedica]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2068844",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40901915,
+      "conceptName": "Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 20",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2099877",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40901916,
+      "conceptName": "Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2099878",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40921328,
+      "conceptName": "Thiopental 50 MG/ML [Trapanal]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP2119290",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40927299,
+      "conceptName": "Thiopental 25 MG/ML Injectable Solution Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2125261",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40933072,
+      "conceptName": "Thiopental 25 MG/ML Injectable Solution [Thiopental Rotexmedica] Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2131034",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40933073,
+      "conceptName": "Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2131035",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40933074,
+      "conceptName": "Thiopental 250 MG/ML Injectable Solution [Trapanal]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2131036",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40933075,
+      "conceptName": "Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2131037",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40958556,
+      "conceptName": "Thiopental 50 MG/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2156518",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40958557,
+      "conceptName": "Thiopental 25 MG/ML Injectable Solution Box of 20",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2156519",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40964305,
+      "conceptName": "Thiopental 50 MG/ML Injectable Solution [Thiopental Rotexmedica]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2162267",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40964306,
+      "conceptName": "Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2162268",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40989829,
+      "conceptName": "Thiopental 50 MG/ML Injectable Solution Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2187791",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40995598,
+      "conceptName": "Thiopental 50 MG/ML Injectable Solution [Trapanal] Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2193560",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41014866,
+      "conceptName": "Thiopental 25 MG/ML [Thiopental Rotexmedica]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP2212828",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41020793,
+      "conceptName": "Thiopental 50 MG/ML Injectable Solution Box of 250",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2218755",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41020794,
+      "conceptName": "Thiopental 25 MG/ML Injectable Solution Box of 250",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2218756",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41026639,
+      "conceptName": "Thiopental 50 MG/ML Injectable Solution [Trapanal] Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2224601",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41026640,
+      "conceptName": "Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2224602",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41051993,
+      "conceptName": "Thiopental 250 MG/ML Injectable Solution Box of 20",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2249955",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41057816,
+      "conceptName": "Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2255778",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41077439,
+      "conceptName": "Thiopental 250 MG/ML [Trapanal]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP2275401",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41089359,
+      "conceptName": "Thiopental 25 MG/ML Injectable Solution [Thiopental Rotexmedica] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2287321",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41120594,
+      "conceptName": "Thiopental 50 MG/ML Injectable Solution [Trapanal] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2318556",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41120595,
+      "conceptName": "Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 250",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2318557",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41120596,
+      "conceptName": "Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 200",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2318558",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41152191,
+      "conceptName": "Thiopental 50 MG/ML Injectable Solution [Thiopental Rotexmedica] Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2350153",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41152192,
+      "conceptName": "Thiopental 250 MG/ML Injectable Solution [Trapanal] Box of 20",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2350154",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41214540,
+      "conceptName": "Thiopental 50 MG/ML Injectable Solution [Trapanal] Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2412502",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41214541,
+      "conceptName": "Thiopental 25 MG/ML Injectable Solution [Trapanal]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2412503",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41239805,
+      "conceptName": "Thiopental 25 MG/ML Injectable Solution Box of 200",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2437767",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41239806,
+      "conceptName": "Thiopental 25 MG/ML Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2437768",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41245472,
+      "conceptName": "Thiopental 50 MG/ML Injectable Solution [Trapanal] Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2443434",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41264628,
+      "conceptName": "Thiopental 25 MG/ML [Trapanal]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP2462590",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41270662,
+      "conceptName": "Thiopental 50 MG/ML Injectable Solution Box of 500",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2468624",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41270663,
+      "conceptName": "Thiopental 50 MG/ML Injectable Solution Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2468625",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41270664,
+      "conceptName": "Thiopental 25 MG/ML Injectable Solution Box of 500",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2468626",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41307524,
+      "conceptName": "Thiopental 50 MG/ML Injectable Solution [Thiopental Rotexmedica] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2505486",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41340084,
+      "conceptName": "2 ML Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 20",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2538046",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41340851,
+      "conceptName": "2 ML Thiopental 250 MG/ML Injectable Solution [Trapanal] Box of 20 by Takeda",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2538813",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41341442,
+      "conceptName": "2 ML Thiopental 250 MG/ML Injectable Solution Box of 20",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2539404",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41341443,
+      "conceptName": "2 ML Thiopental 250 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP2539405",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41342122,
+      "conceptName": "2 ML Thiopental 250 MG/ML Injectable Solution [Trapanal] Box of 20",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2540084",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41342524,
+      "conceptName": "2 ML Thiopental 25 MG/ML Injectable Solution Box of 20",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2540486",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41344630,
+      "conceptName": "2 ML Thiopental 25 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP2542592",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41344826,
+      "conceptName": "2 ML Thiopental 250 MG/ML Injectable Solution [Trapanal]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2542788",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41346376,
+      "conceptName": "2 ML Thiopental 25 MG/ML Injectable Solution [Trapanal]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2544338",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41376262,
+      "conceptName": "20 ML Thiopental 50 MG/ML Injectable Solution Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2574224",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41376263,
+      "conceptName": "20 ML Thiopental 50 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP2574225",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41376429,
+      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution [Thiopental Rotexmedica]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2574391",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41376430,
+      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 200",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2574392",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41376431,
+      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2574393",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41376603,
+      "conceptName": "20 ML Thiopental 50 MG/ML Injectable Solution Box of 25 by Nycomed",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2574565",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41376604,
+      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution Box of 25 by Nycomed",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2574566",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41376654,
+      "conceptName": "20 ML Thiopental 50 MG/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2574616",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41376655,
+      "conceptName": "20 ML Thiopental 50 MG/ML Injectable Solution Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2574617",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41376656,
+      "conceptName": "20 ML Thiopental 50 MG/ML Injectable Solution Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2574618",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41376657,
+      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2574619",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41376819,
+      "conceptName": "20 ML Thiopental 50 MG/ML Injectable Solution [Trapanal]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2574781",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41377191,
+      "conceptName": "20 ML Thiopental 50 MG/ML Injectable Solution [Thiopental Rotexmedica] Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2575153",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41377192,
+      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution [Thiopental Rotexmedica] Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2575154",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41377193,
+      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution [Trapanal]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2575155",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41377359,
+      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution Box of 25 by Inresa",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2575321",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41377406,
+      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2575368",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41377908,
+      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 20",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2575870",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41377909,
+      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2575871",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41378119,
+      "conceptName": "20 ML Thiopental 50 MG/ML Injectable Solution Box of 250",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2576081",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41378274,
+      "conceptName": "20 ML Thiopental 50 MG/ML Injectable Solution [Thiopental Rotexmedica] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2576236",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41378275,
+      "conceptName": "20 ML Thiopental 50 MG/ML Injectable Solution [Trapanal] Box of 250",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2576237",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41378486,
+      "conceptName": "20 ML Thiopental 50 MG/ML Injectable Solution Box of 500",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2576448",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41378639,
+      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 250",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2576601",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41378837,
+      "conceptName": "20 ML Thiopental 50 MG/ML Injectable Solution [Thiopental Rotexmedica] Box of 50 by Rotexmedica",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2576799",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41378887,
+      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2576849",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41379212,
+      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution Box of 10 by Rotexmedica",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2577174",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41379266,
+      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution Box of 200",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2577228",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41380005,
+      "conceptName": "20 ML Thiopental 50 MG/ML Injectable Solution Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2577967",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41380006,
+      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution Box of 500",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2577968",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41380007,
+      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2577969",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41380160,
+      "conceptName": "20 ML Thiopental 50 MG/ML Injectable Solution [Thiopental Rotexmedica]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2578122",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41380161,
+      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution [Thiopental Rotexmedica] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2578123",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41380396,
+      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP2578358",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41380585,
+      "conceptName": "20 ML Thiopental 50 MG/ML Injectable Solution [Trapanal] Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2578547",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41380839,
+      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2578801",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41380840,
+      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2578802",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41381004,
+      "conceptName": "20 ML Thiopental 50 MG/ML Injectable Solution [Trapanal] Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2578966",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41381386,
+      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2579348",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41381387,
+      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2579349",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41381591,
+      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution Box of 250",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2579553",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41381756,
+      "conceptName": "20 ML Thiopental 50 MG/ML Injectable Solution [Trapanal] Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2579718",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41381757,
+      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2579719",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41382008,
+      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution Box of 20",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2579970",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41414226,
+      "conceptName": "100 ML Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2612188",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41414227,
+      "conceptName": "100 ML Thiopental 25 MG/ML Injectable Solution [Trapanal]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2612189",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41416421,
+      "conceptName": "100 ML Thiopental 50 MG/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2614383",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41416422,
+      "conceptName": "100 ML Thiopental 50 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP2614384",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41416423,
+      "conceptName": "100 ML Thiopental 25 MG/ML Injectable Solution Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2614385",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41417299,
+      "conceptName": "100 ML Thiopental 50 MG/ML Injectable Solution Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2615261",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41417300,
+      "conceptName": "100 ML Thiopental 25 MG/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2615262",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41419925,
+      "conceptName": "100 ML Thiopental 50 MG/ML Injectable Solution Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2617887",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41421066,
+      "conceptName": "100 ML Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2619028",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41421613,
+      "conceptName": "100 ML Thiopental 25 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP2619575",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41422811,
+      "conceptName": "100 ML Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2620773",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41424043,
+      "conceptName": "100 ML Thiopental 25 MG/ML Injectable Solution [Trapanal] Box of 10 by Takeda",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2622005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41424459,
+      "conceptName": "100 ML Thiopental 50 MG/ML Injectable Solution [Trapanal] Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2622421",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41425344,
+      "conceptName": "100 ML Thiopental 50 MG/ML Injectable Solution [Trapanal] Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2623306",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41426199,
+      "conceptName": "100 ML Thiopental 50 MG/ML Injectable Solution [Trapanal]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2624161",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41426695,
+      "conceptName": "100 ML Thiopental 25 MG/ML Injectable Solution Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2624657",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41426976,
+      "conceptName": "100 ML Thiopental 50 MG/ML Injectable Solution [Trapanal] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2624938",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42480696,
+      "conceptName": "Thiopental Injection",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP418595",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42902504,
+      "conceptName": "thiopental 20 MG/ML Prefilled Syringe [Pentothal]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "1359617",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42903027,
+      "conceptName": "thiopental 25 MG/ML Prefilled Syringe [Pentothal]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "1360140",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42903051,
+      "conceptName": "thiopental 25 MG/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "1360164",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42903144,
+      "conceptName": "thiopental 20 MG/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "1360257",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42928143,
+      "conceptName": "Thiopental 250 MG Injection",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP4654942",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42928144,
+      "conceptName": "Thiopental 250 MG Injection [PENTOTAL SODIUM]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4654943",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42928145,
+      "conceptName": "Thiopental 250 MG [PENTOTAL SODIUM]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4654944",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42928146,
+      "conceptName": "Thiopental 500 MG Injection [PENTOTAL SODIUM]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4654945",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42928147,
+      "conceptName": "Thiopental 500 MG [PENTOTAL SODIUM]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4654946",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42928148,
+      "conceptName": "Thiopental Injection [PENTOTAL SODIUM]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP4654947",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43037046,
+      "conceptName": "Thiopental 1000 MG Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP4852086",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43037047,
+      "conceptName": "Thiopental 1000 MG Injectable Solution by Medipha",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4852087",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43037048,
+      "conceptName": "Thiopental 1000 MG Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP4852088",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43037050,
+      "conceptName": "Thiopental 1000 MG Injectable Solution Box of 10 by Panpharma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4852089",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43042201,
+      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution by Medipha",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4857225",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43042202,
+      "conceptName": "20 ML Thiopental 25 MG/ML Injectable Solution Box of 10 by Panpharma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4857226",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43258329,
+      "conceptName": "Thiopental 500 MG Injectable Solution [Pentothal]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP555936",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43269241,
+      "conceptName": "Thiopental 500 MG [Pentothal]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP555935",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43285571,
+      "conceptName": "Thiopental 470 MG Injection by Omegapharm",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP555934",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43584635,
+      "conceptName": "Thiopental Injectable Solution [Thiopental Inresa]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP939264",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43589611,
+      "conceptName": "1000 MG Thiopental 1 MG/MG Injectable Solution Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP730259",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43594014,
+      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution [Trapanal] Box of 5 by Inresa",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP717612",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43596052,
+      "conceptName": "2500 MG Thiopental 1 MG/MG Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP757269",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43596053,
+      "conceptName": "2500 MG Thiopental 1 MG/MG Injectable Solution [Trapanal]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP757272",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43596832,
+      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Rotexmedica]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP862451",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43607639,
+      "conceptName": "1000 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] Box of 250 by Inresa",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP730270",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43611969,
+      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution Box of 250",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP717593",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43620652,
+      "conceptName": "Thiopental 1 MG/MG Injectable Solution Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP939277",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43625547,
+      "conceptName": "1000 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] Box of 25 by Inresa",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP730268",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43630089,
+      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP717595",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43630090,
+      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution [Trapanal] Box of 2 by Inresa",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP717609",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43630091,
+      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution [Trapanal] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP717611",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43638772,
+      "conceptName": "Thiopental 1 MG/MG Injectable Solution [Thiopental Rotexmedica]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP939271",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43638773,
+      "conceptName": "Thiopental 1 MG/MG Injectable Solution Box of 500",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP939279",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43638774,
+      "conceptName": "Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] Box of 500",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP939284",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43638775,
+      "conceptName": "Thiopental 1 MG/MG Injectable Solution [Trapanal] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP939288",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43643825,
+      "conceptName": "1000 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP730264",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43643826,
+      "conceptName": "1000 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] Box of 500 by Inresa",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP730272",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43648155,
+      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP717590",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43648156,
+      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] Box of 500 by Inresa",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP717605",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43648157,
+      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution [Trapanal]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP717606",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43650267,
+      "conceptName": "2500 MG Thiopental 1 MG/MG Injectable Solution [Trapanal] Box of 10 by Inresa",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP757275",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43661896,
+      "conceptName": "1000 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP730262",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43666279,
+      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution Box of 2",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP717589",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43666280,
+      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution [Trapanal] by Inresa",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP717607",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43674993,
+      "conceptName": "Thiopental 1 MG/MG",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP939268",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43674994,
+      "conceptName": "Thiopental 1 MG/MG [Trapanal]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP939273",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43674995,
+      "conceptName": "Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP939280",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43674996,
+      "conceptName": "Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP939281",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43674997,
+      "conceptName": "Thiopental 1 MG/MG Injectable Solution [Trapanal]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP939286",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43679855,
+      "conceptName": "1000 MG Thiopental 1 MG/MG Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP730258",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43679856,
+      "conceptName": "1000 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] Box of 250",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP730269",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43684161,
+      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] by Inresa",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP717596",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43692724,
+      "conceptName": "Thiopental 1 MG/MG [Thiopental Inresa]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP939272",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43697742,
+      "conceptName": "1000 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] Box of 10 by Inresa",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP730265",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43697743,
+      "conceptName": "1000 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] Box of 500",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP730271",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43702166,
+      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] Box of 250 by Inresa",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP717603",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43704153,
+      "conceptName": "2500 MG Thiopental 1 MG/MG Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP757270",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43719876,
+      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] Box of 25 by Inresa",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP717601",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43723686,
+      "conceptName": "1000 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Rotexmedica] by Rotexmedica",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP875265",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43728650,
+      "conceptName": "Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] Box of 250",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP939283",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43738016,
+      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP717591",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43740849,
+      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP862450",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43746575,
+      "conceptName": "Thiopental 1 MG/MG Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP939270",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43746576,
+      "conceptName": "Thiopental 1 MG/MG Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP939276",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43751592,
+      "conceptName": "1000 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP730266",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43755936,
+      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] Box of 10 by Inresa",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP717598",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43755937,
+      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution [Trapanal] Box of 10 by Inresa",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP717614",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43759629,
+      "conceptName": "1000 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Rotexmedica]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP875264",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43773977,
+      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP717597",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43773978,
+      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution [Trapanal] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP717613",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43775934,
+      "conceptName": "2500 MG Thiopental 1 MG/MG Injectable Solution [Trapanal] by Inresa",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP757273",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43775935,
+      "conceptName": "2500 MG Thiopental 1 MG/MG Injectable Solution [Trapanal] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP757274",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43782669,
+      "conceptName": "Thiopental 1 MG/MG Injectable Solution Box of 250",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP939278",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43787491,
+      "conceptName": "1000 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] by Inresa",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP730263",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43791770,
+      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution Box of 500",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP717594",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43791771,
+      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] Box of 250",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP717602",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43794645,
+      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Rotexmedica] by Rotexmedica",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP862452",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43800519,
+      "conceptName": "Thiopental 1 MG/MG [Thiopental Rotexmedica]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP939269",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43813753,
+      "conceptName": "1000 MG Thiopental 1 MG/MG Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP875263",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43818649,
+      "conceptName": "Thiopental 1 MG/MG Injectable Solution [Trapanal] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP939289",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43827998,
+      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP717592",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43827999,
+      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP717600",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43836808,
+      "conceptName": "Thiopental Injectable Solution [Thiopental Rotexmedica]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP939265",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43836809,
+      "conceptName": "Thiopental 1 MG/MG Injectable Solution Box of 2",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP939274",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43836810,
+      "conceptName": "Thiopental 1 MG/MG Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP939275",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43836811,
+      "conceptName": "Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP939282",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43846044,
+      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution [Thiopental Inresa] Box of 500",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP717604",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43854746,
+      "conceptName": "Thiopental Injectable Solution [Trapanal]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP939267",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43854747,
+      "conceptName": "Thiopental 1 MG/MG Injectable Solution [Trapanal] Box of 2",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP939287",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43859908,
+      "conceptName": "1000 MG Thiopental 1 MG/MG Injectable Solution Box of 250",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP730260",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43859909,
+      "conceptName": "1000 MG Thiopental 1 MG/MG Injectable Solution Box of 500",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP730261",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43864300,
+      "conceptName": "500 MG Thiopental 1 MG/MG Injectable Solution [Trapanal] Box of 2",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP717608",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44035999,
+      "conceptName": "Thiopental 5000 MG Injectable Suspension by Hospira",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP1030630",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44039364,
+      "conceptName": "Thiopental 250 MG",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP1033995",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44040721,
+      "conceptName": "Thiopental 250 MG [Pentothal Ready To Mix]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP1035352",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44045169,
+      "conceptName": "Thiopental 500 MG Injectable Suspension",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP1039800",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44049102,
+      "conceptName": "Thiopental 250 MG Injectable Suspension [Pentothal Ready To Mix] by Hospira",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP1043733",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44049103,
+      "conceptName": "Thiopental 25 MG/ML Injectable Suspension [Pentothal] by Hospira",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP1043734",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44056567,
+      "conceptName": "Thiopental Injectable Suspension [Pentothal Ready To Mix]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP1051198",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44065414,
+      "conceptName": "Thiopental 1000 MG",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP1060045",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44068671,
+      "conceptName": "Thiopental Injectable Suspension",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP1063302",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44071005,
+      "conceptName": "Thiopental 25 MG/ML Injectable Suspension",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP1065636",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44072556,
+      "conceptName": "Thiopental 250 MG Injectable Suspension [Pentothal Ready To Mix]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP1067187",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44074837,
+      "conceptName": "Thiopental 500 MG Injectable Suspension [Pentothal] by Hospira",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP1069468",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44083871,
+      "conceptName": "Thiopental 5000 MG Injectable Suspension",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP1078502",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44096792,
+      "conceptName": "Thiopental 250 MG Injectable Suspension",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP1091423",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44098330,
+      "conceptName": "Thiopental 25 MG/ML Injectable Suspension [Pentothal]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP1092961",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44100732,
+      "conceptName": "Thiopental 1000 MG Injectable Suspension by Hospira",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP1095363",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44104104,
+      "conceptName": "Thiopental 5000 MG",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP1098735",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44108120,
+      "conceptName": "Thiopental Injectable Suspension [Pentothal]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP1102751",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44109682,
+      "conceptName": "Thiopental 1000 MG Injectable Suspension",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP1104313",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44111205,
+      "conceptName": "Thiopental 500 MG Injectable Suspension [Pentothal]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP1105836",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44175556,
+      "conceptName": "Thiopental 1.25 MG/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP3052279",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44176043,
+      "conceptName": "Thiopental 1.25 MG/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP3052766",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44187283,
+      "conceptName": "Thiopental 1.25 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP3064006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44193403,
+      "conceptName": "20 ML Thiopental 1.25 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP3070126",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44193864,
+      "conceptName": "20 ML Thiopental 1.25 MG/ML Injectable Solution Box of 10 by Inresa",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3070587",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44194000,
+      "conceptName": "20 ML Thiopental 1.25 MG/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP3070723",
+      "standardConcept": "S"
     }
   ]
 }

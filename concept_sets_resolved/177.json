@@ -1,15 +1,10 @@
 {
   "conceptSetId": 177,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80"
+  },
   "resolvedConcepts": [
-    {
-      "conceptId": 3019676,
-      "conceptName": "Bilirubin.conjugated [Mass/volume] in Serum or Plasma",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "15152-2",
-      "standardConcept": "S"
-    },
     {
       "conceptId": 3005772,
       "conceptName": "Bilirubin.conjugated [Moles/volume] in Serum or Plasma",
@@ -17,6 +12,15 @@
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
       "conceptCode": "29760-6",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3019676,
+      "conceptName": "Bilirubin.conjugated [Mass/volume] in Serum or Plasma",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "15152-2",
       "standardConcept": "S"
     },
     {
@@ -38,21 +42,21 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 40654437,
-      "conceptName": "Bilirubin.glucuronidated+Bilirubin.albumin bound|Moment in time|Serum or Plasma",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Group",
-      "conceptCode": "LG43215-9",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 40654435,
       "conceptName": "Bilirubin.glucuronidated|Moment in time|Serum or Plasma",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "LOINC Group",
       "conceptCode": "LG42870-2",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 40654437,
+      "conceptName": "Bilirubin.glucuronidated+Bilirubin.albumin bound|Moment in time|Serum or Plasma",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Group",
+      "conceptCode": "LG43215-9",
       "standardConcept": "C"
     }
   ]

@@ -1,193 +1,153 @@
 {
   "conceptSetId": 147,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "RxNorm": "RxNorm 20260105",
+    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+  },
   "resolvedConcepts": [
     {
-      "conceptId": 44132646,
-      "conceptName": "0.5 ML Vasopressin (USP) 20 UNT/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 747386,
+      "conceptName": "vasopressin (USP) 1 UNT/ML",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "2670679",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 747387,
+      "conceptName": "vasopressin (USP) 1 UNT/ML Injection",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "2670681",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 747388,
+      "conceptName": "vasopressin (USP) 1 UNT/ML [Vasostrict]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "2670682",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 747389,
+      "conceptName": "vasopressin (USP) 1 UNT/ML Injection [Vasostrict]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "2670684",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 747905,
+      "conceptName": "50 ML vasopressin (USP) 1 UNT/ML Injection",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
       "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP1127277",
+      "conceptCode": "2670680",
       "standardConcept": "S"
     },
     {
-      "conceptId": 44132562,
-      "conceptName": "0.5 ML Vasopressin (USP) 20 UNT/ML Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP1127193",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44132850,
-      "conceptName": "0.5 ML Vasopressin (USP) 20 UNT/ML Injectable Solution [Pitressin]",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 747906,
+      "conceptName": "50 ML vasopressin (USP) 1 UNT/ML Injection [Vasostrict]",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
       "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP1127481",
+      "conceptCode": "2670683",
       "standardConcept": "S"
     },
     {
-      "conceptId": 44132789,
-      "conceptName": "0.5 ML Vasopressin (USP) 20 UNT/ML Injectable Solution [Pitressin] Box of 10",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 1507835,
+      "conceptName": "vasopressin (USP)",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP1127420",
+      "conceptClassId": "Ingredient",
+      "conceptCode": "11149",
       "standardConcept": "S"
     },
     {
-      "conceptId": 44132868,
-      "conceptName": "0.5 ML Vasopressin (USP) 20 UNT/ML Injectable Solution [Pitressin] Box of 10 by Warner-Lambert",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 1507837,
+      "conceptName": "vasopressin (USP) 5 UNT/ML Injectable Suspension",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP1127499",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "242938",
       "standardConcept": "S"
     },
     {
-      "conceptId": 44129881,
-      "conceptName": "1 ML Vasopressin (USP) 20 UNT/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 1507838,
+      "conceptName": "vasopressin (USP) 20 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "313578",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1507839,
+      "conceptName": "vasopressin (USP) 20 UNT/ML",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "316883",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1758968,
+      "conceptName": "vasopressin (USP) 0.2 UNT/ML",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "2591427",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1758969,
+      "conceptName": "vasopressin (USP) 0.2 UNT/ML Injection",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "2591429",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1758970,
+      "conceptName": "vasopressin (USP) 0.2 UNT/ML [Vasostrict]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "2591430",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1758971,
+      "conceptName": "vasopressin (USP) 0.2 UNT/ML Injection [Vasostrict]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "2591432",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1759254,
+      "conceptName": "100 ML vasopressin (USP) 0.2 UNT/ML Injection",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
       "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP1124512",
+      "conceptCode": "2591428",
       "standardConcept": "S"
     },
     {
-      "conceptId": 41330158,
-      "conceptName": "1 ML Vasopressin (USP) 20 UNT/ML Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2528120",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41335534,
-      "conceptName": "1 ML Vasopressin (USP) 20 UNT/ML Injectable Solution Box of 30",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2533496",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41330969,
-      "conceptName": "1 ML Vasopressin (USP) 20 UNT/ML Injectable Solution [Pitressin]",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 1759255,
+      "conceptName": "100 ML vasopressin (USP) 0.2 UNT/ML Injection [Vasostrict]",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
       "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2528931",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41332314,
-      "conceptName": "1 ML Vasopressin (USP) 20 UNT/ML Injectable Solution [Pitressin] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2530276",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41335730,
-      "conceptName": "1 ML Vasopressin (USP) 20 UNT/ML Injectable Solution [Pitressin] Box of 30",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2533692",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44129910,
-      "conceptName": "1 ML Vasopressin (USP) 20 UNT/ML Injectable Solution [Pressyn Ar]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP1124541",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44129916,
-      "conceptName": "1 ML Vasopressin (USP) 20 UNT/ML Injectable Solution [Pressyn Ar] by Ferring",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP1124547",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42922562,
-      "conceptName": "1 ML Vasopressin (USP) 20 UNT/ML Injectable Solution [VASOPRESSIN HANLIM]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP4649371",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41336857,
-      "conceptName": "1 ML Vasopressin (USP) 5 UNT/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP2534819",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41327505,
-      "conceptName": "1 ML Vasopressin (USP) 5 UNT/ML Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2525467",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41330159,
-      "conceptName": "1 ML Vasopressin (USP) 5 UNT/ML Injectable Solution Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2528121",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41328986,
-      "conceptName": "1 ML Vasopressin (USP) 5 UNT/ML Injectable Solution [Pitressin]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2526948",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41327696,
-      "conceptName": "1 ML Vasopressin (USP) 5 UNT/ML Injectable Solution [Pitressin] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2525658",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41336024,
-      "conceptName": "1 ML Vasopressin (USP) 5 UNT/ML Injectable Solution [Pitressin] Box of 10 by Pfizer",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2533986",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41328357,
-      "conceptName": "1 ML Vasopressin (USP) 5 UNT/ML Injectable Solution [Pitressin] Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2526319",
+      "conceptCode": "2591431",
       "standardConcept": "S"
     },
     {
@@ -197,6 +157,105 @@
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
       "conceptCode": "OMOP4930876",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19039813,
+      "conceptName": "vasopressin (USP) 20 UNT/ML Injectable Solution [Pitressin]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "208841",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19084849,
+      "conceptName": "vasopressin (USP) 5 UNT/ML",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "330297",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19118739,
+      "conceptName": "vasopressin (USP) 20 UNT/ML [Pitressin]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "569490",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35129266,
+      "conceptName": "Vasopressin (USP) 20 UNT Injectable Solution [Pitressin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4786534",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35129425,
+      "conceptName": "Vasopressin (USP) 20 UNT [Pitressin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4786692",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35136614,
+      "conceptName": "Vasopressin (USP) 20 UNT Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP4793791",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35156750,
+      "conceptName": "Vasopressin (USP) 20 UNT",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP4813760",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35201749,
+      "conceptName": "vasopressin (USP) Injection",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "2103181",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35201750,
+      "conceptName": "vasopressin (USP) Injection [Vasostrict]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "2103183",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35201751,
+      "conceptName": "vasopressin (USP) 20 UNT/ML Injection",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "2103185",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35201752,
+      "conceptName": "vasopressin (USP) 20 UNT/ML Injection [Vasostrict]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "2103186",
       "standardConcept": "S"
     },
     {
@@ -218,93 +277,102 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 41413543,
-      "conceptName": "1.8 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.45 UNT/ML Metered Dose Inhaler",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP2611505",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41413542,
-      "conceptName": "1.8 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.45 UNT/ML Metered Dose Inhaler Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2611504",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41413557,
-      "conceptName": "1.8 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.45 UNT/ML Metered Dose Inhaler Box of 1000",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2611519",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41413558,
-      "conceptName": "1.8 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.45 UNT/ML Metered Dose Inhaler Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2611520",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41413606,
-      "conceptName": "1.8 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.45 UNT/ML Metered Dose Inhaler [Neo Lidocaton]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2611568",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41413741,
-      "conceptName": "1.8 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.45 UNT/ML Metered Dose Inhaler [Neo Lidocaton] Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2611703",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41413622,
-      "conceptName": "1.8 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.45 UNT/ML Metered Dose Inhaler [Neo Lidocaton] Box of 1000",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2611584",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41413605,
-      "conceptName": "1.8 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.45 UNT/ML Metered Dose Inhaler [Neo Lidocaton] Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2611567",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1759254,
-      "conceptName": "100 ML vasopressin (USP) 0.2 UNT/ML Injection",
+      "conceptId": 36223616,
+      "conceptName": "vasopressin (USP) Injectable Product",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "2591428",
+      "conceptClassId": "Clinical Dose Group",
+      "conceptCode": "1160506",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36231288,
+      "conceptName": "Pitressin Injectable Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Dose Group",
+      "conceptCode": "1181259",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36248686,
+      "conceptName": "Vasostrict Injectable Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Dose Group",
+      "conceptCode": "1593737",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37003084,
+      "conceptName": "vasopressin (USP) 0.4 UNT/ML",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "2399906",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1759255,
-      "conceptName": "100 ML vasopressin (USP) 0.2 UNT/ML Injection [Vasostrict]",
+      "conceptId": 37003085,
+      "conceptName": "vasopressin (USP) 0.4 UNT/ML [Vasostrict]",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "2591431",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "2399908",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37003086,
+      "conceptName": "vasopressin (USP) 0.4 UNT/ML Injection",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "2399910",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37003087,
+      "conceptName": "vasopressin (USP) 0.4 UNT/ML Injection [Vasostrict]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "2399911",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37003088,
+      "conceptName": "vasopressin (USP) 0.6 UNT/ML",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "2399912",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37003089,
+      "conceptName": "vasopressin (USP) 0.6 UNT/ML [Vasostrict]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "2399914",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37003090,
+      "conceptName": "vasopressin (USP) 0.6 UNT/ML Injection",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "2399916",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37003091,
+      "conceptName": "vasopressin (USP) 0.6 UNT/ML Injection [Vasostrict]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "2399917",
       "standardConcept": "S"
     },
     {
@@ -344,219 +412,57 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 41457309,
-      "conceptName": "2 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.25 UNT/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP2655271",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41456705,
-      "conceptName": "2 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.25 UNT/ML Injectable Solution Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2654667",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41462141,
-      "conceptName": "2 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.25 UNT/ML Injectable Solution [Neo Lidocaton]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2660103",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41461601,
-      "conceptName": "2 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.25 UNT/ML Injectable Solution [Neo Lidocaton] Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2659563",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41381641,
-      "conceptName": "20 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 2.5 UNT/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP2579603",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41379660,
-      "conceptName": "20 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 2.5 UNT/ML Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2577622",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41377597,
-      "conceptName": "20 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 2.5 UNT/ML Injectable Solution [Neo Lidocaton]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2575559",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41379836,
-      "conceptName": "20 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 2.5 UNT/ML Injectable Solution [Neo Lidocaton] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2577798",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41395524,
-      "conceptName": "50 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.25 UNT/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP2593486",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41397476,
-      "conceptName": "50 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.25 UNT/ML Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2595438",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41395797,
-      "conceptName": "50 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.25 UNT/ML Injectable Solution [Neo Lidocaton]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2593759",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41391716,
-      "conceptName": "50 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.25 UNT/ML Injectable Solution [Neo Lidocaton] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2589678",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 747905,
-      "conceptName": "50 ML vasopressin (USP) 1 UNT/ML Injection",
+      "conceptId": 40087301,
+      "conceptName": "vasopressin (USP) Injectable Solution",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "2670680",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "374283",
       "standardConcept": "S"
     },
     {
-      "conceptId": 747906,
-      "conceptName": "50 ML vasopressin (USP) 1 UNT/ML Injection [Vasostrict]",
+      "conceptId": 40087302,
+      "conceptName": "vasopressin (USP) Injectable Solution [Pitressin]",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "2670683",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "363284",
       "standardConcept": "S"
     },
     {
-      "conceptId": 41298308,
-      "conceptName": "Lidocaine / Norepinephrine / Vasopressin (USP) Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 40087303,
+      "conceptName": "vasopressin (USP) Injectable Suspension",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP2496270",
+      "conceptCode": "374284",
       "standardConcept": "S"
     },
     {
-      "conceptId": 41237860,
-      "conceptName": "Lidocaine / Norepinephrine / Vasopressin (USP) Injectable Solution [Neo Lidocaton]",
+      "conceptId": 40826046,
+      "conceptName": "Vasopressin (USP) 0.45 UNT/ML",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP2435822",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP2024008",
       "standardConcept": "S"
     },
     {
-      "conceptId": 41017367,
-      "conceptName": "Lidocaine / Norepinephrine / Vasopressin (USP) Metered Dose Inhaler",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP2215329",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40956650,
-      "conceptName": "Lidocaine / Norepinephrine / Vasopressin (USP) Metered Dose Inhaler [Neo Lidocaton]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP2154612",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41241285,
-      "conceptName": "Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.25 UNT/ML Injectable Solution",
+      "conceptId": 40833734,
+      "conceptName": "Vasopressin (USP) 5 UNT/ML Injectable Solution",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP2439247",
+      "conceptCode": "OMOP2031696",
       "standardConcept": "S"
     },
     {
-      "conceptId": 41022283,
-      "conceptName": "Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.25 UNT/ML Injectable Solution Box of 100",
+      "conceptId": 40858933,
+      "conceptName": "Vasopressin (USP) 5 UNT/ML [Pitressin]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2220245",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41241284,
-      "conceptName": "Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.25 UNT/ML Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2439246",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40999900,
-      "conceptName": "Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.25 UNT/ML Injectable Solution [Neo Lidocaton]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2197862",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41311895,
-      "conceptName": "Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.25 UNT/ML Injectable Solution [Neo Lidocaton] Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2509857",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40875255,
-      "conceptName": "Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.25 UNT/ML Injectable Solution [Neo Lidocaton] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2073217",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP2056895",
       "standardConcept": "S"
     },
     {
@@ -578,84 +484,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 41303266,
-      "conceptName": "Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.45 UNT/ML Metered Dose Inhaler Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2501228",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41303265,
-      "conceptName": "Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.45 UNT/ML Metered Dose Inhaler Box of 1000",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2501227",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41116340,
-      "conceptName": "Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.45 UNT/ML Metered Dose Inhaler Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2314302",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41062068,
-      "conceptName": "Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.45 UNT/ML Metered Dose Inhaler [Neo Lidocaton]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2260030",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41249768,
-      "conceptName": "Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.45 UNT/ML Metered Dose Inhaler [Neo Lidocaton] Box of 100",
+      "conceptId": 40875255,
+      "conceptName": "Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.25 UNT/ML Injectable Solution [Neo Lidocaton] Box of 5",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2447730",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41311896,
-      "conceptName": "Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.45 UNT/ML Metered Dose Inhaler [Neo Lidocaton] Box of 1000",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2509858",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41124883,
-      "conceptName": "Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.45 UNT/ML Metered Dose Inhaler [Neo Lidocaton] Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2322845",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41078271,
-      "conceptName": "Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.45 UNT/ML [Neo Lidocaton]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP2276233",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41210330,
-      "conceptName": "Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 2.5 UNT/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP2408292",
+      "conceptCode": "OMOP2073217",
       "standardConcept": "S"
     },
     {
@@ -668,57 +502,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 40937513,
-      "conceptName": "Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 2.5 UNT/ML Injectable Solution [Neo Lidocaton]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2135475",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 40906149,
       "conceptName": "Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 2.5 UNT/ML Injectable Solution [Neo Lidocaton] Box of 5",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Box",
       "conceptCode": "OMOP2104111",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40922170,
-      "conceptName": "Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 2.5 UNT/ML [Neo Lidocaton]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP2120132",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36231288,
-      "conceptName": "Pitressin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1181259",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 41044297,
-      "conceptName": "Vasopressin (USP) 0.25 UNT/ML",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP2242259",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40826046,
-      "conceptName": "Vasopressin (USP) 0.45 UNT/ML",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP2024008",
       "standardConcept": "S"
     },
     {
@@ -731,48 +520,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 35156750,
-      "conceptName": "Vasopressin (USP) 20 UNT",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP4813760",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35136614,
-      "conceptName": "Vasopressin (USP) 20 UNT Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP4793791",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35129266,
-      "conceptName": "Vasopressin (USP) 20 UNT Injectable Solution [Pitressin]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4786534",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35129425,
-      "conceptName": "Vasopressin (USP) 20 UNT [Pitressin]",
+      "conceptId": 40922170,
+      "conceptName": "Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 2.5 UNT/ML [Neo Lidocaton]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4786692",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44083822,
-      "conceptName": "Vasopressin (USP) 20 UNT/ML Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP1078453",
+      "conceptCode": "OMOP2120132",
       "standardConcept": "S"
     },
     {
@@ -785,138 +538,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 44059621,
-      "conceptName": "Vasopressin (USP) 20 UNT/ML Injectable Solution [Pitressin] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP1054252",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41182646,
-      "conceptName": "Vasopressin (USP) 20 UNT/ML Injectable Solution [Pitressin] Box of 30",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2380608",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44087152,
-      "conceptName": "Vasopressin (USP) 20 UNT/ML Injectable Solution [Pressyn Ar]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP1081783",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42972458,
-      "conceptName": "Vasopressin (USP) 20 UNT/ML Injectable Solution [VASOPRESSIN HANLIM]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4698869",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44113429,
-      "conceptName": "Vasopressin (USP) 20 UNT/ML Injectable Solution by Fresenius",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP1108060",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44100570,
-      "conceptName": "Vasopressin (USP) 20 UNT/ML Injectable Solution by Lyphomed",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP1095201",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44058054,
-      "conceptName": "Vasopressin (USP) 20 UNT/ML Intramuscular Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP1052685",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44061969,
-      "conceptName": "Vasopressin (USP) 20 UNT/ML Intramuscular Solution by Sandoz",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP1056600",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44058053,
-      "conceptName": "Vasopressin (USP) 20 UNT/ML Nasal Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP1052684",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44048956,
-      "conceptName": "Vasopressin (USP) 20 UNT/ML Nasal Solution by Ferring",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP1043587",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44029364,
-      "conceptName": "Vasopressin (USP) 20 UNT/ML [Pressyn Ar]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP1023995",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42972459,
-      "conceptName": "Vasopressin (USP) 20 UNT/ML [VASOPRESSIN HANLIM]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4698870",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40833734,
-      "conceptName": "Vasopressin (USP) 5 UNT/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP2031696",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 40927060,
       "conceptName": "Vasopressin (USP) 5 UNT/ML Injectable Solution Box of 10",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Box",
       "conceptCode": "OMOP2125022",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41239550,
-      "conceptName": "Vasopressin (USP) 5 UNT/ML Injectable Solution Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2437512",
       "standardConcept": "S"
     },
     {
@@ -929,12 +556,147 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 41306966,
-      "conceptName": "Vasopressin (USP) 5 UNT/ML Injectable Solution [Pitressin] Box of 10",
+      "conceptId": 40937513,
+      "conceptName": "Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 2.5 UNT/ML Injectable Solution [Neo Lidocaton]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2135475",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40956650,
+      "conceptName": "Lidocaine / Norepinephrine / Vasopressin (USP) Metered Dose Inhaler [Neo Lidocaton]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP2154612",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40999900,
+      "conceptName": "Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.25 UNT/ML Injectable Solution [Neo Lidocaton]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2197862",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41017367,
+      "conceptName": "Lidocaine / Norepinephrine / Vasopressin (USP) Metered Dose Inhaler",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP2215329",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41022283,
+      "conceptName": "Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.25 UNT/ML Injectable Solution Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2220245",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41044297,
+      "conceptName": "Vasopressin (USP) 0.25 UNT/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP2242259",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41062068,
+      "conceptName": "Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.45 UNT/ML Metered Dose Inhaler [Neo Lidocaton]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2260030",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41078271,
+      "conceptName": "Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.45 UNT/ML [Neo Lidocaton]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP2276233",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41116340,
+      "conceptName": "Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.45 UNT/ML Metered Dose Inhaler Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2314302",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41124883,
+      "conceptName": "Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.45 UNT/ML Metered Dose Inhaler [Neo Lidocaton] Box of 50",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2504928",
+      "conceptCode": "OMOP2322845",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41182646,
+      "conceptName": "Vasopressin (USP) 20 UNT/ML Injectable Solution [Pitressin] Box of 30",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2380608",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41210330,
+      "conceptName": "Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 2.5 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP2408292",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41237860,
+      "conceptName": "Lidocaine / Norepinephrine / Vasopressin (USP) Injectable Solution [Neo Lidocaton]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP2435822",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41239550,
+      "conceptName": "Vasopressin (USP) 5 UNT/ML Injectable Solution Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2437512",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41241284,
+      "conceptName": "Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.25 UNT/ML Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2439246",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41241285,
+      "conceptName": "Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.25 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP2439247",
       "standardConcept": "S"
     },
     {
@@ -947,21 +709,381 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 40858933,
-      "conceptName": "Vasopressin (USP) 5 UNT/ML [Pitressin]",
+      "conceptId": 41249768,
+      "conceptName": "Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.45 UNT/ML Metered Dose Inhaler [Neo Lidocaton] Box of 100",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP2056895",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2447730",
       "standardConcept": "S"
     },
     {
-      "conceptId": 44057814,
-      "conceptName": "Vasopressin (USP) Injectable Solution [Pressyn Ar]",
+      "conceptId": 41298308,
+      "conceptName": "Lidocaine / Norepinephrine / Vasopressin (USP) Injectable Solution",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP1052445",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP2496270",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41303265,
+      "conceptName": "Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.45 UNT/ML Metered Dose Inhaler Box of 1000",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2501227",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41303266,
+      "conceptName": "Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.45 UNT/ML Metered Dose Inhaler Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2501228",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41306966,
+      "conceptName": "Vasopressin (USP) 5 UNT/ML Injectable Solution [Pitressin] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2504928",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41311895,
+      "conceptName": "Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.25 UNT/ML Injectable Solution [Neo Lidocaton] Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2509857",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41311896,
+      "conceptName": "Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.45 UNT/ML Metered Dose Inhaler [Neo Lidocaton] Box of 1000",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2509858",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41327505,
+      "conceptName": "1 ML Vasopressin (USP) 5 UNT/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2525467",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41327696,
+      "conceptName": "1 ML Vasopressin (USP) 5 UNT/ML Injectable Solution [Pitressin] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2525658",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41328357,
+      "conceptName": "1 ML Vasopressin (USP) 5 UNT/ML Injectable Solution [Pitressin] Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2526319",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41328986,
+      "conceptName": "1 ML Vasopressin (USP) 5 UNT/ML Injectable Solution [Pitressin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2526948",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41330158,
+      "conceptName": "1 ML Vasopressin (USP) 20 UNT/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2528120",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41330159,
+      "conceptName": "1 ML Vasopressin (USP) 5 UNT/ML Injectable Solution Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2528121",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41330969,
+      "conceptName": "1 ML Vasopressin (USP) 20 UNT/ML Injectable Solution [Pitressin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2528931",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41332314,
+      "conceptName": "1 ML Vasopressin (USP) 20 UNT/ML Injectable Solution [Pitressin] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2530276",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41335534,
+      "conceptName": "1 ML Vasopressin (USP) 20 UNT/ML Injectable Solution Box of 30",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2533496",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41335730,
+      "conceptName": "1 ML Vasopressin (USP) 20 UNT/ML Injectable Solution [Pitressin] Box of 30",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2533692",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41336024,
+      "conceptName": "1 ML Vasopressin (USP) 5 UNT/ML Injectable Solution [Pitressin] Box of 10 by Pfizer",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2533986",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41336857,
+      "conceptName": "1 ML Vasopressin (USP) 5 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP2534819",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41377597,
+      "conceptName": "20 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 2.5 UNT/ML Injectable Solution [Neo Lidocaton]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2575559",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41379660,
+      "conceptName": "20 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 2.5 UNT/ML Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2577622",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41379836,
+      "conceptName": "20 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 2.5 UNT/ML Injectable Solution [Neo Lidocaton] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2577798",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41381641,
+      "conceptName": "20 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 2.5 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP2579603",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41391716,
+      "conceptName": "50 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.25 UNT/ML Injectable Solution [Neo Lidocaton] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2589678",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41395524,
+      "conceptName": "50 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.25 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP2593486",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41395797,
+      "conceptName": "50 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.25 UNT/ML Injectable Solution [Neo Lidocaton]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2593759",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41397476,
+      "conceptName": "50 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.25 UNT/ML Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2595438",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41413542,
+      "conceptName": "1.8 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.45 UNT/ML Metered Dose Inhaler Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2611504",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41413543,
+      "conceptName": "1.8 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.45 UNT/ML Metered Dose Inhaler",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP2611505",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41413557,
+      "conceptName": "1.8 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.45 UNT/ML Metered Dose Inhaler Box of 1000",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2611519",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41413558,
+      "conceptName": "1.8 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.45 UNT/ML Metered Dose Inhaler Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2611520",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41413605,
+      "conceptName": "1.8 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.45 UNT/ML Metered Dose Inhaler [Neo Lidocaton] Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2611567",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41413606,
+      "conceptName": "1.8 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.45 UNT/ML Metered Dose Inhaler [Neo Lidocaton]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2611568",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41413622,
+      "conceptName": "1.8 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.45 UNT/ML Metered Dose Inhaler [Neo Lidocaton] Box of 1000",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2611584",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41413741,
+      "conceptName": "1.8 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.45 UNT/ML Metered Dose Inhaler [Neo Lidocaton] Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2611703",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41456705,
+      "conceptName": "2 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.25 UNT/ML Injectable Solution Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2654667",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41457309,
+      "conceptName": "2 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.25 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP2655271",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41461601,
+      "conceptName": "2 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.25 UNT/ML Injectable Solution [Neo Lidocaton] Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2659563",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41462141,
+      "conceptName": "2 ML Lidocaine 20 MG/ML / Norepinephrine 0.02 MG/ML / Vasopressin (USP) 0.25 UNT/ML Injectable Solution [Neo Lidocaton]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2660103",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42922562,
+      "conceptName": "1 ML Vasopressin (USP) 20 UNT/ML Injectable Solution [VASOPRESSIN HANLIM]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP4649371",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42972458,
+      "conceptName": "Vasopressin (USP) 20 UNT/ML Injectable Solution [VASOPRESSIN HANLIM]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4698869",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42972459,
+      "conceptName": "Vasopressin (USP) 20 UNT/ML [VASOPRESSIN HANLIM]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4698870",
       "standardConcept": "S"
     },
     {
@@ -974,12 +1096,21 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 44055659,
-      "conceptName": "Vasopressin (USP) Intramuscular Solution",
+      "conceptId": 44029364,
+      "conceptName": "Vasopressin (USP) 20 UNT/ML [Pressyn Ar]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP1050290",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP1023995",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44048956,
+      "conceptName": "Vasopressin (USP) 20 UNT/ML Nasal Solution by Ferring",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP1043587",
       "standardConcept": "S"
     },
     {
@@ -992,228 +1123,165 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36248686,
-      "conceptName": "Vasostrict Injectable Product",
-      "vocabularyId": "RxNorm",
+      "conceptId": 44055659,
+      "conceptName": "Vasopressin (USP) Intramuscular Solution",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1593737",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 1507835,
-      "conceptName": "vasopressin (USP)",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Ingredient",
-      "conceptCode": "11149",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP1050290",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1758968,
-      "conceptName": "vasopressin (USP) 0.2 UNT/ML",
-      "vocabularyId": "RxNorm",
+      "conceptId": 44057814,
+      "conceptName": "Vasopressin (USP) Injectable Solution [Pressyn Ar]",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "2591427",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP1052445",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1758969,
-      "conceptName": "vasopressin (USP) 0.2 UNT/ML Injection",
-      "vocabularyId": "RxNorm",
+      "conceptId": 44058053,
+      "conceptName": "Vasopressin (USP) 20 UNT/ML Nasal Solution",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug",
-      "conceptCode": "2591429",
+      "conceptCode": "OMOP1052684",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1758971,
-      "conceptName": "vasopressin (USP) 0.2 UNT/ML Injection [Vasostrict]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "2591432",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1758970,
-      "conceptName": "vasopressin (USP) 0.2 UNT/ML [Vasostrict]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "2591430",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37003084,
-      "conceptName": "vasopressin (USP) 0.4 UNT/ML",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "2399906",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37003086,
-      "conceptName": "vasopressin (USP) 0.4 UNT/ML Injection",
-      "vocabularyId": "RxNorm",
+      "conceptId": 44058054,
+      "conceptName": "Vasopressin (USP) 20 UNT/ML Intramuscular Solution",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug",
-      "conceptCode": "2399910",
+      "conceptCode": "OMOP1052685",
       "standardConcept": "S"
     },
     {
-      "conceptId": 37003087,
-      "conceptName": "vasopressin (USP) 0.4 UNT/ML Injection [Vasostrict]",
-      "vocabularyId": "RxNorm",
+      "conceptId": 44059621,
+      "conceptName": "Vasopressin (USP) 20 UNT/ML Injectable Solution [Pitressin] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP1054252",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44061969,
+      "conceptName": "Vasopressin (USP) 20 UNT/ML Intramuscular Solution by Sandoz",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP1056600",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44083822,
+      "conceptName": "Vasopressin (USP) 20 UNT/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP1078453",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44087152,
+      "conceptName": "Vasopressin (USP) 20 UNT/ML Injectable Solution [Pressyn Ar]",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug",
-      "conceptCode": "2399911",
+      "conceptCode": "OMOP1081783",
       "standardConcept": "S"
     },
     {
-      "conceptId": 37003085,
-      "conceptName": "vasopressin (USP) 0.4 UNT/ML [Vasostrict]",
-      "vocabularyId": "RxNorm",
+      "conceptId": 44100570,
+      "conceptName": "Vasopressin (USP) 20 UNT/ML Injectable Solution by Lyphomed",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "2399908",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP1095201",
       "standardConcept": "S"
     },
     {
-      "conceptId": 37003088,
-      "conceptName": "vasopressin (USP) 0.6 UNT/ML",
-      "vocabularyId": "RxNorm",
+      "conceptId": 44113429,
+      "conceptName": "Vasopressin (USP) 20 UNT/ML Injectable Solution by Fresenius",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "2399912",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP1108060",
       "standardConcept": "S"
     },
     {
-      "conceptId": 37003090,
-      "conceptName": "vasopressin (USP) 0.6 UNT/ML Injection",
-      "vocabularyId": "RxNorm",
+      "conceptId": 44129881,
+      "conceptName": "1 ML Vasopressin (USP) 20 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "2399916",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP1124512",
       "standardConcept": "S"
     },
     {
-      "conceptId": 37003091,
-      "conceptName": "vasopressin (USP) 0.6 UNT/ML Injection [Vasostrict]",
-      "vocabularyId": "RxNorm",
+      "conceptId": 44129910,
+      "conceptName": "1 ML Vasopressin (USP) 20 UNT/ML Injectable Solution [Pressyn Ar]",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "2399917",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP1124541",
       "standardConcept": "S"
     },
     {
-      "conceptId": 37003089,
-      "conceptName": "vasopressin (USP) 0.6 UNT/ML [Vasostrict]",
-      "vocabularyId": "RxNorm",
+      "conceptId": 44129916,
+      "conceptName": "1 ML Vasopressin (USP) 20 UNT/ML Injectable Solution [Pressyn Ar] by Ferring",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "2399914",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP1124547",
       "standardConcept": "S"
     },
     {
-      "conceptId": 747386,
-      "conceptName": "vasopressin (USP) 1 UNT/ML",
-      "vocabularyId": "RxNorm",
+      "conceptId": 44132562,
+      "conceptName": "0.5 ML Vasopressin (USP) 20 UNT/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "2670679",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP1127193",
       "standardConcept": "S"
     },
     {
-      "conceptId": 747387,
-      "conceptName": "vasopressin (USP) 1 UNT/ML Injection",
-      "vocabularyId": "RxNorm",
+      "conceptId": 44132646,
+      "conceptName": "0.5 ML Vasopressin (USP) 20 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "2670681",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP1127277",
       "standardConcept": "S"
     },
     {
-      "conceptId": 747389,
-      "conceptName": "vasopressin (USP) 1 UNT/ML Injection [Vasostrict]",
-      "vocabularyId": "RxNorm",
+      "conceptId": 44132789,
+      "conceptName": "0.5 ML Vasopressin (USP) 20 UNT/ML Injectable Solution [Pitressin] Box of 10",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "2670684",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP1127420",
       "standardConcept": "S"
     },
     {
-      "conceptId": 747388,
-      "conceptName": "vasopressin (USP) 1 UNT/ML [Vasostrict]",
-      "vocabularyId": "RxNorm",
+      "conceptId": 44132850,
+      "conceptName": "0.5 ML Vasopressin (USP) 20 UNT/ML Injectable Solution [Pitressin]",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "2670682",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP1127481",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1507839,
-      "conceptName": "vasopressin (USP) 20 UNT/ML",
-      "vocabularyId": "RxNorm",
+      "conceptId": 44132868,
+      "conceptName": "0.5 ML Vasopressin (USP) 20 UNT/ML Injectable Solution [Pitressin] Box of 10 by Warner-Lambert",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "316883",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1507838,
-      "conceptName": "vasopressin (USP) 20 UNT/ML Injectable Solution",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "313578",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19039813,
-      "conceptName": "vasopressin (USP) 20 UNT/ML Injectable Solution [Pitressin]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "208841",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 45775841,
-      "conceptName": "vasopressin (USP) 20 UNT/ML Injectable Solution [Vasostrict]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "1593738",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35201751,
-      "conceptName": "vasopressin (USP) 20 UNT/ML Injection",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "2103185",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35201752,
-      "conceptName": "vasopressin (USP) 20 UNT/ML Injection [Vasostrict]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "2103186",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19118739,
-      "conceptName": "vasopressin (USP) 20 UNT/ML [Pitressin]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "569490",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP1127499",
       "standardConcept": "S"
     },
     {
@@ -1226,51 +1294,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 19084849,
-      "conceptName": "vasopressin (USP) 5 UNT/ML",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "330297",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1507837,
-      "conceptName": "vasopressin (USP) 5 UNT/ML Injectable Suspension",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "242938",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36223616,
-      "conceptName": "vasopressin (USP) Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1160506",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 40087301,
-      "conceptName": "vasopressin (USP) Injectable Solution",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "374283",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40087302,
-      "conceptName": "vasopressin (USP) Injectable Solution [Pitressin]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "363284",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 45775840,
       "conceptName": "vasopressin (USP) Injectable Solution [Vasostrict]",
       "vocabularyId": "RxNorm",
@@ -1280,30 +1303,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 40087303,
-      "conceptName": "vasopressin (USP) Injectable Suspension",
+      "conceptId": 45775841,
+      "conceptName": "vasopressin (USP) 20 UNT/ML Injectable Solution [Vasostrict]",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "374284",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35201749,
-      "conceptName": "vasopressin (USP) Injection",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "2103181",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35201750,
-      "conceptName": "vasopressin (USP) Injection [Vasostrict]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "2103183",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "1593738",
       "standardConcept": "S"
     }
   ]

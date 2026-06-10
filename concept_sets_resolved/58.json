@@ -1,22 +1,44 @@
 {
   "conceptSetId": 58,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+  },
   "resolvedConcepts": [
     {
-      "conceptId": 43009029,
-      "conceptName": "sulodexide",
+      "conceptId": 35870946,
+      "conceptName": "sulodexide 250 UNT Oral Capsule [Weisu]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Ingredient",
-      "conceptCode": "OMOP4700455",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP5027723",
       "standardConcept": "S"
     },
     {
-      "conceptId": 42962445,
-      "conceptName": "sulodexide 250 UNT",
+      "conceptId": 35870947,
+      "conceptName": "sulodexide 250 UNT [Weisu]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP4688936",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP5027724",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35870948,
+      "conceptName": "sulodexide Oral Capsule [Weisu]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP5027725",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35870949,
+      "conceptName": "sulodexide Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP5027726",
       "standardConcept": "S"
     },
     {
@@ -38,12 +60,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 35870946,
-      "conceptName": "sulodexide 250 UNT Oral Capsule [Weisu]",
+      "conceptId": 42962445,
+      "conceptName": "sulodexide 250 UNT",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5027723",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP4688936",
       "standardConcept": "S"
     },
     {
@@ -53,24 +75,6 @@
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Comp",
       "conceptCode": "OMOP4688937",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35870947,
-      "conceptName": "sulodexide 250 UNT [Weisu]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP5027724",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35870949,
-      "conceptName": "sulodexide Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP5027726",
       "standardConcept": "S"
     },
     {
@@ -92,12 +96,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 35870948,
-      "conceptName": "sulodexide Oral Capsule [Weisu]",
+      "conceptId": 43009029,
+      "conceptName": "sulodexide",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP5027725",
+      "conceptClassId": "Ingredient",
+      "conceptCode": "OMOP4700455",
       "standardConcept": "S"
     }
   ]

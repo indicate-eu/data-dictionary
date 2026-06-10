@@ -1,6 +1,19 @@
 {
   "conceptSetId": 251,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
+    {
+      "conceptId": 4212063,
+      "conceptName": "Raoultella ornithinolytica",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "416832000",
+      "standardConcept": "S"
+    },
     {
       "conceptId": 37151809,
       "conceptName": "Carbapenemase-producing Raoultella ornithinolytica",
@@ -17,15 +30,6 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "1105501000112105",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4212063,
-      "conceptName": "Raoultella ornithinolytica",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "416832000",
       "standardConcept": "S"
     }
   ]

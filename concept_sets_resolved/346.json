@@ -1,5 +1,9 @@
 {
   "conceptSetId": 346,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80"
+  },
   "resolvedConcepts": [
     {
       "conceptId": 40766287,

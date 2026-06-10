@@ -1,337 +1,36 @@
 {
   "conceptSetId": 54,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "RxNorm": "RxNorm 20260105",
+    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+  },
   "resolvedConcepts": [
     {
-      "conceptId": 21171982,
-      "conceptName": "Phenindione 10 MG Oral Tablet Box of 100",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 19004009,
+      "conceptName": "phenindione 25 MG Oral Tablet",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP392979",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "104468",
       "standardConcept": "S"
     },
     {
-      "conceptId": 21162250,
-      "conceptName": "Phenindione 10 MG Oral Tablet Box of 100 by A A H",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 19004010,
+      "conceptName": "phenindione 50 MG Oral Tablet",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP392982",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "104469",
       "standardConcept": "S"
     },
     {
-      "conceptId": 21034464,
-      "conceptName": "Phenindione 10 MG Oral Tablet Box of 100 by AMCo",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 19021888,
+      "conceptName": "phenindione 10 MG Oral Tablet",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP392981",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21054124,
-      "conceptName": "Phenindione 10 MG Oral Tablet Box of 100 by Alliance",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP392980",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21132540,
-      "conceptName": "Phenindione 10 MG Oral Tablet Box of 28",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP392975",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21093359,
-      "conceptName": "Phenindione 10 MG Oral Tablet Box of 28 by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP392978",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21054123,
-      "conceptName": "Phenindione 10 MG Oral Tablet Box of 28 by AMCo",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP392977",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21132541,
-      "conceptName": "Phenindione 10 MG Oral Tablet Box of 28 by Alliance",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP392976",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43274714,
-      "conceptName": "Phenindione 10 MG Oral Tablet [Dindevan]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP555410",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43258275,
-      "conceptName": "Phenindione 10 MG Oral Tablet [Dindevan] Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP555411",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21132539,
-      "conceptName": "Phenindione 10 MG Oral Tablet by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP392974",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21122714,
-      "conceptName": "Phenindione 10 MG Oral Tablet by AMCo",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP392973",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21142472,
-      "conceptName": "Phenindione 10 MG Oral Tablet by Alliance",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP392972",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43263708,
-      "conceptName": "Phenindione 10 MG [Dindevan]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP555409",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21093358,
-      "conceptName": "Phenindione 25 MG Oral Tablet Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP392956",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21152352,
-      "conceptName": "Phenindione 25 MG Oral Tablet Box of 100 by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP392960",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21162248,
-      "conceptName": "Phenindione 25 MG Oral Tablet Box of 100 by AMCo",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP392959",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21113118,
-      "conceptName": "Phenindione 25 MG Oral Tablet Box of 100 by Alliance",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP392957",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21113117,
-      "conceptName": "Phenindione 25 MG Oral Tablet Box of 28",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP392952",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21083600,
-      "conceptName": "Phenindione 25 MG Oral Tablet Box of 28 by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP392955",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21073912,
-      "conceptName": "Phenindione 25 MG Oral Tablet Box of 28 by AMCo",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP392954",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21103273,
-      "conceptName": "Phenindione 25 MG Oral Tablet Box of 28 by Alliance",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP392953",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21103272,
-      "conceptName": "Phenindione 25 MG Oral Tablet by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP392951",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21142471,
-      "conceptName": "Phenindione 25 MG Oral Tablet by AMCo",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP392950",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21152351,
-      "conceptName": "Phenindione 25 MG Oral Tablet by Alliance",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP392949",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21162249,
-      "conceptName": "Phenindione 50 MG Oral Tablet Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP392968",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21122713,
-      "conceptName": "Phenindione 50 MG Oral Tablet Box of 100 by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP392971",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21064007,
-      "conceptName": "Phenindione 50 MG Oral Tablet Box of 100 by AMCo",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP392970",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21034463,
-      "conceptName": "Phenindione 50 MG Oral Tablet Box of 100 by Alliance",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP392969",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21064006,
-      "conceptName": "Phenindione 50 MG Oral Tablet Box of 28",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP392964",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21103275,
-      "conceptName": "Phenindione 50 MG Oral Tablet Box of 28 by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP392967",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21073913,
-      "conceptName": "Phenindione 50 MG Oral Tablet Box of 28 by AMCo",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP392966",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21034462,
-      "conceptName": "Phenindione 50 MG Oral Tablet Box of 28 by Alliance",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP392965",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21103274,
-      "conceptName": "Phenindione 50 MG Oral Tablet by A A H",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP392963",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21171981,
-      "conceptName": "Phenindione 50 MG Oral Tablet by AMCo",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP392962",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21064005,
-      "conceptName": "Phenindione 50 MG Oral Tablet by Alliance",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP392961",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43280050,
-      "conceptName": "Phenindione Oral Tablet [Dindevan]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP555408",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "199500",
       "standardConcept": "S"
     },
     {
@@ -353,30 +52,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 19021888,
-      "conceptName": "phenindione 10 MG Oral Tablet",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "199500",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 19033939,
       "conceptName": "phenindione 25 MG",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Comp",
       "conceptCode": "335361",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19004009,
-      "conceptName": "phenindione 25 MG Oral Tablet",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "104468",
       "standardConcept": "S"
     },
     {
@@ -389,12 +70,300 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 19004010,
-      "conceptName": "phenindione 50 MG Oral Tablet",
-      "vocabularyId": "RxNorm",
+      "conceptId": 21034462,
+      "conceptName": "Phenindione 50 MG Oral Tablet Box of 28 by Alliance",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "104469",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP392965",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21034463,
+      "conceptName": "Phenindione 50 MG Oral Tablet Box of 100 by Alliance",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP392969",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21034464,
+      "conceptName": "Phenindione 10 MG Oral Tablet Box of 100 by AMCo",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP392981",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21054123,
+      "conceptName": "Phenindione 10 MG Oral Tablet Box of 28 by AMCo",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP392977",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21054124,
+      "conceptName": "Phenindione 10 MG Oral Tablet Box of 100 by Alliance",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP392980",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21064005,
+      "conceptName": "Phenindione 50 MG Oral Tablet by Alliance",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP392961",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21064006,
+      "conceptName": "Phenindione 50 MG Oral Tablet Box of 28",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP392964",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21064007,
+      "conceptName": "Phenindione 50 MG Oral Tablet Box of 100 by AMCo",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP392970",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21073912,
+      "conceptName": "Phenindione 25 MG Oral Tablet Box of 28 by AMCo",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP392954",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21073913,
+      "conceptName": "Phenindione 50 MG Oral Tablet Box of 28 by AMCo",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP392966",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21083600,
+      "conceptName": "Phenindione 25 MG Oral Tablet Box of 28 by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP392955",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21093358,
+      "conceptName": "Phenindione 25 MG Oral Tablet Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP392956",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21093359,
+      "conceptName": "Phenindione 10 MG Oral Tablet Box of 28 by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP392978",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21103272,
+      "conceptName": "Phenindione 25 MG Oral Tablet by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP392951",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21103273,
+      "conceptName": "Phenindione 25 MG Oral Tablet Box of 28 by Alliance",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP392953",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21103274,
+      "conceptName": "Phenindione 50 MG Oral Tablet by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP392963",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21103275,
+      "conceptName": "Phenindione 50 MG Oral Tablet Box of 28 by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP392967",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21113117,
+      "conceptName": "Phenindione 25 MG Oral Tablet Box of 28",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP392952",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21113118,
+      "conceptName": "Phenindione 25 MG Oral Tablet Box of 100 by Alliance",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP392957",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21122713,
+      "conceptName": "Phenindione 50 MG Oral Tablet Box of 100 by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP392971",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21122714,
+      "conceptName": "Phenindione 10 MG Oral Tablet by AMCo",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP392973",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21132539,
+      "conceptName": "Phenindione 10 MG Oral Tablet by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP392974",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21132540,
+      "conceptName": "Phenindione 10 MG Oral Tablet Box of 28",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP392975",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21132541,
+      "conceptName": "Phenindione 10 MG Oral Tablet Box of 28 by Alliance",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP392976",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21142471,
+      "conceptName": "Phenindione 25 MG Oral Tablet by AMCo",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP392950",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21142472,
+      "conceptName": "Phenindione 10 MG Oral Tablet by Alliance",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP392972",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21152351,
+      "conceptName": "Phenindione 25 MG Oral Tablet by Alliance",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP392949",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21152352,
+      "conceptName": "Phenindione 25 MG Oral Tablet Box of 100 by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP392960",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21162248,
+      "conceptName": "Phenindione 25 MG Oral Tablet Box of 100 by AMCo",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP392959",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21162249,
+      "conceptName": "Phenindione 50 MG Oral Tablet Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP392968",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21162250,
+      "conceptName": "Phenindione 10 MG Oral Tablet Box of 100 by A A H",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP392982",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21171981,
+      "conceptName": "Phenindione 50 MG Oral Tablet by AMCo",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP392962",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21171982,
+      "conceptName": "Phenindione 10 MG Oral Tablet Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP392979",
       "standardConcept": "S"
     },
     {
@@ -407,6 +376,15 @@
       "standardConcept": "C"
     },
     {
+      "conceptId": 36214648,
+      "conceptName": "phenindione Pill",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Dose Group",
+      "conceptCode": "1156439",
+      "standardConcept": "C"
+    },
+    {
       "conceptId": 40069911,
       "conceptName": "phenindione Oral Tablet",
       "vocabularyId": "RxNorm",
@@ -416,13 +394,40 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36214648,
-      "conceptName": "phenindione Pill",
-      "vocabularyId": "RxNorm",
+      "conceptId": 43258275,
+      "conceptName": "Phenindione 10 MG Oral Tablet [Dindevan] Box of 100",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1156439",
-      "standardConcept": "C"
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP555411",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43263708,
+      "conceptName": "Phenindione 10 MG [Dindevan]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP555409",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43274714,
+      "conceptName": "Phenindione 10 MG Oral Tablet [Dindevan]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP555410",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43280050,
+      "conceptName": "Phenindione Oral Tablet [Dindevan]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP555408",
+      "standardConcept": "S"
     }
   ]
 }

@@ -1,31 +1,17 @@
 {
   "conceptSetId": 149,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80"
+  },
   "resolvedConcepts": [
     {
-      "conceptId": 3003396,
-      "conceptName": "Base excess in Arterial blood by calculation",
+      "conceptId": 1616406,
+      "conceptName": "Base excess standard in Central venous blood by calculation",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
-      "conceptCode": "1925-7",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3012501,
-      "conceptName": "Base excess in Blood by calculation",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "11555-0",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3003129,
-      "conceptName": "Base excess in Capillary blood by calculation",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "1926-5",
+      "conceptCode": "97547-4",
       "standardConcept": "S"
     },
     {
@@ -38,13 +24,13 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 3023001,
-      "conceptName": "Base excess in Mixed venous blood by calculation",
+      "conceptId": 1618167,
+      "conceptName": "Base excess | Blood central venous | Chemistry - non-challenge",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "19234-4",
-      "standardConcept": "S"
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP426940-5",
+      "standardConcept": "C"
     },
     {
       "conceptId": 3002032,
@@ -56,30 +42,21 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 3021421,
-      "conceptName": "Base excess standard in Arterial blood by calculation",
+      "conceptId": 3003129,
+      "conceptName": "Base excess in Capillary blood by calculation",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
-      "conceptCode": "19235-1",
+      "conceptCode": "1926-5",
       "standardConcept": "S"
     },
     {
-      "conceptId": 3026613,
-      "conceptName": "Base excess standard in Capillary blood by calculation",
+      "conceptId": 3003396,
+      "conceptName": "Base excess in Arterial blood by calculation",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
-      "conceptCode": "19236-9",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1616406,
-      "conceptName": "Base excess standard in Central venous blood by calculation",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "97547-4",
+      "conceptCode": "1925-7",
       "standardConcept": "S"
     },
     {
@@ -92,6 +69,42 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 3012501,
+      "conceptName": "Base excess in Blood by calculation",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "11555-0",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3021421,
+      "conceptName": "Base excess standard in Arterial blood by calculation",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "19235-1",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3023001,
+      "conceptName": "Base excess in Mixed venous blood by calculation",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "19234-4",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3026613,
+      "conceptName": "Base excess standard in Capillary blood by calculation",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "19236-9",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 3027215,
       "conceptName": "Base excess standard in Venous blood by calculation",
       "vocabularyId": "LOINC",
@@ -99,15 +112,6 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "19237-7",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 37068055,
-      "conceptName": "Base excess | Blood arterial | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP383305-2",
-      "standardConcept": "C"
     },
     {
       "conceptId": 37043543,
@@ -119,12 +123,12 @@
       "standardConcept": "C"
     },
     {
-      "conceptId": 1618167,
-      "conceptName": "Base excess | Blood central venous | Chemistry - non-challenge",
+      "conceptId": 37044495,
+      "conceptName": "Base excess | Blood | Chemistry - non-challenge",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP426940-5",
+      "conceptCode": "LP383304-5",
       "standardConcept": "C"
     },
     {
@@ -137,21 +141,21 @@
       "standardConcept": "C"
     },
     {
+      "conceptId": 37068055,
+      "conceptName": "Base excess | Blood arterial | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP383305-2",
+      "standardConcept": "C"
+    },
+    {
       "conceptId": 37072545,
       "conceptName": "Base excess | Blood venous | Chemistry - non-challenge",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "LOINC Hierarchy",
       "conceptCode": "LP383311-0",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37044495,
-      "conceptName": "Base excess | Blood | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP383304-5",
       "standardConcept": "C"
     }
   ]

@@ -1,15 +1,11 @@
 {
   "conceptSetId": 326,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
-    {
-      "conceptId": 35610320,
-      "conceptName": "Diastolic arterial pressure",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "1091811000000102",
-      "standardConcept": "S"
-    },
     {
       "conceptId": 3012888,
       "conceptName": "Diastolic blood pressure",
@@ -17,105 +13,6 @@
       "domainId": "Measurement",
       "conceptClassId": "Clinical Observation",
       "conceptCode": "8462-4",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4154790,
-      "conceptName": "Diastolic blood pressure",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "271650006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21490777,
-      "conceptName": "Diastolic blood pressure by Continuous non-invasive monitoring",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "75995-1",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21492240,
-      "conceptName": "Diastolic blood pressure by Noninvasive",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "76535-4",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36304326,
-      "conceptName": "Diastolic blood pressure--W exercise",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "87740-7",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36306043,
-      "conceptName": "Diastolic blood pressure--during anesthesia",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "89281-0",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3038119,
-      "conceptName": "Diastolic blood pressure--expiration",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "8446-7",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3034095,
-      "conceptName": "Diastolic blood pressure--inspiration",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "8447-5",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36304130,
-      "conceptName": "Diastolic blood pressure--lying in L-lateral position",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "89267-9",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36305114,
-      "conceptName": "Diastolic blood pressure--post exercise",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "87736-5",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3034703,
-      "conceptName": "Diastolic blood pressure--sitting",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "8453-3",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3019962,
-      "conceptName": "Diastolic blood pressure--standing",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "8454-1",
       "standardConcept": "S"
     },
     {
@@ -128,75 +25,21 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 3033568,
-      "conceptName": "Femoral artery - left Diastolic blood pressure",
+      "conceptId": 3014005,
+      "conceptName": "Radial artery - right Diastolic blood pressure",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Clinical Observation",
-      "conceptCode": "8518-3",
+      "conceptCode": "8527-4",
       "standardConcept": "S"
     },
     {
-      "conceptId": 3034397,
-      "conceptName": "Femoral artery - right Diastolic blood pressure",
+      "conceptId": 3019962,
+      "conceptName": "Diastolic blood pressure--standing",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Clinical Observation",
-      "conceptCode": "8519-1",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3020528,
-      "conceptName": "Femoral artery Diastolic blood pressure",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "8498-8",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21490851,
-      "conceptName": "Invasive Diastolic blood pressure",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "76213-8",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4354253,
-      "conceptName": "Invasive diastolic arterial pressure",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "251073000",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4236281,
-      "conceptName": "Lying diastolic blood pressure",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "407557002",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37394653,
-      "conceptName": "Non-invasive central diastolic blood pressure",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "1036571000000105",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4068414,
-      "conceptName": "Non-invasive diastolic arterial pressure",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "174255007",
+      "conceptCode": "8454-1",
       "standardConcept": "S"
     },
     {
@@ -209,12 +52,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 3014005,
-      "conceptName": "Radial artery - right Diastolic blood pressure",
+      "conceptId": 3020528,
+      "conceptName": "Femoral artery Diastolic blood pressure",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Clinical Observation",
-      "conceptCode": "8527-4",
+      "conceptCode": "8498-8",
       "standardConcept": "S"
     },
     {
@@ -224,6 +67,168 @@
       "domainId": "Measurement",
       "conceptClassId": "Clinical Observation",
       "conceptCode": "8500-1",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3033568,
+      "conceptName": "Femoral artery - left Diastolic blood pressure",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "8518-3",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3034095,
+      "conceptName": "Diastolic blood pressure--inspiration",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "8447-5",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3034397,
+      "conceptName": "Femoral artery - right Diastolic blood pressure",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "8519-1",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3034703,
+      "conceptName": "Diastolic blood pressure--sitting",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "8453-3",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3038119,
+      "conceptName": "Diastolic blood pressure--expiration",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "8446-7",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4068414,
+      "conceptName": "Non-invasive diastolic arterial pressure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "174255007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4154790,
+      "conceptName": "Diastolic blood pressure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "271650006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4236281,
+      "conceptName": "Lying diastolic blood pressure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "407557002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4354253,
+      "conceptName": "Invasive diastolic arterial pressure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "251073000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21490777,
+      "conceptName": "Diastolic blood pressure by Continuous non-invasive monitoring",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "75995-1",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21490851,
+      "conceptName": "Invasive Diastolic blood pressure",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "76213-8",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21492240,
+      "conceptName": "Diastolic blood pressure by Noninvasive",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "76535-4",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35610320,
+      "conceptName": "Diastolic arterial pressure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "1091811000000102",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36304130,
+      "conceptName": "Diastolic blood pressure--lying in L-lateral position",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "89267-9",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36304326,
+      "conceptName": "Diastolic blood pressure--W exercise",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "87740-7",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36305114,
+      "conceptName": "Diastolic blood pressure--post exercise",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "87736-5",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36306043,
+      "conceptName": "Diastolic blood pressure--during anesthesia",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "89281-0",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37394653,
+      "conceptName": "Non-invasive central diastolic blood pressure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "1036571000000105",
       "standardConcept": "S"
     }
   ]

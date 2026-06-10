@@ -1,13 +1,17 @@
 {
   "conceptSetId": 299,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
     {
-      "conceptId": 4149922,
-      "conceptName": "Armored endotracheal tube",
+      "conceptId": 3661742,
+      "conceptName": "Video intubation endotracheal tube",
       "vocabularyId": "SNOMED",
       "domainId": "Device",
       "conceptClassId": "Physical Object",
-      "conceptCode": "309801005",
+      "conceptCode": "870581009",
       "standardConcept": "S"
     },
     {
@@ -20,57 +24,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4327418,
-      "conceptName": "Endotracheal tube with bronchial blocker",
+      "conceptId": 4148025,
+      "conceptName": "Oxford endotracheal tube",
       "vocabularyId": "SNOMED",
       "domainId": "Device",
       "conceptClassId": "Physical Object",
-      "conceptCode": "430553000",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40486643,
-      "conceptName": "Endotracheal tube with directional tip",
-      "vocabularyId": "SNOMED",
-      "domainId": "Device",
-      "conceptClassId": "Physical Object",
-      "conceptCode": "449298004",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4224877,
-      "conceptName": "Magill type endotracheal tube",
-      "vocabularyId": "SNOMED",
-      "domainId": "Device",
-      "conceptClassId": "Physical Object",
-      "conceptCode": "420673005",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4223308,
-      "conceptName": "Magill type nasal endotracheal tube",
-      "vocabularyId": "SNOMED",
-      "domainId": "Device",
-      "conceptClassId": "Physical Object",
-      "conceptCode": "420855005",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4222389,
-      "conceptName": "Magill type oral endotracheal tube",
-      "vocabularyId": "SNOMED",
-      "domainId": "Device",
-      "conceptClassId": "Physical Object",
-      "conceptCode": "420344001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4148970,
-      "conceptName": "Nasal RAE endotracheal tube",
-      "vocabularyId": "SNOMED",
-      "domainId": "Device",
-      "conceptClassId": "Physical Object",
-      "conceptCode": "309805001",
+      "conceptCode": "309803008",
       "standardConcept": "S"
     },
     {
@@ -83,30 +42,21 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4148025,
-      "conceptName": "Oxford endotracheal tube",
+      "conceptId": 4148970,
+      "conceptName": "Nasal RAE endotracheal tube",
       "vocabularyId": "SNOMED",
       "domainId": "Device",
       "conceptClassId": "Physical Object",
-      "conceptCode": "309803008",
+      "conceptCode": "309805001",
       "standardConcept": "S"
     },
     {
-      "conceptId": 37162306,
-      "conceptName": "Oxygen insufflation endotracheal tube",
+      "conceptId": 4149922,
+      "conceptName": "Armored endotracheal tube",
       "vocabularyId": "SNOMED",
       "domainId": "Device",
       "conceptClassId": "Physical Object",
-      "conceptCode": "1187321001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4225181,
-      "conceptName": "Preformed endotracheal tube",
-      "vocabularyId": "SNOMED",
-      "domainId": "Device",
-      "conceptClassId": "Physical Object",
-      "conceptCode": "420977008",
+      "conceptCode": "309801005",
       "standardConcept": "S"
     },
     {
@@ -119,12 +69,66 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 3661742,
-      "conceptName": "Video intubation endotracheal tube",
+      "conceptId": 4222389,
+      "conceptName": "Magill type oral endotracheal tube",
       "vocabularyId": "SNOMED",
       "domainId": "Device",
       "conceptClassId": "Physical Object",
-      "conceptCode": "870581009",
+      "conceptCode": "420344001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4223308,
+      "conceptName": "Magill type nasal endotracheal tube",
+      "vocabularyId": "SNOMED",
+      "domainId": "Device",
+      "conceptClassId": "Physical Object",
+      "conceptCode": "420855005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4224877,
+      "conceptName": "Magill type endotracheal tube",
+      "vocabularyId": "SNOMED",
+      "domainId": "Device",
+      "conceptClassId": "Physical Object",
+      "conceptCode": "420673005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4225181,
+      "conceptName": "Preformed endotracheal tube",
+      "vocabularyId": "SNOMED",
+      "domainId": "Device",
+      "conceptClassId": "Physical Object",
+      "conceptCode": "420977008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4327418,
+      "conceptName": "Endotracheal tube with bronchial blocker",
+      "vocabularyId": "SNOMED",
+      "domainId": "Device",
+      "conceptClassId": "Physical Object",
+      "conceptCode": "430553000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37162306,
+      "conceptName": "Oxygen insufflation endotracheal tube",
+      "vocabularyId": "SNOMED",
+      "domainId": "Device",
+      "conceptClassId": "Physical Object",
+      "conceptCode": "1187321001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40486643,
+      "conceptName": "Endotracheal tube with directional tip",
+      "vocabularyId": "SNOMED",
+      "domainId": "Device",
+      "conceptClassId": "Physical Object",
+      "conceptCode": "449298004",
       "standardConcept": "S"
     }
   ]

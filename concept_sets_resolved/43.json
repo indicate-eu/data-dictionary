@@ -1,15 +1,11 @@
 {
   "conceptSetId": 43,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "RxNorm": "RxNorm 20260105",
+    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+  },
   "resolvedConcepts": [
-    {
-      "conceptId": 36232669,
-      "conceptName": "Iprivask Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1176754",
-      "standardConcept": "C"
-    },
     {
       "conceptId": 19011712,
       "conceptName": "desirudin",
@@ -17,51 +13,6 @@
       "domainId": "Drug",
       "conceptClassId": "Ingredient",
       "conceptCode": "114934",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40220365,
-      "conceptName": "desirudin 15 MG",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "1807808",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41149199,
-      "conceptName": "desirudin 15 MG Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP2347161",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40867975,
-      "conceptName": "desirudin 15 MG Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2065937",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41292499,
-      "conceptName": "desirudin 15 MG Injectable Solution Box of 10 by Inresa",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2490461",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41168136,
-      "conceptName": "desirudin 15 MG Injectable Solution Box of 10 by Novartis",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2366098",
       "standardConcept": "S"
     },
     {
@@ -83,33 +34,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 43274541,
-      "conceptName": "desirudin 15 MG Injection [Revasc]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP553745",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40220367,
-      "conceptName": "desirudin 15 MG [Iprivask]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "1807811",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43269000,
-      "conceptName": "desirudin 15 MG [Revasc]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP553743",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 36215231,
       "conceptName": "desirudin Injectable Product",
       "vocabularyId": "RxNorm",
@@ -119,12 +43,21 @@
       "standardConcept": "C"
     },
     {
-      "conceptId": 40821684,
-      "conceptName": "desirudin Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 36232669,
+      "conceptName": "Iprivask Injectable Product",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP2019646",
+      "conceptClassId": "Branded Dose Group",
+      "conceptCode": "1176754",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 40220365,
+      "conceptName": "desirudin 15 MG",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "1807808",
       "standardConcept": "S"
     },
     {
@@ -137,12 +70,84 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 40220367,
+      "conceptName": "desirudin 15 MG [Iprivask]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "1807811",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 40220368,
       "conceptName": "desirudin Injection [Iprivask]",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "1807812",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40821684,
+      "conceptName": "desirudin Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP2019646",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40867975,
+      "conceptName": "desirudin 15 MG Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2065937",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41149199,
+      "conceptName": "desirudin 15 MG Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP2347161",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41168136,
+      "conceptName": "desirudin 15 MG Injectable Solution Box of 10 by Novartis",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2366098",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41292499,
+      "conceptName": "desirudin 15 MG Injectable Solution Box of 10 by Inresa",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2490461",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43269000,
+      "conceptName": "desirudin 15 MG [Revasc]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP553743",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43274541,
+      "conceptName": "desirudin 15 MG Injection [Revasc]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP553745",
       "standardConcept": "S"
     },
     {

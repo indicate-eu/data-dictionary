@@ -1,13 +1,17 @@
 {
   "conceptSetId": 267,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
     {
-      "conceptId": 4212592,
-      "conceptName": "Streptococcus australis",
+      "conceptId": 4015115,
+      "conceptName": "Streptococcus gordonii",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "415598004",
+      "conceptCode": "113986004",
       "standardConcept": "S"
     },
     {
@@ -20,12 +24,48 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 46270949,
-      "conceptName": "Streptococcus dentisani",
+      "conceptId": 4019756,
+      "conceptName": "Streptococcus sanguinis group",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "708952006",
+      "conceptCode": "115658008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4057957,
+      "conceptName": "Streptococcus oralis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "19870004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4133816,
+      "conceptName": "Streptococcus mitis group",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "127539005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4179971,
+      "conceptName": "Streptococcus sanguis II",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "42985004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4188449,
+      "conceptName": "Streptococcus infantis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "415604001",
       "standardConcept": "S"
     },
     {
@@ -38,21 +78,21 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4015115,
-      "conceptName": "Streptococcus gordonii",
+      "conceptId": 4212592,
+      "conceptName": "Streptococcus australis",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "113986004",
+      "conceptCode": "415598004",
       "standardConcept": "S"
     },
     {
-      "conceptId": 4188449,
-      "conceptName": "Streptococcus infantis",
+      "conceptId": 4219542,
+      "conceptName": "Streptococcus peroris",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "415604001",
+      "conceptCode": "416347004",
       "standardConcept": "S"
     },
     {
@@ -83,57 +123,21 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4133816,
-      "conceptName": "Streptococcus mitis group",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "127539005",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4057957,
-      "conceptName": "Streptococcus oralis",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "19870004",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4219542,
-      "conceptName": "Streptococcus peroris",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "416347004",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4019756,
-      "conceptName": "Streptococcus sanguinis group",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "115658008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4179971,
-      "conceptName": "Streptococcus sanguis II",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "42985004",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 44783388,
       "conceptName": "Streptococcus tigurinus",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "699479005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46270949,
+      "conceptName": "Streptococcus dentisani",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "708952006",
       "standardConcept": "S"
     }
   ]

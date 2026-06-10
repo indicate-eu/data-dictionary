@@ -1,58 +1,18 @@
 {
   "conceptSetId": 306,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
     {
-      "conceptId": 4072515,
-      "conceptName": "Airway pressure release ventilation",
+      "conceptId": 1243692,
+      "conceptName": "Neurally adjusted ventilatory assist",
       "vocabularyId": "SNOMED",
       "domainId": "Procedure",
       "conceptClassId": "Procedure",
-      "conceptCode": "243143008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37152410,
-      "conceptName": "Assist control ventilation pressure control inflation-type",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "1186746005",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37152412,
-      "conceptName": "Assist control ventilation pressure-control inflation-type and assured constant airway pressure adjunct",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "1186748006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37152409,
-      "conceptName": "Assist control ventilation volume-control inflation-type",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "1186745009",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37152411,
-      "conceptName": "Assist control ventilation volume-targeted pressure-control inflation-type",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "1186747001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37152408,
-      "conceptName": "Assist control ventilation volume-targeted pressure-control inflation-type and assured constant airway pressure adjunct",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "1186744008",
+      "conceptCode": "1297240007",
       "standardConcept": "S"
     },
     {
@@ -65,15 +25,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 40491848,
-      "conceptName": "Bilevel positive airway pressure titration",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "447243000",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 4055377,
       "conceptName": "High frequency jet ventilation",
       "vocabularyId": "SNOMED",
@@ -83,30 +34,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 37158404,
-      "conceptName": "Invasive mechanical ventilation",
+      "conceptId": 4072515,
+      "conceptName": "Airway pressure release ventilation",
       "vocabularyId": "SNOMED",
       "domainId": "Procedure",
       "conceptClassId": "Procedure",
-      "conceptCode": "1258985005",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42530690,
-      "conceptName": "Invasive mechanical ventilation by intubation or tracheostomy",
-      "vocabularyId": "LOINC",
-      "domainId": "Meas Value",
-      "conceptClassId": "Answer",
-      "conceptCode": "LA26607-4",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1243692,
-      "conceptName": "Neurally adjusted ventilatory assist",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "1297240007",
+      "conceptCode": "243143008",
       "standardConcept": "S"
     },
     {
@@ -119,21 +52,21 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 37152364,
-      "conceptName": "Synchronized intermittent mandatory ventilation - pressure-control pressure-support inflation",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "1186622005",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 37152363,
       "conceptName": "Synchronized intermittent mandatory ventilation - volume control pressure-support inflation",
       "vocabularyId": "SNOMED",
       "domainId": "Procedure",
       "conceptClassId": "Procedure",
       "conceptCode": "1186621003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37152364,
+      "conceptName": "Synchronized intermittent mandatory ventilation - pressure-control pressure-support inflation",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "1186622005",
       "standardConcept": "S"
     },
     {
@@ -155,12 +88,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 37152388,
-      "conceptName": "Synchronized intermittent mandatory ventilation with pressure-control, an assured constant airway pressure adjunct and pressure-support at the higher pressure level only",
+      "conceptId": 37152386,
+      "conceptName": "Synchronized intermittent mandatory ventilation with pressure-control, two levels of pressure-support and an assured constant airway pressure adjunct",
       "vocabularyId": "SNOMED",
       "domainId": "Procedure",
       "conceptClassId": "Procedure",
-      "conceptCode": "1186683003",
+      "conceptCode": "1186681001",
       "standardConcept": "S"
     },
     {
@@ -173,12 +106,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 37152386,
-      "conceptName": "Synchronized intermittent mandatory ventilation with pressure-control, two levels of pressure-support and an assured constant airway pressure adjunct",
+      "conceptId": 37152388,
+      "conceptName": "Synchronized intermittent mandatory ventilation with pressure-control, an assured constant airway pressure adjunct and pressure-support at the higher pressure level only",
       "vocabularyId": "SNOMED",
       "domainId": "Procedure",
       "conceptClassId": "Procedure",
-      "conceptCode": "1186681001",
+      "conceptCode": "1186683003",
       "standardConcept": "S"
     },
     {
@@ -197,6 +130,78 @@
       "domainId": "Procedure",
       "conceptClassId": "Procedure",
       "conceptCode": "1186685005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37152408,
+      "conceptName": "Assist control ventilation volume-targeted pressure-control inflation-type and assured constant airway pressure adjunct",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "1186744008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37152409,
+      "conceptName": "Assist control ventilation volume-control inflation-type",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "1186745009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37152410,
+      "conceptName": "Assist control ventilation pressure control inflation-type",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "1186746005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37152411,
+      "conceptName": "Assist control ventilation volume-targeted pressure-control inflation-type",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "1186747001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37152412,
+      "conceptName": "Assist control ventilation pressure-control inflation-type and assured constant airway pressure adjunct",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "1186748006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37158404,
+      "conceptName": "Invasive mechanical ventilation",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "1258985005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40491848,
+      "conceptName": "Bilevel positive airway pressure titration",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "447243000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42530690,
+      "conceptName": "Invasive mechanical ventilation by intubation or tracheostomy",
+      "vocabularyId": "LOINC",
+      "domainId": "Meas Value",
+      "conceptClassId": "Answer",
+      "conceptCode": "LA26607-4",
       "standardConcept": "S"
     }
   ]

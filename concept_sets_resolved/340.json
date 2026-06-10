@@ -1,15 +1,10 @@
 {
   "conceptSetId": 340,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
-    {
-      "conceptId": 37152409,
-      "conceptName": "Assist control ventilation volume-control inflation-type",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "1186745009",
-      "standardConcept": "S"
-    },
     {
       "conceptId": 4055375,
       "conceptName": "Assisted controlled mandatory ventilation",
@@ -44,6 +39,15 @@
       "domainId": "Procedure",
       "conceptClassId": "Procedure",
       "conceptCode": "1186680000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37152409,
+      "conceptName": "Assist control ventilation volume-control inflation-type",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "1186745009",
       "standardConcept": "S"
     }
   ]

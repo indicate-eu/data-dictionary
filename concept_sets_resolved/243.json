@@ -1,15 +1,10 @@
 {
   "conceptSetId": 243,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
-    {
-      "conceptId": 3657171,
-      "conceptName": "AmpC beta-lactamase producing Klebsiella pneumoniae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1098101000112102",
-      "standardConcept": "S"
-    },
     {
       "conceptId": 1072898,
       "conceptName": "AmpC beta-lactamase producing Klebsiella pneumoniae subspecies ozaenae",
@@ -29,12 +24,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 40489864,
-      "conceptName": "Carbapenem resistant Klebsiella pneumoniae",
+      "conceptId": 3657171,
+      "conceptName": "AmpC beta-lactamase producing Klebsiella pneumoniae",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "446870005",
+      "conceptCode": "1098101000112102",
       "standardConcept": "S"
     },
     {
@@ -47,30 +42,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4260332,
-      "conceptName": "Extended spectrum beta-lactamase producing Klebsiella pneumoniae",
+      "conceptId": 4070556,
+      "conceptName": "Klebsiella pneumoniae subsp. rhinoscleromatis",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "409801009",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37016999,
-      "conceptName": "KPC-2 producing Klebsiella pneumoniae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "713171002",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4209452,
-      "conceptName": "Klebsiella pneumoniae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "56415008",
+      "conceptCode": "17688001",
       "standardConcept": "S"
     },
     {
@@ -83,6 +60,24 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 4209452,
+      "conceptName": "Klebsiella pneumoniae",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "56415008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4260332,
+      "conceptName": "Extended spectrum beta-lactamase producing Klebsiella pneumoniae",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "409801009",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4275741,
       "conceptName": "Klebsiella pneumoniae subsp. ozaenae",
       "vocabularyId": "SNOMED",
@@ -92,12 +87,21 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4070556,
-      "conceptName": "Klebsiella pneumoniae subsp. rhinoscleromatis",
+      "conceptId": 37016999,
+      "conceptName": "KPC-2 producing Klebsiella pneumoniae",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "17688001",
+      "conceptCode": "713171002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37017620,
+      "conceptName": "Multiple drug-resistant Klebsiella pneumoniae subsp. ozaenae",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "713926009",
       "standardConcept": "S"
     },
     {
@@ -110,12 +114,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 37017620,
-      "conceptName": "Multiple drug-resistant Klebsiella pneumoniae subsp. ozaenae",
+      "conceptId": 40489864,
+      "conceptName": "Carbapenem resistant Klebsiella pneumoniae",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "713926009",
+      "conceptCode": "446870005",
       "standardConcept": "S"
     }
   ]

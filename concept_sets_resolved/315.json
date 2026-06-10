@@ -1,13 +1,18 @@
 {
   "conceptSetId": 315,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
     {
-      "conceptId": 21490583,
-      "conceptName": "Compliance.static Lung",
-      "vocabularyId": "LOINC",
+      "conceptId": 4090322,
+      "conceptName": "Static lung compliance",
+      "vocabularyId": "SNOMED",
       "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "60828-1",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "251886005",
       "standardConcept": "S"
     },
     {
@@ -20,21 +25,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 21490582,
-      "conceptName": "Dynamic lung compliance",
-      "vocabularyId": "LOINC",
+      "conceptId": 4090655,
+      "conceptName": "Specific compliance (lung)",
+      "vocabularyId": "SNOMED",
       "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "60827-3",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21490581,
-      "conceptName": "Lung compliance",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "60826-5",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "251888006",
       "standardConcept": "S"
     },
     {
@@ -47,30 +43,39 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4090655,
-      "conceptName": "Specific compliance (lung)",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "251888006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4090322,
-      "conceptName": "Static lung compliance",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "251886005",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 4353624,
       "conceptName": "Total dynamic compliance",
       "vocabularyId": "SNOMED",
       "domainId": "Measurement",
       "conceptClassId": "Observable Entity",
       "conceptCode": "250823005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21490581,
+      "conceptName": "Lung compliance",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "60826-5",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21490582,
+      "conceptName": "Dynamic lung compliance",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "60827-3",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21490583,
+      "conceptName": "Compliance.static Lung",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "60828-1",
       "standardConcept": "S"
     }
   ]

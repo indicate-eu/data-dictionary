@@ -1,15 +1,10 @@
 {
   "conceptSetId": 352,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80"
+  },
   "resolvedConcepts": [
-    {
-      "conceptId": 3042462,
-      "conceptName": "Carbon dioxide [Partial pressure] adjusted to patient's actual temperature in Capillary blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "40620-7",
-      "standardConcept": "S"
-    },
     {
       "conceptId": 1616289,
       "conceptName": "Carbon dioxide [Partial pressure] adjusted to patient's actual temperature in Central venous blood",
@@ -17,6 +12,51 @@
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
       "conceptCode": "97539-1",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1616989,
+      "conceptName": "Carbon dioxide [Partial pressure] in Central venous blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "97538-3",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1618289,
+      "conceptName": "Carbon dioxide | Blood central venous | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP426941-3",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 3021447,
+      "conceptName": "Carbon dioxide [Partial pressure] in Venous blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "2021-4",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3021513,
+      "conceptName": "Carbon dioxide [Partial pressure] in Mixed venous blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "19212-0",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3023024,
+      "conceptName": "Carbon dioxide [Partial pressure] in Capillary blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "2020-6",
       "standardConcept": "S"
     },
     {
@@ -38,40 +78,22 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 3023024,
-      "conceptName": "Carbon dioxide [Partial pressure] in Capillary blood",
+      "conceptId": 3042462,
+      "conceptName": "Carbon dioxide [Partial pressure] adjusted to patient's actual temperature in Capillary blood",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
-      "conceptCode": "2020-6",
+      "conceptCode": "40620-7",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1616989,
-      "conceptName": "Carbon dioxide [Partial pressure] in Central venous blood",
+      "conceptId": 37028041,
+      "conceptName": "Carbon dioxide | Blood venous | Chemistry - non-challenge",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "97538-3",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3021513,
-      "conceptName": "Carbon dioxide [Partial pressure] in Mixed venous blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "19212-0",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3021447,
-      "conceptName": "Carbon dioxide [Partial pressure] in Venous blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "2021-4",
-      "standardConcept": "S"
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP383328-4",
+      "standardConcept": "C"
     },
     {
       "conceptId": 37042819,
@@ -83,30 +105,12 @@
       "standardConcept": "C"
     },
     {
-      "conceptId": 1618289,
-      "conceptName": "Carbon dioxide | Blood central venous | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP426941-3",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 37068772,
       "conceptName": "Carbon dioxide | Blood mixed venous | Chemistry - non-challenge",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "LOINC Hierarchy",
       "conceptCode": "LP383327-6",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37028041,
-      "conceptName": "Carbon dioxide | Blood venous | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP383328-4",
       "standardConcept": "C"
     }
   ]

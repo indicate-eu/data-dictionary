@@ -1,1291 +1,18 @@
 {
   "conceptSetId": 124,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "RxNorm": "RxNorm 20260105",
+    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+  },
   "resolvedConcepts": [
     {
-      "conceptId": 2906467,
-      "conceptName": "3 ML insulin aspart 30 IU/ML / insulin degludec 70 UNT/ML Cartridge",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP5123244",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2906466,
-      "conceptName": "3 ML insulin aspart 30 IU/ML / insulin degludec 70 UNT/ML Cartridge Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP5123243",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2906465,
-      "conceptName": "3 ML insulin aspart 30 IU/ML / insulin degludec 70 UNT/ML Cartridge [Ryzodeg]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP5123242",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2906464,
-      "conceptName": "3 ML insulin aspart 30 IU/ML / insulin degludec 70 UNT/ML Cartridge [Ryzodeg] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP5123241",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2906471,
-      "conceptName": "3 ML insulin aspart 30 IU/ML / insulin degludec 70 UNT/ML Pen Injector",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP5123248",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2906470,
-      "conceptName": "3 ML insulin aspart 30 IU/ML / insulin degludec 70 UNT/ML Pen Injector Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP5123247",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2906469,
-      "conceptName": "3 ML insulin aspart 30 IU/ML / insulin degludec 70 UNT/ML Pen Injector [Ryzodeg]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP5123246",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2906468,
-      "conceptName": "3 ML insulin aspart 30 IU/ML / insulin degludec 70 UNT/ML Pen Injector [Ryzodeg] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP5123245",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 793408,
-      "conceptName": "3 ML insulin aspart, human 30 UNT/ML / insulin degludec 70 UNT/ML Pen Injector",
+      "conceptId": 793405,
+      "conceptName": "insulin degludec 70 UNT/ML",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "1994311",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 793413,
-      "conceptName": "3 ML insulin aspart, human 30 UNT/ML / insulin degludec 70 UNT/ML Pen Injector [Ryzodeg]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "1994316",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2028733,
-      "conceptName": "3 ML insulin degludec 100 IU/ML Pen Injector",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP4927482",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2028731,
-      "conceptName": "3 ML insulin degludec 100 IU/ML Pen Injector [TRESIBA FLEXTOUCH]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP4927480",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2028732,
-      "conceptName": "3 ML insulin degludec 100 IU/ML Pen Injector [TRESIBA FLEXTOUCH] by Novonordisk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4927481",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36410293,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP3102335",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36410273,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Injectable Solution Box of 3",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP3102315",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36410254,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP3102296",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36410310,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Injectable Solution [Xultophy]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP3102352",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36410309,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Injectable Solution [Xultophy] Box of 3",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP3102351",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36410280,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Injectable Solution [Xultophy] Box of 3 by Novo Nordisk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3102322",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36410295,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Injectable Solution [Xultophy] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP3102337",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36410288,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Injectable Solution [Xultophy] Box of 5 by Novo Nordisk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3102330",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36410289,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Injectable Solution [Xultophy] by Novo Nordisk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3102331",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1718706,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Pen Injector",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "1860167",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2906444,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Pen Injector Box of 3",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP5123223",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2906443,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Pen Injector Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP5123222",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1718711,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Pen Injector [Xultophy]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "1860172",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2906442,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Pen Injector [Xultophy] Box of 3",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP5123221",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2906441,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Pen Injector [Xultophy] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP5123220",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21068156,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP305829",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21048471,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Prefilled Syringe Box of 3",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP305830",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21176096,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Prefilled Syringe Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP305831",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44191345,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Prefilled Syringe Box of 5 by Novo Nordisk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3068068",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21107380,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Prefilled Syringe [Xultophy]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP305832",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21136744,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Prefilled Syringe [Xultophy] Box of 3",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP305834",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21038665,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Prefilled Syringe [Xultophy] Box of 3 by Novo Nordisk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP305835",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21077980,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Prefilled Syringe [Xultophy] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP305836",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21068157,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Prefilled Syringe [Xultophy] Box of 5 by Novo Nordisk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP305837",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21087728,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Prefilled Syringe [Xultophy] by Novo Nordisk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP305833",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2906452,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML Cartridge",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP5123229",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2906451,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML Cartridge Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP5123228",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2906450,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML Cartridge [Tresiba]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP5123227",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2906449,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML Cartridge [Tresiba] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP5123226",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36809748,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP4823784",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36962982,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML Injectable Solution [TRESIBA FLEXTOUCH]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP5209578",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36967097,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML Injectable Solution [TRESIBA FLEXTOUCH] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP5209580",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36922566,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML Injectable Solution [TRESIBA FLEXTOUCH] Box of 5 by Novo Nordisk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5209581",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36926517,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML Injectable Solution [TRESIBA FLEXTOUCH] by Novo Nordisk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5209579",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36960050,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML Injectable Solution [Tresiba]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP5209577",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36809744,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML Injectable Solution [Tresiba]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP4823780",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36055847,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML Injectable Solution [Tresiba] Box of 5 by CST",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4981238",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36055848,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML Injectable Solution [Tresiba] by CST",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4981239",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36809736,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML Injectable Solution [Tresiba] by Novo Nordisk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4823772",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35779430,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML Injectable Suspension",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP2780891",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44191432,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML Injectable Suspension Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP3068155",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35779600,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML Injectable Suspension Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2781061",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35779369,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML Injectable Suspension [Tresiba]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2780830",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44191138,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML Injectable Suspension [Tresiba] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP3067861",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44191100,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML Injectable Suspension [Tresiba] Box of 10 by Novo Nordisk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3067823",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35779742,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML Injectable Suspension [Tresiba] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2781203",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35779458,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML Injectable Suspension [Tresiba] Box of 5 by Novo Nordisk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2780919",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35779631,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML Injectable Suspension [Tresiba] by Novo Nordisk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2781092",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35602720,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML Pen Injector",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "1670011",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42658234,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML Pen Injector Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP4869798",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42921716,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML Pen Injector [TRESIBA FLEXTOUCH]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP4648539",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35602724,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML Pen Injector [Tresiba]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "1670016",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42658235,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML Pen Injector [Tresiba] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP4869799",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42658236,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML Pen Injector [Tresiba] Box of 5 by Novo Nordisk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4869800",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42480210,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP418994",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41349418,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML Prefilled Syringe Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2547380",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21077986,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML Prefilled Syringe Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP305941",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41346895,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML Prefilled Syringe [Tresiba]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2544857",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41348524,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML Prefilled Syringe [Tresiba] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2546486",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41347449,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML Prefilled Syringe [Tresiba] Box of 10 by Novo Nordisk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2545411",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41346894,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML Prefilled Syringe [Tresiba] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2544856",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41348868,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML Prefilled Syringe [Tresiba] Box of 5 by Novo Nordisk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2546830",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41347699,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML Prefilled Syringe [Tresiba] Box of 5 by Orifarm Leverkus",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2545661",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21058209,
-      "conceptName": "3 ML insulin degludec 100 UNT/ML Prefilled Syringe [Tresiba] by Novo Nordisk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP305944",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2028730,
-      "conceptName": "3 ML insulin degludec 200 IU/ML Pen Injector",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP4927479",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2028728,
-      "conceptName": "3 ML insulin degludec 200 IU/ML Pen Injector [TRESIBA FLEXTOUCH]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP4927477",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2028729,
-      "conceptName": "3 ML insulin degludec 200 IU/ML Pen Injector [TRESIBA FLEXTOUCH] by Novonordisk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4927478",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36410316,
-      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP3102358",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36410315,
-      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution Box of 3",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP3102357",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36955304,
-      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution [TRESIBA FLEXTOUCH]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP5209582",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36930040,
-      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution [TRESIBA FLEXTOUCH] Box of 3",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP5209587",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36952354,
-      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution [TRESIBA FLEXTOUCH] Box of 3 by CST",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5209588",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36959476,
-      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution [TRESIBA FLEXTOUCH] Box of 3 by DE",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5209589",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36947458,
-      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution [TRESIBA FLEXTOUCH] Box of 3 by Novo Nordisk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5209591",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36922722,
-      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution [TRESIBA FLEXTOUCH] Box of 3 by Pharmaram",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5209590",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36960312,
-      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution [TRESIBA FLEXTOUCH] by CST",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5209583",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36967983,
-      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution [TRESIBA FLEXTOUCH] by DE",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5209584",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36928005,
-      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution [TRESIBA FLEXTOUCH] by Novo Nordisk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5209586",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36947421,
-      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution [TRESIBA FLEXTOUCH] by Pharmaram",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5209585",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36410261,
-      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution [Tresiba]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP3102303",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36410274,
-      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution [Tresiba] Box of 3",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP3102316",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36055845,
-      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution [Tresiba] Box of 3 by CST",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4981233",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36055844,
-      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution [Tresiba] Box of 3 by DE",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4981232",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36410296,
-      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution [Tresiba] Box of 3 by Novo Nordisk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3102338",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36055846,
-      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution [Tresiba] Box of 3 by Pharmaram",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4981234",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36073895,
-      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution [Tresiba] by CST",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4981236",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36073894,
-      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution [Tresiba] by DE",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4981235",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36410297,
-      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution [Tresiba] by Novo Nordisk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3102339",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36073896,
-      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution [Tresiba] by Pharmaram",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4981237",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35602729,
-      "conceptName": "3 ML insulin degludec 200 UNT/ML Pen Injector",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "1670021",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2906447,
-      "conceptName": "3 ML insulin degludec 200 UNT/ML Pen Injector Box of 3",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP5123225",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42921714,
-      "conceptName": "3 ML insulin degludec 200 UNT/ML Pen Injector [TRESIBA FLEXTOUCH]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP4648538",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35602731,
-      "conceptName": "3 ML insulin degludec 200 UNT/ML Pen Injector [Tresiba]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "1670023",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2906445,
-      "conceptName": "3 ML insulin degludec 200 UNT/ML Pen Injector [Tresiba] Box of 3",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP5123224",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42479035,
-      "conceptName": "3 ML insulin degludec 200 UNT/ML Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP418992",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21038673,
-      "conceptName": "3 ML insulin degludec 200 UNT/ML Prefilled Syringe Box of 3",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP305951",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41348996,
-      "conceptName": "3 ML insulin degludec 200 UNT/ML Prefilled Syringe [Tresiba]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2546958",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41347367,
-      "conceptName": "3 ML insulin degludec 200 UNT/ML Prefilled Syringe [Tresiba] Box of 3",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2545329",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41347228,
-      "conceptName": "3 ML insulin degludec 200 UNT/ML Prefilled Syringe [Tresiba] Box of 3 by Novo Nordisk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2545190",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21058210,
-      "conceptName": "3 ML insulin degludec 200 UNT/ML Prefilled Syringe [Tresiba] by Novo Nordisk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP305954",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42921712,
-      "conceptName": "3 ML insulin degludec 70 UNT/ML / Insulin, Aspart, Human 30 UNT/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP4648536",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42921713,
-      "conceptName": "3 ML insulin degludec 70 UNT/ML / Insulin, Aspart, Human 30 UNT/ML Injectable Solution [RYZODEG FLEX TOUCH]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP4648537",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44043339,
-      "conceptName": "Areca Catechu / Barberry Extract / Burdock root extract / calcium sulfide / Cascara sagrada / Glycyrrhiza glabra extract / insulin degludec / magnesium phosphate / Manganese / Oyster shell calcium carbonate preparation / ... Oral Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP1037970",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44083575,
-      "conceptName": "Areca Catechu / Barberry Extract / Burdock root extract / calcium sulfide / Cascara sagrada / Glycyrrhiza glabra extract / insulin degludec / magnesium phosphate / Manganese / Oyster shell calcium carbonate preparation / ... Oral Solution [Mtb-Tox]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP1078206",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44064886,
-      "conceptName": "Areca Catechu 1 X / Barberry Extract 3 X / Burdock root extract 3 X / calcium sulfide 30 X / Cascara sagrada 3 X / Glycyrrhiza glabra extract 3 X / insulin degludec 6 X / magnesium phosphate 12 X / ... Oral Solution [Mtb-Tox] by Bio Active",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP1059517",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44124065,
-      "conceptName": "Areca Catechu 1 X / Barberry Extract 3 X / Burdock root extract 3 X / calcium sulfide 30 X / Cascara sagrada 3 X / Glycyrrhiza glabra extract 3 X / insulin degludec 6 X / magnesium phosphate 12 X / Manganese 10 X / ... Oral Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP1118696",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44061543,
-      "conceptName": "Areca Catechu 1 X / Barberry Extract 3 X / Burdock root extract 3 X / calcium sulfide 30 X / Cascara sagrada 3 X / Glycyrrhiza glabra extract 3 X / insulin degludec 6 X / magnesium phosphate 12 X / Manganese 10 X / ... Oral Solution [Mtb-Tox]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP1056174",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44068402,
-      "conceptName": "Areca Catechu 1 X / Barberry Extract 3 X / Burdock root extract 3 X / calcium sulfide 30 X / Cascara sagrada 3 X / Glycyrrhiza glabra extract 3 X / insulin degludec 6 X / magnesium phosphate 12 X / Manganese 10 X / ... [Mtb-Tox]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP1063033",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 793412,
-      "conceptName": "Ryzodeg Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1994315",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36248196,
-      "conceptName": "Tresiba Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1670015",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 1718710,
-      "conceptName": "Xultophy Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1860171",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 42615057,
-      "conceptName": "insulin aspart / insulin degludec Cartridge",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP5160140",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2911833,
-      "conceptName": "insulin aspart / insulin degludec Cartridge",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP5128588",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42615058,
-      "conceptName": "insulin aspart / insulin degludec Cartridge [Ryzodeg]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP5160141",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2911832,
-      "conceptName": "insulin aspart / insulin degludec Cartridge [Ryzodeg]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP5128587",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42615055,
-      "conceptName": "insulin aspart / insulin degludec Pen Injector",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP5160138",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2911835,
-      "conceptName": "insulin aspart / insulin degludec Pen Injector",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP5128590",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42615056,
-      "conceptName": "insulin aspart / insulin degludec Pen Injector [Ryzodeg]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP5160139",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2911834,
-      "conceptName": "insulin aspart / insulin degludec Pen Injector [Ryzodeg]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP5128589",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35160340,
-      "conceptName": "insulin aspart / insulin degludec Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP4817317",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35160909,
-      "conceptName": "insulin aspart / insulin degludec Prefilled Syringe [Ryzodeg]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4817883",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2911826,
-      "conceptName": "insulin aspart 30 IU/ML / insulin degludec 70 UNT/ML Cartridge",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP5128581",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2911825,
-      "conceptName": "insulin aspart 30 IU/ML / insulin degludec 70 UNT/ML Cartridge Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP5128580",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2911824,
-      "conceptName": "insulin aspart 30 IU/ML / insulin degludec 70 UNT/ML Cartridge [Ryzodeg]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5128579",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2911823,
-      "conceptName": "insulin aspart 30 IU/ML / insulin degludec 70 UNT/ML Cartridge [Ryzodeg] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP5128578",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2911830,
-      "conceptName": "insulin aspart 30 IU/ML / insulin degludec 70 UNT/ML Pen Injector",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP5128585",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2911829,
-      "conceptName": "insulin aspart 30 IU/ML / insulin degludec 70 UNT/ML Pen Injector Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP5128584",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2911828,
-      "conceptName": "insulin aspart 30 IU/ML / insulin degludec 70 UNT/ML Pen Injector [Ryzodeg]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5128583",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2911827,
-      "conceptName": "insulin aspart 30 IU/ML / insulin degludec 70 UNT/ML Pen Injector [Ryzodeg] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP5128582",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2911831,
-      "conceptName": "insulin aspart 30 IU/ML / insulin degludec 70 UNT/ML [Ryzodeg]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP5128586",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "1994307",
       "standardConcept": "S"
     },
     {
@@ -1307,12 +34,48 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 793408,
+      "conceptName": "3 ML insulin aspart, human 30 UNT/ML / insulin degludec 70 UNT/ML Pen Injector",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "1994311",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 793410,
+      "conceptName": "insulin aspart, human 30 UNT/ML / insulin degludec 70 UNT/ML [Ryzodeg]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "1994313",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 793411,
       "conceptName": "insulin aspart, human / insulin degludec Pen Injector [Ryzodeg]",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "1994314",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 793412,
+      "conceptName": "Ryzodeg Injectable Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Dose Group",
+      "conceptCode": "1994315",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 793413,
+      "conceptName": "3 ML insulin aspart, human 30 UNT/ML / insulin degludec 70 UNT/ML Pen Injector [Ryzodeg]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "1994316",
       "standardConcept": "S"
     },
     {
@@ -1334,354 +97,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 793410,
-      "conceptName": "insulin aspart, human 30 UNT/ML / insulin degludec 70 UNT/ML [Ryzodeg]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "1994313",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35602717,
-      "conceptName": "insulin degludec",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Ingredient",
-      "conceptCode": "1670007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42963019,
-      "conceptName": "insulin degludec / Insulin, Aspart, Human Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP4689506",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42963020,
-      "conceptName": "insulin degludec / Insulin, Aspart, Human Injectable Solution [RYZODEG FLEX TOUCH]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4689507",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1718704,
-      "conceptName": "insulin degludec / liraglutide Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1860165",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36404173,
-      "conceptName": "insulin degludec / liraglutide Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP3096215",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36408050,
-      "conceptName": "insulin degludec / liraglutide Injectable Solution [Xultophy]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP3100092",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1718705,
-      "conceptName": "insulin degludec / liraglutide Pen Injector",
+      "conceptId": 1356056,
+      "conceptName": "insulin degludec Injectable Solution",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "1860166",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1718709,
-      "conceptName": "insulin degludec / liraglutide Pen Injector [Xultophy]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "1860170",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21036596,
-      "conceptName": "insulin degludec / liraglutide Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP266115",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21174087,
-      "conceptName": "insulin degludec / liraglutide Prefilled Syringe [Xultophy]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP266116",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2038335,
-      "conceptName": "insulin degludec 100 IU/ML",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP4937826",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2038333,
-      "conceptName": "insulin degludec 100 IU/ML Pen Injector",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP4937824",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2038332,
-      "conceptName": "insulin degludec 100 IU/ML Pen Injector [TRESIBA FLEXTOUCH]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4937823",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2038334,
-      "conceptName": "insulin degludec 100 IU/ML [TRESIBA FLEXTOUCH]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4937825",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35602718,
-      "conceptName": "insulin degludec 100 UNT/ML",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "1670008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36404310,
-      "conceptName": "insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP3096352",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36403526,
-      "conceptName": "insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Injectable Solution Box of 3",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP3095568",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36408883,
-      "conceptName": "insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP3100925",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36406016,
-      "conceptName": "insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Injectable Solution [Xultophy]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP3098058",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36408288,
-      "conceptName": "insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Injectable Solution [Xultophy] Box of 3",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP3100330",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36405240,
-      "conceptName": "insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Injectable Solution [Xultophy] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP3097282",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1718712,
-      "conceptName": "insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Pen Injector",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "1860173",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2911253,
-      "conceptName": "insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Pen Injector Box of 3",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP5128003",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2911252,
-      "conceptName": "insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Pen Injector Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP5128002",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1718713,
-      "conceptName": "insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Pen Injector [Xultophy]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "1860174",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2911251,
-      "conceptName": "insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Pen Injector [Xultophy] Box of 3",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP5128001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2911250,
-      "conceptName": "insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Pen Injector [Xultophy] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP5128000",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21144564,
-      "conceptName": "insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP266118",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21075991,
-      "conceptName": "insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Prefilled Syringe Box of 3",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP266119",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21134680,
-      "conceptName": "insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Prefilled Syringe Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP266120",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21046457,
-      "conceptName": "insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Prefilled Syringe [Xultophy]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP266121",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21105336,
-      "conceptName": "insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Prefilled Syringe [Xultophy] Box of 3",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP266122",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21085714,
-      "conceptName": "insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Prefilled Syringe [Xultophy] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP266124",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1718708,
-      "conceptName": "insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML [Xultophy]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "1860169",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2911259,
-      "conceptName": "insulin degludec 100 UNT/ML Cartridge",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP5128009",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2911258,
-      "conceptName": "insulin degludec 100 UNT/ML Cartridge Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP5128008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2911257,
-      "conceptName": "insulin degludec 100 UNT/ML Cartridge [Tresiba]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5128007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2911256,
-      "conceptName": "insulin degludec 100 UNT/ML Cartridge [Tresiba] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP5128006",
+      "conceptCode": "2107519",
       "standardConcept": "S"
     },
     {
@@ -1694,21 +115,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36932615,
-      "conceptName": "insulin degludec 100 UNT/ML Injectable Solution [TRESIBA FLEXTOUCH]",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 1356058,
+      "conceptName": "insulin degludec Injectable Solution [Tresiba]",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5206729",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36921416,
-      "conceptName": "insulin degludec 100 UNT/ML Injectable Solution [TRESIBA FLEXTOUCH] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP5206730",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "2107521",
       "standardConcept": "S"
     },
     {
@@ -1721,201 +133,120 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 44097224,
-      "conceptName": "insulin degludec 100 UNT/ML Injectable Suspension",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 1718704,
+      "conceptName": "insulin degludec / liraglutide Injectable Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Dose Group",
+      "conceptCode": "1860165",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 1718705,
+      "conceptName": "insulin degludec / liraglutide Pen Injector",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "1860166",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1718706,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Pen Injector",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "1860167",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1718708,
+      "conceptName": "insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML [Xultophy]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "1860169",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1718709,
+      "conceptName": "insulin degludec / liraglutide Pen Injector [Xultophy]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "1860170",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1718710,
+      "conceptName": "Xultophy Injectable Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Dose Group",
+      "conceptCode": "1860171",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 1718711,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Pen Injector [Xultophy]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "1860172",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1718712,
+      "conceptName": "insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Pen Injector",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP1091855",
+      "conceptCode": "1860173",
       "standardConcept": "S"
     },
     {
-      "conceptId": 44172552,
-      "conceptName": "insulin degludec 100 UNT/ML Injectable Suspension Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP3049275",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35753931,
-      "conceptName": "insulin degludec 100 UNT/ML Injectable Suspension Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2755392",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35750010,
-      "conceptName": "insulin degludec 100 UNT/ML Injectable Suspension [Tresiba]",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 1718713,
+      "conceptName": "insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Pen Injector [Xultophy]",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2751471",
+      "conceptCode": "1860174",
       "standardConcept": "S"
     },
     {
-      "conceptId": 44162257,
-      "conceptName": "insulin degludec 100 UNT/ML Injectable Suspension [Tresiba] Box of 10",
+      "conceptId": 2028728,
+      "conceptName": "3 ML insulin degludec 200 IU/ML Pen Injector [TRESIBA FLEXTOUCH]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP3038980",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP4927477",
       "standardConcept": "S"
     },
     {
-      "conceptId": 35770957,
-      "conceptName": "insulin degludec 100 UNT/ML Injectable Suspension [Tresiba] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2772418",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44037201,
-      "conceptName": "insulin degludec 100 UNT/ML Injectable Suspension by Lilly",
+      "conceptId": 2028729,
+      "conceptName": "3 ML insulin degludec 200 IU/ML Pen Injector [TRESIBA FLEXTOUCH] by Novonordisk",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP1031832",
+      "conceptCode": "OMOP4927478",
       "standardConcept": "S"
     },
     {
-      "conceptId": 35602725,
-      "conceptName": "insulin degludec 100 UNT/ML Pen Injector",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "1670017",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42656214,
-      "conceptName": "insulin degludec 100 UNT/ML Pen Injector Box of 5",
+      "conceptId": 2028731,
+      "conceptName": "3 ML insulin degludec 100 IU/ML Pen Injector [TRESIBA FLEXTOUCH]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP4867789",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP4927480",
       "standardConcept": "S"
     },
     {
-      "conceptId": 42963023,
-      "conceptName": "insulin degludec 100 UNT/ML Pen Injector [TRESIBA FLEXTOUCH]",
+      "conceptId": 2028732,
+      "conceptName": "3 ML insulin degludec 100 IU/ML Pen Injector [TRESIBA FLEXTOUCH] by Novonordisk",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4689510",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35602726,
-      "conceptName": "insulin degludec 100 UNT/ML Pen Injector [Tresiba]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "1670018",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42656215,
-      "conceptName": "insulin degludec 100 UNT/ML Pen Injector [Tresiba] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP4867790",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42482554,
-      "conceptName": "insulin degludec 100 UNT/ML Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP418993",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40835742,
-      "conceptName": "insulin degludec 100 UNT/ML Prefilled Syringe Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2033704",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21145104,
-      "conceptName": "insulin degludec 100 UNT/ML Prefilled Syringe Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP275831",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41000604,
-      "conceptName": "insulin degludec 100 UNT/ML Prefilled Syringe [Tresiba]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2198566",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41188241,
-      "conceptName": "insulin degludec 100 UNT/ML Prefilled Syringe [Tresiba] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2386203",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40938250,
-      "conceptName": "insulin degludec 100 UNT/ML Prefilled Syringe [Tresiba] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2136212",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42963024,
-      "conceptName": "insulin degludec 100 UNT/ML [TRESIBA FLEXTOUCH]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4689511",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35602722,
-      "conceptName": "insulin degludec 100 UNT/ML [Tresiba]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "1670013",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2038330,
-      "conceptName": "insulin degludec 200 IU/ML",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP4937822",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2038328,
-      "conceptName": "insulin degludec 200 IU/ML Pen Injector",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP4937820",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4927481",
       "standardConcept": "S"
     },
     {
@@ -1937,102 +268,201 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 35602728,
-      "conceptName": "insulin degludec 200 UNT/ML",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "1670020",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36408864,
-      "conceptName": "insulin degludec 200 UNT/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP3100906",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36407386,
-      "conceptName": "insulin degludec 200 UNT/ML Injectable Solution Box of 3",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP3099428",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36946852,
-      "conceptName": "insulin degludec 200 UNT/ML Injectable Solution [TRESIBA FLEXTOUCH]",
+      "conceptId": 2038332,
+      "conceptName": "insulin degludec 100 IU/ML Pen Injector [TRESIBA FLEXTOUCH]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5206731",
+      "conceptCode": "OMOP4937823",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36937276,
-      "conceptName": "insulin degludec 200 UNT/ML Injectable Solution [TRESIBA FLEXTOUCH] Box of 3",
+      "conceptId": 2038334,
+      "conceptName": "insulin degludec 100 IU/ML [TRESIBA FLEXTOUCH]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4937825",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2906441,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Pen Injector [Xultophy] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP5123220",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2906442,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Pen Injector [Xultophy] Box of 3",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP5123221",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2906443,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Pen Injector Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP5123222",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2906444,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Pen Injector Box of 3",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP5123223",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2906445,
+      "conceptName": "3 ML insulin degludec 200 UNT/ML Pen Injector [Tresiba] Box of 3",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP5123224",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2906447,
+      "conceptName": "3 ML insulin degludec 200 UNT/ML Pen Injector Box of 3",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP5123225",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2906449,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Cartridge [Tresiba] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP5123226",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2906450,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Cartridge [Tresiba]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP5123227",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2906451,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Cartridge Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP5123228",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2906452,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Cartridge",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP5123229",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2906464,
+      "conceptName": "3 ML insulin aspart 30 IU/ML / insulin degludec 70 UNT/ML Cartridge [Ryzodeg] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP5123241",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2906465,
+      "conceptName": "3 ML insulin aspart 30 IU/ML / insulin degludec 70 UNT/ML Cartridge [Ryzodeg]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP5123242",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2906466,
+      "conceptName": "3 ML insulin aspart 30 IU/ML / insulin degludec 70 UNT/ML Cartridge Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP5123243",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2906467,
+      "conceptName": "3 ML insulin aspart 30 IU/ML / insulin degludec 70 UNT/ML Cartridge",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP5123244",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2906468,
+      "conceptName": "3 ML insulin aspart 30 IU/ML / insulin degludec 70 UNT/ML Pen Injector [Ryzodeg] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP5123245",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2906470,
+      "conceptName": "3 ML insulin aspart 30 IU/ML / insulin degludec 70 UNT/ML Pen Injector Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP5123247",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2911250,
+      "conceptName": "insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Pen Injector [Xultophy] Box of 5",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP5206732",
+      "conceptCode": "OMOP5128000",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36409054,
-      "conceptName": "insulin degludec 200 UNT/ML Injectable Solution [Tresiba]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP3101096",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36405229,
-      "conceptName": "insulin degludec 200 UNT/ML Injectable Solution [Tresiba] Box of 3",
+      "conceptId": 2911251,
+      "conceptName": "insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Pen Injector [Xultophy] Box of 3",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP3097271",
+      "conceptCode": "OMOP5128001",
       "standardConcept": "S"
     },
     {
-      "conceptId": 35602732,
-      "conceptName": "insulin degludec 200 UNT/ML Pen Injector",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "1670024",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2911255,
-      "conceptName": "insulin degludec 200 UNT/ML Pen Injector Box of 3",
+      "conceptId": 2911252,
+      "conceptName": "insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Pen Injector Box of 5",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP5128005",
+      "conceptCode": "OMOP5128002",
       "standardConcept": "S"
     },
     {
-      "conceptId": 42963021,
-      "conceptName": "insulin degludec 200 UNT/ML Pen Injector [TRESIBA FLEXTOUCH]",
+      "conceptId": 2911253,
+      "conceptName": "insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Pen Injector Box of 3",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4689508",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35602733,
-      "conceptName": "insulin degludec 200 UNT/ML Pen Injector [Tresiba]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "1670025",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP5128003",
       "standardConcept": "S"
     },
     {
@@ -2045,12 +475,345 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 42479644,
-      "conceptName": "insulin degludec 200 UNT/ML Prefilled Syringe",
+      "conceptId": 2911255,
+      "conceptName": "insulin degludec 200 UNT/ML Pen Injector Box of 3",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP5128005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2911256,
+      "conceptName": "insulin degludec 100 UNT/ML Cartridge [Tresiba] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP5128006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2911257,
+      "conceptName": "insulin degludec 100 UNT/ML Cartridge [Tresiba]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP5128007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2911258,
+      "conceptName": "insulin degludec 100 UNT/ML Cartridge Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP5128008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2911259,
+      "conceptName": "insulin degludec 100 UNT/ML Cartridge",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP418991",
+      "conceptCode": "OMOP5128009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2911260,
+      "conceptName": "insulin degludec Cartridge [Tresiba]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP5128010",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2911261,
+      "conceptName": "insulin degludec Cartridge",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP5128011",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2911823,
+      "conceptName": "insulin aspart 30 IU/ML / insulin degludec 70 UNT/ML Cartridge [Ryzodeg] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP5128578",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2911824,
+      "conceptName": "insulin aspart 30 IU/ML / insulin degludec 70 UNT/ML Cartridge [Ryzodeg]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP5128579",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2911825,
+      "conceptName": "insulin aspart 30 IU/ML / insulin degludec 70 UNT/ML Cartridge Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP5128580",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2911826,
+      "conceptName": "insulin aspart 30 IU/ML / insulin degludec 70 UNT/ML Cartridge",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP5128581",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2911827,
+      "conceptName": "insulin aspart 30 IU/ML / insulin degludec 70 UNT/ML Pen Injector [Ryzodeg] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP5128582",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2911828,
+      "conceptName": "insulin aspart 30 IU/ML / insulin degludec 70 UNT/ML Pen Injector [Ryzodeg]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP5128583",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2911829,
+      "conceptName": "insulin aspart 30 IU/ML / insulin degludec 70 UNT/ML Pen Injector Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP5128584",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2911831,
+      "conceptName": "insulin aspart 30 IU/ML / insulin degludec 70 UNT/ML [Ryzodeg]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP5128586",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2911832,
+      "conceptName": "insulin aspart / insulin degludec Cartridge [Ryzodeg]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP5128587",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2911833,
+      "conceptName": "insulin aspart / insulin degludec Cartridge",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP5128588",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2911834,
+      "conceptName": "insulin aspart / insulin degludec Pen Injector [Ryzodeg]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP5128589",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21036596,
+      "conceptName": "insulin degludec / liraglutide Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP266115",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21038665,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Prefilled Syringe [Xultophy] Box of 3 by Novo Nordisk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP305835",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21038673,
+      "conceptName": "3 ML insulin degludec 200 UNT/ML Prefilled Syringe Box of 3",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP305951",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21046457,
+      "conceptName": "insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Prefilled Syringe [Xultophy]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP266121",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21048471,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Prefilled Syringe Box of 3",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP305830",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21058209,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Prefilled Syringe [Tresiba] by Novo Nordisk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP305944",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21058210,
+      "conceptName": "3 ML insulin degludec 200 UNT/ML Prefilled Syringe [Tresiba] by Novo Nordisk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP305954",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21068156,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP305829",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21068157,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Prefilled Syringe [Xultophy] Box of 5 by Novo Nordisk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP305837",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21075991,
+      "conceptName": "insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Prefilled Syringe Box of 3",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP266119",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21077980,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Prefilled Syringe [Xultophy] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP305836",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21077986,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Prefilled Syringe Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP305941",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21085714,
+      "conceptName": "insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Prefilled Syringe [Xultophy] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP266124",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21087728,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Prefilled Syringe [Xultophy] by Novo Nordisk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP305833",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21105336,
+      "conceptName": "insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Prefilled Syringe [Xultophy] Box of 3",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP266122",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21107380,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Prefilled Syringe [Xultophy]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP305832",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21134680,
+      "conceptName": "insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Prefilled Syringe Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP266120",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21136744,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Prefilled Syringe [Xultophy] Box of 3",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP305834",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21144564,
+      "conceptName": "insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP266118",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21145104,
+      "conceptName": "insulin degludec 100 UNT/ML Prefilled Syringe Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP275831",
       "standardConcept": "S"
     },
     {
@@ -2060,6 +823,924 @@
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Box",
       "conceptCode": "OMOP275838",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21174087,
+      "conceptName": "insulin degludec / liraglutide Prefilled Syringe [Xultophy]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP266116",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21176096,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Prefilled Syringe Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP305831",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35131117,
+      "conceptName": "insulin degludec 300 UNT [Tresiba]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4788362",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35134973,
+      "conceptName": "insulin degludec 300 UNT",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP4792172",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35142487,
+      "conceptName": "insulin degludec 300 UNT Prefilled Syringe [Tresiba]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4799598",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35147082,
+      "conceptName": "insulin degludec 300 UNT Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP4804157",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35160340,
+      "conceptName": "insulin aspart / insulin degludec Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP4817317",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35160909,
+      "conceptName": "insulin aspart / insulin degludec Prefilled Syringe [Ryzodeg]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP4817883",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35602717,
+      "conceptName": "insulin degludec",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Ingredient",
+      "conceptCode": "1670007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35602718,
+      "conceptName": "insulin degludec 100 UNT/ML",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "1670008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35602719,
+      "conceptName": "insulin degludec Pen Injector",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "1670010",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35602720,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Pen Injector",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "1670011",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35602722,
+      "conceptName": "insulin degludec 100 UNT/ML [Tresiba]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "1670013",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35602723,
+      "conceptName": "insulin degludec Pen Injector [Tresiba]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "1670014",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35602724,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Pen Injector [Tresiba]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "1670016",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35602725,
+      "conceptName": "insulin degludec 100 UNT/ML Pen Injector",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "1670017",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35602726,
+      "conceptName": "insulin degludec 100 UNT/ML Pen Injector [Tresiba]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "1670018",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35602728,
+      "conceptName": "insulin degludec 200 UNT/ML",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "1670020",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35602729,
+      "conceptName": "3 ML insulin degludec 200 UNT/ML Pen Injector",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "1670021",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35602730,
+      "conceptName": "insulin degludec 200 UNT/ML [Tresiba]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "1670022",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35602731,
+      "conceptName": "3 ML insulin degludec 200 UNT/ML Pen Injector [Tresiba]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "1670023",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35602732,
+      "conceptName": "insulin degludec 200 UNT/ML Pen Injector",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "1670024",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35602733,
+      "conceptName": "insulin degludec 200 UNT/ML Pen Injector [Tresiba]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "1670025",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35750010,
+      "conceptName": "insulin degludec 100 UNT/ML Injectable Suspension [Tresiba]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2751471",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35753702,
+      "conceptName": "insulin degludec Injectable Suspension [Tresiba]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP2755163",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35753931,
+      "conceptName": "insulin degludec 100 UNT/ML Injectable Suspension Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2755392",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35770957,
+      "conceptName": "insulin degludec 100 UNT/ML Injectable Suspension [Tresiba] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2772418",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35779369,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Injectable Suspension [Tresiba]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2780830",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35779430,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Injectable Suspension",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP2780891",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35779458,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Injectable Suspension [Tresiba] Box of 5 by Novo Nordisk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2780919",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35779600,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Injectable Suspension Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2781061",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35779631,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Injectable Suspension [Tresiba] by Novo Nordisk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2781092",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35779742,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Injectable Suspension [Tresiba] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2781203",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36055844,
+      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution [Tresiba] Box of 3 by DE",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4981232",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36055845,
+      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution [Tresiba] Box of 3 by CST",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4981233",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36055846,
+      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution [Tresiba] Box of 3 by Pharmaram",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4981234",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36055847,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Injectable Solution [Tresiba] Box of 5 by CST",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4981238",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36055848,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Injectable Solution [Tresiba] by CST",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4981239",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36073894,
+      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution [Tresiba] by DE",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4981235",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36073895,
+      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution [Tresiba] by CST",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4981236",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36073896,
+      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution [Tresiba] by Pharmaram",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4981237",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36248195,
+      "conceptName": "insulin degludec Injectable Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Dose Group",
+      "conceptCode": "1670009",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36248196,
+      "conceptName": "Tresiba Injectable Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Dose Group",
+      "conceptCode": "1670015",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36403504,
+      "conceptName": "insulin degludec 100 UNT/ML Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP3095546",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36403526,
+      "conceptName": "insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Injectable Solution Box of 3",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP3095568",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36404173,
+      "conceptName": "insulin degludec / liraglutide Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP3096215",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36404310,
+      "conceptName": "insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP3096352",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36405229,
+      "conceptName": "insulin degludec 200 UNT/ML Injectable Solution [Tresiba] Box of 3",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP3097271",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36405240,
+      "conceptName": "insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Injectable Solution [Xultophy] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP3097282",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36406016,
+      "conceptName": "insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Injectable Solution [Xultophy]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP3098058",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36407386,
+      "conceptName": "insulin degludec 200 UNT/ML Injectable Solution Box of 3",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP3099428",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36407566,
+      "conceptName": "insulin degludec 100 UNT/ML Injectable Solution [Tresiba] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP3099608",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36408050,
+      "conceptName": "insulin degludec / liraglutide Injectable Solution [Xultophy]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP3100092",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36408288,
+      "conceptName": "insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Injectable Solution [Xultophy] Box of 3",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP3100330",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36408864,
+      "conceptName": "insulin degludec 200 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP3100906",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36408883,
+      "conceptName": "insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP3100925",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36409054,
+      "conceptName": "insulin degludec 200 UNT/ML Injectable Solution [Tresiba]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP3101096",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36410254,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP3102296",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36410261,
+      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution [Tresiba]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP3102303",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36410273,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Injectable Solution Box of 3",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP3102315",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36410274,
+      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution [Tresiba] Box of 3",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP3102316",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36410275,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Injectable Solution [Tresiba] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP3102317",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36410280,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Injectable Solution [Xultophy] Box of 3 by Novo Nordisk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3102322",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36410282,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP3102324",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36410286,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Injectable Solution [Tresiba] Box of 5 by Novo Nordisk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3102328",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36410288,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Injectable Solution [Xultophy] Box of 5 by Novo Nordisk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3102330",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36410289,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Injectable Solution [Xultophy] by Novo Nordisk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3102331",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36410291,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP3102333",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36410293,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP3102335",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36410295,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Injectable Solution [Xultophy] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP3102337",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36410296,
+      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution [Tresiba] Box of 3 by Novo Nordisk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3102338",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36410297,
+      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution [Tresiba] by Novo Nordisk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3102339",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36410306,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Injectable Solution [Tresiba]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP3102348",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36410309,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Injectable Solution [Xultophy] Box of 3",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP3102351",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36410310,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Injectable Solution [Xultophy]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP3102352",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36410315,
+      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution Box of 3",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP3102357",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36410316,
+      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP3102358",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36410322,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Injectable Solution [Tresiba] by Novo Nordisk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3102364",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36921416,
+      "conceptName": "insulin degludec 100 UNT/ML Injectable Solution [TRESIBA FLEXTOUCH] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP5206730",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36922566,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Injectable Solution [TRESIBA FLEXTOUCH] Box of 5 by Novo Nordisk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5209581",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36922722,
+      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution [TRESIBA FLEXTOUCH] Box of 3 by Pharmaram",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5209590",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36926517,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Injectable Solution [TRESIBA FLEXTOUCH] by Novo Nordisk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5209579",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36927777,
+      "conceptName": "insulin degludec Injectable Solution [TRESIBA FLEXTOUCH]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP5206727",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36928005,
+      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution [TRESIBA FLEXTOUCH] by Novo Nordisk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5209586",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36930040,
+      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution [TRESIBA FLEXTOUCH] Box of 3",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP5209587",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36932615,
+      "conceptName": "insulin degludec 100 UNT/ML Injectable Solution [TRESIBA FLEXTOUCH]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP5206729",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36937276,
+      "conceptName": "insulin degludec 200 UNT/ML Injectable Solution [TRESIBA FLEXTOUCH] Box of 3",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP5206732",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36946852,
+      "conceptName": "insulin degludec 200 UNT/ML Injectable Solution [TRESIBA FLEXTOUCH]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP5206731",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36947421,
+      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution [TRESIBA FLEXTOUCH] by Pharmaram",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5209585",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36947458,
+      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution [TRESIBA FLEXTOUCH] Box of 3 by Novo Nordisk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5209591",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36952354,
+      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution [TRESIBA FLEXTOUCH] Box of 3 by CST",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5209588",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36955304,
+      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution [TRESIBA FLEXTOUCH]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP5209582",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36959476,
+      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution [TRESIBA FLEXTOUCH] Box of 3 by DE",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5209589",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36960312,
+      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution [TRESIBA FLEXTOUCH] by CST",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5209583",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36962982,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Injectable Solution [TRESIBA FLEXTOUCH]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP5209578",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36967097,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Injectable Solution [TRESIBA FLEXTOUCH] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP5209580",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36967983,
+      "conceptName": "3 ML insulin degludec 200 UNT/ML Injectable Solution [TRESIBA FLEXTOUCH] by DE",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5209584",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40835742,
+      "conceptName": "insulin degludec 100 UNT/ML Prefilled Syringe Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2033704",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40938250,
+      "conceptName": "insulin degludec 100 UNT/ML Prefilled Syringe [Tresiba] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2136212",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41000604,
+      "conceptName": "insulin degludec 100 UNT/ML Prefilled Syringe [Tresiba]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2198566",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41175527,
+      "conceptName": "insulin degludec Prefilled Syringe [Tresiba]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP2373489",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41188241,
+      "conceptName": "insulin degludec 100 UNT/ML Prefilled Syringe [Tresiba] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2386203",
       "standardConcept": "S"
     },
     {
@@ -2081,75 +1762,219 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 42963022,
-      "conceptName": "insulin degludec 200 UNT/ML [TRESIBA FLEXTOUCH]",
+      "conceptId": 41346894,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Prefilled Syringe [Tresiba] Box of 5",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4689509",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2544856",
       "standardConcept": "S"
     },
     {
-      "conceptId": 35602730,
-      "conceptName": "insulin degludec 200 UNT/ML [Tresiba]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "1670022",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35134973,
-      "conceptName": "insulin degludec 300 UNT",
+      "conceptId": 41346895,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Prefilled Syringe [Tresiba]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP4792172",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2544857",
       "standardConcept": "S"
     },
     {
-      "conceptId": 35147082,
-      "conceptName": "insulin degludec 300 UNT Prefilled Syringe",
+      "conceptId": 41347228,
+      "conceptName": "3 ML insulin degludec 200 UNT/ML Prefilled Syringe [Tresiba] Box of 3 by Novo Nordisk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2545190",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41347367,
+      "conceptName": "3 ML insulin degludec 200 UNT/ML Prefilled Syringe [Tresiba] Box of 3",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2545329",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41347449,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Prefilled Syringe [Tresiba] Box of 10 by Novo Nordisk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2545411",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41347699,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Prefilled Syringe [Tresiba] Box of 5 by Orifarm Leverkus",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2545661",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41348524,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Prefilled Syringe [Tresiba] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2546486",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41348868,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Prefilled Syringe [Tresiba] Box of 5 by Novo Nordisk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2546830",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41348996,
+      "conceptName": "3 ML insulin degludec 200 UNT/ML Prefilled Syringe [Tresiba]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2546958",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41349418,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Prefilled Syringe Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2547380",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42479035,
+      "conceptName": "3 ML insulin degludec 200 UNT/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP418992",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42479644,
+      "conceptName": "insulin degludec 200 UNT/ML Prefilled Syringe",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP4804157",
+      "conceptCode": "OMOP418991",
       "standardConcept": "S"
     },
     {
-      "conceptId": 35142487,
-      "conceptName": "insulin degludec 300 UNT Prefilled Syringe [Tresiba]",
+      "conceptId": 42480210,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Prefilled Syringe",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4799598",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP418994",
       "standardConcept": "S"
     },
     {
-      "conceptId": 35131117,
-      "conceptName": "insulin degludec 300 UNT [Tresiba]",
+      "conceptId": 42481395,
+      "conceptName": "insulin degludec Prefilled Syringe",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4788362",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP418990",
       "standardConcept": "S"
     },
     {
-      "conceptId": 44039939,
-      "conceptName": "insulin degludec 6 X",
+      "conceptId": 42482554,
+      "conceptName": "insulin degludec 100 UNT/ML Prefilled Syringe",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP1034570",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP418993",
       "standardConcept": "S"
     },
     {
-      "conceptId": 793405,
-      "conceptName": "insulin degludec 70 UNT/ML",
-      "vocabularyId": "RxNorm",
+      "conceptId": 42656214,
+      "conceptName": "insulin degludec 100 UNT/ML Pen Injector Box of 5",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "1994307",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP4867789",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42656215,
+      "conceptName": "insulin degludec 100 UNT/ML Pen Injector [Tresiba] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP4867790",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42658234,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Pen Injector Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP4869798",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42658235,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Pen Injector [Tresiba] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP4869799",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42658236,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Pen Injector [Tresiba] Box of 5 by Novo Nordisk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4869800",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42921712,
+      "conceptName": "3 ML insulin degludec 70 UNT/ML / Insulin, Aspart, Human 30 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP4648536",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42921713,
+      "conceptName": "3 ML insulin degludec 70 UNT/ML / Insulin, Aspart, Human 30 UNT/ML Injectable Solution [RYZODEG FLEX TOUCH]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP4648537",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42921714,
+      "conceptName": "3 ML insulin degludec 200 UNT/ML Pen Injector [TRESIBA FLEXTOUCH]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP4648538",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42921716,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Pen Injector [TRESIBA FLEXTOUCH]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP4648539",
       "standardConcept": "S"
     },
     {
@@ -2180,102 +2005,57 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 42615098,
-      "conceptName": "insulin degludec Cartridge",
+      "conceptId": 42963019,
+      "conceptName": "insulin degludec / Insulin, Aspart, Human Injectable Solution",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP5160181",
+      "conceptCode": "OMOP4689506",
       "standardConcept": "S"
     },
     {
-      "conceptId": 2911261,
-      "conceptName": "insulin degludec Cartridge",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP5128011",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42615099,
-      "conceptName": "insulin degludec Cartridge [Tresiba]",
+      "conceptId": 42963020,
+      "conceptName": "insulin degludec / Insulin, Aspart, Human Injectable Solution [RYZODEG FLEX TOUCH]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP5160182",
+      "conceptCode": "OMOP4689507",
       "standardConcept": "S"
     },
     {
-      "conceptId": 2911260,
-      "conceptName": "insulin degludec Cartridge [Tresiba]",
+      "conceptId": 42963021,
+      "conceptName": "insulin degludec 200 UNT/ML Pen Injector [TRESIBA FLEXTOUCH]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP5128010",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4689508",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36248195,
-      "conceptName": "insulin degludec Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1670009",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 1356056,
-      "conceptName": "insulin degludec Injectable Solution",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "2107519",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36927777,
-      "conceptName": "insulin degludec Injectable Solution [TRESIBA FLEXTOUCH]",
+      "conceptId": 42963022,
+      "conceptName": "insulin degludec 200 UNT/ML [TRESIBA FLEXTOUCH]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP5206727",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4689509",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1356058,
-      "conceptName": "insulin degludec Injectable Solution [Tresiba]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "2107521",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44068834,
-      "conceptName": "insulin degludec Injectable Suspension",
+      "conceptId": 42963023,
+      "conceptName": "insulin degludec 100 UNT/ML Pen Injector [TRESIBA FLEXTOUCH]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP1063465",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4689510",
       "standardConcept": "S"
     },
     {
-      "conceptId": 35753702,
-      "conceptName": "insulin degludec Injectable Suspension [Tresiba]",
+      "conceptId": 42963024,
+      "conceptName": "insulin degludec 100 UNT/ML [TRESIBA FLEXTOUCH]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP2755163",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35602719,
-      "conceptName": "insulin degludec Pen Injector",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "1670010",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4689511",
       "standardConcept": "S"
     },
     {
@@ -2288,30 +2068,147 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 35602723,
-      "conceptName": "insulin degludec Pen Injector [Tresiba]",
-      "vocabularyId": "RxNorm",
+      "conceptId": 44037201,
+      "conceptName": "insulin degludec 100 UNT/ML Injectable Suspension by Lilly",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "1670014",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP1031832",
       "standardConcept": "S"
     },
     {
-      "conceptId": 42481395,
-      "conceptName": "insulin degludec Prefilled Syringe",
+      "conceptId": 44039939,
+      "conceptName": "insulin degludec 6 X",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP1034570",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44043339,
+      "conceptName": "Areca Catechu / Barberry Extract / Burdock root extract / calcium sulfide / Cascara sagrada / Glycyrrhiza glabra extract / insulin degludec / magnesium phosphate / Manganese / Oyster shell calcium carbonate preparation / ... Oral Solution",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP418990",
+      "conceptCode": "OMOP1037970",
       "standardConcept": "S"
     },
     {
-      "conceptId": 41175527,
-      "conceptName": "insulin degludec Prefilled Syringe [Tresiba]",
+      "conceptId": 44061543,
+      "conceptName": "Areca Catechu 1 X / Barberry Extract 3 X / Burdock root extract 3 X / calcium sulfide 30 X / Cascara sagrada 3 X / Glycyrrhiza glabra extract 3 X / insulin degludec 6 X / magnesium phosphate 12 X / Manganese 10 X / ... Oral Solution [Mtb-Tox]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP1056174",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44064886,
+      "conceptName": "Areca Catechu 1 X / Barberry Extract 3 X / Burdock root extract 3 X / calcium sulfide 30 X / Cascara sagrada 3 X / Glycyrrhiza glabra extract 3 X / insulin degludec 6 X / magnesium phosphate 12 X / ... Oral Solution [Mtb-Tox] by Bio Active",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP1059517",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44068402,
+      "conceptName": "Areca Catechu 1 X / Barberry Extract 3 X / Burdock root extract 3 X / calcium sulfide 30 X / Cascara sagrada 3 X / Glycyrrhiza glabra extract 3 X / insulin degludec 6 X / magnesium phosphate 12 X / Manganese 10 X / ... [Mtb-Tox]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP1063033",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44068834,
+      "conceptName": "insulin degludec Injectable Suspension",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP1063465",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44083575,
+      "conceptName": "Areca Catechu / Barberry Extract / Burdock root extract / calcium sulfide / Cascara sagrada / Glycyrrhiza glabra extract / insulin degludec / magnesium phosphate / Manganese / Oyster shell calcium carbonate preparation / ... Oral Solution [Mtb-Tox]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP2373489",
+      "conceptCode": "OMOP1078206",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44097224,
+      "conceptName": "insulin degludec 100 UNT/ML Injectable Suspension",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP1091855",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44124065,
+      "conceptName": "Areca Catechu 1 X / Barberry Extract 3 X / Burdock root extract 3 X / calcium sulfide 30 X / Cascara sagrada 3 X / Glycyrrhiza glabra extract 3 X / insulin degludec 6 X / magnesium phosphate 12 X / Manganese 10 X / ... Oral Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP1118696",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44162257,
+      "conceptName": "insulin degludec 100 UNT/ML Injectable Suspension [Tresiba] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP3038980",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44172552,
+      "conceptName": "insulin degludec 100 UNT/ML Injectable Suspension Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP3049275",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44191100,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Injectable Suspension [Tresiba] Box of 10 by Novo Nordisk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3067823",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44191138,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Injectable Suspension [Tresiba] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP3067861",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44191345,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML / liraglutide 3.6 MG/ML Prefilled Syringe Box of 5 by Novo Nordisk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3068068",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44191432,
+      "conceptName": "3 ML insulin degludec 100 UNT/ML Injectable Suspension Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP3068155",
       "standardConcept": "S"
     }
   ]

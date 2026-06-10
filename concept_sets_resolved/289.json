@@ -1,13 +1,44 @@
 {
   "conceptSetId": 289,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
     {
-      "conceptId": 37208165,
-      "conceptName": "Consultation for suicide risk management",
+      "conceptId": 764768,
+      "conceptName": "Pharmacokinetic consultation",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Procedure",
-      "conceptCode": "461231000124109",
+      "conceptCode": "6051000124107",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 764769,
+      "conceptName": "Risk evaluation and mitigation strategy consultation",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Procedure",
+      "conceptCode": "6061000124109",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4027135,
+      "conceptName": "Subsequent hospital visit by physician",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Procedure",
+      "conceptCode": "12843005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4089048,
+      "conceptName": "New patient consultation",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Procedure",
+      "conceptCode": "185387006",
       "standardConcept": "S"
     },
     {
@@ -38,39 +69,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4089048,
-      "conceptName": "New patient consultation",
+      "conceptId": 37208165,
+      "conceptName": "Consultation for suicide risk management",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Procedure",
-      "conceptCode": "185387006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 764768,
-      "conceptName": "Pharmacokinetic consultation",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Procedure",
-      "conceptCode": "6051000124107",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 764769,
-      "conceptName": "Risk evaluation and mitigation strategy consultation",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Procedure",
-      "conceptCode": "6061000124109",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4027135,
-      "conceptName": "Subsequent hospital visit by physician",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Procedure",
-      "conceptCode": "12843005",
+      "conceptCode": "461231000124109",
       "standardConcept": "S"
     },
     {

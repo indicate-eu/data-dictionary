@@ -1,177 +1,11 @@
 {
   "conceptSetId": 69,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "RxNorm": "RxNorm 20260105",
+    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+  },
   "resolvedConcepts": [
-    {
-      "conceptId": 36277673,
-      "conceptName": "1 ML Aztreonam 75 MG/ML Inhalant Powder",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP3128548",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36277730,
-      "conceptName": "1 ML Aztreonam 75 MG/ML Inhalant Powder Box of 84",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP3128605",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36277804,
-      "conceptName": "1 ML Aztreonam 75 MG/ML Inhalant Powder [Cayston]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP3128679",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36277858,
-      "conceptName": "1 ML Aztreonam 75 MG/ML Inhalant Powder [Cayston] Box of 84",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP3128733",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36277762,
-      "conceptName": "1 ML Aztreonam 75 MG/ML Inhalant Powder [Cayston] Box of 84 by Gilead",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3128637",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41364476,
-      "conceptName": "10 ML Aztreonam 100 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP2562438",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41363028,
-      "conceptName": "10 ML Aztreonam 100 MG/ML Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2560990",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41368994,
-      "conceptName": "10 ML Aztreonam 100 MG/ML Injectable Solution Box of 500",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2566956",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41366319,
-      "conceptName": "10 ML Aztreonam 100 MG/ML Injectable Solution [Dynabiotic]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2564281",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 589978,
-      "conceptName": "10 ML Aztreonam 100 MG/ML Injection",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP3136697",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 588658,
-      "conceptName": "10 ML Aztreonam 100 MG/ML Injection Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP3137293",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 590280,
-      "conceptName": "10 ML Aztreonam 100 MG/ML Injection Box of 500",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP3135413",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41369391,
-      "conceptName": "10 ML Aztreonam 100 MG/ML Injection [Azactam]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2567353",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41365567,
-      "conceptName": "10 ML Aztreonam 100 MG/ML Injection [Azactam] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2563529",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41364110,
-      "conceptName": "10 ML Aztreonam 100 MG/ML Injection [Azactam] Box of 500",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2562072",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41369773,
-      "conceptName": "10 ML Aztreonam 200 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP2567735",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41368995,
-      "conceptName": "10 ML Aztreonam 200 MG/ML Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2566957",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41362280,
-      "conceptName": "10 ML Aztreonam 200 MG/ML Injectable Solution Box of 500",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2560242",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41364823,
-      "conceptName": "10 ML Aztreonam 200 MG/ML Injectable Solution [Dynabiotic]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2562785",
-      "standardConcept": "S"
-    },
     {
       "conceptId": 586615,
       "conceptName": "10 ML Aztreonam 200 MG/ML Injection",
@@ -179,303 +13,6 @@
       "domainId": "Drug",
       "conceptClassId": "Quant Clinical Drug",
       "conceptCode": "OMOP3137833",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 588664,
-      "conceptName": "10 ML Aztreonam 200 MG/ML Injection Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP3137141",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 588025,
-      "conceptName": "10 ML Aztreonam 200 MG/ML Injection Box of 500",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP3138552",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41373157,
-      "conceptName": "10 ML Aztreonam 200 MG/ML Injection [Azactam]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2571119",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41367092,
-      "conceptName": "10 ML Aztreonam 200 MG/ML Injection [Azactam] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2565054",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41370123,
-      "conceptName": "10 ML Aztreonam 200 MG/ML Injection [Azactam] Box of 500",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2568085",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41371267,
-      "conceptName": "10 ML Aztreonam 50 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP2569229",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41365206,
-      "conceptName": "10 ML Aztreonam 50 MG/ML Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2563168",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41371266,
-      "conceptName": "10 ML Aztreonam 50 MG/ML Injectable Solution Box of 500",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2569228",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41362638,
-      "conceptName": "10 ML Aztreonam 50 MG/ML Injectable Solution [Dynabiotic]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2560600",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 589462,
-      "conceptName": "10 ML Aztreonam 50 MG/ML Injection",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP3137025",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 589177,
-      "conceptName": "10 ML Aztreonam 50 MG/ML Injection Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP3137210",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 590465,
-      "conceptName": "10 ML Aztreonam 50 MG/ML Injection Box of 500",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP3135800",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41368586,
-      "conceptName": "10 ML Aztreonam 50 MG/ML Injection [Azactam]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2566548",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41364822,
-      "conceptName": "10 ML Aztreonam 50 MG/ML Injection [Azactam] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2562784",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41364109,
-      "conceptName": "10 ML Aztreonam 50 MG/ML Injection [Azactam] Box of 500",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2562071",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41425266,
-      "conceptName": "100 ML Aztreonam 20 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP2623228",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41415821,
-      "conceptName": "100 ML Aztreonam 20 MG/ML Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2613783",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41422710,
-      "conceptName": "100 ML Aztreonam 20 MG/ML Injectable Solution Box of 500",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2620672",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41421816,
-      "conceptName": "100 ML Aztreonam 20 MG/ML Injectable Suspension",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP2619778",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41424816,
-      "conceptName": "100 ML Aztreonam 20 MG/ML Injectable Suspension [Dynabiotic]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2622778",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 589810,
-      "conceptName": "100 ML Aztreonam 20 MG/ML Injection",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP3136692",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 588914,
-      "conceptName": "100 ML Aztreonam 20 MG/ML Injection Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP3136144",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 587970,
-      "conceptName": "100 ML Aztreonam 20 MG/ML Injection Box of 500",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP3137507",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41420541,
-      "conceptName": "100 ML Aztreonam 20 MG/ML Injection [Azactam]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2618503",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41423136,
-      "conceptName": "100 ML Aztreonam 20 MG/ML Injection [Azactam] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2621098",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41423135,
-      "conceptName": "100 ML Aztreonam 20 MG/ML Injection [Azactam] Box of 500",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2621097",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36231089,
-      "conceptName": "Azactam Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1176315",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 41233485,
-      "conceptName": "Aztreonam 100 MG/ML",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP2431447",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41024877,
-      "conceptName": "Aztreonam 100 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP2222839",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40900219,
-      "conceptName": "Aztreonam 100 MG/ML Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2098181",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40900218,
-      "conceptName": "Aztreonam 100 MG/ML Injectable Solution Box of 500",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2098180",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41317705,
-      "conceptName": "Aztreonam 100 MG/ML Injectable Solution [Dynabiotic]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2515667",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 588404,
-      "conceptName": "Aztreonam 100 MG/ML Injection",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP3135793",
       "standardConcept": "S"
     },
     {
@@ -488,156 +25,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 588560,
-      "conceptName": "Aztreonam 100 MG/ML Injection Box of 500",
+      "conceptId": 587015,
+      "conceptName": "Aztreonam 2000 MG Injection Box of 5",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP3137345",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41255367,
-      "conceptName": "Aztreonam 100 MG/ML Injection [Azactam]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2453329",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40849764,
-      "conceptName": "Aztreonam 100 MG/ML Injection [Azactam] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2047726",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41005622,
-      "conceptName": "Aztreonam 100 MG/ML Injection [Azactam] Box of 500",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2203584",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41266816,
-      "conceptName": "Aztreonam 100 MG/ML [Azactam]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP2464778",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41235901,
-      "conceptName": "Aztreonam 100 MG/ML [Dynabiotic]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP2433863",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41274659,
-      "conceptName": "Aztreonam 1000 MG Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP2472621",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35749823,
-      "conceptName": "Aztreonam 1000 MG Injectable Solution Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2751284",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40869147,
-      "conceptName": "Aztreonam 1000 MG Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2067109",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40962621,
-      "conceptName": "Aztreonam 1000 MG Injectable Solution Box of 500",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2160583",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40740530,
-      "conceptName": "Aztreonam 1000 MG Injectable Solution [Azactam]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4716557",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40740528,
-      "conceptName": "Aztreonam 1000 MG Injectable Solution [Azactam] Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP4716559",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40740527,
-      "conceptName": "Aztreonam 1000 MG Injectable Solution [Azactam] Box of 1 by Bristol Myers Squibb",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4716560",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40740529,
-      "conceptName": "Aztreonam 1000 MG Injectable Solution [Azactam] by Bristol Myers Squibb",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4716558",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43028563,
-      "conceptName": "Aztreonam 1000 MG Injectable Solution [Azactam] by Sanofi",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4843645",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41005621,
-      "conceptName": "Aztreonam 1000 MG Injectable Solution [Dynabiotic]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2203583",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21132854,
-      "conceptName": "Aztreonam 1000 MG Injection Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP398533",
+      "conceptCode": "OMOP3137623",
       "standardConcept": "S"
     },
     {
@@ -650,453 +43,30 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 590156,
-      "conceptName": "Aztreonam 1000 MG Injection Box of 500",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP3136435",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21034782,
-      "conceptName": "Aztreonam 1000 MG Injection [Azactam] Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP398535",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21083920,
-      "conceptName": "Aztreonam 1000 MG Injection [Azactam] Box of 1 by Bristol Myers Squibb",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP398536",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41317707,
-      "conceptName": "Aztreonam 1000 MG Injection [Azactam] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2515669",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41293515,
-      "conceptName": "Aztreonam 1000 MG Injection [Azactam] Box of 5 by Emra-Med",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2491477",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41255368,
-      "conceptName": "Aztreonam 1000 MG Injection [Azactam] Box of 500",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2453330",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21083919,
-      "conceptName": "Aztreonam 1000 MG Injection [Azactam] by Bristol Myers Squibb",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP398534",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42952536,
-      "conceptName": "Aztreonam 1000 MG Injection [MEZACTAM]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4679098",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36892879,
-      "conceptName": "Aztreonam 1000 MG Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP997567",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36885991,
-      "conceptName": "Aztreonam 1000 MG Prefilled Syringe Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP1004809",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36886126,
-      "conceptName": "Aztreonam 1000 MG Prefilled Syringe [Azactam]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP999257",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36892008,
-      "conceptName": "Aztreonam 1000 MG Prefilled Syringe [Azactam] Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP992006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43151291,
-      "conceptName": "Aztreonam 1000 MG Prefilled Syringe [Azactam] Box of 1 by Sanofi",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP496192",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43028564,
-      "conceptName": "Aztreonam 1000 MG Prefilled Syringe [Azactam] by Sanofi",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4843646",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40923422,
-      "conceptName": "Aztreonam 1000 MG [Dynabiotic]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP2121384",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42952537,
-      "conceptName": "Aztreonam 1000 MG [MEZACTAM]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4679099",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41171025,
-      "conceptName": "Aztreonam 120 MG",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP2368987",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41118896,
-      "conceptName": "Aztreonam 120 MG Inhalant Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP2316858",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41118895,
-      "conceptName": "Aztreonam 120 MG Inhalant Solution Box of 84",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2316857",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41317706,
-      "conceptName": "Aztreonam 120 MG Inhalant Solution [Cayston]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2515668",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40849765,
-      "conceptName": "Aztreonam 120 MG Inhalant Solution [Cayston] Box of 84",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2047727",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40950234,
-      "conceptName": "Aztreonam 120 MG Inhalant Solution [Cayston] Box of 84 by Gilead",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2148196",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41079576,
-      "conceptName": "Aztreonam 120 MG [Cayston]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP2277538",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41233484,
-      "conceptName": "Aztreonam 122 MG",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP2431446",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40869145,
-      "conceptName": "Aztreonam 122 MG Inhalant Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP2067107",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41150400,
-      "conceptName": "Aztreonam 122 MG Inhalant Solution Box of 84",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2348362",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41286376,
-      "conceptName": "Aztreonam 122 MG Inhalant Solution [Cayston]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2484338",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41099400,
-      "conceptName": "Aztreonam 122 MG Inhalant Solution [Cayston] Box of 84",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2297362",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41235900,
-      "conceptName": "Aztreonam 122 MG [Cayston]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP2433862",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41202467,
-      "conceptName": "Aztreonam 20 MG/ML",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP2400429",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41212827,
-      "conceptName": "Aztreonam 20 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP2410789",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41243809,
-      "conceptName": "Aztreonam 20 MG/ML Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2441771",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40962620,
-      "conceptName": "Aztreonam 20 MG/ML Injectable Solution Box of 500",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2160582",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40869146,
-      "conceptName": "Aztreonam 20 MG/ML Injectable Suspension",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP2067108",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41099401,
-      "conceptName": "Aztreonam 20 MG/ML Injectable Suspension [Dynabiotic]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2297363",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 589375,
-      "conceptName": "Aztreonam 20 MG/ML Injection",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP3137736",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 590240,
-      "conceptName": "Aztreonam 20 MG/ML Injection Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP3138905",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 588435,
-      "conceptName": "Aztreonam 20 MG/ML Injection Box of 500",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP3138186",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41162132,
-      "conceptName": "Aztreonam 20 MG/ML Injection [Azactam]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2360094",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41067921,
-      "conceptName": "Aztreonam 20 MG/ML Injection [Azactam] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2265883",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40912031,
-      "conceptName": "Aztreonam 20 MG/ML Injection [Azactam] Box of 500",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2109993",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40954658,
-      "conceptName": "Aztreonam 20 MG/ML [Azactam]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP2152620",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41204977,
-      "conceptName": "Aztreonam 20 MG/ML [Dynabiotic]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP2402939",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41139861,
-      "conceptName": "Aztreonam 200 MG/ML",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP2337823",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41274658,
-      "conceptName": "Aztreonam 200 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP2472620",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40900220,
-      "conceptName": "Aztreonam 200 MG/ML Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2098182",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40993871,
-      "conceptName": "Aztreonam 200 MG/ML Injectable Solution Box of 500",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2191833",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41067922,
-      "conceptName": "Aztreonam 200 MG/ML Injectable Solution [Dynabiotic]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2265884",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 588238,
-      "conceptName": "Aztreonam 200 MG/ML Injection",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP3135682",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 587671,
       "conceptName": "Aztreonam 200 MG/ML Injection Box of 5",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Box",
       "conceptCode": "OMOP3135473",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 587970,
+      "conceptName": "100 ML Aztreonam 20 MG/ML Injection Box of 500",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP3137507",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 588025,
+      "conceptName": "10 ML Aztreonam 200 MG/ML Injection Box of 500",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP3138552",
       "standardConcept": "S"
     },
     {
@@ -1109,165 +79,66 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 40912032,
-      "conceptName": "Aztreonam 200 MG/ML Injection [Azactam]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2109994",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41224350,
-      "conceptName": "Aztreonam 200 MG/ML Injection [Azactam] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2422312",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41162133,
-      "conceptName": "Aztreonam 200 MG/ML Injection [Azactam] Box of 500",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2360095",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40861143,
-      "conceptName": "Aztreonam 200 MG/ML [Azactam]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP2059105",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41266817,
-      "conceptName": "Aztreonam 200 MG/ML [Dynabiotic]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP2464779",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41118894,
-      "conceptName": "Aztreonam 2000 MG Injectable Solution",
+      "conceptId": 588238,
+      "conceptName": "Aztreonam 200 MG/ML Injection",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP2316856",
+      "conceptCode": "OMOP3135682",
       "standardConcept": "S"
     },
     {
-      "conceptId": 35749824,
-      "conceptName": "Aztreonam 2000 MG Injectable Solution Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2751285",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41024875,
-      "conceptName": "Aztreonam 2000 MG Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2222837",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41024874,
-      "conceptName": "Aztreonam 2000 MG Injectable Solution Box of 500",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2222836",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40740526,
-      "conceptName": "Aztreonam 2000 MG Injectable Solution [Azactam]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4716561",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40740524,
-      "conceptName": "Aztreonam 2000 MG Injectable Solution [Azactam] Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP4716563",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40740523,
-      "conceptName": "Aztreonam 2000 MG Injectable Solution [Azactam] Box of 1 by Bristol Myers Squibb",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4716564",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40740525,
-      "conceptName": "Aztreonam 2000 MG Injectable Solution [Azactam] by Bristol Myers Squibb",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4716562",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41193329,
-      "conceptName": "Aztreonam 2000 MG Injectable Solution [Dynabiotic]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2391291",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41056135,
-      "conceptName": "Aztreonam 2000 MG Injectable Suspension",
+      "conceptId": 588404,
+      "conceptName": "Aztreonam 100 MG/ML Injection",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP2254097",
+      "conceptCode": "OMOP3135793",
       "standardConcept": "S"
     },
     {
-      "conceptId": 40880983,
-      "conceptName": "Aztreonam 2000 MG Injectable Suspension [Dynabiotic]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2078945",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21142792,
-      "conceptName": "Aztreonam 2000 MG Injection Box of 1",
+      "conceptId": 588435,
+      "conceptName": "Aztreonam 20 MG/ML Injection Box of 500",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP398509",
+      "conceptCode": "OMOP3138186",
       "standardConcept": "S"
     },
     {
-      "conceptId": 587015,
-      "conceptName": "Aztreonam 2000 MG Injection Box of 5",
+      "conceptId": 588560,
+      "conceptName": "Aztreonam 100 MG/ML Injection Box of 500",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP3137623",
+      "conceptCode": "OMOP3137345",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 588658,
+      "conceptName": "10 ML Aztreonam 100 MG/ML Injection Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP3137293",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 588664,
+      "conceptName": "10 ML Aztreonam 200 MG/ML Injection Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP3137141",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 588914,
+      "conceptName": "100 ML Aztreonam 20 MG/ML Injection Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP3136144",
       "standardConcept": "S"
     },
     {
@@ -1280,120 +151,39 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 21132852,
-      "conceptName": "Aztreonam 2000 MG Injection [Azactam] Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP398512",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21172299,
-      "conceptName": "Aztreonam 2000 MG Injection [Azactam] Box of 1 by Bristol Myers Squibb",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP398513",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40912029,
-      "conceptName": "Aztreonam 2000 MG Injection [Azactam] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2109991",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40849763,
-      "conceptName": "Aztreonam 2000 MG Injection [Azactam] Box of 500",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2047725",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21093664,
-      "conceptName": "Aztreonam 2000 MG Injection [Azactam] by Bristol Myers Squibb",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP398510",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41235899,
-      "conceptName": "Aztreonam 2000 MG [Dynabiotic]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP2433861",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41108497,
-      "conceptName": "Aztreonam 50 MG/ML",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP2306459",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41056134,
-      "conceptName": "Aztreonam 50 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP2254096",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40962619,
-      "conceptName": "Aztreonam 50 MG/ML Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2160581",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41274655,
-      "conceptName": "Aztreonam 50 MG/ML Injectable Solution Box of 500",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2472617",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41099399,
-      "conceptName": "Aztreonam 50 MG/ML Injectable Solution [Dynabiotic]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2297361",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 590393,
-      "conceptName": "Aztreonam 50 MG/ML Injection",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP3137148",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 588958,
       "conceptName": "Aztreonam 50 MG/ML Injection Box of 5",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Box",
       "conceptCode": "OMOP3135400",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 589177,
+      "conceptName": "10 ML Aztreonam 50 MG/ML Injection Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP3137210",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 589375,
+      "conceptName": "Aztreonam 20 MG/ML Injection",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP3137736",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 589462,
+      "conceptName": "10 ML Aztreonam 50 MG/ML Injection",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP3137025",
       "standardConcept": "S"
     },
     {
@@ -1406,147 +196,21 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 40912030,
-      "conceptName": "Aztreonam 50 MG/ML Injection [Azactam]",
+      "conceptId": 589810,
+      "conceptName": "100 ML Aztreonam 20 MG/ML Injection",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2109992",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP3136692",
       "standardConcept": "S"
     },
     {
-      "conceptId": 40880982,
-      "conceptName": "Aztreonam 50 MG/ML Injection [Azactam] Box of 5",
+      "conceptId": 589978,
+      "conceptName": "10 ML Aztreonam 100 MG/ML Injection",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2078944",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40943284,
-      "conceptName": "Aztreonam 50 MG/ML Injection [Azactam] Box of 500",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2141246",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40923421,
-      "conceptName": "Aztreonam 50 MG/ML [Azactam]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP2121383",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40861141,
-      "conceptName": "Aztreonam 50 MG/ML [Dynabiotic]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP2059103",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21093665,
-      "conceptName": "Aztreonam 500 MG",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP398514",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41274657,
-      "conceptName": "Aztreonam 500 MG Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP2472619",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41024876,
-      "conceptName": "Aztreonam 500 MG Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2222838",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41274656,
-      "conceptName": "Aztreonam 500 MG Injectable Solution Box of 500",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2472618",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40740534,
-      "conceptName": "Aztreonam 500 MG Injectable Solution [Azactam]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4716553",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40740532,
-      "conceptName": "Aztreonam 500 MG Injectable Solution [Azactam] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP4716555",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40740531,
-      "conceptName": "Aztreonam 500 MG Injectable Solution [Azactam] Box of 5 by Bristol Myers Squibb",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4716556",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40740533,
-      "conceptName": "Aztreonam 500 MG Injectable Solution [Azactam] by Bristol Myers Squibb",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4716554",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41067920,
-      "conceptName": "Aztreonam 500 MG Injectable Solution [Dynabiotic]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2265882",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21172300,
-      "conceptName": "Aztreonam 500 MG Injection",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP398516",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21093667,
-      "conceptName": "Aztreonam 500 MG Injection Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP398517",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP3136697",
       "standardConcept": "S"
     },
     {
@@ -1559,382 +223,139 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 21162572,
-      "conceptName": "Aztreonam 500 MG Injection [Azactam]",
+      "conceptId": 590156,
+      "conceptName": "Aztreonam 1000 MG Injection Box of 500",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP398518",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP3136435",
       "standardConcept": "S"
     },
     {
-      "conceptId": 21172301,
-      "conceptName": "Aztreonam 500 MG Injection [Azactam] Box of 5",
+      "conceptId": 590240,
+      "conceptName": "Aztreonam 20 MG/ML Injection Box of 5",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP398520",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP3138905",
       "standardConcept": "S"
     },
     {
-      "conceptId": 21034781,
-      "conceptName": "Aztreonam 500 MG Injection [Azactam] Box of 5 by Bristol Myers Squibb",
+      "conceptId": 590280,
+      "conceptName": "10 ML Aztreonam 100 MG/ML Injection Box of 500",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP398521",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP3135413",
       "standardConcept": "S"
     },
     {
-      "conceptId": 41162131,
-      "conceptName": "Aztreonam 500 MG Injection [Azactam] Box of 500",
+      "conceptId": 590393,
+      "conceptName": "Aztreonam 50 MG/ML Injection",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2360093",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP3137148",
       "standardConcept": "S"
     },
     {
-      "conceptId": 21064309,
-      "conceptName": "Aztreonam 500 MG Injection [Azactam] by Bristol Myers Squibb",
+      "conceptId": 590465,
+      "conceptName": "10 ML Aztreonam 50 MG/ML Injection Box of 500",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP398519",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP3135800",
       "standardConcept": "S"
     },
     {
-      "conceptId": 42952534,
-      "conceptName": "Aztreonam 500 MG Injection [MEZACTAM]",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 1356134,
+      "conceptName": "aztreonam Inhalation Solution",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4679096",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "2108283",
       "standardConcept": "S"
     },
     {
-      "conceptId": 21093666,
-      "conceptName": "Aztreonam 500 MG [Azactam]",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 1356135,
+      "conceptName": "aztreonam Inhalation Solution [Cayston]",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP398515",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "2108285",
       "standardConcept": "S"
     },
     {
-      "conceptId": 40861142,
-      "conceptName": "Aztreonam 500 MG [Dynabiotic]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP2059104",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42952535,
-      "conceptName": "Aztreonam 500 MG [MEZACTAM]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4679097",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21142793,
-      "conceptName": "Aztreonam 75 MG",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 1465397,
+      "conceptName": "aztreonam 1500 MG",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP398524",
+      "conceptCode": "2705351",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36891867,
-      "conceptName": "Aztreonam 75 MG Dry Powder Inhaler",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 1465399,
+      "conceptName": "avibactam / aztreonam Injectable Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Dose Group",
+      "conceptCode": "2705353",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 1465400,
+      "conceptName": "avibactam / aztreonam Injection",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "2705354",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1465401,
+      "conceptName": "avibactam 500 MG / aztreonam 1500 MG Injection",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP989625",
+      "conceptCode": "2705355",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36881194,
-      "conceptName": "Aztreonam 75 MG Dry Powder Inhaler Box of 84",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP995190",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36888052,
-      "conceptName": "Aztreonam 75 MG Dry Powder Inhaler [Cayston]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP1004720",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36882274,
-      "conceptName": "Aztreonam 75 MG Dry Powder Inhaler [Cayston] Box of 84",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP999057",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43195334,
-      "conceptName": "Aztreonam 75 MG Dry Powder Inhaler [Cayston] Box of 84 by Gilead",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP496193",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21132853,
-      "conceptName": "Aztreonam 75 MG Inhalant Powder",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP398526",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21025057,
-      "conceptName": "Aztreonam 75 MG Inhalant Powder Box of 84",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP398527",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21152670,
-      "conceptName": "Aztreonam 75 MG Inhalant Powder [Cayston]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP398528",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21103570,
-      "conceptName": "Aztreonam 75 MG Inhalant Powder [Cayston] Box of 84",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP398530",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21054450,
-      "conceptName": "Aztreonam 75 MG Inhalant Powder [Cayston] Box of 84 by Gilead",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP398531",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21162573,
-      "conceptName": "Aztreonam 75 MG Inhalant Powder [Cayston] by Gilead",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP398529",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21054449,
-      "conceptName": "Aztreonam 75 MG [Cayston]",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 1465403,
+      "conceptName": "avibactam 500 MG / aztreonam 1500 MG [Emblaveo]",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP398525",
+      "conceptCode": "2705357",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36508702,
-      "conceptName": "Aztreonam 75 MG/ML Dry Powder Inhaler",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP4835393",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36505345,
-      "conceptName": "Aztreonam 75 MG/ML Dry Powder Inhaler [Cayston]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4836066",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36507024,
-      "conceptName": "Aztreonam 75 MG/ML Dry Powder Inhaler [Cayston] by Axicorp",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4835822",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36267509,
-      "conceptName": "Aztreonam 75 MG/ML Inhalant Powder",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP3118384",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36270009,
-      "conceptName": "Aztreonam 75 MG/ML Inhalant Powder Box of 84",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP3120884",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36258170,
-      "conceptName": "Aztreonam 75 MG/ML Inhalant Powder [Cayston]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP3109045",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36265839,
-      "conceptName": "Aztreonam 75 MG/ML Inhalant Powder [Cayston] Box of 84",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP3116714",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43173476,
-      "conceptName": "Aztreonam Dry Powder Inhaler",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP496190",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43173477,
-      "conceptName": "Aztreonam Dry Powder Inhaler [Cayston]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP496191",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42483137,
-      "conceptName": "Aztreonam Inhalant Powder",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP418845",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42481360,
-      "conceptName": "Aztreonam Inhalant Powder [Cayston]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP418846",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41298738,
-      "conceptName": "Aztreonam Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP2496700",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40740535,
-      "conceptName": "Aztreonam Injectable Solution [Azactam]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4716552",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40926576,
-      "conceptName": "Aztreonam Injectable Solution [Dynabiotic]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP2124538",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40986748,
-      "conceptName": "Aztreonam Injectable Suspension",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP2184710",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40957842,
-      "conceptName": "Aztreonam Injectable Suspension [Dynabiotic]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP2155804",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42952538,
-      "conceptName": "Aztreonam Injection [MEZACTAM]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4679100",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36887580,
-      "conceptName": "Aztreonam Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP994427",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36892572,
-      "conceptName": "Aztreonam Prefilled Syringe [Azactam]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP1003246",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36231410,
-      "conceptName": "Cayston Inhalant Product",
+      "conceptId": 1465404,
+      "conceptName": "Emblaveo Injectable Product",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
       "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1176404",
+      "conceptCode": "2705358",
       "standardConcept": "C"
+    },
+    {
+      "conceptId": 1465405,
+      "conceptName": "avibactam / aztreonam Injection [Emblaveo]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "2705359",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1465406,
+      "conceptName": "avibactam 500 MG / aztreonam 1500 MG Injection [Emblaveo]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "2705360",
+      "standardConcept": "S"
     },
     {
       "conceptId": 1715117,
@@ -1946,30 +367,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 46287305,
-      "conceptName": "aztreonam 1000 MG",
-      "vocabularyId": "RxNorm",
+      "conceptId": 2051330,
+      "conceptName": "aztreonam 1000 MG Injection [MEZACTAM] by Btopharm",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "1664979",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 46287307,
-      "conceptName": "aztreonam 1000 MG Injection",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "1664981",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 46287310,
-      "conceptName": "aztreonam 1000 MG Injection [Azactam]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "1664984",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4951814",
       "standardConcept": "S"
     },
     {
@@ -2000,15 +403,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 2051330,
-      "conceptName": "aztreonam 1000 MG Injection [MEZACTAM] by Btopharm",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4951814",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 2051334,
       "conceptName": "aztreonam 1000 MG Injection [UNIZACTAM]",
       "vocabularyId": "RxNorm Extension",
@@ -2024,15 +418,6 @@
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
       "conceptCode": "OMOP4951819",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 46287308,
-      "conceptName": "aztreonam 1000 MG [Azactam]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "1664982",
       "standardConcept": "S"
     },
     {
@@ -2054,39 +439,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 46287311,
-      "conceptName": "aztreonam 2000 MG",
-      "vocabularyId": "RxNorm",
+      "conceptId": 2051338,
+      "conceptName": "aztreonam 500 MG Injection [MEZACTAM] by Btopharm",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "1664985",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 46287312,
-      "conceptName": "aztreonam 2000 MG Injection",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "1664986",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 46287314,
-      "conceptName": "aztreonam 2000 MG Injection [Azactam]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "1664988",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 46287313,
-      "conceptName": "aztreonam 2000 MG [Azactam]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "1664987",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4951822",
       "standardConcept": "S"
     },
     {
@@ -2114,15 +472,6 @@
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
       "conceptCode": "OMOP4951825",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2051338,
-      "conceptName": "aztreonam 500 MG Injection [MEZACTAM] by Btopharm",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4951822",
       "standardConcept": "S"
     },
     {
@@ -2162,6 +511,492 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 2051346,
+      "conceptName": "aztreonam Injection [MESOFAM]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP4951830",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2051347,
+      "conceptName": "aztreonam Injection [UNIZACTAM]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP4951831",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21025057,
+      "conceptName": "Aztreonam 75 MG Inhalant Powder Box of 84",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP398527",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21034781,
+      "conceptName": "Aztreonam 500 MG Injection [Azactam] Box of 5 by Bristol Myers Squibb",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP398521",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21034782,
+      "conceptName": "Aztreonam 1000 MG Injection [Azactam] Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP398535",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21054449,
+      "conceptName": "Aztreonam 75 MG [Cayston]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP398525",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21054450,
+      "conceptName": "Aztreonam 75 MG Inhalant Powder [Cayston] Box of 84 by Gilead",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP398531",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21064309,
+      "conceptName": "Aztreonam 500 MG Injection [Azactam] by Bristol Myers Squibb",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP398519",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21083919,
+      "conceptName": "Aztreonam 1000 MG Injection [Azactam] by Bristol Myers Squibb",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP398534",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21083920,
+      "conceptName": "Aztreonam 1000 MG Injection [Azactam] Box of 1 by Bristol Myers Squibb",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP398536",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21093664,
+      "conceptName": "Aztreonam 2000 MG Injection [Azactam] by Bristol Myers Squibb",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP398510",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21093665,
+      "conceptName": "Aztreonam 500 MG",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP398514",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21093666,
+      "conceptName": "Aztreonam 500 MG [Azactam]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP398515",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21093667,
+      "conceptName": "Aztreonam 500 MG Injection Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP398517",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21103570,
+      "conceptName": "Aztreonam 75 MG Inhalant Powder [Cayston] Box of 84",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP398530",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21132852,
+      "conceptName": "Aztreonam 2000 MG Injection [Azactam] Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP398512",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21132853,
+      "conceptName": "Aztreonam 75 MG Inhalant Powder",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP398526",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21132854,
+      "conceptName": "Aztreonam 1000 MG Injection Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP398533",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21142792,
+      "conceptName": "Aztreonam 2000 MG Injection Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP398509",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21142793,
+      "conceptName": "Aztreonam 75 MG",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP398524",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21152670,
+      "conceptName": "Aztreonam 75 MG Inhalant Powder [Cayston]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP398528",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21162572,
+      "conceptName": "Aztreonam 500 MG Injection [Azactam]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP398518",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21162573,
+      "conceptName": "Aztreonam 75 MG Inhalant Powder [Cayston] by Gilead",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP398529",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21172299,
+      "conceptName": "Aztreonam 2000 MG Injection [Azactam] Box of 1 by Bristol Myers Squibb",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP398513",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21172300,
+      "conceptName": "Aztreonam 500 MG Injection",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP398516",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21172301,
+      "conceptName": "Aztreonam 500 MG Injection [Azactam] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP398520",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35749823,
+      "conceptName": "Aztreonam 1000 MG Injectable Solution Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2751284",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35749824,
+      "conceptName": "Aztreonam 2000 MG Injectable Solution Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2751285",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36212965,
+      "conceptName": "aztreonam Inhalant Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Dose Group",
+      "conceptCode": "1155014",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36212966,
+      "conceptName": "aztreonam Injectable Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Dose Group",
+      "conceptCode": "1155015",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36231089,
+      "conceptName": "Azactam Injectable Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Dose Group",
+      "conceptCode": "1176315",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36231410,
+      "conceptName": "Cayston Inhalant Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Dose Group",
+      "conceptCode": "1176404",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36258170,
+      "conceptName": "Aztreonam 75 MG/ML Inhalant Powder [Cayston]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP3109045",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36265839,
+      "conceptName": "Aztreonam 75 MG/ML Inhalant Powder [Cayston] Box of 84",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP3116714",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36267509,
+      "conceptName": "Aztreonam 75 MG/ML Inhalant Powder",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP3118384",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36270009,
+      "conceptName": "Aztreonam 75 MG/ML Inhalant Powder Box of 84",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP3120884",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36277673,
+      "conceptName": "1 ML Aztreonam 75 MG/ML Inhalant Powder",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP3128548",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36277730,
+      "conceptName": "1 ML Aztreonam 75 MG/ML Inhalant Powder Box of 84",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP3128605",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36277762,
+      "conceptName": "1 ML Aztreonam 75 MG/ML Inhalant Powder [Cayston] Box of 84 by Gilead",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3128637",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36277804,
+      "conceptName": "1 ML Aztreonam 75 MG/ML Inhalant Powder [Cayston]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP3128679",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36277858,
+      "conceptName": "1 ML Aztreonam 75 MG/ML Inhalant Powder [Cayston] Box of 84",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP3128733",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36505345,
+      "conceptName": "Aztreonam 75 MG/ML Dry Powder Inhaler [Cayston]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4836066",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36507024,
+      "conceptName": "Aztreonam 75 MG/ML Dry Powder Inhaler [Cayston] by Axicorp",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4835822",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36508702,
+      "conceptName": "Aztreonam 75 MG/ML Dry Powder Inhaler",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP4835393",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36881194,
+      "conceptName": "Aztreonam 75 MG Dry Powder Inhaler Box of 84",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP995190",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36882274,
+      "conceptName": "Aztreonam 75 MG Dry Powder Inhaler [Cayston] Box of 84",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP999057",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36885991,
+      "conceptName": "Aztreonam 1000 MG Prefilled Syringe Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP1004809",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36886126,
+      "conceptName": "Aztreonam 1000 MG Prefilled Syringe [Azactam]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP999257",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36887580,
+      "conceptName": "Aztreonam Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP994427",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36888052,
+      "conceptName": "Aztreonam 75 MG Dry Powder Inhaler [Cayston]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP1004720",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36891867,
+      "conceptName": "Aztreonam 75 MG Dry Powder Inhaler",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP989625",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36892008,
+      "conceptName": "Aztreonam 1000 MG Prefilled Syringe [Azactam] Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP992006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36892572,
+      "conceptName": "Aztreonam Prefilled Syringe [Azactam]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP1003246",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36892879,
+      "conceptName": "Aztreonam 1000 MG Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP997567",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 40173626,
       "conceptName": "aztreonam 75 MG/ML",
       "vocabularyId": "RxNorm",
@@ -2198,40 +1033,1237 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36212965,
-      "conceptName": "aztreonam Inhalant Product",
-      "vocabularyId": "RxNorm",
+      "conceptId": 40740523,
+      "conceptName": "Aztreonam 2000 MG Injectable Solution [Azactam] Box of 1 by Bristol Myers Squibb",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1155014",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 1356134,
-      "conceptName": "aztreonam Inhalation Solution",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "2108283",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4716564",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1356135,
-      "conceptName": "aztreonam Inhalation Solution [Cayston]",
-      "vocabularyId": "RxNorm",
+      "conceptId": 40740524,
+      "conceptName": "Aztreonam 2000 MG Injectable Solution [Azactam] Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP4716563",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40740525,
+      "conceptName": "Aztreonam 2000 MG Injectable Solution [Azactam] by Bristol Myers Squibb",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4716562",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40740526,
+      "conceptName": "Aztreonam 2000 MG Injectable Solution [Azactam]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4716561",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40740527,
+      "conceptName": "Aztreonam 1000 MG Injectable Solution [Azactam] Box of 1 by Bristol Myers Squibb",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4716560",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40740528,
+      "conceptName": "Aztreonam 1000 MG Injectable Solution [Azactam] Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP4716559",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40740529,
+      "conceptName": "Aztreonam 1000 MG Injectable Solution [Azactam] by Bristol Myers Squibb",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4716558",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40740530,
+      "conceptName": "Aztreonam 1000 MG Injectable Solution [Azactam]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4716557",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40740531,
+      "conceptName": "Aztreonam 500 MG Injectable Solution [Azactam] Box of 5 by Bristol Myers Squibb",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4716556",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40740532,
+      "conceptName": "Aztreonam 500 MG Injectable Solution [Azactam] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP4716555",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40740533,
+      "conceptName": "Aztreonam 500 MG Injectable Solution [Azactam] by Bristol Myers Squibb",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4716554",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40740534,
+      "conceptName": "Aztreonam 500 MG Injectable Solution [Azactam]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4716553",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40740535,
+      "conceptName": "Aztreonam Injectable Solution [Azactam]",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Form",
-      "conceptCode": "2108285",
+      "conceptCode": "OMOP4716552",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36212966,
-      "conceptName": "aztreonam Injectable Product",
+      "conceptId": 40849763,
+      "conceptName": "Aztreonam 2000 MG Injection [Azactam] Box of 500",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2047725",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40849764,
+      "conceptName": "Aztreonam 100 MG/ML Injection [Azactam] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2047726",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40849765,
+      "conceptName": "Aztreonam 120 MG Inhalant Solution [Cayston] Box of 84",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2047727",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40861141,
+      "conceptName": "Aztreonam 50 MG/ML [Dynabiotic]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP2059103",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40861142,
+      "conceptName": "Aztreonam 500 MG [Dynabiotic]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP2059104",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40861143,
+      "conceptName": "Aztreonam 200 MG/ML [Azactam]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP2059105",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40869145,
+      "conceptName": "Aztreonam 122 MG Inhalant Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP2067107",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40869146,
+      "conceptName": "Aztreonam 20 MG/ML Injectable Suspension",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP2067108",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40869147,
+      "conceptName": "Aztreonam 1000 MG Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2067109",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40880982,
+      "conceptName": "Aztreonam 50 MG/ML Injection [Azactam] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2078944",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40880983,
+      "conceptName": "Aztreonam 2000 MG Injectable Suspension [Dynabiotic]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2078945",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40900218,
+      "conceptName": "Aztreonam 100 MG/ML Injectable Solution Box of 500",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2098180",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40900219,
+      "conceptName": "Aztreonam 100 MG/ML Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2098181",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40900220,
+      "conceptName": "Aztreonam 200 MG/ML Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2098182",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40912029,
+      "conceptName": "Aztreonam 2000 MG Injection [Azactam] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2109991",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40912030,
+      "conceptName": "Aztreonam 50 MG/ML Injection [Azactam]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2109992",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40912031,
+      "conceptName": "Aztreonam 20 MG/ML Injection [Azactam] Box of 500",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2109993",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40912032,
+      "conceptName": "Aztreonam 200 MG/ML Injection [Azactam]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2109994",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40923421,
+      "conceptName": "Aztreonam 50 MG/ML [Azactam]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP2121383",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40923422,
+      "conceptName": "Aztreonam 1000 MG [Dynabiotic]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP2121384",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40926576,
+      "conceptName": "Aztreonam Injectable Solution [Dynabiotic]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP2124538",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40943284,
+      "conceptName": "Aztreonam 50 MG/ML Injection [Azactam] Box of 500",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2141246",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40950234,
+      "conceptName": "Aztreonam 120 MG Inhalant Solution [Cayston] Box of 84 by Gilead",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2148196",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40954658,
+      "conceptName": "Aztreonam 20 MG/ML [Azactam]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP2152620",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40957842,
+      "conceptName": "Aztreonam Injectable Suspension [Dynabiotic]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP2155804",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40962619,
+      "conceptName": "Aztreonam 50 MG/ML Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2160581",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40962620,
+      "conceptName": "Aztreonam 20 MG/ML Injectable Solution Box of 500",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2160582",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40962621,
+      "conceptName": "Aztreonam 1000 MG Injectable Solution Box of 500",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2160583",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40986748,
+      "conceptName": "Aztreonam Injectable Suspension",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP2184710",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40993871,
+      "conceptName": "Aztreonam 200 MG/ML Injectable Solution Box of 500",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2191833",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41005621,
+      "conceptName": "Aztreonam 1000 MG Injectable Solution [Dynabiotic]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2203583",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41005622,
+      "conceptName": "Aztreonam 100 MG/ML Injection [Azactam] Box of 500",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2203584",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41024874,
+      "conceptName": "Aztreonam 2000 MG Injectable Solution Box of 500",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2222836",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41024875,
+      "conceptName": "Aztreonam 2000 MG Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2222837",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41024876,
+      "conceptName": "Aztreonam 500 MG Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2222838",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41024877,
+      "conceptName": "Aztreonam 100 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP2222839",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41056134,
+      "conceptName": "Aztreonam 50 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP2254096",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41056135,
+      "conceptName": "Aztreonam 2000 MG Injectable Suspension",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP2254097",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41067920,
+      "conceptName": "Aztreonam 500 MG Injectable Solution [Dynabiotic]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2265882",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41067921,
+      "conceptName": "Aztreonam 20 MG/ML Injection [Azactam] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2265883",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41067922,
+      "conceptName": "Aztreonam 200 MG/ML Injectable Solution [Dynabiotic]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2265884",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41079576,
+      "conceptName": "Aztreonam 120 MG [Cayston]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP2277538",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41099399,
+      "conceptName": "Aztreonam 50 MG/ML Injectable Solution [Dynabiotic]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2297361",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41099400,
+      "conceptName": "Aztreonam 122 MG Inhalant Solution [Cayston] Box of 84",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2297362",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41099401,
+      "conceptName": "Aztreonam 20 MG/ML Injectable Suspension [Dynabiotic]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2297363",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41108497,
+      "conceptName": "Aztreonam 50 MG/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP2306459",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41118894,
+      "conceptName": "Aztreonam 2000 MG Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP2316856",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41118895,
+      "conceptName": "Aztreonam 120 MG Inhalant Solution Box of 84",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2316857",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41118896,
+      "conceptName": "Aztreonam 120 MG Inhalant Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP2316858",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41139861,
+      "conceptName": "Aztreonam 200 MG/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP2337823",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41150400,
+      "conceptName": "Aztreonam 122 MG Inhalant Solution Box of 84",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2348362",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41162131,
+      "conceptName": "Aztreonam 500 MG Injection [Azactam] Box of 500",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2360093",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41162132,
+      "conceptName": "Aztreonam 20 MG/ML Injection [Azactam]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2360094",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41162133,
+      "conceptName": "Aztreonam 200 MG/ML Injection [Azactam] Box of 500",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2360095",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41171025,
+      "conceptName": "Aztreonam 120 MG",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP2368987",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41193329,
+      "conceptName": "Aztreonam 2000 MG Injectable Solution [Dynabiotic]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2391291",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41202467,
+      "conceptName": "Aztreonam 20 MG/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP2400429",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41204977,
+      "conceptName": "Aztreonam 20 MG/ML [Dynabiotic]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP2402939",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41212827,
+      "conceptName": "Aztreonam 20 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP2410789",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41224350,
+      "conceptName": "Aztreonam 200 MG/ML Injection [Azactam] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2422312",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41233484,
+      "conceptName": "Aztreonam 122 MG",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP2431446",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41233485,
+      "conceptName": "Aztreonam 100 MG/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP2431447",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41235899,
+      "conceptName": "Aztreonam 2000 MG [Dynabiotic]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP2433861",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41235900,
+      "conceptName": "Aztreonam 122 MG [Cayston]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP2433862",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41235901,
+      "conceptName": "Aztreonam 100 MG/ML [Dynabiotic]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP2433863",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41243809,
+      "conceptName": "Aztreonam 20 MG/ML Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2441771",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41255367,
+      "conceptName": "Aztreonam 100 MG/ML Injection [Azactam]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2453329",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41255368,
+      "conceptName": "Aztreonam 1000 MG Injection [Azactam] Box of 500",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2453330",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41266816,
+      "conceptName": "Aztreonam 100 MG/ML [Azactam]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP2464778",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41266817,
+      "conceptName": "Aztreonam 200 MG/ML [Dynabiotic]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP2464779",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41274655,
+      "conceptName": "Aztreonam 50 MG/ML Injectable Solution Box of 500",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2472617",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41274656,
+      "conceptName": "Aztreonam 500 MG Injectable Solution Box of 500",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2472618",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41274657,
+      "conceptName": "Aztreonam 500 MG Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP2472619",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41274658,
+      "conceptName": "Aztreonam 200 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP2472620",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41274659,
+      "conceptName": "Aztreonam 1000 MG Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP2472621",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41286376,
+      "conceptName": "Aztreonam 122 MG Inhalant Solution [Cayston]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2484338",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41293515,
+      "conceptName": "Aztreonam 1000 MG Injection [Azactam] Box of 5 by Emra-Med",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2491477",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41298738,
+      "conceptName": "Aztreonam Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP2496700",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41317705,
+      "conceptName": "Aztreonam 100 MG/ML Injectable Solution [Dynabiotic]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2515667",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41317706,
+      "conceptName": "Aztreonam 120 MG Inhalant Solution [Cayston]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2515668",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41317707,
+      "conceptName": "Aztreonam 1000 MG Injection [Azactam] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2515669",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41362280,
+      "conceptName": "10 ML Aztreonam 200 MG/ML Injectable Solution Box of 500",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2560242",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41362638,
+      "conceptName": "10 ML Aztreonam 50 MG/ML Injectable Solution [Dynabiotic]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2560600",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41363028,
+      "conceptName": "10 ML Aztreonam 100 MG/ML Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2560990",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41364109,
+      "conceptName": "10 ML Aztreonam 50 MG/ML Injection [Azactam] Box of 500",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2562071",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41364110,
+      "conceptName": "10 ML Aztreonam 100 MG/ML Injection [Azactam] Box of 500",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2562072",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41364476,
+      "conceptName": "10 ML Aztreonam 100 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP2562438",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41364822,
+      "conceptName": "10 ML Aztreonam 50 MG/ML Injection [Azactam] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2562784",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41364823,
+      "conceptName": "10 ML Aztreonam 200 MG/ML Injectable Solution [Dynabiotic]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2562785",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41365206,
+      "conceptName": "10 ML Aztreonam 50 MG/ML Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2563168",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41365567,
+      "conceptName": "10 ML Aztreonam 100 MG/ML Injection [Azactam] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2563529",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41366319,
+      "conceptName": "10 ML Aztreonam 100 MG/ML Injectable Solution [Dynabiotic]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2564281",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41367092,
+      "conceptName": "10 ML Aztreonam 200 MG/ML Injection [Azactam] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2565054",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41368586,
+      "conceptName": "10 ML Aztreonam 50 MG/ML Injection [Azactam]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2566548",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41368994,
+      "conceptName": "10 ML Aztreonam 100 MG/ML Injectable Solution Box of 500",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2566956",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41368995,
+      "conceptName": "10 ML Aztreonam 200 MG/ML Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2566957",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41369391,
+      "conceptName": "10 ML Aztreonam 100 MG/ML Injection [Azactam]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2567353",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41369773,
+      "conceptName": "10 ML Aztreonam 200 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP2567735",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41370123,
+      "conceptName": "10 ML Aztreonam 200 MG/ML Injection [Azactam] Box of 500",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2568085",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41371266,
+      "conceptName": "10 ML Aztreonam 50 MG/ML Injectable Solution Box of 500",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2569228",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41371267,
+      "conceptName": "10 ML Aztreonam 50 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP2569229",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41373157,
+      "conceptName": "10 ML Aztreonam 200 MG/ML Injection [Azactam]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2571119",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41415821,
+      "conceptName": "100 ML Aztreonam 20 MG/ML Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2613783",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41420541,
+      "conceptName": "100 ML Aztreonam 20 MG/ML Injection [Azactam]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2618503",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41421816,
+      "conceptName": "100 ML Aztreonam 20 MG/ML Injectable Suspension",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP2619778",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41422710,
+      "conceptName": "100 ML Aztreonam 20 MG/ML Injectable Solution Box of 500",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2620672",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41423135,
+      "conceptName": "100 ML Aztreonam 20 MG/ML Injection [Azactam] Box of 500",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2621097",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41423136,
+      "conceptName": "100 ML Aztreonam 20 MG/ML Injection [Azactam] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2621098",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41424816,
+      "conceptName": "100 ML Aztreonam 20 MG/ML Injectable Suspension [Dynabiotic]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2622778",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41425266,
+      "conceptName": "100 ML Aztreonam 20 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP2623228",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42481360,
+      "conceptName": "Aztreonam Inhalant Powder [Cayston]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP418846",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42483137,
+      "conceptName": "Aztreonam Inhalant Powder",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP418845",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42952534,
+      "conceptName": "Aztreonam 500 MG Injection [MEZACTAM]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4679096",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42952535,
+      "conceptName": "Aztreonam 500 MG [MEZACTAM]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4679097",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42952536,
+      "conceptName": "Aztreonam 1000 MG Injection [MEZACTAM]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4679098",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42952537,
+      "conceptName": "Aztreonam 1000 MG [MEZACTAM]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4679099",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42952538,
+      "conceptName": "Aztreonam Injection [MEZACTAM]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP4679100",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43028563,
+      "conceptName": "Aztreonam 1000 MG Injectable Solution [Azactam] by Sanofi",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4843645",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43028564,
+      "conceptName": "Aztreonam 1000 MG Prefilled Syringe [Azactam] by Sanofi",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4843646",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43151291,
+      "conceptName": "Aztreonam 1000 MG Prefilled Syringe [Azactam] Box of 1 by Sanofi",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP496192",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43173476,
+      "conceptName": "Aztreonam Dry Powder Inhaler",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP496190",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43173477,
+      "conceptName": "Aztreonam Dry Powder Inhaler [Cayston]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP496191",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43195334,
+      "conceptName": "Aztreonam 75 MG Dry Powder Inhaler [Cayston] Box of 84 by Gilead",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP496193",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46287305,
+      "conceptName": "aztreonam 1000 MG",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1155015",
-      "standardConcept": "C"
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "1664979",
+      "standardConcept": "S"
     },
     {
       "conceptId": 46287306,
@@ -2240,6 +2272,24 @@
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Form",
       "conceptCode": "1664980",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46287307,
+      "conceptName": "aztreonam 1000 MG Injection",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "1664981",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46287308,
+      "conceptName": "aztreonam 1000 MG [Azactam]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "1664982",
       "standardConcept": "S"
     },
     {
@@ -2252,21 +2302,48 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 2051346,
-      "conceptName": "aztreonam Injection [MESOFAM]",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 46287310,
+      "conceptName": "aztreonam 1000 MG Injection [Azactam]",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4951830",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "1664984",
       "standardConcept": "S"
     },
     {
-      "conceptId": 2051347,
-      "conceptName": "aztreonam Injection [UNIZACTAM]",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 46287311,
+      "conceptName": "aztreonam 2000 MG",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4951831",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "1664985",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46287312,
+      "conceptName": "aztreonam 2000 MG Injection",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "1664986",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46287313,
+      "conceptName": "aztreonam 2000 MG [Azactam]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "1664987",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46287314,
+      "conceptName": "aztreonam 2000 MG Injection [Azactam]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "1664988",
       "standardConcept": "S"
     }
   ]

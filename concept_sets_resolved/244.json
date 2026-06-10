@@ -1,40 +1,17 @@
 {
   "conceptSetId": 244,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
     {
-      "conceptId": 37151801,
-      "conceptName": "AmpC beta-lactamase producing Klebsiella variicola",
+      "conceptId": 619492,
+      "conceptName": "Klebsiella variicola subsp. variicola",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "1098701000112101",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37155827,
-      "conceptName": "Carbapenemase-producing Klebsiella variicola",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "33691000087101",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37151802,
-      "conceptName": "Extended spectrum beta-lactamase producing Klebsiella variicola",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1098901000112104",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4329767,
-      "conceptName": "Klebsiella variicola",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "431976004",
+      "conceptCode": "895553009",
       "standardConcept": "S"
     },
     {
@@ -47,12 +24,39 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 619492,
-      "conceptName": "Klebsiella variicola subsp. variicola",
+      "conceptId": 4329767,
+      "conceptName": "Klebsiella variicola",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "895553009",
+      "conceptCode": "431976004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37151801,
+      "conceptName": "AmpC beta-lactamase producing Klebsiella variicola",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "1098701000112101",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37151802,
+      "conceptName": "Extended spectrum beta-lactamase producing Klebsiella variicola",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "1098901000112104",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37155827,
+      "conceptName": "Carbapenemase-producing Klebsiella variicola",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "33691000087101",
       "standardConcept": "S"
     }
   ]

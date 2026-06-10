@@ -1,1138 +1,27 @@
 {
   "conceptSetId": 144,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "RxNorm": "RxNorm 20260105",
+    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+  },
   "resolvedConcepts": [
     {
-      "conceptId": 43842397,
-      "conceptName": "1 ML Milrinone 1 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 793740,
+      "conceptName": "5 ML milrinone lactate 1 MG/ML Injection",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
       "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP736407",
+      "conceptCode": "1939322",
       "standardConcept": "S"
     },
     {
-      "conceptId": 43842398,
-      "conceptName": "1 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Hikma]",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 1368671,
+      "conceptName": "milrinone",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP736408",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43608320,
-      "conceptName": "1 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Hikma] by Hikma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP736410",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43680545,
-      "conceptName": "1 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Rotexmedica]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP736400",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43590324,
-      "conceptName": "1 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Rotexmedica] by Claris",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP736401",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43590325,
-      "conceptName": "1 ML Milrinone 1 MG/ML Injection",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP736402",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43608318,
-      "conceptName": "1 ML Milrinone 1 MG/ML Injection [Milrinon Stragen]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP736403",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43734332,
-      "conceptName": "1 ML Milrinone 1 MG/ML Injection [Milrinon Stragen] by Stragen",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP736404",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43608319,
-      "conceptName": "1 ML Milrinone 1 MG/ML Injection [Unacor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP736405",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43734333,
-      "conceptName": "1 ML Milrinone 1 MG/ML Injection [Unacor] by Pharmaselect",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP736406",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36895563,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP995768",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43808098,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP785130",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43041056,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution Box of 10 by Baxter",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4856086",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43041055,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution Box of 10 by Carinopharm",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4856085",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43041057,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution Box of 10 by Medac",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4856087",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36808883,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution Box of 10 by Stragen",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4822923",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40715090,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution Box of 10 by Wockhardt",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4741900",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43718066,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP785131",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43826188,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP785156",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40715091,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution Box of 5 by Peckforton",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4741899",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 784545,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [COROTROPE]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP4832364",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 784546,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [COROTROPE] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP4832365",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 784547,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [COROTROPE] Box of 10 by Sanofi",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4832366",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43592192,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Corotrop]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP785162",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43808100,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Corotrop] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP785166",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43682323,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Corotrop] Box of 10 by Sanofi",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP785167",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43736231,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Corotrop] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP785164",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43789978,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Corotrop] Box of 5 by Sanofi",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP785165",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43700347,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Corotrop] by Sanofi",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP785163",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35146430,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Milrila]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP4803509",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43592188,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Carino]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP785141",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43610127,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Carino] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP785145",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43646322,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Carino] Box of 10 by Carinopharm",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP785146",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43592189,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Carino] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP785143",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43862461,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Carino] Box of 5 by Carinopharm",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP785144",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43646321,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Carino] by Carinopharm",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP785142",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43592191,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Hikma]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP785158",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43826189,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Hikma] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP785160",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43664490,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Hikma] Box of 10 by Hikma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP785161",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43844268,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Hikma] by Hikma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP785159",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43789975,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Rotexmedica]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP785132",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43789976,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Rotexmedica] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP785136",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43826187,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Rotexmedica] Box of 10 by Claris",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP785137",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43592187,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Rotexmedica] Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP785138",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43718067,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Rotexmedica] Box of 25 by Claris",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP785140",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43664488,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Rotexmedica] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP785134",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43610126,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Rotexmedica] Box of 5 by Claris",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP785135",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43808099,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Rotexmedica] by Claris",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP785133",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40715097,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Primacor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP4741893",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35781970,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Primacor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2783431",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40715095,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Primacor] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP4741895",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35782117,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Primacor] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2783578",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40715094,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Primacor] Box of 10 by Sanofi",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4741896",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35781607,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Primacor] Box of 10 by Sanofi",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2783068",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40715096,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Primacor] by Sanofi",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4741894",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35781763,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Primacor] by Sanofi",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2783224",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35145595,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution by Janssen",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4802683",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40715092,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution by Peckforton",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4741898",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35130654,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution by Sandoz",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4787903",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36808942,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution by Stragen",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4822980",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35161636,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution by Takata",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4818602",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35149995,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution by Teva Takeda",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4807049",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40715093,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution by Wockhardt",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4741897",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43297063,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injection Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP563713",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36808949,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injection Box of 10 by Stragen",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4822986",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36808873,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injection Box of 10 by Wockhardt",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4822913",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36808978,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injection Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP4823015",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36808946,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injection Box of 5 by Peckforton",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4823025",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36279454,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injection [COROTROPE]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP3130329",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36279453,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injection [COROTROPE] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP3130328",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36279492,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injection [COROTROPE] Box of 10 by Sanofi",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3130367",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43664489,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injection [Milrinon Stragen]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP785147",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43844267,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injection [Milrinon Stragen] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP785150",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43700346,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injection [Milrinon Stragen] Box of 10 by Stragen",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP785151",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43592190,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injection [Milrinon Stragen] by Stragen",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP785149",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43264446,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injection [Primacor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP563714",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36808924,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injection [Primacor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP4822963",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43259021,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injection [Primacor] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP563715",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36808979,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injection [Primacor] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP4823016",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36808901,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injection [Primacor] Box of 10 by Sanofi",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4823019",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36808915,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injection [Primacor] by Sanofi",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4822954",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43736230,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injection [Unacor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP785152",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43862462,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injection [Unacor] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP785154",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43789977,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injection [Unacor] Box of 10 by Pharmaselect",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP785155",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43628206,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injection [Unacor] by Pharmaselect",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP785153",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36808990,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injection by Peckforton",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4823029",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36808895,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injection by Stragen",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4822935",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36808909,
-      "conceptName": "10 ML Milrinone 1 MG/ML Injection by Wockhardt",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4822948",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36780232,
-      "conceptName": "10 ML Milrinone 1 MG/ML Intravenous Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP4768535",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36780231,
-      "conceptName": "10 ML Milrinone 1 MG/ML Intravenous Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP4768534",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42479551,
-      "conceptName": "10 ML Milrinone 1 MG/ML Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP417478",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21097768,
-      "conceptName": "10 ML Milrinone 1 MG/ML Prefilled Syringe Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP310236",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43041060,
-      "conceptName": "10 ML Milrinone 1 MG/ML Prefilled Syringe Box of 10 by Baxter",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4856090",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43041058,
-      "conceptName": "10 ML Milrinone 1 MG/ML Prefilled Syringe Box of 10 by Carinopharm",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4856088",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43041061,
-      "conceptName": "10 ML Milrinone 1 MG/ML Prefilled Syringe Box of 10 by Medac",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4856091",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43041059,
-      "conceptName": "10 ML Milrinone 1 MG/ML Prefilled Syringe Box of 10 by Stragen",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4856089",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43197165,
-      "conceptName": "10 ML Milrinone 1 MG/ML Prefilled Syringe [COROTROPE]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP516027",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43186148,
-      "conceptName": "10 ML Milrinone 1 MG/ML Prefilled Syringe [COROTROPE] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP516028",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43175288,
-      "conceptName": "10 ML Milrinone 1 MG/ML Prefilled Syringe [COROTROPE] Box of 10 by Sanofi",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP516029",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43219042,
-      "conceptName": "10 ML Milrinone 1 MG/ML Prefilled Syringe [MILRINONE MEDAC]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP516030",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43219043,
-      "conceptName": "10 ML Milrinone 1 MG/ML Prefilled Syringe [MILRINONE MEDAC] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP516031",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43142082,
-      "conceptName": "10 ML Milrinone 1 MG/ML Prefilled Syringe [MILRINONE MEDAC] Box of 10 by Medac",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP516032",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21078184,
-      "conceptName": "10 ML Milrinone 1 MG/ML Prefilled Syringe [Primacor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP310237",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21166583,
-      "conceptName": "10 ML Milrinone 1 MG/ML Prefilled Syringe [Primacor] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP310239",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21058466,
-      "conceptName": "10 ML Milrinone 1 MG/ML Prefilled Syringe [Primacor] Box of 10 by Sanofi",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP310240",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21097769,
-      "conceptName": "10 ML Milrinone 1 MG/ML Prefilled Syringe [Primacor] by Sanofi",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP310238",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41363591,
-      "conceptName": "10 ML Milrinone 1.42 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP2561553",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41362123,
-      "conceptName": "10 ML Milrinone 1.42 MG/ML Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2560085",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41361650,
-      "conceptName": "10 ML Milrinone 1.42 MG/ML Injectable Solution [Milrinon Carino]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2559612",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41369159,
-      "conceptName": "10 ML Milrinone 1.42 MG/ML Injectable Solution [Milrinon Carino] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2567121",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41372950,
-      "conceptName": "10 ML Milrinone 1.42 MG/ML Injectable Solution [Milrinon Hikma]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2570912",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41362438,
-      "conceptName": "10 ML Milrinone 1.42 MG/ML Injectable Solution [Milrinon Hikma] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2560400",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41372215,
-      "conceptName": "10 ML Milrinone 1.42 MG/ML Injectable Solution [Milrinon Rotexmedica]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2570177",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41371421,
-      "conceptName": "10 ML Milrinone 1.42 MG/ML Injectable Solution [Milrinon Rotexmedica] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2569383",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41368364,
-      "conceptName": "10 ML Milrinone 1.42 MG/ML Injectable Solution [Milrinon Stragen]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2566326",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41362439,
-      "conceptName": "10 ML Milrinone 1.42 MG/ML Injectable Solution [Milrinon Stragen] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2560401",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2903301,
-      "conceptName": "10 ML milrinone 1 MG/ML Injectable Solution Box of 10 by Claris",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5120144",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36932876,
-      "conceptName": "10 ML milrinone 1 MG/ML Injectable Solution Box of 10 by Macure",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5210493",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36928349,
-      "conceptName": "10 ML milrinone 1 MG/ML Injectable Solution Box of 10 by Tillomed",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5210492",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2903303,
-      "conceptName": "10 ML milrinone 1 MG/ML Injectable Solution Box of 5 by Baxter",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5120146",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2903302,
-      "conceptName": "10 ML milrinone 1 MG/ML Injectable Solution Box of 5 by Claris",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5120145",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2903305,
-      "conceptName": "10 ML milrinone 1 MG/ML Injectable Solution by Baxter",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5120148",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2903304,
-      "conceptName": "10 ML milrinone 1 MG/ML Injectable Solution by Claris",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5120147",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36959933,
-      "conceptName": "10 ML milrinone 1 MG/ML Injectable Solution by Macure",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5210491",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36953623,
-      "conceptName": "10 ML milrinone 1 MG/ML Injectable Solution by Tillomed",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5210490",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2903296,
-      "conceptName": "10 ML milrinone 1 MG/ML Injection Box of 10 by Baxter",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5120139",
+      "conceptClassId": "Ingredient",
+      "conceptCode": "52769",
       "standardConcept": "S"
     },
     {
@@ -1145,12 +34,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 2903298,
-      "conceptName": "10 ML milrinone 1 MG/ML Injection Box of 5 by Baxter",
+      "conceptId": 2903296,
+      "conceptName": "10 ML milrinone 1 MG/ML Injection Box of 10 by Baxter",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5120141",
+      "conceptCode": "OMOP5120139",
       "standardConcept": "S"
     },
     {
@@ -1163,12 +52,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 2903300,
-      "conceptName": "10 ML milrinone 1 MG/ML Injection by Baxter",
+      "conceptId": 2903298,
+      "conceptName": "10 ML milrinone 1 MG/ML Injection Box of 5 by Baxter",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5120143",
+      "conceptCode": "OMOP5120141",
       "standardConcept": "S"
     },
     {
@@ -1181,363 +70,57 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 42628993,
-      "conceptName": "10 ML milrinone lactate 1 MG/ML Injection",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "1791854",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42628989,
-      "conceptName": "100 ML milrinone lactate 0.2 MG/ML Injection",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "1791840",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35146493,
-      "conceptName": "150 ML Milrinone 0.15 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP4803571",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35160801,
-      "conceptName": "150 ML Milrinone 0.15 MG/ML Injectable Solution [Milrila]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP4817777",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35150256,
-      "conceptName": "150 ML Milrinone 0.15 MG/ML Injectable Solution by Takata",
+      "conceptId": 2903300,
+      "conceptName": "10 ML milrinone 1 MG/ML Injection by Baxter",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4807309",
+      "conceptCode": "OMOP5120143",
       "standardConcept": "S"
     },
     {
-      "conceptId": 43718633,
-      "conceptName": "20 ML Milrinone 1 MG/ML Injection Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP797737",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43700938,
-      "conceptName": "20 ML Milrinone 1 MG/ML Injection [Milrinon Stragen]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP797738",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43844816,
-      "conceptName": "20 ML Milrinone 1 MG/ML Injection [Milrinon Stragen] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP797740",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43844817,
-      "conceptName": "20 ML Milrinone 1 MG/ML Injection [Milrinon Stragen] Box of 10 by Stragen",
+      "conceptId": 2903301,
+      "conceptName": "10 ML milrinone 1 MG/ML Injectable Solution Box of 10 by Claris",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP797741",
+      "conceptCode": "OMOP5120144",
       "standardConcept": "S"
     },
     {
-      "conceptId": 43610681,
-      "conceptName": "20 ML Milrinone 1 MG/ML Injection [Milrinon Stragen] by Stragen",
+      "conceptId": 2903302,
+      "conceptName": "10 ML milrinone 1 MG/ML Injectable Solution Box of 5 by Claris",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP797739",
+      "conceptCode": "OMOP5120145",
       "standardConcept": "S"
     },
     {
-      "conceptId": 43844818,
-      "conceptName": "20 ML Milrinone 1 MG/ML Injection [Unacor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP797742",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43790523,
-      "conceptName": "20 ML Milrinone 1 MG/ML Injection [Unacor] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP797744",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43736763,
-      "conceptName": "20 ML Milrinone 1 MG/ML Injection [Unacor] Box of 10 by Pharmaselect",
+      "conceptId": 2903303,
+      "conceptName": "10 ML milrinone 1 MG/ML Injectable Solution Box of 5 by Baxter",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP797745",
+      "conceptCode": "OMOP5120146",
       "standardConcept": "S"
     },
     {
-      "conceptId": 43665015,
-      "conceptName": "20 ML Milrinone 1 MG/ML Injection [Unacor] by Pharmaselect",
+      "conceptId": 2903304,
+      "conceptName": "10 ML milrinone 1 MG/ML Injectable Solution by Claris",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP797743",
+      "conceptCode": "OMOP5120147",
       "standardConcept": "S"
     },
     {
-      "conceptId": 42628995,
-      "conceptName": "20 ML milrinone lactate 1 MG/ML Injection",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "1791859",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42628991,
-      "conceptName": "200 ML milrinone lactate 0.2 MG/ML Injection",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "1791842",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 793740,
-      "conceptName": "5 ML milrinone lactate 1 MG/ML Injection",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "1939322",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36411225,
-      "conceptName": "50 ML Milrinone 0.2 MG/ML Injectable Solution",
+      "conceptId": 2903305,
+      "conceptName": "10 ML milrinone 1 MG/ML Injectable Solution by Baxter",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP3103267",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36411264,
-      "conceptName": "50 ML Milrinone 0.2 MG/ML Injectable Solution Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP3103306",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21039362,
-      "conceptName": "50 ML Milrinone 0.2 MG/ML Injection",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP318125",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21137446,
-      "conceptName": "50 ML Milrinone 0.2 MG/ML Injection Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP318127",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36411247,
-      "conceptName": "50 ML Milrinone 0.4 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP3103289",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36411246,
-      "conceptName": "50 ML Milrinone 0.4 MG/ML Injectable Solution Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP3103288",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21058938,
-      "conceptName": "50 ML Milrinone 0.4 MG/ML Injection",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP318120",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21029495,
-      "conceptName": "50 ML Milrinone 0.4 MG/ML Injection Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP318123",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36411224,
-      "conceptName": "50 ML Milrinone 0.6 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP3103266",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36411289,
-      "conceptName": "50 ML Milrinone 0.6 MG/ML Injectable Solution Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP3103331",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21157288,
-      "conceptName": "50 ML Milrinone 0.6 MG/ML Injection",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP318132",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21137447,
-      "conceptName": "50 ML Milrinone 0.6 MG/ML Injection Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP318134",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35784320,
-      "conceptName": "50 ML Milrinone 1 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP2785781",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35784082,
-      "conceptName": "50 ML Milrinone 1 MG/ML Injectable Solution Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2785543",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21088386,
-      "conceptName": "50 ML Milrinone 1 MG/ML Injection Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP318130",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42628996,
-      "conceptName": "50 ML milrinone lactate 1 MG/ML Injection",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "1791861",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35152408,
-      "conceptName": "Milrinone 0.15 MG/ML",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP4809441",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35157982,
-      "conceptName": "Milrinone 0.15 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP4814981",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35157759,
-      "conceptName": "Milrinone 0.15 MG/ML Injectable Solution [Milrila]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4814759",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35140328,
-      "conceptName": "Milrinone 0.15 MG/ML [Milrila]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4797471",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36403592,
-      "conceptName": "Milrinone 0.2 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP3095634",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36403591,
-      "conceptName": "Milrinone 0.2 MG/ML Injectable Solution Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP3095633",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21062210,
-      "conceptName": "Milrinone 0.2 MG/ML Injection Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP361502",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5120148",
       "standardConcept": "S"
     },
     {
@@ -1550,39 +133,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36403593,
-      "conceptName": "Milrinone 0.4 MG/ML Injectable Solution",
+      "conceptId": 21029495,
+      "conceptName": "50 ML Milrinone 0.4 MG/ML Injection Box of 1",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP3095635",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36408955,
-      "conceptName": "Milrinone 0.4 MG/ML Injectable Solution Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP3100997",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21062209,
-      "conceptName": "Milrinone 0.4 MG/ML Injection",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP361500",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21042605,
-      "conceptName": "Milrinone 0.4 MG/ML Injection Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP361501",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP318123",
       "standardConcept": "S"
     },
     {
@@ -1595,21 +151,120 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36405917,
-      "conceptName": "Milrinone 0.6 MG/ML Injectable Solution",
+      "conceptId": 21039362,
+      "conceptName": "50 ML Milrinone 0.2 MG/ML Injection",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP3097959",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP318125",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36407482,
-      "conceptName": "Milrinone 0.6 MG/ML Injectable Solution Box of 1",
+      "conceptId": 21042605,
+      "conceptName": "Milrinone 0.4 MG/ML Injection Box of 1",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP3099524",
+      "conceptCode": "OMOP361501",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21042606,
+      "conceptName": "Milrinone 1 MG/ML [Primacor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP361503",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21058466,
+      "conceptName": "10 ML Milrinone 1 MG/ML Prefilled Syringe [Primacor] Box of 10 by Sanofi",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP310240",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21058938,
+      "conceptName": "50 ML Milrinone 0.4 MG/ML Injection",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP318120",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21062209,
+      "conceptName": "Milrinone 0.4 MG/ML Injection",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP361500",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21062210,
+      "conceptName": "Milrinone 0.2 MG/ML Injection Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP361502",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21078184,
+      "conceptName": "10 ML Milrinone 1 MG/ML Prefilled Syringe [Primacor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP310237",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21088386,
+      "conceptName": "50 ML Milrinone 1 MG/ML Injection Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP318130",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21091570,
+      "conceptName": "Milrinone Prefilled Syringe [Primacor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP361497",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21097768,
+      "conceptName": "10 ML Milrinone 1 MG/ML Prefilled Syringe Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP310236",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21097769,
+      "conceptName": "10 ML Milrinone 1 MG/ML Prefilled Syringe [Primacor] by Sanofi",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP310238",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21111300,
+      "conceptName": "Milrinone 1 MG/ML Prefilled Syringe [Primacor] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP361507",
       "standardConcept": "S"
     },
     {
@@ -1631,462 +286,21 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36885798,
-      "conceptName": "Milrinone 1 MG/ML Injectable Solution",
+      "conceptId": 21137446,
+      "conceptName": "50 ML Milrinone 0.2 MG/ML Injection Box of 1",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP992855",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP318127",
       "standardConcept": "S"
     },
     {
-      "conceptId": 35749893,
-      "conceptName": "Milrinone 1 MG/ML Injectable Solution Box of 1",
+      "conceptId": 21137447,
+      "conceptName": "50 ML Milrinone 0.6 MG/ML Injection Box of 1",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2751354",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43622828,
-      "conceptName": "Milrinone 1 MG/ML Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP671718",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43784879,
-      "conceptName": "Milrinone 1 MG/ML Injectable Solution Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP671719",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43802796,
-      "conceptName": "Milrinone 1 MG/ML Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP671717",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 783083,
-      "conceptName": "Milrinone 1 MG/ML Injectable Solution [COROTROPE]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4830915",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 783084,
-      "conceptName": "Milrinone 1 MG/ML Injectable Solution [COROTROPE] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP4830916",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43838955,
-      "conceptName": "Milrinone 1 MG/ML Injectable Solution [Corotrop]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP671736",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43748770,
-      "conceptName": "Milrinone 1 MG/ML Injectable Solution [Corotrop] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP671738",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43748769,
-      "conceptName": "Milrinone 1 MG/ML Injectable Solution [Corotrop] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP671737",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35132643,
-      "conceptName": "Milrinone 1 MG/ML Injectable Solution [Milrila]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4789868",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43802797,
-      "conceptName": "Milrinone 1 MG/ML Injectable Solution [Milrinon Carino]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP671726",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43622830,
-      "conceptName": "Milrinone 1 MG/ML Injectable Solution [Milrinon Carino] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP671728",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43586851,
-      "conceptName": "Milrinone 1 MG/ML Injectable Solution [Milrinon Carino] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP671727",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43820918,
-      "conceptName": "Milrinone 1 MG/ML Injectable Solution [Milrinon Hikma]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP671734",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43820919,
-      "conceptName": "Milrinone 1 MG/ML Injectable Solution [Milrinon Hikma] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP671735",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43677185,
-      "conceptName": "Milrinone 1 MG/ML Injectable Solution [Milrinon Rotexmedica]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP671720",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43622829,
-      "conceptName": "Milrinone 1 MG/ML Injectable Solution [Milrinon Rotexmedica] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP671722",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43857023,
-      "conceptName": "Milrinone 1 MG/ML Injectable Solution [Milrinon Rotexmedica] Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP671725",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43604946,
-      "conceptName": "Milrinone 1 MG/ML Injectable Solution [Milrinon Rotexmedica] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP671721",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35758740,
-      "conceptName": "Milrinone 1 MG/ML Injectable Solution [Primacor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2760201",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40742759,
-      "conceptName": "Milrinone 1 MG/ML Injectable Solution [Primacor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4714272",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40742758,
-      "conceptName": "Milrinone 1 MG/ML Injectable Solution [Primacor] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP4714273",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35746250,
-      "conceptName": "Milrinone 1 MG/ML Injectable Solution [Primacor] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2747711",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21160475,
-      "conceptName": "Milrinone 1 MG/ML Injection Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP361508",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43280028,
-      "conceptName": "Milrinone 1 MG/ML Injection Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP555226",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36814674,
-      "conceptName": "Milrinone 1 MG/ML Injection Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP4828714",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44073091,
-      "conceptName": "Milrinone 1 MG/ML Injection [Apo-Milrinone]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP1067722",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44101624,
-      "conceptName": "Milrinone 1 MG/ML Injection [Apo-Milrinone] by Apotex",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP1096255",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36262752,
-      "conceptName": "Milrinone 1 MG/ML Injection [COROTROPE]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP3113627",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36265329,
-      "conceptName": "Milrinone 1 MG/ML Injection [COROTROPE] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP3116204",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43766782,
-      "conceptName": "Milrinone 1 MG/ML Injection [Milrinon Stragen]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP671729",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43694996,
-      "conceptName": "Milrinone 1 MG/ML Injection [Milrinon Stragen] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP671730",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36811509,
-      "conceptName": "Milrinone 1 MG/ML Injection [Primacor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4825544",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43280029,
-      "conceptName": "Milrinone 1 MG/ML Injection [Primacor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP555227",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36813521,
-      "conceptName": "Milrinone 1 MG/ML Injection [Primacor] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP4827552",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43285485,
-      "conceptName": "Milrinone 1 MG/ML Injection [Primacor] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP555228",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44088606,
-      "conceptName": "Milrinone 1 MG/ML Injection [Primacor] by Sanofi",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP1083237",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43857024,
-      "conceptName": "Milrinone 1 MG/ML Injection [Unacor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP671731",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43694997,
-      "conceptName": "Milrinone 1 MG/ML Injection [Unacor] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP671732",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44036880,
-      "conceptName": "Milrinone 1 MG/ML Injection by Fresenius",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP1031511",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44075762,
-      "conceptName": "Milrinone 1 MG/ML Injection by Sandoz",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP1070393",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44075761,
-      "conceptName": "Milrinone 1 MG/ML Injection by TEVA",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP1070392",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36787298,
-      "conceptName": "Milrinone 1 MG/ML Intravenous Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP4775563",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36787297,
-      "conceptName": "Milrinone 1 MG/ML Intravenous Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP4775562",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42481305,
-      "conceptName": "Milrinone 1 MG/ML Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP417477",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21170276,
-      "conceptName": "Milrinone 1 MG/ML Prefilled Syringe Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP361504",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43150093,
-      "conceptName": "Milrinone 1 MG/ML Prefilled Syringe [COROTROPE]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP485897",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43139156,
-      "conceptName": "Milrinone 1 MG/ML Prefilled Syringe [COROTROPE] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP485898",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43150094,
-      "conceptName": "Milrinone 1 MG/ML Prefilled Syringe [MILRINONE MEDAC]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP485899",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43183196,
-      "conceptName": "Milrinone 1 MG/ML Prefilled Syringe [MILRINONE MEDAC] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP485900",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP318134",
       "standardConcept": "S"
     },
     {
@@ -2099,282 +313,57 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 21111300,
-      "conceptName": "Milrinone 1 MG/ML Prefilled Syringe [Primacor] Box of 10",
+      "conceptId": 21157288,
+      "conceptName": "50 ML Milrinone 0.6 MG/ML Injection",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP361507",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP318132",
       "standardConcept": "S"
     },
     {
-      "conceptId": 44092945,
-      "conceptName": "Milrinone 1 MG/ML [Apo-Milrinone]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP1087576",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43183195,
-      "conceptName": "Milrinone 1 MG/ML [COROTROPE]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP485894",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43712831,
-      "conceptName": "Milrinone 1 MG/ML [Corotrop]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP671715",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43216059,
-      "conceptName": "Milrinone 1 MG/ML [MILRINONE MEDAC]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP485895",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35144125,
-      "conceptName": "Milrinone 1 MG/ML [Milrila]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4801221",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43604945,
-      "conceptName": "Milrinone 1 MG/ML [Milrinon Carino]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP671714",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43802795,
-      "conceptName": "Milrinone 1 MG/ML [Milrinon Hikma]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP671710",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43659176,
-      "conceptName": "Milrinone 1 MG/ML [Milrinon Rotexmedica]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP671712",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43641047,
-      "conceptName": "Milrinone 1 MG/ML [Milrinon Stragen]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP671711",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21042606,
-      "conceptName": "Milrinone 1 MG/ML [Primacor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP361503",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40742760,
-      "conceptName": "Milrinone 1 MG/ML [Primacor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4714271",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43712832,
-      "conceptName": "Milrinone 1 MG/ML [Unacor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP671716",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40982489,
-      "conceptName": "Milrinone 1.42 MG/ML",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP2180451",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41240991,
-      "conceptName": "Milrinone 1.42 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP2438953",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40991027,
-      "conceptName": "Milrinone 1.42 MG/ML Injectable Solution Box of 10",
+      "conceptId": 21160475,
+      "conceptName": "Milrinone 1 MG/ML Injection Box of 1",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2188989",
+      "conceptCode": "OMOP361508",
       "standardConcept": "S"
     },
     {
-      "conceptId": 41030193,
-      "conceptName": "Milrinone 1.42 MG/ML Injectable Solution [Milrinon Carino]",
+      "conceptId": 21166583,
+      "conceptName": "10 ML Milrinone 1 MG/ML Prefilled Syringe [Primacor] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP310239",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21170276,
+      "conceptName": "Milrinone 1 MG/ML Prefilled Syringe Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP361504",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35130654,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution by Sandoz",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4787903",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35132643,
+      "conceptName": "Milrinone 1 MG/ML Injectable Solution [Milrila]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2228155",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41061325,
-      "conceptName": "Milrinone 1.42 MG/ML Injectable Solution [Milrinon Carino] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2259287",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40874475,
-      "conceptName": "Milrinone 1.42 MG/ML Injectable Solution [Milrinon Hikma]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2072437",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41186711,
-      "conceptName": "Milrinone 1.42 MG/ML Injectable Solution [Milrinon Hikma] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2384673",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41279791,
-      "conceptName": "Milrinone 1.42 MG/ML Injectable Solution [Milrinon Rotexmedica]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2477753",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40967810,
-      "conceptName": "Milrinone 1.42 MG/ML Injectable Solution [Milrinon Rotexmedica] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2165772",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40874476,
-      "conceptName": "Milrinone 1.42 MG/ML Injectable Solution [Milrinon Stragen]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2072438",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40936685,
-      "conceptName": "Milrinone 1.42 MG/ML Injectable Solution [Milrinon Stragen] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2134647",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41172001,
-      "conceptName": "Milrinone 1.42 MG/ML [Milrinon Carino]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP2369963",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41172000,
-      "conceptName": "Milrinone 1.42 MG/ML [Milrinon Hikma]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP2369962",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41109553,
-      "conceptName": "Milrinone 1.42 MG/ML [Milrinon Rotexmedica]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP2307515",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40828430,
-      "conceptName": "Milrinone 1.42 MG/ML [Milrinon Stragen]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP2026392",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36885592,
-      "conceptName": "Milrinone Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP1004460",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 783082,
-      "conceptName": "Milrinone Injectable Solution [COROTROPE]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4830914",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43659175,
-      "conceptName": "Milrinone Injectable Solution [Corotrop]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP671709",
+      "conceptCode": "OMOP4789868",
       "standardConcept": "S"
     },
     {
@@ -2387,48 +376,138 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 43604942,
-      "conceptName": "Milrinone Injectable Solution [Milrinon Carino]",
+      "conceptId": 35140328,
+      "conceptName": "Milrinone 0.15 MG/ML [Milrila]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP671704",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4797471",
       "standardConcept": "S"
     },
     {
-      "conceptId": 43604944,
-      "conceptName": "Milrinone Injectable Solution [Milrinon Hikma]",
+      "conceptId": 35144125,
+      "conceptName": "Milrinone 1 MG/ML [Milrila]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP671708",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4801221",
       "standardConcept": "S"
     },
     {
-      "conceptId": 43784878,
-      "conceptName": "Milrinone Injectable Solution [Milrinon Rotexmedica]",
+      "conceptId": 35145595,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution by Janssen",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP671703",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4802683",
       "standardConcept": "S"
     },
     {
-      "conceptId": 41175273,
-      "conceptName": "Milrinone Injectable Solution [Milrinon Stragen]",
+      "conceptId": 35146430,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Milrila]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP2373235",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP4803509",
       "standardConcept": "S"
     },
     {
-      "conceptId": 40742761,
-      "conceptName": "Milrinone Injectable Solution [Primacor]",
+      "conceptId": 35146493,
+      "conceptName": "150 ML Milrinone 0.15 MG/ML Injectable Solution",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4714270",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP4803571",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35149995,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution by Teva Takeda",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4807049",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35150256,
+      "conceptName": "150 ML Milrinone 0.15 MG/ML Injectable Solution by Takata",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4807309",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35152408,
+      "conceptName": "Milrinone 0.15 MG/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP4809441",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35157759,
+      "conceptName": "Milrinone 0.15 MG/ML Injectable Solution [Milrila]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4814759",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35157982,
+      "conceptName": "Milrinone 0.15 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP4814981",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35160801,
+      "conceptName": "150 ML Milrinone 0.15 MG/ML Injectable Solution [Milrila]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP4817777",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35161636,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution by Takata",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4818602",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35746250,
+      "conceptName": "Milrinone 1 MG/ML Injectable Solution [Primacor] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2747711",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35749893,
+      "conceptName": "Milrinone 1 MG/ML Injectable Solution Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2751354",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35758740,
+      "conceptName": "Milrinone 1 MG/ML Injectable Solution [Primacor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2760201",
       "standardConcept": "S"
     },
     {
@@ -2441,111 +520,57 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 44108459,
-      "conceptName": "Milrinone Injection [Apo-Milrinone]",
+      "conceptId": 35781607,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Primacor] Box of 10 by Sanofi",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP1103090",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2783068",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36274695,
-      "conceptName": "Milrinone Injection [COROTROPE]",
+      "conceptId": 35781763,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Primacor] by Sanofi",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP3125570",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2783224",
       "standardConcept": "S"
     },
     {
-      "conceptId": 43604943,
-      "conceptName": "Milrinone Injection [Milrinon Stragen]",
+      "conceptId": 35781970,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Primacor]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP671706",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2783431",
       "standardConcept": "S"
     },
     {
-      "conceptId": 43290874,
-      "conceptName": "Milrinone Injection [Primacor]",
+      "conceptId": 35782117,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Primacor] Box of 10",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP555225",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2783578",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36814576,
-      "conceptName": "Milrinone Injection [Primacor]",
+      "conceptId": 35784082,
+      "conceptName": "50 ML Milrinone 1 MG/ML Injectable Solution Box of 1",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4828616",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2785543",
       "standardConcept": "S"
     },
     {
-      "conceptId": 43838954,
-      "conceptName": "Milrinone Injection [Unacor]",
+      "conceptId": 35784320,
+      "conceptName": "50 ML Milrinone 1 MG/ML Injectable Solution",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP671707",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36786988,
-      "conceptName": "Milrinone Intravenous Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP4775564",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42481304,
-      "conceptName": "Milrinone Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP417476",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43194190,
-      "conceptName": "Milrinone Prefilled Syringe [COROTROPE]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP485892",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43139155,
-      "conceptName": "Milrinone Prefilled Syringe [MILRINONE MEDAC]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP485893",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21091570,
-      "conceptName": "Milrinone Prefilled Syringe [Primacor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP361497",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1368671,
-      "conceptName": "milrinone",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Ingredient",
-      "conceptCode": "52769",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP2785781",
       "standardConcept": "S"
     },
     {
@@ -2576,15 +601,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36221162,
-      "conceptName": "milrinone Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1164730",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 35865885,
       "conceptName": "milrinone Injectable Solution [Lunanlikang]",
       "vocabularyId": "RxNorm Extension",
@@ -2594,12 +610,687 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 42628988,
-      "conceptName": "milrinone Injection",
+      "conceptId": 36221162,
+      "conceptName": "milrinone Injectable Product",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
+      "conceptClassId": "Clinical Dose Group",
+      "conceptCode": "1164730",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36262752,
+      "conceptName": "Milrinone 1 MG/ML Injection [COROTROPE]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP3113627",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36265329,
+      "conceptName": "Milrinone 1 MG/ML Injection [COROTROPE] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP3116204",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36274695,
+      "conceptName": "Milrinone Injection [COROTROPE]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP3125570",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36279453,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injection [COROTROPE] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP3130328",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36279454,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injection [COROTROPE]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP3130329",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36279492,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injection [COROTROPE] Box of 10 by Sanofi",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3130367",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36403591,
+      "conceptName": "Milrinone 0.2 MG/ML Injectable Solution Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP3095633",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36403592,
+      "conceptName": "Milrinone 0.2 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP3095634",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36403593,
+      "conceptName": "Milrinone 0.4 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP3095635",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36405917,
+      "conceptName": "Milrinone 0.6 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP3097959",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36407482,
+      "conceptName": "Milrinone 0.6 MG/ML Injectable Solution Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP3099524",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36408955,
+      "conceptName": "Milrinone 0.4 MG/ML Injectable Solution Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP3100997",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36411224,
+      "conceptName": "50 ML Milrinone 0.6 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP3103266",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36411225,
+      "conceptName": "50 ML Milrinone 0.2 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP3103267",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36411246,
+      "conceptName": "50 ML Milrinone 0.4 MG/ML Injectable Solution Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP3103288",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36411247,
+      "conceptName": "50 ML Milrinone 0.4 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP3103289",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36411264,
+      "conceptName": "50 ML Milrinone 0.2 MG/ML Injectable Solution Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP3103306",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36411289,
+      "conceptName": "50 ML Milrinone 0.6 MG/ML Injectable Solution Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP3103331",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36780231,
+      "conceptName": "10 ML Milrinone 1 MG/ML Intravenous Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP4768534",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36780232,
+      "conceptName": "10 ML Milrinone 1 MG/ML Intravenous Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP4768535",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36786988,
+      "conceptName": "Milrinone Intravenous Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
       "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "1791839",
+      "conceptCode": "OMOP4775564",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36787297,
+      "conceptName": "Milrinone 1 MG/ML Intravenous Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP4775562",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36787298,
+      "conceptName": "Milrinone 1 MG/ML Intravenous Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP4775563",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36808873,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injection Box of 10 by Wockhardt",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4822913",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36808883,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution Box of 10 by Stragen",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4822923",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36808895,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injection by Stragen",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4822935",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36808901,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injection [Primacor] Box of 10 by Sanofi",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4823019",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36808909,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injection by Wockhardt",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4822948",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36808915,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injection [Primacor] by Sanofi",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4822954",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36808942,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution by Stragen",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4822980",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36808946,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injection Box of 5 by Peckforton",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4823025",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36808949,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injection Box of 10 by Stragen",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4822986",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36808978,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injection Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP4823015",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36808990,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injection by Peckforton",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4823029",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36814674,
+      "conceptName": "Milrinone 1 MG/ML Injection Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP4828714",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36885592,
+      "conceptName": "Milrinone Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP1004460",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36885798,
+      "conceptName": "Milrinone 1 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP992855",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36895563,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP995768",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36928349,
+      "conceptName": "10 ML milrinone 1 MG/ML Injectable Solution Box of 10 by Tillomed",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5210492",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36932876,
+      "conceptName": "10 ML milrinone 1 MG/ML Injectable Solution Box of 10 by Macure",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5210493",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36953623,
+      "conceptName": "10 ML milrinone 1 MG/ML Injectable Solution by Tillomed",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5210490",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36959933,
+      "conceptName": "10 ML milrinone 1 MG/ML Injectable Solution by Macure",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5210491",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40715090,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution Box of 10 by Wockhardt",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4741900",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40715091,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution Box of 5 by Peckforton",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4741899",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40715092,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution by Peckforton",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4741898",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40715093,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution by Wockhardt",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4741897",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40828430,
+      "conceptName": "Milrinone 1.42 MG/ML [Milrinon Stragen]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP2026392",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40874475,
+      "conceptName": "Milrinone 1.42 MG/ML Injectable Solution [Milrinon Hikma]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2072437",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40874476,
+      "conceptName": "Milrinone 1.42 MG/ML Injectable Solution [Milrinon Stragen]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2072438",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40936685,
+      "conceptName": "Milrinone 1.42 MG/ML Injectable Solution [Milrinon Stragen] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2134647",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40967810,
+      "conceptName": "Milrinone 1.42 MG/ML Injectable Solution [Milrinon Rotexmedica] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2165772",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40982489,
+      "conceptName": "Milrinone 1.42 MG/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP2180451",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40991027,
+      "conceptName": "Milrinone 1.42 MG/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2188989",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41030193,
+      "conceptName": "Milrinone 1.42 MG/ML Injectable Solution [Milrinon Carino]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2228155",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41061325,
+      "conceptName": "Milrinone 1.42 MG/ML Injectable Solution [Milrinon Carino] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2259287",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41109553,
+      "conceptName": "Milrinone 1.42 MG/ML [Milrinon Rotexmedica]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP2307515",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41172000,
+      "conceptName": "Milrinone 1.42 MG/ML [Milrinon Hikma]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP2369962",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41172001,
+      "conceptName": "Milrinone 1.42 MG/ML [Milrinon Carino]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP2369963",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41175273,
+      "conceptName": "Milrinone Injectable Solution [Milrinon Stragen]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP2373235",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41186711,
+      "conceptName": "Milrinone 1.42 MG/ML Injectable Solution [Milrinon Hikma] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2384673",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41240991,
+      "conceptName": "Milrinone 1.42 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP2438953",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41279791,
+      "conceptName": "Milrinone 1.42 MG/ML Injectable Solution [Milrinon Rotexmedica]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2477753",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41361650,
+      "conceptName": "10 ML Milrinone 1.42 MG/ML Injectable Solution [Milrinon Carino]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2559612",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41362123,
+      "conceptName": "10 ML Milrinone 1.42 MG/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2560085",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41362438,
+      "conceptName": "10 ML Milrinone 1.42 MG/ML Injectable Solution [Milrinon Hikma] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2560400",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41362439,
+      "conceptName": "10 ML Milrinone 1.42 MG/ML Injectable Solution [Milrinon Stragen] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2560401",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41363591,
+      "conceptName": "10 ML Milrinone 1.42 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP2561553",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41368364,
+      "conceptName": "10 ML Milrinone 1.42 MG/ML Injectable Solution [Milrinon Stragen]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2566326",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41369159,
+      "conceptName": "10 ML Milrinone 1.42 MG/ML Injectable Solution [Milrinon Carino] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2567121",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41371421,
+      "conceptName": "10 ML Milrinone 1.42 MG/ML Injectable Solution [Milrinon Rotexmedica] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2569383",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41372215,
+      "conceptName": "10 ML Milrinone 1.42 MG/ML Injectable Solution [Milrinon Rotexmedica]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2570177",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41372950,
+      "conceptName": "10 ML Milrinone 1.42 MG/ML Injectable Solution [Milrinon Hikma]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2570912",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42479551,
+      "conceptName": "10 ML Milrinone 1 MG/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP417478",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42481304,
+      "conceptName": "Milrinone Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP417476",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42481305,
+      "conceptName": "Milrinone 1 MG/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP417477",
       "standardConcept": "S"
     },
     {
@@ -2612,12 +1303,39 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 42628988,
+      "conceptName": "milrinone Injection",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "1791839",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42628989,
+      "conceptName": "100 ML milrinone lactate 0.2 MG/ML Injection",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "1791840",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 42628990,
       "conceptName": "milrinone lactate 0.2 MG/ML Injection",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug",
       "conceptCode": "1791841",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42628991,
+      "conceptName": "200 ML milrinone lactate 0.2 MG/ML Injection",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "1791842",
       "standardConcept": "S"
     },
     {
@@ -2630,12 +1348,1119 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 42628993,
+      "conceptName": "10 ML milrinone lactate 1 MG/ML Injection",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "1791854",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 42628994,
       "conceptName": "milrinone lactate 1 MG/ML Injection",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug",
       "conceptCode": "1791855",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42628995,
+      "conceptName": "20 ML milrinone lactate 1 MG/ML Injection",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "1791859",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42628996,
+      "conceptName": "50 ML milrinone lactate 1 MG/ML Injection",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "1791861",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43041055,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution Box of 10 by Carinopharm",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4856085",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43041056,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution Box of 10 by Baxter",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4856086",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43041057,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution Box of 10 by Medac",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4856087",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43041058,
+      "conceptName": "10 ML Milrinone 1 MG/ML Prefilled Syringe Box of 10 by Carinopharm",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4856088",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43041059,
+      "conceptName": "10 ML Milrinone 1 MG/ML Prefilled Syringe Box of 10 by Stragen",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4856089",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43041060,
+      "conceptName": "10 ML Milrinone 1 MG/ML Prefilled Syringe Box of 10 by Baxter",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4856090",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43041061,
+      "conceptName": "10 ML Milrinone 1 MG/ML Prefilled Syringe Box of 10 by Medac",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4856091",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43139155,
+      "conceptName": "Milrinone Prefilled Syringe [MILRINONE MEDAC]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP485893",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43139156,
+      "conceptName": "Milrinone 1 MG/ML Prefilled Syringe [COROTROPE] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP485898",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43142082,
+      "conceptName": "10 ML Milrinone 1 MG/ML Prefilled Syringe [MILRINONE MEDAC] Box of 10 by Medac",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP516032",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43150093,
+      "conceptName": "Milrinone 1 MG/ML Prefilled Syringe [COROTROPE]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP485897",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43150094,
+      "conceptName": "Milrinone 1 MG/ML Prefilled Syringe [MILRINONE MEDAC]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP485899",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43175288,
+      "conceptName": "10 ML Milrinone 1 MG/ML Prefilled Syringe [COROTROPE] Box of 10 by Sanofi",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP516029",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43183195,
+      "conceptName": "Milrinone 1 MG/ML [COROTROPE]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP485894",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43183196,
+      "conceptName": "Milrinone 1 MG/ML Prefilled Syringe [MILRINONE MEDAC] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP485900",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43186148,
+      "conceptName": "10 ML Milrinone 1 MG/ML Prefilled Syringe [COROTROPE] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP516028",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43194190,
+      "conceptName": "Milrinone Prefilled Syringe [COROTROPE]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP485892",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43197165,
+      "conceptName": "10 ML Milrinone 1 MG/ML Prefilled Syringe [COROTROPE]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP516027",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43216059,
+      "conceptName": "Milrinone 1 MG/ML [MILRINONE MEDAC]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP485895",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43219042,
+      "conceptName": "10 ML Milrinone 1 MG/ML Prefilled Syringe [MILRINONE MEDAC]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP516030",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43219043,
+      "conceptName": "10 ML Milrinone 1 MG/ML Prefilled Syringe [MILRINONE MEDAC] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP516031",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43259021,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injection [Primacor] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP563715",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43264446,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injection [Primacor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP563714",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43280028,
+      "conceptName": "Milrinone 1 MG/ML Injection Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP555226",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43280029,
+      "conceptName": "Milrinone 1 MG/ML Injection [Primacor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP555227",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43285485,
+      "conceptName": "Milrinone 1 MG/ML Injection [Primacor] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP555228",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43290874,
+      "conceptName": "Milrinone Injection [Primacor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP555225",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43297063,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injection Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP563713",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43586851,
+      "conceptName": "Milrinone 1 MG/ML Injectable Solution [Milrinon Carino] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP671727",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43590324,
+      "conceptName": "1 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Rotexmedica] by Claris",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP736401",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43590325,
+      "conceptName": "1 ML Milrinone 1 MG/ML Injection",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP736402",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43592187,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Rotexmedica] Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP785138",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43592188,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Carino]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP785141",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43592189,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Carino] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP785143",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43592190,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injection [Milrinon Stragen] by Stragen",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP785149",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43592191,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Hikma]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP785158",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43592192,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Corotrop]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP785162",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43604942,
+      "conceptName": "Milrinone Injectable Solution [Milrinon Carino]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP671704",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43604943,
+      "conceptName": "Milrinone Injection [Milrinon Stragen]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP671706",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43604944,
+      "conceptName": "Milrinone Injectable Solution [Milrinon Hikma]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP671708",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43604945,
+      "conceptName": "Milrinone 1 MG/ML [Milrinon Carino]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP671714",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43604946,
+      "conceptName": "Milrinone 1 MG/ML Injectable Solution [Milrinon Rotexmedica] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP671721",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43608318,
+      "conceptName": "1 ML Milrinone 1 MG/ML Injection [Milrinon Stragen]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP736403",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43608319,
+      "conceptName": "1 ML Milrinone 1 MG/ML Injection [Unacor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP736405",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43608320,
+      "conceptName": "1 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Hikma] by Hikma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP736410",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43610126,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Rotexmedica] Box of 5 by Claris",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP785135",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43610127,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Carino] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP785145",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43610681,
+      "conceptName": "20 ML Milrinone 1 MG/ML Injection [Milrinon Stragen] by Stragen",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP797739",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43622828,
+      "conceptName": "Milrinone 1 MG/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP671718",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43622829,
+      "conceptName": "Milrinone 1 MG/ML Injectable Solution [Milrinon Rotexmedica] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP671722",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43622830,
+      "conceptName": "Milrinone 1 MG/ML Injectable Solution [Milrinon Carino] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP671728",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43628206,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injection [Unacor] by Pharmaselect",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP785153",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43641047,
+      "conceptName": "Milrinone 1 MG/ML [Milrinon Stragen]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP671711",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43646321,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Carino] by Carinopharm",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP785142",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43646322,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Carino] Box of 10 by Carinopharm",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP785146",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43659175,
+      "conceptName": "Milrinone Injectable Solution [Corotrop]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP671709",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43659176,
+      "conceptName": "Milrinone 1 MG/ML [Milrinon Rotexmedica]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP671712",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43664488,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Rotexmedica] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP785134",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43664489,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injection [Milrinon Stragen]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP785147",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43664490,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Hikma] Box of 10 by Hikma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP785161",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43665015,
+      "conceptName": "20 ML Milrinone 1 MG/ML Injection [Unacor] by Pharmaselect",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP797743",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43677185,
+      "conceptName": "Milrinone 1 MG/ML Injectable Solution [Milrinon Rotexmedica]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP671720",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43680545,
+      "conceptName": "1 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Rotexmedica]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP736400",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43682323,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Corotrop] Box of 10 by Sanofi",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP785167",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43694996,
+      "conceptName": "Milrinone 1 MG/ML Injection [Milrinon Stragen] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP671730",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43694997,
+      "conceptName": "Milrinone 1 MG/ML Injection [Unacor] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP671732",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43700346,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injection [Milrinon Stragen] Box of 10 by Stragen",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP785151",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43700347,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Corotrop] by Sanofi",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP785163",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43700938,
+      "conceptName": "20 ML Milrinone 1 MG/ML Injection [Milrinon Stragen]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP797738",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43712832,
+      "conceptName": "Milrinone 1 MG/ML [Unacor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP671716",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43718066,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP785131",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43718067,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Rotexmedica] Box of 25 by Claris",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP785140",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43718633,
+      "conceptName": "20 ML Milrinone 1 MG/ML Injection Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP797737",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43734332,
+      "conceptName": "1 ML Milrinone 1 MG/ML Injection [Milrinon Stragen] by Stragen",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP736404",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43734333,
+      "conceptName": "1 ML Milrinone 1 MG/ML Injection [Unacor] by Pharmaselect",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP736406",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43736230,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injection [Unacor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP785152",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43736231,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Corotrop] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP785164",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43736763,
+      "conceptName": "20 ML Milrinone 1 MG/ML Injection [Unacor] Box of 10 by Pharmaselect",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP797745",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43748769,
+      "conceptName": "Milrinone 1 MG/ML Injectable Solution [Corotrop] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP671737",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43748770,
+      "conceptName": "Milrinone 1 MG/ML Injectable Solution [Corotrop] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP671738",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43766782,
+      "conceptName": "Milrinone 1 MG/ML Injection [Milrinon Stragen]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP671729",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43784878,
+      "conceptName": "Milrinone Injectable Solution [Milrinon Rotexmedica]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP671703",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43784879,
+      "conceptName": "Milrinone 1 MG/ML Injectable Solution Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP671719",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43789975,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Rotexmedica]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP785132",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43789976,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Rotexmedica] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP785136",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43789977,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injection [Unacor] Box of 10 by Pharmaselect",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP785155",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43789978,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Corotrop] Box of 5 by Sanofi",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP785165",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43790523,
+      "conceptName": "20 ML Milrinone 1 MG/ML Injection [Unacor] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP797744",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43802795,
+      "conceptName": "Milrinone 1 MG/ML [Milrinon Hikma]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP671710",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43802796,
+      "conceptName": "Milrinone 1 MG/ML Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP671717",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43802797,
+      "conceptName": "Milrinone 1 MG/ML Injectable Solution [Milrinon Carino]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP671726",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43808098,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP785130",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43808099,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Rotexmedica] by Claris",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP785133",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43808100,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Corotrop] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP785166",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43820918,
+      "conceptName": "Milrinone 1 MG/ML Injectable Solution [Milrinon Hikma]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP671734",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43820919,
+      "conceptName": "Milrinone 1 MG/ML Injectable Solution [Milrinon Hikma] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP671735",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43826187,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Rotexmedica] Box of 10 by Claris",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP785137",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43826188,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP785156",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43826189,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Hikma] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP785160",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43838954,
+      "conceptName": "Milrinone Injection [Unacor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP671707",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43838955,
+      "conceptName": "Milrinone 1 MG/ML Injectable Solution [Corotrop]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP671736",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43842397,
+      "conceptName": "1 ML Milrinone 1 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP736407",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43842398,
+      "conceptName": "1 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Hikma]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP736408",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43844267,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injection [Milrinon Stragen] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP785150",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43844268,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Hikma] by Hikma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP785159",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43844816,
+      "conceptName": "20 ML Milrinone 1 MG/ML Injection [Milrinon Stragen] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP797740",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43844817,
+      "conceptName": "20 ML Milrinone 1 MG/ML Injection [Milrinon Stragen] Box of 10 by Stragen",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP797741",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43844818,
+      "conceptName": "20 ML Milrinone 1 MG/ML Injection [Unacor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP797742",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43857023,
+      "conceptName": "Milrinone 1 MG/ML Injectable Solution [Milrinon Rotexmedica] Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP671725",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43857024,
+      "conceptName": "Milrinone 1 MG/ML Injection [Unacor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP671731",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43862461,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injectable Solution [Milrinon Carino] Box of 5 by Carinopharm",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP785144",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43862462,
+      "conceptName": "10 ML Milrinone 1 MG/ML Injection [Unacor] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP785154",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44036880,
+      "conceptName": "Milrinone 1 MG/ML Injection by Fresenius",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP1031511",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44073091,
+      "conceptName": "Milrinone 1 MG/ML Injection [Apo-Milrinone]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP1067722",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44075761,
+      "conceptName": "Milrinone 1 MG/ML Injection by TEVA",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP1070392",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44075762,
+      "conceptName": "Milrinone 1 MG/ML Injection by Sandoz",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP1070393",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44088606,
+      "conceptName": "Milrinone 1 MG/ML Injection [Primacor] by Sanofi",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP1083237",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44092945,
+      "conceptName": "Milrinone 1 MG/ML [Apo-Milrinone]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP1087576",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44101624,
+      "conceptName": "Milrinone 1 MG/ML Injection [Apo-Milrinone] by Apotex",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP1096255",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44108459,
+      "conceptName": "Milrinone Injection [Apo-Milrinone]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP1103090",
       "standardConcept": "S"
     }
   ]

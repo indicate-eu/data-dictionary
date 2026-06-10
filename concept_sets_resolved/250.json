@@ -1,33 +1,10 @@
 {
   "conceptSetId": 250,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
-    {
-      "conceptId": 37111504,
-      "conceptName": "Carbapenem resistant Pseudomonas aeruginosa",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "726492000",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42539719,
-      "conceptName": "Carbapenemase-producing Pseudomonas aeruginosa",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "737527003",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37159572,
-      "conceptName": "Extended spectrum beta-lactamase producing Pseudomonas aeruginosa",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "541101000124105",
-      "standardConcept": "S"
-    },
     {
       "conceptId": 1074765,
       "conceptName": "Extensively drug resistant Pseudomonas aeruginosa",
@@ -44,6 +21,51 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "1104601000112108",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4198675,
+      "conceptName": "Pseudomonas aeruginosa",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "52499004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36675629,
+      "conceptName": "Pseudomonas aeruginosa Liverpool epidemic strain",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "772067008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37111504,
+      "conceptName": "Carbapenem resistant Pseudomonas aeruginosa",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "726492000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37116714,
+      "conceptName": "Mucoid Pseudomonas aeruginosa",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "733537009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37116715,
+      "conceptName": "Non-mucoid Pseudomonas aeruginosa",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "733538004",
       "standardConcept": "S"
     },
     {
@@ -65,12 +87,21 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 37116714,
-      "conceptName": "Mucoid Pseudomonas aeruginosa",
+      "conceptId": 37159572,
+      "conceptName": "Extended spectrum beta-lactamase producing Pseudomonas aeruginosa",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "733537009",
+      "conceptCode": "541101000124105",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42539719,
+      "conceptName": "Carbapenemase-producing Pseudomonas aeruginosa",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "737527003",
       "standardConcept": "S"
     },
     {
@@ -80,33 +111,6 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "710332005",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37116715,
-      "conceptName": "Non-mucoid Pseudomonas aeruginosa",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "733538004",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4198675,
-      "conceptName": "Pseudomonas aeruginosa",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "52499004",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36675629,
-      "conceptName": "Pseudomonas aeruginosa Liverpool epidemic strain",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "772067008",
       "standardConcept": "S"
     }
   ]

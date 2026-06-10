@@ -1,6 +1,19 @@
 {
   "conceptSetId": 219,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80"
+  },
   "resolvedConcepts": [
+    {
+      "conceptId": 3022229,
+      "conceptName": "Phosphate [Moles/volume] in Urine",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "13539-2",
+      "standardConcept": "S"
+    },
     {
       "conceptId": 3026729,
       "conceptName": "Phosphate [Mass/volume] in Urine",
@@ -17,15 +30,6 @@
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
       "conceptCode": "35673-3",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3022229,
-      "conceptName": "Phosphate [Moles/volume] in Urine",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "13539-2",
       "standardConcept": "S"
     },
     {

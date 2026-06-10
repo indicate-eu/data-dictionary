@@ -1,15 +1,10 @@
 {
   "conceptSetId": 350,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80"
+  },
   "resolvedConcepts": [
-    {
-      "conceptId": 21491763,
-      "conceptName": "Left pupil Pupillary response",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "79899-1",
-      "standardConcept": "S"
-    },
     {
       "conceptId": 21490963,
       "conceptName": "Right pupil Pupillary response",
@@ -17,6 +12,15 @@
       "domainId": "Measurement",
       "conceptClassId": "Clinical Observation",
       "conceptCode": "79815-7",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21491763,
+      "conceptName": "Left pupil Pupillary response",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "79899-1",
       "standardConcept": "S"
     }
   ]

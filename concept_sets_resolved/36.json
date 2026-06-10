@@ -1,22 +1,36 @@
 {
   "conceptSetId": 36,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "RxNorm": "RxNorm 20260105",
+    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+  },
   "resolvedConcepts": [
     {
-      "conceptId": 42923320,
-      "conceptName": "0.2 ML bemiparin 125 MG/ML Prefilled Syringe",
+      "conceptId": 2034341,
+      "conceptName": "0.2 ML bemiparin 175 MG/ML Prefilled Syringe [Zibor] by Aestura",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP4650111",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4933451",
       "standardConcept": "S"
     },
     {
-      "conceptId": 42923319,
-      "conceptName": "0.2 ML bemiparin 125 MG/ML Prefilled Syringe [Zibor]",
+      "conceptId": 2034342,
+      "conceptName": "0.2 ML bemiparin 175 MG/ML Prefilled Syringe [Zibor] by Ilsung",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP4650110",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4933452",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2034343,
+      "conceptName": "0.2 ML bemiparin 175 MG/ML Prefilled Syringe [Zibor] by PK One Pharm",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4933453",
       "standardConcept": "S"
     },
     {
@@ -47,57 +61,561 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36411467,
-      "conceptName": "0.2 ML bemiparin 12500 UNT/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 19069137,
+      "conceptName": "bemiparin",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP3103509",
+      "conceptClassId": "Ingredient",
+      "conceptCode": "280611",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36411485,
-      "conceptName": "0.2 ML bemiparin 12500 UNT/ML Injectable Solution Box of 10",
+      "conceptId": 21026301,
+      "conceptName": "bemiparin 25000 UNT/ML Prefilled Syringe [Zibor] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP256968",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21026302,
+      "conceptName": "bemiparin 17500 UNT/ML [Zibor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP256976",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21029657,
+      "conceptName": "0.3 ML bemiparin 25000 UNT/ML Prefilled Syringe Box of 10",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP3103527",
+      "conceptCode": "OMOP285910",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36411461,
-      "conceptName": "0.2 ML bemiparin 12500 UNT/ML Injectable Solution Box of 2",
+      "conceptId": 21036064,
+      "conceptName": "bemiparin 12500 UNT/ML Prefilled Syringe Box of 2",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP3103503",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP256971",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36411459,
-      "conceptName": "0.2 ML bemiparin 12500 UNT/ML Injectable Solution [Zibor]",
+      "conceptId": 21036065,
+      "conceptName": "bemiparin 17500 UNT/ML Prefilled Syringe [Zibor] Box of 10",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP3103501",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP256982",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36411481,
-      "conceptName": "0.2 ML bemiparin 12500 UNT/ML Injectable Solution [Zibor] Box of 10",
+      "conceptId": 21039535,
+      "conceptName": "0.4 ML bemiparin 25000 UNT/ML Prefilled Syringe [Zibor] Box of 10",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP3103523",
+      "conceptCode": "OMOP286365",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36411471,
-      "conceptName": "0.2 ML bemiparin 12500 UNT/ML Injectable Solution [Zibor] Box of 10 by Archimedes",
+      "conceptId": 21039536,
+      "conceptName": "0.4 ML bemiparin 25000 UNT/ML Prefilled Syringe [Zibor] Box of 10 by Archimedes",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3103513",
+      "conceptCode": "OMOP286366",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21045922,
+      "conceptName": "bemiparin 25000 UNT/ML Prefilled Syringe Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP256965",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21049315,
+      "conceptName": "0.2 ML bemiparin 25000 UNT/ML Prefilled Syringe Box of 2",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP285507",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21049316,
+      "conceptName": "0.2 ML bemiparin 12500 UNT/ML Prefilled Syringe [Zibor] by Archimedes",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP285519",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21055692,
+      "conceptName": "bemiparin 25000 UNT/ML Prefilled Syringe [Zibor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP256966",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21055693,
+      "conceptName": "bemiparin 17500 UNT/ML Prefilled Syringe [Zibor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP256980",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21059079,
+      "conceptName": "0.2 ML bemiparin 12500 UNT/ML Prefilled Syringe Box of 2",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP285516",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21059080,
+      "conceptName": "0.2 ML bemiparin 17500 UNT/ML Prefilled Syringe [Zibor] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP285531",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21059096,
+      "conceptName": "0.3 ML bemiparin 25000 UNT/ML Prefilled Syringe [Zibor] Box of 2",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP285913",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21059123,
+      "conceptName": "0.4 ML bemiparin 25000 UNT/ML Prefilled Syringe [Zibor] by Archimedes",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP286362",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21065536,
+      "conceptName": "bemiparin 12500 UNT/ML Prefilled Syringe [Zibor] Box of 2",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP256974",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21069043,
+      "conceptName": "0.4 ML bemiparin 25000 UNT/ML Prefilled Syringe [Zibor] Box of 2 by Archimedes",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP286364",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21078773,
+      "conceptName": "0.2 ML bemiparin 12500 UNT/ML Prefilled Syringe [Zibor] Box of 2",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP285520",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21078774,
+      "conceptName": "0.2 ML bemiparin 17500 UNT/ML Prefilled Syringe [Zibor] by Archimedes",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP285528",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21078775,
+      "conceptName": "0.2 ML bemiparin 17500 UNT/ML Prefilled Syringe [Zibor] Box of 2",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP285529",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21078798,
+      "conceptName": "0.3 ML bemiparin 25000 UNT/ML Prefilled Syringe Box of 2",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP285908",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21078819,
+      "conceptName": "0.4 ML bemiparin 25000 UNT/ML Prefilled Syringe Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP286360",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21085186,
+      "conceptName": "bemiparin 12500 UNT/ML Prefilled Syringe [Zibor] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP256975",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21088502,
+      "conceptName": "0.2 ML bemiparin 25000 UNT/ML Prefilled Syringe [Zibor] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP285514",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21088518,
+      "conceptName": "0.3 ML bemiparin 25000 UNT/ML Prefilled Syringe [Zibor] Box of 10 by Archimedes",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP285916",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21094989,
+      "conceptName": "bemiparin 25000 UNT/ML [Zibor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP256963",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21094990,
+      "conceptName": "bemiparin 17500 UNT/ML Prefilled Syringe Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP256979",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21098376,
+      "conceptName": "0.2 ML bemiparin 12500 UNT/ML Prefilled Syringe Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP285517",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21098377,
+      "conceptName": "0.2 ML bemiparin 17500 UNT/ML Prefilled Syringe Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP285526",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21098378,
+      "conceptName": "0.2 ML bemiparin 17500 UNT/ML Prefilled Syringe [Zibor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP285527",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21098424,
+      "conceptName": "0.4 ML bemiparin 25000 UNT/ML Prefilled Syringe [Zibor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP286361",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21104845,
+      "conceptName": "bemiparin 25000 UNT/ML Prefilled Syringe Box of 2",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP256964",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21108215,
+      "conceptName": "0.2 ML bemiparin 25000 UNT/ML Prefilled Syringe [Zibor] Box of 10 by Archimedes",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP285515",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21108216,
+      "conceptName": "0.2 ML bemiparin 12500 UNT/ML Prefilled Syringe [Zibor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP285518",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21108217,
+      "conceptName": "0.2 ML bemiparin 12500 UNT/ML Prefilled Syringe [Zibor] Box of 10 by Archimedes",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP285524",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21114645,
+      "conceptName": "bemiparin Prefilled Syringe [Zibor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP256962",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21117947,
+      "conceptName": "0.2 ML bemiparin 25000 UNT/ML Prefilled Syringe [Zibor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP285509",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21117948,
+      "conceptName": "0.2 ML bemiparin 25000 UNT/ML Prefilled Syringe [Zibor] Box of 2",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP285511",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21117949,
+      "conceptName": "0.2 ML bemiparin 12500 UNT/ML Prefilled Syringe [Zibor] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP285522",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21117963,
+      "conceptName": "0.3 ML bemiparin 25000 UNT/ML Prefilled Syringe [Zibor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP285911",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21117964,
+      "conceptName": "0.3 ML bemiparin 25000 UNT/ML Prefilled Syringe [Zibor] Box of 2 by Archimedes",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP285914",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21117986,
+      "conceptName": "0.4 ML bemiparin 25000 UNT/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP286358",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21117987,
+      "conceptName": "0.4 ML bemiparin 25000 UNT/ML Prefilled Syringe Box of 2",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP286359",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21127715,
+      "conceptName": "0.2 ML bemiparin 25000 UNT/ML Prefilled Syringe [Zibor] by Archimedes",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP285510",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21127716,
+      "conceptName": "0.2 ML bemiparin 25000 UNT/ML Prefilled Syringe [Zibor] Box of 2 by Archimedes",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP285512",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21134150,
+      "conceptName": "bemiparin 17500 UNT/ML Prefilled Syringe [Zibor] Box of 2",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP256981",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21137585,
+      "conceptName": "0.2 ML bemiparin 17500 UNT/ML Prefilled Syringe Box of 2",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP285525",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21137608,
+      "conceptName": "0.3 ML bemiparin 25000 UNT/ML Prefilled Syringe [Zibor] by Archimedes",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP285912",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21137632,
+      "conceptName": "0.4 ML bemiparin 25000 UNT/ML Prefilled Syringe [Zibor] Box of 2",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP286363",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21144064,
+      "conceptName": "bemiparin 25000 UNT/ML Prefilled Syringe [Zibor] Box of 2",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP256967",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21144065,
+      "conceptName": "bemiparin 17500 UNT/ML Prefilled Syringe Box of 2",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP256978",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21147411,
+      "conceptName": "0.2 ML bemiparin 12500 UNT/ML Prefilled Syringe [Zibor] Box of 2 by Archimedes",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP285521",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21147412,
+      "conceptName": "0.2 ML bemiparin 17500 UNT/ML Prefilled Syringe [Zibor] Box of 2 by Archimedes",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP285530",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21147413,
+      "conceptName": "0.2 ML bemiparin 17500 UNT/ML Prefilled Syringe [Zibor] Box of 10 by Archimedes",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP285532",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21153993,
+      "conceptName": "bemiparin 12500 UNT/ML Prefilled Syringe [Zibor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP256973",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21157403,
+      "conceptName": "0.2 ML bemiparin 25000 UNT/ML Prefilled Syringe Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP285508",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21157420,
+      "conceptName": "0.3 ML bemiparin 25000 UNT/ML Prefilled Syringe [Zibor] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP285915",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21163793,
+      "conceptName": "bemiparin 12500 UNT/ML [Zibor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP256970",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21163794,
+      "conceptName": "bemiparin 12500 UNT/ML Prefilled Syringe Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP256972",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36118762,
+      "conceptName": "0.2 ML bemiparin 12500 UNT/ML Injectable Solution [Zibor] by ROVI Biotech",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5049831",
       "standardConcept": "S"
     },
     {
@@ -110,12 +628,255 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 36120851,
+      "conceptName": "0.2 ML bemiparin 17500 UNT/ML Injectable Solution [Zibor] by ROVI Biotech",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5049833",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36120853,
+      "conceptName": "0.2 ML bemiparin 17500 UNT/ML Injectable Solution [Zibor] Box of 10 by ROVI Biotech",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5049834",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36225634,
+      "conceptName": "bemiparin Injectable Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Dose Group",
+      "conceptCode": "1160004",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36403541,
+      "conceptName": "bemiparin 12500 UNT/ML Injectable Solution Box of 2",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP3095583",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36403542,
+      "conceptName": "bemiparin 25000 UNT/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP3095584",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36403543,
+      "conceptName": "bemiparin 25000 UNT/ML Injectable Solution Box of 2",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP3095585",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36403704,
+      "conceptName": "bemiparin 17500 UNT/ML Injectable Solution [Zibor] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP3095746",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36404327,
+      "conceptName": "bemiparin 12500 UNT/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP3096369",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36404328,
+      "conceptName": "bemiparin 12500 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP3096370",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36404329,
+      "conceptName": "bemiparin 17500 UNT/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP3096371",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36404495,
+      "conceptName": "bemiparin 25000 UNT/ML Injectable Solution [Zibor] Box of 2",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP3096537",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36405258,
+      "conceptName": "bemiparin 17500 UNT/ML Injectable Solution [Zibor] Box of 2",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP3097300",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36405259,
+      "conceptName": "bemiparin 25000 UNT/ML Injectable Solution [Zibor] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP3097301",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36405260,
+      "conceptName": "bemiparin 25000 UNT/ML Injectable Solution [Zibor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP3097302",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36405848,
+      "conceptName": "bemiparin 17500 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP3097890",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36405849,
+      "conceptName": "bemiparin 25000 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP3097891",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36406036,
+      "conceptName": "bemiparin 17500 UNT/ML Injectable Solution [Zibor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP3098078",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36406524,
+      "conceptName": "bemiparin Injectable Solution [Zibor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP3098566",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36408125,
+      "conceptName": "bemiparin 17500 UNT/ML Injectable Solution Box of 2",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP3100167",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36408309,
+      "conceptName": "bemiparin 12500 UNT/ML Injectable Solution [Zibor] Box of 2",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP3100351",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36408310,
+      "conceptName": "bemiparin 12500 UNT/ML Injectable Solution [Zibor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP3100352",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36408757,
+      "conceptName": "bemiparin Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP3100799",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36409094,
+      "conceptName": "bemiparin 12500 UNT/ML Injectable Solution [Zibor] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP3101136",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36411456,
+      "conceptName": "0.2 ML bemiparin 25000 UNT/ML Injectable Solution Box of 2",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP3103498",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 36411458,
       "conceptName": "0.2 ML bemiparin 12500 UNT/ML Injectable Solution [Zibor] Box of 2",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Quant Branded Box",
       "conceptCode": "OMOP3103500",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36411459,
+      "conceptName": "0.2 ML bemiparin 12500 UNT/ML Injectable Solution [Zibor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP3103501",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36411461,
+      "conceptName": "0.2 ML bemiparin 12500 UNT/ML Injectable Solution Box of 2",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP3103503",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36411462,
+      "conceptName": "0.2 ML bemiparin 25000 UNT/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP3103504",
       "standardConcept": "S"
     },
     {
@@ -137,138 +898,21 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36118762,
-      "conceptName": "0.2 ML bemiparin 12500 UNT/ML Injectable Solution [Zibor] by ROVI Biotech",
+      "conceptId": 36411465,
+      "conceptName": "0.2 ML bemiparin 25000 UNT/ML Injectable Solution [Zibor] Box of 2 by Archimedes",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5049831",
+      "conceptCode": "OMOP3103507",
       "standardConcept": "S"
     },
     {
-      "conceptId": 21098376,
-      "conceptName": "0.2 ML bemiparin 12500 UNT/ML Prefilled Syringe Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP285517",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21059079,
-      "conceptName": "0.2 ML bemiparin 12500 UNT/ML Prefilled Syringe Box of 2",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP285516",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21108216,
-      "conceptName": "0.2 ML bemiparin 12500 UNT/ML Prefilled Syringe [Zibor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP285518",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21117949,
-      "conceptName": "0.2 ML bemiparin 12500 UNT/ML Prefilled Syringe [Zibor] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP285522",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21108217,
-      "conceptName": "0.2 ML bemiparin 12500 UNT/ML Prefilled Syringe [Zibor] Box of 10 by Archimedes",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP285524",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21078773,
-      "conceptName": "0.2 ML bemiparin 12500 UNT/ML Prefilled Syringe [Zibor] Box of 2",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP285520",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21147411,
-      "conceptName": "0.2 ML bemiparin 12500 UNT/ML Prefilled Syringe [Zibor] Box of 2 by Archimedes",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP285521",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21049316,
-      "conceptName": "0.2 ML bemiparin 12500 UNT/ML Prefilled Syringe [Zibor] by Archimedes",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP285519",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42923318,
-      "conceptName": "0.2 ML bemiparin 175 MG/ML Prefilled Syringe",
+      "conceptId": 36411467,
+      "conceptName": "0.2 ML bemiparin 12500 UNT/ML Injectable Solution",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP4650109",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42923317,
-      "conceptName": "0.2 ML bemiparin 175 MG/ML Prefilled Syringe [Zibor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP4650108",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2034341,
-      "conceptName": "0.2 ML bemiparin 175 MG/ML Prefilled Syringe [Zibor] by Aestura",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4933451",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2034342,
-      "conceptName": "0.2 ML bemiparin 175 MG/ML Prefilled Syringe [Zibor] by Ilsung",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4933452",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2034343,
-      "conceptName": "0.2 ML bemiparin 175 MG/ML Prefilled Syringe [Zibor] by PK One Pharm",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4933453",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36411476,
-      "conceptName": "0.2 ML bemiparin 17500 UNT/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP3103518",
+      "conceptCode": "OMOP3103509",
       "standardConcept": "S"
     },
     {
@@ -281,24 +925,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36411475,
-      "conceptName": "0.2 ML bemiparin 17500 UNT/ML Injectable Solution Box of 2",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP3103517",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36411473,
-      "conceptName": "0.2 ML bemiparin 17500 UNT/ML Injectable Solution [Zibor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP3103515",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 36411469,
       "conceptName": "0.2 ML bemiparin 17500 UNT/ML Injectable Solution [Zibor] Box of 10",
       "vocabularyId": "RxNorm Extension",
@@ -308,174 +934,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36411479,
-      "conceptName": "0.2 ML bemiparin 17500 UNT/ML Injectable Solution [Zibor] Box of 10 by Archimedes",
+      "conceptId": 36411471,
+      "conceptName": "0.2 ML bemiparin 12500 UNT/ML Injectable Solution [Zibor] Box of 10 by Archimedes",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3103521",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36120853,
-      "conceptName": "0.2 ML bemiparin 17500 UNT/ML Injectable Solution [Zibor] Box of 10 by ROVI Biotech",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5049834",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36411486,
-      "conceptName": "0.2 ML bemiparin 17500 UNT/ML Injectable Solution [Zibor] Box of 2",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP3103528",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36411483,
-      "conceptName": "0.2 ML bemiparin 17500 UNT/ML Injectable Solution [Zibor] Box of 2 by Archimedes",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3103525",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36411482,
-      "conceptName": "0.2 ML bemiparin 17500 UNT/ML Injectable Solution [Zibor] by Archimedes",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3103524",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36120851,
-      "conceptName": "0.2 ML bemiparin 17500 UNT/ML Injectable Solution [Zibor] by ROVI Biotech",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5049833",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21098377,
-      "conceptName": "0.2 ML bemiparin 17500 UNT/ML Prefilled Syringe Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP285526",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21137585,
-      "conceptName": "0.2 ML bemiparin 17500 UNT/ML Prefilled Syringe Box of 2",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP285525",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21098378,
-      "conceptName": "0.2 ML bemiparin 17500 UNT/ML Prefilled Syringe [Zibor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP285527",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21059080,
-      "conceptName": "0.2 ML bemiparin 17500 UNT/ML Prefilled Syringe [Zibor] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP285531",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21147413,
-      "conceptName": "0.2 ML bemiparin 17500 UNT/ML Prefilled Syringe [Zibor] Box of 10 by Archimedes",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP285532",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21078775,
-      "conceptName": "0.2 ML bemiparin 17500 UNT/ML Prefilled Syringe [Zibor] Box of 2",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP285529",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21147412,
-      "conceptName": "0.2 ML bemiparin 17500 UNT/ML Prefilled Syringe [Zibor] Box of 2 by Archimedes",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP285530",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21078774,
-      "conceptName": "0.2 ML bemiparin 17500 UNT/ML Prefilled Syringe [Zibor] by Archimedes",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP285528",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36411480,
-      "conceptName": "0.2 ML bemiparin 25000 UNT/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP3103522",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36411462,
-      "conceptName": "0.2 ML bemiparin 25000 UNT/ML Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP3103504",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36411456,
-      "conceptName": "0.2 ML bemiparin 25000 UNT/ML Injectable Solution Box of 2",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP3103498",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36411487,
-      "conceptName": "0.2 ML bemiparin 25000 UNT/ML Injectable Solution [Zibor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP3103529",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36411478,
-      "conceptName": "0.2 ML bemiparin 25000 UNT/ML Injectable Solution [Zibor] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP3103520",
+      "conceptCode": "OMOP3103513",
       "standardConcept": "S"
     },
     {
@@ -488,6 +952,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 36411473,
+      "conceptName": "0.2 ML bemiparin 17500 UNT/ML Injectable Solution [Zibor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP3103515",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 36411474,
       "conceptName": "0.2 ML bemiparin 25000 UNT/ML Injectable Solution [Zibor] Box of 2",
       "vocabularyId": "RxNorm Extension",
@@ -497,12 +970,102 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36411465,
-      "conceptName": "0.2 ML bemiparin 25000 UNT/ML Injectable Solution [Zibor] Box of 2 by Archimedes",
+      "conceptId": 36411475,
+      "conceptName": "0.2 ML bemiparin 17500 UNT/ML Injectable Solution Box of 2",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP3103517",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36411476,
+      "conceptName": "0.2 ML bemiparin 17500 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP3103518",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36411478,
+      "conceptName": "0.2 ML bemiparin 25000 UNT/ML Injectable Solution [Zibor] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP3103520",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36411479,
+      "conceptName": "0.2 ML bemiparin 17500 UNT/ML Injectable Solution [Zibor] Box of 10 by Archimedes",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3103507",
+      "conceptCode": "OMOP3103521",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36411480,
+      "conceptName": "0.2 ML bemiparin 25000 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP3103522",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36411481,
+      "conceptName": "0.2 ML bemiparin 12500 UNT/ML Injectable Solution [Zibor] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP3103523",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36411482,
+      "conceptName": "0.2 ML bemiparin 17500 UNT/ML Injectable Solution [Zibor] by Archimedes",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3103524",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36411483,
+      "conceptName": "0.2 ML bemiparin 17500 UNT/ML Injectable Solution [Zibor] Box of 2 by Archimedes",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3103525",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36411485,
+      "conceptName": "0.2 ML bemiparin 12500 UNT/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP3103527",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36411486,
+      "conceptName": "0.2 ML bemiparin 17500 UNT/ML Injectable Solution [Zibor] Box of 2",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP3103528",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36411487,
+      "conceptName": "0.2 ML bemiparin 25000 UNT/ML Injectable Solution [Zibor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP3103529",
       "standardConcept": "S"
     },
     {
@@ -515,75 +1078,183 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 21157403,
-      "conceptName": "0.2 ML bemiparin 25000 UNT/ML Prefilled Syringe Box of 10",
+      "conceptId": 36411504,
+      "conceptName": "0.3 ML bemiparin 25000 UNT/ML Injectable Solution Box of 2",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP285508",
+      "conceptCode": "OMOP3103546",
       "standardConcept": "S"
     },
     {
-      "conceptId": 21049315,
-      "conceptName": "0.2 ML bemiparin 25000 UNT/ML Prefilled Syringe Box of 2",
+      "conceptId": 36411506,
+      "conceptName": "0.3 ML bemiparin 25000 UNT/ML Injectable Solution [Zibor] Box of 2 by Archimedes",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3103548",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36411527,
+      "conceptName": "0.3 ML bemiparin 25000 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP3103569",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36411532,
+      "conceptName": "0.3 ML bemiparin 25000 UNT/ML Injectable Solution [Zibor] Box of 10 by Archimedes",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3103574",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36411536,
+      "conceptName": "0.3 ML bemiparin 25000 UNT/ML Injectable Solution Box of 10",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP285507",
+      "conceptCode": "OMOP3103578",
       "standardConcept": "S"
     },
     {
-      "conceptId": 21117947,
-      "conceptName": "0.2 ML bemiparin 25000 UNT/ML Prefilled Syringe [Zibor]",
+      "conceptId": 36411541,
+      "conceptName": "0.3 ML bemiparin 25000 UNT/ML Injectable Solution [Zibor]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP285509",
+      "conceptCode": "OMOP3103583",
       "standardConcept": "S"
     },
     {
-      "conceptId": 21088502,
-      "conceptName": "0.2 ML bemiparin 25000 UNT/ML Prefilled Syringe [Zibor] Box of 10",
+      "conceptId": 36411565,
+      "conceptName": "0.3 ML bemiparin 25000 UNT/ML Injectable Solution [Zibor] Box of 10",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP285514",
+      "conceptCode": "OMOP3103607",
       "standardConcept": "S"
     },
     {
-      "conceptId": 21108215,
-      "conceptName": "0.2 ML bemiparin 25000 UNT/ML Prefilled Syringe [Zibor] Box of 10 by Archimedes",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP285515",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21117948,
-      "conceptName": "0.2 ML bemiparin 25000 UNT/ML Prefilled Syringe [Zibor] Box of 2",
+      "conceptId": 36411579,
+      "conceptName": "0.3 ML bemiparin 25000 UNT/ML Injectable Solution [Zibor] Box of 2",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP285511",
+      "conceptCode": "OMOP3103621",
       "standardConcept": "S"
     },
     {
-      "conceptId": 21127716,
-      "conceptName": "0.2 ML bemiparin 25000 UNT/ML Prefilled Syringe [Zibor] Box of 2 by Archimedes",
+      "conceptId": 36411582,
+      "conceptName": "0.3 ML bemiparin 25000 UNT/ML Injectable Solution [Zibor] by Archimedes",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP285512",
+      "conceptCode": "OMOP3103624",
       "standardConcept": "S"
     },
     {
-      "conceptId": 21127715,
-      "conceptName": "0.2 ML bemiparin 25000 UNT/ML Prefilled Syringe [Zibor] by Archimedes",
+      "conceptId": 36411585,
+      "conceptName": "0.4 ML bemiparin 25000 UNT/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP3103627",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36411586,
+      "conceptName": "0.4 ML bemiparin 25000 UNT/ML Injectable Solution [Zibor] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP3103628",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36411587,
+      "conceptName": "0.4 ML bemiparin 25000 UNT/ML Injectable Solution [Zibor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP3103629",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36411595,
+      "conceptName": "0.4 ML bemiparin 25000 UNT/ML Injectable Solution [Zibor] Box of 2",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP3103637",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36411597,
+      "conceptName": "0.4 ML bemiparin 25000 UNT/ML Injectable Solution [Zibor] Box of 2 by Archimedes",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP285510",
+      "conceptCode": "OMOP3103639",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36411601,
+      "conceptName": "0.4 ML bemiparin 25000 UNT/ML Injectable Solution [Zibor] Box of 10 by Archimedes",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3103643",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36411608,
+      "conceptName": "0.4 ML bemiparin 25000 UNT/ML Injectable Solution Box of 2",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP3103650",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36411609,
+      "conceptName": "0.4 ML bemiparin 25000 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP3103651",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36411613,
+      "conceptName": "0.4 ML bemiparin 25000 UNT/ML Injectable Solution [Zibor] by Archimedes",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3103655",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36896164,
+      "conceptName": "0.3 ML bemiparin 25000 UNT/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP1001514",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40141508,
+      "conceptName": "bemiparin Prefilled Syringe",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "727831",
       "standardConcept": "S"
     },
     {
@@ -614,336 +1285,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36411527,
-      "conceptName": "0.3 ML bemiparin 25000 UNT/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP3103569",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36411536,
-      "conceptName": "0.3 ML bemiparin 25000 UNT/ML Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP3103578",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36411504,
-      "conceptName": "0.3 ML bemiparin 25000 UNT/ML Injectable Solution Box of 2",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP3103546",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36411541,
-      "conceptName": "0.3 ML bemiparin 25000 UNT/ML Injectable Solution [Zibor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP3103583",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36411565,
-      "conceptName": "0.3 ML bemiparin 25000 UNT/ML Injectable Solution [Zibor] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP3103607",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36411532,
-      "conceptName": "0.3 ML bemiparin 25000 UNT/ML Injectable Solution [Zibor] Box of 10 by Archimedes",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3103574",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36411579,
-      "conceptName": "0.3 ML bemiparin 25000 UNT/ML Injectable Solution [Zibor] Box of 2",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP3103621",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36411506,
-      "conceptName": "0.3 ML bemiparin 25000 UNT/ML Injectable Solution [Zibor] Box of 2 by Archimedes",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3103548",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36411582,
-      "conceptName": "0.3 ML bemiparin 25000 UNT/ML Injectable Solution [Zibor] by Archimedes",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3103624",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36896164,
-      "conceptName": "0.3 ML bemiparin 25000 UNT/ML Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP1001514",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21029657,
-      "conceptName": "0.3 ML bemiparin 25000 UNT/ML Prefilled Syringe Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP285910",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21078798,
-      "conceptName": "0.3 ML bemiparin 25000 UNT/ML Prefilled Syringe Box of 2",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP285908",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21117963,
-      "conceptName": "0.3 ML bemiparin 25000 UNT/ML Prefilled Syringe [Zibor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP285911",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21157420,
-      "conceptName": "0.3 ML bemiparin 25000 UNT/ML Prefilled Syringe [Zibor] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP285915",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21088518,
-      "conceptName": "0.3 ML bemiparin 25000 UNT/ML Prefilled Syringe [Zibor] Box of 10 by Archimedes",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP285916",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21059096,
-      "conceptName": "0.3 ML bemiparin 25000 UNT/ML Prefilled Syringe [Zibor] Box of 2",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP285913",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21117964,
-      "conceptName": "0.3 ML bemiparin 25000 UNT/ML Prefilled Syringe [Zibor] Box of 2 by Archimedes",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP285914",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21137608,
-      "conceptName": "0.3 ML bemiparin 25000 UNT/ML Prefilled Syringe [Zibor] by Archimedes",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP285912",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 40162427,
       "conceptName": "0.3 ML bemiparin sodium 22500 UNT/ML Prefilled Syringe",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
       "conceptClassId": "Quant Clinical Drug",
       "conceptCode": "857259",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36411609,
-      "conceptName": "0.4 ML bemiparin 25000 UNT/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP3103651",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36411585,
-      "conceptName": "0.4 ML bemiparin 25000 UNT/ML Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP3103627",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36411608,
-      "conceptName": "0.4 ML bemiparin 25000 UNT/ML Injectable Solution Box of 2",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP3103650",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36411587,
-      "conceptName": "0.4 ML bemiparin 25000 UNT/ML Injectable Solution [Zibor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP3103629",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36411586,
-      "conceptName": "0.4 ML bemiparin 25000 UNT/ML Injectable Solution [Zibor] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP3103628",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36411601,
-      "conceptName": "0.4 ML bemiparin 25000 UNT/ML Injectable Solution [Zibor] Box of 10 by Archimedes",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3103643",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36411595,
-      "conceptName": "0.4 ML bemiparin 25000 UNT/ML Injectable Solution [Zibor] Box of 2",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP3103637",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36411597,
-      "conceptName": "0.4 ML bemiparin 25000 UNT/ML Injectable Solution [Zibor] Box of 2 by Archimedes",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3103639",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36411613,
-      "conceptName": "0.4 ML bemiparin 25000 UNT/ML Injectable Solution [Zibor] by Archimedes",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3103655",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21117986,
-      "conceptName": "0.4 ML bemiparin 25000 UNT/ML Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP286358",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21078819,
-      "conceptName": "0.4 ML bemiparin 25000 UNT/ML Prefilled Syringe Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP286360",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21117987,
-      "conceptName": "0.4 ML bemiparin 25000 UNT/ML Prefilled Syringe Box of 2",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP286359",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21098424,
-      "conceptName": "0.4 ML bemiparin 25000 UNT/ML Prefilled Syringe [Zibor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP286361",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21039535,
-      "conceptName": "0.4 ML bemiparin 25000 UNT/ML Prefilled Syringe [Zibor] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP286365",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21039536,
-      "conceptName": "0.4 ML bemiparin 25000 UNT/ML Prefilled Syringe [Zibor] Box of 10 by Archimedes",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP286366",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21137632,
-      "conceptName": "0.4 ML bemiparin 25000 UNT/ML Prefilled Syringe [Zibor] Box of 2",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP286363",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21069043,
-      "conceptName": "0.4 ML bemiparin 25000 UNT/ML Prefilled Syringe [Zibor] Box of 2 by Archimedes",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP286364",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21059123,
-      "conceptName": "0.4 ML bemiparin 25000 UNT/ML Prefilled Syringe [Zibor] by Archimedes",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP286362",
       "standardConcept": "S"
     },
     {
@@ -956,471 +1303,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 19069137,
-      "conceptName": "bemiparin",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Ingredient",
-      "conceptCode": "280611",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42925120,
-      "conceptName": "bemiparin 125 MG/ML",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP4651951",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42925118,
-      "conceptName": "bemiparin 125 MG/ML Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP4651949",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42925117,
-      "conceptName": "bemiparin 125 MG/ML Prefilled Syringe [Zibor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4651948",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42925119,
-      "conceptName": "bemiparin 125 MG/ML [Zibor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4651950",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36404328,
-      "conceptName": "bemiparin 12500 UNT/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP3096370",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36404327,
-      "conceptName": "bemiparin 12500 UNT/ML Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP3096369",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36403541,
-      "conceptName": "bemiparin 12500 UNT/ML Injectable Solution Box of 2",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP3095583",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36408310,
-      "conceptName": "bemiparin 12500 UNT/ML Injectable Solution [Zibor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP3100352",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36409094,
-      "conceptName": "bemiparin 12500 UNT/ML Injectable Solution [Zibor] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP3101136",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36408309,
-      "conceptName": "bemiparin 12500 UNT/ML Injectable Solution [Zibor] Box of 2",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP3100351",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21163794,
-      "conceptName": "bemiparin 12500 UNT/ML Prefilled Syringe Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP256972",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21036064,
-      "conceptName": "bemiparin 12500 UNT/ML Prefilled Syringe Box of 2",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP256971",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21153993,
-      "conceptName": "bemiparin 12500 UNT/ML Prefilled Syringe [Zibor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP256973",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21085186,
-      "conceptName": "bemiparin 12500 UNT/ML Prefilled Syringe [Zibor] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP256975",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21065536,
-      "conceptName": "bemiparin 12500 UNT/ML Prefilled Syringe [Zibor] Box of 2",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP256974",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21163793,
-      "conceptName": "bemiparin 12500 UNT/ML [Zibor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP256970",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42925116,
-      "conceptName": "bemiparin 175 MG/ML",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP4651947",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42925114,
-      "conceptName": "bemiparin 175 MG/ML Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP4651945",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42925113,
-      "conceptName": "bemiparin 175 MG/ML Prefilled Syringe [Zibor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4651944",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42925115,
-      "conceptName": "bemiparin 175 MG/ML [Zibor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4651946",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36405848,
-      "conceptName": "bemiparin 17500 UNT/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP3097890",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36404329,
-      "conceptName": "bemiparin 17500 UNT/ML Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP3096371",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36408125,
-      "conceptName": "bemiparin 17500 UNT/ML Injectable Solution Box of 2",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP3100167",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36406036,
-      "conceptName": "bemiparin 17500 UNT/ML Injectable Solution [Zibor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP3098078",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36403704,
-      "conceptName": "bemiparin 17500 UNT/ML Injectable Solution [Zibor] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP3095746",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36405258,
-      "conceptName": "bemiparin 17500 UNT/ML Injectable Solution [Zibor] Box of 2",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP3097300",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21094990,
-      "conceptName": "bemiparin 17500 UNT/ML Prefilled Syringe Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP256979",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21144065,
-      "conceptName": "bemiparin 17500 UNT/ML Prefilled Syringe Box of 2",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP256978",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21055693,
-      "conceptName": "bemiparin 17500 UNT/ML Prefilled Syringe [Zibor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP256980",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21036065,
-      "conceptName": "bemiparin 17500 UNT/ML Prefilled Syringe [Zibor] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP256982",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21134150,
-      "conceptName": "bemiparin 17500 UNT/ML Prefilled Syringe [Zibor] Box of 2",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP256981",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21026302,
-      "conceptName": "bemiparin 17500 UNT/ML [Zibor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP256976",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36405849,
-      "conceptName": "bemiparin 25000 UNT/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP3097891",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36403542,
-      "conceptName": "bemiparin 25000 UNT/ML Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP3095584",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36403543,
-      "conceptName": "bemiparin 25000 UNT/ML Injectable Solution Box of 2",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP3095585",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36405260,
-      "conceptName": "bemiparin 25000 UNT/ML Injectable Solution [Zibor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP3097302",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36405259,
-      "conceptName": "bemiparin 25000 UNT/ML Injectable Solution [Zibor] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP3097301",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36404495,
-      "conceptName": "bemiparin 25000 UNT/ML Injectable Solution [Zibor] Box of 2",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP3096537",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21045922,
-      "conceptName": "bemiparin 25000 UNT/ML Prefilled Syringe Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP256965",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21104845,
-      "conceptName": "bemiparin 25000 UNT/ML Prefilled Syringe Box of 2",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP256964",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21055692,
-      "conceptName": "bemiparin 25000 UNT/ML Prefilled Syringe [Zibor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP256966",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21026301,
-      "conceptName": "bemiparin 25000 UNT/ML Prefilled Syringe [Zibor] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP256968",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21144064,
-      "conceptName": "bemiparin 25000 UNT/ML Prefilled Syringe [Zibor] Box of 2",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP256967",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21094989,
-      "conceptName": "bemiparin 25000 UNT/ML [Zibor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP256963",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36225634,
-      "conceptName": "bemiparin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1160004",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36408757,
-      "conceptName": "bemiparin Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP3100799",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36406524,
-      "conceptName": "bemiparin Injectable Solution [Zibor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP3098566",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40141508,
-      "conceptName": "bemiparin Prefilled Syringe",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "727831",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21114645,
-      "conceptName": "bemiparin Prefilled Syringe [Zibor]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP256962",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 40162760,
       "conceptName": "bemiparin sodium 12500 UNT/ML",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Comp",
       "conceptCode": "857254",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42902423,
-      "conceptName": "bemiparin sodium 12500 UNT/ML Prefilled Syringe",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "1359536",
       "standardConcept": "S"
     },
     {
@@ -1433,30 +1321,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 42902551,
-      "conceptName": "bemiparin sodium 17500 UNT/ML Prefilled Syringe",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "1359664",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 40162762,
       "conceptName": "bemiparin sodium 22500 UNT/ML",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Comp",
       "conceptCode": "857258",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42902773,
-      "conceptName": "bemiparin sodium 22500 UNT/ML Prefilled Syringe",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "1359886",
       "standardConcept": "S"
     },
     {
@@ -1469,15 +1339,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 42902628,
-      "conceptName": "bemiparin sodium 25000 UNT/ML Prefilled Syringe",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "1359741",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 40162764,
       "conceptName": "bemiparin sodium 40000 UNT/ML",
       "vocabularyId": "RxNorm",
@@ -1487,12 +1348,156 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 42902423,
+      "conceptName": "bemiparin sodium 12500 UNT/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "1359536",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42902551,
+      "conceptName": "bemiparin sodium 17500 UNT/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "1359664",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42902628,
+      "conceptName": "bemiparin sodium 25000 UNT/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "1359741",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 42902724,
       "conceptName": "bemiparin sodium 40000 UNT/ML Prefilled Syringe",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug",
       "conceptCode": "1359837",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42902773,
+      "conceptName": "bemiparin sodium 22500 UNT/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "1359886",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42923317,
+      "conceptName": "0.2 ML bemiparin 175 MG/ML Prefilled Syringe [Zibor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP4650108",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42923318,
+      "conceptName": "0.2 ML bemiparin 175 MG/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP4650109",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42923319,
+      "conceptName": "0.2 ML bemiparin 125 MG/ML Prefilled Syringe [Zibor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP4650110",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42923320,
+      "conceptName": "0.2 ML bemiparin 125 MG/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP4650111",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42925113,
+      "conceptName": "bemiparin 175 MG/ML Prefilled Syringe [Zibor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4651944",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42925114,
+      "conceptName": "bemiparin 175 MG/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP4651945",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42925115,
+      "conceptName": "bemiparin 175 MG/ML [Zibor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4651946",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42925116,
+      "conceptName": "bemiparin 175 MG/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP4651947",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42925117,
+      "conceptName": "bemiparin 125 MG/ML Prefilled Syringe [Zibor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4651948",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42925118,
+      "conceptName": "bemiparin 125 MG/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP4651949",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42925119,
+      "conceptName": "bemiparin 125 MG/ML [Zibor]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4651950",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42925120,
+      "conceptName": "bemiparin 125 MG/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP4651951",
       "standardConcept": "S"
     }
   ]

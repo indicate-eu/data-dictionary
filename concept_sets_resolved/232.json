@@ -1,6 +1,37 @@
 {
   "conceptSetId": 232,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
+    {
+      "conceptId": 4267438,
+      "conceptName": "Klebsiella aerogenes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "62592009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37156019,
+      "conceptName": "Extended spectrum beta-lactamase producing Klebsiella aerogenes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "1097001000112104",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37395754,
+      "conceptName": "Multiple drug-resistant Klebsiella aerogenes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "715308001",
+      "standardConcept": "S"
+    },
     {
       "conceptId": 42535759,
       "conceptName": "Carbapenem resistant Klebsiella aerogenes",
@@ -17,33 +48,6 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "734352006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37156019,
-      "conceptName": "Extended spectrum beta-lactamase producing Klebsiella aerogenes",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1097001000112104",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4267438,
-      "conceptName": "Klebsiella aerogenes",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "62592009",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37395754,
-      "conceptName": "Multiple drug-resistant Klebsiella aerogenes",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "715308001",
       "standardConcept": "S"
     }
   ]

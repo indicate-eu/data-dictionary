@@ -1,526 +1,36 @@
 {
   "conceptSetId": 125,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "RxNorm": "RxNorm 20260105",
+    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+  },
   "resolvedConcepts": [
     {
-      "conceptId": 36279507,
-      "conceptName": "10 ML insulin detemir 100 UNT/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 1516976,
+      "conceptName": "insulin detemir",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP3130382",
+      "conceptClassId": "Ingredient",
+      "conceptCode": "139825",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36279613,
-      "conceptName": "10 ML insulin detemir 100 UNT/ML Injectable Solution [Actrapid]",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 1516978,
+      "conceptName": "insulin detemir 100 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP3130488",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "484322",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36279856,
-      "conceptName": "10 ML insulin detemir 100 UNT/ML Injectable Solution [Actrapid] by Novo Nordisk",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 1516979,
+      "conceptName": "insulin detemir 100 UNT/ML Injectable Solution [Levemir]",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3130731",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36279462,
-      "conceptName": "10 ML insulin detemir 100 UNT/ML Injectable Solution [Humulin]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP3130337",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36279403,
-      "conceptName": "10 ML insulin detemir 100 UNT/ML Injectable Solution [Humulin] by Eli Lilly",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3130278",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36279942,
-      "conceptName": "10 ML insulin detemir 33.3 UNT/ML / insulin, isophane 70 UNT/ML Injectable Suspension",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP3130817",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36279390,
-      "conceptName": "10 ML insulin detemir 33.3 UNT/ML / insulin, isophane 70 UNT/ML Injectable Suspension [Humulin]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP3130265",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36279767,
-      "conceptName": "10 ML insulin detemir 33.3 UNT/ML / insulin, isophane 70 UNT/ML Injectable Suspension [Humulin] by Eli Lilly",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3130642",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43258826,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Cartridge",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP561944",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44191279,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Cartridge Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP3068002",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43291447,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Cartridge Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP561945",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44191223,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Cartridge [Levemir]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP3067946",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44190853,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Cartridge [Levemir] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP3067576",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44191512,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Cartridge [Levemir] Box of 10 by Novo Nordisk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3068235",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44191306,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Cartridge [Levemir] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP3068029",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44191344,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Cartridge [Levemir] Box of 5 by Cc",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3068067",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44191099,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Cartridge [Levemir] Box of 5 by Kohlpharma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3067822",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44191014,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Cartridge [Levemir] Box of 5 by Novo Nordisk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3067737",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41348914,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP2546876",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41346806,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2544768",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41347038,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2545000",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36278614,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Actrapid]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP3129489",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36278594,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Actrapid] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP3129469",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36278534,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Actrapid] Box of 5 by Novo Nordisk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3129409",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36278520,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Humulin]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP3129395",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36278466,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Humulin] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP3129341",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36278531,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Humulin] Box of 5 by Eli Lilly",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3129406",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36278521,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Insuman]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP3129396",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36278595,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Insuman] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP3129470",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36278532,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Insuman] Box of 5 by Sanofi",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3129407",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41347585,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Levemir]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2545547",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36932084,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Levemir]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP5209396",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41348076,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Levemir] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2546038",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41349602,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Levemir] Box of 10 by Novo Nordisk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2547564",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36931705,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Levemir] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP5209399",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41348077,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Levemir] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2546039",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41350588,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Levemir] Box of 5 by Cc",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2548550",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41350071,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Levemir] Box of 5 by Eurim-Pharm",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2548033",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41348170,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Levemir] Box of 5 by Kohlpharma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2546132",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35779523,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Levemir] Box of 5 by Mawdsley-Brooks",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2780984",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41348171,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Levemir] Box of 5 by Novo Nordisk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2546133",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35779332,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Levemir] Box of 5 by Waymade",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2780793",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36942898,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Levemir] Box of 5 by Waymade",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5209400",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35779333,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Levemir] by Mawdsley-Brooks",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2780794",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35779394,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Levemir] by Novo Nordisk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2780855",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36945325,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Levemir] by Novo Nordisk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5209398",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36955210,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Levemir] by Waymade",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5209397",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35779463,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Levemir] by Waymade",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2780924",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44191196,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Suspension",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP3067919",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44191032,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Suspension Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP3067755",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44190894,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Suspension [Levemir]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP3067617",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44191222,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Suspension [Levemir] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP3067945",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44190933,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Suspension [Levemir] Box of 5 by Novo Nordisk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3067656",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36954088,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Suspension [Levemir] Box of 5 by Waymade",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5209403",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36966233,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Suspension [Levemir] by Novo Nordisk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5209402",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36962526,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Suspension [Levemir] by Waymade",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5209401",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43275292,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Injection",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP561938",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43286082,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Injection Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP561939",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "616238",
       "standardConcept": "S"
     },
     {
@@ -533,42 +43,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36278482,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Pen Injector Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP3129357",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36278522,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Pen Injector [Insuman]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP3129397",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36278439,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Pen Injector [Insuman] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP3129314",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36278535,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Pen Injector [Insuman] Box of 5 by Sanofi",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3129410",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 1516981,
       "conceptName": "3 ML insulin detemir 100 UNT/ML Pen Injector [Levemir]",
       "vocabularyId": "RxNorm",
@@ -578,39 +52,30 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36278569,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Pen Injector [Levemir] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP3129444",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36278576,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Pen Injector [Levemir] Box of 5 by Novo Nordisk",
+      "conceptId": 2028857,
+      "conceptName": "3 ML insulin detemir 14.2 MG/ML Pen Injector [LEVEMIR FLEX] by Novonordisk",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3129451",
+      "conceptCode": "OMOP4927602",
       "standardConcept": "S"
     },
     {
-      "conceptId": 21136739,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 19044971,
+      "conceptName": "insulin detemir 100 UNT/ML [Levemir]",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP305740",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "616236",
       "standardConcept": "S"
     },
     {
-      "conceptId": 41347499,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Prefilled Syringe Box of 10",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 19112694,
+      "conceptName": "insulin detemir 100 UNT/ML",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2545461",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "484320",
       "standardConcept": "S"
     },
     {
@@ -623,66 +88,39 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 43196693,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Prefilled Syringe [Levemir]",
+      "conceptId": 21075565,
+      "conceptName": "insulin detemir 100 UNT/ML Prefilled Syringe Box of 5",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP511664",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP258718",
       "standardConcept": "S"
     },
     {
-      "conceptId": 41347366,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Prefilled Syringe [Levemir] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2545328",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41350587,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Prefilled Syringe [Levemir] Box of 10 by Novo Nordisk",
+      "conceptId": 21126861,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Prefilled Syringe [Levemir] by Waymade",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2548549",
+      "conceptCode": "OMOP305746",
       "standardConcept": "S"
     },
     {
-      "conceptId": 43218616,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Prefilled Syringe [Levemir] Box of 5",
+      "conceptId": 21136739,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Prefilled Syringe",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP511665",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP305740",
       "standardConcept": "S"
     },
     {
-      "conceptId": 41350072,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Prefilled Syringe [Levemir] Box of 5 by Cc",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2548034",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41348867,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Prefilled Syringe [Levemir] Box of 5 by Eurim-Pharm",
+      "conceptId": 21136740,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Prefilled Syringe [Levemir] by Novo Nordisk",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2546829",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41349828,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Prefilled Syringe [Levemir] Box of 5 by Kohlpharma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2547790",
+      "conceptCode": "OMOP305745",
       "standardConcept": "S"
     },
     {
@@ -692,15 +130,6 @@
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
       "conceptCode": "OMOP305748",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41348630,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Prefilled Syringe [Levemir] Box of 5 by Novo Nordisk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2546592",
       "standardConcept": "S"
     },
     {
@@ -722,750 +151,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 21136740,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Prefilled Syringe [Levemir] by Novo Nordisk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP305745",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21126861,
-      "conceptName": "3 ML insulin detemir 100 UNT/ML Prefilled Syringe [Levemir] by Waymade",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP305746",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42921679,
-      "conceptName": "3 ML insulin detemir 14.2 MG/ML Pen Injector",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP4648502",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42921680,
-      "conceptName": "3 ML insulin detemir 14.2 MG/ML Pen Injector [LEVEMIR FLEX]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP4648503",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2028857,
-      "conceptName": "3 ML insulin detemir 14.2 MG/ML Pen Injector [LEVEMIR FLEX] by Novonordisk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4927602",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36278584,
-      "conceptName": "3 ML insulin detemir 33.3 UNT/ML / insulin, isophane 70 UNT/ML Injectable Suspension",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP3129459",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36278484,
-      "conceptName": "3 ML insulin detemir 33.3 UNT/ML / insulin, isophane 70 UNT/ML Injectable Suspension Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP3129359",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36278571,
-      "conceptName": "3 ML insulin detemir 33.3 UNT/ML / insulin, isophane 70 UNT/ML Injectable Suspension [Humulin]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP3129446",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36278549,
-      "conceptName": "3 ML insulin detemir 33.3 UNT/ML / insulin, isophane 70 UNT/ML Injectable Suspension [Humulin] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP3129424",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36278448,
-      "conceptName": "3 ML insulin detemir 33.3 UNT/ML / insulin, isophane 70 UNT/ML Injectable Suspension [Humulin] Box of 5 by Eli Lilly",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3129323",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44191112,
-      "conceptName": "3 ML insulin detemir 33.3 UNT/ML Injectable Suspension",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP3067835",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44191278,
-      "conceptName": "3 ML insulin detemir 33.3 UNT/ML Injectable Suspension Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP3068001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44191221,
-      "conceptName": "3 ML insulin detemir 33.3 UNT/ML Injectable Suspension [Levemir]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP3067944",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44191220,
-      "conceptName": "3 ML insulin detemir 33.3 UNT/ML Injectable Suspension [Levemir] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP3067943",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44191414,
-      "conceptName": "3 ML insulin detemir 33.3 UNT/ML Injectable Suspension [Levemir] Box of 10 by Cc",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3068137",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41347498,
-      "conceptName": "3 ML insulin detemir 33.3 UNT/ML Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP2545460",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41346756,
-      "conceptName": "3 ML insulin detemir 33.3 UNT/ML Prefilled Syringe Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2544718",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41346805,
-      "conceptName": "3 ML insulin detemir 33.3 UNT/ML Prefilled Syringe Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2544767",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41350475,
-      "conceptName": "3 ML insulin detemir 33.3 UNT/ML Prefilled Syringe [Levemir]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2548437",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41348775,
-      "conceptName": "3 ML insulin detemir 33.3 UNT/ML Prefilled Syringe [Levemir] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2546737",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41349351,
-      "conceptName": "3 ML insulin detemir 33.3 UNT/ML Prefilled Syringe [Levemir] Box of 10 by Cc",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2547313",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41350586,
-      "conceptName": "3 ML insulin detemir 33.3 UNT/ML Prefilled Syringe [Levemir] Box of 10 by Eurim-Pharm",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2548548",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41349827,
-      "conceptName": "3 ML insulin detemir 33.3 UNT/ML Prefilled Syringe [Levemir] Box of 10 by Kohlpharma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2547789",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41346893,
-      "conceptName": "3 ML insulin detemir 33.3 UNT/ML Prefilled Syringe [Levemir] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2544855",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41349102,
-      "conceptName": "3 ML insulin detemir 33.3 UNT/ML Prefilled Syringe [Levemir] Box of 5 by Kohlpharma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2547064",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36279061,
-      "conceptName": "5 ML insulin detemir 100 UNT/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP3129936",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36279249,
-      "conceptName": "5 ML insulin detemir 100 UNT/ML Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP3130124",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36279155,
-      "conceptName": "5 ML insulin detemir 100 UNT/ML Injectable Solution [Insuman]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP3130030",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36279217,
-      "conceptName": "5 ML insulin detemir 100 UNT/ML Injectable Solution [Insuman] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP3130092",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36279288,
-      "conceptName": "5 ML insulin detemir 100 UNT/ML Injectable Solution [Insuman] Box of 5 by Sanofi",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3130163",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36222190,
-      "conceptName": "Levemir Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1167934",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 1516976,
-      "conceptName": "insulin detemir",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Ingredient",
-      "conceptCode": "139825",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36259239,
-      "conceptName": "insulin detemir / insulin, isophane Injectable Suspension",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP3110114",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36267051,
-      "conceptName": "insulin detemir / insulin, isophane Injectable Suspension [Humulin]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP3117926",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19112694,
-      "conceptName": "insulin detemir 100 UNT/ML",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "484320",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36894766,
-      "conceptName": "insulin detemir 100 UNT/ML Cartridge",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP991401",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44164975,
-      "conceptName": "insulin detemir 100 UNT/ML Cartridge Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP3041698",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43290521,
-      "conceptName": "insulin detemir 100 UNT/ML Cartridge Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP551936",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43274346,
-      "conceptName": "insulin detemir 100 UNT/ML Cartridge [Levemir]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP551937",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44166058,
-      "conceptName": "insulin detemir 100 UNT/ML Cartridge [Levemir] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP3042781",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44188569,
-      "conceptName": "insulin detemir 100 UNT/ML Cartridge [Levemir] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP3065292",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1516978,
-      "conceptName": "insulin detemir 100 UNT/ML Injectable Solution",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "484322",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41241538,
-      "conceptName": "insulin detemir 100 UNT/ML Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2439500",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41210618,
-      "conceptName": "insulin detemir 100 UNT/ML Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2408580",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36257784,
-      "conceptName": "insulin detemir 100 UNT/ML Injectable Solution [Actrapid]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP3108659",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36265432,
-      "conceptName": "insulin detemir 100 UNT/ML Injectable Solution [Actrapid] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP3116307",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36257785,
-      "conceptName": "insulin detemir 100 UNT/ML Injectable Solution [Humulin]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP3108660",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36265431,
-      "conceptName": "insulin detemir 100 UNT/ML Injectable Solution [Humulin] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP3116306",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36268012,
-      "conceptName": "insulin detemir 100 UNT/ML Injectable Solution [Insuman]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP3118887",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36270545,
-      "conceptName": "insulin detemir 100 UNT/ML Injectable Solution [Insuman] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP3121420",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1516979,
-      "conceptName": "insulin detemir 100 UNT/ML Injectable Solution [Levemir]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "616238",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40969272,
-      "conceptName": "insulin detemir 100 UNT/ML Injectable Solution [Levemir] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2167234",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36949377,
-      "conceptName": "insulin detemir 100 UNT/ML Injectable Solution [Levemir] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP5195205",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41031675,
-      "conceptName": "insulin detemir 100 UNT/ML Injectable Solution [Levemir] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2229637",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44076072,
-      "conceptName": "insulin detemir 100 UNT/ML Injectable Solution [Levemir] by Novo Nordisk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP1070703",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44161177,
-      "conceptName": "insulin detemir 100 UNT/ML Injectable Suspension",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP3037900",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44176270,
-      "conceptName": "insulin detemir 100 UNT/ML Injectable Suspension Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP3052993",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44184719,
-      "conceptName": "insulin detemir 100 UNT/ML Injectable Suspension [Levemir]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP3061442",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44173549,
-      "conceptName": "insulin detemir 100 UNT/ML Injectable Suspension [Levemir] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP3050272",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36891850,
-      "conceptName": "insulin detemir 100 UNT/ML Injection",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP1006321",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43290520,
-      "conceptName": "insulin detemir 100 UNT/ML Injection Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP551931",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42902821,
-      "conceptName": "insulin detemir 100 UNT/ML Pen Injector",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "1359934",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36269885,
-      "conceptName": "insulin detemir 100 UNT/ML Pen Injector Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP3120760",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36260334,
-      "conceptName": "insulin detemir 100 UNT/ML Pen Injector [Insuman]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP3111209",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36265433,
-      "conceptName": "insulin detemir 100 UNT/ML Pen Injector [Insuman] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP3116308",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42903168,
-      "conceptName": "insulin detemir 100 UNT/ML Pen Injector [Levemir]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "1360281",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36273100,
-      "conceptName": "insulin detemir 100 UNT/ML Pen Injector [Levemir] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP3123975",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35409752,
-      "conceptName": "insulin detemir 100 UNT/ML Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP1143337",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40929063,
-      "conceptName": "insulin detemir 100 UNT/ML Prefilled Syringe Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2127025",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21075565,
-      "conceptName": "insulin detemir 100 UNT/ML Prefilled Syringe Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP258718",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35410655,
-      "conceptName": "insulin detemir 100 UNT/ML Prefilled Syringe [Levemir]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP1144240",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41031674,
-      "conceptName": "insulin detemir 100 UNT/ML Prefilled Syringe [Levemir] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2229636",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43206299,
-      "conceptName": "insulin detemir 100 UNT/ML Prefilled Syringe [Levemir] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP496785",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36261618,
-      "conceptName": "insulin detemir 100 UNT/ML [Actrapid]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP3112493",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36261620,
-      "conceptName": "insulin detemir 100 UNT/ML [Humulin]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP3112495",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36261619,
-      "conceptName": "insulin detemir 100 UNT/ML [Insuman]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP3112494",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19044971,
-      "conceptName": "insulin detemir 100 UNT/ML [Levemir]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "616236",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42949466,
-      "conceptName": "insulin detemir 14.2 MG/ML",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP4676050",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42949464,
-      "conceptName": "insulin detemir 14.2 MG/ML Pen Injector",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP4676048",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42949465,
-      "conceptName": "insulin detemir 14.2 MG/ML Pen Injector [LEVEMIR FLEX]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4676049",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42949467,
-      "conceptName": "insulin detemir 14.2 MG/ML [LEVEMIR FLEX]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4676051",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 35130747,
       "conceptName": "insulin detemir 300 UNT",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Comp",
       "conceptCode": "OMOP4787995",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35156395,
-      "conceptName": "insulin detemir 300 UNT Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP4813405",
       "standardConcept": "S"
     },
     {
@@ -1487,12 +178,165 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 41076467,
-      "conceptName": "insulin detemir 33.3 UNT/ML",
+      "conceptId": 35156395,
+      "conceptName": "insulin detemir 300 UNT Prefilled Syringe",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP2274429",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP4813405",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35409752,
+      "conceptName": "insulin detemir 100 UNT/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP1143337",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35410655,
+      "conceptName": "insulin detemir 100 UNT/ML Prefilled Syringe [Levemir]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP1144240",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35779332,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Levemir] Box of 5 by Waymade",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2780793",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35779333,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Levemir] by Mawdsley-Brooks",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2780794",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35779394,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Levemir] by Novo Nordisk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2780855",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35779463,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Levemir] by Waymade",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2780924",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35779523,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Levemir] Box of 5 by Mawdsley-Brooks",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2780984",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36222190,
+      "conceptName": "Levemir Injectable Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Dose Group",
+      "conceptCode": "1167934",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36224228,
+      "conceptName": "insulin detemir Injectable Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Dose Group",
+      "conceptCode": "1160696",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36257784,
+      "conceptName": "insulin detemir 100 UNT/ML Injectable Solution [Actrapid]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP3108659",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36257785,
+      "conceptName": "insulin detemir 100 UNT/ML Injectable Solution [Humulin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP3108660",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36259239,
+      "conceptName": "insulin detemir / insulin, isophane Injectable Suspension",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP3110114",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36260333,
+      "conceptName": "insulin detemir 33.3 UNT/ML / insulin, isophane 70 UNT/ML Injectable Suspension [Humulin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP3111208",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36260334,
+      "conceptName": "insulin detemir 100 UNT/ML Pen Injector [Insuman]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP3111209",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36261618,
+      "conceptName": "insulin detemir 100 UNT/ML [Actrapid]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP3112493",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36261619,
+      "conceptName": "insulin detemir 100 UNT/ML [Insuman]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP3112494",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36261620,
+      "conceptName": "insulin detemir 100 UNT/ML [Humulin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP3112495",
       "standardConcept": "S"
     },
     {
@@ -1514,21 +358,30 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36260333,
-      "conceptName": "insulin detemir 33.3 UNT/ML / insulin, isophane 70 UNT/ML Injectable Suspension [Humulin]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP3111208",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36270544,
-      "conceptName": "insulin detemir 33.3 UNT/ML / insulin, isophane 70 UNT/ML Injectable Suspension [Humulin] Box of 5",
+      "conceptId": 36265431,
+      "conceptName": "insulin detemir 100 UNT/ML Injectable Solution [Humulin] Box of 5",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP3121419",
+      "conceptCode": "OMOP3116306",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36265432,
+      "conceptName": "insulin detemir 100 UNT/ML Injectable Solution [Actrapid] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP3116307",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36265433,
+      "conceptName": "insulin detemir 100 UNT/ML Pen Injector [Insuman] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP3116308",
       "standardConcept": "S"
     },
     {
@@ -1541,156 +394,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 44172551,
-      "conceptName": "insulin detemir 33.3 UNT/ML Injectable Suspension",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP3049274",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44161176,
-      "conceptName": "insulin detemir 33.3 UNT/ML Injectable Suspension Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP3037899",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44162256,
-      "conceptName": "insulin detemir 33.3 UNT/ML Injectable Suspension [Levemir]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP3038979",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44181018,
-      "conceptName": "insulin detemir 33.3 UNT/ML Injectable Suspension [Levemir] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP3057741",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41053849,
-      "conceptName": "insulin detemir 33.3 UNT/ML Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP2251811",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41303515,
-      "conceptName": "insulin detemir 33.3 UNT/ML Prefilled Syringe Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2501477",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41116592,
-      "conceptName": "insulin detemir 33.3 UNT/ML Prefilled Syringe Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2314554",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40969271,
-      "conceptName": "insulin detemir 33.3 UNT/ML Prefilled Syringe [Levemir]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2167233",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41031673,
-      "conceptName": "insulin detemir 33.3 UNT/ML Prefilled Syringe [Levemir] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2229635",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41094428,
-      "conceptName": "insulin detemir 33.3 UNT/ML Prefilled Syringe [Levemir] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2292390",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40984630,
-      "conceptName": "insulin detemir 33.3 UNT/ML [Levemir]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP2182592",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36883706,
-      "conceptName": "insulin detemir Cartridge",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP988468",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43290519,
-      "conceptName": "insulin detemir Cartridge [Levemir]",
+      "conceptId": 36267051,
+      "conceptName": "insulin detemir / insulin, isophane Injectable Suspension [Humulin]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP551928",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36224228,
-      "conceptName": "insulin detemir Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1160696",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 40056632,
-      "conceptName": "insulin detemir Injectable Solution",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "484321",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36274715,
-      "conceptName": "insulin detemir Injectable Solution [Actrapid]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP3125590",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36272155,
-      "conceptName": "insulin detemir Injectable Solution [Humulin]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP3123030",
+      "conceptCode": "OMOP3117926",
       "standardConcept": "S"
     },
     {
@@ -1703,30 +412,381 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 40130712,
-      "conceptName": "insulin detemir Injectable Solution [Levemir]",
-      "vocabularyId": "RxNorm",
+      "conceptId": 36267053,
+      "conceptName": "insulin detemir Pen Injector [Insuman]",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Form",
-      "conceptCode": "616237",
+      "conceptCode": "OMOP3117928",
       "standardConcept": "S"
     },
     {
-      "conceptId": 44172014,
-      "conceptName": "insulin detemir Injectable Suspension",
+      "conceptId": 36268012,
+      "conceptName": "insulin detemir 100 UNT/ML Injectable Solution [Insuman]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP3118887",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36269885,
+      "conceptName": "insulin detemir 100 UNT/ML Pen Injector Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP3120760",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36270544,
+      "conceptName": "insulin detemir 33.3 UNT/ML / insulin, isophane 70 UNT/ML Injectable Suspension [Humulin] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP3121419",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36270545,
+      "conceptName": "insulin detemir 100 UNT/ML Injectable Solution [Insuman] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP3121420",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36272155,
+      "conceptName": "insulin detemir Injectable Solution [Humulin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP3123030",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36273100,
+      "conceptName": "insulin detemir 100 UNT/ML Pen Injector [Levemir] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP3123975",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36274715,
+      "conceptName": "insulin detemir Injectable Solution [Actrapid]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP3125590",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36278439,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Pen Injector [Insuman] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP3129314",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36278448,
+      "conceptName": "3 ML insulin detemir 33.3 UNT/ML / insulin, isophane 70 UNT/ML Injectable Suspension [Humulin] Box of 5 by Eli Lilly",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3129323",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36278466,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Humulin] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP3129341",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36278482,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Pen Injector Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP3129357",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36278484,
+      "conceptName": "3 ML insulin detemir 33.3 UNT/ML / insulin, isophane 70 UNT/ML Injectable Suspension Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP3129359",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36278520,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Humulin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP3129395",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36278521,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Insuman]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP3129396",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36278522,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Pen Injector [Insuman]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP3129397",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36278531,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Humulin] Box of 5 by Eli Lilly",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3129406",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36278532,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Insuman] Box of 5 by Sanofi",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3129407",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36278534,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Actrapid] Box of 5 by Novo Nordisk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3129409",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36278535,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Pen Injector [Insuman] Box of 5 by Sanofi",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3129410",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36278549,
+      "conceptName": "3 ML insulin detemir 33.3 UNT/ML / insulin, isophane 70 UNT/ML Injectable Suspension [Humulin] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP3129424",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36278569,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Pen Injector [Levemir] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP3129444",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36278571,
+      "conceptName": "3 ML insulin detemir 33.3 UNT/ML / insulin, isophane 70 UNT/ML Injectable Suspension [Humulin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP3129446",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36278576,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Pen Injector [Levemir] Box of 5 by Novo Nordisk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3129451",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36278584,
+      "conceptName": "3 ML insulin detemir 33.3 UNT/ML / insulin, isophane 70 UNT/ML Injectable Suspension",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP3129459",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36278594,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Actrapid] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP3129469",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36278595,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Insuman] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP3129470",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36278614,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Actrapid]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP3129489",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36279061,
+      "conceptName": "5 ML insulin detemir 100 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP3129936",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36279155,
+      "conceptName": "5 ML insulin detemir 100 UNT/ML Injectable Solution [Insuman]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP3130030",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36279217,
+      "conceptName": "5 ML insulin detemir 100 UNT/ML Injectable Solution [Insuman] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP3130092",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36279249,
+      "conceptName": "5 ML insulin detemir 100 UNT/ML Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP3130124",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36279288,
+      "conceptName": "5 ML insulin detemir 100 UNT/ML Injectable Solution [Insuman] Box of 5 by Sanofi",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3130163",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36279390,
+      "conceptName": "10 ML insulin detemir 33.3 UNT/ML / insulin, isophane 70 UNT/ML Injectable Suspension [Humulin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP3130265",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36279403,
+      "conceptName": "10 ML insulin detemir 100 UNT/ML Injectable Solution [Humulin] by Eli Lilly",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3130278",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36279462,
+      "conceptName": "10 ML insulin detemir 100 UNT/ML Injectable Solution [Humulin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP3130337",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36279507,
+      "conceptName": "10 ML insulin detemir 100 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP3130382",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36279613,
+      "conceptName": "10 ML insulin detemir 100 UNT/ML Injectable Solution [Actrapid]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP3130488",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36279767,
+      "conceptName": "10 ML insulin detemir 33.3 UNT/ML / insulin, isophane 70 UNT/ML Injectable Suspension [Humulin] by Eli Lilly",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3130642",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36279856,
+      "conceptName": "10 ML insulin detemir 100 UNT/ML Injectable Solution [Actrapid] by Novo Nordisk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3130731",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36279942,
+      "conceptName": "10 ML insulin detemir 33.3 UNT/ML / insulin, isophane 70 UNT/ML Injectable Suspension",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP3130817",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36883706,
+      "conceptName": "insulin detemir Cartridge",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP3048737",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44164600,
-      "conceptName": "insulin detemir Injectable Suspension [Levemir]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP3041323",
+      "conceptCode": "OMOP988468",
       "standardConcept": "S"
     },
     {
@@ -1739,39 +799,453 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 46234190,
-      "conceptName": "insulin detemir Pen Injector",
+      "conceptId": 36887606,
+      "conceptName": "insulin detemir Prefilled Syringe [Levemir]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP991846",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36891850,
+      "conceptName": "insulin detemir 100 UNT/ML Injection",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP1006321",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36894766,
+      "conceptName": "insulin detemir 100 UNT/ML Cartridge",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP991401",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36954088,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Suspension [Levemir] Box of 5 by Waymade",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5209403",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36962526,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Suspension [Levemir] by Waymade",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5209401",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36966233,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Suspension [Levemir] by Novo Nordisk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5209402",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40056632,
+      "conceptName": "insulin detemir Injectable Solution",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "1654190",
+      "conceptCode": "484321",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36267053,
-      "conceptName": "insulin detemir Pen Injector [Insuman]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP3117928",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42949468,
-      "conceptName": "insulin detemir Pen Injector [LEVEMIR FLEX]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4676052",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 46234191,
-      "conceptName": "insulin detemir Pen Injector [Levemir]",
+      "conceptId": 40130712,
+      "conceptName": "insulin detemir Injectable Solution [Levemir]",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Form",
-      "conceptCode": "1654192",
+      "conceptCode": "616237",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40929063,
+      "conceptName": "insulin detemir 100 UNT/ML Prefilled Syringe Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2127025",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40969271,
+      "conceptName": "insulin detemir 33.3 UNT/ML Prefilled Syringe [Levemir]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2167233",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40969272,
+      "conceptName": "insulin detemir 100 UNT/ML Injectable Solution [Levemir] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2167234",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40984630,
+      "conceptName": "insulin detemir 33.3 UNT/ML [Levemir]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP2182592",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41031673,
+      "conceptName": "insulin detemir 33.3 UNT/ML Prefilled Syringe [Levemir] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2229635",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41031674,
+      "conceptName": "insulin detemir 100 UNT/ML Prefilled Syringe [Levemir] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2229636",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41031675,
+      "conceptName": "insulin detemir 100 UNT/ML Injectable Solution [Levemir] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2229637",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41053849,
+      "conceptName": "insulin detemir 33.3 UNT/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP2251811",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41076467,
+      "conceptName": "insulin detemir 33.3 UNT/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP2274429",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41094428,
+      "conceptName": "insulin detemir 33.3 UNT/ML Prefilled Syringe [Levemir] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2292390",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41116592,
+      "conceptName": "insulin detemir 33.3 UNT/ML Prefilled Syringe Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2314554",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41210618,
+      "conceptName": "insulin detemir 100 UNT/ML Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2408580",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41241538,
+      "conceptName": "insulin detemir 100 UNT/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2439500",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41303515,
+      "conceptName": "insulin detemir 33.3 UNT/ML Prefilled Syringe Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2501477",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41346756,
+      "conceptName": "3 ML insulin detemir 33.3 UNT/ML Prefilled Syringe Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2544718",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41346805,
+      "conceptName": "3 ML insulin detemir 33.3 UNT/ML Prefilled Syringe Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2544767",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41346806,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2544768",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41346893,
+      "conceptName": "3 ML insulin detemir 33.3 UNT/ML Prefilled Syringe [Levemir] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2544855",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41347038,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2545000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41347366,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Prefilled Syringe [Levemir] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2545328",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41347498,
+      "conceptName": "3 ML insulin detemir 33.3 UNT/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP2545460",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41347499,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Prefilled Syringe Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2545461",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41347585,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Levemir]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2545547",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41348076,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Levemir] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2546038",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41348077,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Levemir] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2546039",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41348170,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Levemir] Box of 5 by Kohlpharma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2546132",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41348171,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Levemir] Box of 5 by Novo Nordisk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2546133",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41348630,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Prefilled Syringe [Levemir] Box of 5 by Novo Nordisk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2546592",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41348775,
+      "conceptName": "3 ML insulin detemir 33.3 UNT/ML Prefilled Syringe [Levemir] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2546737",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41348867,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Prefilled Syringe [Levemir] Box of 5 by Eurim-Pharm",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2546829",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41348914,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP2546876",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41349102,
+      "conceptName": "3 ML insulin detemir 33.3 UNT/ML Prefilled Syringe [Levemir] Box of 5 by Kohlpharma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2547064",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41349351,
+      "conceptName": "3 ML insulin detemir 33.3 UNT/ML Prefilled Syringe [Levemir] Box of 10 by Cc",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2547313",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41349602,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Levemir] Box of 10 by Novo Nordisk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2547564",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41349827,
+      "conceptName": "3 ML insulin detemir 33.3 UNT/ML Prefilled Syringe [Levemir] Box of 10 by Kohlpharma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2547789",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41349828,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Prefilled Syringe [Levemir] Box of 5 by Kohlpharma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2547790",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41350071,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Levemir] Box of 5 by Eurim-Pharm",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2548033",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41350072,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Prefilled Syringe [Levemir] Box of 5 by Cc",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2548034",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41350475,
+      "conceptName": "3 ML insulin detemir 33.3 UNT/ML Prefilled Syringe [Levemir]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2548437",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41350586,
+      "conceptName": "3 ML insulin detemir 33.3 UNT/ML Prefilled Syringe [Levemir] Box of 10 by Eurim-Pharm",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2548548",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41350587,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Prefilled Syringe [Levemir] Box of 10 by Novo Nordisk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2548549",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41350588,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Solution [Levemir] Box of 5 by Cc",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2548550",
       "standardConcept": "S"
     },
     {
@@ -1784,12 +1258,489 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36887606,
-      "conceptName": "insulin detemir Prefilled Syringe [Levemir]",
+      "conceptId": 42902821,
+      "conceptName": "insulin detemir 100 UNT/ML Pen Injector",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "1359934",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42903168,
+      "conceptName": "insulin detemir 100 UNT/ML Pen Injector [Levemir]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "1360281",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42921679,
+      "conceptName": "3 ML insulin detemir 14.2 MG/ML Pen Injector",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP4648502",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42921680,
+      "conceptName": "3 ML insulin detemir 14.2 MG/ML Pen Injector [LEVEMIR FLEX]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP4648503",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42949464,
+      "conceptName": "insulin detemir 14.2 MG/ML Pen Injector",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP4676048",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42949465,
+      "conceptName": "insulin detemir 14.2 MG/ML Pen Injector [LEVEMIR FLEX]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4676049",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42949466,
+      "conceptName": "insulin detemir 14.2 MG/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP4676050",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42949467,
+      "conceptName": "insulin detemir 14.2 MG/ML [LEVEMIR FLEX]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4676051",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42949468,
+      "conceptName": "insulin detemir Pen Injector [LEVEMIR FLEX]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP991846",
+      "conceptCode": "OMOP4676052",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43196693,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Prefilled Syringe [Levemir]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP511664",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43206299,
+      "conceptName": "insulin detemir 100 UNT/ML Prefilled Syringe [Levemir] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP496785",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43218616,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Prefilled Syringe [Levemir] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP511665",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43258826,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Cartridge",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP561944",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43274346,
+      "conceptName": "insulin detemir 100 UNT/ML Cartridge [Levemir]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP551937",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43275292,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Injection",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP561938",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43286082,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Injection Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP561939",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43290519,
+      "conceptName": "insulin detemir Cartridge [Levemir]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP551928",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43290520,
+      "conceptName": "insulin detemir 100 UNT/ML Injection Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP551931",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43290521,
+      "conceptName": "insulin detemir 100 UNT/ML Cartridge Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP551936",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43291447,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Cartridge Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP561945",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44076072,
+      "conceptName": "insulin detemir 100 UNT/ML Injectable Solution [Levemir] by Novo Nordisk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP1070703",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44161176,
+      "conceptName": "insulin detemir 33.3 UNT/ML Injectable Suspension Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP3037899",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44161177,
+      "conceptName": "insulin detemir 100 UNT/ML Injectable Suspension",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP3037900",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44162256,
+      "conceptName": "insulin detemir 33.3 UNT/ML Injectable Suspension [Levemir]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP3038979",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44164600,
+      "conceptName": "insulin detemir Injectable Suspension [Levemir]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP3041323",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44164975,
+      "conceptName": "insulin detemir 100 UNT/ML Cartridge Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP3041698",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44166058,
+      "conceptName": "insulin detemir 100 UNT/ML Cartridge [Levemir] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP3042781",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44172014,
+      "conceptName": "insulin detemir Injectable Suspension",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP3048737",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44172551,
+      "conceptName": "insulin detemir 33.3 UNT/ML Injectable Suspension",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP3049274",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44173549,
+      "conceptName": "insulin detemir 100 UNT/ML Injectable Suspension [Levemir] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP3050272",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44176270,
+      "conceptName": "insulin detemir 100 UNT/ML Injectable Suspension Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP3052993",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44181018,
+      "conceptName": "insulin detemir 33.3 UNT/ML Injectable Suspension [Levemir] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP3057741",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44184719,
+      "conceptName": "insulin detemir 100 UNT/ML Injectable Suspension [Levemir]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP3061442",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44188569,
+      "conceptName": "insulin detemir 100 UNT/ML Cartridge [Levemir] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP3065292",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44190853,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Cartridge [Levemir] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP3067576",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44190894,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Suspension [Levemir]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP3067617",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44190933,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Suspension [Levemir] Box of 5 by Novo Nordisk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3067656",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44191014,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Cartridge [Levemir] Box of 5 by Novo Nordisk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3067737",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44191032,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Suspension Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP3067755",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44191099,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Cartridge [Levemir] Box of 5 by Kohlpharma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3067822",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44191112,
+      "conceptName": "3 ML insulin detemir 33.3 UNT/ML Injectable Suspension",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP3067835",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44191196,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Suspension",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP3067919",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44191220,
+      "conceptName": "3 ML insulin detemir 33.3 UNT/ML Injectable Suspension [Levemir] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP3067943",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44191221,
+      "conceptName": "3 ML insulin detemir 33.3 UNT/ML Injectable Suspension [Levemir]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP3067944",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44191222,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Injectable Suspension [Levemir] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP3067945",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44191223,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Cartridge [Levemir]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP3067946",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44191278,
+      "conceptName": "3 ML insulin detemir 33.3 UNT/ML Injectable Suspension Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP3068001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44191279,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Cartridge Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP3068002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44191306,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Cartridge [Levemir] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP3068029",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44191344,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Cartridge [Levemir] Box of 5 by Cc",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3068067",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44191414,
+      "conceptName": "3 ML insulin detemir 33.3 UNT/ML Injectable Suspension [Levemir] Box of 10 by Cc",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3068137",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44191512,
+      "conceptName": "3 ML insulin detemir 100 UNT/ML Cartridge [Levemir] Box of 10 by Novo Nordisk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3068235",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46234190,
+      "conceptName": "insulin detemir Pen Injector",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "1654190",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46234191,
+      "conceptName": "insulin detemir Pen Injector [Levemir]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "1654192",
       "standardConcept": "S"
     }
   ]

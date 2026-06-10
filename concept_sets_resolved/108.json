@@ -1,42 +1,11 @@
 {
   "conceptSetId": 108,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "RxNorm": "RxNorm 20260105",
+    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+  },
   "resolvedConcepts": [
-    {
-      "conceptId": 41354917,
-      "conceptName": "5 ML tigecycline 10 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP2552879",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41353856,
-      "conceptName": "5 ML tigecycline 10 MG/ML Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2551818",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 995338,
-      "conceptName": "5 ML tigecycline 10 MG/ML Injectable Suspension",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP4821845",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 995339,
-      "conceptName": "5 ML tigecycline 10 MG/ML Injectable Suspension by Ratiopharm",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4821846",
-      "standardConcept": "S"
-    },
     {
       "conceptId": 588588,
       "conceptName": "5 ML tigecycline 10 MG/ML Injection",
@@ -44,105 +13,6 @@
       "domainId": "Drug",
       "conceptClassId": "Quant Clinical Drug",
       "conceptCode": "OMOP3136501",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 589184,
-      "conceptName": "5 ML tigecycline 10 MG/ML Injection Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP3137655",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41356142,
-      "conceptName": "5 ML tigecycline 10 MG/ML Injection [Tygacil]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2554104",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41359964,
-      "conceptName": "5 ML tigecycline 10 MG/ML Injection [Tygacil] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2557926",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41355306,
-      "conceptName": "5 ML tigecycline 10 MG/ML Injection [Tygacil] Box of 10 by Pfizer",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2553268",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36242842,
-      "conceptName": "Tygacil Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1186913",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 1742432,
-      "conceptName": "tigecycline",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Ingredient",
-      "conceptCode": "384455",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41262963,
-      "conceptName": "tigecycline 10 MG/ML",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP2460925",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41270622,
-      "conceptName": "tigecycline 10 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP2468584",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41270621,
-      "conceptName": "tigecycline 10 MG/ML Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2468583",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 994960,
-      "conceptName": "tigecycline 10 MG/ML Injectable Suspension",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP4821472",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 590050,
-      "conceptName": "tigecycline 10 MG/ML Injection",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP3134975",
       "standardConcept": "S"
     },
     {
@@ -155,93 +25,30 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 40995554,
-      "conceptName": "tigecycline 10 MG/ML Injection [Tygacil]",
+      "conceptId": 589184,
+      "conceptName": "5 ML tigecycline 10 MG/ML Injection Box of 10",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2193516",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP3137655",
       "standardConcept": "S"
     },
     {
-      "conceptId": 41152133,
-      "conceptName": "tigecycline 10 MG/ML Injection [Tygacil] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2350095",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40859034,
-      "conceptName": "tigecycline 10 MG/ML [Tygacil]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP2056996",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35603620,
-      "conceptName": "tigecycline 50 MG",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "1724328",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36407417,
-      "conceptName": "tigecycline 50 MG Injectable Solution",
+      "conceptId": 590050,
+      "conceptName": "tigecycline 10 MG/ML Injection",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP3099459",
+      "conceptCode": "OMOP3134975",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36406651,
-      "conceptName": "tigecycline 50 MG Injectable Solution Box of 10",
+      "conceptId": 783359,
+      "conceptName": "tigecycline Injectable Solution [Tigecyclin Sandoz]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP3098693",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734889,
-      "conceptName": "tigecycline 50 MG Injectable Solution Box of 10 by Mylan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4721969",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42656961,
-      "conceptName": "tigecycline 50 MG Injectable Solution Box of 10 by Sandoz",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4868529",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36963158,
-      "conceptName": "tigecycline 50 MG Injectable Solution Box of 10 by Viatris Healthcare",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5200718",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35860703,
-      "conceptName": "tigecycline 50 MG Injectable Solution [Taige]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5017130",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP4831189",
       "standardConcept": "S"
     },
     {
@@ -272,138 +79,39 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 40734888,
-      "conceptName": "tigecycline 50 MG Injectable Solution [Tygacil]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4721970",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734886,
-      "conceptName": "tigecycline 50 MG Injectable Solution [Tygacil] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP4721972",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734885,
-      "conceptName": "tigecycline 50 MG Injectable Solution [Tygacil] Box of 10 by Pfizer",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4721973",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734887,
-      "conceptName": "tigecycline 50 MG Injectable Solution [Tygacil] by Pfizer",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4721971",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734890,
-      "conceptName": "tigecycline 50 MG Injectable Solution by Mylan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4721968",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36938659,
-      "conceptName": "tigecycline 50 MG Injectable Solution by Viatris Healthcare",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5200717",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44070999,
-      "conceptName": "tigecycline 50 MG Injectable Suspension",
+      "conceptId": 994960,
+      "conceptName": "tigecycline 10 MG/ML Injectable Suspension",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP1065630",
+      "conceptCode": "OMOP4821472",
       "standardConcept": "S"
     },
     {
-      "conceptId": 44070998,
-      "conceptName": "tigecycline 50 MG Injectable Suspension Box of 10",
+      "conceptId": 995338,
+      "conceptName": "5 ML tigecycline 10 MG/ML Injectable Suspension",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP1065629",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP4821845",
       "standardConcept": "S"
     },
     {
-      "conceptId": 44100715,
-      "conceptName": "tigecycline 50 MG Injectable Suspension Box of 10 by Apotex",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP1095346",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734883,
-      "conceptName": "tigecycline 50 MG Injectable Suspension Box of 10 by Mylan",
+      "conceptId": 995339,
+      "conceptName": "5 ML tigecycline 10 MG/ML Injectable Suspension by Ratiopharm",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4721975",
+      "conceptCode": "OMOP4821846",
       "standardConcept": "S"
     },
     {
-      "conceptId": 44072548,
-      "conceptName": "tigecycline 50 MG Injectable Suspension [Tygacil]",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 1742432,
+      "conceptName": "tigecycline",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP1067179",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35766748,
-      "conceptName": "tigecycline 50 MG Injectable Suspension [Tygacil] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2768209",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35742633,
-      "conceptName": "tigecycline 50 MG Injectable Suspension [Tygacil] Box of 10 by Pfizer",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2744094",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44087677,
-      "conceptName": "tigecycline 50 MG Injectable Suspension [Tygacil] by Pfizer",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP1082308",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734884,
-      "conceptName": "tigecycline 50 MG Injectable Suspension by Mylan",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4721974",
+      "conceptClassId": "Ingredient",
+      "conceptCode": "384455",
       "standardConcept": "S"
     },
     {
@@ -416,12 +124,30 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 21163968,
-      "conceptName": "tigecycline 50 MG Injection Box of 10",
+      "conceptId": 2050055,
+      "conceptName": "tigecycline 50 MG Injection [Tygacil] by Wyeth",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP260284",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4950487",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2917100,
+      "conceptName": "tigecycline 50 MG [Tygaline]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP5134657",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2917828,
+      "conceptName": "tigecycline 50 MG Injection by Juno",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5134651",
       "standardConcept": "S"
     },
     {
@@ -431,51 +157,6 @@
       "domainId": "Drug",
       "conceptClassId": "Branded Drug",
       "conceptCode": "OMOP5134652",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19122045,
-      "conceptName": "tigecycline 50 MG Injection [Tygacil]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "584201",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21173779,
-      "conceptName": "tigecycline 50 MG Injection [Tygacil] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP260286",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21065712,
-      "conceptName": "tigecycline 50 MG Injection [Tygacil] Box of 10 by Pfizer",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP260288",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21144256,
-      "conceptName": "tigecycline 50 MG Injection [Tygacil] by Pfizer",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP260285",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2050055,
-      "conceptName": "tigecycline 50 MG Injection [Tygacil] by Wyeth",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4950487",
       "standardConcept": "S"
     },
     {
@@ -497,165 +178,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 2917828,
-      "conceptName": "tigecycline 50 MG Injection by Juno",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5134651",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785667,
-      "conceptName": "tigecycline 50 MG Intravenous Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP4773947",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785666,
-      "conceptName": "tigecycline 50 MG Intravenous Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP4773946",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785670,
-      "conceptName": "tigecycline 50 MG Intravenous Solution [Tigecyclin Sandoz]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4773950",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785669,
-      "conceptName": "tigecycline 50 MG Intravenous Solution [Tigecyclin Sandoz] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP4773949",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785668,
-      "conceptName": "tigecycline 50 MG Intravenous Solution [Tigecyclin Sandoz] Box of 10 by Sandoz",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4773948",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785665,
-      "conceptName": "tigecycline 50 MG Intravenous Solution [Tygacil]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4773945",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785664,
-      "conceptName": "tigecycline 50 MG Intravenous Solution [Tygacil] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP4773944",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785663,
-      "conceptName": "tigecycline 50 MG Intravenous Solution [Tygacil] Box of 10 by Pfizer",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4773943",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36886801,
-      "conceptName": "tigecycline 50 MG Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP997161",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36886800,
-      "conceptName": "tigecycline 50 MG Prefilled Syringe Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP995636",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36890951,
-      "conceptName": "tigecycline 50 MG Prefilled Syringe [Tygacil]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP1003974",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36886057,
-      "conceptName": "tigecycline 50 MG Prefilled Syringe [Tygacil] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP989449",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43174081,
-      "conceptName": "tigecycline 50 MG Prefilled Syringe [Tygacil] Box of 10 by Pfizer",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP501674",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35860704,
-      "conceptName": "tigecycline 50 MG [Taige]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP5017131",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 2917832,
       "conceptName": "tigecycline 50 MG [Tigecycle]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Comp",
       "conceptCode": "OMOP5134655",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36785671,
-      "conceptName": "tigecycline 50 MG [Tigecyclin Sandoz]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4773951",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35603622,
-      "conceptName": "tigecycline 50 MG [Tygacil]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "1724331",
       "standardConcept": "S"
     },
     {
@@ -668,111 +196,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 2917100,
-      "conceptName": "tigecycline 50 MG [Tygaline]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP5134657",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36224264,
-      "conceptName": "tigecycline Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1162095",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 40892721,
-      "conceptName": "tigecycline Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP2090683",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35860705,
-      "conceptName": "tigecycline Injectable Solution [Taige]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP5017132",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 783359,
-      "conceptName": "tigecycline Injectable Solution [Tigecyclin Sandoz]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4831189",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40734891,
-      "conceptName": "tigecycline Injectable Solution [Tygacil]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4721967",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44068668,
-      "conceptName": "tigecycline Injectable Suspension",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP1063299",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44030488,
-      "conceptName": "tigecycline Injectable Suspension [Tygacil]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP1025119",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35603621,
-      "conceptName": "tigecycline Injection",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "1724329",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 2917834,
       "conceptName": "tigecycline Injection [Tigecycle]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "OMOP5134658",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42614521,
-      "conceptName": "tigecycline Injection [Tigecycle]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP5159598",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35603623,
-      "conceptName": "tigecycline Injection [Tygacil]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "1724332",
       "standardConcept": "S"
     },
     {
@@ -785,30 +214,264 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 42614522,
-      "conceptName": "tigecycline Injection [Tygacycline]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP5159599",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42614523,
-      "conceptName": "tigecycline Injection [Tygaline]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP5159600",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 2917836,
       "conceptName": "tigecycline Injection [Tygaline]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "OMOP5134660",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19122045,
+      "conceptName": "tigecycline 50 MG Injection [Tygacil]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "584201",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21065712,
+      "conceptName": "tigecycline 50 MG Injection [Tygacil] Box of 10 by Pfizer",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP260288",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21144256,
+      "conceptName": "tigecycline 50 MG Injection [Tygacil] by Pfizer",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP260285",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21163968,
+      "conceptName": "tigecycline 50 MG Injection Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP260284",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21173779,
+      "conceptName": "tigecycline 50 MG Injection [Tygacil] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP260286",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35603620,
+      "conceptName": "tigecycline 50 MG",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "1724328",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35603621,
+      "conceptName": "tigecycline Injection",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "1724329",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35603622,
+      "conceptName": "tigecycline 50 MG [Tygacil]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "1724331",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35603623,
+      "conceptName": "tigecycline Injection [Tygacil]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "1724332",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35742633,
+      "conceptName": "tigecycline 50 MG Injectable Suspension [Tygacil] Box of 10 by Pfizer",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2744094",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35766748,
+      "conceptName": "tigecycline 50 MG Injectable Suspension [Tygacil] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2768209",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35860703,
+      "conceptName": "tigecycline 50 MG Injectable Solution [Taige]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP5017130",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35860704,
+      "conceptName": "tigecycline 50 MG [Taige]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP5017131",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35860705,
+      "conceptName": "tigecycline Injectable Solution [Taige]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP5017132",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36224264,
+      "conceptName": "tigecycline Injectable Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Dose Group",
+      "conceptCode": "1162095",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36242842,
+      "conceptName": "Tygacil Injectable Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Dose Group",
+      "conceptCode": "1186913",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36406651,
+      "conceptName": "tigecycline 50 MG Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP3098693",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36407417,
+      "conceptName": "tigecycline 50 MG Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP3099459",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785663,
+      "conceptName": "tigecycline 50 MG Intravenous Solution [Tygacil] Box of 10 by Pfizer",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4773943",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785664,
+      "conceptName": "tigecycline 50 MG Intravenous Solution [Tygacil] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP4773944",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785665,
+      "conceptName": "tigecycline 50 MG Intravenous Solution [Tygacil]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4773945",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785666,
+      "conceptName": "tigecycline 50 MG Intravenous Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP4773946",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785667,
+      "conceptName": "tigecycline 50 MG Intravenous Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP4773947",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785668,
+      "conceptName": "tigecycline 50 MG Intravenous Solution [Tigecyclin Sandoz] Box of 10 by Sandoz",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4773948",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785669,
+      "conceptName": "tigecycline 50 MG Intravenous Solution [Tigecyclin Sandoz] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP4773949",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785670,
+      "conceptName": "tigecycline 50 MG Intravenous Solution [Tigecyclin Sandoz]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4773950",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785671,
+      "conceptName": "tigecycline 50 MG [Tigecyclin Sandoz]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4773951",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36785672,
+      "conceptName": "tigecycline Intravenous Solution [Tygacil]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP4773952",
       "standardConcept": "S"
     },
     {
@@ -830,15 +493,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36785672,
-      "conceptName": "tigecycline Intravenous Solution [Tygacil]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4773952",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 36883676,
       "conceptName": "tigecycline Prefilled Syringe",
       "vocabularyId": "RxNorm Extension",
@@ -848,12 +502,336 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 36886057,
+      "conceptName": "tigecycline 50 MG Prefilled Syringe [Tygacil] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP989449",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36886800,
+      "conceptName": "tigecycline 50 MG Prefilled Syringe Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP995636",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36886801,
+      "conceptName": "tigecycline 50 MG Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP997161",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36890951,
+      "conceptName": "tigecycline 50 MG Prefilled Syringe [Tygacil]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP1003974",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 36893536,
       "conceptName": "tigecycline Prefilled Syringe [Tygacil]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "OMOP1000573",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36938659,
+      "conceptName": "tigecycline 50 MG Injectable Solution by Viatris Healthcare",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5200717",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36963158,
+      "conceptName": "tigecycline 50 MG Injectable Solution Box of 10 by Viatris Healthcare",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5200718",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734883,
+      "conceptName": "tigecycline 50 MG Injectable Suspension Box of 10 by Mylan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4721975",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734884,
+      "conceptName": "tigecycline 50 MG Injectable Suspension by Mylan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4721974",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734885,
+      "conceptName": "tigecycline 50 MG Injectable Solution [Tygacil] Box of 10 by Pfizer",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4721973",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734886,
+      "conceptName": "tigecycline 50 MG Injectable Solution [Tygacil] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP4721972",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734887,
+      "conceptName": "tigecycline 50 MG Injectable Solution [Tygacil] by Pfizer",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4721971",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734888,
+      "conceptName": "tigecycline 50 MG Injectable Solution [Tygacil]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4721970",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734889,
+      "conceptName": "tigecycline 50 MG Injectable Solution Box of 10 by Mylan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4721969",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734890,
+      "conceptName": "tigecycline 50 MG Injectable Solution by Mylan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4721968",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40734891,
+      "conceptName": "tigecycline Injectable Solution [Tygacil]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP4721967",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40859034,
+      "conceptName": "tigecycline 10 MG/ML [Tygacil]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP2056996",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40892721,
+      "conceptName": "tigecycline Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP2090683",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40995554,
+      "conceptName": "tigecycline 10 MG/ML Injection [Tygacil]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2193516",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41152133,
+      "conceptName": "tigecycline 10 MG/ML Injection [Tygacil] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2350095",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41262963,
+      "conceptName": "tigecycline 10 MG/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP2460925",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41270621,
+      "conceptName": "tigecycline 10 MG/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2468583",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41270622,
+      "conceptName": "tigecycline 10 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP2468584",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41353856,
+      "conceptName": "5 ML tigecycline 10 MG/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2551818",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41354917,
+      "conceptName": "5 ML tigecycline 10 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP2552879",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41355306,
+      "conceptName": "5 ML tigecycline 10 MG/ML Injection [Tygacil] Box of 10 by Pfizer",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2553268",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41356142,
+      "conceptName": "5 ML tigecycline 10 MG/ML Injection [Tygacil]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2554104",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41359964,
+      "conceptName": "5 ML tigecycline 10 MG/ML Injection [Tygacil] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2557926",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42656961,
+      "conceptName": "tigecycline 50 MG Injectable Solution Box of 10 by Sandoz",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4868529",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43174081,
+      "conceptName": "tigecycline 50 MG Prefilled Syringe [Tygacil] Box of 10 by Pfizer",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP501674",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44030488,
+      "conceptName": "tigecycline Injectable Suspension [Tygacil]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP1025119",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44068668,
+      "conceptName": "tigecycline Injectable Suspension",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP1063299",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44070998,
+      "conceptName": "tigecycline 50 MG Injectable Suspension Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP1065629",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44070999,
+      "conceptName": "tigecycline 50 MG Injectable Suspension",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP1065630",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44072548,
+      "conceptName": "tigecycline 50 MG Injectable Suspension [Tygacil]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP1067179",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44087677,
+      "conceptName": "tigecycline 50 MG Injectable Suspension [Tygacil] by Pfizer",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP1082308",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44100715,
+      "conceptName": "tigecycline 50 MG Injectable Suspension Box of 10 by Apotex",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP1095346",
       "standardConcept": "S"
     }
   ]

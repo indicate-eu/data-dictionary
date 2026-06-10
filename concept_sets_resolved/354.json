@@ -1,87 +1,10 @@
 {
   "conceptSetId": 354,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80"
+  },
   "resolvedConcepts": [
-    {
-      "conceptId": 3039986,
-      "conceptName": "Oxygen saturation Calculated from oxygen partial pressure in Capillary blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "51732-6",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44786762,
-      "conceptName": "Oxygen saturation Calculated from oxygen partial pressure in Mixed venous blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "74105-8",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3041253,
-      "conceptName": "Oxygen saturation Calculated from oxygen partial pressure in Venous blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "51731-8",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42869597,
-      "conceptName": "Oxygen saturation [Pure mass fraction] Calculated from oxygen partial pressure in Capillary blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "71842-9",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42869596,
-      "conceptName": "Oxygen saturation [Pure mass fraction] Calculated from oxygen partial pressure in Venous blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "71841-1",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42869606,
-      "conceptName": "Oxygen saturation [Pure mass fraction] in Capillary blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "71851-0",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42869601,
-      "conceptName": "Oxygen saturation [Pure mass fraction] in Mixed venous blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "71846-0",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42869600,
-      "conceptName": "Oxygen saturation [Pure mass fraction] in Venous blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "71845-2",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3021901,
-      "conceptName": "Oxygen saturation in Capillary blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "2709-4",
-      "standardConcept": "S"
-    },
     {
       "conceptId": 1616373,
       "conceptName": "Oxygen saturation in Central venous blood",
@@ -101,12 +24,93 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 3021901,
+      "conceptName": "Oxygen saturation in Capillary blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "2709-4",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 3024928,
       "conceptName": "Oxygen saturation in Venous blood",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Clinical Observation",
       "conceptCode": "2711-0",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3039986,
+      "conceptName": "Oxygen saturation Calculated from oxygen partial pressure in Capillary blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "51732-6",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3041253,
+      "conceptName": "Oxygen saturation Calculated from oxygen partial pressure in Venous blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "51731-8",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42869596,
+      "conceptName": "Oxygen saturation [Pure mass fraction] Calculated from oxygen partial pressure in Venous blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "71841-1",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42869597,
+      "conceptName": "Oxygen saturation [Pure mass fraction] Calculated from oxygen partial pressure in Capillary blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "71842-9",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42869600,
+      "conceptName": "Oxygen saturation [Pure mass fraction] in Venous blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "71845-2",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42869601,
+      "conceptName": "Oxygen saturation [Pure mass fraction] in Mixed venous blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "71846-0",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42869606,
+      "conceptName": "Oxygen saturation [Pure mass fraction] in Capillary blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "71851-0",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44786762,
+      "conceptName": "Oxygen saturation Calculated from oxygen partial pressure in Mixed venous blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "74105-8",
       "standardConcept": "S"
     }
   ]

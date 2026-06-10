@@ -1,9 +1,13 @@
 {
   "conceptSetId": 223,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
     {
       "conceptId": 4013794,
-      "conceptName": "Actinomyces neuii subspecies neuii",
+      "conceptName": "Winkia neuii subsp. neuii",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",

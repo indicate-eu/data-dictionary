@@ -1,6 +1,19 @@
 {
   "conceptSetId": 218,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80"
+  },
   "resolvedConcepts": [
+    {
+      "conceptId": 3005570,
+      "conceptName": "Glucose [Moles/volume] in Urine",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "15076-3",
+      "standardConcept": "S"
+    },
     {
       "conceptId": 3020399,
       "conceptName": "Glucose [Mass/volume] in Urine",
@@ -17,15 +30,6 @@
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
       "conceptCode": "35662-6",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3005570,
-      "conceptName": "Glucose [Moles/volume] in Urine",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "15076-3",
       "standardConcept": "S"
     },
     {

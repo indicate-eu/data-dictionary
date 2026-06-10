@@ -1,42 +1,10 @@
 {
   "conceptSetId": 254,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
-    {
-      "conceptId": 37311342,
-      "conceptName": "Carbapenem-resistant Serratia marcescens",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "816049003",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37156032,
-      "conceptName": "Carbapenemase-producing Serratia fonticola",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1106601000112104",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3657175,
-      "conceptName": "Carbapenemase-producing Serratia marcescens",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1107201000112104",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37156031,
-      "conceptName": "Extended spectrum beta-lactamase producing Serratia",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1106301000112109",
-      "standardConcept": "S"
-    },
     {
       "conceptId": 1242264,
       "conceptName": "Extended spectrum beta-lactamase producing Serratia fonticola",
@@ -56,66 +24,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 37151813,
-      "conceptName": "Extended spectrum beta-lactamase producing Serratia marcescens",
+      "conceptId": 3657175,
+      "conceptName": "Carbapenemase-producing Serratia marcescens",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "1107301000112107",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37156033,
-      "conceptName": "Extended spectrum beta-lactamase producing Serratia odorifera",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1107501000112101",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37156034,
-      "conceptName": "Extended spectrum beta-lactamase producing Serratia plymuthica",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1107701000112106",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37395793,
-      "conceptName": "Multiple drug-resistant Serratia marcescens",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "715354005",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4170580,
-      "conceptName": "Serratia",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "42025004",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4297293,
-      "conceptName": "Serratia entomophila",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "76656001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4198204,
-      "conceptName": "Serratia ficaria",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "802004",
+      "conceptCode": "1107201000112104",
       "standardConcept": "S"
     },
     {
@@ -137,48 +51,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4028952,
-      "conceptName": "Serratia liquefaciens",
+      "conceptId": 4016238,
+      "conceptName": "Serratia odorifera",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "23787004",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36716295,
-      "conceptName": "Serratia liquefaciens complex",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "722258003",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4140691,
-      "conceptName": "Serratia marcescens",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "33522002",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4207914,
-      "conceptName": "Serratia marcescens marcescens",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "438911005",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4230550,
-      "conceptName": "Serratia marcescens sakuensis",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "438912003",
+      "conceptCode": "10413007",
       "standardConcept": "S"
     },
     {
@@ -191,57 +69,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 37159494,
-      "conceptName": "Serratia myotis",
+      "conceptId": 4018785,
+      "conceptName": "Serratia proteamaculans subsp quinovora",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "37081000087102",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42872424,
-      "conceptName": "Serratia nematodiphila",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "450415000",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4016238,
-      "conceptName": "Serratia odorifera",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "10413007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4287331,
-      "conceptName": "Serratia odorifera biogroup 1",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "397075007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4264130,
-      "conceptName": "Serratia odorifera biogroup 2",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "397076008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4104185,
-      "conceptName": "Serratia plymuthica",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "28955009",
+      "conceptCode": "115004003",
       "standardConcept": "S"
     },
     {
@@ -263,21 +96,39 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4018785,
-      "conceptName": "Serratia proteamaculans subsp quinovora",
+      "conceptId": 4028952,
+      "conceptName": "Serratia liquefaciens",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "115004003",
+      "conceptCode": "23787004",
       "standardConcept": "S"
     },
     {
-      "conceptId": 4231049,
-      "conceptName": "Serratia quinivorans",
+      "conceptId": 4104185,
+      "conceptName": "Serratia plymuthica",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "438199009",
+      "conceptCode": "28955009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4140691,
+      "conceptName": "Serratia marcescens",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "33522002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4170580,
+      "conceptName": "Serratia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "42025004",
       "standardConcept": "S"
     },
     {
@@ -290,12 +141,66 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 42872425,
-      "conceptName": "Serratia ureilytica",
+      "conceptId": 4198204,
+      "conceptName": "Serratia ficaria",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "450416004",
+      "conceptCode": "802004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4207914,
+      "conceptName": "Serratia marcescens marcescens",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "438911005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4230550,
+      "conceptName": "Serratia marcescens sakuensis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "438912003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4231049,
+      "conceptName": "Serratia quinivorans",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "438199009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4264130,
+      "conceptName": "Serratia odorifera biogroup 2",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "397076008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4287331,
+      "conceptName": "Serratia odorifera biogroup 1",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "397075007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4297293,
+      "conceptName": "Serratia entomophila",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "76656001",
       "standardConcept": "S"
     },
     {
@@ -305,6 +210,105 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "718823003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36716295,
+      "conceptName": "Serratia liquefaciens complex",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "722258003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37151813,
+      "conceptName": "Extended spectrum beta-lactamase producing Serratia marcescens",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "1107301000112107",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37156031,
+      "conceptName": "Extended spectrum beta-lactamase producing Serratia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "1106301000112109",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37156032,
+      "conceptName": "Carbapenemase-producing Serratia fonticola",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "1106601000112104",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37156033,
+      "conceptName": "Extended spectrum beta-lactamase producing Serratia odorifera",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "1107501000112101",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37156034,
+      "conceptName": "Extended spectrum beta-lactamase producing Serratia plymuthica",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "1107701000112106",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37159494,
+      "conceptName": "Serratia myotis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "37081000087102",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37311342,
+      "conceptName": "Carbapenem-resistant Serratia marcescens",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "816049003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37395793,
+      "conceptName": "Multiple drug-resistant Serratia marcescens",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "715354005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42872424,
+      "conceptName": "Serratia nematodiphila",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "450415000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42872425,
+      "conceptName": "Serratia ureilytica",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "450416004",
       "standardConcept": "S"
     }
   ]

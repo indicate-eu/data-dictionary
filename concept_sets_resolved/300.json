@@ -1,6 +1,28 @@
 {
   "conceptSetId": 300,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
+    {
+      "conceptId": 605799,
+      "conceptName": "Tracheostomy tube cannula",
+      "vocabularyId": "SNOMED",
+      "domainId": "Device",
+      "conceptClassId": "Physical Object",
+      "conceptCode": "1137710007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1076451,
+      "conceptName": "Tracheostomy tube inner cannula",
+      "vocabularyId": "SNOMED",
+      "domainId": "Device",
+      "conceptClassId": "Physical Object",
+      "conceptCode": "1343640004",
+      "standardConcept": "S"
+    },
     {
       "conceptId": 1076472,
       "conceptName": "Fenestrated tracheostomy tube",
@@ -8,15 +30,6 @@
       "domainId": "Device",
       "conceptClassId": "Physical Object",
       "conceptCode": "1343696006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36713922,
-      "conceptName": "Laryngectomy tube, non-sterile",
-      "vocabularyId": "SNOMED",
-      "domainId": "Device",
-      "conceptClassId": "Physical Object",
-      "conceptCode": "718933007",
       "standardConcept": "S"
     },
     {
@@ -38,21 +51,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 605799,
-      "conceptName": "Tracheostomy tube cannula",
+      "conceptId": 36713922,
+      "conceptName": "Laryngectomy tube, non-sterile",
       "vocabularyId": "SNOMED",
       "domainId": "Device",
       "conceptClassId": "Physical Object",
-      "conceptCode": "1137710007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1076451,
-      "conceptName": "Tracheostomy tube inner cannula",
-      "vocabularyId": "SNOMED",
-      "domainId": "Device",
-      "conceptClassId": "Physical Object",
-      "conceptCode": "1343640004",
+      "conceptCode": "718933007",
       "standardConcept": "S"
     }
   ]

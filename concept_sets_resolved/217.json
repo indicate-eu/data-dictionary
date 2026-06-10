@@ -1,15 +1,10 @@
 {
   "conceptSetId": 217,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80"
+  },
   "resolvedConcepts": [
-    {
-      "conceptId": 3017250,
-      "conceptName": "Creatinine [Mass/volume] in Urine",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "2161-8",
-      "standardConcept": "S"
-    },
     {
       "conceptId": 3003447,
       "conceptName": "Creatinine [Mass/volume] in Urine by Test strip",
@@ -17,15 +12,6 @@
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
       "conceptCode": "30004-6",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3037052,
-      "conceptName": "Creatinine [Mass/volume] in Urine collected for unspecified duration",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "35674-1",
       "standardConcept": "S"
     },
     {
@@ -38,12 +24,30 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 3017250,
+      "conceptName": "Creatinine [Mass/volume] in Urine",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "2161-8",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 3019491,
       "conceptName": "Creatinine [Moles/volume] in Urine by Test strip",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
       "conceptCode": "30002-0",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3037052,
+      "conceptName": "Creatinine [Mass/volume] in Urine collected for unspecified duration",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "35674-1",
       "standardConcept": "S"
     },
     {

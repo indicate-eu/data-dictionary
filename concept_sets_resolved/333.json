@@ -1,6 +1,47 @@
 {
   "conceptSetId": 333,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
+    {
+      "conceptId": 3661929,
+      "conceptName": "Peripheral oxygen saturation level on room air on exertion decreased",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Finding",
+      "conceptCode": "1321841000000106",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3661930,
+      "conceptName": "Peripheral oxygen saturation level on supplemental oxygen on exertion decreased",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Finding",
+      "conceptCode": "1321861000000107",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3661931,
+      "conceptName": "Peripheral oxygen saturation level on room air on exertion unchanged",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Finding",
+      "conceptCode": "1321871000000100",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3661932,
+      "conceptName": "Peripheral oxygen saturation level on supplemental oxygen on exertion unchanged",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Finding",
+      "conceptCode": "1321881000000103",
+      "standardConcept": "S"
+    },
     {
       "conceptId": 4095045,
       "conceptName": "Capillary oxygen saturation measurement",
@@ -11,12 +52,21 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 40762499,
-      "conceptName": "Oxygen saturation in Arterial blood by Pulse oximetry",
+      "conceptId": 4196147,
+      "conceptName": "Peripheral oxygen saturation",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "431314004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36304254,
+      "conceptName": "Oxygen saturation in Arterial blood by Pulse oximetry --during anesthesia",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "59408-5",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "89277-8",
       "standardConcept": "S"
     },
     {
@@ -29,12 +79,21 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36304254,
-      "conceptName": "Oxygen saturation in Arterial blood by Pulse oximetry --during anesthesia",
+      "conceptId": 40762498,
+      "conceptName": "Oxygen saturation in Blood Preductal by Pulse oximetry",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "89277-8",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "59407-7",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40762499,
+      "conceptName": "Oxygen saturation in Arterial blood by Pulse oximetry",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "59408-5",
       "standardConcept": "S"
     },
     {
@@ -128,15 +187,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 40762498,
-      "conceptName": "Oxygen saturation in Blood Preductal by Pulse oximetry",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "59407-7",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 44810014,
       "conceptName": "Peripheral blood oxygen saturation on room air at rest",
       "vocabularyId": "SNOMED",
@@ -170,51 +220,6 @@
       "domainId": "Measurement",
       "conceptClassId": "Observable Entity",
       "conceptCode": "866721000000109",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4196147,
-      "conceptName": "Peripheral oxygen saturation",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "431314004",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3661929,
-      "conceptName": "Peripheral oxygen saturation level on room air on exertion decreased",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Finding",
-      "conceptCode": "1321841000000106",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3661931,
-      "conceptName": "Peripheral oxygen saturation level on room air on exertion unchanged",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Finding",
-      "conceptCode": "1321871000000100",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3661930,
-      "conceptName": "Peripheral oxygen saturation level on supplemental oxygen on exertion decreased",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Finding",
-      "conceptCode": "1321861000000107",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3661932,
-      "conceptName": "Peripheral oxygen saturation level on supplemental oxygen on exertion unchanged",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Finding",
-      "conceptCode": "1321881000000103",
       "standardConcept": "S"
     }
   ]

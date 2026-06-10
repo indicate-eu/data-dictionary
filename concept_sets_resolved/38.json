@@ -1,40 +1,18 @@
 {
   "conceptSetId": 38,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "RxNorm": "RxNorm 20260105",
+    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+  },
   "resolvedConcepts": [
     {
-      "conceptId": 43040885,
-      "conceptName": "10 ML bivalirudin 25 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP4855915",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43040886,
-      "conceptName": "10 ML bivalirudin 25 MG/ML Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP4855916",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43040887,
-      "conceptName": "10 ML bivalirudin 25 MG/ML Injectable Solution Box of 10 by Accord",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4855917",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 793489,
-      "conceptName": "100 ML bivalirudin 5 MG/ML Injection",
+      "conceptId": 793486,
+      "conceptName": "bivalirudin 5 MG/ML",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "1997017",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "1997014",
       "standardConcept": "S"
     },
     {
@@ -47,30 +25,48 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 793488,
+      "conceptName": "bivalirudin 5 MG/ML Injection",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "1997016",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 793489,
+      "conceptName": "100 ML bivalirudin 5 MG/ML Injection",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "1997017",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1146428,
+      "conceptName": "bivalirudin 5 MG/ML [Angiomax]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "2380557",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1146429,
+      "conceptName": "bivalirudin 5 MG/ML Injection [Angiomax]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "2380559",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 1146784,
       "conceptName": "50 ML bivalirudin 5 MG/ML Injection [Angiomax]",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
       "conceptClassId": "Quant Branded Drug",
       "conceptCode": "2380558",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36231022,
-      "conceptName": "Angiomax Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1176229",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 19084670,
-      "conceptName": "bivalirudin",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Ingredient",
-      "conceptCode": "60819",
       "standardConcept": "S"
     },
     {
@@ -83,12 +79,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 2912580,
-      "conceptName": "bivalirudin 100 MG Injection",
+      "conceptId": 2907663,
+      "conceptName": "bivalirudin 100 MG [Angiomax]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP5129350",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP5129351",
       "standardConcept": "S"
     },
     {
@@ -101,12 +97,534 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 2907663,
-      "conceptName": "bivalirudin 100 MG [Angiomax]",
+      "conceptId": 2912580,
+      "conceptName": "bivalirudin 100 MG Injection",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP5129350",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2912581,
+      "conceptName": "bivalirudin 250 MG Injection by Dbl",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5129353",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2912582,
+      "conceptName": "bivalirudin 250 MG Injection by Juno",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5129354",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2912583,
+      "conceptName": "bivalirudin 250 MG Injection by APO",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5129355",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19006372,
+      "conceptName": "bivalirudin 250 MG Injection [Angiomax]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "284534",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19074279,
+      "conceptName": "bivalirudin 250 MG Injection",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "308769",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19084670,
+      "conceptName": "bivalirudin",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Ingredient",
+      "conceptCode": "60819",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21021389,
+      "conceptName": "bivalirudin 250 MG Injection [Angiox] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP275460",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21031088,
+      "conceptName": "bivalirudin 250 MG Injection Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP275438",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21041000,
+      "conceptName": "bivalirudin 250 MG [Angiox]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP5129351",
+      "conceptCode": "OMOP275422",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21070558,
+      "conceptName": "bivalirudin 250 MG Injection [Angiox] by Medicines",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP275453",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21080263,
+      "conceptName": "bivalirudin Injection [Angiox]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP275409",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21099881,
+      "conceptName": "bivalirudin 250 MG Injection [Angiox] Box of 10 by Medicines",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP275469",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21158883,
+      "conceptName": "bivalirudin 250 MG Injection [Angiox]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP275447",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35408705,
+      "conceptName": "bivalirudin 250 MG Prefilled Syringe [Angiox] Box of 10 by Medicines",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP1142290",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35753392,
+      "conceptName": "bivalirudin 250 MG Injectable Solution [Angiox] Box of 10 by Medicines",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2754853",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35761739,
+      "conceptName": "bivalirudin 250 MG Injectable Solution [Angiox] by Medicines",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2763200",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35774404,
+      "conceptName": "bivalirudin 250 MG Prefilled Syringe [Angiox] by Medicines",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2775865",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35854277,
+      "conceptName": "bivalirudin 250 MG Injectable Solution [Taijianing]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP5010335",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35854278,
+      "conceptName": "bivalirudin 250 MG [Taijianing]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP5010336",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35854279,
+      "conceptName": "bivalirudin Injectable Solution [Taijianing]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP5010337",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36046228,
+      "conceptName": "bivalirudin 250 MG Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP4985407",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36059652,
+      "conceptName": "bivalirudin 250 MG Injectable Solution Box of 10 by Reig Jofre",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4985405",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36059653,
+      "conceptName": "bivalirudin 250 MG Injectable Solution Box of 5 by Accord",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4985406",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36059654,
+      "conceptName": "bivalirudin 250 MG Injectable Solution by Reig Jofre",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4985408",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36224019,
+      "conceptName": "bivalirudin Injectable Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Dose Group",
+      "conceptCode": "1161844",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36231022,
+      "conceptName": "Angiomax Injectable Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Dose Group",
+      "conceptCode": "1176229",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36258140,
+      "conceptName": "bivalirudin 250 MG Injection [Bivalirudin Accord Healthcare]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP3109015",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36266346,
+      "conceptName": "bivalirudin 250 MG Injection [Bivalirudin Accord Healthcare] by Accord",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3117221",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36271961,
+      "conceptName": "bivalirudin 250 MG [Bivalirudin Accord Healthcare]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP3122836",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36272253,
+      "conceptName": "bivalirudin Injection [Bivalirudin Accord Healthcare]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP3123128",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36789715,
+      "conceptName": "bivalirudin 250 MG Injection [Bivalirudin Accord Healthcare] Box of 1 by Accord",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4777961",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36789716,
+      "conceptName": "bivalirudin 250 MG Injection [Bivalirudin Accord Healthcare] Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP4777962",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36789717,
+      "conceptName": "bivalirudin 250 MG Injectable Solution [Bivalirudin Accord Healthcare] Box of 1 by Accord",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4777963",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36789718,
+      "conceptName": "bivalirudin 250 MG Injectable Solution [Bivalirudin Accord Healthcare] Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP4777964",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36789719,
+      "conceptName": "bivalirudin 250 MG Injectable Solution [Bivalirudin Accord Healthcare]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4777965",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36789720,
+      "conceptName": "bivalirudin Injectable Solution [Bivalirudin Accord Healthcare]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP4777966",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36880822,
+      "conceptName": "bivalirudin Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP994339",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36881272,
+      "conceptName": "bivalirudin 250 MG Prefilled Syringe [Angiox] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP1004456",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36883852,
+      "conceptName": "bivalirudin 250 MG Prefilled Syringe Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP997459",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36888568,
+      "conceptName": "bivalirudin Prefilled Syringe [Angiox]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP997622",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36888705,
+      "conceptName": "bivalirudin 250 MG Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP1003452",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36893900,
+      "conceptName": "bivalirudin 250 MG Prefilled Syringe [Angiox]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP989717",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36934944,
+      "conceptName": "bivalirudin 250 MG Injectable Solution by Kensington",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5204948",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36967517,
+      "conceptName": "bivalirudin 250 MG Injectable Solution Box of 1 by Kensington",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5204949",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40752165,
+      "conceptName": "bivalirudin 250 MG Injection Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP4704326",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40752166,
+      "conceptName": "bivalirudin 250 MG Injection by Accord",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4704325",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40752167,
+      "conceptName": "bivalirudin 250 MG Injectable Solution Box of 1 by Accord",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4704324",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40752168,
+      "conceptName": "bivalirudin 250 MG Injectable Solution Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP4704323",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40752169,
+      "conceptName": "bivalirudin 250 MG Injectable Solution by Accord",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4704322",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40753395,
+      "conceptName": "bivalirudin 250 MG Injection Box of 1 by Accord",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4704327",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40849366,
+      "conceptName": "bivalirudin 250 MG Injectable Solution [Angiox] Box of 2",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2047328",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40849367,
+      "conceptName": "bivalirudin 250 MG Injectable Solution [Angiox]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2047329",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40862035,
+      "conceptName": "bivalirudin Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP2059997",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40973859,
+      "conceptName": "bivalirudin 250 MG Injectable Solution [Angiox] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2171821",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40993665,
+      "conceptName": "bivalirudin 250 MG Injectable Solution Box of 2",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2191627",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41019970,
+      "conceptName": "bivalirudin Injectable Solution [Angiox]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP2217932",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41212596,
+      "conceptName": "bivalirudin 250 MG Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP2410558",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41243583,
+      "conceptName": "bivalirudin 250 MG Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2441545",
       "standardConcept": "S"
     },
     {
@@ -137,210 +655,39 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 46275129,
-      "conceptName": "bivalirudin 250 MG",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "1657990",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41212596,
-      "conceptName": "bivalirudin 250 MG Injectable Solution",
+      "conceptId": 43040885,
+      "conceptName": "10 ML bivalirudin 25 MG/ML Injectable Solution",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP2410558",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP4855915",
       "standardConcept": "S"
     },
     {
-      "conceptId": 40752168,
-      "conceptName": "bivalirudin 250 MG Injectable Solution Box of 1",
+      "conceptId": 43040886,
+      "conceptName": "10 ML bivalirudin 25 MG/ML Injectable Solution Box of 10",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP4704323",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP4855916",
       "standardConcept": "S"
     },
     {
-      "conceptId": 40752167,
-      "conceptName": "bivalirudin 250 MG Injectable Solution Box of 1 by Accord",
+      "conceptId": 43040887,
+      "conceptName": "10 ML bivalirudin 25 MG/ML Injectable Solution Box of 10 by Accord",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4704324",
+      "conceptCode": "OMOP4855917",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36967517,
-      "conceptName": "bivalirudin 250 MG Injectable Solution Box of 1 by Kensington",
+      "conceptId": 43516200,
+      "conceptName": "bivalirudin 250 MG Injection by Apotex",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5204949",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41243583,
-      "conceptName": "bivalirudin 250 MG Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2441545",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36059652,
-      "conceptName": "bivalirudin 250 MG Injectable Solution Box of 10 by Reig Jofre",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4985405",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40993665,
-      "conceptName": "bivalirudin 250 MG Injectable Solution Box of 2",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2191627",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36046228,
-      "conceptName": "bivalirudin 250 MG Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP4985407",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36059653,
-      "conceptName": "bivalirudin 250 MG Injectable Solution Box of 5 by Accord",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4985406",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40849367,
-      "conceptName": "bivalirudin 250 MG Injectable Solution [Angiox]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2047329",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40973859,
-      "conceptName": "bivalirudin 250 MG Injectable Solution [Angiox] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2171821",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35753392,
-      "conceptName": "bivalirudin 250 MG Injectable Solution [Angiox] Box of 10 by Medicines",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2754853",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40849366,
-      "conceptName": "bivalirudin 250 MG Injectable Solution [Angiox] Box of 2",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2047328",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35761739,
-      "conceptName": "bivalirudin 250 MG Injectable Solution [Angiox] by Medicines",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2763200",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36789719,
-      "conceptName": "bivalirudin 250 MG Injectable Solution [Bivalirudin Accord Healthcare]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4777965",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36789718,
-      "conceptName": "bivalirudin 250 MG Injectable Solution [Bivalirudin Accord Healthcare] Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP4777964",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36789717,
-      "conceptName": "bivalirudin 250 MG Injectable Solution [Bivalirudin Accord Healthcare] Box of 1 by Accord",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4777963",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35854277,
-      "conceptName": "bivalirudin 250 MG Injectable Solution [Taijianing]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5010335",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40752169,
-      "conceptName": "bivalirudin 250 MG Injectable Solution by Accord",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4704322",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36934944,
-      "conceptName": "bivalirudin 250 MG Injectable Solution by Kensington",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5204948",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36059654,
-      "conceptName": "bivalirudin 250 MG Injectable Solution by Reig Jofre",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4985408",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44059183,
-      "conceptName": "bivalirudin 250 MG Injectable Suspension",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP1053814",
+      "conceptCode": "OMOP2803315",
       "standardConcept": "S"
     },
     {
@@ -350,15 +697,6 @@
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Box",
       "conceptCode": "OMOP1027807",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44074103,
-      "conceptName": "bivalirudin 250 MG Injectable Suspension [Angiomax]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP1068734",
       "standardConcept": "S"
     },
     {
@@ -380,345 +718,30 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 19074279,
-      "conceptName": "bivalirudin 250 MG Injection",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "308769",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40752165,
-      "conceptName": "bivalirudin 250 MG Injection Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP4704326",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40753395,
-      "conceptName": "bivalirudin 250 MG Injection Box of 1 by Accord",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4704327",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21031088,
-      "conceptName": "bivalirudin 250 MG Injection Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP275438",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19006372,
-      "conceptName": "bivalirudin 250 MG Injection [Angiomax]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "284534",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21158883,
-      "conceptName": "bivalirudin 250 MG Injection [Angiox]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP275447",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21021389,
-      "conceptName": "bivalirudin 250 MG Injection [Angiox] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP275460",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21099881,
-      "conceptName": "bivalirudin 250 MG Injection [Angiox] Box of 10 by Medicines",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP275469",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21070558,
-      "conceptName": "bivalirudin 250 MG Injection [Angiox] by Medicines",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP275453",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36258140,
-      "conceptName": "bivalirudin 250 MG Injection [Bivalirudin Accord Healthcare]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP3109015",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36789716,
-      "conceptName": "bivalirudin 250 MG Injection [Bivalirudin Accord Healthcare] Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP4777962",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36789715,
-      "conceptName": "bivalirudin 250 MG Injection [Bivalirudin Accord Healthcare] Box of 1 by Accord",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4777961",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36266346,
-      "conceptName": "bivalirudin 250 MG Injection [Bivalirudin Accord Healthcare] by Accord",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3117221",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2912583,
-      "conceptName": "bivalirudin 250 MG Injection by APO",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5129355",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40752166,
-      "conceptName": "bivalirudin 250 MG Injection by Accord",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4704325",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43516200,
-      "conceptName": "bivalirudin 250 MG Injection by Apotex",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2803315",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2912581,
-      "conceptName": "bivalirudin 250 MG Injection by Dbl",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5129353",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2912582,
-      "conceptName": "bivalirudin 250 MG Injection by Juno",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5129354",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36888705,
-      "conceptName": "bivalirudin 250 MG Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP1003452",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36883852,
-      "conceptName": "bivalirudin 250 MG Prefilled Syringe Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP997459",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36893900,
-      "conceptName": "bivalirudin 250 MG Prefilled Syringe [Angiox]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP989717",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36881272,
-      "conceptName": "bivalirudin 250 MG Prefilled Syringe [Angiox] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP1004456",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35408705,
-      "conceptName": "bivalirudin 250 MG Prefilled Syringe [Angiox] Box of 10 by Medicines",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP1142290",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35774404,
-      "conceptName": "bivalirudin 250 MG Prefilled Syringe [Angiox] by Medicines",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2775865",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 46275131,
-      "conceptName": "bivalirudin 250 MG [Angiomax]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "1657993",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21041000,
-      "conceptName": "bivalirudin 250 MG [Angiox]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP275422",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36271961,
-      "conceptName": "bivalirudin 250 MG [Bivalirudin Accord Healthcare]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP3122836",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35854278,
-      "conceptName": "bivalirudin 250 MG [Taijianing]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP5010336",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 793486,
-      "conceptName": "bivalirudin 5 MG/ML",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "1997014",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 793488,
-      "conceptName": "bivalirudin 5 MG/ML Injection",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "1997016",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1146429,
-      "conceptName": "bivalirudin 5 MG/ML Injection [Angiomax]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "2380559",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1146428,
-      "conceptName": "bivalirudin 5 MG/ML [Angiomax]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "2380557",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36224019,
-      "conceptName": "bivalirudin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1161844",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 40862035,
-      "conceptName": "bivalirudin Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP2059997",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41019970,
-      "conceptName": "bivalirudin Injectable Solution [Angiox]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP2217932",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36789720,
-      "conceptName": "bivalirudin Injectable Solution [Bivalirudin Accord Healthcare]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4777966",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35854279,
-      "conceptName": "bivalirudin Injectable Solution [Taijianing]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP5010337",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 44056156,
       "conceptName": "bivalirudin Injectable Suspension",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Form",
       "conceptCode": "OMOP1050787",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44059183,
+      "conceptName": "bivalirudin 250 MG Injectable Suspension",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP1053814",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44074103,
+      "conceptName": "bivalirudin 250 MG Injectable Suspension [Angiomax]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP1068734",
       "standardConcept": "S"
     },
     {
@@ -731,6 +754,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 46275129,
+      "conceptName": "bivalirudin 250 MG",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "1657990",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 46275130,
       "conceptName": "bivalirudin Injection",
       "vocabularyId": "RxNorm",
@@ -740,48 +772,21 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 46275131,
+      "conceptName": "bivalirudin 250 MG [Angiomax]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "1657993",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 46275132,
       "conceptName": "bivalirudin Injection [Angiomax]",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "1657994",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21080263,
-      "conceptName": "bivalirudin Injection [Angiox]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP275409",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36272253,
-      "conceptName": "bivalirudin Injection [Bivalirudin Accord Healthcare]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP3123128",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36880822,
-      "conceptName": "bivalirudin Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP994339",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36888568,
-      "conceptName": "bivalirudin Prefilled Syringe [Angiox]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP997622",
       "standardConcept": "S"
     }
   ]

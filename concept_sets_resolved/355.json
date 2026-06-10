@@ -1,24 +1,10 @@
 {
   "conceptSetId": 355,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80"
+  },
   "resolvedConcepts": [
-    {
-      "conceptId": 3009343,
-      "conceptName": "pH of Capillary blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "2745-8",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3040135,
-      "conceptName": "pH of Capillary blood adjusted to patient's actual temperature",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "39485-8",
-      "standardConcept": "S"
-    },
     {
       "conceptId": 1616438,
       "conceptName": "pH of Central venous blood",
@@ -38,21 +24,30 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 1618115,
+      "conceptName": "pH | Blood central venous | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP426948-8",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 3009343,
+      "conceptName": "pH of Capillary blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "2745-8",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 3012388,
       "conceptName": "pH of Mixed venous blood",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
       "conceptCode": "19213-8",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3030238,
-      "conceptName": "pH of Mixed venous blood adjusted to patient's actual temperature",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "50980-2",
       "standardConcept": "S"
     },
     {
@@ -65,6 +60,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 3030238,
+      "conceptName": "pH of Mixed venous blood adjusted to patient's actual temperature",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "50980-2",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 3038999,
       "conceptName": "pH of Venous blood adjusted to patient's actual temperature",
       "vocabularyId": "LOINC",
@@ -74,21 +78,21 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 3040135,
+      "conceptName": "pH of Capillary blood adjusted to patient's actual temperature",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "39485-8",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 37029779,
       "conceptName": "pH | Blood capillary | Chemistry - non-challenge",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "LOINC Hierarchy",
       "conceptCode": "LP383433-2",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 1618115,
-      "conceptName": "pH | Blood central venous | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP426948-8",
       "standardConcept": "C"
     },
     {

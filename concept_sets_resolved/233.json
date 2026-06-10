@@ -1,24 +1,10 @@
 {
   "conceptSetId": 233,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
-    {
-      "conceptId": 37017689,
-      "conceptName": "Carbapenem resistant Enterobacter cloacae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "714007005",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42537866,
-      "conceptName": "Carbapenemase-producing Enterobacter cloacae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "737529000",
-      "standardConcept": "S"
-    },
     {
       "conceptId": 4030716,
       "conceptName": "Enterobacter cloacae",
@@ -26,15 +12,6 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "14385002",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36717518,
-      "conceptName": "Enterobacter cloacae subsp. cloacae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "721950003",
       "standardConcept": "S"
     },
     {
@@ -56,12 +33,39 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 36717518,
+      "conceptName": "Enterobacter cloacae subsp. cloacae",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "721950003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37017689,
+      "conceptName": "Carbapenem resistant Enterobacter cloacae",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "714007005",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 37017942,
       "conceptName": "Multiple drug-resistant Enterobacter cloacae",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "714317005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42537866,
+      "conceptName": "Carbapenemase-producing Enterobacter cloacae",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "737529000",
       "standardConcept": "S"
     }
   ]

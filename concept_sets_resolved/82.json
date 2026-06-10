@@ -1,222 +1,11 @@
 {
   "conceptSetId": 82,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "RxNorm": "RxNorm 20260105",
+    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+  },
   "resolvedConcepts": [
-    {
-      "conceptId": 1302372,
-      "conceptName": "100 ML daptomycin 10 MG/ML Injection",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "2632127",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1302375,
-      "conceptName": "100 ML daptomycin 7 MG/ML Injection",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "2632133",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43042024,
-      "conceptName": "20 ML Daptomycin 17.5 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP4857050",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43042025,
-      "conceptName": "20 ML Daptomycin 17.5 MG/ML Injectable Solution by Accord",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4857051",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43042022,
-      "conceptName": "20 ML Daptomycin 25 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP4857048",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43042023,
-      "conceptName": "20 ML Daptomycin 25 MG/ML Injectable Solution by Accord",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4857049",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1302374,
-      "conceptName": "50 ML daptomycin 10 MG/ML Injection",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "2632132",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1302373,
-      "conceptName": "50 ML daptomycin 7 MG/ML Injection",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "2632130",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36237158,
-      "conceptName": "Cubicin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1173079",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 43030178,
-      "conceptName": "Daptomycin 17.5 MG/ML",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP4845247",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43030179,
-      "conceptName": "Daptomycin 17.5 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP4845248",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43030176,
-      "conceptName": "Daptomycin 25 MG/ML",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP4845245",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43030177,
-      "conceptName": "Daptomycin 25 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP4845246",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40836854,
-      "conceptName": "Daptomycin 350 MG Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP2034816",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41054958,
-      "conceptName": "Daptomycin 350 MG Injectable Solution Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2252920",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40736866,
-      "conceptName": "Daptomycin 350 MG Injectable Solution Box of 1 by Accord",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4720293",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36812905,
-      "conceptName": "Daptomycin 350 MG Injectable Solution Box of 1 by Dr Reddy's",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4826940",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41117760,
-      "conceptName": "Daptomycin 350 MG Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2315722",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40736865,
-      "conceptName": "Daptomycin 350 MG Injectable Solution [Cubicin]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4720294",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40736863,
-      "conceptName": "Daptomycin 350 MG Injectable Solution [Cubicin] Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP4720296",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40736864,
-      "conceptName": "Daptomycin 350 MG Injectable Solution [Cubicin] by Merck",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4720295",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40736867,
-      "conceptName": "Daptomycin 350 MG Injectable Solution by Accord",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4720292",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36811141,
-      "conceptName": "Daptomycin 350 MG Injectable Solution by Dr Reddy's",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4825178",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21094912,
-      "conceptName": "Daptomycin 350 MG Injection Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP255565",
-      "standardConcept": "S"
-    },
     {
       "conceptId": 587468,
       "conceptName": "Daptomycin 350 MG Injection Box of 5",
@@ -224,339 +13,6 @@
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Box",
       "conceptCode": "OMOP3137445",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21036002,
-      "conceptName": "Daptomycin 350 MG Injection [Cubicin]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP255567",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21094913,
-      "conceptName": "Daptomycin 350 MG Injection [Cubicin] Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP255569",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41136972,
-      "conceptName": "Daptomycin 350 MG Injection [Cubicin] Box of 1 by Cc",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2334934",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41042794,
-      "conceptName": "Daptomycin 350 MG Injection [Cubicin] Box of 1 by Merck",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2240756",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21143978,
-      "conceptName": "Daptomycin 350 MG Injection [Cubicin] Box of 1 by Novartis",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP255570",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40941149,
-      "conceptName": "Daptomycin 350 MG Injection [Cubicin] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2139111",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41042793,
-      "conceptName": "Daptomycin 350 MG Injection [Cubicin] Box of 5 by Merck",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2240755",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41199583,
-      "conceptName": "Daptomycin 350 MG Injection [Cubicin] Box of 5 by Novartis",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2397545",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21085113,
-      "conceptName": "Daptomycin 350 MG Injection [Cubicin] by Novartis",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP255568",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36884920,
-      "conceptName": "Daptomycin 350 MG Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP991738",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36886872,
-      "conceptName": "Daptomycin 350 MG Prefilled Syringe Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP1004547",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36881307,
-      "conceptName": "Daptomycin 350 MG Prefilled Syringe [Cubicin]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP1002691",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36886074,
-      "conceptName": "Daptomycin 350 MG Prefilled Syringe [Cubicin] Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP999850",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35412580,
-      "conceptName": "Daptomycin 350 MG Prefilled Syringe [Cubicin] Box of 1 by Merck",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP1146165",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43171009,
-      "conceptName": "Daptomycin 350 MG Prefilled Syringe [Cubicin] Box of 1 by Novartis",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP475158",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21134061,
-      "conceptName": "Daptomycin 350 MG [Cubicin]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP255563",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41242641,
-      "conceptName": "Daptomycin 500 MG Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP2440603",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40899052,
-      "conceptName": "Daptomycin 500 MG Injectable Solution Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2097014",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40736860,
-      "conceptName": "Daptomycin 500 MG Injectable Solution Box of 1 by Accord",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4720298",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36811034,
-      "conceptName": "Daptomycin 500 MG Injectable Solution Box of 1 by Dr Reddy's",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4825071",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41304619,
-      "conceptName": "Daptomycin 500 MG Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2502581",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40736859,
-      "conceptName": "Daptomycin 500 MG Injectable Solution [Cubicin]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4720299",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40736857,
-      "conceptName": "Daptomycin 500 MG Injectable Solution [Cubicin] Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP4720301",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40736858,
-      "conceptName": "Daptomycin 500 MG Injectable Solution [Cubicin] by Merck",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4720300",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40736862,
-      "conceptName": "Daptomycin 500 MG Injectable Solution by Accord",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4720297",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36811711,
-      "conceptName": "Daptomycin 500 MG Injectable Solution by Dr Reddy's",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4825745",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44110344,
-      "conceptName": "Daptomycin 500 MG Injectable Suspension",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP1104975",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40992746,
-      "conceptName": "Daptomycin 500 MG Injectable Suspension Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2190708",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40867995,
-      "conceptName": "Daptomycin 500 MG Injectable Suspension Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2065957",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44060960,
-      "conceptName": "Daptomycin 500 MG Injectable Suspension [Cubicin]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP1055591",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40972103,
-      "conceptName": "Daptomycin 500 MG Injectable Suspension [Cubicin] Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2170065",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41199581,
-      "conceptName": "Daptomycin 500 MG Injectable Suspension [Cubicin] Box of 1 by Cc",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2397543",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44175267,
-      "conceptName": "Daptomycin 500 MG Injectable Suspension [Cubicin] Box of 1 by Merck",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3051990",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41128586,
-      "conceptName": "Daptomycin 500 MG Injectable Suspension [Cubicin] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2326548",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44160226,
-      "conceptName": "Daptomycin 500 MG Injectable Suspension [Cubicin] Box of 5 by Merck",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3036949",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44051012,
-      "conceptName": "Daptomycin 500 MG Injectable Suspension [Cubicin] by Cubist",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP1045643",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21036000,
-      "conceptName": "Daptomycin 500 MG Injection Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP255558",
       "standardConcept": "S"
     },
     {
@@ -569,201 +25,21 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 21153910,
-      "conceptName": "Daptomycin 500 MG Injection [Cubicin] Box of 1",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 793582,
+      "conceptName": "daptomycin 350 MG",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP255560",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "1996245",
       "standardConcept": "S"
     },
     {
-      "conceptId": 41199582,
-      "conceptName": "Daptomycin 500 MG Injection [Cubicin] Box of 1 by Cc",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2397544",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41261371,
-      "conceptName": "Daptomycin 500 MG Injection [Cubicin] Box of 1 by Merck",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2459333",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21055615,
-      "conceptName": "Daptomycin 500 MG Injection [Cubicin] Box of 1 by Novartis",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP255561",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41253233,
-      "conceptName": "Daptomycin 500 MG Injection [Cubicin] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2451195",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41261370,
-      "conceptName": "Daptomycin 500 MG Injection [Cubicin] Box of 5 by Merck",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2459332",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21036001,
-      "conceptName": "Daptomycin 500 MG Injection [Cubicin] by Novartis",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP255559",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36887834,
-      "conceptName": "Daptomycin 500 MG Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 793583,
+      "conceptName": "daptomycin 350 MG Injection",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP990105",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36894718,
-      "conceptName": "Daptomycin 500 MG Prefilled Syringe Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP999198",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36881306,
-      "conceptName": "Daptomycin 500 MG Prefilled Syringe [Cubicin]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP989034",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36885091,
-      "conceptName": "Daptomycin 500 MG Prefilled Syringe [Cubicin] Box of 1",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP996224",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35410192,
-      "conceptName": "Daptomycin 500 MG Prefilled Syringe [Cubicin] Box of 1 by Merck",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP1143777",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43171010,
-      "conceptName": "Daptomycin 500 MG Prefilled Syringe [Cubicin] Box of 1 by Novartis",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP475160",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35759399,
-      "conceptName": "Daptomycin 500 MG Prefilled Syringe [Cubicin] by Novartis",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2760860",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40830645,
-      "conceptName": "Daptomycin Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP2028607",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40736868,
-      "conceptName": "Daptomycin Injectable Solution [Cubicin]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4720291",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44068944,
-      "conceptName": "Daptomycin Injectable Suspension",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP1063575",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44122039,
-      "conceptName": "Daptomycin Injectable Suspension [Cubicin]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP1116670",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36883693,
-      "conceptName": "Daptomycin Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP1004163",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36883743,
-      "conceptName": "Daptomycin Prefilled Syringe [Cubicin]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP993243",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1759040,
-      "conceptName": "Dapzura Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2591791",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 1786617,
-      "conceptName": "daptomycin",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Ingredient",
-      "conceptCode": "22299",
+      "conceptCode": "1996246",
       "standardConcept": "S"
     },
     {
@@ -785,345 +61,84 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 793582,
-      "conceptName": "daptomycin 350 MG",
+      "conceptId": 1301929,
+      "conceptName": "daptomycin 7 MG/ML",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "1996245",
+      "conceptCode": "2632129",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36963317,
-      "conceptName": "daptomycin 350 MG Injectable Solution Box of 1 by Cipla",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5201509",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36950645,
-      "conceptName": "daptomycin 350 MG Injectable Solution Box of 1 by Hameln",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5201506",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36925326,
-      "conceptName": "daptomycin 350 MG Injectable Solution Box of 1 by Kent",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5201507",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35897462,
-      "conceptName": "daptomycin 350 MG Injectable Solution Box of 1 by Panpharma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5041700",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36951014,
-      "conceptName": "daptomycin 350 MG Injectable Solution Box of 1 by Pfizer",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5201508",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36935358,
-      "conceptName": "daptomycin 350 MG Injectable Solution Box of 1 by Zentiva",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5201505",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36958505,
-      "conceptName": "daptomycin 350 MG Injectable Solution by Cipla",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5201504",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36931839,
-      "conceptName": "daptomycin 350 MG Injectable Solution by Hameln",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5201501",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2917463,
-      "conceptName": "daptomycin 350 MG Injectable Solution by Juno",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5134286",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36944313,
-      "conceptName": "daptomycin 350 MG Injectable Solution by Kent",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5201502",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35897463,
-      "conceptName": "daptomycin 350 MG Injectable Solution by Panpharma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5041701",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36923362,
-      "conceptName": "daptomycin 350 MG Injectable Solution by Pfizer",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5201503",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36036204,
-      "conceptName": "daptomycin 350 MG Injectable Solution by Ratiopharm",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5046208",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36956631,
-      "conceptName": "daptomycin 350 MG Injectable Solution by Zentiva",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5201500",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 793583,
-      "conceptName": "daptomycin 350 MG Injection",
+      "conceptId": 1301930,
+      "conceptName": "daptomycin 7 MG/ML Injection",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug",
-      "conceptCode": "1996246",
+      "conceptCode": "2632131",
       "standardConcept": "S"
     },
     {
-      "conceptId": 2917462,
-      "conceptName": "daptomycin 350 MG Injection by Accord",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5134285",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2917460,
-      "conceptName": "daptomycin 350 MG Injection by Juno",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5134283",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2917461,
-      "conceptName": "daptomycin 350 MG Injection by Panpharma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5134284",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35605611,
-      "conceptName": "daptomycin 500 MG",
+      "conceptId": 1302372,
+      "conceptName": "100 ML daptomycin 10 MG/ML Injection",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "1731095",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "2632127",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36957918,
-      "conceptName": "daptomycin 500 MG Injectable Solution Box of 1 by Cipla",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5201519",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36949327,
-      "conceptName": "daptomycin 500 MG Injectable Solution Box of 1 by Hameln",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5201516",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36938547,
-      "conceptName": "daptomycin 500 MG Injectable Solution Box of 1 by Kent",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5201517",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35897460,
-      "conceptName": "daptomycin 500 MG Injectable Solution Box of 1 by Panpharma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5041698",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36968529,
-      "conceptName": "daptomycin 500 MG Injectable Solution Box of 1 by Pfizer",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5201518",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36950836,
-      "conceptName": "daptomycin 500 MG Injectable Solution Box of 1 by Tillomed",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5201515",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36934252,
-      "conceptName": "daptomycin 500 MG Injectable Solution [Cubicin] Box of 1 by Merck",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5201520",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35858788,
-      "conceptName": "daptomycin 500 MG Injectable Solution [Kebixin]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5015342",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36036205,
-      "conceptName": "daptomycin 500 MG Injectable Solution by Betapharm",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5046209",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36929890,
-      "conceptName": "daptomycin 500 MG Injectable Solution by Cipla",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5201514",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36951040,
-      "conceptName": "daptomycin 500 MG Injectable Solution by Hameln",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5201511",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2917459,
-      "conceptName": "daptomycin 500 MG Injectable Solution by Juno",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5134282",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36920505,
-      "conceptName": "daptomycin 500 MG Injectable Solution by Kent",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5201512",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35897461,
-      "conceptName": "daptomycin 500 MG Injectable Solution by Panpharma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5041699",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36925915,
-      "conceptName": "daptomycin 500 MG Injectable Solution by Pfizer",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5201513",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36938446,
-      "conceptName": "daptomycin 500 MG Injectable Solution by Tillomed",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5201510",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19102518,
-      "conceptName": "daptomycin 500 MG Injection",
+      "conceptId": 1302373,
+      "conceptName": "50 ML daptomycin 7 MG/ML Injection",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "403920",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "2632130",
       "standardConcept": "S"
     },
     {
-      "conceptId": 19102859,
-      "conceptName": "daptomycin 500 MG Injection [Cubicin]",
+      "conceptId": 1302374,
+      "conceptName": "50 ML daptomycin 10 MG/ML Injection",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "404652",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "2632132",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1302375,
+      "conceptName": "100 ML daptomycin 7 MG/ML Injection",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "2632133",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1759039,
+      "conceptName": "daptomycin 500 MG [Dapzura]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "2591790",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1759040,
+      "conceptName": "Dapzura Injectable Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Dose Group",
+      "conceptCode": "2591791",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 1759041,
+      "conceptName": "daptomycin Injection [Dapzura]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "2591792",
       "standardConcept": "S"
     },
     {
@@ -1136,12 +151,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 2917458,
-      "conceptName": "daptomycin 500 MG Injection by Accord",
-      "vocabularyId": "RxNorm Extension",
+      "conceptId": 1786617,
+      "conceptName": "daptomycin",
+      "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5134281",
+      "conceptClassId": "Ingredient",
+      "conceptCode": "22299",
       "standardConcept": "S"
     },
     {
@@ -1163,66 +178,192 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 35605613,
-      "conceptName": "daptomycin 500 MG [Cubicin]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "1731098",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1759039,
-      "conceptName": "daptomycin 500 MG [Dapzura]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "2591790",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35858789,
-      "conceptName": "daptomycin 500 MG [Kebixin]",
+      "conceptId": 2917458,
+      "conceptName": "daptomycin 500 MG Injection by Accord",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP5015343",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5134281",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1301929,
-      "conceptName": "daptomycin 7 MG/ML",
-      "vocabularyId": "RxNorm",
+      "conceptId": 2917459,
+      "conceptName": "daptomycin 500 MG Injectable Solution by Juno",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "2632129",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5134282",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1301930,
-      "conceptName": "daptomycin 7 MG/ML Injection",
+      "conceptId": 2917460,
+      "conceptName": "daptomycin 350 MG Injection by Juno",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5134283",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2917461,
+      "conceptName": "daptomycin 350 MG Injection by Panpharma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5134284",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2917462,
+      "conceptName": "daptomycin 350 MG Injection by Accord",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5134285",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 2917463,
+      "conceptName": "daptomycin 350 MG Injectable Solution by Juno",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5134286",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19102518,
+      "conceptName": "daptomycin 500 MG Injection",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug",
-      "conceptCode": "2632131",
+      "conceptCode": "403920",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36217315,
-      "conceptName": "daptomycin Injectable Product",
+      "conceptId": 19102859,
+      "conceptName": "daptomycin 500 MG Injection [Cubicin]",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1152143",
-      "standardConcept": "C"
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "404652",
+      "standardConcept": "S"
     },
     {
-      "conceptId": 35858790,
-      "conceptName": "daptomycin Injectable Solution [Kebixin]",
+      "conceptId": 21036000,
+      "conceptName": "Daptomycin 500 MG Injection Box of 1",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP5015344",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP255558",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21036001,
+      "conceptName": "Daptomycin 500 MG Injection [Cubicin] by Novartis",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP255559",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21036002,
+      "conceptName": "Daptomycin 350 MG Injection [Cubicin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP255567",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21055615,
+      "conceptName": "Daptomycin 500 MG Injection [Cubicin] Box of 1 by Novartis",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP255561",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21085113,
+      "conceptName": "Daptomycin 350 MG Injection [Cubicin] by Novartis",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP255568",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21094912,
+      "conceptName": "Daptomycin 350 MG Injection Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP255565",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21094913,
+      "conceptName": "Daptomycin 350 MG Injection [Cubicin] Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP255569",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21134061,
+      "conceptName": "Daptomycin 350 MG [Cubicin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP255563",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21143978,
+      "conceptName": "Daptomycin 350 MG Injection [Cubicin] Box of 1 by Novartis",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP255570",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21153910,
+      "conceptName": "Daptomycin 500 MG Injection [Cubicin] Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP255560",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35410192,
+      "conceptName": "Daptomycin 500 MG Prefilled Syringe [Cubicin] Box of 1 by Merck",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP1143777",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35412580,
+      "conceptName": "Daptomycin 350 MG Prefilled Syringe [Cubicin] Box of 1 by Merck",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP1146165",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35605611,
+      "conceptName": "daptomycin 500 MG",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "1731095",
       "standardConcept": "S"
     },
     {
@@ -1235,6 +376,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 35605613,
+      "conceptName": "daptomycin 500 MG [Cubicin]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "1731098",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 35605614,
       "conceptName": "daptomycin Injection [Cubicin]",
       "vocabularyId": "RxNorm",
@@ -1244,12 +394,867 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 1759041,
-      "conceptName": "daptomycin Injection [Dapzura]",
-      "vocabularyId": "RxNorm",
+      "conceptId": 35759399,
+      "conceptName": "Daptomycin 500 MG Prefilled Syringe [Cubicin] by Novartis",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2760860",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35858788,
+      "conceptName": "daptomycin 500 MG Injectable Solution [Kebixin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP5015342",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35858789,
+      "conceptName": "daptomycin 500 MG [Kebixin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP5015343",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35858790,
+      "conceptName": "daptomycin Injectable Solution [Kebixin]",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Form",
-      "conceptCode": "2591792",
+      "conceptCode": "OMOP5015344",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35897460,
+      "conceptName": "daptomycin 500 MG Injectable Solution Box of 1 by Panpharma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5041698",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35897461,
+      "conceptName": "daptomycin 500 MG Injectable Solution by Panpharma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5041699",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35897462,
+      "conceptName": "daptomycin 350 MG Injectable Solution Box of 1 by Panpharma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5041700",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35897463,
+      "conceptName": "daptomycin 350 MG Injectable Solution by Panpharma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5041701",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36036204,
+      "conceptName": "daptomycin 350 MG Injectable Solution by Ratiopharm",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5046208",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36036205,
+      "conceptName": "daptomycin 500 MG Injectable Solution by Betapharm",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5046209",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36217315,
+      "conceptName": "daptomycin Injectable Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Dose Group",
+      "conceptCode": "1152143",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36237158,
+      "conceptName": "Cubicin Injectable Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Dose Group",
+      "conceptCode": "1173079",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36811034,
+      "conceptName": "Daptomycin 500 MG Injectable Solution Box of 1 by Dr Reddy's",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4825071",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36811141,
+      "conceptName": "Daptomycin 350 MG Injectable Solution by Dr Reddy's",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4825178",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36811711,
+      "conceptName": "Daptomycin 500 MG Injectable Solution by Dr Reddy's",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4825745",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36812905,
+      "conceptName": "Daptomycin 350 MG Injectable Solution Box of 1 by Dr Reddy's",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4826940",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36881306,
+      "conceptName": "Daptomycin 500 MG Prefilled Syringe [Cubicin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP989034",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36881307,
+      "conceptName": "Daptomycin 350 MG Prefilled Syringe [Cubicin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP1002691",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36883693,
+      "conceptName": "Daptomycin Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP1004163",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36883743,
+      "conceptName": "Daptomycin Prefilled Syringe [Cubicin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP993243",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36884920,
+      "conceptName": "Daptomycin 350 MG Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP991738",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36885091,
+      "conceptName": "Daptomycin 500 MG Prefilled Syringe [Cubicin] Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP996224",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36886074,
+      "conceptName": "Daptomycin 350 MG Prefilled Syringe [Cubicin] Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP999850",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36886872,
+      "conceptName": "Daptomycin 350 MG Prefilled Syringe Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP1004547",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36887834,
+      "conceptName": "Daptomycin 500 MG Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP990105",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36894718,
+      "conceptName": "Daptomycin 500 MG Prefilled Syringe Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP999198",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36920505,
+      "conceptName": "daptomycin 500 MG Injectable Solution by Kent",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5201512",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36923362,
+      "conceptName": "daptomycin 350 MG Injectable Solution by Pfizer",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5201503",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36925326,
+      "conceptName": "daptomycin 350 MG Injectable Solution Box of 1 by Kent",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5201507",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36925915,
+      "conceptName": "daptomycin 500 MG Injectable Solution by Pfizer",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5201513",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36929890,
+      "conceptName": "daptomycin 500 MG Injectable Solution by Cipla",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5201514",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36931839,
+      "conceptName": "daptomycin 350 MG Injectable Solution by Hameln",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5201501",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36934252,
+      "conceptName": "daptomycin 500 MG Injectable Solution [Cubicin] Box of 1 by Merck",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5201520",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36935358,
+      "conceptName": "daptomycin 350 MG Injectable Solution Box of 1 by Zentiva",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5201505",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36938446,
+      "conceptName": "daptomycin 500 MG Injectable Solution by Tillomed",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5201510",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36938547,
+      "conceptName": "daptomycin 500 MG Injectable Solution Box of 1 by Kent",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5201517",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36944313,
+      "conceptName": "daptomycin 350 MG Injectable Solution by Kent",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5201502",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36949327,
+      "conceptName": "daptomycin 500 MG Injectable Solution Box of 1 by Hameln",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5201516",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36950645,
+      "conceptName": "daptomycin 350 MG Injectable Solution Box of 1 by Hameln",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5201506",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36950836,
+      "conceptName": "daptomycin 500 MG Injectable Solution Box of 1 by Tillomed",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5201515",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36951014,
+      "conceptName": "daptomycin 350 MG Injectable Solution Box of 1 by Pfizer",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5201508",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36951040,
+      "conceptName": "daptomycin 500 MG Injectable Solution by Hameln",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5201511",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36956631,
+      "conceptName": "daptomycin 350 MG Injectable Solution by Zentiva",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5201500",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36957918,
+      "conceptName": "daptomycin 500 MG Injectable Solution Box of 1 by Cipla",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5201519",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36958505,
+      "conceptName": "daptomycin 350 MG Injectable Solution by Cipla",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5201504",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36963317,
+      "conceptName": "daptomycin 350 MG Injectable Solution Box of 1 by Cipla",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5201509",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36968529,
+      "conceptName": "daptomycin 500 MG Injectable Solution Box of 1 by Pfizer",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5201518",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40736857,
+      "conceptName": "Daptomycin 500 MG Injectable Solution [Cubicin] Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP4720301",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40736858,
+      "conceptName": "Daptomycin 500 MG Injectable Solution [Cubicin] by Merck",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4720300",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40736859,
+      "conceptName": "Daptomycin 500 MG Injectable Solution [Cubicin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4720299",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40736860,
+      "conceptName": "Daptomycin 500 MG Injectable Solution Box of 1 by Accord",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4720298",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40736862,
+      "conceptName": "Daptomycin 500 MG Injectable Solution by Accord",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4720297",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40736863,
+      "conceptName": "Daptomycin 350 MG Injectable Solution [Cubicin] Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP4720296",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40736864,
+      "conceptName": "Daptomycin 350 MG Injectable Solution [Cubicin] by Merck",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4720295",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40736865,
+      "conceptName": "Daptomycin 350 MG Injectable Solution [Cubicin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4720294",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40736866,
+      "conceptName": "Daptomycin 350 MG Injectable Solution Box of 1 by Accord",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4720293",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40736867,
+      "conceptName": "Daptomycin 350 MG Injectable Solution by Accord",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4720292",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40736868,
+      "conceptName": "Daptomycin Injectable Solution [Cubicin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP4720291",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40830645,
+      "conceptName": "Daptomycin Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP2028607",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40836854,
+      "conceptName": "Daptomycin 350 MG Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP2034816",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40867995,
+      "conceptName": "Daptomycin 500 MG Injectable Suspension Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2065957",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40899052,
+      "conceptName": "Daptomycin 500 MG Injectable Solution Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2097014",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40941149,
+      "conceptName": "Daptomycin 350 MG Injection [Cubicin] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2139111",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40972103,
+      "conceptName": "Daptomycin 500 MG Injectable Suspension [Cubicin] Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2170065",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40992746,
+      "conceptName": "Daptomycin 500 MG Injectable Suspension Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2190708",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41042793,
+      "conceptName": "Daptomycin 350 MG Injection [Cubicin] Box of 5 by Merck",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2240755",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41042794,
+      "conceptName": "Daptomycin 350 MG Injection [Cubicin] Box of 1 by Merck",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2240756",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41054958,
+      "conceptName": "Daptomycin 350 MG Injectable Solution Box of 1",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2252920",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41117760,
+      "conceptName": "Daptomycin 350 MG Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2315722",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41128586,
+      "conceptName": "Daptomycin 500 MG Injectable Suspension [Cubicin] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2326548",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41136972,
+      "conceptName": "Daptomycin 350 MG Injection [Cubicin] Box of 1 by Cc",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2334934",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41199581,
+      "conceptName": "Daptomycin 500 MG Injectable Suspension [Cubicin] Box of 1 by Cc",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2397543",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41199582,
+      "conceptName": "Daptomycin 500 MG Injection [Cubicin] Box of 1 by Cc",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2397544",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41199583,
+      "conceptName": "Daptomycin 350 MG Injection [Cubicin] Box of 5 by Novartis",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2397545",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41242641,
+      "conceptName": "Daptomycin 500 MG Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP2440603",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41253233,
+      "conceptName": "Daptomycin 500 MG Injection [Cubicin] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2451195",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41261370,
+      "conceptName": "Daptomycin 500 MG Injection [Cubicin] Box of 5 by Merck",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2459332",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41261371,
+      "conceptName": "Daptomycin 500 MG Injection [Cubicin] Box of 1 by Merck",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2459333",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41304619,
+      "conceptName": "Daptomycin 500 MG Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2502581",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43030176,
+      "conceptName": "Daptomycin 25 MG/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP4845245",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43030177,
+      "conceptName": "Daptomycin 25 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP4845246",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43030178,
+      "conceptName": "Daptomycin 17.5 MG/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP4845247",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43030179,
+      "conceptName": "Daptomycin 17.5 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP4845248",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43042022,
+      "conceptName": "20 ML Daptomycin 25 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP4857048",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43042023,
+      "conceptName": "20 ML Daptomycin 25 MG/ML Injectable Solution by Accord",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4857049",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43042024,
+      "conceptName": "20 ML Daptomycin 17.5 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP4857050",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43042025,
+      "conceptName": "20 ML Daptomycin 17.5 MG/ML Injectable Solution by Accord",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4857051",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43171009,
+      "conceptName": "Daptomycin 350 MG Prefilled Syringe [Cubicin] Box of 1 by Novartis",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP475158",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43171010,
+      "conceptName": "Daptomycin 500 MG Prefilled Syringe [Cubicin] Box of 1 by Novartis",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP475160",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44051012,
+      "conceptName": "Daptomycin 500 MG Injectable Suspension [Cubicin] by Cubist",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP1045643",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44060960,
+      "conceptName": "Daptomycin 500 MG Injectable Suspension [Cubicin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP1055591",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44068944,
+      "conceptName": "Daptomycin Injectable Suspension",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP1063575",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44110344,
+      "conceptName": "Daptomycin 500 MG Injectable Suspension",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP1104975",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44122039,
+      "conceptName": "Daptomycin Injectable Suspension [Cubicin]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP1116670",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44160226,
+      "conceptName": "Daptomycin 500 MG Injectable Suspension [Cubicin] Box of 5 by Merck",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3036949",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44175267,
+      "conceptName": "Daptomycin 500 MG Injectable Suspension [Cubicin] Box of 1 by Merck",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3051990",
       "standardConcept": "S"
     }
   ]

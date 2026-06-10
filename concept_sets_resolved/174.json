@@ -1,13 +1,17 @@
 {
   "conceptSetId": 174,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80"
+  },
   "resolvedConcepts": [
     {
-      "conceptId": 46235106,
-      "conceptName": "Alanine aminotransferase [Enzymatic activity/volume] in Blood",
+      "conceptId": 3005755,
+      "conceptName": "Alanine aminotransferase [Enzymatic activity/volume] in Serum or Plasma by With P-5'-P",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
-      "conceptCode": "76625-3",
+      "conceptCode": "1743-4",
       "standardConcept": "S"
     },
     {
@@ -29,12 +33,21 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 3005755,
-      "conceptName": "Alanine aminotransferase [Enzymatic activity/volume] in Serum or Plasma by With P-5'-P",
+      "conceptId": 40652525,
+      "conceptName": "Alanine aminotransferase|Catalytic Concentration|Moment in time|Blood, Serum or Plasma",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Group",
+      "conceptCode": "LG5272-2",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 46235106,
+      "conceptName": "Alanine aminotransferase [Enzymatic activity/volume] in Blood",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
-      "conceptCode": "1743-4",
+      "conceptCode": "76625-3",
       "standardConcept": "S"
     },
     {
@@ -45,15 +58,6 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "77144-4",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 40652525,
-      "conceptName": "Alanine aminotransferase|Catalytic Concentration|Moment in time|Blood, Serum or Plasma",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Group",
-      "conceptCode": "LG5272-2",
-      "standardConcept": "C"
     }
   ]
 }

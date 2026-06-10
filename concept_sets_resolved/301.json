@@ -1,5 +1,10 @@
 {
   "conceptSetId": 301,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
     {
       "conceptId": 3020716,
@@ -11,21 +16,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4353936,
-      "conceptName": "Inspired oxygen concentration",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "250774007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3026238,
-      "conceptName": "Oxygen/Inspired gas Respiratory system --on ventilator",
+      "conceptId": 3024882,
+      "conceptName": "Oxygen/Total gas setting [Volume Fraction] Ventilator",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Clinical Observation",
-      "conceptCode": "19996-8",
+      "conceptCode": "19994-3",
       "standardConcept": "S"
     },
     {
@@ -38,12 +34,21 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 3024882,
-      "conceptName": "Oxygen/Total gas setting [Volume Fraction] Ventilator",
+      "conceptId": 3026238,
+      "conceptName": "Oxygen/Inspired gas Respiratory system --on ventilator",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Clinical Observation",
-      "conceptCode": "19994-3",
+      "conceptCode": "19996-8",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4353936,
+      "conceptName": "Inspired oxygen concentration",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "250774007",
       "standardConcept": "S"
     }
   ]

@@ -1,15 +1,10 @@
 {
   "conceptSetId": 202,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80"
+  },
   "resolvedConcepts": [
-    {
-      "conceptId": 46235170,
-      "conceptName": "Albumin [Mass/volume] in Blood by Bromocresol purple (BCP) dye binding method",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "76631-1",
-      "standardConcept": "S"
-    },
     {
       "conceptId": 1260115,
       "conceptName": "Albumin [Mass/volume] in Serum by Immunoassay",
@@ -29,24 +24,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 40763912,
-      "conceptName": "Albumin [Mass/volume] in Serum or Plasma by Bromocresol green (BCG) dye binding method",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "61151-7",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40763913,
-      "conceptName": "Albumin [Mass/volume] in Serum or Plasma by Bromocresol purple (BCP) dye binding method",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "61152-5",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 3028286,
       "conceptName": "Albumin [Mass/volume] in Serum or Plasma by Electrophoresis",
       "vocabularyId": "LOINC",
@@ -62,42 +39,6 @@
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
       "conceptCode": "101198-0",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 46236953,
-      "conceptName": "Albumin [Mass/volume] in Serum, Plasma or Blood by Bromocresol purple (BCP) dye binding method",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "77148-5",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40757478,
-      "conceptName": "Albumin [Moles/volume] in Serum or Plasma",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "54347-0",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40764996,
-      "conceptName": "Albumin [Moles/volume] in Serum or Plasma by Bromocresol green (BCG) dye binding method",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "62235-7",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40764995,
-      "conceptName": "Albumin [Moles/volume] in Serum or Plasma by Bromocresol purple (BCP) dye binding method",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "62234-0",
       "standardConcept": "S"
     },
     {
@@ -135,6 +76,69 @@
       "conceptClassId": "LOINC Hierarchy",
       "conceptCode": "LP384486-9",
       "standardConcept": "C"
+    },
+    {
+      "conceptId": 40757478,
+      "conceptName": "Albumin [Moles/volume] in Serum or Plasma",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "54347-0",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40763912,
+      "conceptName": "Albumin [Mass/volume] in Serum or Plasma by Bromocresol green (BCG) dye binding method",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "61151-7",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40763913,
+      "conceptName": "Albumin [Mass/volume] in Serum or Plasma by Bromocresol purple (BCP) dye binding method",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "61152-5",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40764995,
+      "conceptName": "Albumin [Moles/volume] in Serum or Plasma by Bromocresol purple (BCP) dye binding method",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "62234-0",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40764996,
+      "conceptName": "Albumin [Moles/volume] in Serum or Plasma by Bromocresol green (BCG) dye binding method",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "62235-7",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46235170,
+      "conceptName": "Albumin [Mass/volume] in Blood by Bromocresol purple (BCP) dye binding method",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "76631-1",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46236953,
+      "conceptName": "Albumin [Mass/volume] in Serum, Plasma or Blood by Bromocresol purple (BCP) dye binding method",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "77148-5",
+      "standardConcept": "S"
     }
   ]
 }

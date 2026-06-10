@@ -1,5 +1,9 @@
 {
   "conceptSetId": 224,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
     {
       "conceptId": 4074055,
@@ -8,78 +12,6 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "21927003",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4170924,
-      "conceptName": "Bacillus anthracis - Pasteur strain",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "420093001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4167557,
-      "conceptName": "Bacillus anthracis - Sterne strain",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "418055006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4305998,
-      "conceptName": "Bacillus anthracis - virulent strain",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "418909007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42872882,
-      "conceptName": "Bacillus anthracis avirulent strain",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "450877007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4309212,
-      "conceptName": "Bacillus cereus",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "84408007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37204320,
-      "conceptName": "Bacillus cereus biovar anthracis",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "782944002",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4186712,
-      "conceptName": "Bacillus cereus group",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "413618005",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37017099,
-      "conceptName": "Bacillus cereus group not Bacillus anthracis",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "713305001",
       "standardConcept": "S"
     },
     {
@@ -92,12 +24,30 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4277574,
-      "conceptName": "Bacillus thuringiensis",
+      "conceptId": 4167557,
+      "conceptName": "Bacillus anthracis - Sterne strain",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "64840009",
+      "conceptCode": "418055006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4170924,
+      "conceptName": "Bacillus anthracis - Pasteur strain",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "420093001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4186712,
+      "conceptName": "Bacillus cereus group",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "413618005",
       "standardConcept": "S"
     },
     {
@@ -107,6 +57,60 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "413622000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4277574,
+      "conceptName": "Bacillus thuringiensis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "64840009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4305998,
+      "conceptName": "Bacillus anthracis - virulent strain",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "418909007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4309212,
+      "conceptName": "Bacillus cereus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "84408007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37017099,
+      "conceptName": "Bacillus cereus group not Bacillus anthracis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "713305001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37204320,
+      "conceptName": "Bacillus cereus biovar anthracis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "782944002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42872882,
+      "conceptName": "Bacillus anthracis avirulent strain",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "450877007",
       "standardConcept": "S"
     }
   ]

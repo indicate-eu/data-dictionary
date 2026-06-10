@@ -1,1804 +1,18 @@
 {
   "conceptSetId": 55,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "RxNorm": "RxNorm 20260105",
+    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+  },
   "resolvedConcepts": [
     {
-      "conceptId": 41327546,
-      "conceptName": "1 ML Phenprocoumon 10 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP2525508",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41337553,
-      "conceptName": "1 ML Phenprocoumon 10 MG/ML Injectable Solution Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2535515",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41333536,
-      "conceptName": "1 ML Phenprocoumon 10 MG/ML Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2531498",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41335117,
-      "conceptName": "1 ML Phenprocoumon 10 MG/ML Injectable Solution [Marcumar]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2533079",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41333793,
-      "conceptName": "1 ML Phenprocoumon 10 MG/ML Injectable Solution [Marcumar] Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2531755",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41332689,
-      "conceptName": "1 ML Phenprocoumon 10 MG/ML Injectable Solution [Marcumar] Box of 25 by Roche",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2530651",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41330405,
-      "conceptName": "1 ML Phenprocoumon 10 MG/ML Injectable Solution [Marcumar] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2528367",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43638998,
-      "conceptName": "Phenprocoumon 1.5 MG",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP943171",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43837037,
-      "conceptName": "Phenprocoumon 1.5 MG Oral Tablet",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP943173",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41271356,
-      "conceptName": "Phenprocoumon 1.5 MG Oral Tablet Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2469318",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41271357,
-      "conceptName": "Phenprocoumon 1.5 MG Oral Tablet Box of 20",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2469319",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40959291,
-      "conceptName": "Phenprocoumon 1.5 MG Oral Tablet Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2157253",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40841658,
-      "conceptName": "Phenprocoumon 1.5 MG Oral Tablet [Falithrom]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2039620",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41154077,
-      "conceptName": "Phenprocoumon 1.5 MG Oral Tablet [Falithrom] Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2352039",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41289312,
-      "conceptName": "Phenprocoumon 1.5 MG Oral Tablet [Falithrom] Box of 100 by Novartis",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2487274",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41247465,
-      "conceptName": "Phenprocoumon 1.5 MG Oral Tablet [Falithrom] Box of 20",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2445427",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41133662,
-      "conceptName": "Phenprocoumon 1.5 MG Oral Tablet [Falithrom] Box of 20 by Novartis",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2331624",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40841657,
-      "conceptName": "Phenprocoumon 1.5 MG Oral Tablet [Falithrom] Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2039619",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41070887,
-      "conceptName": "Phenprocoumon 1.5 MG Oral Tablet [Falithrom] Box of 50 by Novartis",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2268849",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43710873,
-      "conceptName": "Phenprocoumon 1.5 MG Oral Tablet [Falithrom] by Hexal",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP943175",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41203234,
-      "conceptName": "Phenprocoumon 1.5 MG [Falithrom]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP2401196",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40889072,
-      "conceptName": "Phenprocoumon 10 MG/ML",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP2087034",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41302483,
-      "conceptName": "Phenprocoumon 10 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP2500445",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40959290,
-      "conceptName": "Phenprocoumon 10 MG/ML Injectable Solution Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2157252",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41115545,
-      "conceptName": "Phenprocoumon 10 MG/ML Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2313507",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40841656,
-      "conceptName": "Phenprocoumon 10 MG/ML Injectable Solution [Marcumar]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2039618",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40903861,
-      "conceptName": "Phenprocoumon 10 MG/ML Injectable Solution [Marcumar] Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2101823",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41278275,
-      "conceptName": "Phenprocoumon 10 MG/ML Injectable Solution [Marcumar] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2476237",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41171755,
-      "conceptName": "Phenprocoumon 10 MG/ML [Marcumar]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP2369717",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21144767,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP269865",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41289318,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet Box of 100 by Ratiopharm",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2487280",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40834665,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet Box of 1000",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2032627",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41115547,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet Box of 14",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2313509",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41178067,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet Box of 20",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2376029",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40883898,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet Box of 20 by Ratiopharm",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2081860",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40927983,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet Box of 2000",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2125945",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41052736,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2250698",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41052735,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet Box of 250",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2250697",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40990531,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet Box of 30",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2188493",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40896995,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet Box of 49",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2094957",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41240513,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2438475",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41070892,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet Box of 50 by Ratiopharm",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2268854",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40990529,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet Box of 500",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2188491",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40834664,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet Box of 5000",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2032626",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40990530,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet Box of 56",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2188492",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41271358,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet Box of 92",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2469320",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41115546,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet Box of 98",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2313508",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41008505,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet Box of 98 by Ratiopharm",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2206467",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43854966,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Falithrom]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP943156",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40872857,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Falithrom] Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2070819",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41289313,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Falithrom] Box of 100 by Novartis",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2487275",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41247466,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Falithrom] Box of 20",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2445428",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41258221,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Falithrom] Box of 20 by Novartis",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2456183",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41122536,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Falithrom] Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2320498",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40914835,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Falithrom] Box of 50 by Novartis",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2112797",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43620864,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Falithrom] by Hexal",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP943157",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21124958,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP269866",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21066266,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP269869",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40977164,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100 by A+S Unicare",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2175126",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41039625,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100 by Aca Mueller",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2237587",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40977163,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100 by Ae-Media",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2175125",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44174572,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100 by Ae-Media",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3051295",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40852668,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100 by Alpha Med",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2050630",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41039624,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100 by Beragena",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2237586",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40914838,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100 by Bestphago",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2112800",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40977162,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100 by Docpharm",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2175124",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41039623,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100 by Emra-Med",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2237585",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40914837,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100 by Eurim-Pharm",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2112799",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40914836,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100 by Euromedic",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2112798",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40852667,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100 by G&R Opticare",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2050629",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41258225,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100 by Gerke",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2456187",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41133666,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100 by Gppl",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2331628",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41039622,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100 by Gruenewald",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2237584",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40852666,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100 by Kohlpharma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2050628",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41289316,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100 by Me",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2487278",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41289315,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100 by Mtk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2487277",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41039621,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100 by Opti",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2237583",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41070890,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100 by Orifarm Leverkus",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2268852",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40841660,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 1000",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2039622",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40997600,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 2000",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2195562",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36273205,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP3124080",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36276514,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 25 by Meda",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3127389",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40841662,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 250",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2039624",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40966275,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2164237",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41102315,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 50 by A+S Unicare",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2300277",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41133668,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 50 by Aca Mueller",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2331630",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41008504,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 50 by Ae-Media",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2206466",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44182022,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 50 by Ae-Media",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3058745",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40914840,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 50 by Alpha Med",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2112802",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40977165,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 50 by Beragena",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2175127",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41070891,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 50 by Docpharm",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2268853",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40946199,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 50 by Emra-Med",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2144161",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41320661,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 50 by Gerke",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2518623",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41008503,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 50 by Gppl",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2206465",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41102314,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 50 by Gruenewald",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2300276",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40883897,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 50 by Kohlpharma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2081859",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40914839,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 50 by Me",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2112801",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41133667,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 50 by Mevita",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2331629",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41102313,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 50 by Mtk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2300275",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41289317,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 50 by Opti",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2487279",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41227428,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 50 by Orifarm Leverkus",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2425390",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40841661,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 500",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2039623",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43728850,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP943158",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41154078,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2352040",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41164985,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 100 by Beragena",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2362947",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41227423,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 100 by Eurim-Pharm",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2425385",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41008502,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 100 by Kohlpharma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2206464",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41164984,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 100 by Meda",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2362946",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41258224,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 100 by Mtk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2456186",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40852665,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 100 by Orifarm Leverkus",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2050627",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41320659,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 100 by Roche",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2518621",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41028637,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 1000",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2226599",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41309513,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 14",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2507475",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41039620,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 14 by Meda",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2237582",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40966274,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 20",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2164236",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41196327,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 20 by Meda",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2394289",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41227427,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 20 by Roche",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2425389",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41122540,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 25",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2320502",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41059796,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 250",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2257758",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40903862,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 30",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2101824",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41070889,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 30 by Meda",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2268851",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41039619,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 30 by Roche",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2237581",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40935098,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 49",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2133060",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41227426,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 49 by Meda",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2425388",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41309512,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2507474",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41102312,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 50 by Eurim-Pharm",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2300274",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41196326,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 50 by Kohlpharma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2394288",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41133665,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 50 by Meda",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2331627",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41320660,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 50 by Mtk",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2518622",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40946198,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 50 by Orifarm Leverkus",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2144160",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41227425,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 50 by Roche",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2425387",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41059795,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 500",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2257757",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40841659,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 5000",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2039621",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41247467,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 56",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2445429",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41227424,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 56 by Meda",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2425386",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41154080,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 92",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2352042",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41289314,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 92 by Meda",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2487276",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41154079,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 98",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2352041",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40883896,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 98 by Meda",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2081858",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43584852,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] by Meda",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP943159",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41028636,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcuphen Ct]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2226598",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41122539,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcuphen Ct] Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2320501",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41133664,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcuphen Ct] Box of 100 by AbZ-Pharma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2331626",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41278276,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcuphen Ct] Box of 20",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2476238",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41196325,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcuphen Ct] Box of 20 by AbZ-Pharma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2394287",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40935097,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcuphen Ct] Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2133059",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41227422,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcuphen Ct] Box of 50 by AbZ-Pharma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2425384",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40935096,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcuphen Ct] Box of 98",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2133058",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41196324,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcuphen Ct] Box of 98 by AbZ-Pharma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2394286",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43710870,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcuphen Ct] by AbZ-Pharma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP943166",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43620865,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenpro Abz]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP943169",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41216430,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenpro Abz] Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2414392",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41039618,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenpro Abz] Box of 100 by AbZ-Pharma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2237580",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41185091,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenpro Abz] Box of 98",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2383053",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41227421,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenpro Abz] Box of 98 by AbZ-Pharma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2425383",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43800749,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenpro Abz] by AbZ-Pharma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP943170",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43710871,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenpro-Ratiopharm]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP943167",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43584854,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenpro-Ratiopharm] by Ratiopharm",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP943168",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43854967,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprocoumon Acis]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP943162",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40872858,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprocoumon Acis] Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2070820",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41320658,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprocoumon Acis] Box of 100 by Acis",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2518620",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41122538,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprocoumon Acis] Box of 20",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2320500",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41039617,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprocoumon Acis] Box of 20 by Acis",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2237579",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40872859,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprocoumon Acis] Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2070821",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41102311,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprocoumon Acis] Box of 50 by Acis",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2300273",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43692932,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprocoumon Acis] by Acis",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP943164",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41122537,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprogamma]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2320499",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41216429,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprogamma] Box of 100",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2414391",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41258222,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprogamma] Box of 100 by AAA-Pharma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2456184",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41320657,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprogamma] Box of 100 by Woerwag",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2518619",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40997599,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprogamma] Box of 14",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2195561",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41008501,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprogamma] Box of 14 by AAA-Pharma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2206463",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41070888,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprogamma] Box of 14 by Woerwag",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2268850",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41309511,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprogamma] Box of 20",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2507473",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40883895,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprogamma] Box of 20 by AAA-Pharma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2081857",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41258223,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprogamma] Box of 20 by Woerwag",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2456185",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41091407,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprogamma] Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2289369",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41133663,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprogamma] Box of 50 by AAA-Pharma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2331625",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41227420,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprogamma] Box of 50 by Woerwag",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2425382",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43584853,
-      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprogamma] by Woerwag",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP943161",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43620863,
-      "conceptName": "Phenprocoumon 3 MG [Falithrom]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP943155",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21124957,
-      "conceptName": "Phenprocoumon 3 MG [Marcoumar]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP269864",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43692931,
-      "conceptName": "Phenprocoumon 3 MG [Marcumar]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP943148",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40890741,
-      "conceptName": "Phenprocoumon 3 MG [Marcuphen Ct]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP2088703",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43746774,
-      "conceptName": "Phenprocoumon 3 MG [Phenpro Abz]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP943153",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43675194,
-      "conceptName": "Phenprocoumon 3 MG [Phenpro-Ratiopharm]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP943152",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43657079,
-      "conceptName": "Phenprocoumon 3 MG [Phenprocoumon Acis]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP943150",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41265050,
-      "conceptName": "Phenprocoumon 3 MG [Phenprogamma]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP2463012",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41017272,
-      "conceptName": "Phenprocoumon Injectable Solution",
+      "conceptId": 1235794,
+      "conceptName": "phenprocoumon Oral Suspension",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP2215234",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41175023,
-      "conceptName": "Phenprocoumon Injectable Solution [Marcumar]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP2372985",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36417085,
-      "conceptName": "Phenprocoumon Oral Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP4761815",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43837036,
-      "conceptName": "Phenprocoumon Oral Tablet [Falithrom]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP943138",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21066265,
-      "conceptName": "Phenprocoumon Oral Tablet [Marcoumar]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP269863",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43800747,
-      "conceptName": "Phenprocoumon Oral Tablet [Marcumar]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP943140",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41237483,
-      "conceptName": "Phenprocoumon Oral Tablet [Marcuphen Ct]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP2435445",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43620862,
-      "conceptName": "Phenprocoumon Oral Tablet [Phenpro Abz]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP943147",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43675193,
-      "conceptName": "Phenprocoumon Oral Tablet [Phenpro-Ratiopharm]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP943146",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43728849,
-      "conceptName": "Phenprocoumon Oral Tablet [Phenprocoumon Acis]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP943142",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41112498,
-      "conceptName": "Phenprocoumon Oral Tablet [Phenprogamma]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP2310460",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19035344,
-      "conceptName": "phenprocoumon",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Ingredient",
-      "conceptCode": "8150",
+      "conceptCode": "OMOP5216502",
       "standardConcept": "S"
     },
     {
@@ -1820,12 +34,21 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 19081825,
-      "conceptName": "phenprocoumon 3 MG",
+      "conceptId": 1831522,
+      "conceptName": "phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 25 by Mylan",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP5156770",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19035344,
+      "conceptName": "phenprocoumon",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "316504",
+      "conceptClassId": "Ingredient",
+      "conceptCode": "8150",
       "standardConcept": "S"
     },
     {
@@ -1838,12 +61,57 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 1831522,
-      "conceptName": "phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 25 by Mylan",
+      "conceptId": 19081825,
+      "conceptName": "phenprocoumon 3 MG",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "316504",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21066265,
+      "conceptName": "Phenprocoumon Oral Tablet [Marcoumar]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP5156770",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP269863",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21066266,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP269869",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21124957,
+      "conceptName": "Phenprocoumon 3 MG [Marcoumar]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP269864",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21124958,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP269866",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21144767,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP269865",
       "standardConcept": "S"
     },
     {
@@ -1856,12 +124,39 @@
       "standardConcept": "C"
     },
     {
-      "conceptId": 1235794,
-      "conceptName": "phenprocoumon Oral Suspension",
+      "conceptId": 36213328,
+      "conceptName": "phenprocoumon Pill",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Dose Group",
+      "conceptCode": "1157567",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36273205,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP3124080",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36276514,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 25 by Meda",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3127389",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36417085,
+      "conceptName": "Phenprocoumon Oral Solution",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP5216502",
+      "conceptCode": "OMOP4761815",
       "standardConcept": "S"
     },
     {
@@ -1874,13 +169,1705 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36213328,
-      "conceptName": "phenprocoumon Pill",
-      "vocabularyId": "RxNorm",
+      "conceptId": 40834664,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet Box of 5000",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1157567",
-      "standardConcept": "C"
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2032626",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40834665,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet Box of 1000",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2032627",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40841656,
+      "conceptName": "Phenprocoumon 10 MG/ML Injectable Solution [Marcumar]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2039618",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40841657,
+      "conceptName": "Phenprocoumon 1.5 MG Oral Tablet [Falithrom] Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2039619",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40841658,
+      "conceptName": "Phenprocoumon 1.5 MG Oral Tablet [Falithrom]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2039620",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40841659,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 5000",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2039621",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40841660,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 1000",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2039622",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40841661,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 500",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2039623",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40841662,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 250",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2039624",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40852665,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 100 by Orifarm Leverkus",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2050627",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40852666,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100 by Kohlpharma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2050628",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40852667,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100 by G&R Opticare",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2050629",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40852668,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100 by Alpha Med",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2050630",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40872857,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Falithrom] Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2070819",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40872858,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprocoumon Acis] Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2070820",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40872859,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprocoumon Acis] Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2070821",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40883895,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprogamma] Box of 20 by AAA-Pharma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2081857",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40883896,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 98 by Meda",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2081858",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40883897,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 50 by Kohlpharma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2081859",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40883898,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet Box of 20 by Ratiopharm",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2081860",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40889072,
+      "conceptName": "Phenprocoumon 10 MG/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP2087034",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40890741,
+      "conceptName": "Phenprocoumon 3 MG [Marcuphen Ct]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP2088703",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40896995,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet Box of 49",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2094957",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40903861,
+      "conceptName": "Phenprocoumon 10 MG/ML Injectable Solution [Marcumar] Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2101823",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40903862,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 30",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2101824",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40914835,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Falithrom] Box of 50 by Novartis",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2112797",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40914836,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100 by Euromedic",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2112798",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40914837,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100 by Eurim-Pharm",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2112799",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40914838,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100 by Bestphago",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2112800",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40914839,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 50 by Me",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2112801",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40914840,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 50 by Alpha Med",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2112802",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40927983,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet Box of 2000",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2125945",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40935096,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcuphen Ct] Box of 98",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2133058",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40935097,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcuphen Ct] Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2133059",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40935098,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 49",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2133060",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40946198,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 50 by Orifarm Leverkus",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2144160",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40946199,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 50 by Emra-Med",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2144161",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40959290,
+      "conceptName": "Phenprocoumon 10 MG/ML Injectable Solution Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2157252",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40959291,
+      "conceptName": "Phenprocoumon 1.5 MG Oral Tablet Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2157253",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40966274,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 20",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2164236",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40966275,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2164237",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40977162,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100 by Docpharm",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2175124",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40977163,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100 by Ae-Media",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2175125",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40977164,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100 by A+S Unicare",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2175126",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40977165,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 50 by Beragena",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2175127",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40990529,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet Box of 500",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2188491",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40990530,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet Box of 56",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2188492",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40990531,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet Box of 30",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2188493",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40997599,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprogamma] Box of 14",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2195561",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40997600,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 2000",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2195562",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41008501,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprogamma] Box of 14 by AAA-Pharma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2206463",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41008502,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 100 by Kohlpharma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2206464",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41008503,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 50 by Gppl",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2206465",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41008504,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 50 by Ae-Media",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2206466",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41008505,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet Box of 98 by Ratiopharm",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2206467",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41017272,
+      "conceptName": "Phenprocoumon Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP2215234",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41028636,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcuphen Ct]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2226598",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41028637,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 1000",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2226599",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41039617,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprocoumon Acis] Box of 20 by Acis",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2237579",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41039618,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenpro Abz] Box of 100 by AbZ-Pharma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2237580",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41039619,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 30 by Roche",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2237581",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41039620,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 14 by Meda",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2237582",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41039621,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100 by Opti",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2237583",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41039622,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100 by Gruenewald",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2237584",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41039623,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100 by Emra-Med",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2237585",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41039624,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100 by Beragena",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2237586",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41039625,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100 by Aca Mueller",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2237587",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41052735,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet Box of 250",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2250697",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41052736,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2250698",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41059795,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 500",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2257757",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41059796,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 250",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2257758",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41070887,
+      "conceptName": "Phenprocoumon 1.5 MG Oral Tablet [Falithrom] Box of 50 by Novartis",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2268849",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41070888,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprogamma] Box of 14 by Woerwag",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2268850",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41070889,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 30 by Meda",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2268851",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41070890,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100 by Orifarm Leverkus",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2268852",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41070891,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 50 by Docpharm",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2268853",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41070892,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet Box of 50 by Ratiopharm",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2268854",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41091407,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprogamma] Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2289369",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41102311,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprocoumon Acis] Box of 50 by Acis",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2300273",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41102312,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 50 by Eurim-Pharm",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2300274",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41102313,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 50 by Mtk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2300275",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41102314,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 50 by Gruenewald",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2300276",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41102315,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 50 by A+S Unicare",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2300277",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41112498,
+      "conceptName": "Phenprocoumon Oral Tablet [Phenprogamma]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP2310460",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41115545,
+      "conceptName": "Phenprocoumon 10 MG/ML Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2313507",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41115546,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet Box of 98",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2313508",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41115547,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet Box of 14",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2313509",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41122536,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Falithrom] Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2320498",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41122537,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprogamma]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2320499",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41122538,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprocoumon Acis] Box of 20",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2320500",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41122539,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcuphen Ct] Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2320501",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41122540,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2320502",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41133662,
+      "conceptName": "Phenprocoumon 1.5 MG Oral Tablet [Falithrom] Box of 20 by Novartis",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2331624",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41133663,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprogamma] Box of 50 by AAA-Pharma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2331625",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41133664,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcuphen Ct] Box of 100 by AbZ-Pharma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2331626",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41133665,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 50 by Meda",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2331627",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41133666,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100 by Gppl",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2331628",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41133667,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 50 by Mevita",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2331629",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41133668,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 50 by Aca Mueller",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2331630",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41154077,
+      "conceptName": "Phenprocoumon 1.5 MG Oral Tablet [Falithrom] Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2352039",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41154078,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2352040",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41154079,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 98",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2352041",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41154080,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 92",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2352042",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41164984,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 100 by Meda",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2362946",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41164985,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 100 by Beragena",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2362947",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41171755,
+      "conceptName": "Phenprocoumon 10 MG/ML [Marcumar]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP2369717",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41175023,
+      "conceptName": "Phenprocoumon Injectable Solution [Marcumar]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP2372985",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41178067,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet Box of 20",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2376029",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41185091,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenpro Abz] Box of 98",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2383053",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41196324,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcuphen Ct] Box of 98 by AbZ-Pharma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2394286",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41196325,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcuphen Ct] Box of 20 by AbZ-Pharma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2394287",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41196326,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 50 by Kohlpharma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2394288",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41196327,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 20 by Meda",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2394289",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41203234,
+      "conceptName": "Phenprocoumon 1.5 MG [Falithrom]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP2401196",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41216429,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprogamma] Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2414391",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41216430,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenpro Abz] Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2414392",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41227420,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprogamma] Box of 50 by Woerwag",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2425382",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41227421,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenpro Abz] Box of 98 by AbZ-Pharma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2425383",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41227422,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcuphen Ct] Box of 50 by AbZ-Pharma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2425384",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41227423,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 100 by Eurim-Pharm",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2425385",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41227424,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 56 by Meda",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2425386",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41227425,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 50 by Roche",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2425387",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41227426,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 49 by Meda",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2425388",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41227427,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 20 by Roche",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2425389",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41227428,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 50 by Orifarm Leverkus",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2425390",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41237483,
+      "conceptName": "Phenprocoumon Oral Tablet [Marcuphen Ct]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP2435445",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41240513,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2438475",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41247465,
+      "conceptName": "Phenprocoumon 1.5 MG Oral Tablet [Falithrom] Box of 20",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2445427",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41247466,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Falithrom] Box of 20",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2445428",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41247467,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 56",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2445429",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41258221,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Falithrom] Box of 20 by Novartis",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2456183",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41258222,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprogamma] Box of 100 by AAA-Pharma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2456184",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41258223,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprogamma] Box of 20 by Woerwag",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2456185",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41258224,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 100 by Mtk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2456186",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41258225,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100 by Gerke",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2456187",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41265050,
+      "conceptName": "Phenprocoumon 3 MG [Phenprogamma]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP2463012",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41271356,
+      "conceptName": "Phenprocoumon 1.5 MG Oral Tablet Box of 100",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2469318",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41271357,
+      "conceptName": "Phenprocoumon 1.5 MG Oral Tablet Box of 20",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2469319",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41271358,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet Box of 92",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2469320",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41278275,
+      "conceptName": "Phenprocoumon 10 MG/ML Injectable Solution [Marcumar] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2476237",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41278276,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcuphen Ct] Box of 20",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2476238",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41289312,
+      "conceptName": "Phenprocoumon 1.5 MG Oral Tablet [Falithrom] Box of 100 by Novartis",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2487274",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41289313,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Falithrom] Box of 100 by Novartis",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2487275",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41289314,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 92 by Meda",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2487276",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41289315,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100 by Mtk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2487277",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41289316,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 100 by Me",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2487278",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41289317,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 50 by Opti",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2487279",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41289318,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet Box of 100 by Ratiopharm",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2487280",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41302483,
+      "conceptName": "Phenprocoumon 10 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP2500445",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41309511,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprogamma] Box of 20",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2507473",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41309512,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2507474",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41309513,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 14",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2507475",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41320657,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprogamma] Box of 100 by Woerwag",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2518619",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41320658,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprocoumon Acis] Box of 100 by Acis",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2518620",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41320659,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 100 by Roche",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2518621",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41320660,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] Box of 50 by Mtk",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2518622",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41320661,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 50 by Gerke",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2518623",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41327546,
+      "conceptName": "1 ML Phenprocoumon 10 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP2525508",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41330405,
+      "conceptName": "1 ML Phenprocoumon 10 MG/ML Injectable Solution [Marcumar] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2528367",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41332689,
+      "conceptName": "1 ML Phenprocoumon 10 MG/ML Injectable Solution [Marcumar] Box of 25 by Roche",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2530651",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41333536,
+      "conceptName": "1 ML Phenprocoumon 10 MG/ML Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2531498",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41333793,
+      "conceptName": "1 ML Phenprocoumon 10 MG/ML Injectable Solution [Marcumar] Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2531755",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41335117,
+      "conceptName": "1 ML Phenprocoumon 10 MG/ML Injectable Solution [Marcumar]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2533079",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41337553,
+      "conceptName": "1 ML Phenprocoumon 10 MG/ML Injectable Solution Box of 25",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2535515",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43584852,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar] by Meda",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP943159",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43584853,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprogamma] by Woerwag",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP943161",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43584854,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenpro-Ratiopharm] by Ratiopharm",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP943168",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43620862,
+      "conceptName": "Phenprocoumon Oral Tablet [Phenpro Abz]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP943147",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43620863,
+      "conceptName": "Phenprocoumon 3 MG [Falithrom]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP943155",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43620864,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Falithrom] by Hexal",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP943157",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43620865,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenpro Abz]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP943169",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43638998,
+      "conceptName": "Phenprocoumon 1.5 MG",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP943171",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43657079,
+      "conceptName": "Phenprocoumon 3 MG [Phenprocoumon Acis]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP943150",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43675193,
+      "conceptName": "Phenprocoumon Oral Tablet [Phenpro-Ratiopharm]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP943146",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43675194,
+      "conceptName": "Phenprocoumon 3 MG [Phenpro-Ratiopharm]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP943152",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43692931,
+      "conceptName": "Phenprocoumon 3 MG [Marcumar]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP943148",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43692932,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprocoumon Acis] by Acis",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP943164",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43710870,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcuphen Ct] by AbZ-Pharma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP943166",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43710871,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenpro-Ratiopharm]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP943167",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43710873,
+      "conceptName": "Phenprocoumon 1.5 MG Oral Tablet [Falithrom] by Hexal",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP943175",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43728849,
+      "conceptName": "Phenprocoumon Oral Tablet [Phenprocoumon Acis]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP943142",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43728850,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcumar]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP943158",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43746774,
+      "conceptName": "Phenprocoumon 3 MG [Phenpro Abz]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP943153",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43800747,
+      "conceptName": "Phenprocoumon Oral Tablet [Marcumar]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP943140",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43800749,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenpro Abz] by AbZ-Pharma",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP943170",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43837036,
+      "conceptName": "Phenprocoumon Oral Tablet [Falithrom]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP943138",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43837037,
+      "conceptName": "Phenprocoumon 1.5 MG Oral Tablet",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP943173",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43854966,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Falithrom]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP943156",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43854967,
+      "conceptName": "Phenprocoumon 3 MG Oral Tablet [Phenprocoumon Acis]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP943162",
+      "standardConcept": "S"
     }
   ]
 }

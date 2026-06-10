@@ -1,6 +1,55 @@
 {
   "conceptSetId": 308,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
+    {
+      "conceptId": 4082249,
+      "conceptName": "Oxygenator therapy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "182714002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4139525,
+      "conceptName": "High flow oxygen nasal cannula",
+      "vocabularyId": "SNOMED",
+      "domainId": "Device",
+      "conceptClassId": "Physical Object",
+      "conceptCode": "426854004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4155151,
+      "conceptName": "Oxygen administration by nasal cannula",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "371907003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4162736,
+      "conceptName": "Oxygen administration by mask",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "371908008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4323763,
+      "conceptName": "Oxygen administration by Venturi mask",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "429253002",
+      "standardConcept": "S"
+    },
     {
       "conceptId": 37155203,
       "conceptName": "Administration of oxygen using tracheostomy mask",
@@ -20,39 +69,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4139525,
-      "conceptName": "High flow oxygen nasal cannula",
-      "vocabularyId": "SNOMED",
-      "domainId": "Device",
-      "conceptClassId": "Physical Object",
-      "conceptCode": "426854004",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4323763,
-      "conceptName": "Oxygen administration by Venturi mask",
+      "conceptId": 44790731,
+      "conceptName": "Oxygen administration by non rebreather mask",
       "vocabularyId": "SNOMED",
       "domainId": "Procedure",
       "conceptClassId": "Procedure",
-      "conceptCode": "429253002",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4162736,
-      "conceptName": "Oxygen administration by mask",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "371908008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44806745,
-      "conceptName": "Oxygen administration by mask at 60 percent concentration",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "802801000000109",
+      "conceptCode": "240051000000102",
       "standardConcept": "S"
     },
     {
@@ -65,30 +87,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4155151,
-      "conceptName": "Oxygen administration by nasal cannula",
+      "conceptId": 44806745,
+      "conceptName": "Oxygen administration by mask at 60 percent concentration",
       "vocabularyId": "SNOMED",
       "domainId": "Procedure",
       "conceptClassId": "Procedure",
-      "conceptCode": "371907003",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44790731,
-      "conceptName": "Oxygen administration by non rebreather mask",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "240051000000102",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4082249,
-      "conceptName": "Oxygenator therapy",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "182714002",
+      "conceptCode": "802801000000109",
       "standardConcept": "S"
     }
   ]

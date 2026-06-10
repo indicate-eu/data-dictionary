@@ -1,5 +1,9 @@
 {
   "conceptSetId": 39,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+  },
   "resolvedConcepts": [
     {
       "conceptId": 40798763,
@@ -20,6 +24,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 40949460,
+      "conceptName": "Clorindione 2 MG Oral Tablet [Chlor Athrombon] Box of 50 by Berlin-Chemie",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2147422",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 40993001,
       "conceptName": "Clorindione 2 MG Oral Tablet",
       "vocabularyId": "RxNorm Extension",
@@ -29,57 +42,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 41242907,
-      "conceptName": "Clorindione 2 MG Oral Tablet Box of 30",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2440869",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 41086734,
       "conceptName": "Clorindione 2 MG Oral Tablet Box of 50",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Box",
       "conceptCode": "OMOP2284696",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41222619,
-      "conceptName": "Clorindione 2 MG Oral Tablet [Chlor Athrombon]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2420581",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41284567,
-      "conceptName": "Clorindione 2 MG Oral Tablet [Chlor Athrombon] Box of 30",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2482529",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41315859,
-      "conceptName": "Clorindione 2 MG Oral Tablet [Chlor Athrombon] Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2513821",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40949460,
-      "conceptName": "Clorindione 2 MG Oral Tablet [Chlor Athrombon] Box of 50 by Berlin-Chemie",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2147422",
       "standardConcept": "S"
     },
     {
@@ -107,6 +75,42 @@
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "OMOP2374183",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41222619,
+      "conceptName": "Clorindione 2 MG Oral Tablet [Chlor Athrombon]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2420581",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41242907,
+      "conceptName": "Clorindione 2 MG Oral Tablet Box of 30",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2440869",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41284567,
+      "conceptName": "Clorindione 2 MG Oral Tablet [Chlor Athrombon] Box of 30",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2482529",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41315859,
+      "conceptName": "Clorindione 2 MG Oral Tablet [Chlor Athrombon] Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2513821",
       "standardConcept": "S"
     }
   ]

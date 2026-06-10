@@ -1,33 +1,10 @@
 {
   "conceptSetId": 208,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80"
+  },
   "resolvedConcepts": [
-    {
-      "conceptId": 40762125,
-      "conceptName": "Lactate [Mass/volume] in Blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "59032-3",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3040968,
-      "conceptName": "Lactate [Mass/volume] in Capillary blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "51829-0",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3020138,
-      "conceptName": "Lactate [Mass/volume] in Serum or Plasma",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "14118-4",
-      "standardConcept": "S"
-    },
     {
       "conceptId": 3002106,
       "conceptName": "Lactate [Mass/volume] in Venous blood",
@@ -35,33 +12,6 @@
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
       "conceptCode": "30241-4",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3047181,
-      "conceptName": "Lactate [Moles/volume] in Blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "32693-4",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3028271,
-      "conceptName": "Lactate [Moles/volume] in Capillary blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "19239-3",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3005949,
-      "conceptName": "Lactate [Moles/volume] in Mixed venous blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "19240-1",
       "standardConcept": "S"
     },
     {
@@ -74,12 +24,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 3014111,
-      "conceptName": "Lactate [Moles/volume] in Serum or Plasma",
+      "conceptId": 3005949,
+      "conceptName": "Lactate [Moles/volume] in Mixed venous blood",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
-      "conceptCode": "2524-7",
+      "conceptCode": "19240-1",
       "standardConcept": "S"
     },
     {
@@ -92,22 +42,49 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 37054780,
-      "conceptName": "Lactate | Blood capillary | Chemistry - non-challenge",
+      "conceptId": 3014111,
+      "conceptName": "Lactate [Moles/volume] in Serum or Plasma",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP385563-4",
-      "standardConcept": "C"
+      "conceptClassId": "Lab Test",
+      "conceptCode": "2524-7",
+      "standardConcept": "S"
     },
     {
-      "conceptId": 37050255,
-      "conceptName": "Lactate | Blood mixed venous | Chemistry - non-challenge",
+      "conceptId": 3020138,
+      "conceptName": "Lactate [Mass/volume] in Serum or Plasma",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP385565-9",
-      "standardConcept": "C"
+      "conceptClassId": "Lab Test",
+      "conceptCode": "14118-4",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3028271,
+      "conceptName": "Lactate [Moles/volume] in Capillary blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "19239-3",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3040968,
+      "conceptName": "Lactate [Mass/volume] in Capillary blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "51829-0",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3047181,
+      "conceptName": "Lactate [Moles/volume] in Blood",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "32693-4",
+      "standardConcept": "S"
     },
     {
       "conceptId": 37027811,
@@ -116,6 +93,15 @@
       "domainId": "Measurement",
       "conceptClassId": "LOINC Hierarchy",
       "conceptCode": "LP385566-7",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37029805,
+      "conceptName": "Lactate | Serum or Plasma | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP385575-8",
       "standardConcept": "C"
     },
     {
@@ -128,6 +114,24 @@
       "standardConcept": "C"
     },
     {
+      "conceptId": 37050255,
+      "conceptName": "Lactate | Blood mixed venous | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP385565-9",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 37054780,
+      "conceptName": "Lactate | Blood capillary | Chemistry - non-challenge",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP385563-4",
+      "standardConcept": "C"
+    },
+    {
       "conceptId": 37061337,
       "conceptName": "Lactate | Plasma venous | Chemistry - non-challenge",
       "vocabularyId": "LOINC",
@@ -137,13 +141,13 @@
       "standardConcept": "C"
     },
     {
-      "conceptId": 37029805,
-      "conceptName": "Lactate | Serum or Plasma | Chemistry - non-challenge",
+      "conceptId": 40762125,
+      "conceptName": "Lactate [Mass/volume] in Blood",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP385575-8",
-      "standardConcept": "C"
+      "conceptClassId": "Lab Test",
+      "conceptCode": "59032-3",
+      "standardConcept": "S"
     }
   ]
 }

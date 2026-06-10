@@ -1,517 +1,18 @@
 {
   "conceptSetId": 131,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "RxNorm": "RxNorm 20260105",
+    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+  },
   "resolvedConcepts": [
     {
-      "conceptId": 41365883,
-      "conceptName": "10 ML Etomidate 0.2 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP2563845",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41370467,
-      "conceptName": "10 ML Etomidate 0.2 MG/ML Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2568429",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36895452,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP991293",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41362969,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP2560931",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43789792,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP780865",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43771968,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP780866",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42920721,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution [ETOMIDATE-LIPURO]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP4647563",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41364031,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution [Etomidat Lipuro]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2561993",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41370794,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution [Etomidat Lipuro] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2568756",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35782344,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution [Etomidat Lipuro] Box of 10 by B.Braun",
+      "conceptId": 2009602,
+      "conceptName": "10 ML etomidate 2 MG/ML Injectable Suspension [ETOMIDATE-LIPURO] by B.Braun",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2783805",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35782652,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution [Etomidat Lipuro] by B.Braun",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2784113",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40715083,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution [Hypnomidate]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP4741907",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43700162,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution [Hypnomidate]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP780867",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40715081,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution [Hypnomidate] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP4741909",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43807904,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution [Hypnomidate] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP780870",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43646152,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution [Hypnomidate] Box of 5 by Janssen",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP780871",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40715080,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution [Hypnomidate] Box of 5 by Piramal",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4741910",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43771969,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution [Hypnomidate] Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP780872",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42683780,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution [Hypnomidate] Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP4912759",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43862276,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution [Hypnomidate] Box of 50 by Janssen",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP780873",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42683779,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution [Hypnomidate] Box of 50 by Piramal",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4912760",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43592020,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution [Hypnomidate] by Janssen",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP780868",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40715082,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution [Hypnomidate] by Piramal",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4741908",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41361772,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution [Radenarcon]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP2559734",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41366224,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution [Radenarcon] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP2564186",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36895565,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Suspension",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP998112",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36895564,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Suspension Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP991057",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40715078,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Suspension Box of 10 by B.Braun",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4741912",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36895461,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Suspension [Etomidat Lipuro]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP995400",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43219112,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Suspension [Etomidat Lipuro] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP516572",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43142145,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Suspension [Etomidat Lipuro] Box of 10 by B.Braun",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP516573",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35782483,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Suspension [Etomidat Lipuro] by B.Braun",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP2783944",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40715079,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Suspension by B.Braun",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4741911",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36895550,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injection Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP1002169",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36279805,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injection Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP3130680",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43609943,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injection [Etomidat Lipuro]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP780874",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43609945,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injection [Etomidat Lipuro] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP780876",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43700163,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injection [Etomidat Lipuro] Box of 10 by B.Braun",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP780877",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43609944,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injection [Etomidat Lipuro] by B.Braun",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP780875",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36780243,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injection [Hypnomidate]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP4768546",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36279693,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injection [Hypnomidate]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP3130568",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36279468,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injection [Hypnomidate] Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP3130343",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36780242,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injection [Hypnomidate] Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP4768545",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36780241,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injection [Hypnomidate] Box of 50 by Janssen",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4768544",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36279566,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injection [Hypnomidate] Box of 50 by Janssen",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP3130441",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42683778,
-      "conceptName": "10 ML Etomidate 2 MG/ML Injection [Hypnomidate] Box of 50 by Piramal",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4912761",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42479844,
-      "conceptName": "10 ML Etomidate 2 MG/ML Prefilled Syringe",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "OMOP417218",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21029102,
-      "conceptName": "10 ML Etomidate 2 MG/ML Prefilled Syringe Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP310553",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21117393,
-      "conceptName": "10 ML Etomidate 2 MG/ML Prefilled Syringe Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Box",
-      "conceptCode": "OMOP310547",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21097788,
-      "conceptName": "10 ML Etomidate 2 MG/ML Prefilled Syringe [Etomidat Lipuro]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP310554",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21107650,
-      "conceptName": "10 ML Etomidate 2 MG/ML Prefilled Syringe [Etomidat Lipuro] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP310556",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21166599,
-      "conceptName": "10 ML Etomidate 2 MG/ML Prefilled Syringe [Etomidat Lipuro] Box of 10 by B.Braun",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP310557",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21068433,
-      "conceptName": "10 ML Etomidate 2 MG/ML Prefilled Syringe [Etomidat Lipuro] by B.Braun",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP310555",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21146866,
-      "conceptName": "10 ML Etomidate 2 MG/ML Prefilled Syringe [Hypnomidate]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP310549",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21107649,
-      "conceptName": "10 ML Etomidate 2 MG/ML Prefilled Syringe [Hypnomidate] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Box",
-      "conceptCode": "OMOP310551",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21038930,
-      "conceptName": "10 ML Etomidate 2 MG/ML Prefilled Syringe [Hypnomidate] Box of 5 by Janssen",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP310552",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21127129,
-      "conceptName": "10 ML Etomidate 2 MG/ML Prefilled Syringe [Hypnomidate] by Janssen",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP310550",
+      "conceptCode": "OMOP4925906",
       "standardConcept": "S"
     },
     {
@@ -524,561 +25,21 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 2009602,
-      "conceptName": "10 ML etomidate 2 MG/ML Injectable Suspension [ETOMIDATE-LIPURO] by B.Braun",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4925906",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 46234148,
-      "conceptName": "10 ML etomidate 2 MG/ML Injection",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "1654006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 46234151,
-      "conceptName": "10 ML etomidate 2 MG/ML Injection [Amidate]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "1654009",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 46234150,
-      "conceptName": "20 ML etomidate 2 MG/ML Injection",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "1654008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 46234153,
-      "conceptName": "20 ML etomidate 2 MG/ML Injection [Amidate]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "1654011",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19050511,
-      "conceptName": "20 ML etomidate 2 MG/ML Prefilled Syringe",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Clinical Drug",
-      "conceptCode": "727531",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 19050512,
-      "conceptName": "20 ML etomidate 2 MG/ML Prefilled Syringe [Amidate]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "727533",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36236092,
-      "conceptName": "Amidate Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1171391",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 40889594,
-      "conceptName": "Etomidate 0.2 MG/ML",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Comp",
-      "conceptCode": "OMOP2087556",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41086004,
-      "conceptName": "Etomidate 0.2 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP2283966",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41148701,
-      "conceptName": "Etomidate 0.2 MG/ML Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2346663",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36890754,
-      "conceptName": "Etomidate 2 MG/ML Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP994113",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41211216,
-      "conceptName": "Etomidate 2 MG/ML Injectable Solution Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP2409178",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43746043,
-      "conceptName": "Etomidate 2 MG/ML Injectable Solution Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP929663",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43620117,
-      "conceptName": "Etomidate 2 MG/ML Injectable Solution Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP929664",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42956910,
-      "conceptName": "Etomidate 2 MG/ML Injectable Solution [ETOMIDATE-LIPURO]",
+      "conceptId": 2011160,
+      "conceptName": "etomidate 2 MG/ML Injectable Suspension [ETOMIDATE-LIPURO]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4683443",
+      "conceptCode": "OMOP4943750",
       "standardConcept": "S"
     },
     {
-      "conceptId": 40970873,
-      "conceptName": "Etomidate 2 MG/ML Injectable Solution [Etomidat Lipuro]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2168835",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41282962,
-      "conceptName": "Etomidate 2 MG/ML Injectable Solution [Etomidat Lipuro] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2480924",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40743311,
-      "conceptName": "Etomidate 2 MG/ML Injectable Solution [Hypnomidate]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4714384",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43638223,
-      "conceptName": "Etomidate 2 MG/ML Injectable Solution [Hypnomidate]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP929665",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43584080,
-      "conceptName": "Etomidate 2 MG/ML Injectable Solution [Hypnomidate] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP929666",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40743310,
-      "conceptName": "Etomidate 2 MG/ML Injectable Solution [Hypnomidate] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP4714385",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43692202,
-      "conceptName": "Etomidate 2 MG/ML Injectable Solution [Hypnomidate] Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP929668",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42683451,
-      "conceptName": "Etomidate 2 MG/ML Injectable Solution [Hypnomidate] Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP4912382",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41282961,
-      "conceptName": "Etomidate 2 MG/ML Injectable Solution [Radenarcon]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP2480923",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41002246,
-      "conceptName": "Etomidate 2 MG/ML Injectable Solution [Radenarcon] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP2200208",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43218284,
-      "conceptName": "Etomidate 2 MG/ML Injectable Suspension",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "OMOP440565",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36882011,
-      "conceptName": "Etomidate 2 MG/ML Injectable Suspension Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP988674",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36894860,
-      "conceptName": "Etomidate 2 MG/ML Injectable Suspension [Etomidat Lipuro]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP1000904",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36889975,
-      "conceptName": "Etomidate 2 MG/ML Injectable Suspension [Etomidat Lipuro] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP1006202",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36892720,
-      "conceptName": "Etomidate 2 MG/ML Injection Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP1004133",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36264831,
-      "conceptName": "Etomidate 2 MG/ML Injection Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP3115706",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43656344,
-      "conceptName": "Etomidate 2 MG/ML Injection [Etomidat Lipuro]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP929669",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43656345,
-      "conceptName": "Etomidate 2 MG/ML Injection [Etomidat Lipuro] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP929670",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36260453,
-      "conceptName": "Etomidate 2 MG/ML Injection [Hypnomidate]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP3111328",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36787541,
-      "conceptName": "Etomidate 2 MG/ML Injection [Hypnomidate]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4775806",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36787540,
-      "conceptName": "Etomidate 2 MG/ML Injection [Hypnomidate] Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP4775805",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36263016,
-      "conceptName": "Etomidate 2 MG/ML Injection [Hypnomidate] Box of 50",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP3113891",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21063883,
-      "conceptName": "Etomidate 2 MG/ML Prefilled Syringe Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP390842",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21044243,
-      "conceptName": "Etomidate 2 MG/ML Prefilled Syringe Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Box",
-      "conceptCode": "OMOP390838",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21063884,
-      "conceptName": "Etomidate 2 MG/ML Prefilled Syringe [Etomidat Lipuro]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP390843",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21142356,
-      "conceptName": "Etomidate 2 MG/ML Prefilled Syringe [Etomidat Lipuro] Box of 10",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP390844",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21093251,
-      "conceptName": "Etomidate 2 MG/ML Prefilled Syringe [Hypnomidate]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP390840",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21112995,
-      "conceptName": "Etomidate 2 MG/ML Prefilled Syringe [Hypnomidate] Box of 5",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Box",
-      "conceptCode": "OMOP390841",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42956911,
-      "conceptName": "Etomidate 2 MG/ML [ETOMIDATE-LIPURO]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4683444",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40829127,
-      "conceptName": "Etomidate 2 MG/ML [Etomidat Lipuro]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP2027089",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40743312,
-      "conceptName": "Etomidate 2 MG/ML [Hypnomidate]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4714383",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21142355,
-      "conceptName": "Etomidate 2 MG/ML [Hypnomidate]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP390837",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41078799,
-      "conceptName": "Etomidate 2 MG/ML [Radenarcon]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP2276761",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36885599,
-      "conceptName": "Etomidate Injectable Solution",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP993910",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42956912,
-      "conceptName": "Etomidate Injectable Solution [ETOMIDATE-LIPURO]",
+      "conceptId": 2011161,
+      "conceptName": "etomidate Injectable Suspension [ETOMIDATE-LIPURO]",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4683445",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41050589,
-      "conceptName": "Etomidate Injectable Solution [Etomidat Lipuro]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP2248551",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43763977,
-      "conceptName": "Etomidate Injectable Solution [Hypnomidate]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP929659",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40743313,
-      "conceptName": "Etomidate Injectable Solution [Hypnomidate]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4714382",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 41207402,
-      "conceptName": "Etomidate Injectable Solution [Radenarcon]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP2405364",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36894434,
-      "conceptName": "Etomidate Injectable Suspension",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "OMOP993068",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36892559,
-      "conceptName": "Etomidate Injectable Suspension [Etomidat Lipuro]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP1005485",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43674474,
-      "conceptName": "Etomidate Injection [Etomidat Lipuro]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP929661",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36274743,
-      "conceptName": "Etomidate Injection [Hypnomidate]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP3125618",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36787542,
-      "conceptName": "Etomidate Injection [Hypnomidate]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4775807",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21103139,
-      "conceptName": "Etomidate Prefilled Syringe [Etomidat Lipuro]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP390835",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21054015,
-      "conceptName": "Etomidate Prefilled Syringe [Hypnomidate]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP390834",
+      "conceptCode": "OMOP4943751",
       "standardConcept": "S"
     },
     {
@@ -1100,48 +61,228 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 35854997,
-      "conceptName": "etomidate 2 MG/ML Injectable Solution [Fuerli]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5011634",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35854998,
-      "conceptName": "etomidate 2 MG/ML Injectable Solution [Yituoli]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5011635",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2011160,
-      "conceptName": "etomidate 2 MG/ML Injectable Suspension [ETOMIDATE-LIPURO]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4943750",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 46234149,
-      "conceptName": "etomidate 2 MG/ML Injection",
+      "conceptId": 19050511,
+      "conceptName": "20 ML etomidate 2 MG/ML Prefilled Syringe",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "1654007",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "727531",
       "standardConcept": "S"
     },
     {
-      "conceptId": 46234152,
-      "conceptName": "etomidate 2 MG/ML Injection [Amidate]",
+      "conceptId": 19050512,
+      "conceptName": "20 ML etomidate 2 MG/ML Prefilled Syringe [Amidate]",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "727533",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 19053845,
+      "conceptName": "etomidate 2 MG/ML [Amidate]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "567637",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21029102,
+      "conceptName": "10 ML Etomidate 2 MG/ML Prefilled Syringe Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP310553",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21038930,
+      "conceptName": "10 ML Etomidate 2 MG/ML Prefilled Syringe [Hypnomidate] Box of 5 by Janssen",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP310552",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21044243,
+      "conceptName": "Etomidate 2 MG/ML Prefilled Syringe Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP390838",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21054015,
+      "conceptName": "Etomidate Prefilled Syringe [Hypnomidate]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP390834",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21063883,
+      "conceptName": "Etomidate 2 MG/ML Prefilled Syringe Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP390842",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21063884,
+      "conceptName": "Etomidate 2 MG/ML Prefilled Syringe [Etomidat Lipuro]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
       "conceptClassId": "Branded Drug",
-      "conceptCode": "1654010",
+      "conceptCode": "OMOP390843",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21068433,
+      "conceptName": "10 ML Etomidate 2 MG/ML Prefilled Syringe [Etomidat Lipuro] by B.Braun",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP310555",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21093251,
+      "conceptName": "Etomidate 2 MG/ML Prefilled Syringe [Hypnomidate]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP390840",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21097788,
+      "conceptName": "10 ML Etomidate 2 MG/ML Prefilled Syringe [Etomidat Lipuro]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP310554",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21103139,
+      "conceptName": "Etomidate Prefilled Syringe [Etomidat Lipuro]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP390835",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21107649,
+      "conceptName": "10 ML Etomidate 2 MG/ML Prefilled Syringe [Hypnomidate] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP310551",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21107650,
+      "conceptName": "10 ML Etomidate 2 MG/ML Prefilled Syringe [Etomidat Lipuro] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP310556",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21112995,
+      "conceptName": "Etomidate 2 MG/ML Prefilled Syringe [Hypnomidate] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP390841",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21117393,
+      "conceptName": "10 ML Etomidate 2 MG/ML Prefilled Syringe Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP310547",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21127129,
+      "conceptName": "10 ML Etomidate 2 MG/ML Prefilled Syringe [Hypnomidate] by Janssen",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP310550",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21142355,
+      "conceptName": "Etomidate 2 MG/ML [Hypnomidate]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP390837",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21142356,
+      "conceptName": "Etomidate 2 MG/ML Prefilled Syringe [Etomidat Lipuro] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP390844",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21146866,
+      "conceptName": "10 ML Etomidate 2 MG/ML Prefilled Syringe [Hypnomidate]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP310549",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 21166599,
+      "conceptName": "10 ML Etomidate 2 MG/ML Prefilled Syringe [Etomidat Lipuro] Box of 10 by B.Braun",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP310557",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35782344,
+      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution [Etomidat Lipuro] Box of 10 by B.Braun",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2783805",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35782483,
+      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Suspension [Etomidat Lipuro] by B.Braun",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2783944",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35782652,
+      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution [Etomidat Lipuro] by B.Braun",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP2784113",
       "standardConcept": "S"
     },
     {
@@ -1172,30 +313,21 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 42903350,
-      "conceptName": "etomidate 2 MG/ML Prefilled Syringe",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug",
-      "conceptCode": "1360463",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42902941,
-      "conceptName": "etomidate 2 MG/ML Prefilled Syringe [Amidate]",
-      "vocabularyId": "RxNorm",
+      "conceptId": 35854997,
+      "conceptName": "etomidate 2 MG/ML Injectable Solution [Fuerli]",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug",
-      "conceptCode": "1360054",
+      "conceptCode": "OMOP5011634",
       "standardConcept": "S"
     },
     {
-      "conceptId": 19053845,
-      "conceptName": "etomidate 2 MG/ML [Amidate]",
-      "vocabularyId": "RxNorm",
+      "conceptId": 35854998,
+      "conceptName": "etomidate 2 MG/ML Injectable Solution [Yituoli]",
+      "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "567637",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP5011635",
       "standardConcept": "S"
     },
     {
@@ -1214,60 +346,6 @@
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Comp",
       "conceptCode": "OMOP5011637",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36227566,
-      "conceptName": "etomidate Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1157926",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 35855004,
-      "conceptName": "etomidate Injectable Solution [Fuerli]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP5011641",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 35855005,
-      "conceptName": "etomidate Injectable Solution [Yituoli]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP5011642",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2011161,
-      "conceptName": "etomidate Injectable Suspension [ETOMIDATE-LIPURO]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4943751",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 46234127,
-      "conceptName": "etomidate Injection",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Drug Form",
-      "conceptCode": "1653759",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 46234133,
-      "conceptName": "etomidate Injection [Amidate]",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "1653769",
       "standardConcept": "S"
     },
     {
@@ -1298,6 +376,231 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 35855004,
+      "conceptName": "etomidate Injectable Solution [Fuerli]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP5011641",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35855005,
+      "conceptName": "etomidate Injectable Solution [Yituoli]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP5011642",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36227566,
+      "conceptName": "etomidate Injectable Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Dose Group",
+      "conceptCode": "1157926",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36236092,
+      "conceptName": "Amidate Injectable Product",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Dose Group",
+      "conceptCode": "1171391",
+      "standardConcept": "C"
+    },
+    {
+      "conceptId": 36260453,
+      "conceptName": "Etomidate 2 MG/ML Injection [Hypnomidate]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP3111328",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36263016,
+      "conceptName": "Etomidate 2 MG/ML Injection [Hypnomidate] Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP3113891",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36264831,
+      "conceptName": "Etomidate 2 MG/ML Injection Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP3115706",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36274743,
+      "conceptName": "Etomidate Injection [Hypnomidate]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP3125618",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36279468,
+      "conceptName": "10 ML Etomidate 2 MG/ML Injection [Hypnomidate] Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP3130343",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36279566,
+      "conceptName": "10 ML Etomidate 2 MG/ML Injection [Hypnomidate] Box of 50 by Janssen",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP3130441",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36279693,
+      "conceptName": "10 ML Etomidate 2 MG/ML Injection [Hypnomidate]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP3130568",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36279805,
+      "conceptName": "10 ML Etomidate 2 MG/ML Injection Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP3130680",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36882011,
+      "conceptName": "Etomidate 2 MG/ML Injectable Suspension Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP988674",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36885599,
+      "conceptName": "Etomidate Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP993910",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36889975,
+      "conceptName": "Etomidate 2 MG/ML Injectable Suspension [Etomidat Lipuro] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP1006202",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36890754,
+      "conceptName": "Etomidate 2 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP994113",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36892559,
+      "conceptName": "Etomidate Injectable Suspension [Etomidat Lipuro]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP1005485",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36892720,
+      "conceptName": "Etomidate 2 MG/ML Injection Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP1004133",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36894434,
+      "conceptName": "Etomidate Injectable Suspension",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "OMOP993068",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36894860,
+      "conceptName": "Etomidate 2 MG/ML Injectable Suspension [Etomidat Lipuro]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP1000904",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36895452,
+      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP991293",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36895461,
+      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Suspension [Etomidat Lipuro]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP995400",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36895550,
+      "conceptName": "10 ML Etomidate 2 MG/ML Injection Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP1002169",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36895564,
+      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Suspension Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP991057",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36895565,
+      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Suspension",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP998112",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 40141760,
       "conceptName": "etomidate Prefilled Syringe",
       "vocabularyId": "RxNorm",
@@ -1313,6 +616,582 @@
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "727532",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40715078,
+      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Suspension Box of 10 by B.Braun",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4741912",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40715079,
+      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Suspension by B.Braun",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4741911",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40715080,
+      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution [Hypnomidate] Box of 5 by Piramal",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4741910",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40715082,
+      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution [Hypnomidate] by Piramal",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4741908",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40829127,
+      "conceptName": "Etomidate 2 MG/ML [Etomidat Lipuro]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP2027089",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40889594,
+      "conceptName": "Etomidate 0.2 MG/ML",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "OMOP2087556",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40970873,
+      "conceptName": "Etomidate 2 MG/ML Injectable Solution [Etomidat Lipuro]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2168835",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41002246,
+      "conceptName": "Etomidate 2 MG/ML Injectable Solution [Radenarcon] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2200208",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41050589,
+      "conceptName": "Etomidate Injectable Solution [Etomidat Lipuro]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP2248551",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41078799,
+      "conceptName": "Etomidate 2 MG/ML [Radenarcon]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP2276761",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41086004,
+      "conceptName": "Etomidate 0.2 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP2283966",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41148701,
+      "conceptName": "Etomidate 0.2 MG/ML Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2346663",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41207402,
+      "conceptName": "Etomidate Injectable Solution [Radenarcon]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP2405364",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41211216,
+      "conceptName": "Etomidate 2 MG/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP2409178",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41282961,
+      "conceptName": "Etomidate 2 MG/ML Injectable Solution [Radenarcon]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP2480923",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41282962,
+      "conceptName": "Etomidate 2 MG/ML Injectable Solution [Etomidat Lipuro] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP2480924",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41361772,
+      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution [Radenarcon]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2559734",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41362969,
+      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2560931",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41364031,
+      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution [Etomidat Lipuro]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP2561993",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41365883,
+      "conceptName": "10 ML Etomidate 0.2 MG/ML Injectable Solution",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP2563845",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41366224,
+      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution [Radenarcon] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2564186",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41370467,
+      "conceptName": "10 ML Etomidate 0.2 MG/ML Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP2568429",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 41370794,
+      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution [Etomidat Lipuro] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP2568756",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42479844,
+      "conceptName": "10 ML Etomidate 2 MG/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "OMOP417218",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42683778,
+      "conceptName": "10 ML Etomidate 2 MG/ML Injection [Hypnomidate] Box of 50 by Piramal",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4912761",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42683779,
+      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution [Hypnomidate] Box of 50 by Piramal",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP4912760",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42902941,
+      "conceptName": "etomidate 2 MG/ML Prefilled Syringe [Amidate]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "1360054",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42903350,
+      "conceptName": "etomidate 2 MG/ML Prefilled Syringe",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "1360463",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42920721,
+      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution [ETOMIDATE-LIPURO]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP4647563",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42956910,
+      "conceptName": "Etomidate 2 MG/ML Injectable Solution [ETOMIDATE-LIPURO]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP4683443",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42956911,
+      "conceptName": "Etomidate 2 MG/ML [ETOMIDATE-LIPURO]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "OMOP4683444",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42956912,
+      "conceptName": "Etomidate Injectable Solution [ETOMIDATE-LIPURO]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP4683445",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43142145,
+      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Suspension [Etomidat Lipuro] Box of 10 by B.Braun",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP516573",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43218284,
+      "conceptName": "Etomidate 2 MG/ML Injectable Suspension",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "OMOP440565",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43219112,
+      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Suspension [Etomidat Lipuro] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP516572",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43584080,
+      "conceptName": "Etomidate 2 MG/ML Injectable Solution [Hypnomidate] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP929666",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43592020,
+      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution [Hypnomidate] by Janssen",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP780868",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43609943,
+      "conceptName": "10 ML Etomidate 2 MG/ML Injection [Etomidat Lipuro]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP780874",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43609944,
+      "conceptName": "10 ML Etomidate 2 MG/ML Injection [Etomidat Lipuro] by B.Braun",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP780875",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43609945,
+      "conceptName": "10 ML Etomidate 2 MG/ML Injection [Etomidat Lipuro] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP780876",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43620117,
+      "conceptName": "Etomidate 2 MG/ML Injectable Solution Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP929664",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43638223,
+      "conceptName": "Etomidate 2 MG/ML Injectable Solution [Hypnomidate]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP929665",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43646152,
+      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution [Hypnomidate] Box of 5 by Janssen",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP780871",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43656344,
+      "conceptName": "Etomidate 2 MG/ML Injection [Etomidat Lipuro]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "OMOP929669",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43656345,
+      "conceptName": "Etomidate 2 MG/ML Injection [Etomidat Lipuro] Box of 10",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP929670",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43674474,
+      "conceptName": "Etomidate Injection [Etomidat Lipuro]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP929661",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43692202,
+      "conceptName": "Etomidate 2 MG/ML Injectable Solution [Hypnomidate] Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Box",
+      "conceptCode": "OMOP929668",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43700162,
+      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution [Hypnomidate]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "OMOP780867",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43700163,
+      "conceptName": "10 ML Etomidate 2 MG/ML Injection [Etomidat Lipuro] Box of 10 by B.Braun",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP780877",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43746043,
+      "conceptName": "Etomidate 2 MG/ML Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Box",
+      "conceptCode": "OMOP929663",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43763977,
+      "conceptName": "Etomidate Injectable Solution [Hypnomidate]",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "OMOP929659",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43771968,
+      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP780866",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43771969,
+      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution [Hypnomidate] Box of 50",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP780872",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43789792,
+      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Box",
+      "conceptCode": "OMOP780865",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43807904,
+      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution [Hypnomidate] Box of 5",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Box",
+      "conceptCode": "OMOP780870",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43862276,
+      "conceptName": "10 ML Etomidate 2 MG/ML Injectable Solution [Hypnomidate] Box of 50 by Janssen",
+      "vocabularyId": "RxNorm Extension",
+      "domainId": "Drug",
+      "conceptClassId": "Marketed Product",
+      "conceptCode": "OMOP780873",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46234127,
+      "conceptName": "etomidate Injection",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Form",
+      "conceptCode": "1653759",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46234133,
+      "conceptName": "etomidate Injection [Amidate]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "1653769",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46234148,
+      "conceptName": "10 ML etomidate 2 MG/ML Injection",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "1654006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46234149,
+      "conceptName": "etomidate 2 MG/ML Injection",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "1654007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46234150,
+      "conceptName": "20 ML etomidate 2 MG/ML Injection",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Clinical Drug",
+      "conceptCode": "1654008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46234151,
+      "conceptName": "10 ML etomidate 2 MG/ML Injection [Amidate]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "1654009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46234152,
+      "conceptName": "etomidate 2 MG/ML Injection [Amidate]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "1654010",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46234153,
+      "conceptName": "20 ML etomidate 2 MG/ML Injection [Amidate]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "1654011",
       "standardConcept": "S"
     }
   ]

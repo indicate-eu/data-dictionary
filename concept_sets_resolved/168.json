@@ -1,6 +1,19 @@
 {
   "conceptSetId": 168,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80"
+  },
   "resolvedConcepts": [
+    {
+      "conceptId": 1470777,
+      "conceptName": "Fibrin D-dimer | Blood | Coagulation",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP443381-1",
+      "standardConcept": "C"
+    },
     {
       "conceptId": 3048530,
       "conceptName": "Fibrin D-dimer DDU [Mass/volume] in Platelet poor plasma",
@@ -20,21 +33,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 37021210,
-      "conceptName": "Fibrin D-dimer [Mass/volume] in Blood by Immunoassay.DDU",
+      "conceptId": 3052648,
+      "conceptName": "Fibrin D-dimer [Mass/volume] in Platelet poor plasma by Immunoassay.FEU",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
-      "conceptCode": "91556-1",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42870366,
-      "conceptName": "Fibrin D-dimer [Mass/volume] in Blood by Rapid immunoassay",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "71427-9",
+      "conceptCode": "48067-3",
       "standardConcept": "S"
     },
     {
@@ -47,22 +51,13 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 3052648,
-      "conceptName": "Fibrin D-dimer [Mass/volume] in Platelet poor plasma by Immunoassay.FEU",
+      "conceptId": 37021210,
+      "conceptName": "Fibrin D-dimer [Mass/volume] in Blood by Immunoassay.DDU",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
-      "conceptCode": "48067-3",
+      "conceptCode": "91556-1",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 1470777,
-      "conceptName": "Fibrin D-dimer | Blood | Coagulation",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP443381-1",
-      "standardConcept": "C"
     },
     {
       "conceptId": 37072890,
@@ -72,6 +67,15 @@
       "conceptClassId": "LOINC Hierarchy",
       "conceptCode": "LP394010-5",
       "standardConcept": "C"
+    },
+    {
+      "conceptId": 42870366,
+      "conceptName": "Fibrin D-dimer [Mass/volume] in Blood by Rapid immunoassay",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "71427-9",
+      "standardConcept": "S"
     }
   ]
 }

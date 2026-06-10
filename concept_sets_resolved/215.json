@@ -1,5 +1,9 @@
 {
   "conceptSetId": 215,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80"
+  },
   "resolvedConcepts": [
     {
       "conceptId": 3006661,
@@ -11,21 +15,21 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 3034244,
-      "conceptName": "Calcium [Mass/volume] in Urine collected for unspecified duration",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "35675-8",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 3018133,
       "conceptName": "Calcium [Moles/volume] in Urine",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
       "conceptCode": "2004-0",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3034244,
+      "conceptName": "Calcium [Mass/volume] in Urine collected for unspecified duration",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "35675-8",
       "standardConcept": "S"
     },
     {

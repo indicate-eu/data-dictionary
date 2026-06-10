@@ -1,15 +1,10 @@
 {
   "conceptSetId": 171,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80"
+  },
   "resolvedConcepts": [
-    {
-      "conceptId": 3034426,
-      "conceptName": "Prothrombin time (PT)",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Lab Test",
-      "conceptCode": "5902-2",
-      "standardConcept": "S"
-    },
     {
       "conceptId": 3002417,
       "conceptName": "Prothrombin time (PT) in Blood by Coagulation assay",
@@ -20,12 +15,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 3053181,
-      "conceptName": "Prothrombin time (PT) in Capillary blood by Coagulation assay",
+      "conceptId": 3034426,
+      "conceptName": "Prothrombin time (PT)",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",
-      "conceptCode": "46417-2",
+      "conceptCode": "5902-2",
       "standardConcept": "S"
     },
     {
@@ -38,12 +33,21 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 37070720,
-      "conceptName": "Prothrombin time (PT) | Blood capillary | Coagulation",
+      "conceptId": 3053181,
+      "conceptName": "Prothrombin time (PT) in Capillary blood by Coagulation assay",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Lab Test",
+      "conceptCode": "46417-2",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37041470,
+      "conceptName": "Prothrombin time (PT) | Platelet poor plasma | Coagulation",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP394043-6",
+      "conceptCode": "LP394044-4",
       "standardConcept": "C"
     },
     {
@@ -56,12 +60,12 @@
       "standardConcept": "C"
     },
     {
-      "conceptId": 37041470,
-      "conceptName": "Prothrombin time (PT) | Platelet poor plasma | Coagulation",
+      "conceptId": 37070720,
+      "conceptName": "Prothrombin time (PT) | Blood capillary | Coagulation",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP394044-4",
+      "conceptCode": "LP394043-6",
       "standardConcept": "C"
     }
   ]

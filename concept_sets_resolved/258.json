@@ -1,13 +1,17 @@
 {
   "conceptSetId": 258,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
     {
-      "conceptId": 4222739,
-      "conceptName": "Staphylococcus capitis",
+      "conceptId": 4011498,
+      "conceptName": "Staphylococcus capitis subspecies urealyticus",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "40347003",
+      "conceptCode": "103492009",
       "standardConcept": "S"
     },
     {
@@ -20,12 +24,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4011498,
-      "conceptName": "Staphylococcus capitis subspecies urealyticus",
+      "conceptId": 4222739,
+      "conceptName": "Staphylococcus capitis",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "103492009",
+      "conceptCode": "40347003",
       "standardConcept": "S"
     }
   ]
