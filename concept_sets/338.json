@@ -1,12 +1,12 @@
 {
   "id": 338,
   "name": "Airway device change",
-  "description": null,
-  "version": "1.0.0",
+  "description": "Replacing an in-place airway device (endotracheal, tracheostomy or cricothyroidotomy tube), keeping the airway; not an extubation.",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-10",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -20,25 +20,6 @@
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
           "conceptCode": "225719006",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4026055,
-          "conceptName": "Changing endotracheal tube headband",
-          "domainId": "Procedure",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "225720000",
           "validStartDate": "2002-01-31",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
@@ -66,6 +47,44 @@
         "isExcluded": false,
         "includeDescendants": false,
         "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4161799,
+          "conceptName": "Change of endotracheal or endobronchial tube",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "398118003",
+          "validStartDate": "2003-07-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4339602,
+          "conceptName": "Change of cricothyroidotomy tube",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "232576007",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
       }
     ]
   },
@@ -76,21 +95,21 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Airway device change",
         "category": "Ventilation",
         "subcategory": "Airway device",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Replacing an in-place airway device (endotracheal, tracheostomy or cricothyroidotomy tube), keeping the airway; not an extubation.",
+        "longDescription": "## Definition & Clinical Context\n\nAirway device change is the act of replacing an in-place artificial airway with a new one — swapping an endotracheal tube, a tracheostomy tube, or a cricothyroidotomy tube. The distinguishing feature is that the airway is *maintained*: the old device is removed and a new one inserted immediately, so the patient is never left without an artificial airway (unlike extubation, where no tube is reinserted). In source data this is an event record (a procedure) marking the moment a tube was exchanged, not a numeric measurement. It is recorded mainly in intensive care and anaesthesia, e.g. when a tube is damaged, blocked, the wrong size, or routinely changed.\n\n## Included Concepts\n\nThe set lists the SNOMED procedures for changing an airway device, grouped by route. There is no single SNOMED ancestor covering all of them (the only common parent, \"Replacement of device\", is far too broad), so the concepts are listed explicitly.\n\n### Endotracheal tube change\n\n- *4026054 / 225719006 — Changing endotracheal tube (SNOMED)*: changing an endotracheal tube.\n- *4161799 / 398118003 — Change of endotracheal or endobronchial tube (SNOMED)*: a more general change concept also covering endobronchial tubes; its descendants are included.\n- *4216776 / 397874007 — Airway exchange catheter procedure (SNOMED)*: exchanging the tube over an airway exchange catheter (a guide passed through the old tube to railroad the new one), a specific technique for changing an endotracheal/endobronchial tube.\n\n### Tracheostomy tube change\n\n- *4331311 / 2267008 — Changing tracheostomy tube (SNOMED)*: changing a tracheostomy tube. Synonyms: \"Replacement of tracheostomy tube\", \"Change of tracheostomy tube\".\n\n### Cricothyroidotomy tube change\n\n- *4339602 / 232576007 — Change of cricothyroidotomy tube (SNOMED)*: changing the tube of an emergency surgical (cricothyroidotomy) airway.\n\n## Excluded Concepts\n\nConcepts that change the tube's **fixation** rather than the airway device itself are intentionally not included, following the same reasoning applied to the Extubation concept set (issue #13): re-securing a tube does not change the airway device.\n\n- *4026055 / 225720000 — Changing endotracheal tube headband (SNOMED)* — fixation band, not the device.\n- *4021519 / 225721001 — Changing endotracheal tube tapes (SNOMED)* — fixation tapes, not the device.\n\n## Mapping Notes\n\n- **A device change is not an extubation**: these events keep the patient's airway in place. Do not map them to the Extubation concept set, which captures genuine tube *removals* (where no tube is reinserted).\n- **Default for an unspecified endotracheal tube change**: *4026054 / 225719006 — Changing endotracheal tube*. Use *4161799 / 398118003 — Change of endotracheal or endobronchial tube* when the source uses the broader wording or the change involves an endobronchial tube.\n- **Match the route**: map a tracheostomy tube change to *4331311 / 2267008 — Changing tracheostomy tube* and a cricothyroidotomy tube change to *4339602 / 232576007 — Change of cricothyroidotomy tube* — do not collapse different airway routes onto the endotracheal concept.\n- **Fixation events** (changing the headband, tapes or dressing securing the tube) do not belong here and should not be mapped to this set."
       },
       "fr": {
         "name": "Changement de dispositif des voies aeriennes",
         "category": "Ventilation",
         "subcategory": "Dispositif des voies aériennes",
-        "shortDescription": null,
+        "shortDescription": "Remplacement d’un dispositif des voies aériennes en place (sonde endotrachéale, de trachéotomie ou de cricothyroïdotomie), sans interruption de la voie aérienne ; ce n’est pas une extubation.",
         "longDescription": null
       }
     },
@@ -102,7 +121,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-10",
+        "author": "Boris Delange",
+        "message": "Refine definition: drop fixation-change concepts (headband 4026055, per issue #13 logic), add Change of endotracheal or endobronchial tube (4161799, with descendants → airway exchange catheter procedure) and Change of cricothyroidotomy tube (4339602). Resolves to 5. Added clinical description."
+      }
+    ],
     "distributionStats": null
   }
 }

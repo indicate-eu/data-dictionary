@@ -5458,5 +5458,137 @@
     "targetUnitConceptId": 9289,
     "targetUnitCode": "[degF]",
     "targetUnitName": "degree Fahrenheit"
+  },
+  {
+    "conceptId": 3020716,
+    "conceptName": "Inhaled oxygen concentration",
+    "sourceUnitConceptId": 720868,
+    "sourceUnitCode": "{fraction}",
+    "sourceUnitName": "fraction",
+    "conversionFactor": 100.0,
+    "targetUnitConceptId": 8554,
+    "targetUnitCode": "%",
+    "targetUnitName": "percent"
+  },
+  {
+    "conceptId": 3020716,
+    "conceptName": "Inhaled oxygen concentration",
+    "sourceUnitConceptId": 8554,
+    "sourceUnitCode": "%",
+    "sourceUnitName": "percent",
+    "conversionFactor": 0.01,
+    "targetUnitConceptId": 720868,
+    "targetUnitCode": "{fraction}",
+    "targetUnitName": "fraction"
+  },
+  {
+    "conceptId": 3024882,
+    "conceptName": "Oxygen/Total gas setting [Volume Fraction] Ventilator",
+    "sourceUnitConceptId": 720868,
+    "sourceUnitCode": "{fraction}",
+    "sourceUnitName": "fraction",
+    "conversionFactor": 100.0,
+    "targetUnitConceptId": 8554,
+    "targetUnitCode": "%",
+    "targetUnitName": "percent"
+  },
+  {
+    "conceptId": 3024882,
+    "conceptName": "Oxygen/Total gas setting [Volume Fraction] Ventilator",
+    "sourceUnitConceptId": 8554,
+    "sourceUnitCode": "%",
+    "sourceUnitName": "percent",
+    "conversionFactor": 0.01,
+    "targetUnitConceptId": 720868,
+    "targetUnitCode": "{fraction}",
+    "targetUnitName": "fraction"
+  },
+  {
+    "conceptId": 3025408,
+    "conceptName": "Oxygen/Inspired gas Respiratory system by O2 Analyzer --on ventilator",
+    "sourceUnitConceptId": 720868,
+    "sourceUnitCode": "{fraction}",
+    "sourceUnitName": "fraction",
+    "conversionFactor": 100.0,
+    "targetUnitConceptId": 8554,
+    "targetUnitCode": "%",
+    "targetUnitName": "percent"
+  },
+  {
+    "conceptId": 3025408,
+    "conceptName": "Oxygen/Inspired gas Respiratory system by O2 Analyzer --on ventilator",
+    "sourceUnitConceptId": 8554,
+    "sourceUnitCode": "%",
+    "sourceUnitName": "percent",
+    "conversionFactor": 0.01,
+    "targetUnitConceptId": 720868,
+    "targetUnitCode": "{fraction}",
+    "targetUnitName": "fraction"
+  },
+  {
+    "conceptId": 3026238,
+    "conceptName": "Oxygen/Inspired gas Respiratory system --on ventilator",
+    "sourceUnitConceptId": 720868,
+    "sourceUnitCode": "{fraction}",
+    "sourceUnitName": "fraction",
+    "conversionFactor": 100.0,
+    "targetUnitConceptId": 8554,
+    "targetUnitCode": "%",
+    "targetUnitName": "percent"
+  },
+  {
+    "conceptId": 3026238,
+    "conceptName": "Oxygen/Inspired gas Respiratory system --on ventilator",
+    "sourceUnitConceptId": 8554,
+    "sourceUnitCode": "%",
+    "sourceUnitName": "percent",
+    "conversionFactor": 0.01,
+    "targetUnitConceptId": 720868,
+    "targetUnitCode": "{fraction}",
+    "targetUnitName": "fraction"
+  },
+  {
+    "conceptId": 4353936,
+    "conceptName": "Inspired oxygen concentration",
+    "sourceUnitConceptId": 720868,
+    "sourceUnitCode": "{fraction}",
+    "sourceUnitName": "fraction",
+    "conversionFactor": 100.0,
+    "targetUnitConceptId": 8554,
+    "targetUnitCode": "%",
+    "targetUnitName": "percent"
+  },
+  {
+    "conceptId": 4353936,
+    "conceptName": "Inspired oxygen concentration",
+    "sourceUnitConceptId": 8554,
+    "sourceUnitCode": "%",
+    "sourceUnitName": "percent",
+    "conversionFactor": 0.01,
+    "targetUnitConceptId": 720868,
+    "targetUnitCode": "{fraction}",
+    "targetUnitName": "fraction"
+  },
+  {
+    "conceptId": 42869590,
+    "conceptName": "Oxygen/Gas total [Pure volume fraction] Inhaled gas",
+    "sourceUnitConceptId": 720868,
+    "sourceUnitCode": "{fraction}",
+    "sourceUnitName": "fraction",
+    "conversionFactor": 100.0,
+    "targetUnitConceptId": 8554,
+    "targetUnitCode": "%",
+    "targetUnitName": "percent"
+  },
+  {
+    "conceptId": 42869590,
+    "conceptName": "Oxygen/Gas total [Pure volume fraction] Inhaled gas",
+    "sourceUnitConceptId": 8554,
+    "sourceUnitCode": "%",
+    "sourceUnitName": "percent",
+    "conversionFactor": 0.01,
+    "targetUnitConceptId": 720868,
+    "targetUnitCode": "{fraction}",
+    "targetUnitName": "fraction"
   }
 ]

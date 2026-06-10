@@ -30446,5 +30446,104 @@
     "recommendedUnitName": "millimole per liter",
     "recommendedUnitCode": "mmol/L",
     "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 3020716,
+    "conceptName": "Inhaled oxygen concentration",
+    "conceptCode": "3150-0",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 8554,
+    "recommendedUnitName": "percent",
+    "recommendedUnitCode": "%",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 3024882,
+    "conceptName": "Oxygen/Total gas setting [Volume Fraction] Ventilator",
+    "conceptCode": "19994-3",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 8554,
+    "recommendedUnitName": "percent",
+    "recommendedUnitCode": "%",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 3025408,
+    "conceptName": "Oxygen/Inspired gas Respiratory system by O2 Analyzer --on ventilator",
+    "conceptCode": "19995-0",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 8554,
+    "recommendedUnitName": "percent",
+    "recommendedUnitCode": "%",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 3026238,
+    "conceptName": "Oxygen/Inspired gas Respiratory system --on ventilator",
+    "conceptCode": "19996-8",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 8554,
+    "recommendedUnitName": "percent",
+    "recommendedUnitCode": "%",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 4353936,
+    "conceptName": "Inspired oxygen concentration",
+    "conceptCode": "250774007",
+    "vocabularyId": "SNOMED",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 8554,
+    "recommendedUnitName": "percent",
+    "recommendedUnitCode": "%",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 42869590,
+    "conceptName": "Oxygen/Gas total [Pure volume fraction] Inhaled gas",
+    "conceptCode": "71835-3",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 720868,
+    "recommendedUnitName": "fraction",
+    "recommendedUnitCode": "{fraction}",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 3014080,
+    "conceptName": "Oxygen gas flow Oxygen delivery system",
+    "conceptCode": "19941-4",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 8698,
+    "recommendedUnitName": "liter per minute",
+    "recommendedUnitCode": "L/min",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 4141684,
+    "conceptName": "Delivered oxygen flow rate",
+    "conceptCode": "427081008",
+    "vocabularyId": "SNOMED",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 8698,
+    "recommendedUnitName": "liter per minute",
+    "recommendedUnitCode": "L/min",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 44782836,
+    "conceptName": "Delivered oxygen flow rate to non ventilated lung",
+    "conceptCode": "698833004",
+    "vocabularyId": "SNOMED",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 8698,
+    "recommendedUnitName": "liter per minute",
+    "recommendedUnitCode": "L/min",
+    "recommendedUnitVocabularyId": "UCUM"
   }
 ]

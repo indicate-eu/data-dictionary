@@ -1,15 +1,34 @@
 {
   "id": 302,
   "name": "Oxygen flow rate",
-  "description": null,
-  "version": "1.0.0",
+  "description": "Oxygen flow rate delivered to the patient, in L/min (distinct from FiO2 concentration).",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-10",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
+      {
+        "concept": {
+          "conceptId": 4141684,
+          "conceptName": "Delivered oxygen flow rate",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "427081008",
+          "validStartDate": "2007-07-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
       {
         "concept": {
           "conceptId": 3005629,
@@ -31,34 +50,15 @@
       },
       {
         "concept": {
-          "conceptId": 4141684,
-          "conceptName": "Delivered oxygen flow rate",
+          "conceptId": 3014080,
+          "conceptName": "Oxygen gas flow Oxygen delivery system",
           "domainId": "Measurement",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Observable Entity",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "427081008",
-          "validStartDate": "2007-07-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 44782836,
-          "conceptName": "Delivered oxygen flow rate to non ventilated lung",
-          "domainId": "Measurement",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Observable Entity",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "698833004",
-          "validStartDate": "2014-01-31",
+          "conceptCode": "19941-4",
+          "validStartDate": "1999-01-25",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
@@ -76,21 +76,21 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Oxygen flow rate",
         "category": "Ventilation",
         "subcategory": "Oxygenation",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Oxygen flow rate delivered to the patient, in L/min (distinct from FiO2 concentration).",
+        "longDescription": "## Definition & Clinical Context\n\nOxygen flow rate is the volume of oxygen delivered to a patient per unit time — the \"litres per minute\" set on a flowmeter feeding a nasal cannula, mask, or oxygen-delivery system. In source data this is a single numeric value per patient-timestamp. It is recorded in intensive care, on the ward, in anaesthesia, and in emergency settings for any patient on supplemental oxygen. It is reported in **litres per minute (L/min)** [1]. This is distinct from the fraction of inspired oxygen (FiO2), which is the *concentration* of oxygen in the inspired gas, not its flow (see Mapping Notes).\n\n## Included Concepts\n\nThe set lists the LOINC and SNOMED concepts for oxygen flow rate, grouped by source. The SNOMED delivered-flow concept is anchored with its descendants; the LOINC concepts are leaf terms listed explicitly.\n\n### Delivered / inhaled oxygen flow (default)\n\nUse these for the flow of oxygen delivered to the patient when the source does not tie it to a specific delivery system.\n\n- *4141684 / 427081008 — Delivered oxygen flow rate (SNOMED)*: the flow of oxygen delivered to the patient; descendants are included. Synonym: \"Fresh gas flow rate\".\n- *44782836 / 698833004 — Delivered oxygen flow rate to non ventilated lung (SNOMED)*: delivered oxygen flow to the non-ventilated lung, e.g. during one-lung ventilation (a descendant of the concept above).\n- *3005629 / 3151-8 — Inhaled oxygen flow rate (LOINC)*: litres per minute of oxygen inhaled, for delivery devices that supply a volume per minute [1].\n\n### Oxygen delivery system flow\n\n- *3014080 / 19941-4 — Oxygen gas flow Oxygen delivery system (LOINC)*: oxygen gas flow measured on an oxygen delivery system.\n\n**Note on units**: all concepts are reported in **`8698 / L/min — liter per minute` (UCUM)**, the recommended unit for this set [1].\n\n## Mapping Notes\n\n- **Flow rate vs FiO2 — do not confuse them**: this set is the *flow* of oxygen in **L/min** (e.g. 2, 6, 15). The *fraction/concentration* of inspired oxygen (FiO2, in % or as a 0–1 fraction, e.g. 40% / 0.40) belongs to the Fraction of inspired oxygen (FiO2) concept set. A value like `10` with unit L/min is a flow rate; a value like `40` with unit % is a FiO2. Map each to its own set.\n- **Default concept** when the source records an oxygen flow rate without specifying the delivery system: *4141684 / 427081008 — Delivered oxygen flow rate*.\n- **Delivery-system flow**: map to *3014080 / 19941-4 — Oxygen gas flow Oxygen delivery system* only when the source explicitly attributes the flow to an oxygen delivery system. If unspecified, use the generic delivered-flow concept.\n- **One-lung ventilation**: map to *44782836 / 698833004 — Delivered oxygen flow rate to non ventilated lung* only when the source explicitly records flow to the non-ventilated lung.\n\n## References\n\n[1] Regenstrief Institute. LOINC code 3151-8 — Inhaled oxygen flow rate.\n    Available: <a href=\"https://loinc.org/3151-8/\" target=\"_blank\">https://loinc.org/3151-8/</a>"
       },
       "fr": {
         "name": "Débit oxygène",
         "category": "Ventilation",
         "subcategory": "Oxygénation",
-        "shortDescription": null,
+        "shortDescription": "Débit d’oxygène délivré au patient, en L/min (à distinguer de la concentration FiO2).",
         "longDescription": null
       }
     },
@@ -102,7 +102,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-10",
+        "author": "Boris Delange",
+        "message": "Add Oxygen gas flow Oxygen delivery system (3014080 / 19941-4); anchor delivered-flow SNOMED concept (4141684) with descendants. Resolves to 4. Added clinical description and recommended unit (L/min)."
+      }
+    ],
     "distributionStats": null
   }
 }

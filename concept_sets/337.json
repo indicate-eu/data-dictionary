@@ -1,12 +1,12 @@
 {
   "id": 337,
   "name": "Endotracheal tube diameter",
-  "description": null,
+  "description": "Internal diameter of the endotracheal tube in place, in mm (the tube size, e.g. 7.0, 7.5).",
   "version": "1.0.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-10",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -38,21 +38,21 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Endotracheal tube diameter",
         "category": "Ventilation",
         "subcategory": "Airway device",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Internal diameter of the endotracheal tube in place, in mm (the tube size, e.g. 7.0, 7.5).",
+        "longDescription": "## Definition & Clinical Context\n\nThis concept captures the diameter of the endotracheal tube (ETT) in place — by convention the tube's internal diameter, the number used to size and label ETTs (e.g. 7.0, 7.5, 8.0). In source data it is a single numeric measurement per patient-timestamp, recording which tube size was used rather than a physiological measurement of the patient. It is documented in intensive care, anaesthesia, and emergency settings whenever a patient is intubated. It is reported in millimetres (**mm**) [1].\n\n## Included Concepts\n\nThe set contains the single LOINC concept for endotracheal tube diameter:\n\n- *21491186 / 79562-5 — Endotracheal tube Diameter (LOINC)*: the internal diameter of the endotracheal tube, in millimetres. This is a leaf LOINC term with no descendants.\n\n**Note on units**: reported in **mm**, following the LOINC example unit for this term [1]. Standard adult ETT internal diameters fall roughly in the 7.0–8.0 mm range; paediatric and neonatal tubes are smaller. Tube sizes are commonly recorded in half-millimetre steps.\n\n## Mapping Notes\n\n- This is the **tube's diameter**, not the tube device itself: the type of endotracheal tube is recorded separately (see the Endotracheal tube concept set). Map a recorded tube size here, and the device type (if any) to that other set.\n- **Internal diameter** is the conventional sizing figure for an ETT; if a source distinguishes internal from external diameter, only the internal diameter maps to this concept.\n- Tracheostomy tube sizing is a different device and is not captured by this concept.\n\n## References\n\n[1] Regenstrief Institute. LOINC code 79562-5 — Endotracheal tube Diameter.\n    Available: <a href=\"https://loinc.org/79562-5/\" target=\"_blank\">https://loinc.org/79562-5/</a>"
       },
       "fr": {
         "name": "Diamètre de la sonde endotrachéale",
         "category": "Ventilation",
         "subcategory": "Dispositif des voies aériennes",
-        "shortDescription": null,
+        "shortDescription": "Diamètre interne de la sonde endotrachéale en place, en mm (la taille de la sonde, ex. 7.0, 7.5).",
         "longDescription": null
       }
     },

@@ -1,9 +1,6 @@
 {
   "conceptSetId": 338,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
-  },
+  "vocabularyVersion": null,
   "resolvedConcepts": [
     {
       "conceptId": 4026054,
@@ -15,12 +12,21 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4026055,
-      "conceptName": "Changing endotracheal tube headband",
+      "conceptId": 4161799,
+      "conceptName": "Change of endotracheal or endobronchial tube",
       "vocabularyId": "SNOMED",
       "domainId": "Procedure",
       "conceptClassId": "Procedure",
-      "conceptCode": "225720000",
+      "conceptCode": "398118003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4216776,
+      "conceptName": "Airway exchange catheter procedure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "397874007",
       "standardConcept": "S"
     },
     {
@@ -30,6 +36,15 @@
       "domainId": "Procedure",
       "conceptClassId": "Procedure",
       "conceptCode": "2267008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4339602,
+      "conceptName": "Change of cricothyroidotomy tube",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "232576007",
       "standardConcept": "S"
     }
   ]
