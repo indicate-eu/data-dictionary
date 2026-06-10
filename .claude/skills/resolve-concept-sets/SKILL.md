@@ -28,6 +28,8 @@ If the key is not set, ask the user for a path. `resolve.py` accepts any of:
 2. An **Athena CSV folder** — a directory containing tab-separated `CONCEPT.csv`, `CONCEPT_ANCESTOR.csv`, and `CONCEPT_RELATIONSHIP.csv` (downloadable from [Athena](https://athena.ohdsi.org/vocabulary/list))
 3. A **Parquet folder** — a directory containing `CONCEPT.parquet`, `CONCEPT_ANCESTOR.parquet`, and `CONCEPT_RELATIONSHIP.parquet`
 
+The three tables above are **required**. `VOCABULARY` (`VOCABULARY.csv` / `VOCABULARY.parquet`, also from the Athena download) is **optional but recommended**: when present, `resolve.py` stamps each resolved file with a `vocabularyVersion` block (the OMOP release plus the version of each vocabulary present in that set), so the exact vocabulary release behind a resolution is traceable. Without it, `vocabularyVersion` is recorded as `null`. A standard Athena vocabulary download (CSV or Parquet) already includes `VOCABULARY`; prefer pointing the script at that folder rather than a stripped-down `.duckdb` that only has the three required tables.
+
 The format is detected automatically from the path. If the user has a different source (PostgreSQL, MySQL, etc.), adapt accordingly — for instance by exporting the relevant tables to CSV/Parquet or loading them into a temporary DuckDB.
 
 Once the user gives you the path, suggest they save it to `config.local.json` under `ohdsiVocab` so they don't have to provide it again.
