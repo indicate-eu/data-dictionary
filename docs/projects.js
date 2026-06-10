@@ -184,11 +184,28 @@ var ProjectsPage = (function() {
     document.getElementById('proj-modal').style.display = 'none';
   }
 
+  // True when another project already uses `name` (any language,
+  // case-insensitive) — duplicates would make the cards indistinguishable.
+  function projectNameTaken(name, excludeId) {
+    var needle = name.trim().toLowerCase();
+    return (App.projects || []).some(function(p) {
+      if (excludeId != null && p.id === excludeId) return false;
+      var tr = p.translations || {};
+      return Object.keys(tr).some(function(l) {
+        return ((tr[l] && tr[l].name) || '').trim().toLowerCase() === needle;
+      });
+    });
+  }
+
   function submitModal() {
     var name = document.getElementById('proj-modal-name').value.trim();
     var shortDesc = document.getElementById('proj-modal-short-desc').value.trim();
     var author = document.getElementById('proj-modal-author').value.trim();
     if (!name) { App.showToast(App.i18n('Project name is required.'), 'error'); return; }
+    if (projectNameTaken(name, modalEditingId)) {
+      App.showToast(App.i18n('A project with this name already exists.'), 'error');
+      return;
+    }
 
     if (modalEditingId != null) {
       // Edit existing project
@@ -222,7 +239,7 @@ var ProjectsPage = (function() {
         modifiedDate: today,
         groups: [{
           id: 'group-default',
-          name: { en: 'Default', fr: 'Par défaut' },
+          translations: { en: { name: 'Default' }, fr: { name: 'Par défaut' } },
           rule: App.DEFAULT_GROUP_RULE,
           conceptSets: []
         }]

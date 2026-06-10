@@ -863,6 +863,7 @@ var App = (function() {
     'Download as mapping_recommendations.json': { fr: 'Télécharger en mapping_recommendations.json' },
     'Download as {file}':            { fr: 'Télécharger en {file}' },
     'A mapping project with this name already exists.': { fr: 'Un projet de mapping avec ce nom existe déjà.' },
+    'A project with this name already exists.': { fr: 'Un projet avec ce nom existe déjà.' },
     'OMOP source_to_concept_map':    { fr: 'OMOP source_to_concept_map' },
     'Single-column concept_id list': { fr: 'Liste concept_id en une colonne' },
     'CSV with concept_id + source':  { fr: 'CSV avec concept_id + source' },
