@@ -146,13 +146,13 @@ data-dictionary/                   # (repo root)
   "translations": {
     "en": {
       "name": "MIMIC-EU [Minimal]",
-      "short_description": "Short summary of the project...",
-      "long_description": "Detailed description with Markdown support..."
+      "shortDescription": "Short summary of the project...",
+      "longDescription": "Detailed description with Markdown support..."
     },
     "fr": {
       "name": "MIMIC-EU [Minimal]",
-      "short_description": "Résumé court du projet...",
-      "long_description": "Description détaillée avec support Markdown..."
+      "shortDescription": "Résumé court du projet...",
+      "longDescription": "Description détaillée avec support Markdown..."
     }
   },
   "createdBy": "Boris Delange",
@@ -161,7 +161,7 @@ data-dictionary/                   # (repo root)
   "groups": [
     {
       "id": "group-vitals",
-      "name": { "en": "Vital signs", "fr": "Constantes" },
+      "translations": { "en": { "name": "Vital signs" }, "fr": { "name": "Constantes" } },
       "rule": "all_required",
       "conceptSets": [
         { "id": 1, "version": "1.0.0" },
@@ -170,7 +170,7 @@ data-dictionary/                   # (repo root)
     },
     {
       "id": "group-anticoagulants",
-      "name": { "en": "Anticoagulants", "fr": "Anticoagulants" },
+      "translations": { "en": { "name": "Anticoagulants" }, "fr": { "name": "Anticoagulants" } },
       "rule": "at_least_one",
       "conceptSets": [
         { "id": 167, "version": "1.0.0" },
@@ -187,9 +187,13 @@ Concept sets are organized into named `groups`, each carrying an eligibility `ru
 - `at_least_one` — at least one concept set in the group must be covered.
 - `optional` — the group is informative; no concept set is required.
 
-`groups[].name` is bilingual (same shape as concept set translations). `groups[].id` is a stable slug used internally (e.g. by future eligibility computations); it does not need to be human-readable. Each entry in `groups[].conceptSets` pins a concept set ID to a specific version — the SPA renders the project against that exact pinned version, even if the concept set has since been bumped. See [Versioned concept sets in projects](#versioned-concept-sets-in-projects) below.
+`groups[].translations` is language-first (`{en: {name}, fr: {name}}`), the same shape as concept set/project translations. A group currently only carries a translatable `name`; if a translatable `description` is ever needed, add it inside `groups[].translations.{lang}` (do **not** introduce a field-first `{en, fr}` inline object). `groups[].id` is a stable slug used internally (e.g. by future eligibility computations); it does not need to be human-readable. Each entry in `groups[].conceptSets` pins a concept set ID to a specific version — the SPA renders the project against that exact pinned version, even if the concept set has since been bumped. See [Versioned concept sets in projects](#versioned-concept-sets-in-projects) below.
 
-For backwards compatibility the SPA also reads two legacy shapes — the flat `conceptSets: [{id, version}]`, and the older `conceptSetIds: [1, 2, 3]` (bare ids, treated as `{id, version: <latest>}`). Both are normalized at read time into a single synthetic `Default` group with rule `all_required`. This is only to keep `localStorage` projects created before the schema change loadable; **all `projects/*.json` files committed to the repo must use `groups`.**
+For backwards compatibility the SPA also reads several legacy shapes from `localStorage` projects created before the schema changes: the flat `conceptSets: [{id, version}]`, the older `conceptSetIds: [1, 2, 3]` (bare ids, treated as `{id, version: <latest>}`), group `name: {en, fr}` (field-first, pre-`translations`), and project `short_description` / `long_description` (snake_case, pre-camelCase). These are normalized at read time (legacy concept-set arrays become a single synthetic `Default` group with rule `all_required`; `migrateProjects` in `app.js` upgrades the rest). This is only to keep older `localStorage` projects loadable; **all `projects/*.json` files committed to the repo must use `groups` with `translations` and camelCase fields.**
+
+### Multilingual convention (repo-wide)
+
+All human-readable multilingual content is stored **language-first**: an object keyed by BCP 47 language code (`en`, `fr`), each holding the translatable fields. This applies to concept sets (`metadata.translations`), projects (`translations`), project groups (`groups[].translations`), and mapping recommendations (`translations`). The rationale (data-exchange format, not a UI string bundle; aligned with the per-language grouping used by FHIR's translation extension; one-glance completeness per language) is recorded in the discussion of issue #17. The OHDSI Concept Set Specification does not define an i18n structure and reserves `metadata` for implementation-specific extensions, which is exactly where concept set translations live. Field names are camelCase (`shortDescription`, `longDescription`). There is **no** cross-language fallback for display (a missing translation shows nothing, to encourage filling it). When adding a new translatable field to any entity, add it inside the existing per-language object — never introduce a field-first `{en, fr}` inline object.
 
 ## Build Pipeline
 

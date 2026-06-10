@@ -58,25 +58,51 @@ var App = (function() {
   var modifiedCsIds = new Set(JSON.parse(localStorage.getItem('indicate_modified_cs_ids') || '[]'));
   var modifiedProjIds = new Set(JSON.parse(localStorage.getItem('indicate_modified_proj_ids') || '[]'));
 
-  // Migrate legacy project format (name/description/justification/bibliography → translations)
+  // Migrate legacy localStorage projects to the current schema:
+  //  - very old flat format (name/description/justification) → translations
+  //  - intermediate snake_case (short_description/long_description) → camelCase
+  //  - group `name: {en,fr}` → group `translations: {en:{name}, fr:{name}}`
   (function migrateProjects() {
     var migrated = false;
+    function camelizeTr(tr) {
+      if (!tr || typeof tr !== 'object') return;
+      Object.keys(tr).forEach(function(l) {
+        var t = tr[l];
+        if (!t || typeof t !== 'object') return;
+        if ('short_description' in t) { t.shortDescription = t.short_description; delete t.short_description; migrated = true; }
+        if ('long_description' in t) { t.longDescription = t.long_description; delete t.long_description; migrated = true; }
+      });
+    }
     userProjects.forEach(function(p) {
       if (!p.translations) {
         p.translations = {
           en: {
             name: p.name || '',
-            short_description: p.description || '',
-            long_description: p.justification || ''
+            shortDescription: p.description || '',
+            longDescription: p.justification || ''
           },
-          fr: { name: '', short_description: '', long_description: '' }
+          fr: { name: '', shortDescription: '', longDescription: '' }
         };
         delete p.name;
         delete p.description;
         delete p.justification;
         delete p.bibliography;
         migrated = true;
+      } else {
+        camelizeTr(p.translations);
       }
+      (p.groups || []).forEach(function(g) {
+        if (!g.translations && 'name' in g) {
+          var nm = g.name;
+          if (nm && typeof nm === 'object') {
+            g.translations = { en: { name: nm.en || '' }, fr: { name: nm.fr || '' } };
+          } else {
+            g.translations = { en: { name: nm || '' }, fr: { name: nm || '' } };
+          }
+          delete g.name;
+          migrated = true;
+        }
+      });
     });
     if (migrated) localStorage.setItem('indicate_user_proj', JSON.stringify(userProjects));
   })();
@@ -1663,7 +1689,7 @@ var App = (function() {
     }
     return [{
       id: 'group-default',
-      name: { en: 'Default', fr: 'Par défaut' },
+      translations: { en: { name: 'Default' }, fr: { name: 'Par défaut' } },
       rule: DEFAULT_GROUP_RULE,
       conceptSets: entries
     }];
@@ -1681,10 +1707,18 @@ var App = (function() {
     delete proj.conceptSetIds;
   }
 
-  /** Translate a group's bilingual `name` field, with sensible fallbacks. */
+  /** Translate a group's name, with sensible fallbacks.
+   *  Reads the current language-first shape `group.translations.{lang}.name`,
+   *  and falls back to the legacy shapes for localStorage projects created
+   *  before the schema change: `group.name` as a {en,fr} object, or a bare string. */
   function getGroupName(group, l) {
     if (!group) return '';
     var key = l || lang;
+    var tr = group.translations;
+    if (tr) {
+      return (tr[key] && tr[key].name) || (tr.en && tr.en.name) || (tr.fr && tr.fr.name) || '';
+    }
+    // Legacy fallbacks
     if (group.name && typeof group.name === 'object') {
       return group.name[key] || group.name.en || group.name.fr || '';
     }

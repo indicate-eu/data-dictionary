@@ -1707,7 +1707,7 @@ var MappingPage = (function() {
           var cls = r.score === 100 ? 'score-full' : (r.score >= 75 ? 'score-mid' : 'score-low');
           var projTr = App.tProj(r.project);
           var projName = projTr.name || ('#' + r.project.id);
-          var shortDesc = projTr.short_description || '';
+          var shortDesc = projTr.shortDescription || '';
           // Count covered / total CS across the project (informative footer).
           var total = 0, covered = 0;
           r.groups.forEach(function(g) {

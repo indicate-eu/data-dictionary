@@ -4,6 +4,8 @@ var ProjectsPage = (function() {
 
   var initialized = false;
   var selectedProject = null;
+  // Tells the Back button whether history.back() will land on the list.
+  var listViewShownThisSession = false;
 
   // ==================== PROJECT CS TABLE STATE ====================
   var projCsSort = { key: 'groupName', asc: true };
@@ -121,7 +123,7 @@ var ProjectsPage = (function() {
       if (!filter) return true;
       var tr = App.tProj(p);
       var name = (tr.name || '').toLowerCase();
-      var desc = (tr.short_description || '').toLowerCase();
+      var desc = (tr.shortDescription || '').toLowerCase();
       function fuzzy(text) {
         var ti = 0;
         for (var qi = 0; qi < filter.length; qi++) {
@@ -146,7 +148,7 @@ var ProjectsPage = (function() {
           '<button class="project-card-menu-item danger" data-action="delete" data-id="' + p.id + '"><i class="fas fa-trash"></i> ' + App.i18n('Delete') + '</button>' +
         '</div>' +
         '<h3>' + App.escapeHtml(tr.name || '') + '</h3>' +
-        '<p title="' + App.escapeHtml(tr.short_description || '') + '">' + App.escapeHtml(tr.short_description || App.i18n('No description')) + '</p>' +
+        '<p title="' + App.escapeHtml(tr.shortDescription || '') + '">' + App.escapeHtml(tr.shortDescription || App.i18n('No description')) + '</p>' +
         '<div class="project-card-footer">' +
           '<span><i class="fas fa-list"></i> ' + csCount + ' ' + App.i18n('concept sets') + '</span>' +
           '<span><i class="fas fa-user"></i> ' + App.escapeHtml(p.createdBy || '') + '</span>' +
@@ -186,7 +188,7 @@ var ProjectsPage = (function() {
     document.getElementById('proj-modal-title').innerHTML = '<i class="fas fa-pen"></i> ' + App.i18n('Edit Project');
     document.getElementById('proj-modal-submit').innerHTML = '<i class="fas fa-save"></i> ' + App.i18n('Save');
     document.getElementById('proj-modal-name').value = tr.name || '';
-    document.getElementById('proj-modal-short-desc').value = tr.short_description || '';
+    document.getElementById('proj-modal-short-desc').value = tr.shortDescription || '';
     document.getElementById('proj-modal-author').value = proj.createdBy || '';
     document.getElementById('proj-modal').style.display = '';
     document.getElementById('proj-modal-name').focus();
@@ -210,7 +212,7 @@ var ProjectsPage = (function() {
       if (!proj.translations.en) proj.translations.en = {};
       if (!proj.translations.fr) proj.translations.fr = {};
       proj.translations[App.lang].name = name;
-      proj.translations[App.lang].short_description = shortDesc;
+      proj.translations[App.lang].shortDescription = shortDesc;
       proj.createdBy = author;
       proj.modifiedDate = new Date().toISOString().split('T')[0];
       App.updateProject(proj);
@@ -226,8 +228,8 @@ var ProjectsPage = (function() {
       var proj = {
         id: App.nextProjectId(),
         translations: {
-          en: { name: name, short_description: shortDesc, long_description: '' },
-          fr: { name: name, short_description: shortDesc, long_description: '' }
+          en: { name: name, shortDescription: shortDesc, longDescription: '' },
+          fr: { name: name, shortDescription: shortDesc, longDescription: '' }
         },
         createdBy: author,
         createdDate: today,
@@ -379,8 +381,8 @@ var ProjectsPage = (function() {
     var tr = App.tProj(selectedProject);
 
     var sec = document.getElementById('proj-long-description-section');
-    if (tr.long_description) {
-      sec.innerHTML = App.renderMarkdown(tr.long_description);
+    if (tr.longDescription) {
+      sec.innerHTML = App.renderMarkdown(tr.longDescription);
     } else {
       sec.innerHTML = '<p style="color:var(--text-muted); font-style:italic">' + App.i18n('No description') + '</p>';
     }
@@ -391,12 +393,12 @@ var ProjectsPage = (function() {
     if (!selectedProject) return;
     editMode = true;
     var tr = App.tProj(selectedProject);
-    editLongDesc = tr.long_description || '';
+    editLongDesc = tr.longDescription || '';
     // Deep-copy the project's groups so cancel() can discard cleanly.
     editGroups = App.getProjectGroups(selectedProject).map(function(g) {
       return {
         id: g.id,
-        name: g.name && typeof g.name === 'object' ? { en: g.name.en || '', fr: g.name.fr || '' } : { en: g.name || '', fr: g.name || '' },
+        translations: { en: { name: App.getGroupName(g, 'en') }, fr: { name: App.getGroupName(g, 'fr') } },
         rule: g.rule || App.DEFAULT_GROUP_RULE,
         conceptSets: (g.conceptSets || []).map(function(e) { return { id: e.id, version: e.version }; })
       };
@@ -404,7 +406,7 @@ var ProjectsPage = (function() {
     if (editGroups.length === 0) {
       editGroups.push({
         id: 'group-default',
-        name: { en: 'Default', fr: 'Par défaut' },
+        translations: { en: { name: 'Default' }, fr: { name: 'Par défaut' } },
         rule: App.DEFAULT_GROUP_RULE,
         conceptSets: []
       });
@@ -473,13 +475,13 @@ var ProjectsPage = (function() {
     if (!selectedProject) return;
     if (!selectedProject.translations) selectedProject.translations = { en: {}, fr: {} };
     if (!selectedProject.translations[App.lang]) selectedProject.translations[App.lang] = {};
-    selectedProject.translations[App.lang].long_description = editLongDesc;
+    selectedProject.translations[App.lang].longDescription = editLongDesc;
     // Persist every group the user defined, including empty ones (they may want to add
     // concept sets later). Only ensure at least one group exists.
     var groupsOut = editGroups.map(function(g) {
       return {
         id: g.id,
-        name: g.name,
+        translations: g.translations,
         rule: g.rule,
         conceptSets: (g.conceptSets || []).map(function(e) { return { id: e.id, version: e.version }; })
       };
@@ -1025,7 +1027,7 @@ var ProjectsPage = (function() {
     // Read mode: mutate selectedProject through setProjectGroups.
     var groups = App.getProjectGroups(selectedProject).map(function(g) {
       return {
-        id: g.id, name: g.name, rule: g.rule || App.DEFAULT_GROUP_RULE,
+        id: g.id, translations: g.translations, rule: g.rule || App.DEFAULT_GROUP_RULE,
         conceptSets: (g.conceptSets || []).map(function(e) { return { id: e.id, version: e.version }; })
       };
     });
@@ -1049,9 +1051,8 @@ var ProjectsPage = (function() {
     var g = editGroups.find(function(x) { return x.id === groupId; });
     if (!g) return;
     renamingGroupId = groupId;
-    var nameObj = (g.name && typeof g.name === 'object') ? g.name : { en: g.name || '', fr: g.name || '' };
-    document.getElementById('proj-group-modal-name-en').value = nameObj.en || '';
-    document.getElementById('proj-group-modal-name-fr').value = nameObj.fr || '';
+    document.getElementById('proj-group-modal-name-en').value = App.getGroupName(g, 'en');
+    document.getElementById('proj-group-modal-name-fr').value = App.getGroupName(g, 'fr');
     document.getElementById('proj-group-modal').style.display = '';
     setTimeout(function() {
       var input = document.getElementById('proj-group-modal-name-' + App.lang);
@@ -1075,7 +1076,7 @@ var ProjectsPage = (function() {
       App.showToast(App.i18n('Group name is required.'), 'error');
       return;
     }
-    g.name = { en: en || fr, fr: fr || en };
+    g.translations = { en: { name: en || fr }, fr: { name: fr || en } };
     closeRenameModal();
     renderCSEditTables();
   }
@@ -1318,7 +1319,7 @@ var ProjectsPage = (function() {
     // so the project is canonicalized to the new schema even if it was legacy on entry.
     var groups = App.getProjectGroups(selectedProject).map(function(g) {
       return {
-        id: g.id, name: g.name, rule: g.rule || App.DEFAULT_GROUP_RULE,
+        id: g.id, translations: g.translations, rule: g.rule || App.DEFAULT_GROUP_RULE,
         conceptSets: (g.conceptSets || []).map(function(e) { return { id: e.id, version: e.version }; })
       };
     });
@@ -1338,7 +1339,7 @@ var ProjectsPage = (function() {
     if (outdatedIds.length === 0) return;
     var groups = App.getProjectGroups(selectedProject).map(function(g) {
       return {
-        id: g.id, name: g.name, rule: g.rule || App.DEFAULT_GROUP_RULE,
+        id: g.id, translations: g.translations, rule: g.rule || App.DEFAULT_GROUP_RULE,
         conceptSets: (g.conceptSets || []).map(function(e) { return { id: e.id, version: e.version }; })
       };
     });
@@ -1495,7 +1496,11 @@ var ProjectsPage = (function() {
 
     // Project back button
     document.getElementById('proj-back').addEventListener('click', function() {
-      history.back();
+      if (listViewShownThisSession) {
+        history.back();
+      } else {
+        Router.navigate('/projects');
+      }
     });
 
     // Project search
@@ -1844,11 +1849,14 @@ var ProjectsPage = (function() {
         switchProjectTab(tab);
       }
     } else if (selectedProject) {
+      listViewShownThisSession = true;
       // Back to list view (e.g. browser back button)
       if (editMode) exitEditMode();
       document.getElementById('proj-detail-view').classList.remove('active');
       document.getElementById('proj-list-view').classList.remove('hidden');
       selectedProject = null;
+    } else {
+      listViewShownThisSession = true;
     }
   }
 

@@ -3,13 +3,13 @@
   "translations": {
     "en": {
       "name": "Quality Benchmarking Dashboards [Minimal]",
-      "short_description": "Demonstrates data sharing practices designed to support continuous improvement of clinical practice through quality benchmarking.",
-      "long_description": "[View on INDICATE website](https://indicate-europe.eu/use-cases/quality-benchmarking-dashboards/)\n\n## Overview\n\nThis use case demonstrates **data sharing for the continuous improvement of clinical practice**.\n\nHigh quality healthcare relies on consistent implementation of evidence for best practices, but achieving this consistency across diverse healthcare settings can be challenging. This use case bridges that gap by creating a unified platform that allows hospitals to benchmark their practices against evidence-based data and each other.\n\n## Objective\n\nThe Quality Benchmarking Dashboard offers real-time, customisable data access, supporting evidence-based decision-making and enabling quality control across various users and settings. It fosters research, cross-border collaboration, and patient-centred evidence-based care to enhance healthcare quality across Europe.\n\n## Tasks\n\n- **T6.5.1** — Identify clinically meaningful scenarios from scientific literature and clinical data (e.g. time-critical therapy, emergency response times, pain management, medical error detection).\n- **T6.5.2** — Develop automated data processing pipelines using machine-readable transactions based on the ETL process (WP2).\n- **T6.5.3** — Create a user-facing dashboard application that utilises the infrastructure for automated data visualisation to compare pan-European clinical benchmarks to local patient data.\n- **T6.5.4** — Create APIs that allow data users to integrate clinical benchmark calculations into their own existing patient data management systems (e.g. Electronic Health Records).\n- **T6.5.5** — Establish a consistent, anonymous benchmarking data set based on data disclosed through the federated infrastructure to reflect the heterogenic European population.\n- **T6.5.6** — Generate a repository of machine-readable guideline recommendations for disclosure through the knowledge platform (WP5), in addition to the Quality Benchmarking Dashboard.\n\n## Use Case Leader\n\n**Falk von Dincklage** — Universitätsmedizin Greifswald"
+      "shortDescription": "Demonstrates data sharing practices designed to support continuous improvement of clinical practice through quality benchmarking.",
+      "longDescription": "[View on INDICATE website](https://indicate-europe.eu/use-cases/quality-benchmarking-dashboards/)\n\n## Overview\n\nThis use case demonstrates **data sharing for the continuous improvement of clinical practice**.\n\nHigh quality healthcare relies on consistent implementation of evidence for best practices, but achieving this consistency across diverse healthcare settings can be challenging. This use case bridges that gap by creating a unified platform that allows hospitals to benchmark their practices against evidence-based data and each other.\n\n## Objective\n\nThe Quality Benchmarking Dashboard offers real-time, customisable data access, supporting evidence-based decision-making and enabling quality control across various users and settings. It fosters research, cross-border collaboration, and patient-centred evidence-based care to enhance healthcare quality across Europe.\n\n## Tasks\n\n- **T6.5.1** — Identify clinically meaningful scenarios from scientific literature and clinical data (e.g. time-critical therapy, emergency response times, pain management, medical error detection).\n- **T6.5.2** — Develop automated data processing pipelines using machine-readable transactions based on the ETL process (WP2).\n- **T6.5.3** — Create a user-facing dashboard application that utilises the infrastructure for automated data visualisation to compare pan-European clinical benchmarks to local patient data.\n- **T6.5.4** — Create APIs that allow data users to integrate clinical benchmark calculations into their own existing patient data management systems (e.g. Electronic Health Records).\n- **T6.5.5** — Establish a consistent, anonymous benchmarking data set based on data disclosed through the federated infrastructure to reflect the heterogenic European population.\n- **T6.5.6** — Generate a repository of machine-readable guideline recommendations for disclosure through the knowledge platform (WP5), in addition to the Quality Benchmarking Dashboard.\n\n## Use Case Leader\n\n**Falk von Dincklage** — Universitätsmedizin Greifswald"
     },
     "fr": {
       "name": "Tableaux de bord de benchmarking qualité [Minimal]",
-      "short_description": "Démonstration de pratiques de partage de données conçues pour soutenir l'amélioration continue de la pratique clinique par le benchmarking qualité.",
-      "long_description": "[Voir sur le site INDICATE](https://indicate-europe.eu/use-cases/quality-benchmarking-dashboards/)\n\n## Présentation\n\nCe cas d'usage démontre le **partage de données pour l'amélioration continue de la pratique clinique**.\n\nDes soins de santé de qualité reposent sur la mise en œuvre cohérente des données probantes, mais atteindre cette cohérence dans des contextes de soins diversifiés peut être difficile. Ce cas d'usage comble cette lacune en créant une plateforme unifiée permettant aux hôpitaux de comparer leurs pratiques aux données factuelles et entre eux.\n\n## Objectif\n\nLe tableau de bord de benchmarking qualité offre un accès aux données en temps réel et personnalisable, soutenant la prise de décision fondée sur les preuves et permettant le contrôle qualité dans différents contextes et pour différents utilisateurs. Il favorise la recherche, la collaboration transfrontalière et les soins centrés sur le patient fondés sur les preuves, afin d'améliorer la qualité des soins de santé à travers l'Europe.\n\n## Tâches\n\n- **T6.5.1** — Identifier des scénarios cliniquement significatifs à partir de la littérature scientifique et des données cliniques (ex. thérapie temps-critique, temps de réponse aux urgences, gestion de la douleur, détection d'erreurs médicales).\n- **T6.5.2** — Développer des pipelines de traitement automatisé des données utilisant des transactions lisibles par machine basées sur le processus ETL (WP2).\n- **T6.5.3** — Créer une application de tableau de bord orientée utilisateur utilisant l'infrastructure pour la visualisation automatisée des données, comparant les benchmarks cliniques paneuropéens aux données patients locales.\n- **T6.5.4** — Créer des APIs permettant aux utilisateurs de données d'intégrer les calculs de benchmarks cliniques dans leurs propres systèmes de gestion des données patients existants (ex. dossiers de santé électroniques).\n- **T6.5.5** — Établir un jeu de données de benchmarking cohérent et anonyme basé sur les données divulguées via l'infrastructure fédérée, reflétant la population européenne hétérogène.\n- **T6.5.6** — Générer un référentiel de recommandations de lignes directrices lisibles par machine pour diffusion via la plateforme de connaissances (WP5), en complément du tableau de bord de benchmarking qualité.\n\n## Responsable du cas d'usage\n\n**Falk von Dincklage** — Universitätsmedizin Greifswald"
+      "shortDescription": "Démonstration de pratiques de partage de données conçues pour soutenir l'amélioration continue de la pratique clinique par le benchmarking qualité.",
+      "longDescription": "[Voir sur le site INDICATE](https://indicate-europe.eu/use-cases/quality-benchmarking-dashboards/)\n\n## Présentation\n\nCe cas d'usage démontre le **partage de données pour l'amélioration continue de la pratique clinique**.\n\nDes soins de santé de qualité reposent sur la mise en œuvre cohérente des données probantes, mais atteindre cette cohérence dans des contextes de soins diversifiés peut être difficile. Ce cas d'usage comble cette lacune en créant une plateforme unifiée permettant aux hôpitaux de comparer leurs pratiques aux données factuelles et entre eux.\n\n## Objectif\n\nLe tableau de bord de benchmarking qualité offre un accès aux données en temps réel et personnalisable, soutenant la prise de décision fondée sur les preuves et permettant le contrôle qualité dans différents contextes et pour différents utilisateurs. Il favorise la recherche, la collaboration transfrontalière et les soins centrés sur le patient fondés sur les preuves, afin d'améliorer la qualité des soins de santé à travers l'Europe.\n\n## Tâches\n\n- **T6.5.1** — Identifier des scénarios cliniquement significatifs à partir de la littérature scientifique et des données cliniques (ex. thérapie temps-critique, temps de réponse aux urgences, gestion de la douleur, détection d'erreurs médicales).\n- **T6.5.2** — Développer des pipelines de traitement automatisé des données utilisant des transactions lisibles par machine basées sur le processus ETL (WP2).\n- **T6.5.3** — Créer une application de tableau de bord orientée utilisateur utilisant l'infrastructure pour la visualisation automatisée des données, comparant les benchmarks cliniques paneuropéens aux données patients locales.\n- **T6.5.4** — Créer des APIs permettant aux utilisateurs de données d'intégrer les calculs de benchmarks cliniques dans leurs propres systèmes de gestion des données patients existants (ex. dossiers de santé électroniques).\n- **T6.5.5** — Établir un jeu de données de benchmarking cohérent et anonyme basé sur les données divulguées via l'infrastructure fédérée, reflétant la population européenne hétérogène.\n- **T6.5.6** — Générer un référentiel de recommandations de lignes directrices lisibles par machine pour diffusion via la plateforme de connaissances (WP5), en complément du tableau de bord de benchmarking qualité.\n\n## Responsable du cas d'usage\n\n**Falk von Dincklage** — Universitätsmedizin Greifswald"
     }
   },
   "createdBy": "Falk von Dincklage",
@@ -18,9 +18,13 @@
   "groups": [
     {
       "id": "group-default",
-      "name": {
-        "en": "Default",
-        "fr": "Par défaut"
+      "translations": {
+        "en": {
+          "name": "Default"
+        },
+        "fr": {
+          "name": "Par défaut"
+        }
       },
       "rule": "all_required",
       "conceptSets": [
@@ -244,9 +248,13 @@
     },
     {
       "id": "group-anticoagulants",
-      "name": {
-        "en": "Anticoagulants",
-        "fr": "Anticoagulants"
+      "translations": {
+        "en": {
+          "name": "Anticoagulants"
+        },
+        "fr": {
+          "name": "Anticoagulants"
+        }
       },
       "rule": "at_least_one",
       "conceptSets": [
@@ -378,9 +386,13 @@
     },
     {
       "id": "group-insulin",
-      "name": {
-        "en": "Insulin",
-        "fr": "Insuline"
+      "translations": {
+        "en": {
+          "name": "Insulin"
+        },
+        "fr": {
+          "name": "Insuline"
+        }
       },
       "rule": "at_least_one",
       "conceptSets": [
