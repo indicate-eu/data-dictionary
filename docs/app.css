@@ -1379,6 +1379,8 @@ td .status-badge, td .version-badge {
 .btn-primary-custom.btn-purple:hover { background: #5a32a3; }
 .btn-primary-custom.btn-danger { background: #dc3545; }
 .btn-primary-custom.btn-danger:hover { background: #c82333; }
+.btn-primary-custom.btn-green { background: var(--success); }
+.btn-primary-custom.btn-green:hover { background: #218838; }
 
 
 .btn-back-discrete {
