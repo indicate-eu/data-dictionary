@@ -28,6 +28,11 @@ Why HEAD, and why two commits:
      why you must NEVER reuse a published (id, version) pair. If a version turns out
      wrong, bump to a new version rather than rewriting the old one.
 
+     Caveat: only the version currently on disk is seen. If the SAME file is bumped
+     twice across commits (1.0.0 -> 1.1.0 -> 1.2.0) before snapshotting, the
+     intermediate 1.1.0 is never indexed and any project pinned to it will fail at
+     build time. Snapshot after every bump of a given file.
+
 This script is idempotent: pairs already in the index are never re-stamped, so
 re-running it (or build.py) does nothing once everything is recorded. Never edit
 concept_sets_versions.json by hand.
@@ -75,21 +80,29 @@ def current_head_sha():
         sys.exit(f"git rev-parse HEAD failed: {e.stderr.strip()}")
 
 
-def has_uncommitted_changes_in(path):
-    """Return True if the given path has uncommitted (staged or unstaged) changes."""
+def dirty_paths():
+    """Return the set of repo-relative paths with uncommitted (staged or unstaged) changes."""
     result = subprocess.run(
-        ["git", "status", "--porcelain", "--", path],
+        ["git", "status", "--porcelain", "--", "concept_sets"],
         cwd=ROOT,
         capture_output=True,
         text=True,
         check=True,
     )
-    return bool(result.stdout.strip())
+    paths = set()
+    for line in result.stdout.splitlines():
+        # Format: "XY path" (or "XY old -> new" for renames).
+        entry = line[3:]
+        if " -> " in entry:
+            entry = entry.split(" -> ", 1)[1]
+        paths.add(entry.strip().strip('"'))
+    return paths
 
 
 def main():
     index = load_index()
     sha = current_head_sha()
+    dirty = dirty_paths()
 
     new_entries = []
     warnings = []
@@ -108,7 +121,7 @@ def main():
         if version in existing:
             continue
 
-        if has_uncommitted_changes_in(path):
+        if os.path.relpath(path, ROOT).replace(os.sep, "/") in dirty:
             warnings.append(
                 f"  concept_sets/{cs_id}.json: uncommitted changes — "
                 f"commit them before running snapshot.py (skipped v{version})"

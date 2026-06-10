@@ -2,7 +2,7 @@
 """Resolve concept sets using OMOP vocabulary tables.
 
 Vocabulary source can be:
-  - a DuckDB database file (`.duckdb`)
+  - a DuckDB database file (`.duckdb` or `.db`)
   - a folder of Athena tab-separated CSV files (CONCEPT.csv, CONCEPT_ANCESTOR.csv,
     CONCEPT_RELATIONSHIP.csv)
   - a folder of Parquet files with the same names (.parquet)
@@ -14,6 +14,7 @@ Usage:
     python3 resolve.py --vocab /path/to/ohdsi_vocabularies.duckdb
     python3 resolve.py --vocab /path/to/athena_csv_folder
     python3 resolve.py --vocab /path/to/parquet_folder
+    python3 resolve.py --vocab <path> --id 10   # resolve a single concept set
     python3 resolve.py                # uses config.local.json (ohdsiVocab)
 """
 
@@ -44,7 +45,9 @@ def get_descendants(con, concept_ids):
     """Get descendant concept IDs from concept_ancestor table."""
     if not concept_ids:
         return set()
-    ids_str = ",".join(str(i) for i in concept_ids)
+    # int() so a malformed conceptId in a JSON file fails fast instead of
+    # being interpolated into the SQL.
+    ids_str = ",".join(str(int(i)) for i in concept_ids)
     rows = con.execute(
         f"SELECT DISTINCT descendant_concept_id "
         f"FROM concept_ancestor "
@@ -58,7 +61,7 @@ def get_mapped(con, concept_ids):
     """Get mapped concept IDs from concept_relationship table."""
     if not concept_ids:
         return set()
-    ids_str = ",".join(str(i) for i in concept_ids)
+    ids_str = ",".join(str(int(i)) for i in concept_ids)
     rows = con.execute(
         f"SELECT DISTINCT concept_id_2 "
         f"FROM concept_relationship "
@@ -86,37 +89,16 @@ def resolve_concept_set(con, items):
     if not included_items:
         return []
 
-    # Build included set
     included_ids = {i["concept"]["conceptId"] for i in included_items}
+    included_ids = expand_ids(con, included_ids, included_items, "includeDescendants", get_descendants)
+    included_ids = expand_ids(con, included_ids, included_items, "includeMapped", get_mapped)
 
-    # Expand descendants for included
-    desc_items = [i for i in included_items if i.get("includeDescendants", False)]
-    if desc_items:
-        desc_source = {i["concept"]["conceptId"] for i in desc_items}
-        included_ids |= get_descendants(con, desc_source)
-
-    # Expand mapped for included
-    mapped_items = [i for i in included_items if i.get("includeMapped", False)]
-    if mapped_items:
-        mapped_source = {i["concept"]["conceptId"] for i in mapped_items}
-        included_ids |= get_mapped(con, mapped_source)
-
-    # Build excluded set
     excluded_ids = set()
     if excluded_items:
         excluded_ids = {i["concept"]["conceptId"] for i in excluded_items}
+        excluded_ids = expand_ids(con, excluded_ids, excluded_items, "includeDescendants", get_descendants)
+        excluded_ids = expand_ids(con, excluded_ids, excluded_items, "includeMapped", get_mapped)
 
-        desc_items = [i for i in excluded_items if i.get("includeDescendants", False)]
-        if desc_items:
-            desc_source = {i["concept"]["conceptId"] for i in desc_items}
-            excluded_ids |= get_descendants(con, desc_source)
-
-        mapped_items = [i for i in excluded_items if i.get("includeMapped", False)]
-        if mapped_items:
-            mapped_source = {i["concept"]["conceptId"] for i in mapped_items}
-            excluded_ids |= get_mapped(con, mapped_source)
-
-    # Final resolution
     resolved_ids = included_ids - excluded_ids
 
     if not resolved_ids:
@@ -130,13 +112,12 @@ def resolve_concept_set(con, items):
     # Fetch DB concept details
     db_concepts = []
     if db_ids:
-        ids_str = ",".join(str(i) for i in db_ids)
+        ids_str = ",".join(str(int(i)) for i in db_ids)
         rows = con.execute(
             f"SELECT concept_id, concept_name, vocabulary_id, domain_id, "
             f"concept_class_id, concept_code, standard_concept "
             f"FROM concept "
-            f"WHERE concept_id IN ({ids_str}) "
-            f"ORDER BY concept_name"
+            f"WHERE concept_id IN ({ids_str})"
         ).fetchall()
 
         db_concepts = [
@@ -152,14 +133,17 @@ def resolve_concept_set(con, items):
             for r in rows
         ]
 
-    # Build custom concept details from expression items
+    # Build custom concept details from expression items. Discard each id once
+    # emitted so a concept appearing in several items isn't duplicated.
     custom_concepts = []
     if custom_ids:
+        remaining = set(custom_ids)
         all_items = included_items + excluded_items
         for item in all_items:
             c = item.get("concept", {})
             cid = c.get("conceptId")
-            if cid in custom_ids:
+            if cid in remaining:
+                remaining.discard(cid)
                 custom_concepts.append({
                     "conceptId": cid,
                     "conceptName": c.get("conceptName", ""),
@@ -259,7 +243,7 @@ def detect_vocab_format(path):
     if os.path.isfile(path):
         if path.lower().endswith((".duckdb", ".db")):
             return "duckdb"
-        raise SystemExit(f"Error: vocabulary file is not a .duckdb database: {path}")
+        raise SystemExit(f"Error: vocabulary file is not a DuckDB database (.duckdb or .db): {path}")
     if not os.path.isdir(path):
         raise SystemExit(f"Error: vocabulary path not found: {path}")
     has_csv = all(os.path.isfile(os.path.join(path, t + ".csv")) for t in REQUIRED_TABLES)
@@ -284,13 +268,24 @@ def connect_from_csv(csv_dir):
     """Create an in-memory DuckDB connection from Athena CSV files."""
     con = duckdb.connect(":memory:")
     print("Loading Athena CSV files into memory...")
-    con.execute(f"CREATE TABLE concept AS SELECT * FROM read_csv_auto('{os.path.join(csv_dir, 'CONCEPT.csv')}', delim='\\t', header=true)")
-    con.execute(f"CREATE TABLE concept_ancestor AS SELECT * FROM read_csv_auto('{os.path.join(csv_dir, 'CONCEPT_ANCESTOR.csv')}', delim='\\t', header=true)")
-    con.execute(f"CREATE TABLE concept_relationship AS SELECT * FROM read_csv_auto('{os.path.join(csv_dir, 'CONCEPT_RELATIONSHIP.csv')}', delim='\\t', header=true)")
+
+    def load(table, src):
+        # Athena exports are unquoted TSVs whose values may contain literal `"`
+        # (e.g. inch marks in concept names) — disable quote detection, and pass
+        # the path as a prepared-statement parameter so quotes/apostrophes in
+        # the path can't break the SQL.
+        con.execute(
+            f"CREATE TABLE {table} AS SELECT * FROM read_csv_auto(?, delim='\t', header=true, quote='')",
+            [src],
+        )
+
+    load("concept", os.path.join(csv_dir, "CONCEPT.csv"))
+    load("concept_ancestor", os.path.join(csv_dir, "CONCEPT_ANCESTOR.csv"))
+    load("concept_relationship", os.path.join(csv_dir, "CONCEPT_RELATIONSHIP.csv"))
     for table in OPTIONAL_TABLES:
         src = os.path.join(csv_dir, f"{table}.csv")
         if os.path.isfile(src):
-            con.execute(f"CREATE TABLE {table.lower()} AS SELECT * FROM read_csv_auto('{src}', delim='\\t', header=true)")
+            load(table.lower(), src)
     print("CSV files loaded.")
     return con
 
@@ -301,11 +296,11 @@ def connect_from_parquet(parquet_dir):
     print("Loading Parquet files into memory...")
     for table in REQUIRED_TABLES:
         path = os.path.join(parquet_dir, f"{table}.parquet")
-        con.execute(f"CREATE TABLE {table.lower()} AS SELECT * FROM read_parquet('{path}')")
+        con.execute(f"CREATE TABLE {table.lower()} AS SELECT * FROM read_parquet(?)", [path])
     for table in OPTIONAL_TABLES:
         src = os.path.join(parquet_dir, f"{table}.parquet")
         if os.path.isfile(src):
-            con.execute(f"CREATE TABLE {table.lower()} AS SELECT * FROM read_parquet('{src}')")
+            con.execute(f"CREATE TABLE {table.lower()} AS SELECT * FROM read_parquet(?)", [src])
     print("Parquet files loaded.")
     return con
 

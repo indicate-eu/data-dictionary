@@ -2,9 +2,10 @@
 """Reset the data dictionary to an empty state for a fresh fork.
 
 Wipes team-specific content (concept sets, projects, resolved sets, mapping
-recommendations text) and resets ID counters. Keeps reusable reference data
-(UCUM unit conversions, OMOP recommended units) and configuration files
-(config.json, config.local.json, branding assets).
+recommendations text), resets ID counters and the concept_sets_versions.json
+index. Keeps reusable reference data (UCUM unit conversions, OMOP recommended
+units) and configuration files (config.json, config.local.json, branding
+assets).
 
 Run from the repository root:
 
@@ -64,6 +65,14 @@ def plan_actions():
         if current.get("nextConceptSetId") != 1 or current.get("nextProjectId") != 1:
             actions.append(("Reset id_counters.json to {nextConceptSetId: 1, nextProjectId: 1}",
                             lambda: _write_json(counters, {"nextConceptSetId": 1, "nextProjectId": 1})))
+
+    # The versions index points (id, version) pairs at upstream commit SHAs. Kept
+    # as-is it would make snapshot.py silently skip the fork's own first versions
+    # (the pairs look already published) and build.py fetch upstream content.
+    versions = os.path.join(ROOT, "concept_sets_versions.json")
+    if os.path.isfile(versions) and _read_json(versions) != {}:
+        actions.append(("Reset concept_sets_versions.json to {} (upstream version index)",
+                        lambda: _write_json(versions, {})))
 
     return actions
 

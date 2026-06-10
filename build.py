@@ -22,7 +22,9 @@ def git_show(sha, repo_path):
             ["git", "show", f"{sha}:{repo_path}"],
             cwd=ROOT,
             capture_output=True,
-            text=True,
+            # The files are UTF-8 JSON; without this, stdout is decoded with the
+            # locale encoding (cp1252 on Windows) and French text comes out mangled.
+            encoding="utf-8",
             check=True,
         )
         return result.stdout
@@ -147,15 +149,12 @@ def main():
         json.dump({"nextConceptSetId": next_cs_id, "nextProjectId": next_proj_id}, f, indent=2)
         f.write("\n")
 
-    # Compute a content hash from all data sources
-    cs_fingerprint = "|".join(
-        str(cs["id"]) + ":" + cs.get("modifiedDate", "") + ":" + cs.get("version", "")
-        for cs in concept_sets
-    )
-    proj_fingerprint = "|".join(
-        str(p["id"]) + ":" + p.get("modifiedDate", "")
-        for p in projects
-    )
+    # Compute a content hash from all data sources. Hash the actual content —
+    # not (id, modifiedDate, version) — so a hand-edit that forgets to bump
+    # modifiedDate still changes the hash and triggers the SPA's update/merge
+    # prompt for users with local drafts.
+    cs_fingerprint = hashlib.sha256(json.dumps(concept_sets, sort_keys=True).encode()).hexdigest()[:16]
+    proj_fingerprint = hashlib.sha256(json.dumps(projects, sort_keys=True).encode()).hexdigest()[:16]
     units_fingerprint = hashlib.sha256(json.dumps(unit_conversions, sort_keys=True).encode()).hexdigest()[:16]
     rec_units_fingerprint = hashlib.sha256(json.dumps(recommended_units, sort_keys=True).encode()).hexdigest()[:16]
     mapping_fingerprint = hashlib.sha256(json.dumps(mapping_recommendations, sort_keys=True).encode()).hexdigest()[:16] if mapping_recommendations else ""

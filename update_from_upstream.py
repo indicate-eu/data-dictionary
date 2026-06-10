@@ -32,13 +32,16 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 UPSTREAM_PATHS = [
     "build.py",
     "resolve.py",
+    "snapshot.py",
     "reset.py",
     "update_from_upstream.py",
     "CLAUDE.md",
     "FORKING.md",
+    "concept_set.example.json",
     "config.local.example.json",
     ".gitignore",
     ".gitlab-ci.yml",
+    ".github/workflows/build-and-deploy.yml",
     "docs/index.html",
     "docs/app.css",
     "docs/app.js",
@@ -46,7 +49,7 @@ UPSTREAM_PATHS = [
     "docs/spa-init.js",
     "docs/concept-sets.js",
     "docs/projects.js",
-    "docs/mapping-recommendations.js",
+    "docs/mapping.js",
     "docs/settings.js",
     "docs/general-settings.js",
     "docs/dev-tools.js",
@@ -59,8 +62,9 @@ UPSTREAM_PATHS = [
     ".claude/skills",
 ]
 
-# Explicitly NEVER touched (even if they appear under a path above by accident).
-# These are the files a fork owns and must be preserved.
+# Explicitly NEVER touched. Exact paths are filtered out of UPSTREAM_PATHS;
+# paths sitting under a directory pulled above are restored from HEAD after
+# the checkout. These are the files a fork owns and must be preserved.
 PROTECTED = {
     "config.json",            # fork's branding/identity
     "config.local.json",      # fork's machine paths (gitignored anyway)
@@ -121,16 +125,25 @@ def checkout_paths(branch, paths, dry_run):
         for p in safe:
             print(f"  - {p}")
         return
-    # Use --pathspec-from-stdin? Simpler: pass all paths in one go.
-    # Some paths may not exist upstream yet (e.g. FORKING.md on older versions); checkout silently
-    # skips missing paths only if we pass them one at a time.
+    # Checkout one path at a time so a path missing upstream (e.g. FORKING.md
+    # on older releases) is skipped instead of failing the whole batch.
+    updated = []
     for p in safe:
         res = run(["git", "checkout", ref, "--", p], check=False, capture=True)
         if res.returncode != 0:
-            # Path may not exist upstream yet — log and continue.
             print(f"  - skipped {p} (not present in {ref})")
         else:
             print(f"  - updated {p}")
+            updated.append(p)
+    # Protected paths can sit under a directory pulled above — restore them.
+    for pp in sorted(PROTECTED):
+        if any(pp == d or pp.startswith(d.rstrip("/") + "/") for d in updated):
+            run(["git", "checkout", "HEAD", "--", pp], check=False, capture=True)
+            print(f"  - restored protected {pp}")
+    # `git checkout <ref> -- <path>` stages what it writes; unstage so the
+    # changes are reviewable with a plain `git diff`, as the docstring promises.
+    if updated:
+        run(["git", "reset", "-q", "--"] + updated, check=False, capture=True)
 
 
 def main():
