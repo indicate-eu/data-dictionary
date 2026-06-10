@@ -1,9 +1,6 @@
 {
   "conceptSetId": 303,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
-  },
+  "vocabularyVersion": null,
   "resolvedConcepts": [
     {
       "conceptId": 4012607,
@@ -12,24 +9,6 @@
       "domainId": "Procedure",
       "conceptClassId": "Procedure",
       "conceptCode": "113153002",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4026054,
-      "conceptName": "Changing endotracheal tube",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "225719006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4026055,
-      "conceptName": "Changing endotracheal tube headband",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "225720000",
       "standardConcept": "S"
     },
     {
@@ -51,21 +30,21 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 4195943,
+      "conceptName": "Ventilating tube removal by another physician",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "44482009",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4231838,
       "conceptName": "Inadvertent tracheal extubation",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Clinical Finding",
       "conceptCode": "405639008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4331311,
-      "conceptName": "Changing tracheostomy tube",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "2267008",
       "standardConcept": "S"
     }
   ]

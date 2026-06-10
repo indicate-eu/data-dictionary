@@ -1,72 +1,15 @@
 {
   "id": 303,
   "name": "Extubation",
-  "description": null,
-  "version": "1.0.0",
+  "description": "Removal of an airway tube (endotracheal or tracheostomy), including unplanned removal; tube changes are excluded.",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-10",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
-      {
-        "concept": {
-          "conceptId": 4012607,
-          "conceptName": "Removal of tracheostomy tube",
-          "domainId": "Procedure",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "113153002",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4026054,
-          "conceptName": "Changing endotracheal tube",
-          "domainId": "Procedure",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "225719006",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4026055,
-          "conceptName": "Changing endotracheal tube headband",
-          "domainId": "Procedure",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "225720000",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
       {
         "concept": {
           "conceptId": 4148972,
@@ -83,26 +26,7 @@
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4150627,
-          "conceptName": "Removal of endotracheal tube",
-          "domainId": "Procedure",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "271280005",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
@@ -126,6 +50,25 @@
       },
       {
         "concept": {
+          "conceptId": 4026054,
+          "conceptName": "Changing endotracheal tube",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "225719006",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
           "conceptId": 4331311,
           "conceptName": "Changing tracheostomy tube",
           "domainId": "Procedure",
@@ -139,8 +82,8 @@
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
-        "isExcluded": false,
-        "includeDescendants": false,
+        "isExcluded": true,
+        "includeDescendants": true,
         "includeMapped": false
       }
     ]
@@ -152,21 +95,21 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Extubation",
         "category": "Ventilation",
         "subcategory": "Ventilation device",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Removal of an airway tube (endotracheal or tracheostomy), including unplanned removal; tube changes are excluded.",
+        "longDescription": "## Definition & Clinical Context\n\nExtubation is the removal of an artificial airway tube — an endotracheal tube (passed through the mouth or nose into the trachea) or a tracheostomy tube (inserted through a surgical opening in the neck) — that was in place to support breathing. The source data is an event record: a procedure (or a recorded clinical finding, in the case of an unplanned removal) marking the moment the tube was taken out, rather than a numeric measurement. It is recorded in intensive care, recovery, and ward settings, typically as part of weaning a patient off mechanical ventilation. There is no unit — each record represents one extubation event for a patient at a timestamp.\n\nThe clinically important distinction in this set is between **removing** a tube (extubation — the patient is left without an artificial airway) and **changing** a tube (the old tube is taken out and a new one inserted immediately, so the patient is never without an airway). A tube change is *not* an extubation and is excluded from this set (see Excluded Concepts).\n\n## Included Concepts\n\nThe set is anchored on the SNOMED procedure *Extubation of trachea* with all its descendants, plus the separate clinical finding for unplanned extubation. Excluding the tube-change branch (below), this resolves to five concepts, grouped here by what they describe.\n\n### Generic extubation (default)\n\nUse this when the source records an extubation without specifying which device was removed or how.\n\n- *4148972 / 309812005 — Extubation of trachea (SNOMED)*: the general concept for removing an airway tube from the trachea. Synonym: \"Tracheal extubation\".\n\n### By airway device removed\n\nUse these when the source explicitly identifies the device.\n\n- *4150627 / 271280005 — Removal of endotracheal tube (SNOMED)*: removal of an endotracheal tube specifically. Synonym: \"Endotracheal extubation\".\n- *4195943 / 44482009 — Ventilating tube removal by another physician (SNOMED)*: a tube removal carried out by a physician other than the one primarily responsible; a child of endotracheal tube removal in SNOMED. Map here only when the source explicitly records this circumstance.\n- *4012607 / 113153002 — Removal of tracheostomy tube (SNOMED)*: removal of a tracheostomy tube (decannulation).\n\n### Unplanned extubation\n\n- *4231838 / 405639008 — Inadvertent tracheal extubation (SNOMED)*: an accidental or unintended removal of the airway tube (e.g. self-extubation by the patient, or dislodgement during care), as opposed to a planned, clinician-led extubation. This is a clinical *finding* (recorded as an observation), not a procedure. Synonyms: \"Accidental tracheal extubation\".\n\n## Excluded Concepts\n\nIn SNOMED, \"changing a tube\" is modelled as a *child* of \"removing a tube\", so it would otherwise be pulled in as a descendant of *Extubation of trachea*. A tube change replaces the tube immediately and leaves the patient with a continuous airway, so it does not represent an extubation. The following are therefore excluded (per issue #13):\n\n- *4026054 / 225719006 — Changing endotracheal tube (SNOMED)* — and its descendant *4026055 / 225720000 — Changing endotracheal tube headband (SNOMED)*, which concerns the tube's external fixation, not the tube itself.\n- *4331311 / 2267008 — Changing tracheostomy tube (SNOMED)*. Synonyms: \"Replacement of tracheostomy tube\", \"Change of tracheostomy tube\".\n\n## Mapping Notes\n\n- **Default concept** when the source records an extubation but does not say which device was removed or under what circumstances: *4148972 / 309812005 — Extubation of trachea*.\n- **By device**: map to *4150627 / 271280005 — Removal of endotracheal tube* for an endotracheal tube, or *4012607 / 113153002 — Removal of tracheostomy tube* for tracheostomy decannulation, only when the source explicitly identifies the device. If the device is not documented, use the generic *4148972 / 309812005 — Extubation of trachea*.\n- **Planned vs unplanned**: map to *4231838 / 405639008 — Inadvertent tracheal extubation* only when the source explicitly flags the event as accidental, unplanned, or self-extubation. A plain \"extubation\" with no such flag is a planned extubation and maps to *4148972 / 309812005 — Extubation of trachea*.\n- **Do not map tube changes here**: source events labelled \"tube change\", \"tube replacement\", \"ETT change\", \"trach change\", or \"change of tracheostomy tube\" are *not* extubations and must not be mapped to this set, even though SNOMED files them under the removal hierarchy.\n- **Reintubation / weaning context**: this set captures the extubation event itself. It does not capture the decision to wean, spontaneous breathing trials, or reintubation — those belong to separate concept sets."
       },
       "fr": {
         "name": "Extubation",
         "category": "Ventilation",
         "subcategory": "Dispositif de ventilation",
-        "shortDescription": null,
+        "shortDescription": "Retrait d’un dispositif des voies aériennes (sonde d’intubation ou de trachéotomie), y compris retrait accidentel ; les changements de sonde sont exclus.",
         "longDescription": null
       }
     },
@@ -178,7 +121,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-10",
+        "author": "Boris Delange",
+        "message": "Re-anchor on 'Extubation of trachea' with descendants and exclude the tube-change branch (issue #13): removed 'Changing endotracheal tube' (4026054), 'Changing endotracheal tube headband' (4026055) and 'Changing tracheostomy tube' (4331311); picked up 'Ventilating tube removal by another physician' (4195943). Added clinical description."
+      }
+    ],
     "distributionStats": null
   }
 }
