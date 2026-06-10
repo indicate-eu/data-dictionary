@@ -2984,6 +2984,24 @@ select.form-input { appearance: auto; }
 }
 .app-footer a i { font-size: 13px; }
 
+/* JSON code block (documentation) */
+.json-block {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  padding: 12px 14px;
+  overflow-x: auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.55;
+  color: #24292f;
+}
+.json-block .json-key { color: #0550ae; }
+.json-block .json-string { color: #0a7d33; }
+.json-block .json-number { color: #953800; }
+.json-block .json-literal { color: #cf222e; }
+.json-block .json-comment { color: #6e7781; font-style: italic; }
+
 /* ==================== Documentation Page ==================== */
 .doc-layout {
   display: flex;

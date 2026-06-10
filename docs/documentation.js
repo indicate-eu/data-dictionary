@@ -31,6 +31,7 @@ var DocumentationPage = (function() {
           { id: 'editing-concept-sets', label: en ? 'Editing Concept Sets' : 'Modifier un jeu de concepts' },
           { id: 'reviewing', label: en ? 'Reviewing & GitHub' : 'Relecture & GitHub' },
           { id: 'exporting', label: en ? 'Exporting' : 'Exporter' },
+          { id: 'json-schema', label: en ? 'JSON Schema' : 'Sch\u00e9ma JSON' },
           { id: 'sources', label: 'Sources' }
         ]
       },
@@ -72,6 +73,7 @@ var DocumentationPage = (function() {
       'reviewing':            en ? reviewingEN()             : reviewingFR(),
       'exporting':            en ? exportingEN()             : exportingFR(),
       'sources':              en ? sourcesEN()               : sourcesFR(),
+      'json-schema':          en ? jsonSchemaEN()            : jsonSchemaFR(),
       'projects':             en ? projectsEN()              : projectsFR(),
       'mapping-projects':        en ? mappingProjectsEN()    : mappingProjectsFR(),
       'mapping-recommendations': en ? mappingRecoEN()        : mappingRecoFR(),
@@ -2136,6 +2138,162 @@ var DocumentationPage = (function() {
       + '<li><strong>Specification</strong>: <a href="https://ucum.org/ucum" target="_blank">https://ucum.org/ucum</a></li>'
       + '<li><strong>Distribution as an OMOP vocabulary</strong>: download via Athena (see above) and look up unit codes '
       + 'with <code>SELECT * FROM concept WHERE vocabulary_id = \'UCUM\';</code></li>'
+      + '</ul>';
+  }
+
+  // Lightweight JSON syntax highlighter for the static doc block. Escapes HTML,
+  // then wraps keys / strings / numbers / literals / // comments in colored spans.
+  function highlightJson(src) {
+    function esc(s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+    return src.split("\n").map(function (line) {
+      var comment = "";
+      var ci = line.indexOf("//");
+      if (ci !== -1) { comment = line.slice(ci); line = line.slice(0, ci); }
+      var code = esc(line).replace(/"(?:[^"\\]|\\.)*"(\s*:)?/g, function (m, colon) {
+        return "<span class=\"" + (colon ? "json-key" : "json-string") + "\">" + m + "</span>";
+      });
+      code = code.replace(/\b(true|false|null)\b/g, "<span class=\"json-literal\">$1</span>");
+      // Numbers as standalone tokens (value position): preceded by space/>/: , bounded by word edge.
+      code = code.replace(/(^|[\s:>])(-?\d+(?:\.\d+)?)(?=[\s,\]}]|$)/g, "$1<span class=\"json-number\">$2</span>");
+      if (comment) code += "<span class=\"json-comment\">" + esc(comment) + "</span>";
+      return code;
+    }).join("\n");
+  }
+
+  function jsonSchemaBlock() {
+    var json = '{\n'
+      + '  "id": 10,\n'
+      + '  "name": "...",              // mirror of metadata.translations.en.name\n'
+      + '  "description": "...",       // mirror of metadata.translations.en.shortDescription\n'
+      + '  "version": "1.0.0",         // semantic versioning\n'
+      + '  "createdBy": "...",\n'
+      + '  "createdDate": "2026-01-01",\n'
+      + '  "modifiedBy": "...",\n'
+      + '  "modifiedDate": "2026-01-01",\n'
+      + '  "createdByTool": "...",\n'
+      + '  "expression": {\n'
+      + '    "items": [\n'
+      + '      {\n'
+      + '        "concept": {\n'
+      + '          "conceptId": 3027018,\n'
+      + '          "conceptName": "Heart rate",\n'
+      + '          "vocabularyId": "LOINC",\n'
+      + '          "domainId": "Measurement",\n'
+      + '          "conceptClassId": "...",\n'
+      + '          "standardConcept": "S",      // S | C | null - read from the OMOP vocabulary\n'
+      + '          "conceptCode": "8867-4",\n'
+      + '          "validStartDate": "...",\n'
+      + '          "validEndDate": "...",\n'
+      + '          "invalidReason": null\n'
+      + '        },\n'
+      + '        "isExcluded": false,\n'
+      + '        "includeDescendants": false,\n'
+      + '        "includeMapped": false\n'
+      + '      }\n'
+      + '    ]\n'
+      + '  },\n'
+      + '  "tags": [],\n'
+      + '  "metadata": {\n'
+      + '    "uniqueId": "uuid",\n'
+      + '    "organization": {\n'
+      + '      "name": "...",\n'
+      + '      "url": "..."\n'
+      + '    },\n'
+      + '    "reviewStatus": "draft",   // draft | pending_review | approved | needs_revision | deprecated\n'
+      + '    "origin": null,\n'
+      + '    "translations": {\n'
+      + '      "en": {\n'
+      + '        "name": "...",\n'
+      + '        "category": "...",\n'
+      + '        "subcategory": "...",\n'
+      + '        "shortDescription": "...",\n'
+      + '        "longDescription": "..."\n'
+      + '      },\n'
+      + '      "fr": {\n'
+      + '        "name": "...",\n'
+      + '        "category": "...",\n'
+      + '        "subcategory": "...",\n'
+      + '        "shortDescription": "...",\n'
+      + '        "longDescription": "..."\n'
+      + '      }\n'
+      + '    },\n'
+      + '    "createdByDetails": {\n'
+      + '      "firstName": "...",\n'
+      + '      "lastName": "...",\n'
+      + '      "affiliation": "...",\n'
+      + '      "profession": "...",\n'
+      + '      "orcid": "..."\n'
+      + '    },\n'
+      + '    "reviews": [],\n'
+      + '    "versions": [\n'
+      + '      {\n'
+      + '        "version": "1.0.0",\n'
+      + '        "date": "2026-01-01",\n'
+      + '        "author": "...",\n'
+      + '        "message": "Initial version."\n'
+      + '      }\n'
+      + '    ],\n'
+      + '    "distributionStats": null\n'
+      + '  }\n'
+      + '}';
+    return '<pre class="json-block">' + highlightJson(json) + '</pre>';
+  }
+
+  function jsonSchemaEN() {
+    return '<h1>JSON Schema</h1>'
+      + '<p>Each concept set is stored as a single file <code>concept_sets/{id}.json</code>. These files follow the '
+      + '<a href="https://ohdsi.github.io/TAB/Concept-Set-Specification.html" target="_blank">OHDSI Concept Set Specification</a>, '
+      + 'with INDICATE-specific extensions grouped under <code>metadata</code>. A complete, annotated example file lives at the '
+      + 'repository root: <a href="https://github.com/indicate-eu/data-dictionary/blob/main/concept_set.example.json" target="_blank"><code>concept_set.example.json</code></a>.</p>'
+
+      + '<h2>Structure</h2>'
+      + jsonSchemaBlock()
+
+      + '<h2>Key fields</h2>'
+      + '<ul>'
+      + '<li>Top-level <code>name</code> / <code>description</code> mirror the English translation '
+      + '(<code>metadata.translations.en.name</code> / <code>shortDescription</code>) and are kept in sync by the app.</li>'
+      + '<li><code>version</code> : semantic versioning; bumping it is recorded in <code>metadata.versions[]</code>.</li>'
+      + '<li><code>expression.items[]</code> : each entry references an OMOP concept plus three flags '
+      + '(<code>isExcluded</code>, <code>includeDescendants</code>, <code>includeMapped</code>).</li>'
+      + '<li><code>metadata.translations</code> : language-first (<code>en</code>, <code>fr</code>), each with '
+      + '<code>name</code>, <code>category</code>, <code>subcategory</code>, <code>shortDescription</code>, <code>longDescription</code>. '
+      + 'There is no cross-language fallback.</li>'
+      + '<li><code>metadata.reviewStatus</code> : one of <code>draft</code>, <code>pending_review</code>, <code>approved</code>, '
+      + '<code>needs_revision</code>, <code>deprecated</code>.</li>'
+      + '<li><code>metadata.versions[]</code> : a changelog. Each entry is '
+      + '<code>{ version, date, author, message }</code>. This is an INDICATE extension &mdash; the OHDSI specification defines the '
+      + 'top-level <code>version</code> field but no changelog structure.</li>'
+      + '<li><code>metadata.reviews[]</code> : review history (reviewer, date, status, comments).</li>'
+      + '</ul>';
+  }
+
+  function jsonSchemaFR() {
+    return '<h1>Sch\u00e9ma JSON</h1>'
+      + '<p>Chaque jeu de concepts est stock\u00e9 dans un fichier unique <code>concept_sets/{id}.json</code>. Ces fichiers suivent la '
+      + '<a href="https://ohdsi.github.io/TAB/Concept-Set-Specification.html" target="_blank">OHDSI Concept Set Specification</a>, '
+      + 'avec des extensions propres \u00e0 INDICATE regroup\u00e9es sous <code>metadata</code>. Un fichier exemple complet et comment\u00e9 '
+      + 'se trouve \u00e0 la racine du d\u00e9p\u00f4t\u00a0: <a href="https://github.com/indicate-eu/data-dictionary/blob/main/concept_set.example.json" target="_blank"><code>concept_set.example.json</code></a>.</p>'
+
+      + '<h2>Structure</h2>'
+      + jsonSchemaBlock()
+
+      + '<h2>Champs cl\u00e9s</h2>'
+      + '<ul>'
+      + '<li>Les champs racine <code>name</code> / <code>description</code> refl\u00e8tent la traduction anglaise '
+      + '(<code>metadata.translations.en.name</code> / <code>shortDescription</code>) et sont maintenus synchronis\u00e9s par l\u2019application.</li>'
+      + '<li><code>version</code>\u00a0: versionnage s\u00e9mantique\u00a0; toute incr\u00e9mentation est consign\u00e9e dans <code>metadata.versions[]</code>.</li>'
+      + '<li><code>expression.items[]</code>\u00a0: chaque entr\u00e9e r\u00e9f\u00e9rence un concept OMOP ainsi que trois indicateurs '
+      + '(<code>isExcluded</code>, <code>includeDescendants</code>, <code>includeMapped</code>).</li>'
+      + '<li><code>metadata.translations</code>\u00a0: organis\u00e9 par langue (<code>en</code>, <code>fr</code>), chacune avec '
+      + '<code>name</code>, <code>category</code>, <code>subcategory</code>, <code>shortDescription</code>, <code>longDescription</code>. '
+      + 'Il n\u2019y a aucun repli d\u2019une langue \u00e0 l\u2019autre.</li>'
+      + '<li><code>metadata.reviewStatus</code>\u00a0: l\u2019une des valeurs <code>draft</code>, <code>pending_review</code>, <code>approved</code>, '
+      + '<code>needs_revision</code>, <code>deprecated</code>.</li>'
+      + '<li><code>metadata.versions[]</code>\u00a0: un journal des modifications. Chaque entr\u00e9e est '
+      + '<code>{ version, date, author, message }</code>. C\u2019est une extension INDICATE &mdash; la sp\u00e9cification OHDSI d\u00e9finit le '
+      + 'champ <code>version</code> racine mais aucune structure de journal.</li>'
+      + '<li><code>metadata.reviews[]</code>\u00a0: l\u2019historique des relectures (relecteur, date, statut, commentaires).</li>'
       + '</ul>';
   }
 

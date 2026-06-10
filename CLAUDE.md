@@ -47,6 +47,7 @@ data-dictionary/                   # (repo root)
 │   └── data_dictionary.png
 ├── id_counters.json           # Monotonic ID counters (next available IDs)
 ├── concept_sets_versions.json # Index { id: { version: commit_sha } } — points to historical snapshots in Git
+├── concept_set.example.json   # Annotated template / reference schema for a concept set JSON
 ├── build.py                   # Build data files for the static site
 ├── resolve.py                 # Resolve concept sets using OMOP vocabularies
 ├── snapshot.py                # Record commit SHAs in concept_sets_versions.json when versions are bumped
@@ -69,7 +70,7 @@ data-dictionary/                   # (repo root)
   "createdDate": "2025-01-26",
   "modifiedBy": "Boris Delange",
   "modifiedDate": "2025-01-26",
-  "createdByTool": "INDICATE Data Dictionary v0.2.0.9001",
+  "createdByTool": "INDICATE Data Dictionary v1.2.1 (https://github.com/indicate-eu/data-dictionary)",
   "expression": {
     "items": [
       {
@@ -113,11 +114,18 @@ data-dictionary/                   # (repo root)
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      { "version": "1.0.0", "date": "2026-01-01", "author": "Boris Delange", "message": "Initial version." }
+    ],
     "distributionStats": null
   }
 }
 ```
+
+A complete, valid, annotated example lives at the repo root: **`concept_set.example.json`**. Use it as the canonical template when authoring a new concept set by hand.
+
+- **`reviewStatus`** — one of `draft`, `pending_review`, `approved`, `needs_revision`, `deprecated`. A deprecated set is conventionally prefixed with `[Deprecated]` in `name` and both translations, with the reason recorded in a `versions[]` entry.
+- **`metadata.versions[]`** — the version changelog. Each entry is exactly `{ version, date, author, message }` (this is the repo-wide convention; an older shape using `summary`/`changedBy`/`versionFrom` was migrated away). This is an INDICATE extension: the OHDSI spec defines the top-level `version` field but no changelog structure. Add a new entry whenever you bump `version`.
 
 ### Resolved Concept Set JSON (`concept_sets_resolved/{id}.json`)
 

@@ -1,0 +1,77 @@
+{
+  "id": 0,
+  "name": "Example Concept Set",
+  "description": "One-line English summary (mirror of metadata.translations.en.shortDescription).",
+  "version": "1.0.0",
+  "createdBy": "Jane Doe",
+  "createdDate": "2026-01-01",
+  "modifiedBy": "Jane Doe",
+  "modifiedDate": "2026-01-01",
+  "createdByTool": "INDICATE Data Dictionary v1.2.1 (https://github.com/indicate-eu/data-dictionary)",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 3027018,
+          "conceptName": "Heart rate",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "8867-4",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "00000000-0000-0000-0000-000000000000",
+    "organization": {
+      "name": "INDICATE Consortium",
+      "url": "https://indicate-eu.org"
+    },
+    "reviewStatus": "draft",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "Example Concept Set",
+        "category": "Clinical observations",
+        "subcategory": "Vital signs",
+        "shortDescription": "Brief one-line description shown in the datatable (truncated to ~100 chars).",
+        "longDescription": "Full Markdown content rendered in the Comments tab. May be null if not written."
+      },
+      "fr": {
+        "name": "Jeu de concepts exemple",
+        "category": "Observations cliniques",
+        "subcategory": "Constantes",
+        "shortDescription": "Brève description sur une ligne, affichée dans le tableau.",
+        "longDescription": "Contenu Markdown complet rendu dans l'onglet Commentaires. Peut être null."
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Jane",
+      "lastName": "Doe",
+      "affiliation": "Example University Hospital",
+      "profession": "Intensive Care Physician",
+      "orcid": "0000-0000-0000-0000"
+    },
+    "reviews": [],
+    "versions": [
+      {
+        "version": "1.0.0",
+        "date": "2026-01-01",
+        "author": "Jane Doe",
+        "message": "Initial version."
+      }
+    ],
+    "distributionStats": null
+  }
+}
