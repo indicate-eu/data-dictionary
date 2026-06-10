@@ -43,7 +43,7 @@ var ConceptSetsPage = (function() {
   var resolvedPage = 1;
   var resolvedPageSize = 50;
   var resolvedCurrentConcepts = [];
-  var resolvedSort = { key: null, asc: true };
+  var resolvedSort = { key: 'name', asc: true };
   var expressionPage = 1;
   var expressionPageSize = 50;
   var exprSort = { key: null, asc: true };
@@ -2889,7 +2889,9 @@ var ConceptSetsPage = (function() {
       if (typeof vb === 'string') vb = vb.toLowerCase();
       if (va < vb) return asc ? -1 : 1;
       if (va > vb) return asc ? 1 : -1;
-      return 0;
+      // Tie-break on conceptId so homonyms (e.g. "Glucose" in SNOMED vs LOINC)
+      // keep a stable, deterministic order regardless of source row order.
+      return (a.conceptId || 0) - (b.conceptId || 0);
     });
   }
   function updateResolvedSortIndicators() {

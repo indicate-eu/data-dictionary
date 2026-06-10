@@ -173,6 +173,7 @@ def main():
         else:
             resolved_inline.append({
                 "conceptSetId": r["conceptSetId"],
+                "vocabularyVersion": r.get("vocabularyVersion"),
                 "resolvedConcepts": [],
                 "resolvedDeferred": True,
                 "resolvedCount": len(concepts)

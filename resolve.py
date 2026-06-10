@@ -171,11 +171,44 @@ def resolve_concept_set(con, items):
                 })
 
     result = db_concepts + custom_concepts
-    result.sort(key=lambda x: x.get("conceptName", ""))
+    # Sort by conceptId: a stable, unique key that never shifts between vocabulary
+    # releases, so the stored file stays diff-clean. Human-readable ordering (by
+    # name) is a presentation concern handled by the SPA's resolved-concepts table.
+    result.sort(key=lambda x: x.get("conceptId", 0))
     return result
 
 
-def resolve_one(con, cs_id):
+def read_vocabulary_version(con):
+    """Read the OMOP vocabulary release info from the VOCABULARY table.
+
+    Returns a dict of the shape
+        {"release": "v5.0 27-FEB-26", "SNOMED": "...", "RxNorm": "...", ...}
+    where "release" is the version stored on the special 'None' vocabulary row,
+    and each other key is a vocabulary_id mapped to its vocabulary_version.
+
+    Returns None when the source has no VOCABULARY table (e.g. a .duckdb that
+    only contains concept / concept_ancestor / concept_relationship). The version
+    is then recorded as null so the gap is visible rather than silently missing.
+    """
+    try:
+        rows = con.execute(
+            "SELECT vocabulary_id, vocabulary_version FROM vocabulary "
+            "WHERE vocabulary_version IS NOT NULL"
+        ).fetchall()
+    except Exception:
+        return None
+    if not rows:
+        return None
+    version = {}
+    for vocab_id, vocab_version in rows:
+        if vocab_id == "None":
+            version["release"] = vocab_version
+        else:
+            version[vocab_id] = vocab_version
+    return version
+
+
+def resolve_one(con, cs_id, vocab_version=None):
     """Resolve a single concept set by ID.
 
     Returns (name, count) on success, or None if the file doesn't exist.
@@ -194,8 +227,23 @@ def resolve_one(con, cs_id):
 
     concepts = resolve_concept_set(con, items)
 
+    # Stamp only the release plus the versions of vocabularies actually present
+    # in this set's resolved concepts — the full VOCABULARY table lists ~50
+    # vocabularies, most irrelevant to any given set.
+    set_version = None
+    if vocab_version is not None:
+        used = {c.get("vocabularyId") for c in concepts if c.get("vocabularyId")}
+        set_version = {"release": vocab_version.get("release")}
+        for vocab_id in sorted(used):
+            if vocab_id in vocab_version:
+                set_version[vocab_id] = vocab_version[vocab_id]
+
     os.makedirs(OUT_DIR, exist_ok=True)
-    out = {"conceptSetId": cs_id, "resolvedConcepts": concepts}
+    out = {
+        "conceptSetId": cs_id,
+        "vocabularyVersion": set_version,
+        "resolvedConcepts": concepts,
+    }
     out_path = os.path.join(OUT_DIR, f"{cs_id}.json")
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=2)
@@ -227,6 +275,11 @@ def detect_vocab_format(path):
     )
 
 
+# Optional: loaded when present so the vocabulary release can be stamped into
+# the resolved files. Not required for resolution itself.
+OPTIONAL_TABLES = ["VOCABULARY"]
+
+
 def connect_from_csv(csv_dir):
     """Create an in-memory DuckDB connection from Athena CSV files."""
     con = duckdb.connect(":memory:")
@@ -234,6 +287,10 @@ def connect_from_csv(csv_dir):
     con.execute(f"CREATE TABLE concept AS SELECT * FROM read_csv_auto('{os.path.join(csv_dir, 'CONCEPT.csv')}', delim='\\t', header=true)")
     con.execute(f"CREATE TABLE concept_ancestor AS SELECT * FROM read_csv_auto('{os.path.join(csv_dir, 'CONCEPT_ANCESTOR.csv')}', delim='\\t', header=true)")
     con.execute(f"CREATE TABLE concept_relationship AS SELECT * FROM read_csv_auto('{os.path.join(csv_dir, 'CONCEPT_RELATIONSHIP.csv')}', delim='\\t', header=true)")
+    for table in OPTIONAL_TABLES:
+        src = os.path.join(csv_dir, f"{table}.csv")
+        if os.path.isfile(src):
+            con.execute(f"CREATE TABLE {table.lower()} AS SELECT * FROM read_csv_auto('{src}', delim='\\t', header=true)")
     print("CSV files loaded.")
     return con
 
@@ -245,6 +302,10 @@ def connect_from_parquet(parquet_dir):
     for table in REQUIRED_TABLES:
         path = os.path.join(parquet_dir, f"{table}.parquet")
         con.execute(f"CREATE TABLE {table.lower()} AS SELECT * FROM read_parquet('{path}')")
+    for table in OPTIONAL_TABLES:
+        src = os.path.join(parquet_dir, f"{table}.parquet")
+        if os.path.isfile(src):
+            con.execute(f"CREATE TABLE {table.lower()} AS SELECT * FROM read_parquet('{src}')")
     print("Parquet files loaded.")
     return con
 
@@ -282,8 +343,14 @@ def main():
     else:
         con = connect_from_parquet(vocab)
 
+    vocab_version = read_vocabulary_version(con)
+    if vocab_version and vocab_version.get("release"):
+        print(f"Vocabulary release: {vocab_version['release']}")
+    else:
+        print("Vocabulary release: unknown (no VOCABULARY table in source) — recording null")
+
     if args.id is not None:
-        result = resolve_one(con, args.id)
+        result = resolve_one(con, args.id, vocab_version)
         con.close()
         if result is None:
             sys.exit(1)
@@ -304,7 +371,7 @@ def main():
     total_concepts = 0
 
     for idx, cs_id in enumerate(ids, 1):
-        result = resolve_one(con, cs_id)
+        result = resolve_one(con, cs_id, vocab_version)
         if result is not None:
             name, count = result
             total_concepts += count
