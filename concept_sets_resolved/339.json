@@ -1,19 +1,7 @@
 {
   "conceptSetId": 339,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
-  },
+  "vocabularyVersion": null,
   "resolvedConcepts": [
-    {
-      "conceptId": 4072515,
-      "conceptName": "Airway pressure release ventilation",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "243143008",
-      "standardConcept": "S"
-    },
     {
       "conceptId": 37152364,
       "conceptName": "Synchronized intermittent mandatory ventilation - pressure-control pressure-support inflation",
@@ -111,15 +99,6 @@
       "domainId": "Procedure",
       "conceptClassId": "Procedure",
       "conceptCode": "1186748006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40491848,
-      "conceptName": "Bilevel positive airway pressure titration",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "447243000",
       "standardConcept": "S"
     }
   ]

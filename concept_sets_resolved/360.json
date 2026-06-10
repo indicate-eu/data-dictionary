@@ -1,0 +1,114 @@
+{
+  "conceptSetId": 360,
+  "vocabularyVersion": null,
+  "resolvedConcepts": [
+    {
+      "conceptId": 4072515,
+      "conceptName": "Airway pressure release ventilation",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "243143008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37151336,
+      "conceptName": "Continuous mandatory ventilation volume-control inflation-type and assured constant airway pressure adjunct in the expiratory phase",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "1187022003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37151337,
+      "conceptName": "Continuous mandatory ventilation pressure-control inflation-type",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "1187023008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37151338,
+      "conceptName": "Continuous mandatory ventilation pressure-control inflation-type and assured constant airway pressure adjunct",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "1187024002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37151339,
+      "conceptName": "Continuous mandatory ventilation volume-targeted pressure-control inflation-type",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "1187025001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37152407,
+      "conceptName": "Intermittent mandatory ventilation with synchronized-termination pressure-control and assured constant airway pressure adjunct",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "1186742007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37152413,
+      "conceptName": "Continuous mandatory ventilation volume-control inflation-type",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "1186749003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37153603,
+      "conceptName": "Continuous mandatory ventilation",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "1222606000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37153604,
+      "conceptName": "Continuous mandatory ventilation with sigh",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "1222607009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37157167,
+      "conceptName": "Intermittent mandatory ventilation",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "1197612007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37157430,
+      "conceptName": "Intermittent mandatory ventilation with synchronized-termination pressure control and assured constant airway pressure adjunct during the inflation phase",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "1217390002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37158487,
+      "conceptName": "Continuous flow apneic ventilation",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "1260411001",
+      "standardConcept": "S"
+    }
+  ]
+}

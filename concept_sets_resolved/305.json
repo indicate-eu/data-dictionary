@@ -1,10 +1,6 @@
 {
   "conceptSetId": 305,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "LOINC": "LOINC 2.80",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
-  },
+  "vocabularyVersion": null,
   "resolvedConcepts": [
     {
       "conceptId": 4013354,
@@ -13,6 +9,15 @@
       "domainId": "Procedure",
       "conceptClassId": "Procedure",
       "conceptCode": "112798008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4056812,
+      "conceptName": "Laryngeal intubation for inhalation",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "182709001",
       "standardConcept": "S"
     },
     {
@@ -61,6 +66,33 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 4283807,
+      "conceptName": "Intubation of larynx",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "66861000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4287921,
+      "conceptName": "Retrograde intubation",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "397892004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4303945,
+      "conceptName": "Tracheal intubation through a laryngeal mask airway",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "418613003",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4335481,
       "conceptName": "Orotracheal intubation",
       "vocabularyId": "SNOMED",
@@ -88,39 +120,21 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 4335585,
+      "conceptName": "Endobronchial intubation",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "232687005",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4337045,
       "conceptName": "Blind nasal intubation",
       "vocabularyId": "SNOMED",
       "domainId": "Procedure",
       "conceptClassId": "Procedure",
       "conceptCode": "232681006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4337046,
-      "conceptName": "Minitrach insertion",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "232684003",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4337047,
-      "conceptName": "Insertion of tracheostomy tube",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "232685002",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4337048,
-      "conceptName": "Insertion of tracheal T-tube",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "232686001",
       "standardConcept": "S"
     },
     {
@@ -142,12 +156,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4337618,
-      "conceptName": "Cricothyroidotomy tube insertion",
+      "conceptId": 4337617,
+      "conceptName": "Nasotracheal fiberoptic intubation",
       "vocabularyId": "SNOMED",
       "domainId": "Procedure",
       "conceptClassId": "Procedure",
-      "conceptCode": "232683009",
+      "conceptCode": "232682004",
       "standardConcept": "S"
     },
     {
@@ -184,15 +198,6 @@
       "domainId": "Procedure",
       "conceptClassId": "Procedure",
       "conceptCode": "733509002",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37206251,
-      "conceptName": "Scalpel bougie cricothyroidotomy",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "785906002",
       "standardConcept": "S"
     },
     {

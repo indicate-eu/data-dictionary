@@ -1,0 +1,78 @@
+{
+  "conceptSetId": 357,
+  "vocabularyVersion": null,
+  "resolvedConcepts": [
+    {
+      "conceptId": 3661883,
+      "conceptName": "Nocturnal dual pressure spontaneous ventilation support",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "34291000175108",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4055262,
+      "conceptName": "Dual pressure spontaneous ventilation support",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "243142003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4165535,
+      "conceptName": "Continuous positive airway pressure ventilation treatment",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "47545007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37152400,
+      "conceptName": "Continuous spontaneous ventilation with pressure support",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "1186731003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37152401,
+      "conceptName": "Continuous spontaneous ventilation with volume targeted pressure-support",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "1186732005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37152402,
+      "conceptName": "Continuous spontaneous ventilation with effort support",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "1186733000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37154096,
+      "conceptName": "Pressure support ventilation",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "1259864003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40491848,
+      "conceptName": "Bilevel positive airway pressure titration",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "447243000",
+      "standardConcept": "S"
+    }
+  ]
+}

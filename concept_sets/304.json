@@ -1,32 +1,32 @@
 {
   "id": 304,
   "name": "Humidification Therapy",
-  "description": null,
-  "version": "1.0.0",
+  "description": "Humidification of the breathing circuit: the humidification procedure and the humidifier device (incl. heat-and-moisture exchanger).",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-10",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
       {
         "concept": {
-          "conceptId": 1246607,
-          "conceptName": "High-flow non-heated respiratory humidifier",
-          "domainId": "Device",
+          "conceptId": 4055258,
+          "conceptName": "Humidification therapy",
+          "domainId": "Procedure",
           "vocabularyId": "SNOMED",
-          "conceptClassId": "Physical Object",
+          "conceptClassId": "Procedure",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "48621000087108",
-          "validStartDate": "2023-09-01",
+          "conceptCode": "243130008",
+          "validStartDate": "2002-01-31",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
@@ -44,103 +44,27 @@
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
-        "isExcluded": false,
-        "includeDescendants": false,
+        "isExcluded": true,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 4039398,
-          "conceptName": "Steam inhalations",
-          "domainId": "Procedure",
+          "conceptId": 45768203,
+          "conceptName": "Respiratory humidifier",
+          "domainId": "Device",
           "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
+          "conceptClassId": "Physical Object",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "229304001",
-          "validStartDate": "2002-01-31",
+          "conceptCode": "706180003",
+          "validStartDate": "2014-07-31",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4039921,
-          "conceptName": "Menthol inhalations",
-          "domainId": "Procedure",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "229305000",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4042359,
-          "conceptName": "Ultrasonic humidification",
-          "domainId": "Procedure",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "229302002",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4055258,
-          "conceptName": "Humidification therapy",
-          "domainId": "Procedure",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "243130008",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4116405,
-          "conceptName": "Inspired gas humidification",
-          "domainId": "Procedure",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "286814009",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
@@ -161,44 +85,6 @@
         "isExcluded": false,
         "includeDescendants": false,
         "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4215616,
-          "conceptName": "Fog inhalation therapy",
-          "domainId": "Procedure",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "80677001",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 40760764,
-          "conceptName": "Humidifier heated wire temperature differential setting Ventilator airway circuit",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Clinical Observation",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "57652-0",
-          "validStartDate": "2009-10-20",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
       }
     ]
   },
@@ -209,21 +95,21 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Humidification Therapy",
         "category": "Ventilation",
         "subcategory": "Ventilation device",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Humidification of the breathing circuit: the humidification procedure and the humidifier device (incl. heat-and-moisture exchanger).",
+        "longDescription": "## Definition & Clinical Context\n\nHumidification therapy adds warmth and moisture to the gas a patient breathes. When a patient is intubated or on high-flow oxygen, the upper airway — which normally humidifies inhaled air — is bypassed, so the breathing circuit must humidify the gas to keep secretions thin and protect the airway lining. This concept set captures two kinds of records: the **procedure** (the patient received humidification) and the **device** used (a humidifier or a heat-and-moisture exchanger). It is recorded mainly in intensive care and anaesthesia for ventilated or high-flow-oxygen patients. These are event/device records, not numeric measurements, so there is no unit.\n\n## Included Concepts\n\nThe set is built from two anchors plus the passive heat-and-moisture exchanger device, grouped here by what they represent.\n\n### Humidification procedure\n\nAnchored on *Humidification therapy* with its descendants (the traditional menthol/steam/fog/mist inhalation therapies are excluded — see Excluded Concepts).\n\n- *4055258 / 243130008 — Humidification therapy (SNOMED)*: the general procedure; the default for \"patient received humidification\".\n- *4116405 / 286814009 — Inspired gas humidification (SNOMED)*: humidification of the inspired gas in a breathing circuit.\n- *4042359 / 229302002 — Ultrasonic humidification (SNOMED)*: humidification produced by an ultrasonic nebuliser.\n\n### Humidifier device\n\nAnchored on *Respiratory humidifier* with its descendants, covering the humidifier types used in breathing circuits, plus the passive heat-and-moisture exchanger.\n\n- *45768203 / 706180003 — Respiratory humidifier (SNOMED)*: the general respiratory humidifier device.\n- *45764021 / 700593005 — Heated respiratory humidifier (SNOMED)*: active heated humidifier.\n- *45773241 / 700705005 — Non-heated respiratory humidifier (SNOMED)*: unheated humidifier.\n- *45764272 / 700910000 — Ultrasonic respiratory humidifier (SNOMED)*: ultrasonic humidifier device.\n- *45764051 / 700630004 — High-flow heated respiratory humidifier (SNOMED)*: heated humidifier for high-flow circuits.\n- *1246607 / 48621000087108 — High-flow non-heated respiratory humidifier (SNOMED)*: unheated humidifier for high-flow circuits.\n- *4178391 / 297117007 — Heat and moisture exchanger (SNOMED)*: a passive device (\"artificial nose\") placed in the circuit that traps the patient's exhaled heat and moisture and returns them on the next breath; an alternative to an active humidifier.\n\n## Excluded Concepts\n\nThe traditional inhalation-therapy branch under *Humidification therapy* is excluded, as it covers home/ENT remedies rather than ventilation-circuit humidification:\n\n- *4039397 / 229303007 — Mist inhalation therapy (SNOMED)* and its descendants *4039398 / 229304001 — Steam inhalations*, *4039921 / 229305000 — Menthol inhalations*, and *4215616 / 80677001 — Fog inhalation therapy* (all SNOMED).\n\n## Mapping Notes\n\n- **This set mixes procedures and devices.** Map a humidification *event* to the procedure concepts and a humidifier *device* to the device concepts. Do not mix the two kinds.\n- **Default for an unspecified humidification procedure**: *4055258 / 243130008 — Humidification therapy*. Use *4116405 / 286814009 — Inspired gas humidification* when the source specifically describes humidifying the inspired gas of a breathing circuit.\n- **Default for an unspecified humidifier device**: *45768203 / 706180003 — Respiratory humidifier*. Map to a specific type (heated, non-heated, ultrasonic, high-flow) only when the source states it.\n- **Active humidifier vs HME**: map a passive heat-and-moisture exchanger (\"artificial nose\") to *4178391 / 297117007 — Heat and moisture exchanger*, not to a humidifier device — they are different pieces of equipment.\n- **Humidifier temperature settings** (chamber temperature, target temperature, heated-wire differential) are numeric measurements and are intentionally not part of this set, which is limited to procedures and devices.\n- **Traditional inhalation therapies** (steam, menthol, fog, mist) are not part of this set and should not be mapped here."
       },
       "fr": {
         "name": "Oxygénothérapie humidifiée",
         "category": "Ventilation",
         "subcategory": "Dispositif de ventilation",
-        "shortDescription": null,
+        "shortDescription": "Humidification du circuit de ventilation : la procédure d’humidification et le dispositif humidificateur (y compris échangeur chaleur-humidité).",
         "longDescription": null
       }
     },
@@ -235,7 +121,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-10",
+        "author": "Boris Delange",
+        "message": "Restructure on two anchors, procedures + devices only (homogeneous set): Humidification therapy (4055258, descendants, excluding the traditional mist/steam/menthol/fog inhalation branch 4039397) and Respiratory humidifier device (45768203, descendants) + Heat and moisture exchanger (4178391). Humidifier temperature measurements removed (kept out to keep the set homogeneous). Resolves to 10. Added clinical description."
+      }
+    ],
     "distributionStats": null
   }
 }

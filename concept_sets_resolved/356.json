@@ -1,0 +1,51 @@
+{
+  "conceptSetId": 356,
+  "vocabularyVersion": null,
+  "resolvedConcepts": [
+    {
+      "conceptId": 4337046,
+      "conceptName": "Minitrach insertion",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "232684003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4337047,
+      "conceptName": "Insertion of tracheostomy tube",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "232685002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4337048,
+      "conceptName": "Insertion of tracheal T-tube",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "232686001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4337618,
+      "conceptName": "Cricothyroidotomy tube insertion",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "232683009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37206251,
+      "conceptName": "Scalpel bougie cricothyroidotomy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "785906002",
+      "standardConcept": "S"
+    }
+  ]
+}
