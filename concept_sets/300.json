@@ -1,91 +1,15 @@
 {
   "id": 300,
   "name": "Tracheostomy tube",
-  "description": null,
-  "version": "1.0.0",
+  "description": "Tracheostomy tube device of any type (anchored on the SNOMED device with all its descendant variants).",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-10",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
-      {
-        "concept": {
-          "conceptId": 605799,
-          "conceptName": "Tracheostomy tube cannula",
-          "domainId": "Device",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Physical Object",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "1137710007",
-          "validStartDate": "2021-07-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 1076451,
-          "conceptName": "Tracheostomy tube inner cannula",
-          "domainId": "Device",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Physical Object",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "1343640004",
-          "validStartDate": "2024-08-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 1076472,
-          "conceptName": "Fenestrated tracheostomy tube",
-          "domainId": "Device",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Physical Object",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "1343696006",
-          "validStartDate": "2024-08-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 1076494,
-          "conceptName": "Non-fenestrated tracheostomy tube",
-          "domainId": "Device",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Physical Object",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "1344664005",
-          "validStartDate": "2024-08-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
       {
         "concept": {
           "conceptId": 4044008,
@@ -102,26 +26,7 @@
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 36713922,
-          "conceptName": "Laryngectomy tube, non-sterile",
-          "domainId": "Device",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Physical Object",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "718933007",
-          "validStartDate": "2017-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       }
     ]
@@ -133,21 +38,21 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Tracheostomy tube",
         "category": "Ventilation",
         "subcategory": "Airway device",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Tracheostomy tube device of any type (anchored on the SNOMED device with all its descendant variants).",
+        "longDescription": "## Definition & Clinical Context\n\nA tracheostomy tube is a tube inserted through a surgical opening in the front of the neck (a stoma) directly into the trachea, bypassing the mouth and larynx to secure the airway. In source data this is a **device** record, not a measurement: each entry identifies the type of tube placed in a patient, with no associated value or unit. It is recorded in intensive care (for patients on prolonged ventilation or with weaning difficulties) and in patients with a long-term or permanent tracheostomy. The variants in this set differ by design (fenestrated vs not, reinforced), by component (inner/outer cannula), or by the specific stoma context (laryngectomy), but all are tracheostomy-route airway devices.\n\n## Included Concepts\n\nThe set is anchored on the single SNOMED device concept *Tracheostomy tube* with all its descendants, so every more specific type resolves automatically (and future SNOMED additions are captured without editing the set). This currently resolves to 10 concepts, grouped here by what distinguishes them.\n\n### Generic tracheostomy tube (default)\n\nUse this when the source records a tracheostomy tube without specifying a type.\n\n- *4044008 / 129121000 — Tracheostomy tube (SNOMED)*: the general device concept; the default for any unspecified tracheostomy tube.\n\n### By design\n\n- *1076472 / 1343696006 — Fenestrated tracheostomy tube (SNOMED)*: has an opening (fenestration) in the outer cannula to allow airflow through the upper airway (e.g. to support speech).\n- *1076494 / 1344664005 — Non-fenestrated tracheostomy tube (SNOMED)*: no fenestration.\n- *45760063 / 465608000 — Reinforced tracheostomy tube (SNOMED)*: wall-reinforced tube resistant to kinking or compression.\n\n### By component (cannula)\n\nA tracheostomy tube assembly has an outer and (often) a removable inner cannula. These concepts identify the cannula component specifically.\n\n- *605799 / 1137710007 — Tracheostomy tube cannula (SNOMED)*: a tracheostomy tube cannula (outer/generic).\n- *1076451 / 1343640004 — Tracheostomy tube inner cannula (SNOMED)*: the removable inner cannula.\n\n### By stoma context / use\n\n- *45758602 / 463384005 — Operative tracheostomy tube (SNOMED)*: tube used for a surgically created tracheostomy.\n- *45772047 / 470610002 — Laryngectomy tube (SNOMED)*: tube for a patient whose larynx has been removed (permanent stoma).\n- *36713922 / 718933007 — Laryngectomy tube, non-sterile (SNOMED)*: non-sterile laryngectomy tube variant.\n- *45759423 / 464651008 — Oxygen administration transtracheal catheter (SNOMED)*: a thin catheter delivering oxygen directly into the trachea via a stoma; filed under this hierarchy in SNOMED, though it is a transtracheal oxygen device rather than a full tracheostomy tube.\n\n## Mapping Notes\n\n- **Default concept** when the source records a tracheostomy tube without a specific type: *4044008 / 129121000 — Tracheostomy tube*. Do not infer a specific variant from indirect clues — if the type is not documented, map to the generic concept.\n- **Endotracheal tubes are a separate device** and do not belong here; they have their own concept set. A tracheostomy tube enters through a surgical neck stoma; an endotracheal tube passes through the mouth or nose and the larynx.\n- **This set is about the device, not the act**: creating the tracheostomy, inserting, changing or removing the tube are procedures captured in their own concept sets, not here.\n- **Cannula components**: *605799 / 1137710007 — Tracheostomy tube cannula* and *1076451 / 1343640004 — Tracheostomy tube inner cannula* identify a cannula part rather than a complete tube; map to these only when the source explicitly records the cannula component."
       },
       "fr": {
         "name": "Canule de trachéotomie",
         "category": "Ventilation",
         "subcategory": "Dispositif des voies aériennes",
-        "shortDescription": null,
+        "shortDescription": "Dispositif de type canule de trachéotomie, quel qu’il soit (ancré sur le concept SNOMED et toutes ses variantes descendantes).",
         "longDescription": null
       }
     },
@@ -159,7 +64,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-10",
+        "author": "Boris Delange",
+        "message": "Simplify definition: replace the flat list of 6 device variants with a single anchor on Tracheostomy tube (4044008) + includeDescendants (resolves to 10, adding laryngectomy tube, operative and reinforced tracheostomy tubes, and the transtracheal oxygen catheter). Added clinical description."
+      }
+    ],
     "distributionStats": null
   }
 }

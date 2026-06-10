@@ -1,9 +1,6 @@
 {
   "conceptSetId": 300,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
-  },
+  "vocabularyVersion": null,
   "resolvedConcepts": [
     {
       "conceptId": 605799,
@@ -57,6 +54,42 @@
       "domainId": "Device",
       "conceptClassId": "Physical Object",
       "conceptCode": "718933007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45758602,
+      "conceptName": "Operative tracheostomy tube",
+      "vocabularyId": "SNOMED",
+      "domainId": "Device",
+      "conceptClassId": "Physical Object",
+      "conceptCode": "463384005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45759423,
+      "conceptName": "Oxygen administration transtracheal catheter",
+      "vocabularyId": "SNOMED",
+      "domainId": "Device",
+      "conceptClassId": "Physical Object",
+      "conceptCode": "464651008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45760063,
+      "conceptName": "Reinforced tracheostomy tube",
+      "vocabularyId": "SNOMED",
+      "domainId": "Device",
+      "conceptClassId": "Physical Object",
+      "conceptCode": "465608000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45772047,
+      "conceptName": "Laryngectomy tube",
+      "vocabularyId": "SNOMED",
+      "domainId": "Device",
+      "conceptClassId": "Physical Object",
+      "conceptCode": "470610002",
       "standardConcept": "S"
     }
   ]
