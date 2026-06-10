@@ -157,7 +157,7 @@
     }
 
     function isTruncated(el) {
-      // An element is "tronqué" only if its layout actually clips text — i.e.
+      // An element is truncated only if its layout actually clips text — i.e.
       // it has overflow != visible AND content overflows. Wrapping onto multi-
       // ple lines is not truncation (the text is still all visible).
       // Also check direct children: a wrapper cell may not overflow if a child

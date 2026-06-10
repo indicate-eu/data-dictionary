@@ -915,7 +915,7 @@ var DocumentationPage = (function() {
       + '<h2>Optional: Import OHDSI Vocabularies</h2>'
       + '<p>For advanced features (concept search, descendant expansion, hierarchy visualization, '
       + 'concept set optimization), you can import OHDSI vocabulary files into a local DuckDB database '
-      + 'that runs in the browser. See ' + docLink('ohdsi-vocabularies', 'OHDSI Vocabularies') + '.</p>'
+      + 'that runs in the browser. See ' + docLink('dictionary-settings', 'OHDSI Vocabularies') + '.</p>'
 
       + '<h2>User Profile</h2>'
       + '<p>Click your name in the top-right corner to set your profile.</p>'
@@ -1057,7 +1057,7 @@ var DocumentationPage = (function() {
       + '<p>Shows the expanded result after applying all expression logic. This is the actual set of '
       + 'OMOP concepts that would be used in a query. Columns include Concept ID, Vocabulary, Name, '
       + 'Code, Domain, Standard, and Concept Class.</p>'
-      + '<p>If an OHDSI vocabulary database is loaded (see ' + docLink('ohdsi-vocabularies', 'OHDSI Vocabularies') + '), '
+      + '<p>If an OHDSI vocabulary database is loaded (see ' + docLink('dictionary-settings', 'OHDSI Vocabularies') + '), '
       + 'resolution is computed live in the browser. Otherwise, pre-computed resolved sets from the '
       + 'repository are used.</p>'
       + '<p style="font-size:12px; color:var(--text-muted); margin-bottom:4px"><i class="fas fa-info-circle"></i> '
@@ -1312,10 +1312,10 @@ var DocumentationPage = (function() {
       + '<h4>' + (App.lang === 'en' ? 'OHDSI Vocabularies' : 'Vocabulaires OHDSI') + '</h4>'
       + '<p>' + (App.lang === 'en'
         ? 'Search the local OHDSI vocabulary database by name, concept ID, or code. Requires '
-          + docLink('ohdsi-vocabularies', 'importing vocabularies') + ' first. '
+          + docLink('dictionary-settings', 'importing vocabularies') + ' first. '
           + 'The search uses <strong>fuzzy matching</strong> on concept names.'
         : 'Recherchez dans la base de vocabulaires OHDSI locale par nom, ID ou code. N\u00e9cessite l\u2019'
-          + docLink('ohdsi-vocabularies', 'import des vocabulaires')
+          + docLink('dictionary-settings', 'import des vocabulaires')
           + '. La recherche utilise une <strong>correspondance floue</strong> sur les noms.')
       + '</p>'
 
@@ -3274,7 +3274,7 @@ var DocumentationPage = (function() {
       + '<p>Pour les fonctionnalit\u00e9s avanc\u00e9es (recherche de concepts, expansion des descendants, '
       + 'visualisation hi\u00e9rarchique, optimisation des expressions), vous pouvez importer les fichiers '
       + 'de vocabulaires OHDSI dans une base DuckDB locale qui fonctionne dans le navigateur. '
-      + 'Voir ' + docLink('ohdsi-vocabularies', 'Vocabulaires OHDSI') + '.</p>'
+      + 'Voir ' + docLink('dictionary-settings', 'Vocabulaires OHDSI') + '.</p>'
 
       + '<h2>Profil utilisateur</h2>'
       + '<p>Cliquez sur votre nom en haut \u00e0 droite pour configurer votre profil.</p>'
@@ -3420,7 +3420,7 @@ var DocumentationPage = (function() {
       + '<p>Affiche le r\u00e9sultat \u00e9tendu apr\u00e8s application de toute la logique de l\u2019expression. '
       + 'C\u2019est l\u2019ensemble r\u00e9el de concepts OMOP qui serait utilis\u00e9 dans une requ\u00eate. '
       + 'Les colonnes incluent ID du concept, Vocabulaire, Nom, Code, Domaine, Standard et Classe de concept.</p>'
-      + '<p>Si une base de vocabulaires OHDSI est charg\u00e9e (voir ' + docLink('ohdsi-vocabularies', 'Vocabulaires OHDSI') + '), '
+      + '<p>Si une base de vocabulaires OHDSI est charg\u00e9e (voir ' + docLink('dictionary-settings', 'Vocabulaires OHDSI') + '), '
       + 'la r\u00e9solution est calcul\u00e9e en temps r\u00e9el dans le navigateur. Sinon, les jeux r\u00e9solus '
       + 'pr\u00e9-calcul\u00e9s du d\u00e9p\u00f4t sont utilis\u00e9s.</p>'
       + '<p style="font-size:12px; color:var(--text-muted); margin-bottom:4px"><i class="fas fa-info-circle"></i> '
@@ -3628,7 +3628,7 @@ var DocumentationPage = (function() {
 
       + '<h4>Vocabulaires OHDSI</h4>'
       + '<p>Recherchez dans la base de vocabulaires OHDSI locale par nom, ID ou code. N\u00e9cessite l\u2019'
-      + docLink('ohdsi-vocabularies', 'import des vocabulaires')
+      + docLink('dictionary-settings', 'import des vocabulaires')
       + '. La recherche utilise une <strong>correspondance floue</strong> sur les noms.</p>'
       + '<div class="doc-mock-modal" style="max-width:100%; padding:12px 16px">'
       + '<div style="display:flex; gap:6px; align-items:center; flex-wrap:wrap">'
@@ -4593,7 +4593,14 @@ var DocumentationPage = (function() {
       currentSection = 'introduction';
       section = c['introduction'];
     }
-    _docSqlEditor = null;
+    // The innerHTML swap below destroys the DOM that the Ace editor and the
+    // vis.Network instances were attached to — destroy and forget them so they
+    // are rebuilt on the fresh nodes when their section/tab is next shown.
+    if (_docSqlEditor) { _docSqlEditor.destroy(); _docSqlEditor = null; }
+    Object.keys(_hierarchyGraphs).forEach(function(k) {
+      try { _hierarchyGraphs[k].destroy(); } catch (e) {}
+    });
+    _hierarchyGraphs = {};
     if (!isDev() && isSectionDraft(currentSection)) {
       document.getElementById('doc-content-inner').innerHTML = draftPlaceholder();
     } else {
@@ -4602,16 +4609,24 @@ var DocumentationPage = (function() {
     setTimeout(initDocSqlEditor, 50);
   }
 
-  function renderToc() {
+  // Headings eligible for the TOC: everything except those inside UI mocks and
+  // cards. The TOC builder and the scroll-spy must share this filter, otherwise
+  // the spy computes section boundaries against headings the TOC doesn't show.
+  function tocHeadings() {
     var container = document.getElementById('doc-content-inner');
-    var tocEl = document.getElementById('doc-toc');
-    if (!container || !tocEl) return;
-    var allHeadings = container.querySelectorAll('h2, h3, h4');
-    // Exclude headings inside UI mocks
+    if (!container) return [];
+    var all = container.querySelectorAll('h2, h3, h4');
     var headings = [];
-    for (var k = 0; k < allHeadings.length; k++) {
-      if (!allHeadings[k].closest('.doc-mock-modal, .doc-mock-table, .doc-feature-card, .doc-audience-card, .project-card')) headings.push(allHeadings[k]);
+    for (var k = 0; k < all.length; k++) {
+      if (!all[k].closest('.doc-mock-modal, .doc-mock-table, .doc-feature-card, .doc-audience-card, .project-card')) headings.push(all[k]);
     }
+    return headings;
+  }
+
+  function renderToc() {
+    var tocEl = document.getElementById('doc-toc');
+    if (!tocEl) return;
+    var headings = tocHeadings();
     if (headings.length === 0) { tocEl.innerHTML = ''; return; }
 
     // Assign IDs to headings that don't have one
@@ -4627,7 +4642,7 @@ var DocumentationPage = (function() {
       var h = headings[j];
       var level = h.tagName.toLowerCase();
       html += '<li class="toc-' + level + '"><a href="javascript:void(0)" data-toc-target="' + h.id + '">'
-        + h.textContent + '</a></li>';
+        + App.escapeHtml(h.textContent) + '</a></li>';
     }
     html += '</ul>';
     tocEl.innerHTML = html;
@@ -4643,11 +4658,7 @@ var DocumentationPage = (function() {
     // Remove previous handler
     if (tocScrollHandler) contentEl.removeEventListener('scroll', tocScrollHandler);
 
-    var allH = document.getElementById('doc-content-inner').querySelectorAll('h2, h3, h4');
-    var headings = [];
-    for (var m = 0; m < allH.length; m++) {
-      if (!allH[m].closest('.doc-mock-modal, .doc-mock-table')) headings.push(allH[m]);
-    }
+    var headings = tocHeadings();
     if (headings.length === 0) return;
 
     tocScrollHandler = function() {

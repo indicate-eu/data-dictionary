@@ -18,6 +18,30 @@ var App = (function() {
   var unitConversions = [];
   var recommendedUnits = [];
   var mappingRecommendations = {};
+
+  // localStorage may hold corrupted JSON (interrupted writes, manual edits) and
+  // setItem can throw QuotaExceededError; neither must crash the module load —
+  // an exception here would leave `App` undefined and brick the whole SPA.
+  function safeParse(key, fallback) {
+    try {
+      var raw = localStorage.getItem(key);
+      return raw == null ? fallback : JSON.parse(raw);
+    } catch (e) {
+      console.error('Ignoring corrupted localStorage value for ' + key + ':', e);
+      return fallback;
+    }
+  }
+  function safeSet(key, value) {
+    try {
+      localStorage.setItem(key, value);
+      return true;
+    } catch (e) {
+      console.error('Failed to write localStorage key ' + key + ':', e);
+      showToast(i18n('Saving locally failed (storage may be full). Your latest change may be lost on reload.'), 'error', 6000);
+      return false;
+    }
+  }
+
   // Lang resolution order: URL (?lang=fr) → localStorage → 'en'. URL wins so
   // shared links open in the intended language even if the recipient previously
   // chose the other one in this browser.
@@ -29,10 +53,12 @@ var App = (function() {
       var pairs = hash.substring(qIdx + 1).split('&');
       for (var i = 0; i < pairs.length; i++) {
         var kv = pairs[i].split('=');
-        if (decodeURIComponent(kv[0]) === 'lang') {
-          var v = decodeURIComponent(kv[1] || '');
-          if (v === 'en' || v === 'fr') return v;
-        }
+        try {
+          if (decodeURIComponent(kv[0]) === 'lang') {
+            var v = decodeURIComponent(kv[1] || '');
+            if (v === 'en' || v === 'fr') return v;
+          }
+        } catch (e) { /* malformed percent-encoding in a shared link — skip the pair */ }
       }
       return null;
     })();
@@ -44,19 +70,19 @@ var App = (function() {
   })();
   var resolvedIndex = {}; // conceptSetId -> resolvedConcepts[]
   var resolvedDeferred = {}; // conceptSetId -> { count, promise? }
-  var sessionReviews = JSON.parse(localStorage.getItem('indicate_reviews') || '{}');
+  var sessionReviews = safeParse('indicate_reviews', {});
   var languageChangeCallbacks = [];
   var beforeNavigateCallbacks = [];
   var homeCallbacks = [];
-  var userConceptSets = JSON.parse(localStorage.getItem('indicate_user_cs') || '[]');
-  var userProjects = JSON.parse(localStorage.getItem('indicate_user_proj') || '[]');
+  var userConceptSets = safeParse('indicate_user_cs', []);
+  var userProjects = safeParse('indicate_user_proj', []);
   // Mapping projects: local-only workspaces (a centre's source-to-concept-map +
   // eligibility evaluation against INDICATE projects). Stored only in
   // localStorage — they may contain centre-specific data and are never proposed
   // back to the repo.
-  var mappingProjects = JSON.parse(localStorage.getItem('indicate_mapping_projects') || '[]');
-  var modifiedCsIds = new Set(JSON.parse(localStorage.getItem('indicate_modified_cs_ids') || '[]'));
-  var modifiedProjIds = new Set(JSON.parse(localStorage.getItem('indicate_modified_proj_ids') || '[]'));
+  var mappingProjects = safeParse('indicate_mapping_projects', []);
+  var modifiedCsIds = new Set(safeParse('indicate_modified_cs_ids', []));
+  var modifiedProjIds = new Set(safeParse('indicate_modified_proj_ids', []));
 
   // Migrate legacy localStorage projects to the current schema:
   //  - very old flat format (name/description/justification) → translations
@@ -104,31 +130,15 @@ var App = (function() {
         }
       });
     });
-    if (migrated) localStorage.setItem('indicate_user_proj', JSON.stringify(userProjects));
+    if (migrated) safeSet('indicate_user_proj', JSON.stringify(userProjects));
   })();
 
   // ==================== DATA LOADING ====================
   function loadData(callback) {
-    var hiddenIds = JSON.parse(localStorage.getItem('indicate_hidden_cs') || '[]');
-    var hiddenSet = {};
-    hiddenIds.forEach(function(id) { hiddenSet[id] = true; });
-    // User-modified repo CS override originals; hidden ones are excluded
-    var userIdSet = {};
-    userConceptSets.forEach(function(cs) { userIdSet[cs.id] = true; });
-    var repoCS = (DATA.conceptSets || []).filter(function(cs) { return !hiddenSet[cs.id] && !userIdSet[cs.id]; });
-    conceptSets = repoCS.concat(userConceptSets);
-    // Merge user projects with repo projects (user overrides repo)
-    var hiddenProjIds = JSON.parse(localStorage.getItem('indicate_hidden_proj') || '[]');
-    var hiddenProjSet = {};
-    hiddenProjIds.forEach(function(id) { hiddenProjSet[id] = true; });
-    var userProjIdSet = {};
-    userProjects.forEach(function(p) { userProjIdSet[p.id] = true; });
-    var repoProj = (DATA.projects || []).filter(function(p) { return !hiddenProjSet[p.id] && !userProjIdSet[p.id]; });
-    projects = repoProj.concat(userProjects);
+    reloadMergedData();
     unitConversions = DATA.unitConversions || [];
     recommendedUnits = DATA.recommendedUnits || [];
-    var userMR = localStorage.getItem('indicate_user_mapping');
-    mappingRecommendations = userMR ? JSON.parse(userMR) : (DATA.mappingRecommendations || {});
+    mappingRecommendations = safeParse('indicate_user_mapping', null) || (DATA.mappingRecommendations || {});
     var resolved = DATA.resolvedConceptSets || [];
     resolved.forEach(function(r) {
       if (r.resolvedDeferred) {
@@ -156,8 +166,10 @@ var App = (function() {
     localStorage.setItem('indicate_cs_fingerprints', JSON.stringify(fp));
   }
 
+  // Merge repo data with local overrides: user-modified items replace the repo
+  // version, hidden ones are excluded. Shared by loadData and the update flow.
   function reloadMergedData() {
-    var hiddenIds = JSON.parse(localStorage.getItem('indicate_hidden_cs') || '[]');
+    var hiddenIds = safeParse('indicate_hidden_cs', []);
     var hiddenSet = {};
     hiddenIds.forEach(function(id) { hiddenSet[id] = true; });
     var userIdSet = {};
@@ -165,7 +177,7 @@ var App = (function() {
     var repoCS = (DATA.conceptSets || []).filter(function(cs) { return !hiddenSet[cs.id] && !userIdSet[cs.id]; });
     conceptSets = repoCS.concat(userConceptSets);
 
-    var hiddenProjIds = JSON.parse(localStorage.getItem('indicate_hidden_proj') || '[]');
+    var hiddenProjIds = safeParse('indicate_hidden_proj', []);
     var hiddenProjSet = {};
     hiddenProjIds.forEach(function(id) { hiddenProjSet[id] = true; });
     var userProjIdSet = {};
@@ -348,11 +360,14 @@ var App = (function() {
     document.getElementById('data-update-modal').style.display = '';
 
     // Store pending merge info for the apply handler
-    window._pendingMerge = { merge: merge, newVersion: newVersion, newHash: newHash };
+    pendingMerge = { merge: merge, newVersion: newVersion, newHash: newHash };
   }
 
+  // Pending merge info between showUpdateModal and applyMergeDecisions
+  var pendingMerge = null;
+
   function applyMergeDecisions() {
-    var pending = window._pendingMerge;
+    var pending = pendingMerge;
     if (!pending) return;
     var merge = pending.merge;
 
@@ -378,7 +393,7 @@ var App = (function() {
     reloadMergedData();
 
     document.getElementById('data-update-modal').style.display = 'none';
-    delete window._pendingMerge;
+    pendingMerge = null;
 
     showToast(i18n('Data updated successfully'), 'success');
     // Trigger re-render on page modules
@@ -405,7 +420,7 @@ var App = (function() {
     }
 
     // Data changed — detect remote changes and compute merge
-    var oldFingerprints = JSON.parse(localStorage.getItem('indicate_cs_fingerprints') || '{}');
+    var oldFingerprints = safeParse('indicate_cs_fingerprints', {});
     var changes = detectRemoteChanges(oldFingerprints);
     var merge = computeMerge();
 
@@ -505,7 +520,6 @@ var App = (function() {
     'Subcategory':                   { fr: 'Sous-catégorie' },
     'Name':                          { fr: 'Nom' },
     'Description':                   { fr: 'Description' },
-    'Version':                       { fr: 'Version' },
     'Status':                        { fr: 'Statut' },
     'Concept ID':                    { fr: 'ID Concept' },
     'Vocabulary':                    { fr: 'Vocabulaire' },
@@ -574,7 +588,6 @@ var App = (function() {
     'Preview will appear here...':   { fr: 'L\'aperçu apparaîtra ici...' },
 
     // Projects page
-    'Concept Sets':                  { fr: 'Jeux de concepts' },
     'No description':                { fr: 'Pas de description' },
     'Actions':                       { fr: 'Actions' },
     'concept sets':                  { fr: 'jeux de concepts' },
@@ -657,7 +670,6 @@ var App = (function() {
     'e.g. Heart Rate':               { fr: 'ex. Fréquence cardiaque' },
     'Category *':                    { fr: 'Catégorie *' },
     'Select a category...':          { fr: 'Sélectionner une catégorie...' },
-    'Subcategory':                   { fr: 'Sous-catégorie' },
     'Select a subcategory...':       { fr: 'Sélectionner une sous-catégorie...' },
     'Brief description of the concept set...': { fr: 'Brève description du jeu de concepts...' },
 
@@ -748,7 +760,6 @@ var App = (function() {
     ' selected concept set':         { fr: ' jeu de concepts sélectionné' },
     ' selected concept sets':        { fr: ' jeux de concepts sélectionnés' },
     'Download ':                     { fr: 'Télécharger ' },
-    ' selected concept set':         { fr: ' jeu de concepts sélectionné' },
     'Concept set updated.':          { fr: 'Jeu de concepts mis à jour.' },
     'Concept set created.':          { fr: 'Jeu de concepts créé.' },
     'Project updated.':              { fr: 'Projet mis à jour.' },
@@ -760,9 +771,10 @@ var App = (function() {
 
     // Settings
     'OHDSI Vocabularies':            { fr: 'Vocabulaires OHDSI' },
+    'Saving locally failed (storage may be full). Your latest change may be lost on reload.': { fr: 'L\'enregistrement local a échoué (stockage plein ?). Votre dernière modification peut être perdue au rechargement.' },
+    'Resolved concept data is not available for these versions, so the change list cannot be shown.': { fr: 'Les concepts résolus ne sont pas disponibles pour ces versions, la liste des changements ne peut pas être affichée.' },
     'Load a DuckDB (.duckdb) or SQLite (.sqlite / .db) database containing OMOP vocabulary tables.': { fr: 'Chargez une base de données DuckDB (.duckdb) ou SQLite (.sqlite / .db) contenant les tables de vocabulaire OMOP.' },
     'Load vocabulary database':      { fr: 'Charger la base de vocabulaire' },
-    'Mapping Recommendations':       { fr: 'Recommandations de mapping' },
     'No mapping recommendations available.': { fr: 'Aucune recommandation de mapping disponible.' },
     'Mapping recommendations saved.': { fr: 'Recommandations de mapping enregistrées.' },
     'Units':                         { fr: 'Unités' },
@@ -774,27 +786,22 @@ var App = (function() {
 
     // Multi-select
     'selected':                      { fr: 'sélectionné(s)' },
-    'Select all':                    { fr: 'Tout cocher' },
     'Deselect all':                  { fr: 'Tout décocher' },
 
     // Review form
     'Submit Review':                 { fr: 'Soumettre la relecture' },
     'Propose on GitHub':             { fr: 'Proposer sur GitHub' },
     'Copy to clipboard and open GitHub editor': { fr: 'Copier dans le presse-papiers et ouvrir l\'éditeur GitHub' },
-    'JSON copied to clipboard! Paste it in the GitHub editor.': { fr: 'JSON copié dans le presse-papiers ! Collez-le dans l\'éditeur GitHub.' },
     'Download File':                 { fr: 'Télécharger le fichier' },
     'Copy to Clipboard':             { fr: 'Copier dans le presse-papiers' },
-    'Export Concept Set':            { fr: 'Exporter le Concept Set' },
     'Export Mapping Recommendations': { fr: 'Exporter les Recommandations de Mapping' },
     'Export Project':                { fr: 'Exporter le Projet' },
     'Copy JSON to clipboard':        { fr: 'Copier le JSON dans le presse-papiers' },
-    'Copied to clipboard!':          { fr: 'Copié dans le presse-papiers !' },
     'Could not copy to clipboard.':  { fr: 'Impossible de copier dans le presse-papiers.' },
     '-- Select status --':           { fr: '-- Sélectionner un statut --' },
     'Status:':                       { fr: 'Statut :' },
 
     // Custom concepts
-    'OHDSI Vocabularies':            { fr: 'Vocabulaires OHDSI' },
     'Custom Concept':                { fr: 'Concept personnalisé' },
     'Add Custom Concept':            { fr: 'Ajouter un concept personnalisé' },
     'Custom Concepts Added':         { fr: 'Concepts personnalisés ajoutés' },
@@ -805,7 +812,6 @@ var App = (function() {
     'Custom concepts use the INDICATE vocabulary': { fr: 'Les concepts personnalisés utilisent le vocabulaire INDICATE' },
     '-- Select --':                  { fr: '-- Sélectionner --' },
     'Standard Concept':              { fr: 'Concept standard' },
-    'Concept Class':                 { fr: 'Classe du concept' },
     'Please enter a concept name.':  { fr: 'Veuillez saisir un nom de concept.' },
     'Please select a domain.':       { fr: 'Veuillez sélectionner un domaine.' },
     'Please select a concept class.': { fr: 'Veuillez sélectionner une classe.' },
@@ -855,6 +861,8 @@ var App = (function() {
     'Loading…':                      { fr: 'Chargement…' },
     'Select…':                       { fr: 'Sélectionner…' },
     'Download as mapping_recommendations.json': { fr: 'Télécharger en mapping_recommendations.json' },
+    'Download as {file}':            { fr: 'Télécharger en {file}' },
+    'A mapping project with this name already exists.': { fr: 'Un projet de mapping avec ce nom existe déjà.' },
     'OMOP source_to_concept_map':    { fr: 'OMOP source_to_concept_map' },
     'Single-column concept_id list': { fr: 'Liste concept_id en une colonne' },
     'CSV with concept_id + source':  { fr: 'CSV avec concept_id + source' },
@@ -915,7 +923,7 @@ var App = (function() {
   function escapeHtml(s) {
     if (s == null) return '';
     if (typeof s !== 'string') s = String(s);
-    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
   }
 
   var toastIcons = { error: 'fa-circle-exclamation', success: 'fa-circle-check', warning: 'fa-triangle-exclamation', info: 'fa-circle-info' };
@@ -947,10 +955,15 @@ var App = (function() {
         var h = typeof token === 'object' ? token.href : token;
         var ti = typeof token === 'object' ? token.title : arguments[1];
         var tx = typeof token === 'object' ? token.text : arguments[2];
+        if (h && !/^(https?:|mailto:|#)/i.test(String(h).trim())) h = '';
         var t = ti ? ' title="' + escapeHtml(ti) + '"' : '';
-        return '<a href="' + escapeHtml(h) + '"' + t + ' target="_blank" rel="noopener noreferrer">' + (tx || '') + '</a>';
+        return '<a href="' + escapeHtml(h) + '"' + t + ' target="_blank" rel="noopener noreferrer">' + escapeHtml(tx || '') + '</a>';
       };
-      return marked.parse(s, { renderer: renderer });
+      var html = marked.parse(s, { renderer: renderer });
+      if (typeof DOMPurify !== 'undefined' && DOMPurify.sanitize) {
+        html = DOMPurify.sanitize(html, { ADD_ATTR: ['target'] });
+      }
+      return html;
     }
     // Fallback if marked not loaded
     var html = escapeHtml(s);
@@ -965,6 +978,24 @@ var App = (function() {
       }
       return '<p>' + block.replace(/\n/g, '<br>') + '</p>';
     }).join('');
+  }
+
+  // Numeric-aware semantic version compare ("1.10.0" > "1.2.0"). Non-numeric
+  // segments fall back to string comparison.
+  function compareVersions(a, b) {
+    var pa = String(a || '').split('.');
+    var pb = String(b || '').split('.');
+    var n = Math.max(pa.length, pb.length);
+    for (var i = 0; i < n; i++) {
+      var x = pa[i] || '0', y = pb[i] || '0';
+      var nx = parseInt(x, 10), ny = parseInt(y, 10);
+      if (!isNaN(nx) && !isNaN(ny)) {
+        if (nx !== ny) return nx - ny;
+      } else if (x !== y) {
+        return x < y ? -1 : 1;
+      }
+    }
+    return 0;
   }
 
   function fuzzyMatch(text, query) {
@@ -1111,6 +1142,9 @@ var App = (function() {
     });
     dropdown.addEventListener('change', function(e) {
       var cb = e.target;
+      // The search input inside the dropdown also fires `change` on blur —
+      // its undefined `checked` would silently deselect a same-named value.
+      if (cb.type !== 'checkbox') return;
       if (cb.checked) selectedSet.add(cb.value); else selectedSet.delete(cb.value);
       toggle.innerHTML = toggleLabel() + ' <i class="fas fa-chevron-down" style="font-size:9px;margin-left:2px"></i>';
       onChange();
@@ -1125,6 +1159,51 @@ var App = (function() {
       function getLabel(v) { return labelMap ? (labelMap[v] || v) : v; }
       toggle.innerHTML = (selectedSet.size === 0 ? i18n('All') : selectedSet.size === 1 ? escapeHtml(getLabel([...selectedSet][0])) : selectedSet.size + ' ' + i18n('selected')) + ' <i class="fas fa-chevron-down" style="font-size:9px;margin-left:2px"></i>';
     }
+  }
+
+  /**
+   * Shared project-card markup (Projects page + Mapping page).
+   * opts: { id, menuIdPrefix, extraClass?, title, description?, footer: [{icon, text}] }
+   * The card carries an Edit/Delete menu; click wiring stays page-local.
+   */
+  function projectCard(opts) {
+    var id = escapeHtml(String(opts.id));
+    return '<div class="project-card' + (opts.extraClass ? ' ' + opts.extraClass : '') + '" data-id="' + id + '">' +
+      '<button class="project-card-menu-btn" data-menu-id="' + id + '" title="' + escapeHtml(i18n('Actions')) + '"><i class="fas fa-ellipsis-v"></i></button>' +
+      '<div class="project-card-menu" id="' + opts.menuIdPrefix + id + '">' +
+        '<button class="project-card-menu-item" data-action="edit" data-id="' + id + '"><i class="fas fa-pen"></i> ' + i18n('Edit') + '</button>' +
+        '<button class="project-card-menu-item danger" data-action="delete" data-id="' + id + '"><i class="fas fa-trash"></i> ' + i18n('Delete') + '</button>' +
+      '</div>' +
+      '<h3>' + escapeHtml(opts.title || '') + '</h3>' +
+      '<p title="' + escapeHtml(opts.description || '') + '">' + escapeHtml(opts.description || i18n('No description')) + '</p>' +
+      '<div class="project-card-footer">' +
+        (opts.footer || []).map(function(f) {
+          return '<span><i class="fas ' + f.icon + '"></i> ' + escapeHtml(f.text) + '</span>';
+        }).join('') +
+      '</div>' +
+    '</div>';
+  }
+
+  /**
+   * Shared concept-list row (diff modal, mapping coverage modal): sign chip +
+   * Athena link + name + vocabulary badge. opts: { sign, color, bg }.
+   */
+  function conceptListLine(c, opts) {
+    var url = 'https://athena.ohdsi.org/search-terms/terms/' + c.conceptId;
+    return '<li style="display:flex; align-items:center; gap:6px; padding:3px 0; font-size:13px">' +
+      '<span style="display:inline-block; width:16px; text-align:center; font-weight:700; color:' + opts.color + '; background:' + opts.bg + '; border-radius:3px">' + opts.sign + '</span>' +
+      '<a href="' + url + '" target="_blank" rel="noopener" style="font-family:monospace; font-size:12px; color:var(--text-muted)">' + c.conceptId + '</a>' +
+      '<span style="flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap" title="' + escapeHtml(c.conceptName || '') + '">' + escapeHtml(c.conceptName || '') + '</span>' +
+      '<span class="badge badge-vocab" style="font-size:11px">' + escapeHtml(c.vocabularyId || '') + '</span>' +
+    '</li>';
+  }
+
+  /** Stamp modifiedDate (today) and modifiedBy (profile name, when set) on a concept set. */
+  function stampModified(obj) {
+    obj.modifiedDate = new Date().toISOString().slice(0, 10);
+    var p = getUserProfile();
+    var name = ((p.firstName || '') + ' ' + (p.lastName || '')).trim();
+    if (name) obj.modifiedBy = name;
   }
 
   // ==================== USER PROFILE ====================
@@ -1298,7 +1377,8 @@ var App = (function() {
       a.href = url;
       a.download = pendingExport.filename;
       a.click();
-      URL.revokeObjectURL(url);
+      // Deferred: revoking synchronously can abort the download in some browsers.
+      setTimeout(function() { URL.revokeObjectURL(url); }, 0);
     }
     document.getElementById('settings-export-modal').style.display = 'none';
     pendingExport = null;
@@ -1469,10 +1549,13 @@ var App = (function() {
       });
     }
 
-    // Close multi-select dropdowns and nav dropdown on outside click
+    // Close multi-select, column-visibility and nav dropdowns on outside click
     document.addEventListener('click', function(e) {
       if (!e.target.closest('.ms-container')) {
         document.querySelectorAll('.ms-dropdown').forEach(function(d) { d.style.display = 'none'; });
+      }
+      if (!e.target.closest('.col-vis-dropdown')) {
+        document.querySelectorAll('.col-vis-dropdown').forEach(function(d) { d.style.display = 'none'; });
       }
       if (!e.target.closest('.nav-dropdown')) {
         var menu = document.getElementById('nav-settings-menu');
@@ -1532,7 +1615,7 @@ var App = (function() {
   }
 
   function saveUserConceptSets() {
-    localStorage.setItem('indicate_user_cs', JSON.stringify(userConceptSets));
+    safeSet('indicate_user_cs', JSON.stringify(userConceptSets));
   }
 
   function addConceptSet(cs) {
@@ -1564,12 +1647,16 @@ var App = (function() {
     var before = conceptSets.length;
     conceptSets = conceptSets.filter(function(cs) { return !idSet[cs.id]; });
     var deleted = before - conceptSets.length;
-    // Track deleted repo IDs so they stay hidden on reload
-    var hidden = JSON.parse(localStorage.getItem('indicate_hidden_cs') || '[]');
-    ids.forEach(function(id) { if (hidden.indexOf(id) < 0) hidden.push(id); });
-    localStorage.setItem('indicate_hidden_cs', JSON.stringify(hidden));
+    // Track deleted repo IDs so they stay hidden on reload. The hidden list only
+    // ever filters repo sets, so locally-created ids are not added to it.
+    var hidden = safeParse('indicate_hidden_cs', []);
+    ids.forEach(function(id) {
+      var isRepo = (DATA.conceptSets || []).some(function(rc) { return rc.id === id; });
+      if (isRepo && hidden.indexOf(id) < 0) hidden.push(id);
+    });
+    safeSet('indicate_hidden_cs', JSON.stringify(hidden));
     saveUserConceptSets();
-    return { deleted: deleted, skipped: 0 };
+    return { deleted: deleted };
   }
 
   function isUserConceptSet(id) {
@@ -1595,14 +1682,14 @@ var App = (function() {
   }
 
   function saveUserProjects() {
-    localStorage.setItem('indicate_user_proj', JSON.stringify(userProjects));
+    safeSet('indicate_user_proj', JSON.stringify(userProjects));
   }
 
   function saveModifiedCsIds() {
-    localStorage.setItem('indicate_modified_cs_ids', JSON.stringify(Array.from(modifiedCsIds)));
+    safeSet('indicate_modified_cs_ids', JSON.stringify(Array.from(modifiedCsIds)));
   }
   function saveModifiedProjIds() {
-    localStorage.setItem('indicate_modified_proj_ids', JSON.stringify(Array.from(modifiedProjIds)));
+    safeSet('indicate_modified_proj_ids', JSON.stringify(Array.from(modifiedProjIds)));
   }
 
   function addProject(proj) {
@@ -1628,15 +1715,15 @@ var App = (function() {
   function deleteProject(id) {
     userProjects = userProjects.filter(function(p) { return p.id !== id; });
     projects = projects.filter(function(p) { return p.id !== id; });
-    var hidden = JSON.parse(localStorage.getItem('indicate_hidden_proj') || '[]');
+    var hidden = safeParse('indicate_hidden_proj', []);
     if (hidden.indexOf(id) < 0) hidden.push(id);
-    localStorage.setItem('indicate_hidden_proj', JSON.stringify(hidden));
+    safeSet('indicate_hidden_proj', JSON.stringify(hidden));
     saveUserProjects();
   }
 
   // ==================== MAPPING PROJECTS (localStorage only) ====================
   function saveMappingProjects() {
-    localStorage.setItem('indicate_mapping_projects', JSON.stringify(mappingProjects));
+    safeSet('indicate_mapping_projects', JSON.stringify(mappingProjects));
   }
   function getMappingProjects() {
     return mappingProjects;
@@ -1935,7 +2022,7 @@ var App = (function() {
     get unitConversions() { return unitConversions; },
     get recommendedUnits() { return recommendedUnits; },
     get mappingRecommendations() { return mappingRecommendations; },
-    set mappingRecommendations(v) { mappingRecommendations = v; localStorage.setItem('indicate_user_mapping', JSON.stringify(v)); },
+    set mappingRecommendations(v) { mappingRecommendations = v; safeSet('indicate_user_mapping', JSON.stringify(v)); },
     getMappingContent: function(l) {
       var t = (mappingRecommendations || {}).translations || {};
       return (t[l || lang] || {}).content || '';
@@ -1946,7 +2033,7 @@ var App = (function() {
       var key = l || lang;
       if (!mappingRecommendations.translations[key]) mappingRecommendations.translations[key] = {};
       mappingRecommendations.translations[key].content = content;
-      localStorage.setItem('indicate_user_mapping', JSON.stringify(mappingRecommendations));
+      safeSet('indicate_user_mapping', JSON.stringify(mappingRecommendations));
     },
     get lang() { return lang; },
     set lang(v) { lang = v; },
@@ -1960,6 +2047,7 @@ var App = (function() {
       // Return in-flight promise if already fetching
       var def = resolvedDeferred[conceptSetId];
       if (def && def.promise) return def.promise;
+      if (!def) def = resolvedDeferred[conceptSetId] = { count: 0 };
       // Fetch from individual file
       var url = 'concept_sets_resolved/' + conceptSetId + '.json';
       var promise = fetch(url).then(function(resp) {
@@ -1977,8 +2065,8 @@ var App = (function() {
       return promise;
     },
     get sessionReviews() { return sessionReviews; },
-    set sessionReviews(v) { sessionReviews = v; localStorage.setItem('indicate_reviews', JSON.stringify(v)); },
-    saveSessionReviews: function() { localStorage.setItem('indicate_reviews', JSON.stringify(sessionReviews)); },
+    set sessionReviews(v) { sessionReviews = v; safeSet('indicate_reviews', JSON.stringify(v)); },
+    saveSessionReviews: function() { safeSet('indicate_reviews', JSON.stringify(sessionReviews)); },
     get statusLabelsMap() { return statusLabelsMap; },
 
     // Functions
@@ -1992,6 +2080,10 @@ var App = (function() {
     renderMarkdown: renderMarkdown,
     fuzzyMatch: fuzzyMatch,
     fuzzyFilter: fuzzyFilter,
+    compareVersions: compareVersions,
+    stampModified: stampModified,
+    projectCard: projectCard,
+    conceptListLine: conceptListLine,
     statusBadge: statusBadge,
     truncate: truncate,
     standardBadge: standardBadge,

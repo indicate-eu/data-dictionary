@@ -142,12 +142,17 @@ var SettingsPage = (function() {
   }
 
   // ==================== TAB SWITCHING ====================
+  var TABS = ['vocabularies', 'conversions', 'units'];
+
   function switchTab(tab) {
+    // `tab` may come straight from the URL (?tab=...) — an unknown value
+    // would otherwise hide all panes and highlight no tab.
+    if (TABS.indexOf(tab) === -1) tab = TABS[0];
     activeTab = tab;
     document.querySelectorAll('#settings-tabs .settings-tab').forEach(function(btn) {
       btn.classList.toggle('active', btn.dataset.tab === tab);
     });
-    ['vocabularies', 'conversions', 'units'].forEach(function(t) {
+    TABS.forEach(function(t) {
       var el = document.getElementById('tab-' + t);
       if (el) el.style.display = (t === tab) ? '' : 'none';
     });
@@ -229,21 +234,28 @@ var SettingsPage = (function() {
     input.focus();
     input.select();
 
-    function finish() {
-      var val = parseFloat(input.value);
-      if (isNaN(val) || val <= 0) {
-        App.showToast('Invalid conversion factor. Must be a positive number.', 'error');
-        td.textContent = current;
-        return;
+    // `done` guards against the blur that fires when the input is removed
+    // (Escape would otherwise cancel and then save through the blur handler).
+    var done = false;
+    function finish(save) {
+      if (done) return;
+      done = true;
+      if (save) {
+        var val = parseFloat(input.value);
+        if (isNaN(val) || val <= 0) {
+          App.showToast('Invalid conversion factor. Must be a positive number.', 'error');
+        } else if (val !== current) {
+          convData[idx].conversionFactor = val;
+          App.showToast('Conversion factor updated.', 'success');
+        }
       }
-      convData[idx].conversionFactor = val;
-      td.textContent = val;
-      App.showToast('Conversion factor updated.', 'success');
+      // Full re-render so the affine offset suffix (e.g. °C → °F) is restored.
+      renderConvTable();
     }
-    input.addEventListener('blur', finish);
+    input.addEventListener('blur', function() { finish(true); });
     input.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') { e.preventDefault(); input.blur(); }
-      if (e.key === 'Escape') { td.textContent = current; }
+      if (e.key === 'Enter') { e.preventDefault(); finish(true); }
+      if (e.key === 'Escape') { finish(false); }
     });
   }
 

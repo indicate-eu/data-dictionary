@@ -4,8 +4,6 @@ var ProjectsPage = (function() {
 
   var initialized = false;
   var selectedProject = null;
-  // Tells the Back button whether history.back() will land on the list.
-  var listViewShownThisSession = false;
 
   // ==================== PROJECT CS TABLE STATE ====================
   var projCsSort = { key: 'groupName', asc: true };
@@ -43,17 +41,18 @@ var ProjectsPage = (function() {
     editGroups.forEach(function(g) { (g.conceptSets || []).forEach(function(e) { out.push(e); }); });
     return out;
   }
-  function editGroupForCS(csId) {
-    for (var i = 0; i < editGroups.length; i++) {
-      if ((editGroups[i].conceptSets || []).some(function(e) { return e.id === csId; })) return editGroups[i];
-    }
-    return null;
+  // Committed JSON uses the language-first translations shape; the legacy
+  // field-first `name: {en, fr}` shape only survives in old localStorage data.
+  function legacyNameToTranslations(name) {
+    if (!name) return { en: {}, fr: {} };
+    if (typeof name === 'string') return { en: { name: name }, fr: { name: name } };
+    return { en: { name: name.en || '' }, fr: { name: name.fr || '' } };
   }
   function ensureActiveGroup() {
     if (editGroups.length === 0) {
       editGroups.push({
         id: 'group-default',
-        name: { en: 'Default', fr: 'Par défaut' },
+        translations: { en: { name: 'Default' }, fr: { name: 'Par défaut' } },
         rule: App.DEFAULT_GROUP_RULE,
         conceptSets: []
       });
@@ -124,37 +123,24 @@ var ProjectsPage = (function() {
       var tr = App.tProj(p);
       var name = (tr.name || '').toLowerCase();
       var desc = (tr.shortDescription || '').toLowerCase();
-      function fuzzy(text) {
-        var ti = 0;
-        for (var qi = 0; qi < filter.length; qi++) {
-          var ch = filter[qi];
-          while (ti < text.length && text[ti] !== ch) ti++;
-          if (ti >= text.length) return false;
-          ti++;
-        }
-        return true;
-      }
-      return fuzzy(name) || fuzzy(desc);
+      return App.fuzzyMatch(name, filter) !== -1 || App.fuzzyMatch(desc, filter) !== -1;
     });
 
     var el = document.getElementById('proj-cards');
     el.innerHTML = filtered.map(function(p) {
       var tr = App.tProj(p);
       var csCount = App.getProjectConceptSetEntries(p).length;
-      return '<div class="project-card" data-id="' + p.id + '">' +
-        '<button class="project-card-menu-btn" data-menu-id="' + p.id + '" title="Actions"><i class="fas fa-ellipsis-v"></i></button>' +
-        '<div class="project-card-menu" id="proj-card-menu-' + p.id + '">' +
-          '<button class="project-card-menu-item" data-action="edit" data-id="' + p.id + '"><i class="fas fa-pen"></i> ' + App.i18n('Edit') + '</button>' +
-          '<button class="project-card-menu-item danger" data-action="delete" data-id="' + p.id + '"><i class="fas fa-trash"></i> ' + App.i18n('Delete') + '</button>' +
-        '</div>' +
-        '<h3>' + App.escapeHtml(tr.name || '') + '</h3>' +
-        '<p title="' + App.escapeHtml(tr.shortDescription || '') + '">' + App.escapeHtml(tr.shortDescription || App.i18n('No description')) + '</p>' +
-        '<div class="project-card-footer">' +
-          '<span><i class="fas fa-list"></i> ' + csCount + ' ' + App.i18n('concept sets') + '</span>' +
-          '<span><i class="fas fa-user"></i> ' + App.escapeHtml(p.createdBy || '') + '</span>' +
-          '<span><i class="fas fa-calendar-alt"></i> ' + App.escapeHtml(App.formatDate(p.createdDate) || '') + '</span>' +
-        '</div>' +
-        '</div>';
+      return App.projectCard({
+        id: p.id,
+        menuIdPrefix: 'proj-card-menu-',
+        title: tr.name || '',
+        description: tr.shortDescription || '',
+        footer: [
+          { icon: 'fa-list', text: csCount + ' ' + App.i18n('concept sets') },
+          { icon: 'fa-user', text: p.createdBy || '' },
+          { icon: 'fa-calendar-alt', text: App.formatDate(p.createdDate) || '' }
+        ]
+      });
     }).join('');
   }
 
@@ -266,12 +252,11 @@ var ProjectsPage = (function() {
 
   function confirmDelete() {
     if (deleteTargetId == null) return;
-    var name = '';
-    var proj = App.projects.find(function(p) { return p.id === deleteTargetId; });
-    if (proj) { var tr = App.tProj(proj); name = tr.name || ''; }
-    App.deleteProject(deleteTargetId);
+    // closeDeleteModal() nulls deleteTargetId — capture it first.
+    var id = deleteTargetId;
+    App.deleteProject(id);
     closeDeleteModal();
-    if (selectedProject && selectedProject.id === deleteTargetId) {
+    if (selectedProject && selectedProject.id === id) {
       hideProjectDetail();
     }
     renderProjectCards();
@@ -441,7 +426,9 @@ var ProjectsPage = (function() {
     updateEditButtons();
 
     // Populate editor
-    document.getElementById('proj-edit-long-desc').value = editLongDesc;
+    initLongDescAceEditor();
+    longDescAceEditor.setValue(editLongDesc, -1);
+    longDescAceEditor.resize();
     updateLongDescPreview();
 
     // Reset CS edit filters
@@ -482,7 +469,7 @@ var ProjectsPage = (function() {
     var groupsOut = editGroups.map(function(g) {
       return {
         id: g.id,
-        translations: g.translations,
+        translations: g.translations || legacyNameToTranslations(g.name),
         rule: g.rule,
         conceptSets: (g.conceptSets || []).map(function(e) { return { id: e.id, version: e.version }; })
       };
@@ -490,7 +477,7 @@ var ProjectsPage = (function() {
     if (groupsOut.length === 0) {
       groupsOut.push({
         id: 'group-default',
-        name: { en: 'Default', fr: 'Par défaut' },
+        translations: { en: { name: 'Default' }, fr: { name: 'Par défaut' } },
         rule: App.DEFAULT_GROUP_RULE,
         conceptSets: []
       });
@@ -516,9 +503,28 @@ var ProjectsPage = (function() {
     App.showToast(App.i18n('Project saved.'), 'success');
   }
 
-  // ==================== MARKDOWN PREVIEW ====================
+  // ==================== MARKDOWN EDITOR (Ace, same as CS comments) ====================
+  var longDescAceEditor = null;
+
+  function initLongDescAceEditor() {
+    if (longDescAceEditor) return;
+    longDescAceEditor = ace.edit('proj-edit-long-desc-ace');
+    longDescAceEditor.setTheme('ace/theme/chrome');
+    longDescAceEditor.session.setMode('ace/mode/markdown');
+    longDescAceEditor.setFontSize(12);
+    longDescAceEditor.setShowPrintMargin(false);
+    longDescAceEditor.session.setUseWrapMode(true);
+    longDescAceEditor.session.on('change', updateLongDescPreview);
+    longDescAceEditor.commands.addCommand({
+      name: 'saveProjectEdits',
+      bindKey: { win: 'Ctrl-S', mac: 'Cmd-S' },
+      exec: function() { saveEdit(); }
+    });
+  }
+
   function updateLongDescPreview() {
-    var val = document.getElementById('proj-edit-long-desc').value;
+    if (!longDescAceEditor) return;
+    var val = longDescAceEditor.getValue();
     editLongDesc = val;
     var preview = document.getElementById('proj-edit-long-desc-preview');
     if (val.trim()) {
@@ -639,14 +645,7 @@ var ProjectsPage = (function() {
       var q = projEditFilterName.toLowerCase();
       leftData = leftData.filter(function(d) {
         var text = d.name.toLowerCase();
-        var ti = 0;
-        for (var qi = 0; qi < q.length; qi++) {
-          var ch = q[qi];
-          while (ti < text.length && text[ti] !== ch) ti++;
-          if (ti >= text.length) return false;
-          ti++;
-        }
-        return true;
+        return App.fuzzyMatch(text, q) !== -1;
       });
     }
     var pinnedById = {};
@@ -714,14 +713,7 @@ var ProjectsPage = (function() {
       var q = availFilterName.toLowerCase();
       rightData = rightData.filter(function(d) {
         var text = d.name.toLowerCase();
-        var ti = 0;
-        for (var qi = 0; qi < q.length; qi++) {
-          var ch = q[qi];
-          while (ti < text.length && text[ti] !== ch) ti++;
-          if (ti >= text.length) return false;
-          ti++;
-        }
-        return true;
+        return App.fuzzyMatch(text, q) !== -1;
       });
     }
     if (availEditSort.key) {
@@ -886,7 +878,7 @@ var ProjectsPage = (function() {
     var id = App.newGroupId({ groups: editGroups });
     editGroups.push({
       id: id,
-      name: { en: 'New group', fr: 'Nouveau groupe' },
+      translations: { en: { name: 'New group' }, fr: { name: 'Nouveau groupe' } },
       rule: App.DEFAULT_GROUP_RULE,
       conceptSets: []
     });
@@ -1117,11 +1109,6 @@ var ProjectsPage = (function() {
     });
   }
 
-  function hasOutdatedConceptSets() {
-    if (!selectedProject) return false;
-    return getProjectCSData().some(function(d) { return d.outdated; });
-  }
-
   function populateProjColumnFilters(skipId) {
     var data = getProjectCSData();
 
@@ -1221,14 +1208,7 @@ var ProjectsPage = (function() {
       var q = projCsFilterName.toLowerCase();
       data = data.filter(function(d) {
         var text = d.name.toLowerCase();
-        var ti = 0;
-        for (var qi = 0; qi < q.length; qi++) {
-          var ch = q[qi];
-          while (ti < text.length && text[ti] !== ch) ti++;
-          if (ti >= text.length) return false;
-          ti++;
-        }
-        return true;
+        return App.fuzzyMatch(text, q) !== -1;
       });
     }
 
@@ -1245,10 +1225,15 @@ var ProjectsPage = (function() {
       });
     } else {
       data.sort(function(a, b) {
-        var va = (a[projCsSort.key] || '').toString().toLowerCase();
-        var vb = (b[projCsSort.key] || '').toString().toLowerCase();
-        if (va < vb) return projCsSort.asc ? -1 : 1;
-        if (va > vb) return projCsSort.asc ? 1 : -1;
+        var cmp;
+        if (/version/i.test(projCsSort.key)) {
+          cmp = App.compareVersions(a[projCsSort.key], b[projCsSort.key]);
+        } else {
+          var va = (a[projCsSort.key] || '').toString().toLowerCase();
+          var vb = (b[projCsSort.key] || '').toString().toLowerCase();
+          cmp = va < vb ? -1 : va > vb ? 1 : 0;
+        }
+        if (cmp !== 0) return projCsSort.asc ? cmp : -cmp;
         return a.id - b.id;
       });
       readOrderedCSIds = data.map(function(d) { return d.id; });
@@ -1360,10 +1345,13 @@ var ProjectsPage = (function() {
   var updatingCSId = null;
 
   // Compute the added / removed concept ids between the pinned and the latest version
-  // of a concept set, by diffing their resolved-concept lists.
+  // of a concept set, by diffing their resolved-concept lists. Returns null when
+  // either list is unknown (missing snapshot or unfetched deferred set) — unknown
+  // must not be rendered as "everything added/removed".
   function diffResolved(csId, pinnedVersion) {
-    var oldList = App.getResolvedConceptSet(csId, pinnedVersion) || [];
-    var newList = App.getResolvedConceptSet(csId) || [];
+    var oldList = App.getResolvedConceptSet(csId, pinnedVersion);
+    var newList = App.getResolvedConceptSet(csId);
+    if (!oldList || !newList) return null;
     var oldById = {};
     oldList.forEach(function(c) { oldById[c.conceptId] = c; });
     var newById = {};
@@ -1374,15 +1362,9 @@ var ProjectsPage = (function() {
   }
 
   function conceptLine(c, sign) {
-    var color = sign === '+' ? '#166534' : '#991b1b';
-    var bg = sign === '+' ? '#dcfce7' : '#fee2e2';
-    var url = 'https://athena.ohdsi.org/search-terms/terms/' + c.conceptId;
-    return '<li style="display:flex; align-items:center; gap:6px; padding:3px 0; font-size:13px">' +
-      '<span style="display:inline-block; width:16px; text-align:center; font-weight:700; color:' + color + '; background:' + bg + '; border-radius:3px">' + sign + '</span>' +
-      '<a href="' + url + '" target="_blank" rel="noopener" style="font-family:monospace; font-size:12px; color:var(--text-muted)">' + c.conceptId + '</a>' +
-      '<span style="flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap" title="' + App.escapeHtml(c.conceptName || '') + '">' + App.escapeHtml(c.conceptName || '') + '</span>' +
-      '<span class="badge badge-vocab" style="font-size:11px">' + App.escapeHtml(c.vocabularyId || '') + '</span>' +
-    '</li>';
+    return App.conceptListLine(c, sign === '+'
+      ? { sign: '+', color: '#166534', bg: '#dcfce7' }
+      : { sign: '-', color: '#991b1b', bg: '#fee2e2' });
   }
 
   function openUpdateCSModal(csId) {
@@ -1396,6 +1378,12 @@ var ProjectsPage = (function() {
     });
     var latest = App.getLatestVersion(csId);
     if (!pinned || !latest || pinned === latest) return; // not really outdated
+
+    // Large resolved sets are deferred by build.py — fetch before diffing.
+    if (App.resolvedDeferred && App.resolvedDeferred[csId] && !App.resolvedIndex[csId]) {
+      App.fetchResolved(csId).then(function() { openUpdateCSModal(csId); });
+      return;
+    }
     updatingCSId = csId;
 
     var tr = App.t(cs);
@@ -1406,6 +1394,15 @@ var ProjectsPage = (function() {
 
     var diff = diffResolved(csId, pinned);
     var summary = document.getElementById('proj-cs-update-modal-summary');
+    if (!diff) {
+      summary.innerHTML = '';
+      document.getElementById('proj-cs-update-modal-diff').innerHTML =
+        '<p style="color:var(--text-muted); font-style:italic; margin:8px 0">' +
+        App.escapeHtml(App.i18n('Resolved concept data is not available for these versions, so the change list cannot be shown.')) +
+        '</p>';
+      document.getElementById('proj-cs-update-modal').style.display = '';
+      return;
+    }
     summary.innerHTML =
       '<span>' + App.escapeHtml(App.i18n('Resolved concepts')) + ': <strong>' + diff.oldCount + '</strong> → <strong>' + diff.newCount + '</strong></span>' +
       ' &middot; ' +
@@ -1495,13 +1492,12 @@ var ProjectsPage = (function() {
     // Close menus on outside click
     document.addEventListener('click', function() { closeAllMenus(); });
 
-    // Project back button
+    // Project back button — always return to the projects list, regardless of
+    // how the detail view was reached. history.back() is unreliable: if the
+    // user got here via another page, the previous history entry is that other
+    // page, not the list. (Same fix as the concept-set detail back button.)
     document.getElementById('proj-back').addEventListener('click', function() {
-      if (listViewShownThisSession) {
-        history.back();
-      } else {
-        Router.navigate('/projects');
-      }
+      Router.navigate('/projects');
     });
 
     // Project search
@@ -1567,6 +1563,14 @@ var ProjectsPage = (function() {
       renderProjectCSTable();
     });
 
+    // Quote every cell, escape embedded quotes, and neutralize spreadsheet
+    // formula injection (=, +, -, @ prefixes) — pure numbers are left intact.
+    function csvField(v) {
+      var s = v == null ? '' : String(v);
+      if (/^[=+\-@]/.test(s) && !/^-?\d+(\.\d+)?$/.test(s)) s = "'" + s;
+      return '"' + s.replace(/"/g, '""') + '"';
+    }
+
     // CSV export for project concepts
     document.getElementById('proj-export-csv').addEventListener('click', function() {
       if (!selectedProject) return;
@@ -1579,35 +1583,32 @@ var ProjectsPage = (function() {
         'is_excluded', 'include_descendants', 'include_mapped'].join(','));
 
       groups.forEach(function(g) {
-        var groupName = (App.getGroupName(g) || '').replace(/"/g, '""');
+        var groupName = App.getGroupName(g) || '';
         var groupRule = g.rule || '';
         (g.conceptSets || []).forEach(function(e) {
           var cs = App.getConceptSet(e.id, e.version);
           if (!cs) return;
           var tr = App.t(cs);
-          var csName = (tr.name || cs.name || '').replace(/"/g, '""');
-          var csCat = (tr.category || '').replace(/"/g, '""');
-          var csSub = (tr.subcategory || '').replace(/"/g, '""');
           var items = (cs.expression && cs.expression.items) || [];
           items.forEach(function(item) {
             var c = item.concept;
             rows.push([
-              '"' + groupName + '"',
-              '"' + groupRule + '"',
+              csvField(groupName),
+              csvField(groupRule),
               cs.id,
-              '"' + csName + '"',
-              '"' + csCat + '"',
-              '"' + csSub + '"',
+              csvField(tr.name || cs.name || ''),
+              csvField(tr.category || ''),
+              csvField(tr.subcategory || ''),
               c.conceptId,
-              '"' + (c.conceptName || '').replace(/"/g, '""') + '"',
-              '"' + (c.domainId || '') + '"',
-              '"' + (c.vocabularyId || '') + '"',
-              '"' + (c.conceptClassId || '') + '"',
-              '"' + (c.conceptCode || '') + '"',
-              '"' + (c.standardConcept || '') + '"',
-              '"' + (c.invalidReasonCaption || '') + '"',
-              '"' + (c.validStartDate || '') + '"',
-              '"' + (c.validEndDate || '') + '"',
+              csvField(c.conceptName || ''),
+              csvField(c.domainId || ''),
+              csvField(c.vocabularyId || ''),
+              csvField(c.conceptClassId || ''),
+              csvField(c.conceptCode || ''),
+              csvField(c.standardConcept || ''),
+              csvField(c.invalidReason || ''),
+              csvField(c.validStartDate || ''),
+              csvField(c.validEndDate || ''),
               item.isExcluded ? 'TRUE' : 'FALSE',
               item.includeDescendants ? 'TRUE' : 'FALSE',
               item.includeMapped ? 'TRUE' : 'FALSE'
@@ -1616,7 +1617,8 @@ var ProjectsPage = (function() {
         });
       });
 
-      var csv = rows.join('\n');
+      // BOM so Excel detects UTF-8 (accented French names) on double-click open.
+      var csv = '\uFEFF' + rows.join('\n');
       var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
       var url = URL.createObjectURL(blob);
       var a = document.createElement('a');
@@ -1637,7 +1639,7 @@ var ProjectsPage = (function() {
         filename: selectedProject.id + '.json',
         type: 'application/json',
         clipboardDesc: App.i18n('Copy JSON to clipboard'),
-        fileDesc: App.i18n('Download as ' + selectedProject.id + '.json'),
+        fileDesc: App.i18n('Download as {file}').replace('{file}', selectedProject.id + '.json'),
         githubUrl: App.githubEdit('projects/' + selectedProject.id + '.json')
       });
     });
@@ -1647,14 +1649,6 @@ var ProjectsPage = (function() {
     document.getElementById('proj-edit-cancel-btn').addEventListener('click', cancelEdit);
     document.getElementById('proj-edit-save-btn').addEventListener('click', saveEdit);
 
-    // Markdown editors — live preview
-    document.getElementById('proj-edit-long-desc').addEventListener('input', updateLongDescPreview);
-    document.getElementById('proj-edit-long-desc').addEventListener('keydown', function(e) {
-      if ((e.metaKey || e.ctrlKey) && e.key === 's') {
-        e.preventDefault();
-        saveEdit();
-      }
-    });
 
     // CS edit name filters
     document.getElementById('proj-avail-filter-name').addEventListener('input', function(e) {
@@ -1850,14 +1844,11 @@ var ProjectsPage = (function() {
         switchProjectTab(tab);
       }
     } else if (selectedProject) {
-      listViewShownThisSession = true;
       // Back to list view (e.g. browser back button)
       if (editMode) exitEditMode();
       document.getElementById('proj-detail-view').classList.remove('active');
       document.getElementById('proj-list-view').classList.remove('hidden');
       selectedProject = null;
-    } else {
-      listViewShownThisSession = true;
     }
   }
 

@@ -181,10 +181,15 @@
 
   var EXPORT_PATH = '/export';
 
+  var initPromise = null;
+
   function initDuckDB() {
     if (db && conn) return Promise.resolve(db);
+    // Cache the in-flight promise: concurrent callers (Settings import +
+    // Dev Tools status check) must share one worker, not spawn two.
+    if (initPromise) return initPromise;
 
-    return loadDuckDBLib().then(function (lib) {
+    initPromise = loadDuckDBLib().then(function (lib) {
       var bundles = lib.getJsDelivrBundles();
       return lib.selectBundle(bundles);
     }).then(function (bundle) {
@@ -208,7 +213,11 @@
     }).then(function (c) {
       conn = c;
       return db;
+    }).catch(function (err) {
+      initPromise = null; // allow a retry after a failed init
+      throw err;
     });
+    return initPromise;
   }
 
   /* ── Persist / restore DB via EXPORT/IMPORT DATABASE ───── */
@@ -363,6 +372,11 @@
 
   /* ── Filtered SQL for large tables ───────────────────── */
 
+  // Whether _filter_ids was populated for this import. When the resolved-id
+  // list is missing/empty (fetch failure, fresh fork), the big tables are
+  // imported unfiltered rather than silently failing or coming out empty.
+  var hasFilterIds = false;
+
   function getFilteredSql(name) {
     var src = readSourceSql(name);
     var tbl = tableName(name);
@@ -374,12 +388,14 @@
         'WHERE ca.min_levels_of_separation = 1';
     }
     if (tbl === 'concept_relationship') {
+      if (!hasFilterIds) return 'CREATE TABLE concept_relationship AS SELECT * FROM ' + src;
       return 'CREATE TABLE concept_relationship AS ' +
         'SELECT cr.* FROM ' + src + ' cr ' +
         'WHERE cr.concept_id_1 IN (SELECT id FROM _filter_ids) ' +
         'OR cr.concept_id_2 IN (SELECT id FROM _filter_ids)';
     }
     if (tbl === 'concept_synonym') {
+      if (!hasFilterIds) return 'CREATE TABLE concept_synonym AS SELECT * FROM ' + src;
       return 'CREATE TABLE concept_synonym AS ' +
         'SELECT cs.* FROM ' + src + ' cs ' +
         'WHERE cs.concept_id IN (SELECT id FROM _filter_ids)';
@@ -409,13 +425,18 @@
     var done = 0;
     // +1 for filter IDs setup, +1 for indexing
     var total = fileNames.length + 2;
+    var failedTables = [];
     var chain = Promise.resolve();
 
     // Step 0: Load resolved concept IDs and create temp filter table
     chain = chain.then(function () {
       onProgress({ file: null, table: null, step: 'filter_ids', done: 0, total: total });
       return loadResolvedConceptIds().then(function (ids) {
-        if (ids.length === 0) return;
+        hasFilterIds = ids.length > 0;
+        if (!hasFilterIds) {
+          console.warn('resolved_concept_ids.json missing or empty — importing concept_relationship/concept_synonym unfiltered.');
+          return;
+        }
         var batchSize = 500;
         var idChain = conn.query('CREATE TEMP TABLE _filter_ids (id INTEGER)');
         for (var i = 0; i < ids.length; i += batchSize) {
@@ -451,6 +472,7 @@
           onProgress({ file: name, table: tbl, step: 'done', done: done, total: total });
         }).catch(function (err) {
           console.warn('Skipping ' + name + ': ' + err.message);
+          failedTables.push(tbl);
           done++;
           onProgress({ file: name, table: tbl, step: 'error', done: done, total: total });
         });
@@ -474,7 +496,17 @@
       });
     });
 
-    return chain.then(function () { return total; });
+    return chain.then(function () {
+      // A required table that failed to import must fail the whole import —
+      // otherwise the progress bar reports success on a non-working database.
+      var requiredFailed = failedTables.filter(function (t) {
+        return REQUIRED_TABLES.some(function (r) { return r.toLowerCase() === t; });
+      });
+      if (requiredFailed.length > 0) {
+        throw new Error('required table(s) failed to import: ' + requiredFailed.join(', '));
+      }
+      return total;
+    });
   }
 
   /* ── Detect files in directory (Parquet preferred, CSV fallback) ── */
@@ -601,7 +633,24 @@
 
   /* ── Restore from stored data (future sessions) ─────── */
 
+  var remountPromise = null;
+
   function remountFromStoredHandles() {
+    // Restoring runs a full IMPORT DATABASE; concurrent callers (Settings and
+    // Dev Tools both probe the DB on show) must share one attempt.
+    if (remountPromise) return remountPromise;
+    remountPromise = doRemountFromStoredHandles().then(function (success) {
+      // A failed/empty restore may be retried later (e.g. after re-granting access).
+      if (!success) remountPromise = null;
+      return success;
+    }, function (err) {
+      remountPromise = null;
+      throw err;
+    });
+    return remountPromise;
+  }
+
+  function doRemountFromStoredHandles() {
     /* Strategy 1: IndexedDB buffer (all browsers) */
     return loadFromStoredBuffer().then(function (success) {
       if (success) {
@@ -691,7 +740,10 @@
 
   function lookupConcepts(conceptIds) {
     if (!conn || !conceptIds || conceptIds.length === 0) return Promise.resolve([]);
-    var idList = conceptIds.join(',');
+    // Coerce to numbers: ids may originate from user-uploaded CSVs and are
+    // interpolated into SQL — never trust them to be numeric.
+    var idList = conceptIds.map(Number).filter(isFinite).join(',');
+    if (!idList) return Promise.resolve([]);
     return query(
       "SELECT concept_id, concept_name, vocabulary_id, domain_id, concept_class_id, concept_code, standard_concept " +
       "FROM concept WHERE concept_id IN (" + idList + ")"
@@ -714,6 +766,10 @@
     }
     chain = chain.then(function () {
       importMode = null;
+      // The cached promises now point at a torn-down db/connection — drop them
+      // so the next initDuckDB()/remount starts from scratch.
+      initPromise = null;
+      remountPromise = null;
       return clearAllHandles().catch(function () {});
     });
     return chain;

@@ -18,7 +18,10 @@ var Router = (function () {
     if (qIdx !== -1) {
       hash.substring(qIdx + 1).split('&').forEach(function (pair) {
         var kv = pair.split('=');
-        if (kv[0]) query[decodeURIComponent(kv[0])] = decodeURIComponent(kv[1] || '');
+        // A malformed percent-escape must not break navigation — skip the pair.
+        try {
+          if (kv[0]) query[decodeURIComponent(kv[0])] = decodeURIComponent(kv[1] || '');
+        } catch (e) {}
       });
     }
     return { path: path, query: query };
@@ -37,10 +40,12 @@ var Router = (function () {
     var pairs = hash.substring(qIdx + 1).split('&');
     for (var i = 0; i < pairs.length; i++) {
       var kv = pairs[i].split('=');
-      if (decodeURIComponent(kv[0]) === 'lang') {
-        var v = decodeURIComponent(kv[1] || '');
-        if (v === 'en' || v === 'fr') return v;
-      }
+      try {
+        if (decodeURIComponent(kv[0]) === 'lang') {
+          var v = decodeURIComponent(kv[1] || '');
+          if (v === 'en' || v === 'fr') return v;
+        }
+      } catch (e) {}
     }
     return null;
   }

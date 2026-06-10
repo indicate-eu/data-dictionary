@@ -84,6 +84,15 @@ var ConceptSetsPage = (function() {
     };
   }
   var addFilterValid = true;
+  // Normalize a vocab DB date (cast to VARCHAR in SQL: "YYYY-MM-DD" or Athena's
+  // raw "YYYYMMDD") to the "YYYY-MM-DD" form used in concept set JSON.
+  function normalizeVocabDate(v) {
+    if (v == null || v === '') return '';
+    var s = String(v);
+    if (/^\d{8}$/.test(s)) return s.slice(0, 4) + '-' + s.slice(4, 6) + '-' + s.slice(6, 8);
+    if (/^\d{4}-\d{2}-\d{2}/.test(s)) return s.slice(0, 10);
+    return s;
+  }
   // Persistent modal state (preserved across open/close)
   var addExclude = false;
   var addDescendants = false;
@@ -112,21 +121,19 @@ var ConceptSetsPage = (function() {
       var q = csFilterName.toLowerCase();
       data = data.filter(function(d) {
         var text = d.name.toLowerCase();
-        var ti = 0;
-        for (var qi = 0; qi < q.length; qi++) {
-          var ch = q[qi];
-          while (ti < text.length && text[ti] !== ch) ti++;
-          if (ti >= text.length) return false;
-          ti++;
-        }
-        return true;
+        return App.fuzzyMatch(text, q) !== -1;
       });
     }
     data.sort(function(a, b) {
-      var va = (a[csSort.key] || '').toString().toLowerCase();
-      var vb = (b[csSort.key] || '').toString().toLowerCase();
-      if (va < vb) return csSort.asc ? -1 : 1;
-      if (va > vb) return csSort.asc ? 1 : -1;
+      var cmp;
+      if (csSort.key === 'version') {
+        cmp = App.compareVersions(a.version, b.version);
+      } else {
+        var va = (a[csSort.key] || '').toString().toLowerCase();
+        var vb = (b[csSort.key] || '').toString().toLowerCase();
+        cmp = va < vb ? -1 : va > vb ? 1 : 0;
+      }
+      if (cmp !== 0) return csSort.asc ? cmp : -cmp;
       // Secondary sort by name when primary values are equal
       if (csSort.key !== 'name') {
         var na = (a.name || '').toLowerCase();
@@ -277,9 +284,14 @@ var ConceptSetsPage = (function() {
       if (el) el.style.display = (t === tabName) ? '' : 'none';
     });
     updateToolbar();
-    // Update URL with tab param
+    // Update URL with tab param. Keep the pinned-version context so the URL
+    // stays shareable: reopening it lands on the same snapshot, with banner.
     if (selectedConceptSet) {
       var url = '#/concept-sets?id=' + selectedConceptSet.id;
+      if (selectedSnapshotVersion) {
+        url += '&version=' + encodeURIComponent(selectedSnapshotVersion);
+        if (selectedFromProjectId) url += '&from=project&projectId=' + selectedFromProjectId;
+      }
       if (tabName !== 'concepts') url += '&tab=' + tabName;
       // Go through the router so the active language (?lang=fr) is preserved.
       Router.replaceState(url);
@@ -300,6 +312,11 @@ var ConceptSetsPage = (function() {
     });
     document.getElementById('cs-expression-view').style.display = (mode === 'expression') ? '' : 'none';
     document.getElementById('cs-resolved-view').style.display = (mode === 'resolved') ? '' : 'none';
+    // The Columns button lives in the pagination bar of the active table —
+    // move it (one DOM node, listeners preserved) to the bar being shown.
+    var colVis = document.getElementById('col-vis-wrapper');
+    var activeBar = document.getElementById(mode === 'expression' ? 'expression-pagination' : 'resolved-pagination');
+    if (colVis && activeBar && colVis.parentElement !== activeBar) activeBar.appendChild(colVis);
     buildColVisDropdown();
     updateViewJsonLink();
     if (mode === 'expression') {
@@ -314,16 +331,21 @@ var ConceptSetsPage = (function() {
   }
 
   // ==================== PAGINATION HELPER ====================
-  function renderPaginationControls(paginationId, pageInfoId, pageBtnsId, currentPage, totalItems, pageSize) {
+  // `totalUnfiltered` (optional): when filters hide part of the data, the info
+  // line shows the full count too — "Showing 1-30 of 57 (200 total)".
+  function renderPaginationControls(paginationId, pageInfoId, pageBtnsId, currentPage, totalItems, pageSize, totalUnfiltered) {
     var paginationEl = document.getElementById(paginationId);
     var totalPages = Math.ceil(totalItems / pageSize);
     if (totalPages <= 0) totalPages = 1;
     if (currentPage > totalPages) currentPage = totalPages;
     if (currentPage < 1) currentPage = 1;
     var start = (currentPage - 1) * pageSize;
-    document.getElementById(pageInfoId).textContent =
-      totalItems === 0 ? 'No items' :
+    var info = totalItems === 0 ? 'No items' :
       'Showing ' + (start + 1) + '-' + Math.min(start + pageSize, totalItems) + ' of ' + totalItems;
+    if (totalUnfiltered != null && totalUnfiltered !== totalItems) {
+      info += ' (' + totalUnfiltered + ' total)';
+    }
+    document.getElementById(pageInfoId).textContent = info;
     var btnContainer = document.getElementById(pageBtnsId);
     if (totalPages <= 1) {
       btnContainer.innerHTML = '';
@@ -366,7 +388,7 @@ var ConceptSetsPage = (function() {
   }
 
   // ==================== EXPRESSION TABLE ====================
-  function renderExpressionTable() {
+  function renderExpressionTable(skipFilterId) {
     if (!selectedConceptSet) return;
     var allItems = exprEditMode ? exprEditItems : ((selectedConceptSet.expression && selectedConceptSet.expression.items) || []);
     var table = document.getElementById('expression-table');
@@ -377,32 +399,14 @@ var ConceptSetsPage = (function() {
     table.classList.toggle('expr-edit-mode', exprEditMode);
 
     // Populate filter dropdowns
-    populateExpressionFilters(allItems);
+    populateExpressionFilters(allItems, skipFilterId);
 
     // Apply filters — build array of {item, origIdx} to preserve real indices
     var filters = getExpressionFilters();
     var indexed = allItems.map(function(item, idx) { return { item: item, origIdx: idx }; });
-    var filtered = indexed.filter(function(entry) {
-      var item = entry.item;
-      var c = item.concept;
-      if (filters.conceptId && String(c.conceptId || '').toLowerCase().indexOf(filters.conceptId) === -1) return false;
-      if (filters.vocabulary.size > 0 && !filters.vocabulary.has(c.vocabularyId || '')) return false;
-      if (filters.name && !fuzzyMatchBool((c.conceptName || '').toLowerCase(), filters.name)) return false;
-      if (filters.code && (c.conceptCode || '').toLowerCase().indexOf(filters.code) === -1) return false;
-      if (filters.domain && (c.domainId || '') !== filters.domain) return false;
-      if (filters.conceptClass && (c.conceptClassId || '') !== filters.conceptClass) return false;
-      if (filters.standard.size > 0 && !filters.standard.has(c.standardConcept || '')) return false;
-      if (filters.exclude === 'yes' && !item.isExcluded) return false;
-      if (filters.exclude === 'no' && item.isExcluded) return false;
-      if (filters.descendants === 'yes' && !item.includeDescendants) return false;
-      if (filters.descendants === 'no' && item.includeDescendants) return false;
-      if (filters.mapped === 'yes' && !item.includeMapped) return false;
-      if (filters.mapped === 'no' && item.includeMapped) return false;
-      return true;
-    });
+    var filtered = indexed.filter(function(entry) { return expressionItemMatches(entry.item, filters); });
 
     sortExpressionEntries(filtered);
-    document.getElementById('cs-concept-count').textContent = filtered.length + (filtered.length !== allItems.length ? ' / ' + allItems.length : '');
     updateExpressionSortIndicators();
 
     if (allItems.length === 0) {
@@ -466,7 +470,7 @@ var ConceptSetsPage = (function() {
         '</tr>';
     }).join('');
     applyColumnVisibility();
-    renderPaginationControls('expression-pagination', 'expression-page-info', 'expression-page-buttons', expressionPage, filtered.length, expressionPageSize);
+    renderPaginationControls('expression-pagination', 'expression-page-info', 'expression-page-buttons', expressionPage, filtered.length, expressionPageSize, allItems.length);
   }
 
   // ==================== EDIT MODE (generalized) ====================
@@ -475,7 +479,7 @@ var ConceptSetsPage = (function() {
   }
 
   function enterEditMode() {
-    if (!selectedConceptSet) return;
+    if (!selectedConceptSet || selectedSnapshotVersion) return;
     if (csDetailTab === 'concepts') {
       enterExprEditMode();
     } else if (csDetailTab === 'comments') {
@@ -517,8 +521,8 @@ var ConceptSetsPage = (function() {
       editActions.style.display = (exprEditMode && csConceptMode === 'expression') ? 'flex' : 'none';
       selCount.textContent = exprSelectedIdxs.size + ' ' + App.i18n('selected');
     } else {
-      // Hide Edit button on review tab (has its own "Add Review")
-      var showEdit = (csDetailTab !== 'review');
+      // Hide Edit button on review tab (has its own "Add Review") and in snapshot mode (snapshots are immutable)
+      var showEdit = (csDetailTab !== 'review') && !selectedSnapshotVersion;
       headerEditBtn.style.display = showEdit ? '' : 'none';
       headerExportBtn.style.display = '';
       headerImportBtn.style.display = 'none';
@@ -555,7 +559,7 @@ var ConceptSetsPage = (function() {
     if (!selectedConceptSet || !exprEditItems) return;
     if (!selectedConceptSet.expression) selectedConceptSet.expression = {};
     selectedConceptSet.expression.items = exprEditItems;
-    selectedConceptSet.modifiedDate = new Date().toISOString().slice(0, 10);
+    App.stampModified(selectedConceptSet);
     App.updateConceptSet(selectedConceptSet);
     exitExprEditMode();
     App.showToast(App.i18n('Expression saved'));
@@ -630,12 +634,6 @@ var ConceptSetsPage = (function() {
   }
 
   /**
-   * Optimize the expression by:
-   * 1. Top-down: remove items that are already covered by an ancestor with includeDescendants
-   * 2. Bottom-up: find parent concepts that can replace groups of siblings
-   *    - Only propose if: fewer total items AND resolved set stays identical
-   */
-  /**
    * Ensure VocabDB is loaded. Attempts init + remount if not ready.
    * Returns a Promise that resolves to true if DB is ready, false otherwise.
    */
@@ -650,6 +648,12 @@ var ConceptSetsPage = (function() {
     }).catch(function() { return false; });
   }
 
+  /**
+   * Optimize the expression by:
+   * 1. Top-down: remove items that are already covered by an ancestor with includeDescendants
+   * 2. Bottom-up: find parent concepts that can replace groups of siblings
+   *    - Only propose if: fewer total items AND resolved set stays identical
+   */
   function optimizeExpression() {
     if (!exprEditItems || exprEditItems.length === 0) {
       App.showToast(App.i18n('Nothing to optimize'), 'info');
@@ -830,10 +834,13 @@ var ConceptSetsPage = (function() {
       var parentIds = withDesc.map(function(e) { return e.id; });
       var allIds = partition.map(function(e) { return e.id; });
 
+      // UNION (not UNION ALL): the imported concept_ancestor only has direct
+      // edges, and on a multi-parent DAG (SNOMED) UNION ALL enumerates every
+      // path — combinatorial blowup. UNION dedupes and guarantees termination.
       var sql =
         'WITH RECURSIVE desc_r AS (' +
           'SELECT ancestor_concept_id AS parent, descendant_concept_id AS cid FROM concept_ancestor WHERE ancestor_concept_id IN (' + parentIds.join(',') + ')' +
-          ' UNION ALL ' +
+          ' UNION ' +
           'SELECT desc_r.parent, ca.descendant_concept_id FROM concept_ancestor ca JOIN desc_r ON ca.ancestor_concept_id = desc_r.cid' +
         ') SELECT DISTINCT parent, cid FROM desc_r WHERE cid IN (' + allIds.join(',') + ') AND cid != parent';
 
@@ -956,11 +963,12 @@ var ConceptSetsPage = (function() {
   function evaluateParentCandidate(parent, included, excluded) {
     var parentId = Number(parent.parent_id);
 
-    // Get ALL descendants of this parent via recursive CTE
+    // Get ALL descendants of this parent via recursive CTE. UNION (not
+    // UNION ALL) so multi-parent DAGs (SNOMED) don't enumerate every path.
     var descSql =
       'WITH RECURSIVE desc_r AS (' +
         'SELECT descendant_concept_id AS cid FROM concept_ancestor WHERE ancestor_concept_id = ' + parentId +
-        ' UNION ALL ' +
+        ' UNION ' +
         'SELECT ca.descendant_concept_id FROM concept_ancestor ca JOIN desc_r ON ca.ancestor_concept_id = desc_r.cid' +
       ') SELECT DISTINCT cid FROM desc_r';
 
@@ -1229,7 +1237,7 @@ var ConceptSetsPage = (function() {
     var lang = App.lang || 'en';
     if (!selectedConceptSet.metadata.translations[lang]) selectedConceptSet.metadata.translations[lang] = {};
     selectedConceptSet.metadata.translations[lang].longDescription = newContent || null;
-    selectedConceptSet.modifiedDate = new Date().toISOString().slice(0, 10);
+    App.stampModified(selectedConceptSet);
     App.updateConceptSet(selectedConceptSet);
     exitCommentsEditMode();
     App.showToast(App.i18n('Comments saved'));
@@ -1296,7 +1304,7 @@ var ConceptSetsPage = (function() {
     }
     if (!selectedConceptSet.metadata) selectedConceptSet.metadata = {};
     selectedConceptSet.metadata.distributionStats = parsed;
-    selectedConceptSet.modifiedDate = new Date().toISOString().slice(0, 10);
+    App.stampModified(selectedConceptSet);
     App.updateConceptSet(selectedConceptSet);
     exitStatsEditMode();
     App.showToast(App.i18n('Statistics saved'));
@@ -1640,7 +1648,8 @@ var ConceptSetsPage = (function() {
     var limitClause = useLimit ? ' LIMIT 10000' : '';
     var whereStr = whereParts.length ? ' WHERE ' + whereParts.join(' AND ') : '';
 
-    var sql = 'SELECT concept_id, concept_name, vocabulary_id, domain_id, concept_class_id, concept_code, standard_concept, invalid_reason ' +
+    var sql = 'SELECT concept_id, concept_name, vocabulary_id, domain_id, concept_class_id, concept_code, standard_concept, invalid_reason, ' +
+      'CAST(valid_start_date AS VARCHAR) AS valid_start_date, CAST(valid_end_date AS VARCHAR) AS valid_end_date ' +
       'FROM concept' + whereStr +
       ' ORDER BY concept_name' + limitClause;
 
@@ -1676,7 +1685,8 @@ var ConceptSetsPage = (function() {
     // If it hits, return that single row immediately — no broader text search needed.
     if (isNumeric) {
       VocabDB.query(
-        'SELECT concept_id, concept_name, vocabulary_id, domain_id, concept_class_id, concept_code, standard_concept, invalid_reason ' +
+        'SELECT concept_id, concept_name, vocabulary_id, domain_id, concept_class_id, concept_code, standard_concept, invalid_reason, ' +
+        'CAST(valid_start_date AS VARCHAR) AS valid_start_date, CAST(valid_end_date AS VARCHAR) AS valid_end_date ' +
         'FROM concept WHERE concept_id = ' + q + ' LIMIT 1'
       ).then(function(rows) {
         if (rows && rows.length > 0) {
@@ -1738,6 +1748,7 @@ var ConceptSetsPage = (function() {
       'END';
 
     var sql = 'SELECT concept_id, concept_name, vocabulary_id, domain_id, concept_class_id, concept_code, standard_concept, invalid_reason, ' +
+      'CAST(valid_start_date AS VARCHAR) AS valid_start_date, CAST(valid_end_date AS VARCHAR) AS valid_end_date, ' +
       rankExpr + ' AS match_rank, ' +
       'jaro_winkler_similarity(LOWER(concept_name), \'' + qLower + '\') AS fuzzy_score ' +
       'FROM concept WHERE ' + whereParts.join(' AND ') +
@@ -2315,6 +2326,9 @@ var ConceptSetsPage = (function() {
       if (existingIds[cid]) { skipped++; return; }
       existingIds[cid] = true;
       var std = r.standard_concept || '';
+      // Validity metadata must reflect the vocab DB ("Valid only" can be
+      // unticked, so invalidated concepts are addable) — never hard-coded.
+      var invalidReason = r.invalid_reason || null;
       exprEditItems.push({
         concept: {
           conceptId: cid,
@@ -2325,10 +2339,10 @@ var ConceptSetsPage = (function() {
           standardConcept: std,
           standardConceptCaption: std === 'S' ? 'Standard' : (std === 'C' ? 'Classification' : 'Non-standard'),
           conceptCode: r.concept_code || '',
-          validStartDate: '',
-          validEndDate: '',
-          invalidReason: null,
-          invalidReasonCaption: 'Valid'
+          validStartDate: normalizeVocabDate(r.valid_start_date),
+          validEndDate: normalizeVocabDate(r.valid_end_date),
+          invalidReason: invalidReason,
+          invalidReasonCaption: invalidReason ? 'Invalid' : 'Valid'
         },
         isExcluded: isExcluded,
         includeDescendants: includeDesc,
@@ -2703,28 +2717,26 @@ var ConceptSetsPage = (function() {
     }).join('');
   }
 
-  function standardLabel(sc) {
-    if (sc === 'S') return 'Standard';
-    if (sc === 'C') return 'Classification';
-    return 'Non-standard';
-  }
-
   // ==================== EXPRESSION TABLE FILTERS ====================
-  function populateExpressionFilters(items) {
-    var vocabs = {}, domains = {}, standards = {}, classes = {};
+  function populateExpressionFilters(items, skipId) {
+    var vocabs = {}, domains = {}, classes = {};
     items.forEach(function(item) {
       var c = item.concept;
       vocabs[c.vocabularyId || ''] = true;
       domains[c.domainId || ''] = true;
-      var sc = c.standardConcept || '';
-      standards[sc] = standardLabel(sc);
       classes[c.conceptClassId || ''] = true;
     });
 
+    // skipId: the dropdown currently being interacted with is only refreshed
+    // (label), not rebuilt — rebuilding would close it after every checkbox.
     var vocabValues = Object.keys(vocabs).sort();
-    App.buildMultiSelectDropdown('expr-filter-vocabulary', vocabValues, exprFilterVocab, function() {
-      expressionPage = 1; renderExpressionTable();
-    });
+    if (skipId !== 'expr-filter-vocabulary') {
+      App.buildMultiSelectDropdown('expr-filter-vocabulary', vocabValues, exprFilterVocab, function() {
+        expressionPage = 1; renderExpressionTable('expr-filter-vocabulary');
+      });
+    } else {
+      App.updateMsToggleLabel('expr-filter-vocabulary', exprFilterVocab);
+    }
 
     function fillSelect(id, values) {
       var sel = document.getElementById(id);
@@ -2741,9 +2753,13 @@ var ConceptSetsPage = (function() {
 
     var stdValues = ['S', 'C', ''];
     var stdLabels = { 'S': 'Standard', 'C': 'Classification', '': 'Non-standard' };
-    App.buildMultiSelectDropdown('expr-filter-standard', stdValues, exprFilterStandard, function() {
-      expressionPage = 1; renderExpressionTable();
-    }, stdLabels);
+    if (skipId !== 'expr-filter-standard') {
+      App.buildMultiSelectDropdown('expr-filter-standard', stdValues, exprFilterStandard, function() {
+        expressionPage = 1; renderExpressionTable('expr-filter-standard');
+      }, stdLabels);
+    } else {
+      App.updateMsToggleLabel('expr-filter-standard', exprFilterStandard, stdLabels);
+    }
   }
 
   function getExpressionFilters() {
@@ -2761,22 +2777,28 @@ var ConceptSetsPage = (function() {
     };
   }
 
+  // Single predicate shared by the table render and the pagination count —
+  // two diverging copies previously made the page math disagree with the rows.
+  function expressionItemMatches(item, filters) {
+    var c = item.concept;
+    if (filters.conceptId && String(c.conceptId || '').toLowerCase().indexOf(filters.conceptId) === -1) return false;
+    if (filters.vocabulary.size > 0 && !filters.vocabulary.has(c.vocabularyId || '')) return false;
+    if (filters.name && !fuzzyMatchBool((c.conceptName || '').toLowerCase(), filters.name)) return false;
+    if (filters.code && (c.conceptCode || '').toLowerCase().indexOf(filters.code) === -1) return false;
+    if (filters.domain && (c.domainId || '') !== filters.domain) return false;
+    if (filters.conceptClass && (c.conceptClassId || '') !== filters.conceptClass) return false;
+    if (filters.standard.size > 0 && !filters.standard.has(c.standardConcept || '')) return false;
+    if (filters.exclude === 'yes' && !item.isExcluded) return false;
+    if (filters.exclude === 'no' && item.isExcluded) return false;
+    if (filters.descendants === 'yes' && !item.includeDescendants) return false;
+    if (filters.descendants === 'no' && item.includeDescendants) return false;
+    if (filters.mapped === 'yes' && !item.includeMapped) return false;
+    if (filters.mapped === 'no' && item.includeMapped) return false;
+    return true;
+  }
+
   function filterExpressionItems(items, filters) {
-    return items.filter(function(item) {
-      var c = item.concept;
-      if (filters.vocabulary.size > 0 && !filters.vocabulary.has(c.vocabularyId || '')) return false;
-      if (filters.name && !fuzzyMatchBool((c.conceptName || '').toLowerCase(), filters.name)) return false;
-      if (filters.code && (c.conceptCode || '').toLowerCase().indexOf(filters.code) === -1) return false;
-      if (filters.domain && (c.domainId || '') !== filters.domain) return false;
-      if (filters.standard.size > 0 && !filters.standard.has(c.standardConcept || '')) return false;
-      if (filters.exclude === 'yes' && !item.isExcluded) return false;
-      if (filters.exclude === 'no' && item.isExcluded) return false;
-      if (filters.descendants === 'yes' && !item.includeDescendants) return false;
-      if (filters.descendants === 'no' && item.includeDescendants) return false;
-      if (filters.mapped === 'yes' && !item.includeMapped) return false;
-      if (filters.mapped === 'no' && item.includeMapped) return false;
-      return true;
-    });
+    return items.filter(function(item) { return expressionItemMatches(item, filters); });
   }
 
   function resetExpressionFilters() {
@@ -2792,13 +2814,11 @@ var ConceptSetsPage = (function() {
     document.getElementById('expr-filter-mapped').value = '';
   }
 
-  function populateResolvedFilters(concepts) {
-    var vocabs = {}, domains = {}, standards = {}, classes = {};
+  function populateResolvedFilters(concepts, skipId) {
+    var vocabs = {}, domains = {}, classes = {};
     concepts.forEach(function(c) {
       vocabs[c.vocabularyId || ''] = true;
       domains[c.domainId || ''] = true;
-      var sc = c.standardConcept || '';
-      standards[sc] = standardLabel(sc);
       classes[c.conceptClassId || ''] = true;
     });
 
@@ -2814,10 +2834,16 @@ var ConceptSetsPage = (function() {
       sel.value = cur;
     }
 
+    // skipId: don't rebuild the dropdown being interacted with (see
+    // populateExpressionFilters) — it would close after every checkbox.
     var vocabValues = Object.keys(vocabs).sort();
-    App.buildMultiSelectDropdown('resolved-filter-vocabulary', vocabValues, resolvedFilterVocab, function() {
-      resolvedPage = 1; renderResolvedTable(true);
-    });
+    if (skipId !== 'resolved-filter-vocabulary') {
+      App.buildMultiSelectDropdown('resolved-filter-vocabulary', vocabValues, resolvedFilterVocab, function() {
+        resolvedPage = 1; renderResolvedTable(true, 'resolved-filter-vocabulary');
+      });
+    } else {
+      App.updateMsToggleLabel('resolved-filter-vocabulary', resolvedFilterVocab);
+    }
 
     fillSelect('resolved-filter-domain', domains);
 
@@ -2825,9 +2851,13 @@ var ConceptSetsPage = (function() {
     // so users can uncheck categories that aren't represented without leaving ghost selections.
     var stdValues = ['S', 'C', ''];
     var stdLabels = { 'S': 'Standard', 'C': 'Classification', '': 'Non-standard' };
-    App.buildMultiSelectDropdown('resolved-filter-standard', stdValues, resolvedFilterStandard, function() {
-      resolvedPage = 1; renderResolvedTable(true);
-    }, stdLabels);
+    if (skipId !== 'resolved-filter-standard') {
+      App.buildMultiSelectDropdown('resolved-filter-standard', stdValues, resolvedFilterStandard, function() {
+        resolvedPage = 1; renderResolvedTable(true, 'resolved-filter-standard');
+      }, stdLabels);
+    } else {
+      App.updateMsToggleLabel('resolved-filter-standard', resolvedFilterStandard, stdLabels);
+    }
 
     fillSelect('resolved-filter-class', classes);
   }
@@ -2845,14 +2875,7 @@ var ConceptSetsPage = (function() {
   }
 
   function fuzzyMatchBool(text, query) {
-    var ti = 0;
-    for (var qi = 0; qi < query.length; qi++) {
-      var ch = query[qi];
-      while (ti < text.length && text[ti] !== ch) ti++;
-      if (ti >= text.length) return false;
-      ti++;
-    }
-    return true;
+    return App.fuzzyMatch(text, query) !== -1;
   }
 
   function filterResolvedConcepts(concepts, filters) {
@@ -2937,7 +2960,7 @@ var ConceptSetsPage = (function() {
     });
   }
 
-  function renderResolvedTableWithData(allConcepts, keepFilters) {
+  function renderResolvedTableWithData(allConcepts, keepFilters, skipFilterId) {
     resolvedCurrentConcepts = allConcepts || [];
     var tbody = document.getElementById('resolved-tbody');
     document.getElementById('resolved-concept-detail-body').innerHTML =
@@ -2956,12 +2979,11 @@ var ConceptSetsPage = (function() {
       document.getElementById('resolved-filter-class').value = '';
     }
 
-    populateResolvedFilters(allConcepts);
+    populateResolvedFilters(allConcepts, skipFilterId);
 
     var filters = getResolvedFilters();
     var concepts = filterResolvedConcepts(allConcepts, filters);
     sortResolvedConcepts(concepts);
-    document.getElementById('cs-concept-count').textContent = concepts.length + ' / ' + allConcepts.length;
 
     if (allConcepts.length === 0) {
       tbody.innerHTML = '<tr><td colspan="' + colCount + '" class="empty-state"><p>No resolved concepts available.</p></td></tr>';
@@ -3001,7 +3023,7 @@ var ConceptSetsPage = (function() {
     }).join('');
     applyColumnVisibility();
     updateResolvedSortIndicators();
-    renderPaginationControls('resolved-pagination', 'resolved-page-info', 'resolved-page-buttons', resolvedPage, concepts.length, resolvedPageSize);
+    renderPaginationControls('resolved-pagination', 'resolved-page-info', 'resolved-page-buttons', resolvedPage, concepts.length, resolvedPageSize, allConcepts.length);
   }
 
   /**
@@ -3093,7 +3115,7 @@ var ConceptSetsPage = (function() {
     return resolved.concat(customs);
   }
 
-  function renderResolvedTable(keepFilters) {
+  function renderResolvedTable(keepFilters, skipFilterId) {
     if (!selectedConceptSet) return;
 
     // Use current expression items (edited or saved)
@@ -3103,7 +3125,7 @@ var ConceptSetsPage = (function() {
 
     // If no items, nothing to resolve
     if (items.length === 0) {
-      renderResolvedTableWithData([], keepFilters);
+      renderResolvedTableWithData([], keepFilters, skipFilterId);
       return;
     }
 
@@ -3112,7 +3134,7 @@ var ConceptSetsPage = (function() {
     // mode — the current VocabDB may not match the snapshot's source vocab.
     if (selectedSnapshotVersion) {
       var snap = App.getResolvedConceptSet(selectedConceptSet.id, selectedSnapshotVersion) || [];
-      renderResolvedTableWithData(appendCustomConcepts(snap, items), keepFilters);
+      renderResolvedTableWithData(appendCustomConcepts(snap, items), keepFilters, skipFilterId);
       return;
     }
 
@@ -3120,7 +3142,7 @@ var ConceptSetsPage = (function() {
     if (typeof VocabDB === 'undefined') {
       var preResolved = App.resolvedIndex[selectedConceptSet.id];
       if (preResolved) {
-        renderResolvedTableWithData(appendCustomConcepts(preResolved, items), keepFilters);
+        renderResolvedTableWithData(appendCustomConcepts(preResolved, items), keepFilters, skipFilterId);
         return;
       }
       // Deferred: fetch from individual file
@@ -3129,7 +3151,7 @@ var ConceptSetsPage = (function() {
         var colCount = Object.keys(resolvedColumns).length;
         tbody.innerHTML = '<tr><td colspan="' + colCount + '" class="empty-state"><p><i class="fas fa-spinner fa-spin"></i> ' + App.i18n('Loading resolved concepts...') + '</p></td></tr>';
         App.fetchResolved(selectedConceptSet.id).then(function(concepts) {
-          renderResolvedTableWithData(appendCustomConcepts(concepts, items), keepFilters);
+          renderResolvedTableWithData(appendCustomConcepts(concepts, items), keepFilters, skipFilterId);
         });
         return;
       }
@@ -3146,10 +3168,10 @@ var ConceptSetsPage = (function() {
       if (!ready) {
         var preResolved = App.resolvedIndex[selectedConceptSet.id];
         if (preResolved) {
-          renderResolvedTableWithData(appendCustomConcepts(preResolved, items), keepFilters);
+          renderResolvedTableWithData(appendCustomConcepts(preResolved, items), keepFilters, skipFilterId);
         } else if (App.resolvedDeferred[selectedConceptSet.id]) {
           App.fetchResolved(selectedConceptSet.id).then(function(concepts) {
-            renderResolvedTableWithData(appendCustomConcepts(concepts, items), keepFilters);
+            renderResolvedTableWithData(appendCustomConcepts(concepts, items), keepFilters, skipFilterId);
           });
         } else {
           // No pre-resolved data — try to remount DB and show loading state
@@ -3157,10 +3179,10 @@ var ConceptSetsPage = (function() {
           VocabDB.remountFromStoredHandles().then(function(ok) {
             if (ok) {
               resolveExpressionLive(items).then(function(concepts) {
-                renderResolvedTableWithData(concepts, keepFilters);
+                renderResolvedTableWithData(concepts, keepFilters, skipFilterId);
               }).catch(function(err) {
                 console.error('Live resolve failed:', err);
-                renderResolvedTableWithData([], keepFilters);
+                renderResolvedTableWithData([], keepFilters, skipFilterId);
               });
             } else {
               showResolvedDbUnavailable();
@@ -3172,10 +3194,10 @@ var ConceptSetsPage = (function() {
         return;
       }
       resolveExpressionLive(items).then(function(concepts) {
-        renderResolvedTableWithData(concepts, keepFilters);
+        renderResolvedTableWithData(concepts, keepFilters, skipFilterId);
       }).catch(function(err) {
         console.error('Live resolve failed:', err);
-        renderResolvedTableWithData([], keepFilters);
+        renderResolvedTableWithData([], keepFilters, skipFilterId);
       });
     });
   }
@@ -3184,7 +3206,6 @@ var ConceptSetsPage = (function() {
     var tbody = document.getElementById('resolved-tbody');
     var colCount = Object.keys(resolvedColumns).length;
     tbody.innerHTML = '<tr><td colspan="' + colCount + '" class="empty-state"><p><i class="fas fa-spinner fa-spin" style="color:var(--primary); margin-right:6px"></i>' + App.i18n('Loading vocabulary database...') + '</p></td></tr>';
-    document.getElementById('cs-concept-count').textContent = '0 / 0';
     renderPaginationControls('resolved-pagination', 'resolved-page-info', 'resolved-page-buttons', 1, 0, resolvedPageSize);
   }
 
@@ -3192,7 +3213,6 @@ var ConceptSetsPage = (function() {
     var tbody = document.getElementById('resolved-tbody');
     var colCount = Object.keys(resolvedColumns).length;
     tbody.innerHTML = '<tr><td colspan="' + colCount + '" class="empty-state"><p><i class="fas fa-info-circle" style="color:var(--primary); margin-right:6px"></i>' + App.i18n('Load OHDSI vocabularies in') + ' <a href="#/settings" style="color:var(--primary); font-weight:600">' + App.i18n('Dictionary Settings') + '</a> ' + App.i18n('to resolve concepts.') + '</p></td></tr>';
-    document.getElementById('cs-concept-count').textContent = '0 / 0';
     renderPaginationControls('resolved-pagination', 'resolved-page-info', 'resolved-page-buttons', 1, 0, resolvedPageSize);
   }
 
@@ -3328,6 +3348,9 @@ var ConceptSetsPage = (function() {
 
   // ==================== VOCAB TABS (Related / Hierarchy / Synonyms) ====================
   var vocabTabsHierarchyNetwork = null;
+  // Document-level Esc handler for the hierarchy fullscreen — replaced (not
+  // stacked) each time the panel is rebuilt, so handlers don't accumulate.
+  var vocabTabsEscHandler = null;
   var hierarchyHistory = [];
   var hierarchyPreviousId = null;
   var hierarchyIsFullscreen = false;
@@ -3445,6 +3468,48 @@ var ConceptSetsPage = (function() {
 
   function renderRelatedPage() {
     if (!relatedRows || !relatedEl) return;
+
+    // The shell (headers + filter inputs + pager) is rendered ONCE; filtering
+    // only re-renders the body, so the filter input keeps focus while typing.
+    relatedEl.innerHTML = '<table class="concept-related-table"><thead><tr>' +
+      '<th>Relationship</th><th>Vocabulary</th><th>Concept Name</th><th>Concept ID</th>' +
+      '</tr><tr class="filter-row">' +
+      '<th><input type="text" class="column-filter" id="rel-filter-relationship" placeholder="Filter..." value="' + App.escapeHtml(relatedFilterRelationship) + '"></th>' +
+      '<th><input type="text" class="column-filter" id="rel-filter-vocabulary" placeholder="Filter..." value="' + App.escapeHtml(relatedFilterVocabulary) + '"></th>' +
+      '<th><input type="text" class="column-filter" id="rel-filter-name" placeholder="Filter..." value="' + App.escapeHtml(relatedFilterName) + '"></th>' +
+      '<th><input type="text" class="column-filter" id="rel-filter-id" placeholder="Filter..." value="' + App.escapeHtml(relatedFilterId) + '"></th>' +
+      '</tr></thead><tbody></tbody></table>' +
+      '<div class="related-pager" id="rel-pager" style="display:none">' +
+        '<button class="btn-outline-sm" id="rel-prev"><i class="fas fa-chevron-left"></i></button>' +
+        '<span id="rel-pager-info" style="font-size:12px; color:var(--text-muted)"></span>' +
+        '<button class="btn-outline-sm" id="rel-next"><i class="fas fa-chevron-right"></i></button>' +
+      '</div>';
+
+    function wireFilter(id, set) {
+      document.getElementById(id).addEventListener('input', function() {
+        set(this.value); relatedPage = 0; renderRelatedBody();
+      });
+    }
+    wireFilter('rel-filter-relationship', function(v) { relatedFilterRelationship = v; });
+    wireFilter('rel-filter-vocabulary', function(v) { relatedFilterVocabulary = v; });
+    wireFilter('rel-filter-name', function(v) { relatedFilterName = v; });
+    wireFilter('rel-filter-id', function(v) { relatedFilterId = v; });
+    document.getElementById('rel-prev').addEventListener('click', function() { relatedPage--; renderRelatedBody(); });
+    document.getElementById('rel-next').addEventListener('click', function() { relatedPage++; renderRelatedBody(); });
+
+    // Click row to navigate (with history)
+    relatedEl.querySelector('tbody').addEventListener('click', function(e) {
+      var tr = e.target.closest('tr[data-cid]');
+      if (!tr) return;
+      var cid = parseInt(tr.getAttribute('data-cid'));
+      navigateToConceptDetail(cid, currentConceptInDetail);
+    });
+
+    renderRelatedBody();
+  }
+
+  function renderRelatedBody() {
+    if (!relatedRows || !relatedEl) return;
     var filtered = getFilteredRelatedRows();
     var total = filtered.length;
     var totalPages = Math.max(1, Math.ceil(total / RELATED_PAGE_SIZE));
@@ -3453,15 +3518,7 @@ var ConceptSetsPage = (function() {
     var start = relatedPage * RELATED_PAGE_SIZE;
     var end = Math.min(start + RELATED_PAGE_SIZE, total);
 
-    // Table with inline column filters
-    var html = '<table class="concept-related-table"><thead><tr>' +
-      '<th>Relationship</th><th>Vocabulary</th><th>Concept Name</th><th>Concept ID</th>' +
-      '</tr><tr class="filter-row">' +
-      '<th><input type="text" class="column-filter" id="rel-filter-relationship" placeholder="Filter..." value="' + App.escapeHtml(relatedFilterRelationship) + '"></th>' +
-      '<th><input type="text" class="column-filter" id="rel-filter-vocabulary" placeholder="Filter..." value="' + App.escapeHtml(relatedFilterVocabulary) + '"></th>' +
-      '<th><input type="text" class="column-filter" id="rel-filter-name" placeholder="Filter..." value="' + App.escapeHtml(relatedFilterName) + '"></th>' +
-      '<th><input type="text" class="column-filter" id="rel-filter-id" placeholder="Filter..." value="' + App.escapeHtml(relatedFilterId) + '"></th>' +
-      '</tr></thead><tbody>';
+    var html = '';
     for (var i = start; i < end; i++) {
       var r = filtered[i];
       html += '<tr data-cid="' + r.concept_id + '" title="' +
@@ -3474,47 +3531,20 @@ var ConceptSetsPage = (function() {
         '<td>' + r.concept_id + '</td>' +
         '</tr>';
     }
-    html += '</tbody></table>';
-
-    // Pager
-    if (totalPages > 1) {
-      html += '<div class="related-pager">' +
-        '<button class="btn-outline-sm" id="rel-prev"' + (relatedPage === 0 ? ' disabled' : '') + '><i class="fas fa-chevron-left"></i></button>' +
-        '<span style="font-size:12px; color:var(--text-muted)">' + (start + 1) + '–' + end + ' of ' + total + '</span>' +
-        '<button class="btn-outline-sm" id="rel-next"' + (relatedPage >= totalPages - 1 ? ' disabled' : '') + '><i class="fas fa-chevron-right"></i></button>' +
-        '</div>';
+    if (total === 0) {
+      html = '<tr><td colspan="4" style="padding:12px; color:var(--text-muted)">' + App.escapeHtml(App.i18n('No concepts match the current filters.')) + '</td></tr>';
     }
+    relatedEl.querySelector('tbody').innerHTML = html;
 
-    relatedEl.innerHTML = html;
-
-    // Filter events
-    document.getElementById('rel-filter-relationship').addEventListener('input', function() {
-      relatedFilterRelationship = this.value; relatedPage = 0; renderRelatedPage();
-    });
-    document.getElementById('rel-filter-vocabulary').addEventListener('input', function() {
-      relatedFilterVocabulary = this.value; relatedPage = 0; renderRelatedPage();
-    });
-    document.getElementById('rel-filter-name').addEventListener('input', function() {
-      relatedFilterName = this.value; relatedPage = 0; renderRelatedPage();
-    });
-    document.getElementById('rel-filter-id').addEventListener('input', function() {
-      relatedFilterId = this.value; relatedPage = 0; renderRelatedPage();
-    });
-
-    // Pager events
-    var prevBtn = document.getElementById('rel-prev');
-    var nextBtn = document.getElementById('rel-next');
-    if (prevBtn) prevBtn.addEventListener('click', function() { relatedPage--; renderRelatedPage(); });
-    if (nextBtn) nextBtn.addEventListener('click', function() { relatedPage++; renderRelatedPage(); });
-
-    // Click row to navigate (with history)
-    var tbody = relatedEl.querySelector('tbody');
-    if (tbody) tbody.addEventListener('click', function(e) {
-      var tr = e.target.closest('tr[data-cid]');
-      if (!tr) return;
-      var cid = parseInt(tr.getAttribute('data-cid'));
-      navigateToConceptDetail(cid, currentConceptInDetail);
-    });
+    var pager = document.getElementById('rel-pager');
+    if (totalPages > 1) {
+      pager.style.display = '';
+      document.getElementById('rel-prev').disabled = relatedPage === 0;
+      document.getElementById('rel-next').disabled = relatedPage >= totalPages - 1;
+      document.getElementById('rel-pager-info').textContent = (start + 1) + '–' + end + ' of ' + total;
+    } else {
+      pager.style.display = 'none';
+    }
   }
 
   var HIERARCHY_WARN_THRESHOLD = 100;
@@ -3897,24 +3927,23 @@ var ConceptSetsPage = (function() {
       });
 
       // Esc to exit fullscreen
-      if (!el._escHandler) {
-        el._escHandler = function(e) {
-          if (e.key === 'Escape' && hierarchyIsFullscreen) {
-            hierarchyIsFullscreen = false;
-            wrapper.classList.remove('fullscreen');
-            var fsBtn = wrapper.querySelector('#hierarchy-fullscreen');
-            if (fsBtn) {
-              var icon = fsBtn.querySelector('i');
-              icon.className = 'fas fa-expand';
-              fsBtn.title = 'Toggle fullscreen';
-            }
-            setTimeout(function() {
-              if (vocabTabsHierarchyNetwork) vocabTabsHierarchyNetwork.fit({ animation: { duration: 300 } });
-            }, 100);
+      if (vocabTabsEscHandler) document.removeEventListener('keydown', vocabTabsEscHandler);
+      vocabTabsEscHandler = function(e) {
+        if (e.key === 'Escape' && hierarchyIsFullscreen) {
+          hierarchyIsFullscreen = false;
+          wrapper.classList.remove('fullscreen');
+          var fsBtn = wrapper.querySelector('#hierarchy-fullscreen');
+          if (fsBtn) {
+            var icon = fsBtn.querySelector('i');
+            icon.className = 'fas fa-expand';
+            fsBtn.title = 'Toggle fullscreen';
           }
-        };
-        document.addEventListener('keydown', el._escHandler);
-      }
+          setTimeout(function() {
+            if (vocabTabsHierarchyNetwork) vocabTabsHierarchyNetwork.fit({ animation: { duration: 300 } });
+          }, 100);
+        }
+      };
+      document.addEventListener('keydown', vocabTabsEscHandler);
     }
 
     // Build concept map for tooltips
@@ -4158,7 +4187,7 @@ var ConceptSetsPage = (function() {
 
     // Missing rate
     if (profile.missing_rate != null) {
-      html += '<div style="font-size:13px; margin-bottom:12px; color:var(--text-muted)"><i class="fas fa-exclamation-triangle" style="margin-right:4px"></i> Missing rate: <strong>' + profile.missing_rate + '%</strong></div>';
+      html += '<div style="font-size:13px; margin-bottom:12px; color:var(--text-muted)"><i class="fas fa-exclamation-triangle" style="margin-right:4px"></i> Missing rate: <strong>' + App.escapeHtml(profile.missing_rate) + '%</strong></div>';
     }
 
     // Numeric data
@@ -4172,7 +4201,7 @@ var ConceptSetsPage = (function() {
         ['SD', nd.sd], ['CV', nd.cv != null ? nd.cv + '%' : null]
       ];
       rows.forEach(function(r) {
-        if (r[1] != null) html += '<tr><td style="font-weight:600; color:var(--text-muted); padding:3px 12px 3px 0; font-size:13px">' + r[0] + '</td><td style="font-size:13px; padding:3px 0">' + r[1] + '</td></tr>';
+        if (r[1] != null) html += '<tr><td style="font-weight:600; color:var(--text-muted); padding:3px 12px 3px 0; font-size:13px">' + r[0] + '</td><td style="font-size:13px; padding:3px 0">' + App.escapeHtml(r[1]) + '</td></tr>';
       });
       html += '</tbody></table>';
     }
@@ -4186,7 +4215,7 @@ var ConceptSetsPage = (function() {
       hist.forEach(function(h) {
         var pct = maxCount > 0 ? ((h.count / maxCount) * 100) : 0;
         html += '<div class="stats-hist-row">' +
-          '<span class="stats-hist-label">' + (h.x != null ? h.x : '') + '</span>' +
+          '<span class="stats-hist-label">' + App.escapeHtml(h.x != null ? h.x : '') + '</span>' +
           '<div class="stats-hist-bar-wrap"><div class="stats-hist-bar" style="width:' + pct + '%"></div></div>' +
           '<span class="stats-hist-count">' + (h.count || 0).toLocaleString() + '</span>' +
           '</div>';
@@ -4205,7 +4234,7 @@ var ConceptSetsPage = (function() {
         html += '<div class="stats-hist-row">' +
           '<span class="stats-hist-label" title="' + App.escapeHtml(c.value || '') + '">' + App.escapeHtml(App.truncate(c.value || '', 30)) + '</span>' +
           '<div class="stats-hist-bar-wrap"><div class="stats-hist-bar stats-hist-bar-cat" style="width:' + barW + '%"></div></div>' +
-          '<span class="stats-hist-count">' + (c.percent != null ? c.percent + '%' : '') + ' (' + (c.count || 0).toLocaleString() + ')</span>' +
+          '<span class="stats-hist-count">' + (c.percent != null ? App.escapeHtml(c.percent) + '%' : '') + ' (' + (c.count || 0).toLocaleString() + ')</span>' +
           '</div>';
       });
       html += '</div>';
@@ -4360,7 +4389,7 @@ var ConceptSetsPage = (function() {
       if (!md.trim()) {
         preview.innerHTML = '<div class="markdown-preview-placeholder">Preview will appear here...</div>';
       } else {
-        preview.innerHTML = marked.parse(md);
+        preview.innerHTML = App.renderMarkdown(md);
       }
     });
   }
@@ -4437,7 +4466,6 @@ var ConceptSetsPage = (function() {
     window.open(url, '_blank');
   }
 
-  // ==================== JSON EXPORT ====================
   // ==================== VERSION MODAL ====================
   function suggestNextVersion(version) {
     var parts = (version || '1.0.0').split('.');
@@ -4474,7 +4502,7 @@ var ConceptSetsPage = (function() {
   }
 
   function openVersionModal() {
-    if (!selectedConceptSet) return;
+    if (!selectedConceptSet || selectedSnapshotVersion) return;
     document.getElementById('cs-version-input').value = suggestNextVersion(selectedConceptSet.version);
     document.getElementById('cs-version-summary').value = '';
     renderVersionHistory();
@@ -4509,7 +4537,7 @@ var ConceptSetsPage = (function() {
     });
 
     selectedConceptSet.version = newVersion;
-    selectedConceptSet.modifiedDate = new Date().toISOString().slice(0, 10);
+    App.stampModified(selectedConceptSet);
     App.updateConceptSet(selectedConceptSet);
     refreshDetailBadges();
     closeVersionModal();
@@ -4518,7 +4546,7 @@ var ConceptSetsPage = (function() {
 
   // ==================== STATUS MODAL ====================
   function openStatusModal() {
-    if (!selectedConceptSet) return;
+    if (!selectedConceptSet || selectedSnapshotVersion) return;
     var meta = selectedConceptSet.metadata || {};
     document.getElementById('cs-status-select').value = meta.reviewStatus || 'draft';
     document.getElementById('cs-status-modal').style.display = 'flex';
@@ -4533,7 +4561,7 @@ var ConceptSetsPage = (function() {
     var newStatus = document.getElementById('cs-status-select').value;
     if (!selectedConceptSet.metadata) selectedConceptSet.metadata = {};
     selectedConceptSet.metadata.reviewStatus = newStatus;
-    selectedConceptSet.modifiedDate = new Date().toISOString().slice(0, 10);
+    App.stampModified(selectedConceptSet);
     App.updateConceptSet(selectedConceptSet);
     refreshDetailBadges();
     closeStatusModal();
@@ -4635,6 +4663,15 @@ var ConceptSetsPage = (function() {
 
   function showSqlExportPreview() {
     if (!selectedConceptSet) return;
+    // Large resolved sets are deferred by build.py — fetch before building the SQL,
+    // otherwise the export would claim "no standard resolved concepts available".
+    var csId = selectedConceptSet.id;
+    if (!selectedSnapshotVersion && App.resolvedDeferred[csId] && !App.resolvedIndex[csId]) {
+      App.fetchResolved(csId).then(function() {
+        if (selectedConceptSet && selectedConceptSet.id === csId) showSqlExportPreview();
+      });
+      return;
+    }
     var select = document.getElementById('export-sql-unit-select');
     var hint = document.getElementById('export-sql-unit-hint');
 
@@ -4783,7 +4820,7 @@ var ConceptSetsPage = (function() {
   function buildIndicateJSON() {
     var cs = JSON.parse(JSON.stringify(selectedConceptSet));
     cs.createdByTool = App.toolTag();
-    cs.modifiedDate = new Date().toISOString().slice(0, 10);
+    App.stampModified(cs);
     var sessionRevs = App.sessionReviews[cs.id] || [];
     if (sessionRevs.length > 0) {
       if (!cs.metadata) cs.metadata = {};
@@ -5048,6 +5085,33 @@ var ConceptSetsPage = (function() {
         var ambiguous = Object.keys(convBySrc).some(function(srcUnitId) {
           return Object.keys(convBySrc[srcUnitId]).length > 1;
         });
+        // A concept set covers a single clinical variable (same analyte), so a
+        // (srcUnit → refUnit) factor applies to the whole set — including
+        // concepts that have no explicit row in the conversion table. The flat
+        // CASE is therefore used unless the table itself holds CONTRADICTORY
+        // factors for the same source unit (`ambiguous`), in which case we
+        // switch per concept.
+
+        // For the ambiguous path: group concepts sharing the exact same
+        // conversion set, so the generated CASE has one branch per distinct
+        // conversion — not one per concept. Concepts with no conversion get no
+        // branch at all (the outer ELSE already keeps their raw value).
+        var convGroups = [];
+        (function() {
+          var bySig = {};
+          domainConcepts.forEach(function(c) {
+            var m = perConcept[c.conceptId] || {};
+            var srcIds = Object.keys(m).map(function(k) { return parseInt(k, 10); }).sort(function(a, b) { return a - b; });
+            if (srcIds.length === 0) return;
+            var sig = srcIds.map(function(u) { return u + ':' + m[u].factor + ':' + (m[u].offset || 0); }).join('|');
+            if (!bySig[sig]) {
+              bySig[sig] = { ids: [], names: [], srcIds: srcIds, map: m };
+              convGroups.push(bySig[sig]);
+            }
+            bySig[sig].ids.push(c.conceptId);
+            bySig[sig].names.push(c.conceptName);
+          });
+        })();
 
         if (!ambiguous) {
           // Flat CASE on unit_concept_id.
@@ -5064,44 +5128,61 @@ var ConceptSetsPage = (function() {
             '\n        ELSE value_as_number -- unknown unit, no conversion available: value kept as-is (still in its original unit)' +
             '\n    END AS value_as_number';
         } else {
-          // Nested CASE per concept.
+          // Nested CASE: one branch per group of concepts sharing the same conversions.
           var outerParts = [];
           outerParts.push('        -- Reference unit: ' + unitLabel(refUnitId));
-          outerParts.push('        -- Conversion factors differ between concepts — switching per measurement_concept_id');
-          domainConcepts.forEach(function(c) {
-            var srcUnits = Object.keys(perConcept[c.conceptId] || {}).map(function(k) { return parseInt(k, 10); });
-            outerParts.push('        WHEN measurement_concept_id = ' + c.conceptId + ' THEN -- ' + c.conceptName);
+          outerParts.push('        -- Conversions are concept-specific: switching per measurement_concept_id');
+          convGroups.forEach(function(grp) {
+            if (grp.ids.length === 1) {
+              outerParts.push('        WHEN measurement_concept_id = ' + grp.ids[0] + ' THEN -- ' + grp.names[0]);
+            } else {
+              outerParts.push('        WHEN measurement_concept_id IN (');
+              grp.ids.forEach(function(id, i) {
+                outerParts.push('            ' + id + (i < grp.ids.length - 1 ? ',' : '') + ' -- ' + grp.names[i]);
+              });
+              outerParts.push('        ) THEN');
+            }
             outerParts.push('            CASE');
             outerParts.push('                WHEN unit_concept_id = ' + refUnitId + ' THEN value_as_number');
-            srcUnits.forEach(function(srcUnitId) {
-              var conv = perConcept[c.conceptId][srcUnitId];
+            grp.srcIds.forEach(function(srcUnitId) {
+              var conv = grp.map[srcUnitId];
               outerParts.push('                WHEN unit_concept_id = ' + srcUnitId +
                 ' THEN ' + conversionExpr(conv) +
                 ' -- convert ' + unitLabel(srcUnitId) + ' -> ' + unitLabel(refUnitId));
             });
-            outerParts.push('                ELSE value_as_number -- unknown unit, no conversion for this concept: value kept as-is');
+            outerParts.push('                ELSE value_as_number -- unknown unit, no conversion: value kept as-is');
             outerParts.push('            END');
           });
-          outerParts.push('        ELSE value_as_number -- concept not in conversion table: value kept as-is');
+          outerParts.push('        ELSE value_as_number -- no conversion for this concept: value kept as-is');
           valueAsNumberExpr = '    CASE\n' + outerParts.join('\n') +
             '\n    END AS value_as_number';
         }
 
         // When we convert value_as_number to the reference unit, the original
         // unit_concept_id no longer describes the value. Rewrite it to the
-        // reference unit for every source unit that had a conversion applied, so
-        // the reported unit always matches the converted value. Rows in an
-        // unknown/non-convertible unit are left untouched in BOTH columns: the raw
-        // value_as_number and its original unit_concept_id are kept (no data is
-        // dropped). A commented-out WHERE clause is added so the user can instead
-        // filter those rows out if they prefer a fully-normalized result.
+        // reference unit — but only for rows whose value was actually converted,
+        // so the reported unit always matches the (possibly raw) value. Rows in
+        // an unknown/non-convertible unit are left untouched in BOTH columns
+        // (no data is dropped). A commented-out WHERE clause is added so the
+        // user can instead filter those rows out for a fully-normalized result.
         if (convertedSrcUnits.length > 0) {
           var unitParts = [];
-          unitParts.push('        WHEN unit_concept_id IN (' +
-            [refUnitId].concat(convertedSrcUnits).join(', ') + ') THEN ' + refUnitId +
-            ' -- normalized to reference unit ' + unitLabel(refUnitId));
+          if (!ambiguous) {
+            unitParts.push('        WHEN unit_concept_id IN (' +
+              [refUnitId].concat(convertedSrcUnits).join(', ') + ') THEN ' + refUnitId +
+              ' -- normalized to reference unit ' + unitLabel(refUnitId));
+          } else {
+            unitParts.push('        -- Conversions are concept-specific: relabel only the (concept, unit) pairs actually converted');
+            convGroups.forEach(function(grp) {
+              var conceptCond = grp.ids.length === 1
+                ? 'measurement_concept_id = ' + grp.ids[0]
+                : 'measurement_concept_id IN (' + grp.ids.join(', ') + ')';
+              unitParts.push('        WHEN ' + conceptCond +
+                ' AND unit_concept_id IN (' + [refUnitId].concat(grp.srcIds).join(', ') + ') THEN ' + refUnitId);
+            });
+          }
           unitConceptIdExpr = '    CASE\n' + unitParts.join('\n') +
-            '\n        ELSE unit_concept_id -- non-convertible unit: kept as-is, value stays in its original unit\n' +
+            '\n        ELSE unit_concept_id -- no conversion for this (concept, unit): kept as-is, value stays in its original unit\n' +
             '    END AS unit_concept_id';
         }
       } else if (domain === 'Measurement' && !refUnitId) {
@@ -5136,7 +5217,18 @@ var ConceptSetsPage = (function() {
       // opt-in filter to exclude those rows for a fully-normalized result.
       if (unitConceptIdExpr) {
         lines.push('-- Optional: uncomment to drop rows whose unit cannot be converted to the reference unit');
-        lines.push('-- AND unit_concept_id IN (' + [refUnitId].concat(convertedSrcUnits).join(', ') + ')');
+        if (!ambiguous) {
+          lines.push('-- AND unit_concept_id IN (' + [refUnitId].concat(convertedSrcUnits).join(', ') + ')');
+        } else {
+          lines.push('-- AND (unit_concept_id = ' + refUnitId);
+          convGroups.forEach(function(grp) {
+            var conceptCond = grp.ids.length === 1
+              ? 'measurement_concept_id = ' + grp.ids[0]
+              : 'measurement_concept_id IN (' + grp.ids.join(', ') + ')';
+            lines.push('--      OR (' + conceptCond + ' AND unit_concept_id IN (' + grp.srcIds.join(', ') + '))');
+          });
+          lines.push('-- )');
+        }
       }
 
       lines.push(';');
@@ -5145,24 +5237,19 @@ var ConceptSetsPage = (function() {
     return lines.join('\n');
   }
 
+  // `format` is 'indicate' or 'atlas' — the SQL export has its own flow
+  // (exportStepMethod('sql') → showSqlExportPreview, which handles the
+  // reference-unit selection that a direct buildOMOPSQL() call would skip).
   function executeExport(format) {
     if (!selectedConceptSet || !exportMethod) return;
 
-    var content, filename, mimeType;
-    if (format === 'sql') {
-      content = buildOMOPSQL();
-      filename = selectedConceptSet.id + '.sql';
-      mimeType = 'text/plain';
-    } else {
-      content = (format === 'atlas') ? buildAtlasJSON() : buildIndicateJSON();
-      filename = selectedConceptSet.id + '.json';
-      mimeType = 'application/json';
-    }
+    var content = (format === 'atlas') ? buildAtlasJSON() : buildIndicateJSON();
+    var filename = selectedConceptSet.id + '.json';
+    var mimeType = 'application/json';
 
     if (exportMethod === 'clipboard') {
-      var aceMode = (format === 'sql') ? 'sql' : 'json';
       navigator.clipboard.writeText(content).then(function() {
-        showExportPreview(content, aceMode);
+        showExportPreview(content, 'json');
         markExportCopyBtnCopied();
       }).catch(function() {
         App.showToast(App.i18n('Could not copy to clipboard. Try downloading the file instead.'), 'error');
@@ -5297,9 +5384,6 @@ var ConceptSetsPage = (function() {
     renderAll();
     if (result.deleted > 0) {
       App.showToast(result.deleted + App.i18n(result.deleted > 1 ? ' concept sets' : ' concept set') + App.i18n(' deleted.'), 'success');
-    }
-    if (result.skipped > 0) {
-      App.showToast(result.skipped + ' ' + App.i18n('repository ') + App.i18n(result.skipped > 1 ? ' concept sets' : ' concept set') + App.i18n(' cannot be deleted.'), 'warning');
     }
   }
 
@@ -5530,7 +5614,7 @@ var ConceptSetsPage = (function() {
     if (csEditingId != null) {
       var cs = App.conceptSets.find(function(c) { return c.id === csEditingId; });
       if (!cs) return;
-      cs.modifiedDate = new Date().toISOString().split('T')[0];
+      App.stampModified(cs);
       if (!cs.metadata) cs.metadata = {};
       if (!cs.metadata.translations) cs.metadata.translations = {};
       if (!cs.metadata.translations.en) cs.metadata.translations.en = {};
@@ -5607,18 +5691,17 @@ var ConceptSetsPage = (function() {
   // ==================== EVENTS ====================
   function initEvents() {
     // Version snapshot banner: "View latest version" action.
-    // We render the latest version directly (rather than relying on Router.navigate
-    // → hashchange → show, which is fragile if the URL change ends up being a no-op
-    // for the router), and replaceState the URL so the address bar stays in sync.
+    // Navigate FIRST and let the hashchange render the latest version: pushing
+    // a new history entry keeps the pinned-version URL in history, so the
+    // browser Back button returns to it. (Rendering before navigating would
+    // not work: showCSDetail's replaceState overwrites the pinned entry, and
+    // the subsequent navigate becomes a same-hash no-op.)
     var bannerLatest = document.getElementById('cs-version-banner-latest');
     if (bannerLatest) {
       bannerLatest.addEventListener('click', function(e) {
         e.preventDefault();
         if (!selectedConceptSet) return;
-        var id = selectedConceptSet.id;
-        showCSDetail(id);
-        var hash = '#/concept-sets?id=' + encodeURIComponent(id);
-        Router.replaceState(hash);
+        Router.navigate('/concept-sets', { id: selectedConceptSet.id });
       });
     }
 
@@ -6075,10 +6158,10 @@ var ConceptSetsPage = (function() {
     });
 
     // Expression table filters
-    ['expr-filter-domain', 'expr-filter-exclude', 'expr-filter-descendants', 'expr-filter-mapped'].forEach(function(id) {
+    ['expr-filter-domain', 'expr-filter-class', 'expr-filter-exclude', 'expr-filter-descendants', 'expr-filter-mapped'].forEach(function(id) {
       document.getElementById(id).addEventListener('change', function() { expressionPage = 1; renderExpressionTable(); });
     });
-    ['expr-filter-name', 'expr-filter-code'].forEach(function(id) {
+    ['expr-filter-conceptId', 'expr-filter-name', 'expr-filter-code'].forEach(function(id) {
       document.getElementById(id).addEventListener('input', function() { expressionPage = 1; renderExpressionTable(); });
     });
 
@@ -6254,21 +6337,7 @@ var ConceptSetsPage = (function() {
       }
     } else if (selectedConceptSet) {
       // Back to list view (e.g. browser back button)
-      if (exprEditMode) exitExprEditMode();
-      if (commentsEditMode) exitCommentsEditMode();
-      if (statsEditMode) exitStatsEditMode();
-      document.getElementById('cs-edit-btn').style.display = 'none';
-      document.getElementById('cs-edit-cancel-btn').style.display = 'none';
-      document.getElementById('cs-edit-save-btn').style.display = 'none';
-      document.getElementById('cs-detail-view').classList.remove('active');
-      document.getElementById('cs-list-view').classList.remove('hidden');
-      selectedConceptSet = null;
-      selectedSnapshotVersion = null;
-      selectedFromProjectId = null;
-      var banner = document.getElementById('cs-version-banner');
-      if (banner) banner.style.display = 'none';
-      csDetailTab = 'concepts';
-      csConceptMode = 'resolved';
+      hideCSDetail();
     }
     // else: bare list view, nothing extra to do (renderAll already ran in init)
   }
@@ -6298,7 +6367,10 @@ var ConceptSetsPage = (function() {
     if (selectedConceptSet) {
       var savedTab = csDetailTab;
       var savedMode = csConceptMode;
-      showCSDetail(selectedConceptSet.id);
+      var opts = selectedSnapshotVersion
+        ? { version: selectedSnapshotVersion, from: selectedFromProjectId ? 'project' : null, projectId: selectedFromProjectId }
+        : undefined;
+      showCSDetail(selectedConceptSet.id, opts);
       switchCSDetailTab(savedTab);
       switchConceptMode(savedMode);
     }

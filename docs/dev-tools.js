@@ -274,6 +274,9 @@ var DevToolsPage = (function () {
     var rowCountEl = document.getElementById('sql-row-count');
     var exportBtn = document.getElementById('sql-export-csv');
     var runBtn = document.getElementById('sql-run-btn');
+    // Ctrl/Cmd-Enter bypasses the button — honour its disabled state so two
+    // queries can't race and overwrite each other's results.
+    if (runBtn.disabled) return;
 
     resultsEl.innerHTML = '<div style="padding:20px; text-align:center"><i class="fas fa-spinner fa-spin"></i> Running...</div>';
     rowCountEl.textContent = '';
@@ -362,17 +365,22 @@ var DevToolsPage = (function () {
 
   function exportCsv() {
     if (!lastQueryRows || !lastQueryCols) return;
-    var lines = [lastQueryCols.map(function (c) { return '"' + c.replace(/"/g, '""') + '"'; }).join(',')];
+    // Quote + escape every cell; neutralize spreadsheet formula injection
+    // (=, +, -, @ prefixes) while leaving pure numbers intact.
+    function csvField(val) {
+      var s = val == null ? '' : String(val);
+      if (/^[=+\-@]/.test(s) && !/^-?\d+(\.\d+)?$/.test(s)) s = "'" + s;
+      return '"' + s.replace(/"/g, '""') + '"';
+    }
+    var lines = [lastQueryCols.map(csvField).join(',')];
     for (var r = 0; r < lastQueryRows.length; r++) {
       var vals = [];
       for (var c = 0; c < lastQueryCols.length; c++) {
-        var val = lastQueryRows[r][lastQueryCols[c]];
-        var s = val == null ? '' : String(val);
-        vals.push('"' + s.replace(/"/g, '""') + '"');
+        vals.push(csvField(lastQueryRows[r][lastQueryCols[c]]));
       }
       lines.push(vals.join(','));
     }
-    var blob = new Blob([lines.join('\n')], { type: 'text/csv;charset=utf-8;' });
+    var blob = new Blob(['\uFEFF' + lines.join('\n')], { type: 'text/csv;charset=utf-8;' });
     var url = URL.createObjectURL(blob);
     var a = document.createElement('a');
     a.href = url;
@@ -607,7 +615,6 @@ var DevToolsPage = (function () {
     initialized = true;
     initEvents();
     populateExamples();
-    checkDbStatus();
   }
 
   function show() {

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>INDICATE Data Dictionary</title>
 <link rel="icon" type="image/png" href="favicon.png">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-3B6NwesSXE7YJlcLI9RpRqGf2p/EgVH8BgoKTaUrmKNDkHPStTQ3EyoYjCGXaOTS" crossorigin="anonymous">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="app.css">
@@ -184,11 +184,6 @@
             <button class="btn-success-custom" id="expr-add-btn"><i class="fas fa-plus"></i> <span data-i18n="Add Concepts">Add Concepts</span></button>
             <button class="btn-primary-custom" id="expr-optimize-btn" title="Remove redundant concepts covered by ancestors with Include Descendants"><i class="fas fa-magic"></i> <span data-i18n="Optimize">Optimize</span></button>
           </div>
-          <span class="badge badge-count" id="cs-concept-count">0</span>
-          <div class="col-vis-wrapper" id="col-vis-wrapper" style="position:relative">
-            <button class="btn-outline-sm" id="col-vis-btn"><i class="fas fa-columns"></i> <span data-i18n="Columns">Columns</span></button>
-            <div class="col-vis-dropdown" id="col-vis-dropdown" style="display:none"></div>
-          </div>
           <a class="btn-outline-sm" id="cs-view-json" href="#" target="_blank" style="text-decoration:none"><i class="fas fa-code"></i> <span data-i18n="View JSON">View JSON</span></a>
         </div>
       </div>
@@ -224,6 +219,11 @@
               <div class="pagination" id="resolved-pagination">
                 <span id="resolved-page-info"></span>
                 <div class="pagination-buttons" id="resolved-page-buttons"></div>
+                <!-- Moved into the active table's pagination bar by switchConceptMode -->
+                <div class="col-vis-wrapper" id="col-vis-wrapper" style="position:relative">
+                  <button class="btn-outline-sm" id="col-vis-btn"><i class="fas fa-columns"></i> <span data-i18n="Columns">Columns</span></button>
+                  <div class="col-vis-dropdown" id="col-vis-dropdown" style="display:none"></div>
+                </div>
               </div>
             </div>
           </div>
@@ -429,7 +429,7 @@
     <!-- Context tab (read mode) -->
     <div class="panel" id="proj-tab-context">
       <div class="panel-body">
-        <div class="project-detail-section" id="proj-long-description-section"></div>
+        <div class="project-detail-section md-prose" id="proj-long-description-section"></div>
       </div>
     </div>
 
@@ -439,10 +439,10 @@
         <div class="project-detail-section">
           <h4 data-i18n="Long description">Long description</h4>
           <div class="md-editor-wrap">
-            <div class="md-editor-pane">
-              <textarea class="md-editor-textarea" id="proj-edit-long-desc" data-i18n-placeholder="Enter long description (Markdown supported)..." placeholder="Enter long description (Markdown supported)..."></textarea>
+            <div class="md-editor-pane" style="display:flex; flex-direction:column">
+              <div id="proj-edit-long-desc-ace" style="flex:1; min-height:200px"></div>
             </div>
-            <div class="md-editor-pane md-preview" id="proj-edit-long-desc-preview"></div>
+            <div class="md-editor-pane md-preview md-prose" id="proj-edit-long-desc-preview"></div>
           </div>
         </div>
       </div>
@@ -873,7 +873,7 @@
 
 <!-- Mapping Project: Import CSV Modal -->
 <div class="modal-overlay" id="mapping-import-modal" style="display:none">
-  <div class="modal-box" style="width:640px; max-width:90vw">
+  <div class="modal-box" id="mapping-import-modal-box" style="width:640px; max-width:90vw">
     <div class="modal-header">
       <h3><i class="fas fa-upload"></i> <span data-i18n="Import mapping CSV">Import mapping CSV</span></h3>
       <button class="modal-close" id="mapping-import-modal-close">&times;</button>
@@ -2106,9 +2106,10 @@ Enter your review comments here using Markdown syntax.
 <!-- ═══════════════════════════════════════════════════════════
      SCRIPTS
      ═══════════════════════════════════════════════════════════ -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.7/ace.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-<script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.7/ace.min.js" integrity="sha384-EE3KnGRjpMoFk4Pl7EvHg05EyEwuqIvbmf9RZc1ag+pmoMVcLs1ODGebVhVjGczN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked@18.0.5/lib/marked.umd.js" integrity="sha384-ZD0fTOwPMHi7zM6WTVIWJR21I07lq0ccnqz3J6WMvQKG9thh4y7TA1QE6PJu0Af8" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.7/dist/purify.min.js" integrity="sha384-qJNkHwhlYywDHfyoEe1np+1lYvX/8x+3gHCKFhSSBMQyCFlvFnn+zXmaebXl21rV" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/vis-network@9.1.13/standalone/umd/vis-network.min.js" integrity="sha384-j/CCSVt8uoXRr8tDFbeneaoTxTOOoFXbdTM2iV3FsE0RO3eBgas7qhLBj0AzMpU3" crossorigin="anonymous"></script>
 <script src="data_inline.js"></script>
 <script src="app.js"></script>
 <script src="duckdb-loader.js"></script>

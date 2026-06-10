@@ -7,7 +7,7 @@ var GeneralSettingsPage = (function () {
   var initialized = false;
 
   /* ── DOM refs (set on init) ─────────────────────────── */
-  var statusPanel, statusIcon, statusTitle, statusMsg;
+  var statusPanel, statusIcon, statusMsg;
   var btnSelectFolder, btnRegrant, btnDeleteDb, fileInput;
   var progressSection, progressLabel, progressPct, progressFill, fileListEl;
   var statsSection, statsGrid;
@@ -25,7 +25,7 @@ var GeneralSettingsPage = (function () {
       empty:   'fas fa-database'
     };
     statusIcon.innerHTML = '<i class="' + (iconMap[type] || iconMap.empty) + '"></i>';
-    statusMsg.innerHTML = msg;
+    statusMsg.textContent = msg;
   }
 
   function showButtons(selectFolder, regrant, deleteDb) {
@@ -54,22 +54,18 @@ var GeneralSettingsPage = (function () {
 
   /* ── Progress display ──────────────────────────────── */
 
-  function initFileList(fileNames) {
-    var html = '';
-    for (var i = 0; i < fileNames.length; i++) {
-      var key = VocabDB.tableName(fileNames[i]);
-      html += '<div class="vocab-file-item" id="file-' + key + '">' +
-        '<i class="fas fa-clock vocab-file-icon"></i> ' +
-        '<span class="vocab-file-name">' + fileNames[i] + '</span>' +
-        '</div>';
-    }
-    fileListEl.innerHTML = html;
-  }
-
+  // The file list is built lazily, one entry per file as the import reaches it
+  // (the importer decides which files are relevant, the UI just mirrors it).
   function updateFileStatus(filename, status) {
     var key = VocabDB.tableName(filename);
     var el = document.getElementById('file-' + key);
-    if (!el) return;
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'file-' + key;
+      el.innerHTML = '<i class="fas fa-clock vocab-file-icon"></i> <span class="vocab-file-name"></span>';
+      el.querySelector('.vocab-file-name').textContent = filename;
+      fileListEl.appendChild(el);
+    }
     var iconClass = {
       pending:   'fas fa-clock',
       importing: 'fas fa-spinner fa-spin',
@@ -124,6 +120,7 @@ var GeneralSettingsPage = (function () {
     setStatus('loading', 'Importing vocabulary files...');
     showButtons(false, false, false);
     progressSection.style.display = '';
+    fileListEl.innerHTML = '';
     statsSection.style.display = 'none';
 
     VocabDB.importFromDirectory(dirHandle, function (info) {
@@ -143,6 +140,7 @@ var GeneralSettingsPage = (function () {
     setStatus('loading', 'Importing vocabulary files...');
     showButtons(false, false, false);
     progressSection.style.display = '';
+    fileListEl.innerHTML = '';
     statsSection.style.display = 'none';
 
     VocabDB.importFromFiles(fileList, onProgress)
@@ -221,6 +219,7 @@ var GeneralSettingsPage = (function () {
   function showEmptyState() {
     setStatus('empty', 'No vocabulary database found. Select a folder to import OHDSI vocabulary files.');
     showButtons(true, false, false);
+    btnSelectFolder.innerHTML = '<i class="fas fa-folder-open"></i> Select Vocabulary Folder';
     progressSection.style.display = 'none';
     showStats(null);
   }
@@ -253,7 +252,18 @@ var GeneralSettingsPage = (function () {
               showReadyState(stats);
             });
           }
-          showEmptyState();
+          // A stored folder handle without restorable data usually means the
+          // read permission lapsed — offer the Re-grant button.
+          return VocabDB.getStoredDirectoryHandle().then(function (handle) {
+            if (handle) {
+              setStatus('empty', 'Vocabulary folder found, but access must be re-granted.');
+              showButtons(true, true, false);
+              progressSection.style.display = 'none';
+              showStats(null);
+            } else {
+              showEmptyState();
+            }
+          }).catch(function () { showEmptyState(); });
         });
       })
       .catch(function (err) {
@@ -290,7 +300,11 @@ var GeneralSettingsPage = (function () {
 
     fileInput.addEventListener('change', function () {
       if (fileInput.files && fileInput.files.length > 0) {
-        startImportFromFiles(fileInput.files);
+        // Copy, then reset the input so re-selecting the same folder after a
+        // failure fires `change` again (clearing `value` empties the FileList).
+        var files = Array.prototype.slice.call(fileInput.files);
+        fileInput.value = '';
+        startImportFromFiles(files);
       }
     });
 
@@ -309,8 +323,7 @@ var GeneralSettingsPage = (function () {
 
       VocabDB.deleteDatabase()
         .then(function () {
-          setStatus('empty', 'No vocabulary database found. Select a folder to import OHDSI vocabulary files.');
-          showButtons(true, false, false);
+          showEmptyState();
           App.showToast('Database deleted', 'success');
         })
         .catch(function (err) {
@@ -329,7 +342,6 @@ var GeneralSettingsPage = (function () {
     // Grab DOM refs
     statusPanel   = document.getElementById('vocab-status-panel');
     statusIcon    = document.getElementById('vocab-status-icon');
-    statusTitle   = document.getElementById('vocab-status-title');
     statusMsg     = document.getElementById('vocab-status-msg');
     btnSelectFolder = document.getElementById('vocab-select-folder');
     btnRegrant      = document.getElementById('vocab-regrant');
