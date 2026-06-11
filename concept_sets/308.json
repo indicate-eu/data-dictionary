@@ -2,11 +2,11 @@
   "id": 308,
   "name": "Oxygen therapy",
   "description": "Supplemental oxygen therapy and its delivery route (nasal cannula, mask, Venturi, non-rebreather, high-flow, etc.); not flow rate or FiO2.",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-06-10",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -85,6 +85,158 @@
         "isExcluded": true,
         "includeDescendants": false,
         "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4056814,
+          "conceptName": "Catalytic oxygen therapy",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "182713008",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37312322,
+          "conceptName": "Alcohol-oxygen vapor therapy",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "788538002",
+          "validStartDate": "2020-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 603260,
+          "conceptName": "Oxygen administration using headbox",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1363901000000105",
+          "validStartDate": "2021-09-29",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4072513,
+          "conceptName": "Long-term oxygen therapy",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "243137006",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4140455,
+          "conceptName": "Home oxygen therapy",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "426990007",
+          "validStartDate": "2007-07-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 44788930,
+          "conceptName": "Ambulatory oxygen therapy",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "201661000000106",
+          "validStartDate": "2006-04-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 44788929,
+          "conceptName": "SBOT - Short-burst oxygen therapy",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "201651000000108",
+          "validStartDate": "2006-04-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4173351,
+          "conceptName": "Apneic oxygenation",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "276732005",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
       }
     ]
   },
@@ -103,7 +255,7 @@
         "category": "Ventilation",
         "subcategory": "Ventilation device",
         "shortDescription": "Supplemental oxygen therapy and its delivery route (nasal cannula, mask, Venturi, non-rebreather, high-flow, etc.); not flow rate or FiO2.",
-        "longDescription": "## Definition & Clinical Context\n\nOxygen therapy is the delivery of supplemental oxygen to a patient to raise the oxygen content of the gas they breathe. In source data this is a **procedure** record indicating that oxygen was administered, usually capturing the delivery interface (nasal cannula, face mask, Venturi mask, non-rebreather mask, high-flow nasal cannula, etc.) or the therapy context (acute, home, long-term). There is no unit. It is recorded across intensive care, wards, emergency, anaesthesia, and outpatient/home settings. The set covers the act and route of oxygen delivery — it is distinct from the oxygen *flow rate* (L/min) and the *fraction of inspired oxygen* (FiO2), which are numeric measurements in their own concept sets.\n\n## Included Concepts\n\nThe set is anchored on the SNOMED procedure *Oxygen therapy* with its descendants, so every more specific oxygen-delivery method or context resolves automatically. Two off-topic branches are removed (see Excluded Concepts). Grouped here by what they describe.\n\n### Generic oxygen therapy (default)\n\n- *4239130 / 57485005 — Oxygen therapy (SNOMED)*: the general concept; the default when the source records oxygen administration without a specific route or context.\n\n### By delivery interface / route\n\n- *4155151 / 371907003 — Oxygen administration by nasal cannula (SNOMED)*.\n- *4216695 / 71786000 — Intranasal oxygen therapy (SNOMED)*.\n- *4162736 / 371908008 — Oxygen administration by mask (SNOMED)*.\n- *4323763 / 429253002 — Oxygen administration by Venturi mask (SNOMED)*: fixed-concentration (air-entrainment) mask.\n- *44790731 / 240051000000102 — Oxygen administration by non rebreather mask (SNOMED)*: high-concentration reservoir mask.\n- *44790798 / 243011000000108 — Oxygen administration by mask with bag and valve (SNOMED)*.\n- *44806745 / 802801000000109 — Oxygen administration by mask at 60 percent concentration (SNOMED)*.\n- *37155203 / 149761000000108 — Administration of oxygen using tracheostomy mask (SNOMED)*.\n- *603260 / 1363901000000105 — Oxygen administration using headbox (SNOMED)*: paediatric/neonatal headbox.\n\n### High-flow / humidified\n\n- *3655950 / 870533002 — Heated and humidified high flow oxygen therapy (SNOMED)* and *37158406 / 1259025002 — Heated and humidified high flow oxygen therapy using nasal cannula (SNOMED)*: high-flow nasal oxygen (HFNC/HFNO).\n- *4119964 / 304577004 — Humidified oxygen therapy (SNOMED)*.\n\n### By concentration / flow level\n\n- *4201025 / 315041000 — High concentration oxygen therapy (SNOMED)*.\n- *1074232 / 1336169000 — Low flow oxygen delivery (SNOMED)*.\n\n### By context / duration\n\n- *4140455 / 426990007 — Home oxygen therapy (SNOMED)*, *4072513 / 243137006 — Long-term oxygen therapy (SNOMED)*, *4074661 / 243136002 — Short-term oxygen therapy (SNOMED)*, *44788930 / 201661000000106 — Ambulatory oxygen therapy (SNOMED)*, *44788929 / 201651000000108 — SBOT - Short-burst oxygen therapy (SNOMED)*.\n\n### Other techniques\n\n- *4173351 / 276732005 — Apneic oxygenation (SNOMED)*: oxygenation during apnoea (e.g. peri-intubation).\n- *4056814 / 182713008 — Catalytic oxygen therapy (SNOMED)* and *37312322 / 788538002 — Alcohol-oxygen vapor therapy (SNOMED)*: niche methods.\n\n## Excluded Concepts\n\nTwo branches under SNOMED's *Oxygen therapy* are removed because they are not supplemental-oxygen delivery:\n\n- **Oxygen-delivery optimisation / oxygen dynamics** — *4189560 / 391893003 — Manipulation of oxygen dynamics* and *4136465 / 398077001 — Oxygen dynamic interventions* with their descendants (increasing global oxygen delivery via cardiovascular drugs, circulating-volume or haemoglobin alteration, mechanical circulatory assistance, reducing oxygen consumption). These are haemodynamic/metabolic interventions, not oxygen administration.\n- **Oxygenator therapy** — *4082249 / 182714002 — Oxygenator therapy (SNOMED)*: refers to an extracorporeal membrane oxygenator (ECMO), not interface-delivered oxygen.\n\n## Mapping Notes\n\n- **Default concept** when the source records that oxygen was given without specifying the interface: *4239130 / 57485005 — Oxygen therapy*. Map to a specific interface concept only when the source documents it.\n- **Therapy/route vs measurements**: this set is the *act and route* of oxygen delivery. The oxygen *flow rate* (L/min) belongs to the Oxygen flow rate concept set, and the inspired oxygen *fraction* (FiO2, %) to the Fraction of inspired oxygen (FiO2) concept set — do not map a numeric value here.\n- **High-flow nasal oxygen**: map HFNC/HFNO to *37158406 / 1259025002 — Heated and humidified high flow oxygen therapy using nasal cannula*. The high-flow nasal cannula *device* itself is not part of this therapy set.\n- **Not extracorporeal**: ECMO / membrane oxygenator support is not oxygen therapy and is not in this set."
+        "longDescription": "## Definition & Clinical Context\n\nOxygen therapy is the delivery of supplemental oxygen to a patient to raise the oxygen content of the gas they breathe. In source data this is a **procedure** record indicating that oxygen was administered, usually capturing the delivery interface (nasal cannula, face mask, Venturi mask, non-rebreather mask, high-flow nasal cannula, etc.). There is no unit. It is recorded across intensive care, emergency, anaesthesia and ward settings. The set covers the act and route of oxygen delivery — it is distinct from the oxygen *flow rate* (L/min) and the *fraction of inspired oxygen* (FiO2), which are numeric measurements in their own concept sets. It is scoped to acute, in-hospital oxygen administration (chronic/home oxygen-therapy contexts are excluded — see Excluded Concepts).\n\n## Included Concepts\n\nThe set is anchored on the SNOMED procedure *Oxygen therapy* with its descendants, restricted to acute in-hospital oxygen delivery. Grouped here by what they describe.\n\n### Generic oxygen therapy (default)\n\n- *4239130 / 57485005 — Oxygen therapy (SNOMED)*: the general concept; the default when the source records oxygen administration without a specific route.\n- *4074661 / 243136002 — Short-term oxygen therapy (SNOMED)*: acute, time-limited oxygen therapy.\n\n### By delivery interface / route\n\n- *4155151 / 371907003 — Oxygen administration by nasal cannula (SNOMED)*.\n- *4216695 / 71786000 — Intranasal oxygen therapy (SNOMED)*.\n- *4162736 / 371908008 — Oxygen administration by mask (SNOMED)*.\n- *4323763 / 429253002 — Oxygen administration by Venturi mask (SNOMED)*: fixed-concentration (air-entrainment) mask.\n- *44790731 / 240051000000102 — Oxygen administration by non rebreather mask (SNOMED)*: high-concentration reservoir mask.\n- *44790798 / 243011000000108 — Oxygen administration by mask with bag and valve (SNOMED)*.\n- *44806745 / 802801000000109 — Oxygen administration by mask at 60 percent concentration (SNOMED)*.\n- *37155203 / 149761000000108 — Administration of oxygen using tracheostomy mask (SNOMED)*.\n\n### High-flow / humidified\n\n- *3655950 / 870533002 — Heated and humidified high flow oxygen therapy (SNOMED)* and *37158406 / 1259025002 — Heated and humidified high flow oxygen therapy using nasal cannula (SNOMED)*: high-flow nasal oxygen (HFNC/HFNO).\n- *4119964 / 304577004 — Humidified oxygen therapy (SNOMED)*.\n\n### By concentration / flow level\n\n- *4201025 / 315041000 — High concentration oxygen therapy (SNOMED)*.\n- *1074232 / 1336169000 — Low flow oxygen delivery (SNOMED)*.\n\n## Excluded Concepts\n\nConcepts pulled in by the SNOMED *Oxygen therapy* hierarchy that are out of scope for acute intensive-care oxygen administration are excluded:\n\n- **Oxygen-delivery optimisation / oxygen dynamics** — *4189560 / 391893003 — Manipulation of oxygen dynamics* and *4136465 / 398077001 — Oxygen dynamic interventions* with their descendants (haemodynamic/metabolic interventions, not oxygen administration).\n- **Oxygenator therapy** — *4082249 / 182714002 — Oxygenator therapy (SNOMED)*: an extracorporeal membrane oxygenator (ECMO), not interface-delivered oxygen.\n- **Chronic / home-care contexts** — *4072513 / 243137006 — Long-term oxygen therapy*, *4140455 / 426990007 — Home oxygen therapy*, *44788930 / 201661000000106 — Ambulatory oxygen therapy*, *44788929 / 201651000000108 — SBOT - Short-burst oxygen therapy* (all SNOMED): outpatient/home oxygen contexts, not an acute in-hospital delivery.\n- **Niche / non-ICU methods** — *4056814 / 182713008 — Catalytic oxygen therapy*, *37312322 / 788538002 — Alcohol-oxygen vapor therapy*, *603260 / 1363901000000105 — Oxygen administration using headbox* (neonatal hood), and *4173351 / 276732005 — Apneic oxygenation* (a peri-intubation technique rather than a continuous oxygen-delivery mode) (all SNOMED).\n\n## Mapping Notes\n\n- **Default concept** when the source records that oxygen was given without specifying the interface: *4239130 / 57485005 — Oxygen therapy*. Map to a specific interface concept only when the source documents it.\n- **Therapy/route vs measurements**: this set is the *act and route* of oxygen delivery. The oxygen *flow rate* (L/min) belongs to the Oxygen flow rate concept set, and the inspired oxygen *fraction* (FiO2, %) to the Fraction of inspired oxygen (FiO2) concept set — do not map a numeric value here.\n- **High-flow nasal oxygen**: map HFNC/HFNO to *37158406 / 1259025002 — Heated and humidified high flow oxygen therapy using nasal cannula*. The high-flow nasal cannula *device* itself is not part of this therapy set.\n- **Out of scope**: chronic/home oxygen therapy, apneic oxygenation, ECMO/membrane oxygenation and oxygen-delivery optimisation are not mapped here.\n"
       },
       "fr": {
         "name": "Oxygénothérapie",
@@ -127,6 +279,12 @@
         "date": "2026-06-10",
         "author": "Boris Delange",
         "message": "Rename Oxygen device -> Oxygen therapy. Re-anchor on Oxygen therapy (4239130) with descendants; exclude the oxygen-delivery-optimisation branch (Manipulation of oxygen dynamics 4189560, Oxygen dynamic interventions 4136465) and Oxygenator therapy/ECMO (4082249). Dropped the HFNC device (4139525) to keep the set homogeneous (procedures). Resolves to 23. Added clinical description."
+      },
+      {
+        "version": "1.2.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Exclude non-ICU concepts pulled in by the Oxygen therapy anchor: catalytic oxygen therapy (4056814), alcohol-oxygen vapor therapy (37312322), headbox (603260, neonatal), and the chronic/home-care contexts long-term (4072513), home (4140455), ambulatory (44788930) and short-burst (44788929) oxygen therapy, and apneic oxygenation (4173351, a peri-intubation technique)."
       }
     ],
     "distributionStats": null

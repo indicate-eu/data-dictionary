@@ -31480,5 +31480,16 @@
     "recommendedUnitName": "second",
     "recommendedUnitCode": "s",
     "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 21491186,
+    "conceptName": "Endotracheal tube Diameter",
+    "conceptCode": "79562-5",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 8588,
+    "recommendedUnitName": "millimeter",
+    "recommendedUnitCode": "mm",
+    "recommendedUnitVocabularyId": "UCUM"
   }
 ]

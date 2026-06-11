@@ -1,6 +1,6 @@
 {
   "id": 320,
-  "name": "Plateau pressure",
+  "name": "Plateau pressure (Pplat)",
   "description": "Plateau pressure (Pplat) — airway pressure during an end-inspiratory hold, in cmH2O.",
   "version": "1.1.0",
   "createdBy": "Boris Delange",
@@ -61,14 +61,14 @@
     "origin": null,
     "translations": {
       "en": {
-        "name": "Plateau pressure",
+        "name": "Plateau pressure (Pplat)",
         "category": "Ventilation",
         "subcategory": "Ventilation parameters",
         "shortDescription": "Plateau pressure (Pplat) — airway pressure during an end-inspiratory hold, in cmH2O.",
         "longDescription": "## Definition & Clinical Context\n\nPlateau pressure (Pplat) is the airway pressure measured during an end-inspiratory hold (no gas flow), reflecting the pressure distending the alveoli — the elastic recoil of the lungs and chest wall. It is a key target in lung-protective ventilation (kept ≤ ~30 cmH2O). In source data it is a single numeric value per patient-timestamp, obtained by the ventilator during an inspiratory pause. It is recorded in intensive care and anaesthesia for ventilated patients. It is reported in centimetres of water (cmH2O); some ventilators display mbar (1 cmH2O ≈ 0.98 mbar).\n\n## Included Concepts\n\n- *44782825 / 698822002 — Airway plateau pressure (SNOMED)*: the plateau pressure measured during an inspiratory hold (the default).\n- *21490565 / 60802-6 — Dynamic plateau pressure (LOINC)*: a plateau pressure estimated under dynamic (non-hold) conditions.\n\n**Note on units**: reported in **cmH2O** (`44777590 / cm[H2O] — centimeter watercolumn`, UCUM), the recommended unit, with a registered cmH2O↔mbar conversion (1 cmH2O = 0.98 mbar).\n\n## Mapping Notes\n\n- **Default concept** when the source records a plateau pressure (Pplat): *44782825 / 698822002 — Airway plateau pressure*. Use *21490565 / 60802-6 — Dynamic plateau pressure* only when the source specifies a dynamic (non-hold) estimate.\n- Convert mbar to cmH2O (×1.02) before mapping.\n- **Not peak, mean or PEEP**: these are distinct pressures in their own concept sets.\n"
       },
       "fr": {
-        "name": "Pression de plateau",
+        "name": "Pression de plateau (Pplat)",
         "category": "Ventilation",
         "subcategory": "Paramètres ventilatoires",
         "shortDescription": "Pression de plateau (Pplat) — pression des voies aériennes lors d’une pause télé-inspiratoire, en cmH2O.",

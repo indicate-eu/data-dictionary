@@ -1,6 +1,6 @@
 {
   "id": 319,
-  "name": "Peak inspiration pressure",
+  "name": "Peak inspiratory pressure (PIP)",
   "description": "Peak inspiratory pressure (PIP) — highest airway pressure during a delivered breath, in cmH2O.",
   "version": "1.0.0",
   "createdBy": "Boris Delange",
@@ -42,14 +42,14 @@
     "origin": null,
     "translations": {
       "en": {
-        "name": "Peak inspiration pressure",
+        "name": "Peak inspiratory pressure (PIP)",
         "category": "Ventilation",
         "subcategory": "Ventilation parameters",
         "shortDescription": "Peak inspiratory pressure (PIP) — highest airway pressure during a delivered breath, in cmH2O.",
         "longDescription": "## Definition & Clinical Context\n\nPeak inspiratory pressure (PIP) is the highest airway pressure reached during the delivery of a breath by the ventilator. It reflects the combined pressure needed to overcome airway resistance and lung/chest-wall elastance; a rising PIP signals increased resistance (e.g. secretions, bronchospasm) or decreased compliance. In source data it is a single numeric value per patient-timestamp, measured by the ventilator. It is recorded in intensive care and anaesthesia for ventilated patients. It is reported in centimetres of water (cmH2O); some ventilators display mbar (1 cmH2O ≈ 0.98 mbar).\n\n## Included Concepts\n\n- *4101694 / 27913002 — Peak inspiratory pressure (SNOMED)*: the maximum airway pressure during a delivered breath.\n\n**Note on units**: reported in **cmH2O** (`44777590 / cm[H2O] — centimeter watercolumn`, UCUM), the recommended unit, with a registered cmH2O↔mbar conversion (1 cmH2O = 0.98 mbar).\n\n## Mapping Notes\n\n- Map a recorded peak inspiratory pressure (PIP, Ppeak) to *4101694 / 27913002 — Peak inspiratory pressure*. Convert mbar to cmH2O (×1.02) before mapping.\n- **Not plateau, mean or PEEP**: plateau pressure (during an inspiratory hold), mean airway pressure and PEEP are distinct pressures in their own concept sets.\n"
       },
       "fr": {
-        "name": "Pression inspiratoire de crête",
+        "name": "Pression inspiratoire de crête (Pcrête)",
         "category": "Ventilation",
         "subcategory": "Paramètres ventilatoires",
         "shortDescription": "Pression inspiratoire de pointe (PIP) — pression maximale des voies aériennes lors d’un cycle délivré, en cmH2O.",

@@ -1,6 +1,6 @@
 {
   "id": 363,
-  "name": "Expiratory time",
+  "name": "Expiratory time (Te)",
   "description": "Expiratory time (Te) — duration of the expiratory phase of a ventilator breath, in seconds.",
   "version": "1.0.0",
   "createdBy": "Boris Delange",
@@ -42,14 +42,14 @@
     "origin": null,
     "translations": {
       "en": {
-        "name": "Expiratory time",
+        "name": "Expiratory time (Te)",
         "category": "Ventilation",
         "subcategory": "Ventilation parameters",
         "shortDescription": "Expiratory time (Te) — duration of the expiratory phase of a ventilator breath, in seconds.",
         "longDescription": "## Definition & Clinical Context\n\nExpiratory time (Te) is the duration of the expiratory phase of a ventilator breath — the time during which the patient exhales. Together with inspiratory time it sets the inspiratory:expiratory (I:E) ratio. In source data it is a single numeric value per patient-timestamp, set or measured by the ventilator. It is recorded in intensive care and anaesthesia for ventilated patients. It is reported in seconds (s).\n\n## Included Concepts\n\nThe set lists the SNOMED and LOINC concepts for this duration. All are reported in seconds.\n\n- *4353622 / 250820008 — Expiratory time (SNOMED)*\n\n**Note on units**: reported in **seconds** (`8555 / s — second`, UCUM), the recommended unit.\n\n## Mapping Notes\n\n- **Default concept** when not otherwise qualified: *4353622 / 250820008 — Expiratory time*.\n- This is one specific breath-phase duration; inspiratory time, expiratory time and inspiratory pause time are separate concept sets (separate variables).\n"
       },
       "fr": {
-        "name": "Temps expiratoire",
+        "name": "Temps expiratoire (Te)",
         "category": "Ventilation",
         "subcategory": "Paramètres ventilatoires",
         "shortDescription": "Temps expiratoire (Te) — durée de la phase expiratoire d’un cycle ventilatoire, en secondes.",

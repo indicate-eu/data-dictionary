@@ -1,6 +1,6 @@
 {
   "id": 314,
-  "name": "Inspiratory pressure setting",
+  "name": "Inspiratory pressure setting (Pinsp)",
   "description": "Set inspiratory pressure on the ventilator (pressure-controlled breaths), in cmH2O; a setting, not a measured pressure.",
   "version": "1.0.0",
   "createdBy": "Boris Delange",
@@ -42,14 +42,14 @@
     "origin": null,
     "translations": {
       "en": {
-        "name": "Inspiratory pressure setting",
+        "name": "Inspiratory pressure setting (Pinsp)",
         "category": "Ventilation",
         "subcategory": "Ventilation parameters",
         "shortDescription": "Set inspiratory pressure on the ventilator (pressure-controlled breaths), in cmH2O; a setting, not a measured pressure.",
         "longDescription": "## Definition & Clinical Context\n\nThe inspiratory pressure setting is the airway pressure the clinician sets on the ventilator to deliver each breath in a pressure-controlled mode — the target pressure the ventilator applies during inspiration. In source data it is a single numeric value per patient-timestamp, a ventilator setting rather than a measured airway pressure. It is recorded in intensive care and anaesthesia for ventilated patients. It is reported in centimetres of water (**cmH2O**); some ventilators display it in millibar (mbar), which is nearly equivalent (1 cmH2O ≈ 0.98 mbar).\n\n## Included Concepts\n\nThis set contains the single SNOMED concept for the inspiratory pressure setting:\n\n- *4215838 / 417071008 — Inspiratory pressure setting (SNOMED)*: the set inspiratory pressure on the ventilator.\n\n**Note on units**: reported in **`44777590 / cm[H2O] — centimeter watercolumn`** (UCUM), the recommended unit; a cmH2O↔mbar conversion is registered (1 cmH2O = 0.98 mbar).\n\n## Mapping Notes\n\n- Map the set inspiratory pressure on a pressure-controlled ventilator to *4215838 / 417071008 — Inspiratory pressure setting*. Convert a value in mbar to cmH2O (×1.02) before mapping.\n- **Setting, not a measured pressure**: this is the *set* target pressure, distinct from measured airway pressures. Peak inspiratory pressure, plateau pressure, mean airway pressure and PEEP are measured/derived pressures captured in their own concept sets.\n- **Whether this is the pressure above PEEP or the absolute inspiratory pressure depends on the ventilator** and is not distinguished by this concept; preserve any such detail in the source value if needed, but map the value here regardless.\n- **Pressure support level** (the inspiratory assist set in a spontaneous/support mode) is a distinct ventilator setting and is not part of this concept set."
       },
       "fr": {
-        "name": "Réglage de la pression inspiratoire",
+        "name": "Réglage de la pression inspiratoire (Pinsp)",
         "category": "Ventilation",
         "subcategory": "Paramètres ventilatoires",
         "shortDescription": "Pression inspiratoire réglée sur le ventilateur (cycles en pression contrôlée), en cmH2O ; un réglage, pas une pression mesurée.",

@@ -1,6 +1,6 @@
 {
   "id": 317,
-  "name": "Minute volume",
+  "name": "Minute volume (MV)",
   "description": "Minute volume (minute ventilation) — gas volume moved per minute, in L/min (total, inspired/expired, spontaneous/mandatory, setting).",
   "version": "1.1.0",
   "createdBy": "Boris Delange",
@@ -232,14 +232,14 @@
     "origin": null,
     "translations": {
       "en": {
-        "name": "Minute volume",
+        "name": "Minute volume (MV)",
         "category": "Ventilation",
         "subcategory": "Ventilation parameters",
         "shortDescription": "Minute volume (minute ventilation) — gas volume moved per minute, in L/min (total, inspired/expired, spontaneous/mandatory, setting).",
         "longDescription": "## Definition & Clinical Context\n\nMinute volume (minute ventilation) is the total volume of gas moved in or out of the lungs per minute — tidal volume multiplied by respiratory rate. It reflects how much the patient is being ventilated. In source data it is a single numeric value per patient-timestamp, measured or set by the ventilator. It is recorded in intensive care and anaesthesia for ventilated patients. It is reported in litres per minute (L/min).\n\n## Included Concepts\n\nThe set lists the SNOMED and LOINC concepts for minute volume, grouped by what they qualify. All are reported in L/min.\n\n### Generic minute volume (default)\n\n- *4353621 / 250811004 — Minute volume (SNOMED)*: the general concept; the default.\n- *4107999 / 250812006 — Total minute volume (SNOMED)*: total (spontaneous + mandatory) minute volume.\n\n### By phase (inspired / expired)\n\n- *4141207 / 426102006 — Inspiratory minute volume (SNOMED)*.\n- *21490754 / 75960-5 — Inspired minute Volume (LOINC)*.\n- *42527121 / 76009-0 — Inspired minute Volume during Mechanical ventilation (LOINC)*.\n- *4144329 / 426168008 — Expiratory minute volume (SNOMED)*.\n- *42527120 / 76008-2 — Expired minute Volume during Mechanical ventilation (LOINC)*.\n\n### By breath origin\n\n- *4108000 / 250813001 — Spontaneous minute volume (SNOMED)*: from the patient's own breaths.\n- *4108447 / 250815008 — Mandatory minute volume (SNOMED)*: from ventilator-delivered breaths.\n- *4353945 / 250814007 — Triggered minute volume (SNOMED)*.\n\n### Setting\n\n- *3045410 / 33425-0 — Minute volume setting Ventilator (LOINC)*: the set (target) minute volume, e.g. for mandatory-minute-ventilation modes.\n\n**Note on units**: reported in **L/min** (`8698 / L/min — liter per minute`, UCUM), the recommended unit.\n\n## Mapping Notes\n\n- **Default concept** when the source records a minute volume without qualification: *4353621 / 250811004 — Minute volume*.\n- **Expired is the usual measured value**: ventilators typically report expired minute volume; map to an expiratory/expired concept when the source specifies it, otherwise use the generic concept.\n- **Setting vs measured**: map the set (target) minute volume to *3045410 / 33425-0 — Minute volume setting Ventilator*; measured values go to the measured concepts.\n- **Spontaneous vs mandatory**: map to the spontaneous, mandatory or triggered concept only when the source distinguishes the breath origin.\n- Values in mL/min must be converted to L/min (÷1000) before mapping.\n"
       },
       "fr": {
-        "name": "Volume minute",
+        "name": "Volume minute (VM)",
         "category": "Ventilation",
         "subcategory": "Paramètres ventilatoires",
         "shortDescription": "Volume minute (ventilation minute) — volume de gaz mobilisé par minute, en L/min (total, inspiré/expiré, spontané/mandataire, réglage).",

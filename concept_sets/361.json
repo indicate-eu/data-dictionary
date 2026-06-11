@@ -1,6 +1,6 @@
 {
   "id": 361,
-  "name": "End tidal carbon dioxide fraction",
+  "name": "End tidal carbon dioxide fraction (FetCO2)",
   "description": "End-tidal CO2 as a volume fraction / concentration, in %. The partial-pressure (mmHg) form is a separate set.",
   "version": "1.0.0",
   "createdBy": "Boris Delange",
@@ -61,14 +61,14 @@
     "origin": null,
     "translations": {
       "en": {
-        "name": "End tidal carbon dioxide fraction",
+        "name": "End tidal carbon dioxide fraction (FetCO2)",
         "category": "Ventilation",
         "subcategory": "Ventilation parameters",
         "shortDescription": "End-tidal CO2 as a volume fraction / concentration, in %. The partial-pressure (mmHg) form is a separate set.",
         "longDescription": "## Definition & Clinical Context\n\nEnd-tidal carbon dioxide (EtCO2) is the carbon dioxide in the gas a patient exhales at the very end of a breath, measured by a capnograph. This set captures EtCO2 expressed as a **volume fraction / concentration**, reported in **%** (e.g. 5%). In source data it is a single numeric value per patient-timestamp, recorded in intensive care and anaesthesia for ventilated patients. (EtCO2 expressed as a partial pressure in mmHg/kPa is a separate, non-inter-convertible measurement — see Mapping Notes.)\n\n## Included Concepts\n\n- *3012287 / 19888-7 — Carbon dioxide/Gas.total.at end expiration in Exhaled gas by Infrared absorption (LOINC)*: by infrared capnography (the standard method).\n- *3017485 / 19889-5 — Carbon dioxide/Gas.total.at end expiration in Exhaled gas (LOINC)*: method not specified.\n\n**Note on units**: reported in **`8554 / % — percent`** (UCUM), the recommended unit.\n\n## Mapping Notes\n\n- Map an EtCO2 value reported as a percentage to one of these concepts.\n- **Fraction vs partial pressure are not inter-convertible**: EtCO2 expressed as a partial pressure (PetCO2, mmHg/kPa) belongs to the separate **End tidal carbon dioxide (PetCO2)** concept set. The two are not related by a fixed factor (the partial pressure depends on barometric pressure), so they are kept as separate, unit-homogeneous sets.\n- **Not arterial CO2**: arterial CO2 is a different measurement in its own concept set.\n"
       },
       "fr": {
-        "name": "Fraction télé-expiratoire de dioxyde de carbone",
+        "name": "Fraction télé-expiratoire de dioxyde de carbone (FetCO2)",
         "category": "Ventilation",
         "subcategory": "Paramètres ventilatoires",
         "shortDescription": "CO2 télé-expiratoire en fraction volumique / concentration, en %. La forme en pression partielle (mmHg) est un set distinct.",
