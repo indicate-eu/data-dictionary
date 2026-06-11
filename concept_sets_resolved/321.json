@@ -39,12 +39,39 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 4108446,
+      "conceptName": "Total breath rate",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "250810003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4154772,
+      "conceptName": "Rate of spontaneous respiration",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "271625008",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4313591,
       "conceptName": "Respiratory rate",
       "vocabularyId": "SNOMED",
       "domainId": "Measurement",
       "conceptClassId": "Observable Entity",
       "conceptCode": "86290005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45770405,
+      "conceptName": "Baseline respiratory rate",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "927961000000102",
       "standardConcept": "S"
     }
   ]

@@ -31491,5 +31491,38 @@
     "recommendedUnitName": "millimeter",
     "recommendedUnitCode": "mm",
     "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 4108446,
+    "conceptName": "Total breath rate",
+    "conceptCode": "250810003",
+    "vocabularyId": "SNOMED",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 8541,
+    "recommendedUnitName": "per minute",
+    "recommendedUnitCode": "/min",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 4154772,
+    "conceptName": "Rate of spontaneous respiration",
+    "conceptCode": "271625008",
+    "vocabularyId": "SNOMED",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 8541,
+    "recommendedUnitName": "per minute",
+    "recommendedUnitCode": "/min",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 45770405,
+    "conceptName": "Baseline respiratory rate",
+    "conceptCode": "927961000000102",
+    "vocabularyId": "SNOMED",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 8541,
+    "recommendedUnitName": "per minute",
+    "recommendedUnitCode": "/min",
+    "recommendedUnitVocabularyId": "UCUM"
   }
 ]
