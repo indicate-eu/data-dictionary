@@ -1,26 +1,26 @@
 {
   "id": 317,
   "name": "Minute volume",
-  "description": null,
-  "version": "1.0.0",
+  "description": "Minute volume (minute ventilation) — gas volume moved per minute, in L/min (total, inspired/expired, spontaneous/mandatory, setting).",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
       {
         "concept": {
-          "conceptId": 3045410,
-          "conceptName": "Minute volume setting Ventilator",
+          "conceptId": 4353621,
+          "conceptName": "Minute volume",
           "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Clinical Observation",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "33425-0",
-          "validStartDate": "1970-01-01",
+          "conceptCode": "250811004",
+          "validStartDate": "2002-01-31",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
@@ -40,6 +40,101 @@
           "standardConceptCaption": "Standard",
           "conceptCode": "250812006",
           "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4141207,
+          "conceptName": "Inspiratory minute volume",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "426102006",
+          "validStartDate": "2007-07-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 21490754,
+          "conceptName": "Inspired minute Volume",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "75960-5",
+          "validStartDate": "2016-06-24",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 42527121,
+          "conceptName": "Inspired minute Volume during Mechanical ventilation",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "76009-0",
+          "validStartDate": "2017-02-21",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4144329,
+          "conceptName": "Expiratory minute volume",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "426168008",
+          "validStartDate": "2007-07-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 42527120,
+          "conceptName": "Expired minute Volume during Mechanical ventilation",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "76008-2",
+          "validStartDate": "2017-02-21",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
@@ -88,63 +183,6 @@
       },
       {
         "concept": {
-          "conceptId": 4141207,
-          "conceptName": "Inspiratory minute volume",
-          "domainId": "Measurement",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Observable Entity",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "426102006",
-          "validStartDate": "2007-07-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4144329,
-          "conceptName": "Expiratory minute volume",
-          "domainId": "Measurement",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Observable Entity",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "426168008",
-          "validStartDate": "2007-07-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4353621,
-          "conceptName": "Minute volume",
-          "domainId": "Measurement",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Observable Entity",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "250811004",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
           "conceptId": 4353945,
           "conceptName": "Triggered minute volume",
           "domainId": "Measurement",
@@ -164,53 +202,15 @@
       },
       {
         "concept": {
-          "conceptId": 21490754,
-          "conceptName": "Inspired minute Volume",
+          "conceptId": 3045410,
+          "conceptName": "Minute volume setting Ventilator",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
           "conceptClassId": "Clinical Observation",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "75960-5",
-          "validStartDate": "2016-06-24",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 42527120,
-          "conceptName": "Expired minute Volume during Mechanical ventilation",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Clinical Observation",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "76008-2",
-          "validStartDate": "2017-02-21",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 42527121,
-          "conceptName": "Inspired minute Volume during Mechanical ventilation",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Clinical Observation",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "76009-0",
-          "validStartDate": "2017-02-21",
+          "conceptCode": "33425-0",
+          "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
@@ -228,21 +228,21 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Minute volume",
         "category": "Ventilation",
         "subcategory": "Ventilation parameters",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Minute volume (minute ventilation) — gas volume moved per minute, in L/min (total, inspired/expired, spontaneous/mandatory, setting).",
+        "longDescription": "## Definition & Clinical Context\n\nMinute volume (minute ventilation) is the total volume of gas moved in or out of the lungs per minute — tidal volume multiplied by respiratory rate. It reflects how much the patient is being ventilated. In source data it is a single numeric value per patient-timestamp, measured or set by the ventilator. It is recorded in intensive care and anaesthesia for ventilated patients. It is reported in litres per minute (L/min).\n\n## Included Concepts\n\nThe set lists the SNOMED and LOINC concepts for minute volume, grouped by what they qualify. All are reported in L/min.\n\n### Generic minute volume (default)\n\n- *4353621 / 250811004 — Minute volume (SNOMED)*: the general concept; the default.\n- *4107999 / 250812006 — Total minute volume (SNOMED)*: total (spontaneous + mandatory) minute volume.\n\n### By phase (inspired / expired)\n\n- *4141207 / 426102006 — Inspiratory minute volume (SNOMED)*.\n- *21490754 / 75960-5 — Inspired minute Volume (LOINC)*.\n- *42527121 / 76009-0 — Inspired minute Volume during Mechanical ventilation (LOINC)*.\n- *4144329 / 426168008 — Expiratory minute volume (SNOMED)*.\n- *42527120 / 76008-2 — Expired minute Volume during Mechanical ventilation (LOINC)*.\n\n### By breath origin\n\n- *4108000 / 250813001 — Spontaneous minute volume (SNOMED)*: from the patient's own breaths.\n- *4108447 / 250815008 — Mandatory minute volume (SNOMED)*: from ventilator-delivered breaths.\n- *4353945 / 250814007 — Triggered minute volume (SNOMED)*.\n\n### Setting\n\n- *3045410 / 33425-0 — Minute volume setting Ventilator (LOINC)*: the set (target) minute volume, e.g. for mandatory-minute-ventilation modes.\n\n**Note on units**: reported in **L/min** (`8698 / L/min — liter per minute`, UCUM), the recommended unit.\n\n## Mapping Notes\n\n- **Default concept** when the source records a minute volume without qualification: *4353621 / 250811004 — Minute volume*.\n- **Expired is the usual measured value**: ventilators typically report expired minute volume; map to an expiratory/expired concept when the source specifies it, otherwise use the generic concept.\n- **Setting vs measured**: map the set (target) minute volume to *3045410 / 33425-0 — Minute volume setting Ventilator*; measured values go to the measured concepts.\n- **Spontaneous vs mandatory**: map to the spontaneous, mandatory or triggered concept only when the source distinguishes the breath origin.\n- Values in mL/min must be converted to L/min (÷1000) before mapping.\n"
       },
       "fr": {
         "name": "Volume minute",
         "category": "Ventilation",
         "subcategory": "Paramètres ventilatoires",
-        "shortDescription": null,
+        "shortDescription": "Volume minute (ventilation minute) — volume de gaz mobilisé par minute, en L/min (total, inspiré/expiré, spontané/mandataire, réglage).",
         "longDescription": null
       }
     },
@@ -254,7 +254,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Describe minute volume; register L/min recommended unit. 11 concepts (generic + inspired/expired, spontaneous/mandatory/triggered, setting), all L/min."
+      }
+    ],
     "distributionStats": null
   }
 }

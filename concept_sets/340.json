@@ -1,7 +1,7 @@
 {
   "id": 340,
   "name": "[Deprecated] Ventilation mode - Volume driven (VCV)",
-  "description": "[Deprecated] Merged into the Ventilation mode concept set.",
+  "description": "Deprecated — merged into the Ventilation mode concept set.",
   "version": "1.2.0",
   "createdBy": "Gregor Lichtner",
   "createdDate": "2026-03-23",
@@ -121,14 +121,14 @@
         "name": "[Deprecated] Ventilation mode - Volume driven (VCV)",
         "category": "Ventilation",
         "subcategory": "Ventilation mode",
-        "shortDescription": "**Deprecated.** This set has been merged into the single **Ventilation mode** concept set; use that set instead. Kept for history.",
-        "longDescription": "**Deprecated.** This set has been merged into the single **Ventilation mode** concept set; use that set instead. Kept for history."
+        "shortDescription": "Deprecated — merged into the single Ventilation mode concept set; use that set instead.",
+        "longDescription": "Deprecated. This set has been merged into the single Ventilation mode concept set; use that set instead. Kept for history."
       },
       "fr": {
         "category": "Ventilation",
         "subcategory": "Mode de ventilation",
         "name": "[Obsolète] Mode de ventilation - Piloté en volume (VCV)",
-        "shortDescription": "**Obsolète.** Fusionné dans le concept set unique « Mode de ventilation » ; utiliser ce dernier.",
+        "shortDescription": "Obsolète — fusionné dans le concept set unique « Mode de ventilation » ; utiliser ce dernier.",
         "longDescription": null
       }
     },

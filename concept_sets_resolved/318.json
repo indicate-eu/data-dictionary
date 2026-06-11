@@ -1,10 +1,6 @@
 {
   "conceptSetId": 318,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "LOINC": "LOINC 2.80",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
-  },
+  "vocabularyVersion": null,
   "resolvedConcepts": [
     {
       "conceptId": 3022875,
@@ -22,6 +18,15 @@
       "domainId": "Measurement",
       "conceptClassId": "Clinical Observation",
       "conceptCode": "38199-6",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4160171,
+      "conceptName": "Best positive end expiratory pressure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "398269008",
       "standardConcept": "S"
     },
     {

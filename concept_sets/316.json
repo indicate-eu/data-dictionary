@@ -1,15 +1,34 @@
 {
   "id": 316,
   "name": "Mean airway pressure",
-  "description": null,
-  "version": "1.0.0",
+  "description": "Mean airway pressure (Pmean) over the respiratory cycle, in cmH2O; includes the inspiration-only mean variants.",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
+      {
+        "concept": {
+          "conceptId": 42527086,
+          "conceptName": "Mean airway pressure",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "60949-5",
+          "validStartDate": "2017-02-21",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
       {
         "concept": {
           "conceptId": 44782824,
@@ -28,6 +47,25 @@
         "isExcluded": false,
         "includeDescendants": false,
         "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 21490651,
+          "conceptName": "Mean airway pressure --during inspiration",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "60952-9",
+          "validStartDate": "2016-06-24",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
       }
     ]
   },
@@ -38,21 +76,21 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Mean airway pressure",
         "category": "Ventilation",
         "subcategory": "Ventilation parameters",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Mean airway pressure (Pmean) over the respiratory cycle, in cmH2O; includes the inspiration-only mean variants.",
+        "longDescription": "## Definition & Clinical Context\n\nMean airway pressure (Pmean, MAP) is the average pressure applied to the airway over the whole respiratory cycle during mechanical ventilation. It reflects the overall pressure load on the lungs and correlates with oxygenation and with the risk of haemodynamic compromise. In source data it is a single numeric value per patient-timestamp, computed by the ventilator. It is recorded in intensive care and anaesthesia for ventilated patients. It is reported in centimetres of water (cmH2O); some ventilators display mbar, which is nearly equivalent (1 cmH2O ≈ 0.98 mbar).\n\n## Included Concepts\n\nThe set lists the SNOMED and LOINC concepts for mean airway pressure.\n\n### Mean airway pressure, whole cycle (default)\n\n- *42527086 / 60949-5 — Mean airway pressure (LOINC)*: the average airway pressure over the full respiratory cycle; the default mean airway pressure value.\n\n### Mean airway pressure during inspiration\n\nThe average taken over the inspiratory phase only — a narrower measure than the whole-cycle Pmean.\n\n- *44782824 / 698821009 — Mean inspiratory airway pressure (SNOMED)*.\n- *21490651 / 60952-9 — Mean airway pressure --during inspiration (LOINC)*.\n\n**Note on units**: reported in **cmH2O** (`44777590 / cm[H2O] — centimeter watercolumn`, UCUM), the recommended unit, with a registered cmH2O↔mbar conversion (1 cmH2O = 0.98 mbar).\n\n## Mapping Notes\n\n- **Default concept** when the source records a mean airway pressure (Pmean / MAP) without qualification: *42527086 / 60949-5 — Mean airway pressure* (the whole-cycle average).\n- **During inspiration**: map to *44782824 / 698821009 — Mean inspiratory airway pressure* or *21490651 / 60952-9 — Mean airway pressure --during inspiration* only when the source explicitly states the mean is over the inspiratory phase.\n- Convert a value in mbar to cmH2O (×1.02) before mapping.\n- **Not peak, plateau or PEEP**: peak inspiratory pressure, plateau pressure and PEEP are distinct airway pressures captured in their own concept sets.\n"
       },
       "fr": {
         "name": "Pression moyenne des voies aeriennes",
         "category": "Ventilation",
         "subcategory": "Paramètres ventilatoires",
-        "shortDescription": null,
+        "shortDescription": "Pression moyenne des voies aériennes (Pmoy) sur le cycle respiratoire, en cmH2O ; inclut les variantes moyennées sur l’inspiration.",
         "longDescription": null
       }
     },
@@ -64,7 +102,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Add the true whole-cycle Mean airway pressure (42527086 / 60949-5) as default; keep the inspiratory-mean variants (SNOMED 44782824, LOINC 60952-9). Register cmH2O recommended unit + cmH2O<->mbar conversion. Resolves to 3."
+      }
+    ],
     "distributionStats": null
   }
 }
