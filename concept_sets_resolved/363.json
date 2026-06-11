@@ -1,0 +1,15 @@
+{
+  "conceptSetId": 363,
+  "vocabularyVersion": null,
+  "resolvedConcepts": [
+    {
+      "conceptId": 4353622,
+      "conceptName": "Expiratory time",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "250820008",
+      "standardConcept": "S"
+    }
+  ]
+}

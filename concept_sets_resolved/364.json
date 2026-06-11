@@ -1,0 +1,33 @@
+{
+  "conceptSetId": 364,
+  "vocabularyVersion": null,
+  "resolvedConcepts": [
+    {
+      "conceptId": 4353623,
+      "conceptName": "Inspiratory pause time",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "250821007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36303489,
+      "conceptName": "Inspiratory pause time setting Ventilator",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "76226-0",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36303637,
+      "conceptName": "Inspiratory pause time Ventilator",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "76227-8",
+      "standardConcept": "S"
+    }
+  ]
+}

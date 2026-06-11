@@ -1,0 +1,108 @@
+{
+  "id": 364,
+  "name": "Inspiratory pause time",
+  "description": "Inspiratory pause time — duration of the end-inspiratory no-flow hold, in seconds.",
+  "version": "1.0.0",
+  "createdBy": "Boris Delange",
+  "createdDate": "2026-06-11",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2026-06-11",
+  "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 4353623,
+          "conceptName": "Inspiratory pause time",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "250821007",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 36303637,
+          "conceptName": "Inspiratory pause time Ventilator",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "76227-8",
+          "validStartDate": "2018-06-15",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 36303489,
+          "conceptName": "Inspiratory pause time setting Ventilator",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "76226-0",
+          "validStartDate": "2018-06-15",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "0421ac4e-83fc-5ef6-acdb-ff580a233f72",
+    "organization": {
+      "name": "INDICATE Consortium",
+      "url": "https://indicate-eu.org"
+    },
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "Inspiratory pause time",
+        "category": "Ventilation",
+        "subcategory": "Ventilation parameters",
+        "shortDescription": "Inspiratory pause time — duration of the end-inspiratory no-flow hold, in seconds.",
+        "longDescription": "## Definition & Clinical Context\n\nInspiratory pause time is the duration of the no-flow hold at the end of inspiration (the inspiratory plateau/pause), during which plateau pressure is measured. In source data it is a single numeric value per patient-timestamp, set or measured by the ventilator. It is recorded in intensive care and anaesthesia for ventilated patients. It is reported in seconds (s).\n\n## Included Concepts\n\nThe set lists the SNOMED and LOINC concepts for this duration. All are reported in seconds.\n\n- *4353623 / 250821007 — Inspiratory pause time (SNOMED)*\n- *36303637 / 76227-8 — Inspiratory pause time Ventilator (LOINC)*\n- *36303489 / 76226-0 — Inspiratory pause time setting Ventilator (LOINC)*\n\n**Note on units**: reported in **seconds** (`8555 / s — second`, UCUM), the recommended unit.\n\n## Mapping Notes\n\n- **Default concept** when not otherwise qualified: *4353623 / 250821007 — Inspiratory pause time*.\n- **Setting vs measured**: map the set value to the LOINC 'setting' concept and the measured value to the measured concept; use the generic SNOMED concept when the source does not distinguish them.\n- This is one specific breath-phase duration; inspiratory time, expiratory time and inspiratory pause time are separate concept sets (separate variables).\n"
+      },
+      "fr": {
+        "name": "Temps de pause inspiratoire",
+        "category": "Ventilation",
+        "subcategory": "Paramètres ventilatoires",
+        "shortDescription": "Temps de pause inspiratoire — durée de la pause télé-inspiratoire sans débit, en secondes.",
+        "longDescription": null
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [],
+    "versions": [],
+    "distributionStats": null
+  }
+}
