@@ -707,6 +707,37 @@ var App = (function() {
     'concepts. This may be slow.':   { fr: 'concepts. Cela peut être lent.' },
     'Load all':                      { fr: 'Tout charger' },
 
+    // Concept picker (Settings: Add Conversion / Add Recommended Unit)
+    'Select a concept':              { fr: 'Sélectionner un concept' },
+    'Select a unit':                 { fr: 'Sélectionner une unité' },
+    'Select concept':                { fr: 'Sélectionner un concept' },
+    'Select unit':                   { fr: 'Sélectionner une unité' },
+    'No concept selected':           { fr: 'Aucun concept sélectionné' },
+    'No unit selected':              { fr: 'Aucune unité sélectionnée' },
+    'Concept *':                     { fr: 'Concept *' },
+    'Source Unit *':                 { fr: 'Unité source *' },
+    'Target Unit *':                 { fr: 'Unité cible *' },
+    'Recommended Unit *':            { fr: 'Unité recommandée *' },
+    'Clear all':                     { fr: 'Tout effacer' },
+    'Remove filter':                 { fr: 'Retirer le filtre' },
+    'Loading concepts...':           { fr: 'Chargement des concepts...' },
+    'Delete this concept?':          { fr: 'Supprimer ce concept ?' },
+    ' selected concepts':            { fr: ' concepts sélectionnés' },
+    'Add':                           { fr: 'Ajouter' },
+    'Edit':                          { fr: 'Modifier' },
+    'Save':                          { fr: 'Enregistrer' },
+    'Select all':                    { fr: 'Tout sélectionner' },
+    'Unselect all':                  { fr: 'Tout désélectionner' },
+    'Delete selected':              { fr: 'Supprimer la sélection' },
+    'Unsaved changes':               { fr: 'Modifications non enregistrées' },
+    'You have unsaved changes. Discard them and leave?': { fr: 'Vous avez des modifications non enregistrées. Les abandonner et quitter ?' },
+    'Keep editing':                  { fr: 'Continuer l\'édition' },
+    'Discard changes':               { fr: 'Abandonner les modifications' },
+    'Edit Conversion':               { fr: 'Modifier la conversion' },
+    'Edit Recommended Unit':         { fr: 'Modifier l\'unité recommandée' },
+    'Save Changes':                  { fr: 'Enregistrer les modifications' },
+    'target value = source value × factor + offset (offset is optional, default 0)': { fr: 'valeur cible = valeur source × facteur + offset (l\'offset est optionnel, 0 par défaut)' },
+
     // Confirm Delete
     'Confirm Delete':                { fr: 'Confirmer la suppression' },
     'This will only remove locally created concept sets. Repository concept sets cannot be deleted.': { fr: 'Seuls les jeux de concepts créés localement seront supprimés. Les jeux de concepts du dépôt ne peuvent pas être supprimés.' },
@@ -1098,11 +1129,23 @@ var App = (function() {
       e.stopPropagation();
       document.querySelectorAll('.ms-dropdown').forEach(function(d) { if (d !== dropdown) d.style.display = 'none'; });
       var wasHidden = dropdown.style.display === 'none';
-      if (wasHidden && isInFilterRow) {
-        var rect = toggle.getBoundingClientRect();
-        dropdown.style.left = rect.left + 'px';
-        dropdown.style.top = rect.bottom + 'px';
-        dropdown.style.minWidth = Math.max(180, rect.width) + 'px';
+      if (wasHidden) {
+        var trect = toggle.getBoundingClientRect();
+        if (isInFilterRow) {
+          dropdown.style.left = trect.left + 'px';
+          dropdown.style.top = trect.bottom + 'px';
+          dropdown.style.minWidth = Math.max(180, trect.width) + 'px';
+        }
+        // Clamp the dropdown so it never spills past the bottom of the viewport,
+        // however short the window is. It opens below the toggle (top:100%), so
+        // the room available is from the toggle's bottom to the window bottom,
+        // minus a small margin. A CSS max-height can't know the toggle's runtime
+        // position, so we set it here on open. Cleared on close so CSS caps win
+        // again when there's plenty of room.
+        var avail = Math.floor(window.innerHeight - trect.bottom - 12);
+        dropdown.style.maxHeight = Math.max(160, avail) + 'px';
+      } else {
+        dropdown.style.maxHeight = '';
       }
       dropdown.style.display = wasHidden ? '' : 'none';
       if (wasHidden && searchInput) { searchInput.value = ''; searchInput.dispatchEvent(new Event('input')); searchInput.focus(); }
@@ -1922,6 +1965,9 @@ var App = (function() {
     var table = document.getElementById(tableId);
     if (!table || table._colResizeInit) return;
     table._colResizeInit = true;
+    // Marks the table as resizable so the faint column boundaries show (CSS),
+    // independent of whether widths have been frozen yet (col-resizable).
+    table.classList.add('has-col-resize');
 
     var headerRow = table.querySelector('thead tr');
     if (!headerRow) return;
@@ -1950,12 +1996,131 @@ var App = (function() {
       table.classList.add('col-resizable');
     }
 
+    // Measure the natural (unwrapped) text width of an element's content using a
+    // canvas 2D context with the element's own font — fast and layout-free.
+    // Adds the element's own horizontal padding + borders + letter-spacing so a
+    // badge (e.g. category/subcategory pills, which have padding + border-radius)
+    // is measured at its rendered width, not just its bare text — otherwise the
+    // auto-fit comes out ~16px short and the badge gets clipped with an ellipsis.
+    var _measureCanvas = null;
+    function textWidth(el) {
+      if (!el) return 0;
+      var text = (el.textContent || '').trim();
+      if (!text) return 0;
+      var cs = getComputedStyle(el);
+      var font = cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily;
+      if (!_measureCanvas) _measureCanvas = document.createElement('canvas');
+      var ctx = _measureCanvas.getContext('2d');
+      ctx.font = font;
+      var w = ctx.measureText(text).width;
+      // letter-spacing applies between glyphs; canvas measureText ignores it.
+      var ls = parseFloat(cs.letterSpacing);
+      if (ls && text.length > 1) w += ls * (text.length - 1);
+      // Box extras: the element's own padding + border on both sides.
+      w += (parseFloat(cs.paddingLeft) || 0) + (parseFloat(cs.paddingRight) || 0)
+         + (parseFloat(cs.borderLeftWidth) || 0) + (parseFloat(cs.borderRightWidth) || 0);
+      return w;
+    }
+
+    // Minimum width a column may be shrunk TO when stealing space for an
+    // auto-fit. Columns already narrower than this are never touched.
+    var COL_MIN_W = 70;
+
+    // Double-click a boundary → fit the LEFT column to its full content width.
+    // Growth steals width from the columns to its right, each only down to
+    // COL_MIN_W (and never from ones already below it). If the column has slack
+    // (content narrower than current), it shrinks and hands the space back to
+    // the immediate right neighbour. The table's total width never changes.
+    function autoFitColumn(th, colIdx) {
+      lockWidths();
+      // Header label width: prefer the translatable label span; otherwise the th
+      // itself (its sort-icon "▲" adds a few px — fine, never under-measures).
+      var labelEl = th.querySelector('[data-i18n]') || th;
+      var max = textWidth(labelEl);
+      var rows = table.querySelectorAll('tbody tr');
+      for (var r = 0; r < rows.length; r++) {
+        var cell = rows[r].children[colIdx];
+        if (!cell) continue;
+        // Measure the single inner element (badge/span) so its own padding +
+        // border is counted; fall back to the cell's text when it has no single
+        // wrapper child. textWidth() already includes the measured element's
+        // padding, so a badge no longer comes out short.
+        var inner = cell.children.length === 1 ? cell.children[0] : cell;
+        max = Math.max(max, textWidth(inner));
+      }
+      var pad = 24; // cell (td) horizontal padding (both sides) + a little slack
+      var contentW = Math.ceil(max) + pad;   // width to show content in full
+      var curW = th.offsetWidth;
+
+      // Visible (non-hidden) columns to the right of this one.
+      var rightThs = [];
+      for (var i = colIdx + 1; i < ths.length; i++) {
+        if (ths[i].offsetWidth > 0) rightThs.push(ths[i]);
+      }
+
+      if (contentW <= curW) {
+        // Slack: shrink to fit content (floor at COL_MIN_W); give space to the
+        // first right column so the table total stays constant.
+        var shrunk = Math.max(COL_MIN_W, contentW);
+        if (shrunk === curW) return;
+        if (rightThs.length) rightThs[0].style.width = (rightThs[0].offsetWidth + (curW - shrunk)) + 'px';
+        th.style.width = shrunk + 'px';
+        return;
+      }
+
+      // Grow: how much can we reclaim from the right columns (each down to floor)?
+      var want = contentW - curW;
+      var available = 0;
+      rightThs.forEach(function(t) { available += Math.max(0, t.offsetWidth - COL_MIN_W); });
+      var steal = Math.min(want, available);
+      if (steal <= 0) return; // no room to grow without violating the floor
+
+      // Distribute the steal across right columns proportionally to their slack.
+      // Track the actual total taken so the grown column matches exactly (no
+      // rounding drift that would overflow the table).
+      var remaining = steal;
+      var taken = 0;
+      for (var j = 0; j < rightThs.length && remaining > 0; j++) {
+        var t = rightThs[j];
+        var slack = Math.max(0, t.offsetWidth - COL_MIN_W);
+        if (slack <= 0) continue;
+        var take = (j === rightThs.length - 1) ? remaining : Math.min(slack, Math.round(steal * (slack / available)));
+        take = Math.min(take, slack, remaining);
+        t.style.width = (t.offsetWidth - take) + 'px';
+        remaining -= take;
+        taken += take;
+      }
+      th.style.width = (curW + taken) + 'px';
+    }
+
+    // Make the resize handle span the FULL header height (label + filter rows)
+    // so its hover highlight is continuous across both rows, matching the
+    // static boundary borders. The label th is position:relative; we extend the
+    // absolutely-positioned handle down past the th by the header's extra height.
+    var thead = table.querySelector('thead');
+    function sizeHandles() {
+      if (!thead) return;
+      var headH = thead.getBoundingClientRect().height;
+      table.querySelectorAll('.col-resize-handle').forEach(function(h) {
+        var thH = h.parentElement.getBoundingClientRect().height;
+        // height = full thead, so the handle covers the filter row too.
+        h.style.height = Math.max(thH, Math.round(headH)) + 'px';
+      });
+    }
+
     // Add resize handles
     ths.forEach(function(th, idx) {
       if (idx === ths.length - 1) return; // skip last column
       var handle = document.createElement('div');
       handle.className = 'col-resize-handle';
       th.appendChild(handle);
+
+      // Double-click the boundary → auto-fit the column to its left (this th).
+      handle.addEventListener('dblclick', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        autoFitColumn(th, idx);
+      });
 
       handle.addEventListener('mousedown', function(e) {
         e.preventDefault();
@@ -1997,6 +2162,12 @@ var App = (function() {
         document.addEventListener('mouseup', onUp);
       });
     });
+
+    // Size handles to span both header rows. Defer one frame so the thead has
+    // laid out (filter row may render after init), then keep it fresh on resize.
+    if (typeof requestAnimationFrame === 'function') requestAnimationFrame(sizeHandles);
+    else sizeHandles();
+    window.addEventListener('resize', sizeHandles);
   }
 
   // ==================== PUBLIC API ====================

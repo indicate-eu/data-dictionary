@@ -89,7 +89,7 @@
           <i class="fas fa-plus"></i> <span data-i18n="Add Concept Set">Add Concept Set</span>
         </button>
         <!-- Normal mode buttons -->
-        <button class="btn-secondary-custom" id="cs-edit-list-btn" title="Edit concept sets">
+        <button class="btn-primary-custom btn-gray" id="cs-edit-list-btn" title="Edit concept sets">
           <i class="fas fa-pen"></i> <span data-i18n="Edit">Edit</span>
         </button>
         <button class="btn-primary-custom" id="cs-export-all-btn">
@@ -181,8 +181,10 @@
             <button class="btn-secondary-custom btn-sm" id="expr-unselect-all-btn" title="Unselect all"><i class="far fa-square"></i></button>
             <button class="btn-danger-custom btn-sm" id="expr-delete-sel-btn" title="Delete selected"><i class="fas fa-trash"></i></button>
             <span id="expr-selection-count" style="font-size:12px; color:var(--text-muted)">0 selected</span>
-            <button class="btn-success-custom" id="expr-add-btn"><i class="fas fa-plus"></i> <span data-i18n="Add Concepts">Add Concepts</span></button>
             <button class="btn-primary-custom" id="expr-optimize-btn" title="Remove redundant concepts covered by ancestors with Include Descendants"><i class="fas fa-magic"></i> <span data-i18n="Optimize">Optimize</span></button>
+            <button class="btn-primary-custom btn-gray" id="expr-edit-cancel-btn"><i class="fas fa-times"></i> <span data-i18n="Cancel">Cancel</span></button>
+            <button class="btn-primary-custom" id="expr-edit-save-btn"><i class="fas fa-save"></i> <span data-i18n="Save">Save</span></button>
+            <button class="btn-success-custom" id="expr-add-btn"><i class="fas fa-plus"></i> <span data-i18n="Add Concepts">Add Concepts</span></button>
           </div>
           <a class="btn-outline-sm" id="cs-view-json" href="#" target="_blank" style="text-decoration:none"><i class="fas fa-code"></i> <span data-i18n="View JSON">View JSON</span></a>
         </div>
@@ -244,6 +246,7 @@
               <thead>
                 <tr>
                   <th class="expr-select-col" style="width:36px"></th>
+                  <th class="expr-action-col"></th>
                   <th data-col="vocabulary" data-sort="vocabulary" style="width:12%"><span data-i18n="Vocabulary">Vocabulary</span> <span class="sort-icon">&#9650;</span></th>
                   <th data-col="conceptId" data-sort="conceptId" style="width:8%"><span data-i18n="Concept ID">Concept ID</span> <span class="sort-icon">&#9650;</span></th>
                   <th data-col="name" data-sort="name" style="width:22%"><span data-i18n="Concept Name">Concept Name</span> <span class="sort-icon">&#9650;</span></th>
@@ -254,10 +257,10 @@
                   <th data-col="exclude" data-sort="exclude" style="width:9%" class="td-center"><span data-i18n="Exclude">Exclude</span> <span class="sort-icon">&#9650;</span></th>
                   <th data-col="descendants" data-sort="descendants" style="width:9%" class="td-center"><span data-i18n="Descendants">Descendants</span> <span class="sort-icon">&#9650;</span></th>
                   <th data-col="mapped" data-sort="mapped" style="width:9%" class="td-center"><span data-i18n="Mapped">Mapped</span> <span class="sort-icon">&#9650;</span></th>
-                  <th class="expr-action-col td-center" style="width:50px"></th>
                 </tr>
                 <tr class="filter-row" id="expression-filter-row">
                   <th class="expr-select-col"></th>
+                  <th class="expr-action-col"></th>
                   <th data-col="vocabulary"><div class="ms-container" id="expr-filter-vocabulary"></div></th>
                   <th data-col="conceptId"><input type="text" class="column-filter" id="expr-filter-conceptId" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
                   <th data-col="name"><input type="text" class="column-filter" id="expr-filter-name" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
@@ -268,7 +271,6 @@
                   <th data-col="exclude"><select class="column-filter" id="expr-filter-exclude"><option value="" data-i18n="All">All</option><option value="yes">Yes</option><option value="no">No</option></select></th>
                   <th data-col="descendants"><select class="column-filter" id="expr-filter-descendants"><option value="" data-i18n="All">All</option><option value="yes">Yes</option><option value="no">No</option></select></th>
                   <th data-col="mapped"><select class="column-filter" id="expr-filter-mapped"><option value="" data-i18n="All">All</option><option value="yes">Yes</option><option value="no">No</option></select></th>
-                  <th class="expr-action-col"></th>
                 </tr>
               </thead>
               <tbody id="expression-tbody"></tbody>
@@ -1043,8 +1045,30 @@ for f in ['CONCEPT','CONCEPT_ANCESTOR','CONCEPT_RELATIONSHIP','CONCEPT_SYNONYM',
     <!-- TAB: Unit Conversions -->
     <div class="settings-tab-content" id="tab-conversions" style="display:none">
       <div class="settings-toolbar">
-        <button class="btn-success-custom" id="conv-add-btn" style="margin-left:auto">
+        <!-- Edit-mode buttons (hidden by default) — same style as the
+             concept-set-details Expression toolbar. -->
+        <button class="btn-secondary-custom btn-sm" id="conv-select-all-btn" title="Select all" data-i18n-title="Select all" style="display:none; margin-left:auto">
+          <i class="fas fa-check-square"></i>
+        </button>
+        <button class="btn-secondary-custom btn-sm" id="conv-unselect-all-btn" title="Unselect all" data-i18n-title="Unselect all" style="display:none">
+          <i class="far fa-square"></i>
+        </button>
+        <button class="btn-danger-custom btn-sm" id="conv-delete-selected-btn" title="Delete selected" data-i18n-title="Delete selected" style="display:none">
+          <i class="fas fa-trash"></i>
+        </button>
+        <span id="conv-selection-count" style="display:none; font-size:12px; color:var(--text-muted)">0 selected</span>
+        <button class="btn-primary-custom btn-gray" id="conv-list-cancel-btn" style="display:none">
+          <i class="fas fa-times"></i> <span data-i18n="Cancel">Cancel</span>
+        </button>
+        <button class="btn-primary-custom" id="conv-list-save-btn" style="display:none">
+          <i class="fas fa-save"></i> <span data-i18n="Save">Save</span>
+        </button>
+        <button class="btn-success-custom" id="conv-add-btn" style="display:none">
           <i class="fas fa-plus"></i> <span data-i18n="Add Conversion">Add Conversion</span>
+        </button>
+        <!-- Normal-mode buttons -->
+        <button class="btn-primary-custom btn-gray" id="conv-edit-btn" title="Edit" style="margin-left:auto">
+          <i class="fas fa-pen"></i> <span data-i18n="Edit">Edit</span>
         </button>
         <button class="btn-primary-custom" id="conv-export-btn">
           <i class="fas fa-download"></i> <span data-i18n="Export">Export</span>
@@ -1054,14 +1078,18 @@ for f in ['CONCEPT','CONCEPT_ANCESTOR','CONCEPT_RELATIONSHIP','CONCEPT_SYNONYM',
         <table id="conv-table">
           <thead>
             <tr>
-              <th style="width:10%">Concept ID</th>
-              <th style="width:32%">Concept Name</th>
-              <th style="width:16%">Source Unit</th>
-              <th style="width:10%" class="td-center">Factor</th>
-              <th style="width:16%">Target Unit</th>
+              <th class="conv-select-col"><input type="checkbox" id="conv-select-all-cb"></th>
+              <th class="conv-edit-col"></th>
+              <th style="width:10%" data-sort="cid">Concept ID <span class="sort-icon">&#9650;</span></th>
+              <th style="width:32%" data-sort="cname">Concept Name <span class="sort-icon">&#9650;</span></th>
+              <th style="width:16%" data-sort="src">Source Unit <span class="sort-icon">&#9650;</span></th>
+              <th style="width:10%" class="td-center" data-sort="factor">Factor <span class="sort-icon">&#9650;</span></th>
+              <th style="width:16%" data-sort="tgt">Target Unit <span class="sort-icon">&#9650;</span></th>
               <th style="width:16%" class="td-center">Actions</th>
             </tr>
             <tr class="filter-row">
+              <th class="conv-select-col"></th>
+              <th class="conv-edit-col"></th>
               <th><input type="text" class="column-filter" id="conv-filter-cid" placeholder="Filter..."></th>
               <th><input type="text" class="column-filter" id="conv-filter-cname" placeholder="Filter..."></th>
               <th><input type="text" class="column-filter" id="conv-filter-uname-src" placeholder="Filter..."></th>
@@ -1082,8 +1110,30 @@ for f in ['CONCEPT','CONCEPT_ANCESTOR','CONCEPT_RELATIONSHIP','CONCEPT_SYNONYM',
     <!-- TAB: Recommended Units -->
     <div class="settings-tab-content" id="tab-units" style="display:none">
       <div class="settings-toolbar">
-        <button class="btn-success-custom" id="ru-add-btn" style="margin-left:auto">
+        <!-- Edit-mode buttons (hidden by default) — same style as the
+             concept-set-details Expression toolbar. -->
+        <button class="btn-secondary-custom btn-sm" id="ru-select-all-btn" title="Select all" data-i18n-title="Select all" style="display:none; margin-left:auto">
+          <i class="fas fa-check-square"></i>
+        </button>
+        <button class="btn-secondary-custom btn-sm" id="ru-unselect-all-btn" title="Unselect all" data-i18n-title="Unselect all" style="display:none">
+          <i class="far fa-square"></i>
+        </button>
+        <button class="btn-danger-custom btn-sm" id="ru-delete-selected-btn" title="Delete selected" data-i18n-title="Delete selected" style="display:none">
+          <i class="fas fa-trash"></i>
+        </button>
+        <span id="ru-selection-count" style="display:none; font-size:12px; color:var(--text-muted)">0 selected</span>
+        <button class="btn-primary-custom btn-gray" id="ru-list-cancel-btn" style="display:none">
+          <i class="fas fa-times"></i> <span data-i18n="Cancel">Cancel</span>
+        </button>
+        <button class="btn-primary-custom" id="ru-list-save-btn" style="display:none">
+          <i class="fas fa-save"></i> <span data-i18n="Save">Save</span>
+        </button>
+        <button class="btn-success-custom" id="ru-add-btn" style="display:none">
           <i class="fas fa-plus"></i> <span data-i18n="Add Recommended Unit">Add Recommended Unit</span>
+        </button>
+        <!-- Normal-mode buttons -->
+        <button class="btn-primary-custom btn-gray" id="ru-edit-btn" title="Edit" style="margin-left:auto">
+          <i class="fas fa-pen"></i> <span data-i18n="Edit">Edit</span>
         </button>
         <button class="btn-primary-custom" id="ru-export-btn">
           <i class="fas fa-download"></i> <span data-i18n="Export">Export</span>
@@ -1093,16 +1143,20 @@ for f in ['CONCEPT','CONCEPT_ANCESTOR','CONCEPT_RELATIONSHIP','CONCEPT_SYNONYM',
         <table id="ru-table">
           <thead>
             <tr>
-              <th style="width:10%">Concept ID</th>
-              <th style="width:55%">Concept Name</th>
-              <th style="width:20%">Unit</th>
-              <th style="width:15%" class="td-center">Actions</th>
+              <th class="ru-select-col"><input type="checkbox" id="ru-select-all-cb"></th>
+              <th class="ru-edit-col"></th>
+              <th style="width:10%" data-sort="cid">Concept ID <span class="sort-icon">&#9650;</span></th>
+              <th style="width:50%" data-sort="cname">Concept Name <span class="sort-icon">&#9650;</span></th>
+              <th style="width:25%" data-sort="uname">Unit Name <span class="sort-icon">&#9650;</span></th>
+              <th style="width:15%" data-sort="ucode">Unit Code <span class="sort-icon">&#9650;</span></th>
             </tr>
             <tr class="filter-row">
+              <th class="ru-select-col"></th>
+              <th class="ru-edit-col"></th>
               <th><input type="text" class="column-filter" id="ru-filter-cid" placeholder="Filter..."></th>
               <th><input type="text" class="column-filter" id="ru-filter-cname" placeholder="Filter..."></th>
-              <th><input type="text" class="column-filter" id="ru-filter-unit" placeholder="Filter..."></th>
-              <th></th>
+              <th><input type="text" class="column-filter" id="ru-filter-uname" placeholder="Filter..."></th>
+              <th><input type="text" class="column-filter" id="ru-filter-ucode" placeholder="Filter..."></th>
             </tr>
           </thead>
           <tbody id="ru-tbody"></tbody>
@@ -1473,6 +1527,44 @@ Enter your review comments here using Markdown syntax.
     <div class="modal-footer">
       <button class="btn-cancel" id="cs-delete-confirm-cancel" data-i18n="Cancel">Cancel</button>
       <button class="btn-submit" id="cs-delete-confirm-ok" style="background:var(--danger)">
+        <i class="fas fa-trash"></i> <span data-i18n="Delete">Delete</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Unsaved changes confirmation (replaces the browser confirm() on back/home) -->
+<div class="modal-overlay" id="cs-unsaved-modal" style="display:none">
+  <div class="modal" style="width:420px">
+    <div class="modal-header">
+      <h3><i class="fas fa-exclamation-triangle" style="color:#e67700; margin-right:6px"></i> <span data-i18n="Unsaved changes">Unsaved changes</span></h3>
+      <button class="modal-close" id="cs-unsaved-close">&times;</button>
+    </div>
+    <div class="modal-body" style="text-align:center; padding:24px 20px">
+      <p style="font-size:14px" data-i18n="You have unsaved changes. Discard them and leave?">You have unsaved changes. Discard them and leave?</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" id="cs-unsaved-cancel" data-i18n="Keep editing">Keep editing</button>
+      <button class="btn-submit" id="cs-unsaved-ok" style="background:var(--danger)">
+        <i class="fas fa-trash"></i> <span data-i18n="Discard changes">Discard changes</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Expression concept delete confirmation -->
+<div class="modal-overlay" id="expr-delete-modal" style="display:none">
+  <div class="modal" style="width:420px">
+    <div class="modal-header">
+      <h3><i class="fas fa-exclamation-triangle" style="color:var(--danger); margin-right:6px"></i> <span data-i18n="Confirm Delete">Confirm Delete</span></h3>
+      <button class="modal-close" id="expr-delete-close">&times;</button>
+    </div>
+    <div class="modal-body" style="text-align:center; padding:24px 20px">
+      <p style="font-size:14px" id="expr-delete-msg"></p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" id="expr-delete-cancel" data-i18n="Cancel">Cancel</button>
+      <button class="btn-submit" id="expr-delete-ok" style="background:var(--danger)">
         <i class="fas fa-trash"></i> <span data-i18n="Delete">Delete</span>
       </button>
     </div>
@@ -1942,30 +2034,35 @@ Enter your review comments here using Markdown syntax.
 <div class="modal-overlay" id="conv-add-modal" style="display:none">
   <div class="modal" style="width:700px">
     <div class="modal-header">
-      <h3><i class="fas fa-plus"></i> Add Conversion</h3>
+      <h3><i class="fas fa-plus"></i> <span id="conv-add-title" data-i18n="Add Conversion">Add Conversion</span></h3>
       <button class="modal-close" id="conv-add-close">&times;</button>
     </div>
     <div class="modal-body">
-      <div class="form-row">
-        <div class="form-group">
-          <label>Concept ID *</label>
-          <input type="number" id="conv-add-cid" class="form-input" placeholder="e.g. 3000483">
+      <div class="form-group">
+        <label data-i18n="Concept *">Concept *</label>
+        <div class="concept-picker-field" data-target="conv-add" data-kind="concept">
+          <span class="concept-picker-display empty" id="conv-add-concept-display" data-i18n="No concept selected">No concept selected</span>
+          <button type="button" class="btn-primary-custom btn-gray concept-picker-btn"><i class="fas fa-search"></i> <span data-i18n="Select concept">Select concept</span></button>
         </div>
-        <div class="form-group">
-          <label>Concept Name</label>
-          <input type="text" id="conv-add-cname" class="form-input" placeholder="e.g. Glucose">
-        </div>
+        <input type="hidden" id="conv-add-cid"><input type="hidden" id="conv-add-cname">
       </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label>Source Unit Concept ID *</label>
-          <input type="number" id="conv-add-uid-src" class="form-input" placeholder="e.g. 8840">
+      <div class="form-group">
+        <label data-i18n="Source Unit *">Source Unit *</label>
+        <div class="concept-picker-field" data-target="conv-add-src" data-kind="unit">
+          <span class="concept-picker-display empty" id="conv-add-src-display" data-i18n="No unit selected">No unit selected</span>
+          <button type="button" class="btn-primary-custom btn-gray concept-picker-btn"><i class="fas fa-search"></i> <span data-i18n="Select unit">Select unit</span></button>
         </div>
-        <div class="form-group">
-          <label>Source Unit Name</label>
-          <input type="text" id="conv-add-uname-src" class="form-input" placeholder="e.g. mg/dL">
-        </div>
+        <input type="hidden" id="conv-add-uid-src"><input type="hidden" id="conv-add-uname-src"><input type="hidden" id="conv-add-ucode-src">
       </div>
+      <div class="form-group">
+        <label data-i18n="Target Unit *">Target Unit *</label>
+        <div class="concept-picker-field" data-target="conv-add-tgt" data-kind="unit">
+          <span class="concept-picker-display empty" id="conv-add-tgt-display" data-i18n="No unit selected">No unit selected</span>
+          <button type="button" class="btn-primary-custom btn-gray concept-picker-btn"><i class="fas fa-search"></i> <span data-i18n="Select unit">Select unit</span></button>
+        </div>
+        <input type="hidden" id="conv-add-uid-tgt"><input type="hidden" id="conv-add-uname-tgt"><input type="hidden" id="conv-add-ucode-tgt">
+      </div>
+      <hr style="border:none; border-top:1px solid var(--border); margin:12px 0">
       <div class="form-row">
         <div class="form-group">
           <label>Conversion Factor *</label>
@@ -1973,24 +2070,18 @@ Enter your review comments here using Markdown syntax.
         </div>
         <div class="form-group">
           <label>Offset</label>
-          <input type="number" id="conv-add-offset" class="form-input" step="any" placeholder="0 (affine: target = factor × source + offset)">
+          <input type="number" id="conv-add-offset" class="form-input" step="any" placeholder="e.g. 0">
         </div>
       </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label>Target Unit Concept ID *</label>
-          <input type="number" id="conv-add-uid-tgt" class="form-input" placeholder="e.g. 8753">
-        </div>
-        <div class="form-group">
-          <label>Target Unit Name</label>
-          <input type="text" id="conv-add-uname-tgt" class="form-input" placeholder="e.g. mmol/L">
-        </div>
-      </div>
+      <p class="form-help" style="margin:6px 0 0; font-size:12px; color:var(--text-muted)">
+        <i class="fas fa-info-circle" style="margin-right:4px"></i>
+        <span data-i18n="target value = source value × factor + offset (offset is optional, default 0)">target value = source value × factor + offset (offset is optional, default 0)</span>
+      </p>
     </div>
     <div class="modal-footer">
       <button class="btn-cancel" id="conv-add-cancel">Cancel</button>
       <button class="btn-submit" id="conv-add-submit">
-        <i class="fas fa-plus"></i> Add
+        <i class="fas fa-plus"></i> <span data-i18n="Add">Add</span>
       </button>
     </div>
   </div>
@@ -2042,61 +2133,119 @@ Enter your review comments here using Markdown syntax.
 <div class="modal-overlay" id="ru-add-modal" style="display:none">
   <div class="modal" style="width:700px">
     <div class="modal-header">
-      <h3><i class="fas fa-plus"></i> Add Recommended Unit</h3>
+      <h3><i class="fas fa-plus"></i> <span id="ru-add-title" data-i18n="Add Recommended Unit">Add Recommended Unit</span></h3>
       <button class="modal-close" id="ru-add-close">&times;</button>
     </div>
     <div class="modal-body">
-      <div class="form-row">
-        <div class="form-group">
-          <label>Concept ID *</label>
-          <input type="number" id="ru-add-cid" class="form-input" placeholder="e.g. 3027018">
-        </div>
-        <div class="form-group">
-          <label>Concept Name</label>
-          <input type="text" id="ru-add-cname" class="form-input" placeholder="e.g. Heart rate">
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label>Concept Code</label>
-          <input type="text" id="ru-add-ccode" class="form-input" placeholder="e.g. 8867-4">
-        </div>
-        <div class="form-group">
-          <label>Vocabulary ID</label>
-          <input type="text" id="ru-add-vocab" class="form-input" placeholder="e.g. LOINC">
-        </div>
-      </div>
       <div class="form-group">
-        <label>Domain ID</label>
-        <input type="text" id="ru-add-domain" class="form-input" placeholder="e.g. Measurement">
+        <label data-i18n="Concept *">Concept *</label>
+        <div class="concept-picker-field" data-target="ru-add" data-kind="concept">
+          <span class="concept-picker-display empty" id="ru-add-concept-display" data-i18n="No concept selected">No concept selected</span>
+          <button type="button" class="btn-primary-custom btn-gray concept-picker-btn"><i class="fas fa-search"></i> <span data-i18n="Select concept">Select concept</span></button>
+        </div>
+        <input type="hidden" id="ru-add-cid"><input type="hidden" id="ru-add-cname">
+        <input type="hidden" id="ru-add-ccode"><input type="hidden" id="ru-add-vocab"><input type="hidden" id="ru-add-domain">
       </div>
       <hr style="border:none; border-top:1px solid var(--border); margin:12px 0">
-      <div class="form-row">
-        <div class="form-group">
-          <label>Unit Concept ID *</label>
-          <input type="number" id="ru-add-uid" class="form-input" placeholder="e.g. 8729">
+      <div class="form-group">
+        <label data-i18n="Recommended Unit *">Recommended Unit *</label>
+        <div class="concept-picker-field" data-target="ru-add-unit" data-kind="unit">
+          <span class="concept-picker-display empty" id="ru-add-unit-display" data-i18n="No unit selected">No unit selected</span>
+          <button type="button" class="btn-primary-custom btn-gray concept-picker-btn"><i class="fas fa-search"></i> <span data-i18n="Select unit">Select unit</span></button>
         </div>
-        <div class="form-group">
-          <label>Unit Name</label>
-          <input type="text" id="ru-add-uname" class="form-input" placeholder="e.g. /min">
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label>Unit Code</label>
-          <input type="text" id="ru-add-ucode" class="form-input" placeholder="e.g. /min">
-        </div>
-        <div class="form-group">
-          <label>Unit Vocabulary ID</label>
-          <input type="text" id="ru-add-uvocab" class="form-input" placeholder="e.g. UCUM">
-        </div>
+        <input type="hidden" id="ru-add-uid"><input type="hidden" id="ru-add-uname">
+        <input type="hidden" id="ru-add-ucode"><input type="hidden" id="ru-add-uvocab">
       </div>
     </div>
     <div class="modal-footer">
       <button class="btn-cancel" id="ru-add-cancel">Cancel</button>
       <button class="btn-submit" id="ru-add-submit">
-        <i class="fas fa-plus"></i> Add
+        <i class="fas fa-plus"></i> <span data-i18n="Add">Add</span>
       </button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     CONCEPT PICKER MODAL (reused by Settings: Add Conversion /
+     Add Recommended Unit). Single-select search over the OHDSI
+     vocabulary — no exclude / descendants / mapped / multi-select.
+     ═══════════════════════════════════════════════════════════ -->
+<div class="modal-fs" id="cpick-modal">
+  <div class="modal-fs-header">
+    <h3 id="cpick-title" data-i18n="Select a concept">Select a concept</h3>
+    <button class="modal-fs-close" id="cpick-close">&times;</button>
+  </div>
+  <div class="modal-fs-body" style="flex:1; display:flex; flex-direction:column; min-height:0; padding:16px 0 0 0">
+    <!-- No DB message -->
+    <div id="cpick-no-db" style="display:none; padding:20px; text-align:center; color:var(--text-muted); font-size:13px">
+      <i class="fas fa-info-circle" style="color:var(--primary); margin-right:6px"></i>
+      <span data-i18n="Load OHDSI vocabularies in Dictionary Settings to search concepts.">Load OHDSI vocabularies in Dictionary Settings to search concepts.</span>
+    </div>
+    <!-- Search bar: Search + Filters (popup) + Limit 10K -->
+    <div id="cpick-search-row">
+      <input type="text" class="form-input" id="cpick-search" data-i18n-placeholder="Search concepts by name, code, or ID..." placeholder="Search concepts by name, code, or ID..." style="flex:1">
+      <button class="btn-primary-custom" id="cpick-search-btn"><i class="fas fa-search"></i> <span data-i18n="Search">Search</span></button>
+      <div style="position:relative">
+        <button class="btn-primary-custom btn-gray" id="cpick-filters-btn" title="Filters"><i class="fas fa-filter"></i> <span data-i18n="Filters">Filters</span></button>
+        <div id="cpick-filters-popup" class="expr-add-filters-popup" style="display:none">
+          <div class="expr-add-filters-row">
+            <label data-i18n="Vocabulary">Vocabulary</label>
+            <div class="ms-container" id="cpick-filter-vocab" style="flex:1"></div>
+          </div>
+          <div class="expr-add-filters-row">
+            <label data-i18n="Domain">Domain</label>
+            <div class="ms-container" id="cpick-filter-domain" style="flex:1"></div>
+          </div>
+          <div class="expr-add-filters-row">
+            <label data-i18n="Class">Class</label>
+            <div class="ms-container" id="cpick-filter-class" style="flex:1"></div>
+          </div>
+          <div class="expr-add-filters-row">
+            <label data-i18n="Standard">Standard</label>
+            <div class="ms-container" id="cpick-filter-standard" style="flex:1"></div>
+          </div>
+          <div style="display:flex; gap:6px; justify-content:flex-end; margin-top:8px">
+            <button class="btn-primary-custom btn-gray" id="cpick-filters-clear" style="font-size:12px" data-i18n="Clear">Clear</button>
+            <button class="btn-primary-custom" id="cpick-filters-apply" style="font-size:12px" data-i18n="Apply">Apply</button>
+          </div>
+        </div>
+      </div>
+      <label style="display:inline-flex; align-items:center; gap:4px; font-size:12px; color:var(--text-muted); white-space:nowrap; cursor:pointer">
+        <input type="checkbox" id="cpick-limit" checked> <span data-i18n="Limit 10K">Limit 10K</span>
+      </label>
+    </div>
+    <!-- Active filter chips -->
+    <div id="cpick-active-filters" class="expr-add-active-filters" style="display:none"></div>
+    <!-- Results table -->
+    <div id="cpick-results-wrap" style="flex:1; min-height:0; display:flex; flex-direction:column">
+      <div id="cpick-table-scroll" style="flex:1; min-height:0; overflow:auto">
+        <table class="concept-related-table" id="cpick-results-table">
+          <thead>
+            <tr>
+              <th data-i18n="Concept ID">Concept ID</th>
+              <th data-i18n="Concept Name">Concept Name</th>
+              <th data-i18n="Vocabulary">Vocabulary</th>
+              <th data-i18n="Concept Code">Code</th>
+              <th data-i18n="Domain">Domain</th>
+              <th data-i18n="Class">Class</th>
+              <th style="text-align:center" data-i18n="Standard">Standard</th>
+            </tr>
+          </thead>
+          <tbody id="cpick-results-tbody"></tbody>
+        </table>
+      </div>
+      <div class="pagination" id="cpick-pagination" style="display:none">
+        <span id="cpick-page-info"></span>
+        <div class="pagination-buttons" id="cpick-page-buttons"></div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-fs-footer">
+    <div id="cpick-selected-label" style="font-size:13px; color:var(--text-muted)" data-i18n="No concept selected">No concept selected</div>
+    <div style="display:flex; align-items:center; gap:12px">
+      <button class="btn-cancel" id="cpick-cancel" data-i18n="Cancel">Cancel</button>
+      <button class="btn-success-custom" id="cpick-submit" disabled><i class="fas fa-check"></i> <span data-i18n="Select">Select</span></button>
     </div>
   </div>
 </div>

@@ -1,10 +1,6 @@
 {
   "conceptSetId": 331,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "LOINC": "LOINC 2.80",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
-  },
+  "vocabularyVersion": null,
   "resolvedConcepts": [
     {
       "conceptId": 3008071,
@@ -70,12 +66,30 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4065542,
-      "conceptName": "Measurement of urine volume over 6 hours",
+      "conceptId": 4089953,
+      "conceptName": "Voided urinary volume",
       "vocabularyId": "SNOMED",
       "domainId": "Measurement",
-      "conceptClassId": "Procedure",
-      "conceptCode": "167578005",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "251975009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4090797,
+      "conceptName": "Single voided urinary volume",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "251977001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4145209,
+      "conceptName": "Hourly urine volume",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "426543000",
       "standardConcept": "S"
     },
     {
@@ -85,6 +99,24 @@
       "domainId": "Measurement",
       "conceptClassId": "Observable Entity",
       "conceptCode": "395060000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4227850,
+      "conceptName": "Timed urine volume",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "404231008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4227851,
+      "conceptName": "24 hour voided urinary volume",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "404232001",
       "standardConcept": "S"
     },
     {
@@ -131,6 +163,15 @@
       "conceptClassId": "Observable Entity",
       "conceptCode": "993701000000102",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 40458249,
+      "conceptName": "Urine output volume",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "251842000",
+      "standardConcept": null
     }
   ]
 }

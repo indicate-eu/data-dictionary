@@ -1,55 +1,15 @@
 {
   "conceptSetId": 333,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "LOINC": "LOINC 2.80",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
-  },
+  "vocabularyVersion": null,
   "resolvedConcepts": [
     {
-      "conceptId": 3661929,
-      "conceptName": "Peripheral oxygen saturation level on room air on exertion decreased",
+      "conceptId": 3555589,
+      "conceptName": "Peripheral oxygen saturation",
       "vocabularyId": "SNOMED",
       "domainId": "Measurement",
-      "conceptClassId": "Clinical Finding",
-      "conceptCode": "1321841000000106",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3661930,
-      "conceptName": "Peripheral oxygen saturation level on supplemental oxygen on exertion decreased",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Finding",
-      "conceptCode": "1321861000000107",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3661931,
-      "conceptName": "Peripheral oxygen saturation level on room air on exertion unchanged",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Finding",
-      "conceptCode": "1321871000000100",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3661932,
-      "conceptName": "Peripheral oxygen saturation level on supplemental oxygen on exertion unchanged",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Finding",
-      "conceptCode": "1321881000000103",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4095045,
-      "conceptName": "Capillary oxygen saturation measurement",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Procedure",
-      "conceptCode": "250553009",
-      "standardConcept": "S"
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "341251000000105",
+      "standardConcept": null
     },
     {
       "conceptId": 4196147,

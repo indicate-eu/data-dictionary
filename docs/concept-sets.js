@@ -196,6 +196,7 @@ var ConceptSetsPage = (function() {
         renderCSCategories();
         populateColumnFilters('filter-category');
         renderCSTable();
+        syncCategoryFilterToUrl();
       });
     } else {
       App.updateMsToggleLabel('filter-category', csCategories);
@@ -235,11 +236,14 @@ var ConceptSetsPage = (function() {
       var isSelected = selectedIds.has(d.id);
       return '<tr data-id="' + d.id + '"' + (isSelected ? ' class="selected"' : '') + '>' +
         '<td class="cs-select-col"><input type="checkbox" class="cs-row-checkbox" data-id="' + d.id + '"' + (isSelected ? ' checked' : '') + '></td>' +
-        '<td class="cs-edit-col"><button class="cs-row-edit-btn" data-edit-id="' + d.id + '" title="Edit"><i class="fas fa-pen"></i></button></td>' +
+        '<td class="cs-edit-col"><div class="cs-row-actions">' +
+          '<button class="cs-row-edit-btn" data-edit-id="' + d.id + '" title="Edit"><i class="fas fa-pen"></i></button>' +
+          '<button class="cs-row-edit-btn cs-row-delete-btn" data-delete-id="' + d.id + '" title="' + App.i18n('Delete') + '"><i class="fas fa-trash"></i></button>' +
+        '</div></td>' +
         '<td class="cell-truncate" data-tooltip="' + App.escapeHtml(d.category) + '"><span class="badge badge-category">' + App.escapeHtml(d.category) + '</span></td>' +
         '<td class="cell-truncate" data-tooltip="' + App.escapeHtml(d.subcategory) + '"><span class="badge badge-subcategory">' + App.escapeHtml(d.subcategory) + '</span></td>' +
         '<td class="cell-truncate" data-tooltip="' + App.escapeHtml(d.name) + '"><strong>' + App.escapeHtml(d.name) + '</strong></td>' +
-        '<td class="cell-truncate"' + (d.description ? ' data-tooltip="' + App.escapeHtml(d.description) + '"' : '') + '>' + App.escapeHtml(App.truncate(d.description, 100)) + '</td>' +
+        '<td class="cell-truncate"' + (d.description ? ' data-tooltip="' + App.escapeHtml(d.description) + '"' : '') + '>' + App.escapeHtml(d.description || '') + '</td>' +
         '<td class="td-center">' + App.escapeHtml(d.version) + '</td>' +
         '<td class="td-center">' + App.statusBadge(d.reviewStatus) + '</td>' +
         '</tr>';
@@ -394,6 +398,7 @@ var ConceptSetsPage = (function() {
     var allItems = exprEditMode ? exprEditItems : ((selectedConceptSet.expression && selectedConceptSet.expression.items) || []);
     var table = document.getElementById('expression-table');
     var tbody = document.getElementById('expression-tbody');
+    // View mode: 10 data columns. Edit mode adds select + actions = 12.
     var colSpan = exprEditMode ? 12 : 10;
 
     // Toggle table classes
@@ -437,8 +442,13 @@ var ConceptSetsPage = (function() {
 
       var selectCol = '<td class="expr-select-col td-center"><input type="checkbox" class="expr-row-checkbox" data-idx="' + i + '"' + selChecked + '></td>';
       var isCustom = c.conceptId >= CUSTOM_CONCEPT_BASE;
-      var editIcon = isCustom ? '<i class="fas fa-pen expr-edit-custom-icon" data-idx="' + i + '" title="' + App.i18n('Edit custom concept') + '"></i> ' : '';
-      var actionCol = '<td class="expr-action-col td-center">' + editIcon + '<i class="fas fa-trash expr-delete-icon" data-idx="' + i + '"></i></td>';
+      // Single action cell after the checkbox holding edit (custom-only) + delete
+      // buttons side by side. The column is content-width, so a delete-only row
+      // doesn't leave a wide empty gap. Styled like the all-concept-sets list.
+      var actionCol = '<td class="expr-action-col"><div class="expr-row-actions">' +
+        (isCustom ? '<button class="cs-row-edit-btn expr-edit-custom-icon" data-idx="' + i + '" title="' + App.i18n('Edit custom concept') + '"><i class="fas fa-pen"></i></button>' : '') +
+        '<button class="cs-row-edit-btn cs-row-delete-btn expr-delete-icon" data-idx="' + i + '" title="' + App.i18n('Delete') + '"><i class="fas fa-trash"></i></button>' +
+        '</div></td>';
 
       var excludeCell, descCell, mappedCell;
       if (exprEditMode) {
@@ -458,7 +468,7 @@ var ConceptSetsPage = (function() {
       var cDomain = c.domainId || '';
       var cClass = c.conceptClassId || '';
       return '<tr data-idx="' + i + '"' + rowClass + '>' +
-        (exprEditMode ? selectCol : '') +
+        (exprEditMode ? selectCol + actionCol : '') +
         '<td class="cell-truncate" data-tooltip="' + App.escapeHtml(cVocab) + '">' + App.escapeHtml(cVocab) + '</td>' +
         '<td>' + App.escapeHtml(String(c.conceptId || '')) + '</td>' +
         '<td class="cell-truncate" data-tooltip="' + App.escapeHtml(cName) + '">' + App.escapeHtml(cName) + '</td>' +
@@ -467,7 +477,6 @@ var ConceptSetsPage = (function() {
         '<td class="cell-truncate" data-tooltip="' + App.escapeHtml(cClass) + '">' + App.escapeHtml(cClass) + '</td>' +
         '<td class="td-center">' + App.standardBadge(c) + '</td>' +
         excludeCell + descCell + mappedCell +
-        (exprEditMode ? actionCol : '') +
         '</tr>';
     }).join('');
     applyColumnVisibility();
@@ -477,6 +486,24 @@ var ConceptSetsPage = (function() {
   // ==================== EDIT MODE (generalized) ====================
   function isAnyEditMode() {
     return exprEditMode || commentsEditMode || statsEditMode;
+  }
+
+  // Baseline of the active editor's content at edit-mode entry, so we can tell
+  // whether anything actually changed (avoids a false "unsaved changes" prompt).
+  var editBaseline = null;
+
+  // True only if the current edit buffer differs from its entry baseline.
+  function hasUnsavedChanges() {
+    if (exprEditMode) {
+      return JSON.stringify(exprEditItems) !== editBaseline;
+    }
+    if (commentsEditMode) {
+      return commentsAceEditor && commentsAceEditor.getValue() !== editBaseline;
+    }
+    if (statsEditMode) {
+      return statsAceEditor && statsAceEditor.getValue() !== editBaseline;
+    }
+    return false;
   }
 
   function enterEditMode() {
@@ -502,6 +529,20 @@ var ConceptSetsPage = (function() {
     else if (statsEditMode) exitStatsEditMode();
   }
 
+  // Run `action` immediately if there are no unsaved edits; otherwise show the
+  // clean "Unsaved changes" modal and run it (after cancelEdits) on confirm.
+  var pendingDiscardAction = null;
+  function confirmDiscardThen(action) {
+    // Only prompt if there are real unsaved changes — not merely "in edit mode".
+    if (!hasUnsavedChanges()) { if (isAnyEditMode()) cancelEdits(); action(); return; }
+    pendingDiscardAction = action;
+    document.getElementById('cs-unsaved-modal').style.display = 'flex';
+  }
+  function closeUnsavedModal() {
+    document.getElementById('cs-unsaved-modal').style.display = 'none';
+    pendingDiscardAction = null;
+  }
+
   function updateToolbar() {
     var headerEditBtn = document.getElementById('cs-edit-btn');
     var headerExportBtn = document.getElementById('cs-export-json');
@@ -512,14 +553,18 @@ var ConceptSetsPage = (function() {
     var selCount = document.getElementById('expr-selection-count');
 
     var editing = isAnyEditMode();
+    // In expression edit mode the Cancel/Save buttons live inside the
+    // expression toolbar (next to Add Concepts); for comments/stats they stay
+    // in the header. This keeps the header tidy while editing concepts.
+    var exprToolbarActive = exprEditMode && csConceptMode === 'expression';
     if (editing) {
       headerEditBtn.style.display = 'none';
       headerExportBtn.style.display = 'none';
       headerImportBtn.style.display = exprEditMode ? '' : 'none';
-      headerCancelBtn.style.display = '';
-      headerSaveBtn.style.display = '';
+      headerCancelBtn.style.display = exprToolbarActive ? 'none' : '';
+      headerSaveBtn.style.display = exprToolbarActive ? 'none' : '';
       // Expression-specific toolbar
-      editActions.style.display = (exprEditMode && csConceptMode === 'expression') ? 'flex' : 'none';
+      editActions.style.display = exprToolbarActive ? 'flex' : 'none';
       selCount.textContent = exprSelectedIdxs.size + ' ' + App.i18n('selected');
     } else {
       // Hide Edit button on review tab (has its own "Add Review") and in snapshot mode (snapshots are immutable)
@@ -540,6 +585,7 @@ var ConceptSetsPage = (function() {
     exprSelectedIdxs.clear();
     var orig = (selectedConceptSet.expression && selectedConceptSet.expression.items) || [];
     exprEditItems = JSON.parse(JSON.stringify(orig));
+    editBaseline = JSON.stringify(exprEditItems);
     if (csConceptMode !== 'expression') {
       switchConceptMode('expression');
     } else {
@@ -1215,6 +1261,7 @@ var ConceptSetsPage = (function() {
     var tr = App.t(selectedConceptSet);
     var content = (tr && tr.longDescription) || '';
     commentsAceEditor.setValue(content, -1);
+    editBaseline = commentsAceEditor.getValue();
     document.getElementById('cs-comments-view').style.display = 'none';
     document.getElementById('cs-comments-edit').style.display = '';
     commentsAceEditor.resize();
@@ -1279,6 +1326,7 @@ var ConceptSetsPage = (function() {
     var stats = (selectedConceptSet.metadata && selectedConceptSet.metadata.distributionStats) || null;
     var json = (stats && Object.keys(stats).length > 0) ? JSON.stringify(stats, null, 2) : JSON.stringify(defaultStatsTemplate, null, 2);
     statsAceEditor.setValue(json, -1);
+    editBaseline = statsAceEditor.getValue();
     document.getElementById('cs-statistics-view').style.display = 'none';
     document.getElementById('cs-statistics-edit').style.display = '';
     statsAceEditor.resize();
@@ -1342,20 +1390,40 @@ var ConceptSetsPage = (function() {
     }
   }
 
+  // Pending expression-delete action, run when the confirm modal is accepted.
+  var pendingExprDelete = null;
+
+  function openExprDeleteConfirm(n, action) {
+    pendingExprDelete = action;
+    document.getElementById('expr-delete-msg').textContent = n > 1
+      ? App.i18n('Delete ') + n + App.i18n(' selected concepts') + '?'
+      : App.i18n('Delete this concept?');
+    document.getElementById('expr-delete-modal').style.display = 'flex';
+  }
+
+  function closeExprDeleteConfirm() {
+    document.getElementById('expr-delete-modal').style.display = 'none';
+    pendingExprDelete = null;
+  }
+
   function deleteExprSelected() {
     if (exprSelectedIdxs.size === 0) return;
-    var sorted = Array.from(exprSelectedIdxs).sort(function(a, b) { return b - a; });
-    sorted.forEach(function(idx) { exprEditItems.splice(idx, 1); });
-    exprSelectedIdxs.clear();
-    updateToolbar();
-    renderExpressionTable();
+    openExprDeleteConfirm(exprSelectedIdxs.size, function() {
+      var sorted = Array.from(exprSelectedIdxs).sort(function(a, b) { return b - a; });
+      sorted.forEach(function(idx) { exprEditItems.splice(idx, 1); });
+      exprSelectedIdxs.clear();
+      updateToolbar();
+      renderExpressionTable();
+    });
   }
 
   function deleteExprRow(idx) {
-    exprEditItems.splice(idx, 1);
-    exprSelectedIdxs.clear();
-    updateToolbar();
-    renderExpressionTable();
+    openExprDeleteConfirm(1, function() {
+      exprEditItems.splice(idx, 1);
+      exprSelectedIdxs.clear();
+      updateToolbar();
+      renderExpressionTable();
+    });
   }
 
   // ==================== IMPORT ATLAS JSON ====================
@@ -1530,7 +1598,7 @@ var ConceptSetsPage = (function() {
         }
         noDb.style.display = '';
         noDb.innerHTML = '<i class="fas fa-spinner fa-spin" style="color:var(--primary); margin-right:6px"></i>' +
-          'Attempting to load vocabulary database...';
+          App.i18n('Loading concepts...');
         resultsWrap.style.display = 'none';
         bottom.style.display = 'none';
         footer.style.display = 'none';
@@ -3294,7 +3362,7 @@ var ConceptSetsPage = (function() {
         var loadingHint = document.createElement('div');
         loadingHint.style.cssText = 'margin-top:16px; padding:12px 16px; background:#f8f9fa; border:1px solid #e0e0e0; border-radius:6px; font-size:13px; color:#666';
         loadingHint.innerHTML = '<i class="fas fa-spinner fa-spin" style="color:var(--primary); margin-right:6px"></i>' +
-          'Attempting to load vocabulary database...';
+          App.i18n('Loading concepts...');
         el.appendChild(loadingHint);
 
         VocabDB.remountFromStoredHandles().then(function(ok) {
@@ -5451,6 +5519,10 @@ var ConceptSetsPage = (function() {
   function updateListEditToolbar() {
     var table = document.getElementById('cs-table');
     table.classList.toggle('selection-mode', selectionMode);
+    // Hide the category filter badges in edit mode to free up room for the
+    // edit toolbar (Select all / Delete / Cancel / Save / Add).
+    var cats = document.getElementById('cs-categories');
+    if (cats) cats.style.display = selectionMode ? 'none' : '';
 
     // Edit mode buttons
     document.getElementById('cs-select-all-btn').style.display = selectionMode ? '' : 'none';
@@ -5497,14 +5569,27 @@ var ConceptSetsPage = (function() {
   }
 
   // ==================== DELETE SELECTED ====================
+  // IDs the confirm modal will delete. Set from the selection (bulk) or a
+  // single row's delete button.
+  var pendingDeleteIds = null;
+
   function openDeleteConfirm() {
     if (selectedIds.size === 0) {
       App.showToast(App.i18n('No concept sets selected.'), 'warning');
       return;
     }
+    pendingDeleteIds = Array.from(selectedIds);
     var n = selectedIds.size;
     var msg = App.i18n('Delete ') + n + App.i18n(n > 1 ? ' selected concept sets' : ' selected concept set') + '?';
     document.getElementById('cs-delete-confirm-msg').textContent = msg;
+    document.getElementById('cs-delete-confirm-modal').style.display = 'flex';
+  }
+
+  // Single-row delete (the per-row trash button).
+  function openSingleDeleteConfirm(id) {
+    pendingDeleteIds = [id];
+    document.getElementById('cs-delete-confirm-msg').textContent =
+      App.i18n('Delete ') + 1 + App.i18n(' selected concept set') + '?';
     document.getElementById('cs-delete-confirm-modal').style.display = 'flex';
   }
 
@@ -5513,10 +5598,12 @@ var ConceptSetsPage = (function() {
   }
 
   function executeDelete() {
-    var ids = Array.from(selectedIds);
+    var ids = pendingDeleteIds || Array.from(selectedIds);
     var result = App.deleteConceptSets(ids);
     closeDeleteConfirm();
-    selectedIds.clear();
+    pendingDeleteIds = null;
+    // Drop any deleted ids from the current selection.
+    ids.forEach(function(id) { selectedIds.delete(id); });
     updateSelectionCount();
     renderAll();
     if (result.deleted > 0) {
@@ -5904,6 +5991,7 @@ var ConceptSetsPage = (function() {
       renderCSCategories();
       populateColumnFilters();
       renderCSTable();
+      syncCategoryFilterToUrl();
     });
 
     // CS sort
@@ -5953,6 +6041,13 @@ var ConceptSetsPage = (function() {
 
     // CS table row click -> detail OR toggle checkbox in selection mode OR edit
     document.getElementById('cs-tbody').addEventListener('click', function(e) {
+      // Delete button click (checked before edit — it shares .cs-row-edit-btn)
+      var delBtn = e.target.closest('.cs-row-delete-btn');
+      if (delBtn) {
+        e.stopPropagation();
+        openSingleDeleteConfirm(parseInt(delBtn.dataset.deleteId));
+        return;
+      }
       // Edit button click
       var editBtn = e.target.closest('.cs-row-edit-btn');
       if (editBtn) {
@@ -5983,7 +6078,21 @@ var ConceptSetsPage = (function() {
     // the remembered detail hash), the previous history entry is that other page,
     // not the list. Navigating explicitly to the list view is the intended behaviour.
     document.getElementById('cs-back').addEventListener('click', function() {
-      Router.navigate('/concept-sets');
+      confirmDiscardThen(function() { Router.navigate('/concept-sets'); });
+    });
+
+    // Unsaved-changes modal: confirm discards edits then runs the pending action.
+    document.getElementById('cs-unsaved-close').addEventListener('click', closeUnsavedModal);
+    document.getElementById('cs-unsaved-cancel').addEventListener('click', closeUnsavedModal);
+    document.getElementById('cs-unsaved-modal').addEventListener('click', function(e) {
+      if (e.target === this) closeUnsavedModal();
+    });
+    document.getElementById('cs-unsaved-ok').addEventListener('click', function() {
+      var action = pendingDiscardAction;
+      document.getElementById('cs-unsaved-modal').style.display = 'none';
+      pendingDiscardAction = null;
+      cancelEdits();
+      if (action) action();
     });
 
     // CS detail tabs
@@ -6004,6 +6113,9 @@ var ConceptSetsPage = (function() {
     document.getElementById('cs-edit-btn').addEventListener('click', enterEditMode);
     document.getElementById('cs-edit-cancel-btn').addEventListener('click', cancelEdits);
     document.getElementById('cs-edit-save-btn').addEventListener('click', saveEdits);
+    // Expression-toolbar Cancel/Save mirror the header ones (same handlers).
+    document.getElementById('expr-edit-cancel-btn').addEventListener('click', cancelEdits);
+    document.getElementById('expr-edit-save-btn').addEventListener('click', saveEdits);
     document.getElementById('cs-stats-reset-btn').addEventListener('click', resetStatsToTemplate);
     document.getElementById('cs-stats-profile-select').addEventListener('change', function() {
       statsCurrentProfile = this.value;
@@ -6017,6 +6129,19 @@ var ConceptSetsPage = (function() {
     document.getElementById('expr-unselect-all-btn').addEventListener('click', exprUnselectAll);
     document.getElementById('expr-delete-sel-btn').addEventListener('click', deleteExprSelected);
     document.getElementById('expr-optimize-btn').addEventListener('click', optimizeExpression);
+
+    // Expression delete confirmation modal
+    document.getElementById('expr-delete-close').addEventListener('click', closeExprDeleteConfirm);
+    document.getElementById('expr-delete-cancel').addEventListener('click', closeExprDeleteConfirm);
+    document.getElementById('expr-delete-modal').addEventListener('click', function(e) {
+      if (e.target === this) closeExprDeleteConfirm();
+    });
+    document.getElementById('expr-delete-ok').addEventListener('click', function() {
+      var action = pendingExprDelete;
+      document.getElementById('expr-delete-modal').style.display = 'none';
+      pendingExprDelete = null;
+      if (action) action();
+    });
 
     // Optimize modal events
     document.getElementById('expr-optimize-close').addEventListener('click', function() {
@@ -6461,12 +6586,16 @@ var ConceptSetsPage = (function() {
       }
     });
 
-    // Header logo/title: warn if unsaved edits, then go to list
+    // Header logo/title: warn if unsaved edits, then go to list.
+    // Returning false blocks the synchronous navigation; the clean modal then
+    // drives the actual navigation on confirm.
     App.onBeforeNavigate(function() {
-      if (isAnyEditMode()) {
-        if (!confirm('You have unsaved changes. Discard and go back to the list?')) return false;
-        cancelEdits();
+      if (hasUnsavedChanges()) {
+        confirmDiscardThen(function() { Router.navigate('/concept-sets'); });
+        return false;
       }
+      // No real changes: drop edit mode silently and let navigation proceed.
+      if (isAnyEditMode()) cancelEdits();
     });
     App.onHome(function() {
       if (selectedConceptSet) Router.navigate('/concept-sets');
@@ -6486,8 +6615,45 @@ var ConceptSetsPage = (function() {
     renderAll();
   }
 
+  // Seed csCategories from ?category=A,B in the URL. Only categories that
+  // actually exist in the current data are kept (an unknown slug is ignored so
+  // it can't silently filter everything out). Returns true if it changed state.
+  function applyCategoryFilterFromUrl(query) {
+    var raw = query && query.category;
+    if (raw == null) return false;
+    var wanted = String(raw).split(',').map(function(s) { return s.trim(); }).filter(Boolean);
+    var valid = new Set(App.getCSData().map(function(d) { return d.category; }));
+    var next = new Set();
+    wanted.forEach(function(c) { if (valid.has(c)) next.add(c); });
+    // No change → don't touch (avoids clobbering an in-session filter on a
+    // same-page hashchange that didn't carry a category param).
+    if (next.size === csCategories.size) {
+      var same = true;
+      next.forEach(function(c) { if (!csCategories.has(c)) same = false; });
+      if (same) return false;
+    }
+    csCategories = next;
+    csPage = 1;
+    return true;
+  }
+
+  // Reflect the active category badges into the URL (?category=A,B), without
+  // adding a history entry, so the current filter is shareable/bookmarkable.
+  function syncCategoryFilterToUrl() {
+    if (selectedConceptSet) return; // detail view owns the URL
+    var url = '#/concept-sets';
+    if (csCategories.size > 0) {
+      url += '?category=' + encodeURIComponent(Array.from(csCategories).join(','));
+    }
+    Router.replaceState(url);
+  }
+
   function show(query) {
     init();
+    // Shareable category filter: ?category=Conditions,Vitals seeds the active
+    // category badges from the URL. Values are the (language-specific) category
+    // labels, comma-separated. Only applied to the list view (not a detail id).
+    var catChanged = applyCategoryFilterFromUrl(query);
     var csId = query && (query.id || query.cs);
     if (csId) {
       showCSDetail(parseInt(csId), {
@@ -6502,6 +6668,11 @@ var ConceptSetsPage = (function() {
     } else if (selectedConceptSet) {
       // Back to list view (e.g. browser back button)
       hideCSDetail();
+      if (catChanged) renderAll();
+    } else if (catChanged) {
+      // Bare list view whose category filter came from the URL: re-render so the
+      // seeded badges + filtered rows reflect it (init's renderAll ran first).
+      renderAll();
     }
     // else: bare list view, nothing extra to do (renderAll already ran in init)
   }

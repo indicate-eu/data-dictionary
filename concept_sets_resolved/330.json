@@ -1,10 +1,6 @@
 {
   "conceptSetId": 330,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "LOINC": "LOINC 2.80",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
-  },
+  "vocabularyVersion": null,
   "resolvedConcepts": [
     {
       "conceptId": 1259509,
@@ -124,6 +120,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 4097461,
+      "conceptName": "Joint temperature",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "250124002",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4143731,
       "conceptName": "Rectal temperature",
       "vocabularyId": "SNOMED",
@@ -149,6 +154,15 @@
       "conceptClassId": "Observable Entity",
       "conceptCode": "276885007",
       "standardConcept": "S"
+    },
+    {
+      "conceptId": 4178505,
+      "conceptName": "Body temperature measure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "363816005",
+      "standardConcept": null
     },
     {
       "conceptId": 4188706,
@@ -241,6 +255,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 4264574,
+      "conceptName": "Shoulder joint temperature",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "364476002",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4265681,
       "conceptName": "Cervical spine temperature",
       "vocabularyId": "SNOMED",
@@ -250,12 +273,39 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 4265694,
+      "conceptName": "Wrist joint temperature",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "364482004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4265696,
+      "conceptName": "Thumb joint temperature",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "364491000",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4265702,
       "conceptName": "Temperature of foot",
       "vocabularyId": "SNOMED",
       "domainId": "Measurement",
       "conceptClassId": "Observable Entity",
       "conceptCode": "364518005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4265703,
+      "conceptName": "Foot joint temperature",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "364521007",
       "standardConcept": "S"
     },
     {
@@ -277,12 +327,48 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 4270300,
+      "conceptName": "Elbow joint temperature",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "364479009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4270409,
+      "conceptName": "Finger joint temperature",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "364495009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4270412,
+      "conceptName": "Knee joint temperature",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "364506001",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4270416,
       "conceptName": "Ankle joint temperature",
       "vocabularyId": "SNOMED",
       "domainId": "Measurement",
       "conceptClassId": "Observable Entity",
       "conceptCode": "364511004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4270422,
+      "conceptName": "Toe joint temperature",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "364525003",
       "standardConcept": "S"
     },
     {
@@ -430,6 +516,33 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 40362568,
+      "conceptName": "Body temperature",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "276535009",
+      "standardConcept": null
+    },
+    {
+      "conceptId": 40387958,
+      "conceptName": "Body temperature",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "1942004",
+      "standardConcept": null
+    },
+    {
+      "conceptId": 40540392,
+      "conceptName": "Body temperature observable",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "363815009",
+      "standardConcept": null
+    },
+    {
       "conceptId": 44782834,
       "conceptName": "Nasopharyngeal temperature",
       "vocabularyId": "SNOMED",
@@ -463,15 +576,6 @@
       "domainId": "Measurement",
       "conceptClassId": "Observable Entity",
       "conceptCode": "787151000000102",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44809207,
-      "conceptName": "Target body temperature",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "852581000000105",
       "standardConcept": "S"
     },
     {

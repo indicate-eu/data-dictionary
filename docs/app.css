@@ -220,7 +220,7 @@ body {
   align-items: center;
   gap: 8px;
   padding: 6px 12px;
-  background: #f39c12;
+  background: #ef6411e8;
   border: none;
   border-radius: 20px;
   color: #fff;
@@ -232,7 +232,7 @@ body {
   transition: background .2s;
   flex-shrink: 0;
 }
-.doc-btn:hover { background: #e08e0b; }
+.doc-btn:hover { background: #c9530ce8; }
 .doc-btn:active { color: #fff; }
 .doc-btn i { font-size: 16px; }
 .lang-toggle.reset { background: #6c757d; }
@@ -281,16 +281,22 @@ body {
 /* Toast notifications */
 .toast-container {
   position: fixed;
-  top: 16px;
+  /* Span the header height and center toasts vertically within it, so a
+     "Changes saved" sits mid-header rather than sitting low. */
+  top: 0;
+  height: 62px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 10000;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   pointer-events: none;
 }
+/* Soft "tinted card" toasts: a very pale status-colored background with a
+   matching darker text/icon/border. Lighter than a solid saturated pill. */
 .toast {
   pointer-events: auto;
   display: flex;
@@ -298,19 +304,19 @@ body {
   gap: 10px;
   padding: 10px 16px;
   border-radius: var(--radius);
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .1);
   font-size: 13px;
   font-family: inherit;
-  color: white;
+  border: 1px solid transparent;
   animation: toast-in .25s ease;
   max-width: 380px;
 }
-.toast.toast-error { background: #dc3545; }
-.toast.toast-success { background: #28a745; }
-.toast.toast-warning { background: #e67700; }
-.toast.toast-info { background: var(--primary); }
+.toast.toast-error   { background: #fdecee; border-color: #f3b6bd; color: #a32030; }
+.toast.toast-success { background: #eaf7ee; border-color: #b5e2bf; color: #1e7e34; }
+.toast.toast-warning { background: #fdf2e3; border-color: #f5cf8f; color: #9a5b00; }
+.toast.toast-info    { background: #e9f1fa; border-color: #b6d2ee; color: #0f4b8a; }
 .toast i { font-size: 14px; flex-shrink: 0; }
-.toast .toast-close { background: none; border: none; color: white; opacity: .7; cursor: pointer; padding: 0 0 0 4px; font-size: 15px; line-height: 1; flex-shrink: 0; }
+.toast .toast-close { background: none; border: none; color: inherit; opacity: .55; cursor: pointer; padding: 0 0 0 4px; font-size: 15px; line-height: 1; flex-shrink: 0; }
 .toast .toast-close:hover { opacity: 1; }
 .toast-fade-out { animation: toast-out .3s ease forwards; }
 @keyframes toast-in { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
@@ -357,8 +363,16 @@ body {
   margin-left: auto;
   flex-shrink: 0;
 }
+/* Shared compact toolbar button sizing — applied to every toolbar that mixes
+   action buttons (concept-sets list, concept-set-details header + expression
+   bar, settings tables) so the buttons are uniform across all pages. */
 .cs-toolbar-right > button,
-.cs-toolbar-right > span {
+.cs-toolbar-right > span,
+.detail-header-left > button,
+#expr-edit-actions > button,
+#expr-edit-actions > span,
+.settings-toolbar > button,
+.settings-toolbar > span {
   padding: 4px 10px;
   font-size: 12px;
   line-height: 1.3;
@@ -413,14 +427,36 @@ body {
 
 /* Selection mode: checkbox column + row highlight */
 #cs-table .cs-select-col { display: none; width: 36px; text-align: center; }
-#cs-table .cs-edit-col { display: none; width: 40px; text-align: center; }
+/* Action column (edit + delete) hugs its content. */
+#cs-table .cs-edit-col { display: none; width: 1%; white-space: nowrap; text-align: center; }
 #cs-table.selection-mode .cs-select-col { display: table-cell; }
 #cs-table.selection-mode .cs-edit-col { display: table-cell; }
+.cs-row-actions { display: inline-flex; gap: 4px; }
 #cs-table tbody tr.selected { background: #e8f0fe; }
 #cs-table tbody tr.selected:hover { background: #d4e4fa; }
-.cs-row-checkbox { width: 16px; height: 16px; cursor: pointer; accent-color: var(--primary); }
-.cs-row-edit-btn { display: inline-flex; align-items: center; justify-content: center; background: #6c757d; border: none; cursor: pointer; color: #fff; font-size: 11px; padding: 4px 8px; border-radius: var(--radius); transition: background .15s; }
+.cs-row-checkbox { width: 16px; height: 16px; cursor: pointer; accent-color: var(--primary); vertical-align: middle; margin: 0; }
+.cs-row-edit-btn { display: inline-flex; align-items: center; justify-content: center; background: #6c757d; border: none; cursor: pointer; color: #fff; font-size: 11px; padding: 6px 8px; border-radius: var(--radius); transition: background .15s; }
 .cs-row-edit-btn:hover { background: #5a6268; }
+
+/* Settings tables (Conversions / Recommended Units): selection (edit) mode —
+   mirrors the Data Dictionary list. Checkbox + per-row edit columns are
+   hidden until the Edit button toggles .selection-mode on the table. */
+#conv-table .conv-select-col, #conv-table .conv-edit-col,
+#ru-table .ru-select-col, #ru-table .ru-edit-col { display: none; text-align: center; }
+#conv-table .conv-select-col, #ru-table .ru-select-col { width: 40px; }
+/* Action column (edit + delete) hugs its content. */
+#conv-table .conv-edit-col, #ru-table .ru-edit-col { width: 1%; white-space: nowrap; }
+#conv-table.selection-mode .conv-select-col, #conv-table.selection-mode .conv-edit-col,
+#ru-table.selection-mode .ru-select-col, #ru-table.selection-mode .ru-edit-col { display: table-cell; }
+#conv-table tbody tr.selected, #ru-table tbody tr.selected { background: #e8f0fe; }
+#conv-table tbody tr.selected:hover, #ru-table tbody tr.selected:hover { background: #d4e4fa; }
+.settings-row-checkbox { width: 16px; height: 16px; cursor: pointer; accent-color: var(--primary); vertical-align: middle; margin: 0; }
+.settings-row-actions { display: inline-flex; gap: 4px; }
+.settings-row-edit-btn { display: inline-flex; align-items: center; justify-content: center; background: #6c757d; border: none; cursor: pointer; color: #fff; font-size: 11px; padding: 6px 8px; border-radius: var(--radius); transition: background .15s; }
+.settings-row-edit-btn:hover { background: #5a6268; }
+.settings-row-delete-btn { background: var(--danger); }
+.settings-row-delete-btn:hover { background: #c82333; }
+#conv-select-all-cb, #ru-select-all-cb { vertical-align: middle; cursor: pointer; accent-color: var(--primary); }
 
 .category-badges {
   display: flex;
@@ -464,6 +500,13 @@ body {
   flex: 1;
   min-height: 0;
   overflow-y: auto;
+  /* Never scroll horizontally: a resizable table is table-layout:fixed at 100%
+     width, so columns always fit. Clipping x also stops a stray sub-pixel
+     rounding from the resize math producing a phantom horizontal scrollbar. */
+  overflow-x: hidden;
+  /* Reserve the vertical scrollbar's width so it never overlays the last column
+     (e.g. the Status badges), same as .panel-table-wrap does. */
+  scrollbar-gutter: stable;
   display: flex;
   flex-direction: column;
 }
@@ -475,6 +518,13 @@ table {
 }
 table.col-resizable {
   table-layout: fixed;
+}
+/* In a resizable (fixed-layout) table, cells must clip to their column width
+   with an ellipsis instead of wrapping — otherwise shrinking one column makes
+   another wrap onto extra lines, growing row height and introducing a vertical
+   scrollbar mid-resize. */
+table.col-resizable tbody td {
+  white-space: nowrap;
 }
 thead th {
   background: var(--gray-light);
@@ -491,24 +541,43 @@ thead th {
   white-space: nowrap;
   position: relative;
 }
-/* Column resize handle */
+/* Column resize handle: a wide (11px) invisible hit area centred on the column
+   boundary so it's easy to grab. Centred means right:-5px → its midpoint sits
+   on the th's right edge, exactly under the 1px line drawn by ::before below. */
 .col-resize-handle {
   position: absolute;
   top: 0;
-  right: -2px;
-  width: 5px;
+  right: -5px;
+  width: 11px;
   height: 100%;
   cursor: col-resize;
   z-index: 3;
 }
-.col-resize-handle:hover,
-.col-resize-handle.dragging {
+/* Column boundary line. Drawn on the resize handle's own pseudo-element rather
+   than as a `border-right` on the th: the handle is sized to span BOTH header
+   rows (label + filter, see sizeHandles()), so the line runs continuously down
+   the whole header and aligns exactly with the hover highlight. Using a border
+   here would also hit a Chromium bug where collapsed borders on a sticky thead
+   flash white while scrolling. Faint grey at rest, primary blue on hover/drag. */
+.col-resize-handle::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: var(--border);
+  transition: background .15s, width .15s;
+}
+.col-resize-handle:hover::before,
+.col-resize-handle.dragging::before {
+  width: 2px;
   background: var(--primary);
-  opacity: 0.5;
 }
 thead th:hover { color: var(--primary); }
 thead th .sort-icon { margin-left: 4px; font-size: 10px; opacity: .4; }
 thead th.sorted .sort-icon { opacity: 1; color: var(--primary); }
+thead th[data-sort] { cursor: pointer; user-select: none; }
 tbody tr {
   border-bottom: 1px solid var(--gray-200);
   cursor: pointer;
@@ -919,6 +988,10 @@ tbody td {
   display: flex;
   gap: 4px;
 }
+/* Nudge the "Columns" button in from the right edge so the scrollbar gutter
+   sits between it and the table's right border, rather than the button hugging
+   the very edge. */
+.pagination .col-vis-wrapper { margin-right: 2px; }
 .pagination button {
   padding: 4px 10px;
   border: 1px solid var(--border);
@@ -1075,8 +1148,12 @@ tbody td {
 
 /* Tab content fills available height */
 .cs-tab-content { display: flex; flex-direction: column; flex: 1; min-height: 0; }
-#cs-resolved-view, #cs-expression-view { display: flex; flex-direction: column; flex: 1; min-height: 0; overflow: hidden; }
-#cs-resolved-view .panels { flex: 1; min-height: 0; overflow: hidden; }
+/* overflow:visible (not hidden) so the panels' drop shadow isn't clipped on its
+   bottom edge — scroll containment happens inside .panel / .panel-table-wrap,
+   not on these flex wrappers. The small padding-bottom gives the shadow room
+   before .main's overflow:hidden clip. */
+#cs-resolved-view, #cs-expression-view { display: flex; flex-direction: column; flex: 1; min-height: 0; overflow: visible; }
+#cs-resolved-view .panels { flex: 1; min-height: 0; overflow: visible; padding-bottom: 4px; }
 #cs-resolved-view .panel, #cs-expression-view .panel { display: flex; flex-direction: column; min-height: 0; flex: 1; }
 
 /* Project detail: tabs fill available space */
@@ -1363,6 +1440,16 @@ td .status-badge:hover, td .version-badge:hover {
 }
 td .status-badge, td .version-badge {
   cursor: default;
+  /* Never wrap to a second line in a narrow column — clip with an ellipsis
+     instead (e.g. "Pending Review" when the Status column is squeezed). */
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* The cell must clip so the badge's ellipsis engages when the column narrows. */
+td.td-center:has(> .status-badge), td.td-center:has(> .version-badge) {
+  overflow: hidden;
 }
 
 /* Outdated badge in the project Update column: interactive — hover shows it can be
@@ -2135,7 +2222,7 @@ select.form-input { appearance: auto; }
 .settings-toolbar {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   padding: 10px 16px;
   border-bottom: 1px solid var(--border);
   background: var(--gray-light);
@@ -2736,18 +2823,20 @@ select.form-input { appearance: auto; }
 
 /* Expression table edit/select mode */
 #expression-table .expr-select-col, #expression-table .expr-action-col { display: none; }
-#expression-table.expr-edit-mode .expr-select-col { display: table-cell; }
-#expression-table.expr-edit-mode .expr-action-col { display: table-cell; }
-.expr-row-checkbox { width: 16px; height: 16px; cursor: pointer; accent-color: var(--primary); }
-.expr-edit-custom-icon { cursor: pointer; color: var(--primary); opacity: 0.6; font-size: 13px; margin-right: 6px; }
-.expr-edit-custom-icon:hover { opacity: 1; }
+#expression-table.expr-edit-mode .expr-select-col { display: table-cell; text-align: center; }
+/* Action column hugs its content (1 or 2 buttons) so a delete-only row has no
+   wide empty gap. Buttons sit close together. */
+#expression-table.expr-edit-mode .expr-action-col { display: table-cell; width: 1%; white-space: nowrap; }
+.expr-row-actions { display: inline-flex; gap: 4px; }
+.expr-row-checkbox { width: 16px; height: 16px; cursor: pointer; accent-color: var(--primary); vertical-align: middle; margin: 0; }
+/* Per-row delete button variant (red) — same shape as cs-row-edit-btn */
+.cs-row-delete-btn { background: var(--danger); }
+.cs-row-delete-btn:hover { background: #c82333; }
 #data-update-modal .modal { display: flex; flex-direction: column; max-height: 80vh; }
 #data-update-modal .modal-body { overflow-y: auto; flex: 1 1 auto; max-height: calc(80vh - 130px); }
 #edit-custom-concept-modal .modal { overflow: visible; }
 #edit-custom-concept-modal .modal-body { overflow: visible; }
 #edit-custom-concept-modal .ms-dropdown { z-index: 510; }
-.expr-delete-icon { cursor: pointer; color: var(--danger); opacity: 0.6; font-size: 13px; }
-.expr-delete-icon:hover { opacity: 1; }
 #expression-table tbody tr.expr-selected { background: #e8f0fe; }
 #expression-table tbody tr.expr-selected:hover { background: #d4e4fa; }
 
@@ -2782,6 +2871,30 @@ select.form-input { appearance: auto; }
 .modal-fs-footer { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-top: 1px solid var(--gray-200); background: var(--gray-light); flex-shrink: 0; }
 .expr-add-toggles { display: flex; align-items: center; gap: 12px; font-size: 13px; }
 
+/* Concept picker field (read-only display + Select button) */
+.concept-picker-field { display: flex; align-items: center; gap: 8px; }
+.concept-picker-display {
+  flex: 1; min-width: 0;
+  padding: 7px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--gray-light);
+  font-size: 13px;
+  color: var(--text);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.concept-picker-display.empty { color: var(--text-muted); font-style: italic; }
+.concept-picker-btn { white-space: nowrap; flex-shrink: 0; width: 150px; justify-content: center; }
+#cpick-results-tbody tr.cpick-active-row { background: #e8f0fe; }
+#cpick-results-tbody tr.cpick-active-row:hover { background: #d4e4fa; }
+/* Concept picker: search row + fixed bottom pagination (mirrors the OHDSI Add modal) */
+/* The modal body has no side padding (so the table spans full width); give the
+   search row + active-filter chips their own side padding to keep the textfield
+   off the modal edges. */
+#cpick-search-row { display: flex; flex-wrap: nowrap; gap: 8px; align-items: center; position: relative; flex-shrink: 0; margin-bottom: 10px; padding: 0 16px; }
+#cpick-active-filters { padding-left: 16px; padding-right: 16px; }
+#cpick-pagination { flex-shrink: 0; border-top: 1px solid var(--border); margin-top: 0; padding-top: 8px; }
+
 /* Add concepts: layout */
 #expr-add-panel-ohdsi { display: flex; flex-direction: column; flex: 1; min-height: 0; gap: 8px; }
 #expr-add-search-row { display: flex; gap: 8px; align-items: center; position: relative; flex-shrink: 0; }
@@ -2814,6 +2927,16 @@ select.form-input { appearance: auto; }
 #expr-add-search-row { display: flex; flex-wrap: nowrap; }
 .expr-add-filters-popup { position: absolute; top: 100%; right: 0; z-index: 200; background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 14px; box-shadow: 0 4px 16px rgba(0,0,0,.12); width: 280px; margin-top: 6px; }
 .expr-add-filters-popup .ms-dropdown { z-index: 210; }
+/* Filter dropdowns have lots of options (vocabularies, domains, classes — 40+
+   each) and plenty of room — let them grow well past the default caps.
+   Two caps must both be lifted: the .ms-dropdown wrapper (250px) AND the
+   .ms-options scroll area (220px) — the wrapper cap is what was actually
+   limiting these to ~7 rows. Capped to the viewport so they never overflow. */
+.expr-add-filters-popup .ms-dropdown { max-height: min(680px, 76vh); }
+/* min-height:0 lets the options area shrink inside a runtime-clamped dropdown
+   (JS sets an inline max-height on .ms-dropdown to keep it within the viewport
+   on short windows); without it the fixed max-height would overflow the wrapper. */
+.expr-add-filters-popup .ms-options { max-height: min(620px, 70vh); min-height: 0; flex: 1 1 auto; }
 .expr-add-filters-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
 .expr-add-filters-row label { font-size: 12px; font-weight: 600; color: var(--text-muted); min-width: 70px; }
 .expr-add-filters-row .form-input-sm { padding: 3px 8px; font-size: 12px; }

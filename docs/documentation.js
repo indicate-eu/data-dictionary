@@ -3160,8 +3160,7 @@ var DocumentationPage = (function() {
 
       + '<h3>Actions</h3>'
       + '<ul>'
-      + '<li><strong>Add Conversion</strong> \u2014 create a new conversion with source/target concept IDs, unit names, and factor. '
-      + 'The add dialog will be improved in a future version to include a concept search datatable.</li>'
+      + '<li><strong>Add Conversion</strong> \u2014 create a new conversion. Pick the concept and the source/target units with the built-in concept search (no manual ID typing), then enter the conversion factor and optional offset.</li>'
       + '<li><strong>Edit factor</strong> \u2014 click a conversion factor cell to edit it inline</li>'
       + '<li><strong>Test</strong> \u2014 open a calculator to verify the conversion (supports bidirectional swap)</li>'
       + '<li><strong>Delete</strong> \u2014 remove a conversion with confirmation</li>'
@@ -3179,8 +3178,7 @@ var DocumentationPage = (function() {
 
       + '<h3>Actions</h3>'
       + '<ul>'
-      + '<li><strong>Add Recommended Unit</strong> \u2014 associate a concept with its recommended unit (concept ID, name, code). '
-      + 'The add dialog will be improved in a future version to include a concept search datatable.</li>'
+      + '<li><strong>Add Recommended Unit</strong> \u2014 associate a concept with its recommended unit. Pick both the concept and the unit with the built-in concept search (no manual ID typing).</li>'
       + '<li><strong>Delete</strong> \u2014 remove a recommendation with confirmation</li>'
       + '</ul>'
 
@@ -4505,8 +4503,7 @@ var DocumentationPage = (function() {
 
       + '<h3>Actions</h3>'
       + '<ul>'
-      + '<li><strong>Ajouter une conversion</strong> \u2014 cr\u00e9er une conversion avec concepts source/cible, unit\u00e9s et facteur. '
-      + 'Le formulaire d\u2019ajout sera am\u00e9lior\u00e9 dans une future version avec un datatable de recherche de concepts.</li>'
+      + '<li><strong>Ajouter une conversion</strong> \u2014 cr\u00e9er une conversion. S\u00e9lectionnez le concept et les unit\u00e9s source/cible via la recherche de concepts int\u00e9gr\u00e9e (plus de saisie manuelle d\u2019ID), puis saisissez le facteur de conversion et l\u2019offset optionnel.</li>'
       + '<li><strong>Modifier le facteur</strong> \u2014 cliquez sur la cellule du facteur pour l\u2019\u00e9diter en ligne</li>'
       + '<li><strong>Tester</strong> \u2014 ouvrir une calculatrice pour v\u00e9rifier la conversion (inversion bidirectionnelle)</li>'
       + '<li><strong>Supprimer</strong> \u2014 supprimer une conversion avec confirmation</li>'
@@ -4524,8 +4521,7 @@ var DocumentationPage = (function() {
 
       + '<h3>Actions</h3>'
       + '<ul>'
-      + '<li><strong>Ajouter une unit\u00e9 recommand\u00e9e</strong> \u2014 associer un concept \u00e0 son unit\u00e9 recommand\u00e9e (ID, nom, code). '
-      + 'Le formulaire d\u2019ajout sera am\u00e9lior\u00e9 dans une future version avec un datatable de recherche de concepts.</li>'
+      + '<li><strong>Ajouter une unit\u00e9 recommand\u00e9e</strong> \u2014 associer un concept \u00e0 son unit\u00e9 recommand\u00e9e. S\u00e9lectionnez le concept et l\u2019unit\u00e9 via la recherche de concepts int\u00e9gr\u00e9e (plus de saisie manuelle d\u2019ID).</li>'
       + '<li><strong>Supprimer</strong> \u2014 supprimer une recommandation avec confirmation</li>'
       + '</ul>'
 
