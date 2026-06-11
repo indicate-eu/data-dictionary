@@ -1,0 +1,33 @@
+{
+  "conceptSetId": 362,
+  "vocabularyVersion": null,
+  "resolvedConcepts": [
+    {
+      "conceptId": 3016864,
+      "conceptName": "Tidal volume.spontaneous+mechanical/Body weight [Volume/mass] corrected for compressible gas volume --on ventilator",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "20120-2",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3017054,
+      "conceptName": "Tidal volume.spontaneous/Body weight [Volume/mass] --on ventilator",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "20115-2",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3017878,
+      "conceptName": "Tidal volume.spontaneous+mechanical/Body weight [Volume/mass] --on ventilator",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "20117-8",
+      "standardConcept": "S"
+    }
+  ]
+}

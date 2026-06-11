@@ -1,15 +1,34 @@
 {
   "id": 310,
   "name": "Breath cycle timing",
-  "description": null,
-  "version": "1.0.0",
+  "description": "Breath-phase durations on the ventilator (inspiratory, expiratory, inspiratory pause times), in seconds.",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
+      {
+        "concept": {
+          "conceptId": 4353947,
+          "conceptName": "Inspiratory time",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "250819002",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
       {
         "concept": {
           "conceptId": 4353622,
@@ -50,15 +69,72 @@
       },
       {
         "concept": {
-          "conceptId": 4353947,
-          "conceptName": "Inspiratory time",
+          "conceptId": 3043415,
+          "conceptName": "Inspiratory breath [Time] --on ventilator",
           "domainId": "Measurement",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Observable Entity",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "250819002",
-          "validStartDate": "2002-01-31",
+          "conceptCode": "33435-9",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 36304672,
+          "conceptName": "Inspiratory time setting Ventilator",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "76334-2",
+          "validStartDate": "2018-06-15",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 36303637,
+          "conceptName": "Inspiratory pause time Ventilator",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "76227-8",
+          "validStartDate": "2018-06-15",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 36303489,
+          "conceptName": "Inspiratory pause time setting Ventilator",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "76226-0",
+          "validStartDate": "2018-06-15",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
@@ -76,21 +152,21 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Breath cycle timing",
         "category": "Ventilation",
         "subcategory": "Ventilation parameters",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Breath-phase durations on the ventilator (inspiratory, expiratory, inspiratory pause times), in seconds.",
+        "longDescription": "## Definition & Clinical Context\n\nBreath cycle timing covers the durations of the phases of a ventilator breath — inspiratory time, expiratory time, and the inspiratory pause (the no-flow hold at the end of inspiration). These determine the inspiratory:expiratory (I:E) ratio. In source data each is a single numeric value per patient-timestamp, set or measured by the ventilator. It is recorded in intensive care and anaesthesia for ventilated patients. They are reported in seconds (s).\n\n## Included Concepts\n\nThe set lists the SNOMED and LOINC concepts for breath-phase durations. All are reported in seconds.\n\n### Inspiratory time\n\n- *4353947 / 250819002 — Inspiratory time (SNOMED)*.\n- *3043415 / 33435-9 — Inspiratory breath [Time] --on ventilator (LOINC)*: measured inspiratory time.\n- *36304672 / 76334-2 — Inspiratory time setting Ventilator (LOINC)*: set inspiratory time.\n\n### Expiratory time\n\n- *4353622 / 250820008 — Expiratory time (SNOMED)*.\n\n### Inspiratory pause time\n\n- *4353623 / 250821007 — Inspiratory pause time (SNOMED)*.\n- *36303637 / 76227-8 — Inspiratory pause time Ventilator (LOINC)*: measured pause time.\n- *36303489 / 76226-0 — Inspiratory pause time setting Ventilator (LOINC)*: set pause time.\n\n**Note on units**: reported in **seconds** (`8555 / s — second`, UCUM), the recommended unit.\n\n## Mapping Notes\n\n- Map a recorded breath-phase duration to the matching concept by phase (inspiratory, expiratory, inspiratory pause).\n- **Setting vs measured**: for inspiratory time and pause time, map the set value to the corresponding LOINC 'setting' concept and the measured value to the measured concept; use the generic SNOMED concept when the source does not distinguish them.\n- **Inspiratory time as a percentage (Ti%)** is a different measurement with a different unit (%) and is not part of this set; the I:E ratio is likewise a separate, dimensionless measure.\n"
       },
       "fr": {
         "name": "Durée du cycle respiratoire",
         "category": "Ventilation",
         "subcategory": "Paramètres ventilatoires",
-        "shortDescription": null,
+        "shortDescription": "Durées des phases du cycle ventilatoire (temps inspiratoire, expiratoire, pause inspiratoire), en secondes.",
         "longDescription": null
       }
     },
@@ -102,7 +178,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Describe breath cycle timing; add LOINC inspiratory-time (measured 33435-9 + setting 76334-2) and inspiratory-pause-time (measured 76227-8 + setting 76226-0) concepts; register seconds recommended unit. Inspiratory time percent (Ti%, %) kept out (different unit). Resolves to 7."
+      }
+    ],
     "distributionStats": null
   }
 }

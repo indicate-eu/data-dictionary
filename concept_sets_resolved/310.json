@@ -1,10 +1,16 @@
 {
   "conceptSetId": 310,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
-  },
+  "vocabularyVersion": null,
   "resolvedConcepts": [
+    {
+      "conceptId": 3043415,
+      "conceptName": "Inspiratory breath [Time] --on ventilator",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "33435-9",
+      "standardConcept": "S"
+    },
     {
       "conceptId": 4353622,
       "conceptName": "Expiratory time",
@@ -30,6 +36,33 @@
       "domainId": "Measurement",
       "conceptClassId": "Observable Entity",
       "conceptCode": "250819002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36303489,
+      "conceptName": "Inspiratory pause time setting Ventilator",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "76226-0",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36303637,
+      "conceptName": "Inspiratory pause time Ventilator",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "76227-8",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36304672,
+      "conceptName": "Inspiratory time setting Ventilator",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "76334-2",
       "standardConcept": "S"
     }
   ]

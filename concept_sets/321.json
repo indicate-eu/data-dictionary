@@ -1,26 +1,45 @@
 {
   "id": 321,
   "name": "Respiratory rate",
-  "description": null,
-  "version": "1.0.0",
+  "description": "Respiratory rate — breaths per minute (/min), incl. ventilator set/measured/spontaneous rates.",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
       {
         "concept": {
-          "conceptId": 3007469,
-          "conceptName": "Breath rate setting Ventilator",
+          "conceptId": 3024171,
+          "conceptName": "Respiratory rate",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
           "conceptClassId": "Clinical Observation",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "19834-1",
-          "validStartDate": "1970-01-01",
+          "conceptCode": "9279-1",
+          "validStartDate": "1996-09-06",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4313591,
+          "conceptName": "Respiratory rate",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "86290005",
+          "validStartDate": "2002-01-31",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
@@ -66,6 +85,25 @@
         "isExcluded": false,
         "includeDescendants": false,
         "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3007469,
+          "conceptName": "Breath rate setting Ventilator",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "19834-1",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
       }
     ]
   },
@@ -76,21 +114,21 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Respiratory rate",
         "category": "Ventilation",
         "subcategory": "Ventilation parameters",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Respiratory rate — breaths per minute (/min), incl. ventilator set/measured/spontaneous rates.",
+        "longDescription": "## Definition & Clinical Context\n\nRespiratory rate is the number of breaths per minute. In ventilated patients it includes the rate set on the ventilator and the measured rate (which combines mandatory ventilator breaths and the patient's own spontaneous breaths). In source data it is a single numeric value per patient-timestamp. It is recorded across intensive care, anaesthesia, wards and emergency settings. It is reported in breaths per minute (recorded with the UCUM unit /min).\n\n## Included Concepts\n\nThe set lists the SNOMED and LOINC concepts for respiratory / breath rate. All are reported in /min.\n\n### Generic respiratory rate (default)\n\n- *3024171 / 9279-1 — Respiratory rate (LOINC)* and *4313591 / 86290005 — Respiratory rate (SNOMED)*: the patient's breathing frequency; the default.\n\n### On the ventilator\n\n- *3007646 / 19840-8 — Breath rate spontaneous and mechanical --on ventilator (LOINC)*: total (spontaneous + mandatory) measured rate.\n- *3026892 / 19839-0 — Breath rate spontaneous --on ventilator (LOINC)*: the patient's own breaths only.\n- *3007469 / 19834-1 — Breath rate setting Ventilator (LOINC)*: the set (mandatory) rate.\n\n**Note on units**: reported in **/min** (`8541 / /min — per minute`, UCUM), the recommended unit (breaths per minute).\n\n## Mapping Notes\n\n- **Default concept** when the source records a respiratory rate without qualification: *3024171 / 9279-1 — Respiratory rate* (or its SNOMED equivalent *4313591 / 86290005*).\n- **Setting vs measured**: map the set ventilator rate to *3007469 / 19834-1 — Breath rate setting Ventilator*; the measured total rate to *3007646 / 19840-8*; the spontaneous component to *3026892 / 19839-0*.\n- Use the generic concept when the source does not distinguish spontaneous from mandatory breaths.\n"
       },
       "fr": {
         "name": "Fréquence respiratoire",
         "category": "Ventilation",
         "subcategory": "Paramètres ventilatoires",
-        "shortDescription": null,
+        "shortDescription": "Fréquence respiratoire — cycles par minute (/min), y compris fréquences ventilateur réglée/mesurée/spontanée.",
         "longDescription": null
       }
     },
@@ -102,7 +140,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Add the generic Respiratory rate (LOINC 9279-1, SNOMED 86290005) as default alongside the ventilator breath-rate concepts. Register /min recommended unit. Resolves to 5."
+      }
+    ],
     "distributionStats": null
   }
 }

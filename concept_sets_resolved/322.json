@@ -1,10 +1,6 @@
 {
   "conceptSetId": 322,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "LOINC": "LOINC 2.80",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
-  },
+  "vocabularyVersion": null,
   "resolvedConcepts": [
     {
       "conceptId": 3004732,
@@ -79,24 +75,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 3016864,
-      "conceptName": "Tidal volume.spontaneous+mechanical/Body weight [Volume/mass] corrected for compressible gas volume --on ventilator",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "20120-2",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3017054,
-      "conceptName": "Tidal volume.spontaneous/Body weight [Volume/mass] --on ventilator",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "20115-2",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 3017594,
       "conceptName": "Tidal volume.spontaneous --on ventilator",
       "vocabularyId": "LOINC",
@@ -112,15 +90,6 @@
       "domainId": "Measurement",
       "conceptClassId": "Clinical Observation",
       "conceptCode": "20121-0",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3017878,
-      "conceptName": "Tidal volume.spontaneous+mechanical/Body weight [Volume/mass] --on ventilator",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "20117-8",
       "standardConcept": "S"
     },
     {

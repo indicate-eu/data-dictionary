@@ -1,9 +1,6 @@
 {
   "conceptSetId": 321,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "LOINC": "LOINC 2.80"
-  },
+  "vocabularyVersion": null,
   "resolvedConcepts": [
     {
       "conceptId": 3007469,
@@ -24,12 +21,30 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 3024171,
+      "conceptName": "Respiratory rate",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "9279-1",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 3026892,
       "conceptName": "Breath rate spontaneous --on ventilator",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Clinical Observation",
       "conceptCode": "19839-0",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4313591,
+      "conceptName": "Respiratory rate",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "86290005",
       "standardConcept": "S"
     }
   ]
