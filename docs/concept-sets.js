@@ -28,6 +28,7 @@ var ConceptSetsPage = (function() {
   var csPageSize = 25;
   var csSort = { key: 'category', asc: true };
   var csFilterName = '';
+  var csFilterDescription = '';
   var csCategories = new Set();
   var csSubcategories = new Set();
   var csFilterReviewStatus = new Set();
@@ -126,6 +127,12 @@ var ConceptSetsPage = (function() {
       data = data.filter(function(d) {
         var text = d.name.toLowerCase();
         return App.fuzzyMatch(text, q) !== -1;
+      });
+    }
+    if (csFilterDescription) {
+      var qd = csFilterDescription.toLowerCase();
+      data = data.filter(function(d) {
+        return App.fuzzyMatch((d.description || '').toLowerCase(), qd) !== -1;
       });
     }
     data.sort(function(a, b) {
@@ -6040,6 +6047,13 @@ var ConceptSetsPage = (function() {
       renderCSTable();
     });
 
+    // CS description fuzzy filter
+    document.getElementById('filter-description').addEventListener('input', function(e) {
+      csFilterDescription = e.target.value;
+      csPage = 1;
+      renderCSTable();
+    });
+
     // CS category filter
     document.getElementById('cs-categories').addEventListener('click', function(e) {
       var badge = e.target.closest('.category-badge');
@@ -6778,6 +6792,8 @@ var ConceptSetsPage = (function() {
     csFilterReviewStatusDefaulted = false;
     csFilterName = '';
     document.getElementById('filter-name').value = '';
+    csFilterDescription = '';
+    document.getElementById('filter-description').value = '';
     csPage = 1;
     renderAll();
     if (selectedConceptSet) {
