@@ -1,118 +1,7 @@
 {
   "conceptSetId": 291,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
-  },
+  "vocabularyVersion": null,
   "resolvedConcepts": [
-    {
-      "conceptId": 4022465,
-      "conceptName": "Insertion of subclavian feeding line",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "175854006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4022792,
-      "conceptName": "Removal of central venous line",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "175853000",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4050424,
-      "conceptName": "Central venous cannula insertion via axillary vein",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "233531000",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4051188,
-      "conceptName": "Central venous cannula insertion via internal jugular vein",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "233528001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4051309,
-      "conceptName": "Central venous cannula insertion via antecubital fossa vein",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "233532007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4051310,
-      "conceptName": "Central venous cannula insertion via umbilical vein",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "233533002",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4052413,
-      "conceptName": "Central venous cannula insertion",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "233527006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4052414,
-      "conceptName": "Central venous cannula insertion via external jugular vein",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "233529009",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4052415,
-      "conceptName": "Central venous cannula insertion via subclavian vein",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "233530004",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4052416,
-      "conceptName": "Central venous cannula insertion via femoral vein",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "233534008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4052528,
-      "conceptName": "Central venous cannula insertion via long saphenous vein",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "233535009",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4116186,
-      "conceptName": "Central venous cannula insertion via jugular vein",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "302776009",
-      "standardConcept": "S"
-    },
     {
       "conceptId": 4161814,
       "conceptName": "Peripherally inserted central catheter",
@@ -129,123 +18,6 @@
       "domainId": "Device",
       "conceptClassId": "Physical Object",
       "conceptCode": "52124006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4206836,
-      "conceptName": "Removal of peripherally inserted central catheter using fluoroscopic guidance with contrast",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "440459001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4230578,
-      "conceptName": "Fluoroscopy guided replacement of peripherally inserted central catheter with contrast",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "439095005",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4234457,
-      "conceptName": "Replacement of tunneled centrally inserted central venous catheter",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "439355003",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4234472,
-      "conceptName": "Replacement of peripherally inserted central venous catheter",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "439414000",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4259685,
-      "conceptName": "Replacement of nontunneled centrally inserted central venous catheter",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "439917001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4259686,
-      "conceptName": "Replacement of tunneled centrally inserted central venous catheter with subcutaneous pump",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "439918006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4313470,
-      "conceptName": "Removal of peripherally inserted central catheter",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "424606007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4322479,
-      "conceptName": "Insertion of catheter for central venous pressure monitoring",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "70549008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4328008,
-      "conceptName": "Fluoroscopy guided replacement of central venous catheter with contrast",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "431185003",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4328021,
-      "conceptName": "Removal of central venous catheter using fluoroscopic guidance with contrast",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "431243009",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4329512,
-      "conceptName": "Replacement of tunneled central venous catheter using fluoroscopic guidance with contrast",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "431783002",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4330629,
-      "conceptName": "Fluoroscopy guided removal of tunneled central venous catheter with contrast",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "431678001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37111536,
-      "conceptName": "Fluoroscopy guided removal of transhepatic central venous catheter with contrast",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "726547009",
       "standardConcept": "S"
     },
     {
@@ -276,15 +48,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 42535571,
-      "conceptName": "Fluoroscopy guided removal of tunneled central venous catheter with subcutaneous port with contrast",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "408621000119100",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 42709987,
       "conceptName": "Nontunneled central venous catheter",
       "vocabularyId": "SNOMED",
@@ -300,15 +63,6 @@
       "domainId": "Device",
       "conceptClassId": "Physical Object",
       "conceptCode": "449861008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42873079,
-      "conceptName": "Removal of tunneled central venous catheter",
-      "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "450330005",
       "standardConcept": "S"
     }
   ]
