@@ -665,6 +665,43 @@ tbody td {
   align-items: center;
   background: var(--gray-light);
 }
+.panel-header h3 + .badge-count { margin-left: 8px; }
+
+/* Review view modal: version badge (blue = current version, red = older) */
+#cs-review-view-title { display: inline-flex; align-items: center; gap: 8px; }
+.review-version-badge {
+  position: relative;
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #fff;
+  text-decoration: none;
+}
+.review-version-badge.current { background: var(--primary); }
+.review-version-badge.outdated { background: #dc2626; cursor: pointer; }
+.review-version-badge.outdated:hover { background: #b91c1c; }
+.review-version-badge::after {
+  content: attr(data-tip);
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1f2937;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 400;
+  padding: 5px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .15s;
+  z-index: 1100;
+}
+.review-version-badge:hover::after { opacity: 1; }
 .panel-header h3 {
   font-size: 13px;
   font-weight: 600;

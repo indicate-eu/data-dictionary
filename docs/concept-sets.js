@@ -34,6 +34,7 @@ var ConceptSetsPage = (function() {
   var csFilterReviewStatusDefaulted = false; // first populate seeds it with all statuses except 'deprecated'
   var selectedConceptSet = null;
   var selectedSnapshotVersion = null; // non-null when viewing a pinned snapshot
+  var selectedVersionMissing = false; // requested version has no snapshot — banner only, no content
   var selectedFromProjectId = null;   // non-null when navigated from a project's variables tab
   var sqlExportUnitLabels = {}; // unit_concept_id -> short label (e.g. "mg/dL"), populated by the SQL export UI
   var csDetailTab = 'concepts';
@@ -4267,18 +4268,126 @@ var ConceptSetsPage = (function() {
     }
     document.getElementById('cs-review-empty').style.display = 'none';
     document.getElementById('cs-review-table-wrap').style.display = '';
+    reviewSourceReviews = reviews;
+
+    // Populate the status filter from the data, keeping the current selection.
+    var statusSel = document.getElementById('review-filter-status');
+    var cur = statusSel.value;
+    var statuses = {};
+    reviews.forEach(function(r) { if (r.status) statuses[r.status] = true; });
+    statusSel.innerHTML = '<option value="">' + App.escapeHtml(App.i18n('All')) + '</option>' +
+      Object.keys(statuses).sort().map(function(s) {
+        return '<option value="' + App.escapeHtml(s) + '">' + App.escapeHtml(App.statusLabel(s)) + '</option>';
+      }).join('');
+    statusSel.value = cur;
+
+    renderReviewTable();
+  }
+
+  // ==================== REVIEW TABLE (filter + sort) ====================
+  var reviewSourceReviews = [];
+  // Reviews currently shown in the table, after filtering/sorting (modal index).
+  var reviewTabReviews = [];
+  var reviewSort = { key: 'date', asc: false }; // most recent first by default
+
+  function reviewerName(r) {
+    var reviewer = r.reviewer || {};
+    return ((reviewer.firstName || '') + ' ' + (reviewer.lastName || '')).trim();
+  }
+
+  function renderReviewTable() {
+    var f = {
+      reviewer: document.getElementById('review-filter-reviewer').value.toLowerCase(),
+      date: document.getElementById('review-filter-date').value.toLowerCase(),
+      status: document.getElementById('review-filter-status').value,
+      version: document.getElementById('review-filter-version').value.toLowerCase(),
+      comments: document.getElementById('review-filter-comments').value.toLowerCase()
+    };
+    var rows = reviewSourceReviews.filter(function(r) {
+      if (f.reviewer && reviewerName(r).toLowerCase().indexOf(f.reviewer) === -1) return false;
+      if (f.date && (r.reviewDate || '').toLowerCase().indexOf(f.date) === -1) return false;
+      if (f.status && (r.status || '') !== f.status) return false;
+      if (f.version && (r.version || '').toLowerCase().indexOf(f.version) === -1) return false;
+      if (f.comments && (r.comments || '').toLowerCase().indexOf(f.comments) === -1) return false;
+      return true;
+    });
+
+    rows.sort(function(a, b) {
+      var cmp;
+      if (reviewSort.key === 'version') {
+        cmp = App.compareVersions(a.version, b.version);
+      } else {
+        var acc = {
+          reviewer: function(r) { return reviewerName(r).toLowerCase(); },
+          date: function(r) { return r.reviewDate || ''; },
+          status: function(r) { return r.status || ''; },
+          comments: function(r) { return (r.comments || '').toLowerCase(); }
+        }[reviewSort.key];
+        var va = acc(a), vb = acc(b);
+        cmp = va < vb ? -1 : va > vb ? 1 : 0;
+      }
+      return reviewSort.asc ? cmp : -cmp;
+    });
+
+    // Sort indicators
+    document.querySelectorAll('#cs-review-table th[data-sort]').forEach(function(th) {
+      var icon = th.querySelector('.sort-icon');
+      var isCur = th.dataset.sort === reviewSort.key;
+      th.classList.toggle('sorted', isCur);
+      if (icon) icon.textContent = (isCur && !reviewSort.asc) ? '▼' : '▲';
+    });
+
+    reviewTabReviews = rows;
     var tbody = document.getElementById('cs-review-tbody');
-    tbody.innerHTML = reviews.map(function(r) {
-      var reviewer = r.reviewer || {};
-      var name = ((reviewer.firstName || '') + ' ' + (reviewer.lastName || '')).trim();
-      return '<tr>' +
-        '<td>' + App.escapeHtml(name || 'Unknown') + '</td>' +
+    if (rows.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="5" style="padding:12px; color:var(--text-muted)">' +
+        App.escapeHtml(App.i18n('No reviews match the current filters.')) + '</td></tr>';
+      return;
+    }
+    tbody.innerHTML = rows.map(function(r, idx) {
+      return '<tr data-review-idx="' + idx + '" style="cursor:pointer" title="' + App.escapeHtml(App.i18n('Click to view the full review')) + '">' +
+        '<td>' + App.escapeHtml(reviewerName(r) || 'Unknown') + '</td>' +
         '<td>' + App.escapeHtml(r.reviewDate || '') + '</td>' +
         '<td class="td-center">' + App.statusBadge(r.status) + '</td>' +
         '<td>' + App.escapeHtml(r.version || '') + '</td>' +
         '<td class="desc-truncated">' + App.escapeHtml(App.truncate(r.comments || '', 150)) + '</td>' +
         '</tr>';
     }).join('');
+  }
+
+  function openReviewViewModal(idx) {
+    var r = reviewTabReviews[idx];
+    if (!r) return;
+    var name = reviewerName(r) || 'Unknown';
+    var titleEl = document.getElementById('cs-review-view-title');
+    var titleHtml = App.escapeHtml(name + (r.reviewDate ? ' — ' + r.reviewDate : ''));
+
+    // Version badge: blue when the review targets the current version, red
+    // (and clickable, opening the pinned version) when it targets an older one.
+    if (r.version && selectedConceptSet) {
+      var latest = App.getLatestVersion(selectedConceptSet.id);
+      var isCurrent = r.version === latest;
+      if (isCurrent) {
+        titleHtml += ' <span class="review-version-badge current" data-tip="' +
+          App.escapeHtml(App.i18n('This review targets the current version')) + '">' + App.escapeHtml(r.version) + '</span>';
+      } else {
+        titleHtml += ' <a class="review-version-badge outdated" href="#/concept-sets?id=' + selectedConceptSet.id +
+          '&version=' + encodeURIComponent(r.version) + '" data-tip="' +
+          App.escapeHtml(App.i18n('This review targets an earlier version (current: {v}) — click to open it').replace('{v}', latest)) +
+          '">' + App.escapeHtml(r.version) + '</a>';
+      }
+    }
+    titleEl.innerHTML = titleHtml;
+
+    var body = document.getElementById('cs-review-view-body');
+    body.innerHTML = (r.comments || '').trim()
+      ? App.renderMarkdown(r.comments)
+      : '<p style="color:var(--text-muted); font-style:italic">' + App.escapeHtml(App.i18n('No comments in this review.')) + '</p>';
+    document.getElementById('cs-review-view-modal').style.display = 'flex';
+  }
+
+  function closeReviewViewModal() {
+    document.getElementById('cs-review-view-modal').style.display = 'none';
   }
 
   // ==================== CS DETAIL ====================
@@ -4288,13 +4397,18 @@ var ConceptSetsPage = (function() {
     var requestedVersion = options.version || '';
     var cs = live;
     var isSnapshot = false;
+    var missing = false;
     if (requestedVersion && live && live.version !== requestedVersion) {
       var snap = App.getConceptSet(id, requestedVersion);
       if (snap) { cs = snap; isSnapshot = true; }
+      // Requested version has no snapshot: don't silently fall back to the
+      // latest — show the banner and no content instead.
+      else missing = true;
     }
     if (!cs) return;
     selectedConceptSet = cs;
-    selectedSnapshotVersion = isSnapshot ? requestedVersion : null;
+    selectedSnapshotVersion = (isSnapshot || missing) ? requestedVersion : null;
+    selectedVersionMissing = missing;
     selectedFromProjectId = options.from === 'project' && options.projectId ? parseInt(options.projectId) : null;
     var tr = App.t(cs);
 
@@ -4309,9 +4423,23 @@ var ConceptSetsPage = (function() {
     renderVersionBanner();
 
     // Hide edit controls in snapshot mode (snapshots are immutable)
-    document.getElementById('cs-edit-btn').style.display = isSnapshot ? 'none' : '';
+    document.getElementById('cs-edit-btn').style.display = (isSnapshot || missing) ? 'none' : '';
     document.getElementById('cs-edit-cancel-btn').style.display = 'none';
     document.getElementById('cs-edit-save-btn').style.display = 'none';
+
+    // Requested version unavailable: keep the header + banner, hide the rest.
+    document.getElementById('cs-detail-tabs').style.display = missing ? 'none' : '';
+    if (missing) {
+      document.getElementById('cs-export-json').style.display = 'none';
+      document.getElementById('expr-import-btn').style.display = 'none';
+      document.getElementById('cs-view-json').style.display = 'none';
+      document.getElementById('expr-edit-actions').style.display = 'none';
+      document.querySelectorAll('#cs-detail-view .cs-tab-content').forEach(function(el) { el.style.display = 'none'; });
+      // Keep the requested version in the URL so the link stays shareable.
+      Router.replaceState('#/concept-sets?id=' + id + '&version=' + encodeURIComponent(requestedVersion));
+      return;
+    }
+    document.getElementById('cs-view-json').style.display = '';
 
     // Reset edit containers to view mode
     document.getElementById('cs-comments-view').style.display = '';
@@ -4342,7 +4470,10 @@ var ConceptSetsPage = (function() {
     var fromProject = selectedFromProjectId
       ? App.projects.find(function(p) { return p.id === selectedFromProjectId; })
       : null;
-    if (fromProject) {
+    if (selectedVersionMissing) {
+      msg = App.i18n('The requested version {pinned} is not available (it was never published or snapshotted). The latest version is {latest}.')
+        .replace('{pinned}', selectedSnapshotVersion).replace('{latest}', latest);
+    } else if (fromProject) {
       var projName = (App.tProj(fromProject).name) || '';
       msg = App.i18n('You are viewing the pinned version {pinned} from project "{project}". The latest version is {latest}.')
         .replace('{pinned}', selectedSnapshotVersion).replace('{project}', projName).replace('{latest}', latest);
@@ -4365,6 +4496,7 @@ var ConceptSetsPage = (function() {
     document.getElementById('cs-list-view').classList.remove('hidden');
     selectedConceptSet = null;
     selectedSnapshotVersion = null;
+    selectedVersionMissing = false;
     selectedFromProjectId = null;
     var banner = document.getElementById('cs-version-banner');
     if (banner) banner.style.display = 'none';
@@ -4467,13 +4599,14 @@ var ConceptSetsPage = (function() {
   }
 
   // ==================== VERSION MODAL ====================
+  // Suggest a minor bump: 1.0.0 -> 1.1.0 (patch resets to 0).
   function suggestNextVersion(version) {
     var parts = (version || '1.0.0').split('.');
     if (parts.length === 3) {
-      var patch = parseInt(parts[2]) + 1;
-      return parts[0] + '.' + parts[1] + '.' + (isNaN(patch) ? 1 : patch);
+      var minor = parseInt(parts[1], 10) + 1;
+      return parts[0] + '.' + (isNaN(minor) ? 1 : minor) + '.0';
     }
-    return version || '1.0.1';
+    return version || '1.1.0';
   }
 
   function renderVersionHistory() {
@@ -4489,14 +4622,14 @@ var ConceptSetsPage = (function() {
     container.style.display = '';
     var rows = versions.slice().reverse().map(function(v) {
       return '<tr>' +
-        '<td style="white-space:nowrap; font-weight:600">v' + App.escapeHtml(v.version || '') + '</td>' +
+        '<td style="white-space:nowrap; font-weight:600">' + App.escapeHtml(v.version || '') + '</td>' +
         '<td>' + App.escapeHtml(v.message || v.summary || '') + '</td>' +
         '<td style="white-space:nowrap; color:var(--text-muted); font-size:12px">' + App.escapeHtml(v.date || '') + '</td>' +
         '</tr>';
     }).join('');
     body.innerHTML = '<table class="data-table" style="width:100%; font-size:13px"><thead><tr>' +
       '<th style="white-space:nowrap">' + App.escapeHtml(App.i18n('Version')) + '</th>' +
-      '<th>' + App.escapeHtml(App.i18n('Summary')) + '</th>' +
+      '<th>' + App.escapeHtml(App.i18n('Message')) + '</th>' +
       '<th style="white-space:nowrap">' + App.escapeHtml(App.i18n('Date')) + '</th>' +
       '</tr></thead><tbody>' + rows + '</tbody></table>';
   }
@@ -4504,7 +4637,7 @@ var ConceptSetsPage = (function() {
   function openVersionModal() {
     if (!selectedConceptSet || selectedSnapshotVersion) return;
     document.getElementById('cs-version-input').value = suggestNextVersion(selectedConceptSet.version);
-    document.getElementById('cs-version-summary').value = '';
+    document.getElementById('cs-version-message').value = '';
     renderVersionHistory();
     document.getElementById('cs-version-modal').style.display = 'flex';
     document.getElementById('cs-version-input').focus();
@@ -4521,7 +4654,11 @@ var ConceptSetsPage = (function() {
       App.showToast(App.i18n('Please enter a version number'), 'error');
       return;
     }
-    var summary = document.getElementById('cs-version-summary').value.trim();
+    if (!/^\d+\.\d+\.\d+$/.test(newVersion)) {
+      App.showToast(App.i18n('Invalid version format — use X.Y.Z (e.g., 1.1.0).'), 'error');
+      return;
+    }
+    var message = document.getElementById('cs-version-message').value.trim();
 
     // Add to version history. Schema: { version, date, author, message } —
     // matches the convention used across the repo (metadata.versions[]).
@@ -4533,7 +4670,7 @@ var ConceptSetsPage = (function() {
       version: newVersion,
       date: new Date().toISOString().slice(0, 10),
       author: authorName,
-      message: summary
+      message: message
     });
 
     selectedConceptSet.version = newVersion;
@@ -4541,7 +4678,7 @@ var ConceptSetsPage = (function() {
     App.updateConceptSet(selectedConceptSet);
     refreshDetailBadges();
     closeVersionModal();
-    App.showToast(App.i18n('Version updated to v') + newVersion);
+    App.showToast(App.i18n('Version updated to ') + newVersion);
   }
 
   // ==================== STATUS MODAL ====================
@@ -4577,7 +4714,7 @@ var ConceptSetsPage = (function() {
     var statusLabel = App.statusLabel(status);
 
     document.getElementById('cs-detail-badges').innerHTML =
-      '<span class="version-badge" id="cs-badge-version">v' + App.escapeHtml(cs.version || '1.0.0') + '</span>' +
+      '<span class="version-badge" id="cs-badge-version">' + App.escapeHtml(cs.version || '1.0.0') + '</span>' +
       '<span class="status-badge ' + statusClass + '" id="cs-badge-status">' + App.escapeHtml(statusLabel) + '</span>';
     document.getElementById('cs-badge-version').addEventListener('click', openVersionModal);
     document.getElementById('cs-badge-status').addEventListener('click', openStatusModal);
@@ -6250,6 +6387,33 @@ var ConceptSetsPage = (function() {
 
     // Add Review button
     document.getElementById('cs-add-review-btn').addEventListener('click', openReviewModal);
+
+    // Review table: click a row to view the full review (rendered Markdown)
+    document.getElementById('cs-review-tbody').addEventListener('click', function(e) {
+      var tr = e.target.closest('tr[data-review-idx]');
+      if (tr) openReviewViewModal(parseInt(tr.dataset.reviewIdx, 10));
+    });
+    document.getElementById('cs-review-view-close').addEventListener('click', closeReviewViewModal);
+    document.getElementById('cs-review-view-modal').addEventListener('click', function(e) {
+      if (e.target === document.getElementById('cs-review-view-modal')) closeReviewViewModal();
+      // Outdated-version badge: navigate to the pinned version (href) and close.
+      if (e.target.closest('.review-version-badge.outdated')) closeReviewViewModal();
+    });
+
+    // Review table: column filters + sorting
+    ['review-filter-reviewer', 'review-filter-date', 'review-filter-version', 'review-filter-comments'].forEach(function(id) {
+      document.getElementById(id).addEventListener('input', renderReviewTable);
+    });
+    document.getElementById('review-filter-status').addEventListener('change', renderReviewTable);
+    document.querySelectorAll('#cs-review-table th[data-sort]').forEach(function(th) {
+      th.addEventListener('click', function(e) {
+        if (e.target.closest('.filter-row') || e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
+        var key = th.dataset.sort;
+        if (reviewSort.key === key) reviewSort.asc = !reviewSort.asc;
+        else reviewSort = { key: key, asc: key !== 'date' };
+        renderReviewTable();
+      });
+    });
 
     // Propose on GitHub button
     var proposeBtn = document.getElementById('cs-propose-github');

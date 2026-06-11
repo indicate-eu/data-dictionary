@@ -1406,8 +1406,8 @@ var ProjectsPage = (function() {
     var tr = App.t(cs);
     var csName = tr.name || cs.name || ('#' + csId);
     document.getElementById('proj-cs-update-modal-name').textContent = csName;
-    document.getElementById('proj-cs-update-modal-from').textContent = 'v' + pinned;
-    document.getElementById('proj-cs-update-modal-to').textContent = 'v' + latest;
+    document.getElementById('proj-cs-update-modal-from').textContent = pinned;
+    document.getElementById('proj-cs-update-modal-to').textContent = latest;
 
     var diff = diffResolved(csId, pinned);
     var summary = document.getElementById('proj-cs-update-modal-summary');

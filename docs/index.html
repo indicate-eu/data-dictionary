@@ -350,12 +350,15 @@
         <div class="panel-header">
           <h3 data-i18n="Reviews">Reviews</h3>
           <span class="badge badge-count" id="cs-review-count">0</span>
-          <button class="tab-btn-green" id="cs-propose-github" style="margin-left:auto; display:none">
-            <i class="fab fa-github"></i> <span data-i18n="Propose on GitHub">Propose on GitHub</span>
-          </button>
-          <button class="tab-btn-green" id="cs-add-review-btn" style="margin-left:8px">
-            <i class="fas fa-plus"></i> <span data-i18n="Add Review">Add Review</span>
-          </button>
+          <!-- Right-aligned regardless of which buttons are visible -->
+          <div style="margin-left:auto; display:flex; align-items:center; gap:8px">
+            <button class="tab-btn-green" id="cs-propose-github" style="display:none">
+              <i class="fab fa-github"></i> <span data-i18n="Propose on GitHub">Propose on GitHub</span>
+            </button>
+            <button class="tab-btn-green" id="cs-add-review-btn">
+              <i class="fas fa-plus"></i> <span data-i18n="Add Review">Add Review</span>
+            </button>
+          </div>
         </div>
         <div class="panel-body" id="cs-review-body">
           <div class="empty-state" id="cs-review-empty">
@@ -366,11 +369,18 @@
             <table id="cs-review-table">
               <thead>
                 <tr>
-                  <th style="width:20%" data-i18n="Reviewer">Reviewer</th>
-                  <th style="width:12%" data-i18n="Date">Date</th>
-                  <th style="width:12%" class="td-center" data-i18n="Status">Status</th>
-                  <th style="width:10%" data-i18n="Version">Version</th>
-                  <th style="width:46%" data-i18n="Comments">Comments</th>
+                  <th style="width:20%" data-sort="reviewer"><span data-i18n="Reviewer">Reviewer</span> <span class="sort-icon">&#9650;</span></th>
+                  <th style="width:12%" data-sort="date"><span data-i18n="Date">Date</span> <span class="sort-icon">&#9650;</span></th>
+                  <th style="width:12%" class="td-center" data-sort="status"><span data-i18n="Status">Status</span> <span class="sort-icon">&#9650;</span></th>
+                  <th style="width:10%" data-sort="version"><span data-i18n="Version">Version</span> <span class="sort-icon">&#9650;</span></th>
+                  <th style="width:46%" data-sort="comments"><span data-i18n="Comments">Comments</span> <span class="sort-icon">&#9650;</span></th>
+                </tr>
+                <tr class="filter-row">
+                  <th><input type="text" class="column-filter" id="review-filter-reviewer" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
+                  <th><input type="text" class="column-filter" id="review-filter-date" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
+                  <th><select class="column-filter" id="review-filter-status"><option value="" data-i18n="All">All</option></select></th>
+                  <th><input type="text" class="column-filter" id="review-filter-version" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
+                  <th><input type="text" class="column-filter" id="review-filter-comments" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
                 </tr>
               </thead>
               <tbody id="cs-review-tbody"></tbody>
@@ -1400,6 +1410,19 @@ LIMIT 50</div>
   </div>
 </div>
 
+<!-- Review view modal: full Markdown of a review's comments -->
+<div class="modal-overlay" id="cs-review-view-modal" style="display:none">
+  <div class="modal-box" style="width:760px; max-width:90vw">
+    <div class="modal-header">
+      <h3><i class="fas fa-clipboard-check"></i> <span id="cs-review-view-title"></span></h3>
+      <button class="modal-close" id="cs-review-view-close">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="markdown-body" id="cs-review-view-body" style="max-height:65vh"></div>
+    </div>
+  </div>
+</div>
+
 <!-- Review Modal (fullscreen) -->
 <div class="modal-fs" id="review-modal">
   <div class="modal-fs-header">
@@ -1458,19 +1481,19 @@ Enter your review comments here using Markdown syntax.
 
 <!-- Version Modal -->
 <div class="modal-overlay" id="cs-version-modal" style="display:none">
-  <div class="modal" style="max-width:720px">
+  <div class="modal" style="max-width:1000px; max-height:80vh; display:flex; flex-direction:column">
     <div class="modal-header">
       <h3><i class="fas fa-code-branch"></i> <span data-i18n="Create New Version">Create New Version</span></h3>
       <button class="modal-close" id="cs-version-close">&times;</button>
     </div>
-    <div class="modal-body">
+    <div class="modal-body" style="overflow-y:auto; flex:1; min-height:0">
       <label style="font-size:12px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px; display:block" data-i18n="Version">Version</label>
       <input type="text" id="cs-version-input" class="form-input" placeholder="e.g., 1.1.0" style="margin-bottom:12px">
-      <label style="font-size:12px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px; display:block"><span data-i18n="Change Summary (optional)">Change Summary (optional)</span></label>
-      <textarea id="cs-version-summary" class="form-input" rows="3" data-i18n-placeholder="Describe what changed..." placeholder="Describe what changed..." style="margin-bottom:16px; resize:vertical"></textarea>
+      <label style="font-size:12px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px; display:block"><span data-i18n="Message (optional)">Message (optional)</span></label>
+      <textarea id="cs-version-message" class="form-input" rows="3" data-i18n-placeholder="Describe what changed..." placeholder="Describe what changed..." style="margin-bottom:16px; resize:vertical"></textarea>
       <div id="cs-version-history" style="display:none">
         <label style="font-size:12px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px; display:block" data-i18n="Version History">Version History</label>
-        <div id="cs-version-history-body" style="max-height:180px; overflow-y:auto"></div>
+        <div id="cs-version-history-body"></div>
       </div>
     </div>
     <div class="modal-footer">

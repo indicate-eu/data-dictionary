@@ -674,10 +674,10 @@ var App = (function() {
     'Brief description of the concept set...': { fr: 'Brève description du jeu de concepts...' },
 
     // Version modal
-    'Change Summary (optional)':     { fr: 'Résumé des modifications (optionnel)' },
+    'Message (optional)':            { fr: 'Message (optionnel)' },
+    'Message':                       { fr: 'Message' },
     'Describe what changed...':      { fr: 'Décrivez les modifications...' },
     'Version History':               { fr: 'Historique des versions' },
-    'Summary':                       { fr: 'Résumé' },
 
     // Status modal
     'Change Status':                 { fr: 'Changer le statut' },
@@ -739,7 +739,8 @@ var App = (function() {
     'Project saved.':                { fr: 'Projet enregistré.' },
     'Optimization applied — review and save': { fr: 'Optimisation appliquée — vérifiez et enregistrez' },
     'Invalid JSON: ':                { fr: 'JSON invalide : ' },
-    'Version updated to v':          { fr: 'Version mise à jour en v' },
+    'Version updated to ':           { fr: 'Version mise à jour en ' },
+    'Invalid version format — use X.Y.Z (e.g., 1.1.0).': { fr: 'Format de version invalide — utilisez X.Y.Z (ex. 1.1.0).' },
     'Status changed to ':            { fr: 'Statut changé en ' },
     'No concepts in this concept set': { fr: 'Aucun concept dans ce jeu de concepts' },
     'No concepts match the current filters.': { fr: 'Aucun concept ne correspond aux filtres actuels.' },
@@ -864,6 +865,12 @@ var App = (function() {
     'Download as {file}':            { fr: 'Télécharger en {file}' },
     'A mapping project with this name already exists.': { fr: 'Un projet de mapping avec ce nom existe déjà.' },
     'A project with this name already exists.': { fr: 'Un projet avec ce nom existe déjà.' },
+    'Click to view the full review':  { fr: 'Cliquez pour afficher la review complète' },
+    'No comments in this review.':    { fr: 'Aucun commentaire dans cette review.' },
+    'No reviews match the current filters.': { fr: 'Aucune review ne correspond aux filtres actuels.' },
+    'The requested version {pinned} is not available (it was never published or snapshotted). The latest version is {latest}.': { fr: 'La version demandée {pinned} n\'est pas disponible (elle n\'a jamais été publiée ou snapshotée). La dernière version est {latest}.' },
+    'This review targets the current version': { fr: 'Cette review porte sur la version en cours' },
+    'This review targets an earlier version (current: {v}) — click to open it': { fr: 'Cette review porte sur une version antérieure (en cours : {v}) — cliquez pour l\'ouvrir' },
     'OMOP source_to_concept_map':    { fr: 'OMOP source_to_concept_map' },
     'Single-column concept_id list': { fr: 'Liste concept_id en une colonne' },
     'CSV with concept_id + source':  { fr: 'CSV avec concept_id + source' },
