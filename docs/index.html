@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-3B6NwesSXE7YJlcLI9RpRqGf2p/EgVH8BgoKTaUrmKNDkHPStTQ3EyoYjCGXaOTS" crossorigin="anonymous">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" integrity="sha384-eFTL69TLRZTkNfYZOLM+G04821K1qZao/4QLJbet1pP4tcF+fdXq/9CdqAbWRl/L" crossorigin="anonymous">
 <link rel="stylesheet" href="app.css">
 </head>
 <body>
@@ -91,6 +92,9 @@
         <!-- Normal mode buttons -->
         <button class="btn-primary-custom btn-gray" id="cs-edit-list-btn" title="Edit concept sets">
           <i class="fas fa-pen"></i> <span data-i18n="Edit">Edit</span>
+        </button>
+        <button class="btn-primary-custom btn-gray" id="cs-import-btn" title="Import concept sets from another dictionary">
+          <i class="fas fa-cloud-download-alt"></i> <span data-i18n="Import">Import</span>
         </button>
         <button class="btn-primary-custom" id="cs-export-all-btn">
           <i class="fas fa-download"></i> <span data-i18n="Export">Export</span>
@@ -906,6 +910,94 @@
     <div class="modal-footer">
       <button class="btn-secondary-custom" id="mapping-import-modal-cancel" data-i18n="Cancel">Cancel</button>
       <button class="btn-primary-custom" id="mapping-import-modal-submit" disabled><i class="fas fa-check"></i> <span data-i18n="Import">Import</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- Import concept sets from another dictionary repo (cross-repo sharing) -->
+<div class="modal-overlay" id="cs-import-modal" style="display:none">
+  <div class="modal-box" id="cs-import-modal-box" style="width:1040px; max-width:96vw">
+    <div class="modal-header">
+      <h3><i class="fas fa-cloud-download-alt"></i> <span data-i18n="Import concept sets">Import concept sets</span></h3>
+      <button class="modal-close" id="cs-import-modal-close">&times;</button>
+    </div>
+    <div class="modal-body" style="display:flex; flex-direction:column; gap:14px; padding:20px">
+      <p style="margin:0; color:var(--text-muted); font-size:13px" data-i18n="Import concept sets from another INDICATE dictionary.">Import concept sets from another INDICATE dictionary.</p>
+
+      <!-- Mode toggle -->
+      <div class="settings-tabs" id="cs-import-tabs">
+        <button class="settings-tab active" data-import-mode="repo"><i class="fas fa-code-branch"></i> <span data-i18n="From a repository">From a repository</span></button>
+        <button class="settings-tab" data-import-mode="single"><i class="fas fa-file-code"></i> <span data-i18n="From a single concept set">From a single concept set</span></button>
+      </div>
+
+      <!-- Mode A: repo URL -->
+      <div id="cs-import-mode-repo">
+        <label class="form-label" for="cs-import-repo-url" data-i18n="Repository URL">Repository URL</label>
+        <div style="display:flex; gap:8px">
+          <input type="text" class="form-input" id="cs-import-repo-url" style="flex:1" placeholder="https://github.com/org/data-dictionary">
+          <button class="btn-secondary-custom" id="cs-import-fetch-btn"><i class="fas fa-search"></i> <span data-i18n="Fetch">Fetch</span></button>
+        </div>
+        <p style="margin:6px 0 0; color:var(--text-muted); font-size:12px" data-i18n="Enter the URL of another dictionary repo (GitHub, GitLab, or any host serving its docs/data.json).">Enter the URL of another dictionary repo (GitHub, GitLab, or any host serving its docs/data.json).</p>
+      </div>
+
+      <!-- Mode B: single JSON -->
+      <div id="cs-import-mode-single" style="display:none">
+        <label class="form-label" for="cs-import-single-url" data-i18n="Concept set JSON URL">Concept set JSON URL</label>
+        <div style="display:flex; gap:8px">
+          <input type="text" class="form-input" id="cs-import-single-url" style="flex:1" placeholder="https://…/concept_sets/10.json">
+          <button class="btn-secondary-custom" id="cs-import-single-fetch-btn"><i class="fas fa-search"></i> <span data-i18n="Fetch">Fetch</span></button>
+        </div>
+        <label class="form-label" style="margin-top:10px" data-i18n="…or paste the JSON">…or paste the JSON</label>
+        <div id="cs-import-single-ace" style="height:340px; border:1px solid var(--border); border-radius:4px"></div>
+      </div>
+
+      <!-- Status / errors -->
+      <div id="cs-import-status" style="display:none; font-size:13px"></div>
+      <div id="cs-import-error" class="mapping-import-error" style="display:none"></div>
+
+      <!-- Results datatable -->
+      <div id="cs-import-results" style="display:none">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px">
+          <label style="display:flex; align-items:center; gap:6px; font-size:13px; cursor:pointer">
+            <input type="checkbox" id="cs-import-select-all"> <span data-i18n="Select all new">Select all new</span>
+          </label>
+          <span id="cs-import-count" style="color:var(--text-muted); font-size:12px"></span>
+        </div>
+        <table class="data-table" id="cs-import-table" style="width:100%">
+          <thead>
+            <tr>
+              <th style="width:34px"></th>
+              <th data-sort="name" style="width:30%"><span data-i18n="Name">Name</span> <span class="sort-icon">&#9650;</span></th>
+              <th data-sort="category" style="width:20%"><span data-i18n="Category">Category</span> <span class="sort-icon">&#9650;</span></th>
+              <th data-sort="version" style="width:70px" class="td-center"><span data-i18n="Version">Version</span> <span class="sort-icon">&#9650;</span></th>
+              <th data-sort="organization" style="width:20%"><span data-i18n="Organization">Organization</span> <span class="sort-icon">&#9650;</span></th>
+              <th data-sort="status" style="width:190px"><span data-i18n="Status">Status</span> <span class="sort-icon">&#9650;</span></th>
+            </tr>
+            <tr class="filter-row">
+              <th></th>
+              <th><input type="text" class="column-filter" id="cs-import-filter-name" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
+              <th><input type="text" class="column-filter" id="cs-import-filter-category" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
+              <th><input type="text" class="column-filter" id="cs-import-filter-version" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
+              <th><input type="text" class="column-filter" id="cs-import-filter-organization" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
+              <th><select class="column-filter" id="cs-import-filter-status">
+                <option value="" data-i18n="All">All</option>
+                <option value="new" data-i18n="New">New</option>
+                <option value="conflict" data-i18n="Conflict (newer version)">Conflict (newer version)</option>
+                <option value="up_to_date" data-i18n="Already imported">Already imported</option>
+              </select></th>
+            </tr>
+          </thead>
+          <tbody id="cs-import-tbody"></tbody>
+        </table>
+        <div class="pagination" id="cs-import-pagination" style="display:none">
+          <span id="cs-import-page-info"></span>
+          <div class="pagination-buttons" id="cs-import-page-buttons"></div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary-custom" id="cs-import-modal-cancel" data-i18n="Cancel">Cancel</button>
+      <button class="btn-primary-custom" id="cs-import-modal-submit" disabled><i class="fas fa-cloud-download-alt"></i> <span data-i18n="Import selected">Import selected</span></button>
     </div>
   </div>
 </div>
@@ -2291,6 +2383,8 @@ Enter your review comments here using Markdown syntax.
 <script src="https://cdn.jsdelivr.net/npm/marked@18.0.5/lib/marked.umd.js" integrity="sha384-ZD0fTOwPMHi7zM6WTVIWJR21I07lq0ccnqz3J6WMvQKG9thh4y7TA1QE6PJu0Af8" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.7/dist/purify.min.js" integrity="sha384-qJNkHwhlYywDHfyoEe1np+1lYvX/8x+3gHCKFhSSBMQyCFlvFnn+zXmaebXl21rV" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/vis-network@9.1.13/standalone/umd/vis-network.min.js" integrity="sha384-j/CCSVt8uoXRr8tDFbeneaoTxTOOoFXbdTM2iV3FsE0RO3eBgas7qhLBj0AzMpU3" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha384-F/bZzf7p3Joyp5psL90p/p89AZJsndkSoGwRpXcZhleCWhd8SnRuoYo4d0yirjJp" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js" integrity="sha384-8q00eP+tyV9451aJYD5ML3ftuHKsGnDcezp7EXMEclDg1fZVSoj8O+3VyJTkXmWp" crossorigin="anonymous"></script>
 <script src="data_inline.js"></script>
 <script src="app.js"></script>
 <script src="duckdb-loader.js"></script>

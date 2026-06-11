@@ -1874,6 +1874,8 @@ select.form-input { appearance: auto; }
 .markdown-body code, .mapping-content code, .md-prose code { background: #f7f7f7; border: 1px solid #ddd; padding: 2px 6px; border-radius: 3px; font-size: 12.5px; }
 .markdown-body pre, .mapping-content pre, .md-prose pre { background: #f7f7f7; border-radius: 4px; padding: 12px; overflow: auto; margin: 0 0 8px; }
 .markdown-body pre code, .mapping-content pre code, .md-prose pre code { border: none; padding: 0; background: none; }
+/* highlight.js (github theme) inside our grey code blocks: keep the block's grey bg, let token colors show */
+.markdown-body pre code.hljs, .mapping-content pre code.hljs, .md-prose pre code.hljs { background: none; padding: 0; }
 .markdown-body blockquote, .mapping-content blockquote, .md-prose blockquote { border-left: 3px solid var(--primary); margin: 0 0 8px; padding: 4px 12px; color: #4a5568; }
 .markdown-body table, .mapping-content table, .md-prose table { border-collapse: collapse; margin: 0 0 8px; width: 100%; }
 .markdown-body th, .markdown-body td, .mapping-content th, .mapping-content td, .md-prose th, .md-prose td { border: 1px solid #ddd; padding: 6px 10px; font-size: 13px; }

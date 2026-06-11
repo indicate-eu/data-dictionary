@@ -12,6 +12,17 @@ var App = (function() {
   // Config injected by build.py from config.json (root). Branding, GitHub repo of the fork, etc.
   var config = (typeof DATA !== 'undefined' && DATA.config) ? DATA.config : {};
 
+  // Full URL of THIS dictionary's repo (the fork's own repo), e.g.
+  // "https://github.com/indicate-eu/data-dictionary". Used to stamp metadata.sourceRepo
+  // and origin.repo so provenance survives a copy to another repo. config.github may
+  // carry either an `upstream` URL (…\.git) or an owner/repo `repo` slug; normalize both.
+  function getConfigRepoUrl() {
+    var gh = config.github || {};
+    if (gh.upstream) return String(gh.upstream).replace(/\.git$/, '');
+    if (gh.repo) return 'https://github.com/' + gh.repo;
+    return '';
+  }
+
   // ==================== STATE ====================
   var conceptSets = [];
   var projects = [];
@@ -176,6 +187,9 @@ var App = (function() {
     userConceptSets.forEach(function(cs) { userIdSet[cs.id] = true; });
     var repoCS = (DATA.conceptSets || []).filter(function(cs) { return !hiddenSet[cs.id] && !userIdSet[cs.id]; });
     conceptSets = repoCS.concat(userConceptSets);
+    // Normalize metadata to the cross-repo-sharing schema (org → created/current,
+    // default sourceRepo). Idempotent; covers both repo and user sets.
+    conceptSets.forEach(normalizeConceptSetMeta);
 
     var hiddenProjIds = safeParse('indicate_hidden_proj', []);
     var hiddenProjSet = {};
@@ -1027,6 +1041,19 @@ var App = (function() {
         var t = ti ? ' title="' + escapeHtml(ti) + '"' : '';
         return '<a href="' + escapeHtml(h) + '"' + t + ' target="_blank" rel="noopener noreferrer">' + escapeHtml(tx || '') + '</a>';
       };
+      // Syntax-highlight fenced code blocks (e.g. ```sql) when highlight.js is loaded.
+      renderer.code = function(token, infoString) {
+        var code = typeof token === 'object' ? token.text : token;
+        var lang = typeof token === 'object' ? token.lang : infoString;
+        lang = (lang || '').match(/\S*/)[0];
+        if (typeof hljs !== 'undefined' && lang && hljs.getLanguage(lang)) {
+          try {
+            var out = hljs.highlight(code, { language: lang, ignoreIllegals: true }).value;
+            return '<pre><code class="hljs language-' + escapeHtml(lang) + '">' + out + '</code></pre>';
+          } catch (e) { /* fall through to plain rendering */ }
+        }
+        return '<pre><code' + (lang ? ' class="language-' + escapeHtml(lang) + '"' : '') + '>' + escapeHtml(code) + '</code></pre>';
+      };
       var html = marked.parse(s, { renderer: renderer });
       if (typeof DOMPurify !== 'undefined' && DOMPurify.sanitize) {
         html = DOMPurify.sanitize(html, { ADD_ATTR: ['target'] });
@@ -1433,7 +1460,7 @@ var App = (function() {
   function detectDefaultOrganization() {
     var orgs = {};
     conceptSets.forEach(function(cs) {
-      var o = cs.metadata && cs.metadata.organization;
+      var o = csCreatedOrg(cs);
       if (o && o.name) {
         var key = o.name.toLowerCase();
         if (!orgs[key]) orgs[key] = o;
@@ -1442,6 +1469,34 @@ var App = (function() {
     var keys = Object.keys(orgs);
     if (keys.length === 1) return orgs[keys[0]];
     return null;
+  }
+
+  // Read the creator org from a concept set, tolerating both the legacy flat
+  // `organization: {name,url}` shape and the current `{created, current}` shape.
+  function csCreatedOrg(cs) {
+    var o = cs && cs.metadata && cs.metadata.organization;
+    if (!o) return null;
+    return o.created || o; // {created,current} → created; flat → itself
+  }
+
+  // Normalize a concept set's metadata in place to the cross-repo-sharing schema:
+  //  - organization: flat {name,url} → {created, current} (both = the old value)
+  //  - sourceRepo: default to this repo's URL when absent (so legacy/imported sets
+  //    without it still carry a provenance pointer)
+  // Idempotent; safe to run on every load. See ISSUE: cross-repo sharing.
+  function normalizeConceptSetMeta(cs) {
+    if (!cs || !cs.metadata) return cs;
+    var m = cs.metadata;
+    var o = m.organization;
+    if (o && !('created' in o) && !('current' in o)) {
+      // legacy flat {name,url} → split (creator and current owner both = original)
+      m.organization = { created: { name: o.name || '', url: o.url || '' },
+                         current: { name: o.name || '', url: o.url || '' } };
+    } else if (o && ('created' in o) && !('current' in o)) {
+      m.organization = { created: o.created, current: o.created };
+    }
+    if (m.sourceRepo == null) m.sourceRepo = getConfigRepoUrl();
+    return cs;
   }
 
   // ==================== SHARED EXPORT ====================
@@ -1726,6 +1781,18 @@ var App = (function() {
   }
 
   function updateConceptSet(cs) {
+    // Cross-repo sharing: editing here makes THIS repo/org the current maintainer.
+    // Refresh sourceRepo to this repo and organization.current to my org; never
+    // touch organization.created (authorship) or origin (frozen at import).
+    normalizeConceptSetMeta(cs);
+    if (cs.metadata) {
+      cs.metadata.sourceRepo = getConfigRepoUrl();
+      var myOrg = getOrganization();
+      if (myOrg && myOrg.name) {
+        if (!cs.metadata.organization) cs.metadata.organization = { created: myOrg, current: myOrg };
+        else cs.metadata.organization.current = myOrg;
+      }
+    }
     for (var i = 0; i < conceptSets.length; i++) {
       if (conceptSets[i].id === cs.id) { conceptSets[i] = cs; break; }
     }
@@ -2358,6 +2425,9 @@ var App = (function() {
     openProfileModal: openProfileModal,
     closeProfileModal: closeProfileModal,
     getOrganization: getOrganization,
+    getConfigRepoUrl: getConfigRepoUrl,
+    csCreatedOrg: csCreatedOrg,
+    normalizeConceptSetMeta: normalizeConceptSetMeta,
     openExportModal: openExportModal,
     initSharedEvents: initSharedEvents,
     getCSData: getCSData,
