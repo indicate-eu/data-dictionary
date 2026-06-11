@@ -1,10 +1,16 @@
 {
   "conceptSetId": 223,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
-  },
+  "vocabularyVersion": null,
   "resolvedConcepts": [
+    {
+      "conceptId": 4013793,
+      "conceptName": "Winkia neuii subsp. anitrata",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "113419009",
+      "standardConcept": "S"
+    },
     {
       "conceptId": 4013794,
       "conceptName": "Winkia neuii subsp. neuii",
@@ -12,6 +18,15 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "113420003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45769893,
+      "conceptName": "Winkia neuii",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "877802991000087109",
       "standardConcept": "S"
     }
   ]

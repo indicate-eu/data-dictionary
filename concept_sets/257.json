@@ -2,71 +2,14 @@
   "id": 257,
   "name": "Staphylococcus aureus",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
-      {
-        "concept": {
-          "conceptId": 605510,
-          "conceptName": "Borderline oxacillin-resistant Staphylococcus aureus",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Organism",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "1108501000112102",
-          "validStartDate": "2021-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4019195,
-          "conceptName": "Methicillin resistant Staphylococcus aureus",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Organism",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "115329001",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4034627,
-          "conceptName": "Staphylococcus aureus ss aureus",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Organism",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "113961008",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
       {
         "concept": {
           "conceptId": 4149419,
@@ -77,241 +20,13 @@
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
           "conceptCode": "3092008",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
+          "validStartDate": "20020131",
+          "validEndDate": "20991231",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4168510,
-          "conceptName": "Methicillin susceptible Staphylococcus aureus",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Organism",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "417943000",
-          "validStartDate": "2006-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4177186,
-          "conceptName": "Staphylococcus aureus ss. anaerobius",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Organism",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "50269000",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4225532,
-          "conceptName": "Vancomycin resistant Staphylococcus aureus",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Organism",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "404680007",
-          "validStartDate": "2004-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4229388,
-          "conceptName": "Vancomycin intermediate Staphylococcus aureus",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Organism",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "406962002",
-          "validStartDate": "2004-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4232582,
-          "conceptName": "Glycopeptide resistant Staphylococcus aureus",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Organism",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "404679009",
-          "validStartDate": "2004-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4249133,
-          "conceptName": "Vancomycin intermediate/resistant Staphylococcus aureus",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Organism",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "406576009",
-          "validStartDate": "2004-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4249256,
-          "conceptName": "Glycopeptide intermediate Staphylococcus aureus",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Organism",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "406605001",
-          "validStartDate": "2004-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4249257,
-          "conceptName": "Glycopeptide intermediate/resistant Staphylococcus aureus",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Organism",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "406606000",
-          "validStartDate": "2004-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 37396649,
-          "conceptName": "Non-multiple drug resistant methicillin resistant Staphylococcus aureus",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Organism",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "716530009",
-          "validStartDate": "2016-07-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 37396650,
-          "conceptName": "Multiple drug resistant methicillin resistant Staphylococcus aureus",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Organism",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "716531008",
-          "validStartDate": "2016-07-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 44784188,
-          "conceptName": "Vancomycin susceptible Staphylococcus aureus",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Organism",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "698216001",
-          "validStartDate": "2014-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 46272235,
-          "conceptName": "Panton-Valentine leukocidin producing Staphylococcus aureus",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Organism",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "710564002",
-          "validStartDate": "2015-07-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       }
     ]
@@ -320,23 +35,30 @@
   "metadata": {
     "uniqueId": "dc6ffc6b-4526-4101-8c08-653bd755c6c8",
     "organization": {
-      "name": "INDICATE Consortium",
-      "url": "https://indicate-eu.org"
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
     },
-    "reviewStatus": "draft",
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Staphylococcus aureus",
         "category": "Microbiology",
-        "subcategory": "Microorganism",
+        "subcategory": "Bacteria",
         "shortDescription": null,
         "longDescription": null
       },
       "fr": {
         "name": "Staphylococcus aureus",
         "category": "Microbiologie",
-        "subcategory": "Micro-organisme",
+        "subcategory": "Bactéries",
         "shortDescription": null,
         "longDescription": null
       }
@@ -349,7 +71,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Anchor the expression on the SNOMED concept with descendants (replacing the flat list); rename subcategory to Bacteria; moved to pending review."
+      }
+    ],
     "distributionStats": null
   }
 }

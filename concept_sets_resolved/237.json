@@ -1,9 +1,6 @@
 {
   "conceptSetId": 237,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
-  },
+  "vocabularyVersion": null,
   "resolvedConcepts": [
     {
       "conceptId": 600779,
@@ -111,6 +108,24 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "53881000087103",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1448001,
+      "conceptName": "Escherichia coli serotype O125:H6",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "1354801007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1448002,
+      "conceptName": "EPEC (Enteropathogenic Escherichia coli) serotype O125:6",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "1354802000",
       "standardConcept": "S"
     },
     {
@@ -6420,6 +6435,123 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "698022003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45767692,
+      "conceptName": "Escherichia coli serotype O181:nonmotile",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "705173006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45767693,
+      "conceptName": "Escherichia coli serotype O169:H11",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "705174000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45767696,
+      "conceptName": "Escherichia coli serogroup O186",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "705177007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45768541,
+      "conceptName": "Escherichia coli serotype O186:H2",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "706993007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45768542,
+      "conceptName": "Escherichia coli serotype O1:H20",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "706994001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45768543,
+      "conceptName": "Escherichia coli serotype O71:H11",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "706996004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45768544,
+      "conceptName": "Escherichia coli serotype O112:H2",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "706997008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45768545,
+      "conceptName": "Escherichia coli serotype O126:H40",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "706998003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45768955,
+      "conceptName": "Escherichia coli serotype O25:H4",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "707499005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45768956,
+      "conceptName": "Escherichia coli serotype O157:H19",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "707500001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45768957,
+      "conceptName": "Escherichia coli serogroup O176",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "707501002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45768958,
+      "conceptName": "Escherichia coli serotype O176:nonmotile",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "707502009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45772889,
+      "conceptName": "Escherichia coli serotype O71:H7",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "706995000",
       "standardConcept": "S"
     },
     {

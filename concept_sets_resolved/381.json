@@ -1,0 +1,15 @@
+{
+  "conceptSetId": 381,
+  "vocabularyVersion": null,
+  "resolvedConcepts": [
+    {
+      "conceptId": 4014324,
+      "conceptName": "Staphylococcus lugdunensis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "103494005",
+      "standardConcept": "S"
+    }
+  ]
+}

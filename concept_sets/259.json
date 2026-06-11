@@ -2,33 +2,14 @@
   "id": 259,
   "name": "Staphylococcus epidermidis",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
-      {
-        "concept": {
-          "conceptId": 4130581,
-          "conceptName": "Elastase-producing strain Staphylococcus epidermidis",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Organism",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "264402002",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
       {
         "concept": {
           "conceptId": 4246180,
@@ -39,32 +20,13 @@
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
           "conceptCode": "60875001",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
+          "validStartDate": "20020131",
+          "validEndDate": "20991231",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 37017617,
-          "conceptName": "Methicillin resistant Staphylococcus epidermidis",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Organism",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "713923001",
-          "validStartDate": "2016-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       }
     ]
@@ -73,23 +35,30 @@
   "metadata": {
     "uniqueId": "d58f0599-77d0-414b-b06d-06860f3ca537",
     "organization": {
-      "name": "INDICATE Consortium",
-      "url": "https://indicate-eu.org"
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
     },
-    "reviewStatus": "draft",
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Staphylococcus epidermidis",
         "category": "Microbiology",
-        "subcategory": "Microorganism",
+        "subcategory": "Bacteria",
         "shortDescription": null,
         "longDescription": null
       },
       "fr": {
         "name": "Staphylococcus epidermidis",
         "category": "Microbiologie",
-        "subcategory": "Micro-organisme",
+        "subcategory": "Bactéries",
         "shortDescription": null,
         "longDescription": null
       }
@@ -102,7 +71,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Anchor the expression on the SNOMED concept with descendants (replacing the flat list); rename subcategory to Bacteria; moved to pending review."
+      }
+    ],
     "distributionStats": null
   }
 }

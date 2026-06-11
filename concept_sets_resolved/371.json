@@ -1,0 +1,24 @@
+{
+  "conceptSetId": 371,
+  "vocabularyVersion": null,
+  "resolvedConcepts": [
+    {
+      "conceptId": 4034125,
+      "conceptName": "Stenotrophomonas maltophilia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "113697002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37158349,
+      "conceptName": "Multiple drug-resistant Stenotrophomonas maltophilia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "1255941007",
+      "standardConcept": "S"
+    }
+  ]
+}

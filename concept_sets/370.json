@@ -1,0 +1,77 @@
+{
+  "id": 370,
+  "name": "Acinetobacter baumannii",
+  "description": null,
+  "version": "1.0.0",
+  "createdBy": "Boris Delange",
+  "createdDate": "2026-06-11",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2026-06-11",
+  "createdByTool": "INDICATE Data Dictionary v1.2.3 (https://github.com/indicate-eu/data-dictionary)",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 4235587,
+          "conceptName": "Acinetobacter baumannii",
+          "domainId": "Observation",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Organism",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "91288006",
+          "validStartDate": "20020131",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "08b2dc2f-ed8b-4991-88fc-3e53ea8bfdcb",
+    "organization": {
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
+    },
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "Acinetobacter baumannii",
+        "category": "Microbiology",
+        "subcategory": "Bacteria",
+        "shortDescription": null,
+        "longDescription": null
+      },
+      "fr": {
+        "name": "Acinetobacter baumannii",
+        "category": "Microbiologie",
+        "subcategory": "Bactéries",
+        "shortDescription": null,
+        "longDescription": null
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [],
+    "versions": [],
+    "distributionStats": null
+  }
+}

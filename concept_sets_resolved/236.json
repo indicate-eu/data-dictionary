@@ -1,9 +1,6 @@
 {
   "conceptSetId": 236,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
-  },
+  "vocabularyVersion": null,
   "resolvedConcepts": [
     {
       "conceptId": 4234555,
@@ -21,6 +18,24 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "782956001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45769172,
+      "conceptName": "Enterococcus faecium genotype vanA",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "707768008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45769173,
+      "conceptName": "Enterococcus faecium genotype vanB",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "707769000",
       "standardConcept": "S"
     },
     {

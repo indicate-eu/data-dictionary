@@ -1,0 +1,60 @@
+{
+  "conceptSetId": 372,
+  "vocabularyVersion": null,
+  "resolvedConcepts": [
+    {
+      "conceptId": 4248426,
+      "conceptName": "Proteus mirabilis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "73457008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36714519,
+      "conceptName": "Carbapenem resistant Proteus mirabilis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "719793006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37017622,
+      "conceptName": "ESBL Proteus mirabilis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "713929002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37017939,
+      "conceptName": "Multiple drug-resistant Proteus mirabilis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "714314003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37156025,
+      "conceptName": "Carbapenemase-producing Proteus mirabilis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "1103001000112103",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37156026,
+      "conceptName": "AmpC beta-lactamase producing Proteus mirabilis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "1103101000112102",
+      "standardConcept": "S"
+    }
+  ]
+}

@@ -2,11 +2,11 @@
   "id": 262,
   "name": "Staphylococcus warneri",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -20,13 +20,13 @@
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
           "conceptCode": "63550006",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
+          "validStartDate": "20020131",
+          "validEndDate": "20991231",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       }
     ]
@@ -35,23 +35,30 @@
   "metadata": {
     "uniqueId": "346e3321-0fea-457c-8ada-7c329b15f8a8",
     "organization": {
-      "name": "INDICATE Consortium",
-      "url": "https://indicate-eu.org"
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
     },
-    "reviewStatus": "draft",
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Staphylococcus warneri",
         "category": "Microbiology",
-        "subcategory": "Microorganism",
+        "subcategory": "Bacteria",
         "shortDescription": null,
         "longDescription": null
       },
       "fr": {
         "name": "Staphylococcus warneri",
         "category": "Microbiologie",
-        "subcategory": "Micro-organisme",
+        "subcategory": "Bactéries",
         "shortDescription": null,
         "longDescription": null
       }
@@ -64,7 +71,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Anchor the expression on the SNOMED concept with descendants (replacing the flat list); rename subcategory to Bacteria; moved to pending review."
+      }
+    ],
     "distributionStats": null
   }
 }

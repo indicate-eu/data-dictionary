@@ -1,12 +1,12 @@
 {
   "id": 270,
   "name": "Blood culture",
-  "description": null,
-  "version": "1.0.0",
+  "description": "Blood culture — microbiology test detecting bacteria or fungi in the bloodstream (aerobic, anaerobic, fungal, MAC); the test/specimen, not the organisms grown.",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -142,25 +142,6 @@
         "isExcluded": false,
         "includeDescendants": false,
         "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 37392838,
-          "conceptName": "Blood culture",
-          "domainId": "Measurement",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Observable Entity",
-          "standardConcept": null,
-          "standardConceptCaption": "Unknown",
-          "conceptCode": "1009211000000104",
-          "validStartDate": "2016-04-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
       }
     ]
   },
@@ -168,24 +149,31 @@
   "metadata": {
     "uniqueId": "96f28974-be9e-4e30-b65b-afa661c185c1",
     "organization": {
-      "name": "INDICATE Consortium",
-      "url": "https://indicate-eu.org"
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
     },
-    "reviewStatus": "draft",
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Blood culture",
         "category": "Microbiology",
         "subcategory": "Specimen",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Blood culture — microbiology test detecting bacteria or fungi in the bloodstream (aerobic, anaerobic, fungal, MAC); the test/specimen, not the organisms grown.",
+        "longDescription": "## Definition & Clinical Context\n\nA blood culture is a microbiology test that detects micro-organisms (bacteria or fungi) circulating in the bloodstream. A sample of blood is drawn and incubated in culture bottles; if an organism grows, it is identified and antibiotic susceptibility is determined. Blood cultures are the key investigation for suspected bloodstream infection, sepsis and endocarditis, and are routinely drawn in the intensive care unit whenever a patient is febrile or deteriorating. A standard \"set\" comprises an aerobic and an anaerobic bottle, and two sets from separate sites are usually taken to distinguish true infection from skin-flora contamination.\n\nThis concept set captures the **blood-culture test / specimen-collection concepts** themselves (the fact that a blood culture was ordered or performed and of what type), not the organisms grown from them — those are the bacteria and fungi concept sets. It is the only specimen/test concept set in the Microbiology category; the rest define organisms.\n\n## Included Concepts\n\nThis concept set is a curated list of blood-culture test concepts.\n\n### Generic blood culture\n\n- *4107893 / 30088009 — Blood culture (SNOMED)*: The generic blood-culture test, type unspecified. Default mapping target for a \"blood culture\" order or result with no further qualifier.\n\n### By incubation atmosphere\n\n- *4252846 / 409611004 — Aerobic blood culture (SNOMED)*: The aerobic bottle (organisms that grow with oxygen).\n- *4252847 / 409612006 — Anaerobic blood culture (SNOMED)*: The anaerobic bottle (organisms that grow without oxygen).\n- *4016944 / 104177005 — Blood culture for bacteria, including anaerobic screen (SNOMED)*: A bacterial blood culture explicitly including an anaerobic screen.\n\n### Targeted cultures\n\n- *4006847 / 121238005 — Fungal blood culture (SNOMED)* and *4015309 / 104188004 — Fungal culture, blood, with isolation (SNOMED)*: Blood culture targeting fungi (e.g., for suspected candidaemia), which may use a dedicated medium or prolonged incubation.\n- *4014500 / 104183008 — Blood culture for MAC (SNOMED)*: Blood culture for Mycobacterium avium complex (MAC), using a specialised mycobacterial medium; relevant mainly in immunocompromised (e.g., advanced HIV) patients.\n\n## Mapping Notes\n\n- *Default concept*: When the source records a blood culture without specifying aerobic/anaerobic/fungal/MAC, map to Blood culture (4107893 / 30088009, SNOMED). Do not infer the bottle type.\n- *Aerobic/anaerobic bottles*: Map to the aerobic (4252846 / 409611004) or anaerobic (4252847 / 409612006) concept only when the source distinguishes the bottle. A blood-culture \"set\" combining both, with no per-bottle breakdown, maps to the generic concept.\n- *Targeted cultures*: Use the fungal (4006847 / 121238005) or MAC (4014500 / 104183008) concept only when the source states the culture was specifically for fungi or mycobacteria.\n- *Result vs. order*: This set represents the blood-culture test/specimen. The organism(s) isolated from a positive culture map to the corresponding bacteria or fungi concept sets, not here.\n- *Common source labels*: \"Blood culture\", \"BC\", \"Hemoculture\", \"Hémoculture\", \"Blood cx\", \"BACTEC\"/\"BacT-ALERT bottle\" → Blood culture (4107893 / 30088009, SNOMED) or the matching bottle-type concept.\n"
       },
       "fr": {
         "name": "Hémoculture",
         "category": "Microbiologie",
         "subcategory": "Prélèvement",
-        "shortDescription": null,
+        "shortDescription": "Hémoculture — examen microbiologique détectant bactéries ou champignons dans le sang (aérobie, anaérobie, fongique, MAC) ; l'examen/le prélèvement, non les organismes isolés.",
         "longDescription": null
       }
     },
@@ -197,7 +185,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Anchor the expression on the SNOMED concept with descendants (replacing the flat list); rename subcategory to Bacteria; moved to pending review."
+      }
+    ],
     "distributionStats": null
   }
 }

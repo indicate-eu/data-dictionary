@@ -1,0 +1,33 @@
+{
+  "conceptSetId": 377,
+  "vocabularyVersion": null,
+  "resolvedConcepts": [
+    {
+      "conceptId": 4208525,
+      "conceptName": "Bacteroides fragilis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "55247009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42538124,
+      "conceptName": "Bacteroides fragilis division I",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "739033008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42538125,
+      "conceptName": "Bacteroides fragilis division II",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "739034002",
+      "standardConcept": "S"
+    }
+  ]
+}

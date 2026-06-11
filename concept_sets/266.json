@@ -1,12 +1,12 @@
 {
   "id": 266,
-  "name": "Streptococcus mitis (Streptococcus mitis group)",
-  "description": null,
-  "version": "1.0.0",
+  "name": "[Deprecated] Streptococcus mitis",
+  "description": "Deprecated — redundant subset of the Streptococcus mitis group set. Use Streptococcus mitis group instead.",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -73,24 +73,31 @@
   "metadata": {
     "uniqueId": "0c5ef7fb-0f3b-4f49-b64f-0180f6e3cb9c",
     "organization": {
-      "name": "INDICATE Consortium",
-      "url": "https://indicate-eu.org"
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
     },
-    "reviewStatus": "draft",
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "deprecated",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Streptococcus mitis (Streptococcus mitis group)",
+        "name": "[Deprecated] Streptococcus mitis",
         "category": "Microbiology",
-        "subcategory": "Microorganism",
-        "shortDescription": null,
+        "subcategory": "Bacteria",
+        "shortDescription": "Deprecated — redundant subset of the Streptococcus mitis group set. Use Streptococcus mitis group instead.",
         "longDescription": null
       },
       "fr": {
-        "name": "Streptococcus mitis (Streptococcus mitis group)",
+        "name": "[Obsolète] Streptococcus mitis",
         "category": "Microbiologie",
-        "subcategory": "Micro-organisme",
-        "shortDescription": null,
+        "subcategory": "Bactéries",
+        "shortDescription": "Obsolète — sous-ensemble redondant du set Streptococcus mitis group. Utiliser Streptococcus mitis group à la place.",
         "longDescription": null
       }
     },
@@ -102,7 +109,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Deprecated: redundant strict subset of the Streptococcus mitis group set. Use Streptococcus mitis group instead."
+      }
+    ],
     "distributionStats": null
   }
 }

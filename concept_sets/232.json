@@ -1,12 +1,12 @@
 {
   "id": 232,
-  "name": "Enterobacter aerogenes",
-  "description": null,
-  "version": "1.0.0",
+  "name": "Klebsiella aerogenes (ex Enterobacter aerogenes)",
+  "description": "Klebsiella aerogenes (formerly Enterobacter aerogenes) — Gram-negative bacterium reclassified from Enterobacter to Klebsiella in 2017.",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -20,89 +20,13 @@
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
           "conceptCode": "62592009",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
+          "validStartDate": "20020131",
+          "validEndDate": "20991231",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 37156019,
-          "conceptName": "Extended spectrum beta-lactamase producing Klebsiella aerogenes",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Organism",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "1097001000112104",
-          "validStartDate": "2023-05-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 37395754,
-          "conceptName": "Multiple drug-resistant Klebsiella aerogenes",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Organism",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "715308001",
-          "validStartDate": "2016-07-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 42535759,
-          "conceptName": "Carbapenem resistant Klebsiella aerogenes",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Organism",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "734200008",
-          "validStartDate": "2018-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 42535854,
-          "conceptName": "Carbapenemase-producing Klebsiella aerogenes",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Organism",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "734352006",
-          "validStartDate": "2018-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       }
     ]
@@ -111,24 +35,31 @@
   "metadata": {
     "uniqueId": "c9823fdc-39d0-4c0c-9bd5-c59acd137980",
     "organization": {
-      "name": "INDICATE Consortium",
-      "url": "https://indicate-eu.org"
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
     },
-    "reviewStatus": "draft",
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Enterobacter aerogenes",
+        "name": "Klebsiella aerogenes (ex Enterobacter aerogenes)",
         "category": "Microbiology",
-        "subcategory": "Microorganism",
-        "shortDescription": null,
+        "subcategory": "Bacteria",
+        "shortDescription": "Klebsiella aerogenes (formerly Enterobacter aerogenes) — Gram-negative bacterium reclassified from Enterobacter to Klebsiella in 2017",
         "longDescription": null
       },
       "fr": {
-        "name": "Enterobacter aerogenes",
+        "name": "Klebsiella aerogenes (ex Enterobacter aerogenes)",
         "category": "Microbiologie",
-        "subcategory": "Micro-organisme",
-        "shortDescription": null,
+        "subcategory": "Bactéries",
+        "shortDescription": "Klebsiella aerogenes (anciennement Enterobacter aerogenes) — bactérie à Gram négatif reclassée d'Enterobacter vers Klebsiella en 2017",
         "longDescription": null
       }
     },
@@ -140,7 +71,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Anchor the expression on the SNOMED concept with descendants (replacing the flat list); rename subcategory to Bacteria; moved to pending review."
+      }
+    ],
     "distributionStats": null
   }
 }

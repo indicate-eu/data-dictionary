@@ -1,0 +1,15 @@
+{
+  "conceptSetId": 365,
+  "vocabularyVersion": null,
+  "resolvedConcepts": [
+    {
+      "conceptId": 40484255,
+      "conceptName": "Lysinibacillus sphaericus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "445591001",
+      "standardConcept": "S"
+    }
+  ]
+}

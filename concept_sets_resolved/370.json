@@ -1,0 +1,42 @@
+{
+  "conceptSetId": 370,
+  "vocabularyVersion": null,
+  "resolvedConcepts": [
+    {
+      "conceptId": 4235587,
+      "conceptName": "Acinetobacter baumannii",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "91288006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37395666,
+      "conceptName": "Carbapenem resistant Acinetobacter baumannii",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "715174007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37395792,
+      "conceptName": "Multiple drug-resistant Acinetobacter baumannii",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "715353004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42537864,
+      "conceptName": "Carbapenemase-producing Acinetobacter baumannii",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "737526007",
+      "standardConcept": "S"
+    }
+  ]
+}

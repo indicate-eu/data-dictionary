@@ -2,52 +2,14 @@
   "id": 244,
   "name": "Klebsiella variicola",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
-      {
-        "concept": {
-          "conceptId": 619492,
-          "conceptName": "Klebsiella variicola subsp. variicola",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Organism",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "895553009",
-          "validStartDate": "2021-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 619493,
-          "conceptName": "Klebsiella variicola subsp. tropicalensis",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Organism",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "895554003",
-          "validStartDate": "2021-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
       {
         "concept": {
           "conceptId": 4329767,
@@ -58,70 +20,13 @@
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
           "conceptCode": "431976004",
-          "validStartDate": "2008-07-31",
-          "validEndDate": "2099-12-31",
+          "validStartDate": "20080731",
+          "validEndDate": "20991231",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 37151801,
-          "conceptName": "AmpC beta-lactamase producing Klebsiella variicola",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Organism",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "1098701000112101",
-          "validStartDate": "2023-06-30",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 37151802,
-          "conceptName": "Extended spectrum beta-lactamase producing Klebsiella variicola",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Organism",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "1098901000112104",
-          "validStartDate": "2023-05-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 37155827,
-          "conceptName": "Carbapenemase-producing Klebsiella variicola",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Organism",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "33691000087101",
-          "validStartDate": "2023-04-30",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       }
     ]
@@ -130,23 +35,30 @@
   "metadata": {
     "uniqueId": "aef1fc75-d7e3-4f41-950c-2834ad02db64",
     "organization": {
-      "name": "INDICATE Consortium",
-      "url": "https://indicate-eu.org"
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
     },
-    "reviewStatus": "draft",
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Klebsiella variicola",
         "category": "Microbiology",
-        "subcategory": "Microorganism",
+        "subcategory": "Bacteria",
         "shortDescription": null,
         "longDescription": null
       },
       "fr": {
         "name": "Klebsiella variicola",
         "category": "Microbiologie",
-        "subcategory": "Micro-organisme",
+        "subcategory": "Bactéries",
         "shortDescription": null,
         "longDescription": null
       }
@@ -159,7 +71,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Anchor the expression on the SNOMED concept with descendants (replacing the flat list); rename subcategory to Bacteria; moved to pending review."
+      }
+    ],
     "distributionStats": null
   }
 }

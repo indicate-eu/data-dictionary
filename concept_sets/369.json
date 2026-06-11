@@ -1,0 +1,77 @@
+{
+  "id": 369,
+  "name": "Streptococcus gallolyticus (Group D, ex Streptococcus bovis)",
+  "description": "Streptococcus gallolyticus (formerly Streptococcus bovis) — Gram-positive coccus; endocarditis, associated with colorectal neoplasia.",
+  "version": "1.0.0",
+  "createdBy": "Boris Delange",
+  "createdDate": "2026-06-11",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2026-06-11",
+  "createdByTool": "INDICATE Data Dictionary v1.2.3 (https://github.com/indicate-eu/data-dictionary)",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 4015114,
+          "conceptName": "Streptococcus gallolyticus",
+          "domainId": "Observation",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Organism",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "113985000",
+          "validStartDate": "20020131",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "e4cb4b5c-b36d-446e-bca7-eaa55d6b4d0c",
+    "organization": {
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
+    },
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "Streptococcus gallolyticus (Group D, ex Streptococcus bovis)",
+        "category": "Microbiology",
+        "subcategory": "Bacteria",
+        "shortDescription": "Streptococcus gallolyticus (formerly Streptococcus bovis) — Gram-positive coccus; endocarditis, associated with colorectal neoplasia.",
+        "longDescription": null
+      },
+      "fr": {
+        "name": "Streptococcus gallolyticus (groupe D, ex Streptococcus bovis)",
+        "category": "Microbiologie",
+        "subcategory": "Bactéries",
+        "shortDescription": "Streptococcus gallolyticus (anciennement Streptococcus bovis) — coque à Gram positif ; endocardite, associé au cancer colorectal.",
+        "longDescription": null
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [],
+    "versions": [],
+    "distributionStats": null
+  }
+}

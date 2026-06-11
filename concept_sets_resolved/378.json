@@ -1,0 +1,141 @@
+{
+  "conceptSetId": 378,
+  "vocabularyVersion": null,
+  "resolvedConcepts": [
+    {
+      "conceptId": 4261846,
+      "conceptName": "Listeria monocytogenes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "36094007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42872545,
+      "conceptName": "Listeria monocytogenes serotype 1/2a",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "450536000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42872546,
+      "conceptName": "Listeria monocytogenes serotype 1/2b",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "450537009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42872547,
+      "conceptName": "Listeria monocytogenes serotype 1/2c",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "450538004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42872548,
+      "conceptName": "Listeria monocytogenes serotype 4b",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "450539007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42872549,
+      "conceptName": "Listeria monocytogenes serotype 3a",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "450540009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42872550,
+      "conceptName": "Listeria monocytogenes serotype 3b",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "450541008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42872551,
+      "conceptName": "Listeria monocytogenes serotype 3c",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "450542001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42872552,
+      "conceptName": "Listeria monocytogenes serotype 4a",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "450543006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42872553,
+      "conceptName": "Listeria monocytogenes serotype 4c",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "450544000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42872554,
+      "conceptName": "Listeria monocytogenes serotype 4ab",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "450545004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42872555,
+      "conceptName": "Listeria monocytogenes serotype 4d",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "450546003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42872556,
+      "conceptName": "Listeria monocytogenes serotype 4e",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "450547007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42872557,
+      "conceptName": "Listeria monocytogenes serotype 7",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "450548002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784035,
+      "conceptName": "Listeria monocytogenes serotype 4bx",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698150000",
+      "standardConcept": "S"
+    }
+  ]
+}

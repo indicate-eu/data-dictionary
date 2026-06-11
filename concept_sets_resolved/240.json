@@ -1,10 +1,52 @@
 {
   "conceptSetId": 240,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
-  },
+  "vocabularyVersion": null,
   "resolvedConcepts": [
+    {
+      "conceptId": 4015777,
+      "conceptName": "Gram-positive diplococcus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "11471007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4081940,
+      "conceptName": "Gram-negative coccus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "18383003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4189521,
+      "conceptName": "Gram-positive cocci in chains",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Finding",
+      "conceptCode": "61609004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4306758,
+      "conceptName": "Gram-positive bacillus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "83514008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4308411,
+      "conceptName": "Gram-negative diplococcus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "83410001",
+      "standardConcept": "S"
+    },
     {
       "conceptId": 4320771,
       "conceptName": "Gram-positive cocci in clusters",
@@ -12,6 +54,42 @@
       "domainId": "Measurement",
       "conceptClassId": "Clinical Finding",
       "conceptCode": "70003006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4336840,
+      "conceptName": "Gram-negative bacillus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "87172008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42535911,
+      "conceptName": "Gram-positive cocci in chains, clusters, and pairs",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Finding",
+      "conceptCode": "734444009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42535912,
+      "conceptName": "Gram-positive bacillus in chains",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Finding",
+      "conceptCode": "734445005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42535913,
+      "conceptName": "Gram-positive bacilli in palisades",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Finding",
+      "conceptCode": "734446006",
       "standardConcept": "S"
     }
   ]

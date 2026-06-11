@@ -1,0 +1,1140 @@
+{
+  "conceptSetId": 367,
+  "vocabularyVersion": null,
+  "resolvedConcepts": [
+    {
+      "conceptId": 3656391,
+      "conceptName": "Streptococcus pyogenes type emm183",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "26181000087102",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3656392,
+      "conceptName": "Streptococcus pyogenes type emm169",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "26191000087100",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3656393,
+      "conceptName": "Streptococcus pyogenes type emm161",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "26211000087101",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4175655,
+      "conceptName": "Streptococcus pyogenes type emm28",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "427814005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4177549,
+      "conceptName": "Streptococcus pyogenes type emm90",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "428855006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4178473,
+      "conceptName": "Streptococcus pyogenes type emm1",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "428854005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4179659,
+      "conceptName": "Streptococcus pyogenes type emm4",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "427822003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4180741,
+      "conceptName": "Streptococcus pyogenes type emm2",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "428238003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4181947,
+      "conceptName": "Streptococcus pyogenes type emm5",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "429336006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4186120,
+      "conceptName": "Large-colony-forming beta-hemolytic group A streptococci",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "414577006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4204612,
+      "conceptName": "Streptococcus pyogenes type emm118",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "438977000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4206977,
+      "conceptName": "Streptococcus pyogenes type emm61",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "439294004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4208020,
+      "conceptName": "Streptococcus pyogenes type emm44",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "438978005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4213455,
+      "conceptName": "Streptococcus pyogenes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "80166006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4322572,
+      "conceptName": "Streptococcus pyogenes type emm73",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "427823008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4323061,
+      "conceptName": "Streptococcus pyogenes type emm77",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "428542004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4323209,
+      "conceptName": "Streptococcus pyogenes type emm58",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "428254000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4323770,
+      "conceptName": "Streptococcus pyogenes type emm89",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "429337002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4325053,
+      "conceptName": "Streptococcus pyogenes type emm48",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "427821005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4326524,
+      "conceptName": "Streptococcus pyogenes type emm14",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "428541006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4327863,
+      "conceptName": "Streptococcus pyogenes type emm12",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "428793005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479218,
+      "conceptName": "Streptococcus pyogenes type emm57",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442904003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479219,
+      "conceptName": "Streptococcus pyogenes type emm56",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442905002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479220,
+      "conceptName": "Streptococcus pyogenes type emm82",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442906001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479238,
+      "conceptName": "Streptococcus pyogenes type emm20",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442922000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479239,
+      "conceptName": "Streptococcus pyogenes type emm19",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442923005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479245,
+      "conceptName": "Streptococcus pyogenes type emm43",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442929009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479246,
+      "conceptName": "Streptococcus pyogenes type emm42",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442930004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479249,
+      "conceptName": "Streptococcus pyogenes type emm67",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442932007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479250,
+      "conceptName": "Streptococcus pyogenes type emm66",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442933002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479251,
+      "conceptName": "Streptococcus pyogenes type emm65",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442934008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479252,
+      "conceptName": "Streptococcus pyogenes type emm64",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442935009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479257,
+      "conceptName": "Streptococcus pyogenes type emm79",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442940001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479265,
+      "conceptName": "Streptococcus pyogenes type emm63",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442947003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479266,
+      "conceptName": "Streptococcus pyogenes type emm62",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442948008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479272,
+      "conceptName": "Streptococcus pyogenes type emm72",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442953003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479273,
+      "conceptName": "Streptococcus pyogenes type emm71",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442954009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479274,
+      "conceptName": "Streptococcus pyogenes type emm121",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442955005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479275,
+      "conceptName": "Streptococcus pyogenes type emm120",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442956006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479281,
+      "conceptName": "Streptococcus pyogenes type emm74",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442961008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479282,
+      "conceptName": "Streptococcus pyogenes type emm112",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442962001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479286,
+      "conceptName": "Streptococcus pyogenes type emm25",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442966003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479287,
+      "conceptName": "Streptococcus pyogenes type emm24",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442967007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479288,
+      "conceptName": "Streptococcus pyogenes type emm23",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442968002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479289,
+      "conceptName": "Streptococcus pyogenes type emm22",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442969005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479295,
+      "conceptName": "Streptococcus pyogenes type emm95",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442974002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479296,
+      "conceptName": "Streptococcus pyogenes type emm94",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442975001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479297,
+      "conceptName": "Streptococcus pyogenes type emm93",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442976000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479298,
+      "conceptName": "Streptococcus pyogenes type emm92",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442977009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479307,
+      "conceptName": "Streptococcus pyogenes type emm52",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442985000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479310,
+      "conceptName": "Streptococcus pyogenes type emm15",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442988003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479314,
+      "conceptName": "Streptococcus pyogenes type emm69",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442991003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479653,
+      "conceptName": "Streptococcus pyogenes type emm119",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442995007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479654,
+      "conceptName": "Streptococcus pyogenes type emm78",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442996008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479656,
+      "conceptName": "Streptococcus pyogenes type emm18",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442998009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479668,
+      "conceptName": "Streptococcus pyogenes type emm55",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "443007002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479669,
+      "conceptName": "Streptococcus pyogenes type emm54",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "443008007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479670,
+      "conceptName": "Streptococcus pyogenes type emm53",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "443009004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479671,
+      "conceptName": "Streptococcus pyogenes type emm117",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "443010009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479689,
+      "conceptName": "Streptococcus pyogenes type emm8",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "443026005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479690,
+      "conceptName": "Streptococcus pyogenes type emm60",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "443027001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479691,
+      "conceptName": "Streptococcus pyogenes type emm10",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "443028006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479695,
+      "conceptName": "Streptococcus pyogenes type emm70",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "443031007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479696,
+      "conceptName": "Streptococcus pyogenes type emm86",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "443032000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479697,
+      "conceptName": "Streptococcus pyogenes type emm85",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "443033005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479698,
+      "conceptName": "Streptococcus pyogenes type emm84",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "443034004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479699,
+      "conceptName": "Streptococcus pyogenes type emm83",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "443035003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479718,
+      "conceptName": "Streptococcus pyogenes type emm7",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "443052004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479719,
+      "conceptName": "Streptococcus pyogenes type emm100",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "443053009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479720,
+      "conceptName": "Streptococcus pyogenes type emm33",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "443054003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479721,
+      "conceptName": "Streptococcus pyogenes type emm32",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "443055002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479722,
+      "conceptName": "Streptococcus pyogenes type emm31",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "443056001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479723,
+      "conceptName": "Streptococcus pyogenes type emm30",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "443057005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479725,
+      "conceptName": "Streptococcus pyogenes type emm111",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "443059008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479726,
+      "conceptName": "Streptococcus pyogenes type emm11",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "443060003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40480436,
+      "conceptName": "Streptococcus pyogenes type emm76",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "441723002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40484967,
+      "conceptName": "Streptococcus pyogenes type emm27",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442785005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40484968,
+      "conceptName": "Streptococcus pyogenes type emm26",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442786006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40484977,
+      "conceptName": "Streptococcus pyogenes type emm45",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442794004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40484982,
+      "conceptName": "Streptococcus pyogenes type emm41",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442799009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40484983,
+      "conceptName": "Streptococcus pyogenes type emm40",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442800008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40484986,
+      "conceptName": "Streptococcus pyogenes type emm39",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442801007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40484987,
+      "conceptName": "Streptococcus pyogenes type emm38",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442802000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40485322,
+      "conceptName": "Streptococcus pyogenes type emm99",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442809009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40485324,
+      "conceptName": "Streptococcus pyogenes type emm98",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442810004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40485326,
+      "conceptName": "Streptococcus pyogenes type emm37",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442812007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40485327,
+      "conceptName": "Streptococcus pyogenes type emm3",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442813002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40485328,
+      "conceptName": "Streptococcus pyogenes type emm97",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442814008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40485329,
+      "conceptName": "Streptococcus pyogenes type emm96",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442815009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40485330,
+      "conceptName": "Streptococcus pyogenes type emm46",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442816005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40485334,
+      "conceptName": "Streptococcus pyogenes type emm91",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442820009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40485336,
+      "conceptName": "Streptococcus pyogenes type emm9",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442821008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40485339,
+      "conceptName": "Streptococcus pyogenes type emm36",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442824000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40485340,
+      "conceptName": "Streptococcus pyogenes type emm35",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442825004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40485341,
+      "conceptName": "Streptococcus pyogenes type emm34",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442826003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40485342,
+      "conceptName": "Streptococcus pyogenes type emm29",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442827007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40485350,
+      "conceptName": "Streptococcus pyogenes type emm114",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442834009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40485351,
+      "conceptName": "Streptococcus pyogenes type emm113",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442835005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40485354,
+      "conceptName": "Streptococcus pyogenes type emm88",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442838007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40485355,
+      "conceptName": "Streptococcus pyogenes type emm87",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442839004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40485363,
+      "conceptName": "Streptococcus pyogenes type emm75",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442846008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40485367,
+      "conceptName": "Streptococcus pyogenes type emm51",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442850001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40485369,
+      "conceptName": "Streptococcus pyogenes type emm50",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442851002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40485370,
+      "conceptName": "Streptococcus pyogenes type emm49",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442852009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40485371,
+      "conceptName": "Streptococcus pyogenes type emm47",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442853004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40485374,
+      "conceptName": "Streptococcus pyogenes type emm81",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442856007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40485375,
+      "conceptName": "Streptococcus pyogenes type emm80",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442857003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40485381,
+      "conceptName": "Streptococcus pyogenes type emm68",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442862002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40485382,
+      "conceptName": "Streptococcus pyogenes type emm116",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442863007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40485392,
+      "conceptName": "Streptococcus pyogenes type emm6",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442872004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40485393,
+      "conceptName": "Streptococcus pyogenes type emm59",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442873009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40485399,
+      "conceptName": "Streptococcus pyogenes type emm115",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442879008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40485403,
+      "conceptName": "Streptococcus pyogenes type emm13",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442882003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40485417,
+      "conceptName": "Streptococcus pyogenes type emm21",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442895008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40485418,
+      "conceptName": "Streptococcus pyogenes type emm17",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442896009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40485419,
+      "conceptName": "Streptococcus pyogenes type emm16",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442897000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44782614,
+      "conceptName": "Streptococcus pyogenes type emm104",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698154009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44782615,
+      "conceptName": "Streptococcus pyogenes type emm110",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698160009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784036,
+      "conceptName": "Streptococcus pyogenes type emm101",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698151001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784037,
+      "conceptName": "Streptococcus pyogenes type emm102",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698152008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784038,
+      "conceptName": "Streptococcus pyogenes type emm103",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698153003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784039,
+      "conceptName": "Streptococcus pyogenes type emm105",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698155005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784040,
+      "conceptName": "Streptococcus pyogenes type emm106",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698156006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784041,
+      "conceptName": "Streptococcus pyogenes type emm107",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698157002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784042,
+      "conceptName": "Streptococcus pyogenes type emm108",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698158007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784043,
+      "conceptName": "Streptococcus pyogenes type emm109",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698159004",
+      "standardConcept": "S"
+    }
+  ]
+}

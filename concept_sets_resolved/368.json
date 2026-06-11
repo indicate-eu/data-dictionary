@@ -1,0 +1,1131 @@
+{
+  "conceptSetId": 368,
+  "vocabularyVersion": null,
+  "resolvedConcepts": [
+    {
+      "conceptId": 601628,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 35D",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "468341000124103",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4012879,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 9N",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "103500009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4013864,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 14",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "103498008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4013865,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 7F",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "103499000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4014325,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 3",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "103497003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4023096,
+      "conceptName": "Streptococcus pneumoniae serogroup 12",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "116500005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4037917,
+      "conceptName": "Streptococcus pneumoniae serogroup 16",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "131362008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4037918,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 29",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "131363003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4038284,
+      "conceptName": "Streptococcus pneumoniae serogroup 17",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "131361001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4133817,
+      "conceptName": "Streptococcus pneumoniae serogroup 19",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "127541006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4167882,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 9A",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "419167001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4168950,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 19F",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "419915004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4169130,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 17F",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "420138009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4169633,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 5",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "419871001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4170242,
+      "conceptName": "Streptococcus pneumoniae serogroup 18",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "418147001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4170429,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 33F",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "420148006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4170575,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 22F",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "420216004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4176167,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 23B",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "427741005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4178496,
+      "conceptName": "Streptococcus pneumoniae serogroup 11",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "363768008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4178793,
+      "conceptName": "Streptococcus pneumoniae serogroup 35",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "429569005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4179830,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 10B",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "428124003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4181034,
+      "conceptName": "Streptococcus pneumoniae serogroup 22",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "363767003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4188450,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 10A",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "415608003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4188451,
+      "conceptName": "Streptococcus pneumoniae serogroup 15",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "415609006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4188452,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 19A",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "415611002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4188453,
+      "conceptName": "Streptococcus pneumoniae serogroup 23",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "415613004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4212688,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 4",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "415616007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4214084,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 1",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "415607008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4214085,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 7A",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "415619000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4217699,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 15B",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "415610001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4217701,
+      "conceptName": "Streptococcus pneumoniae serogroup 33",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "415614005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4217703,
+      "conceptName": "Streptococcus pneumoniae serogroup 6",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "415618008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4217705,
+      "conceptName": "Streptococcus pneumoniae serogroup 10",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "415621005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4219146,
+      "conceptName": "Streptococcus pneumoniae serogroup 9",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "417270004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4253018,
+      "conceptName": "Penicillin resistant Streptococcus pneumoniae",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "409807008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4257549,
+      "conceptName": "Multiple drug-resistant Streptococcus pneumoniae",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "409806004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4302052,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 18C",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "418451009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4302637,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 23F",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "418217008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4303388,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 8",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "418759005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4303526,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 6B",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "418902003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4303674,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 9V",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "418322006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4304123,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 2",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "419527005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4304741,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 12F",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "419305002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4305992,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 9L",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "418883007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4306010,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 11A",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "419071000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4321152,
+      "conceptName": "Streptococcus pneumoniae",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "9861002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4323049,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 13",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "428366009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35608143,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 34",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "767201007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35608144,
+      "conceptName": "Streptococcus pneumoniae serogroup 20",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "767202000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35608146,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 38",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "767204004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35622072,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 6E",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "763388000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35622073,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 6F",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "763389008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35622074,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 6G",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "763390004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35622075,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 6H",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "763391000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35622076,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 11E",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "763392007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35622077,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 33E",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "763393002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35622078,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 20A",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "763395009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35622079,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 20B",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "763396005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35624451,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 39",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "767208001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35624495,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 40",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "767274003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35624496,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 48",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "767275002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35624499,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 46",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "767281005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35624500,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 45",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "767282003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35624501,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 44",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "767283008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35624502,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 43",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "767284002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35624503,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 42",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "767285001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36713975,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 6D",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "719028004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479324,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 28A",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "444352000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479325,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 28F",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "444353005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479569,
+      "conceptName": "Streptococcus pneumoniae serogroup 7",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "441523000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479616,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 22A",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "441566007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479972,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 10F",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "441602004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40480149,
+      "conceptName": "Streptococcus pneumoniae serogroup 28",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "443155000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40480150,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 6A",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "443156004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40480586,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 15A",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "443239003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40480587,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 15C",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "443240001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40481789,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 33A",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "442049002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40482775,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 31",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "443670000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44782611,
+      "conceptName": "Streptococcus pneumoniae serogroup 41",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698138006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44783983,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 6C",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698095005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44783984,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 7C",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698096006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44783985,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 21",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698097002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44783986,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 23A",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698098007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44783987,
+      "conceptName": "Streptococcus pneumoniae serogroup 24",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698099004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44783990,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 7B",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698102004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44783991,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 10C",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698103009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44783992,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 11B",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698104003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44783993,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 11C",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698105002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44783994,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 11D",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698106001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44783995,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 11F",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698107005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44783996,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 12A",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698108000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44783997,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 12B",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698109008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44783998,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 15F",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698110003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44783999,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 16A",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698111004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784000,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 16F",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698112006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784001,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 17A",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698113001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784002,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 18A",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698114007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784003,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 18B",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698115008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784004,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 18F",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698116009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784005,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 19B",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698117000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784006,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 19C",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698118005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784007,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 24A",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698119002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784008,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 24B",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698120008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784009,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 24F",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698121007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784010,
+      "conceptName": "Streptococcus pneumoniae serogroup 25",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698122000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784011,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 25A",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698123005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784012,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 25F",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698124004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784013,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 27",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698125003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784014,
+      "conceptName": "Streptococcus pneumoniae serogroup 32",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698126002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784015,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 32A",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698127006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784016,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 32F",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698128001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784017,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 33B",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698129009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784018,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 33C",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698130004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784019,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 33D",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698131000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784020,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 35A",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698132007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784021,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 35B",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698133002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784022,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 35C",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698134008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784023,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 35F",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698135009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784024,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 36",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698136005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784025,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 37",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698137001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784026,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 41A",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698139003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784027,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 41F",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698140001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784032,
+      "conceptName": "Streptococcus pneumoniae serogroup 47",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698146007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784033,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 47A",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698147003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784034,
+      "conceptName": "Streptococcus pneumoniae Danish serotype 47F",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698148008",
+      "standardConcept": "S"
+    }
+  ]
+}

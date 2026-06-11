@@ -1,0 +1,42 @@
+{
+  "conceptSetId": 369,
+  "vocabularyVersion": null,
+  "resolvedConcepts": [
+    {
+      "conceptId": 4015114,
+      "conceptName": "Streptococcus gallolyticus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "113985000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4222232,
+      "conceptName": "Streptococcus gallolyticus subspecies pasteurianus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "421253004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4225328,
+      "conceptName": "Streptococcus gallolyticus subspecies gallolyticus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "421544007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4227365,
+      "conceptName": "Streptococcus gallolyticus subspecies macedonicus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "421004005",
+      "standardConcept": "S"
+    }
+  ]
+}

@@ -1,12 +1,12 @@
 {
   "id": 254,
-  "name": "Serratia",
-  "description": null,
-  "version": "1.0.0",
+  "name": "[Deprecated] Serratia (genus)",
+  "description": "Deprecated — genus-level set too broad; overlaps the species sets. Use the species-specific Serratia sets (e.g. Serratia marcescens, Serratia liquefaciens) instead.",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -662,24 +662,31 @@
   "metadata": {
     "uniqueId": "0c661deb-2ccf-475a-9a3b-febff6a58b8b",
     "organization": {
-      "name": "INDICATE Consortium",
-      "url": "https://indicate-eu.org"
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
     },
-    "reviewStatus": "draft",
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "deprecated",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Serratia",
+        "name": "[Deprecated] Serratia (genus)",
         "category": "Microbiology",
-        "subcategory": "Microorganism",
-        "shortDescription": null,
+        "subcategory": "Bacteria",
+        "shortDescription": "Deprecated — genus-level set too broad; overlaps the species sets. Use the species-specific Serratia sets (e.g. Serratia marcescens, Serratia liquefaciens) instead.",
         "longDescription": null
       },
       "fr": {
-        "name": "Serratia",
+        "name": "[Obsolète] Serratia (genre)",
         "category": "Microbiologie",
-        "subcategory": "Micro-organisme",
-        "shortDescription": null,
+        "subcategory": "Bactéries",
+        "shortDescription": "Obsolète — set au niveau genre trop large, chevauche les sets espèces. Utiliser les sets Serratia par espèce (ex. Serratia marcescens, Serratia liquefaciens).",
         "longDescription": null
       }
     },
@@ -691,7 +698,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Deprecated: genus-level Serratia set is too broad and overlaps the per-species Serratia sets. Use the species-specific sets instead."
+      }
+    ],
     "distributionStats": null
   }
 }

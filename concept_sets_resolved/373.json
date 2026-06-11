@@ -1,0 +1,78 @@
+{
+  "conceptSetId": 373,
+  "vocabularyVersion": null,
+  "resolvedConcepts": [
+    {
+      "conceptId": 1242260,
+      "conceptName": "Carbapenemase-producing Morganella morganii",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "1101601000112106",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4016165,
+      "conceptName": "Morganella morganii, biogroup 1",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "114460006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4348164,
+      "conceptName": "Morganella morganii",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "243301005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4348429,
+      "conceptName": "Morganella morganii subsp morganii",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "243302003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4352626,
+      "conceptName": "Morganella morganii subsp sibonii",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "243303008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37156022,
+      "conceptName": "Extended spectrum beta-lactamase producing Morganella morganii",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "1101701000112102",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37159573,
+      "conceptName": "Carbapenem resistant Morganella morganii",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "541111000124108",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45768786,
+      "conceptName": "Multidrug-resistant Morganella morganii",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "707293009",
+      "standardConcept": "S"
+    }
+  ]
+}

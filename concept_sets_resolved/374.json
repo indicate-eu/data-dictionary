@@ -1,0 +1,177 @@
+{
+  "conceptSetId": 374,
+  "vocabularyVersion": null,
+  "resolvedConcepts": [
+    {
+      "conceptId": 4011483,
+      "conceptName": "Haemophilus influenzae type a",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "103441001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4011484,
+      "conceptName": "Haemophilus influenzae type c",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "103443003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4013412,
+      "conceptName": "Haemophilus influenzae type b",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "103442008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4013742,
+      "conceptName": "Haemophilus influenzae type f",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "103446006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4014189,
+      "conceptName": "Haemophilus influenzae type d",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "103444009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4014190,
+      "conceptName": "Haemophilus influenzae type e",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "103445005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4019216,
+      "conceptName": "Haemophilus influenzae, not b",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "115407004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4132259,
+      "conceptName": "Haemophilus influenzae, biotype IV",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "127508008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4132260,
+      "conceptName": "Haemophilus influenzae, biotype V",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "127509000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4132261,
+      "conceptName": "Haemophilus influenzae, biotype VII",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "127511009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4132262,
+      "conceptName": "Haemophilus influenzae, biotype VIII",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "127512002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4132717,
+      "conceptName": "Haemophilus influenzae, biotype III",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "127507003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4133182,
+      "conceptName": "Haemophilus influenzae, biotype VI",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "127510005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4133752,
+      "conceptName": "Haemophilus influenzae, biotype I",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "127505006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4133810,
+      "conceptName": "Haemophilus influenzae, biotype II",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "127506007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4195939,
+      "conceptName": "Haemophilus influenzae",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "44470000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36716367,
+      "conceptName": "Haemophilus influenzae, beta lactamase negative",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "722351007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36716369,
+      "conceptName": "Haemophilus influenzae, beta lactamase positive",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "722353005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37111506,
+      "conceptName": "Ampicillin resistant Haemophilus influenzae",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "726495003",
+      "standardConcept": "S"
+    }
+  ]
+}

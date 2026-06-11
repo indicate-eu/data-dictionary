@@ -1,0 +1,114 @@
+{
+  "conceptSetId": 379,
+  "vocabularyVersion": null,
+  "resolvedConcepts": [
+    {
+      "conceptId": 4011495,
+      "conceptName": "Neisseria meningitidis serogroup B",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "103480009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4013418,
+      "conceptName": "Neisseria meningitidis serogroup A",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "103479006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4013419,
+      "conceptName": "Neisseria meningitidis serogroup C",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "103481008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4013861,
+      "conceptName": "Neisseria meningitidis serogroup Y",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "103482001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4013862,
+      "conceptName": "Neisseria meningitidis serogroup W",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "103483006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4051813,
+      "conceptName": "Neisseria meningitidis serogroup Z",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "125042005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4052300,
+      "conceptName": "Neisseria meningitidis serogroup X",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "125041003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4076436,
+      "conceptName": "Neisseria meningitidis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "17872004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4212323,
+      "conceptName": "Neisseria meningitidis non-groupable",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "414810006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36716370,
+      "conceptName": "Neisseria meningitidis, beta lactamase negative",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "722355003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36716371,
+      "conceptName": "Neisseria meningitidis, beta lactamase positive",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "722356002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784045,
+      "conceptName": "Neisseria meningitidis serogroup E",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "698162001",
+      "standardConcept": "S"
+    }
+  ]
+}

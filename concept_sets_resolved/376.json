@@ -1,0 +1,42 @@
+{
+  "conceptSetId": 376,
+  "vocabularyVersion": null,
+  "resolvedConcepts": [
+    {
+      "conceptId": 4244400,
+      "conceptName": "Clostridioides difficile",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "5933001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35621898,
+      "conceptName": "Clostridium difficile strain BI/NAP1/027",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "763166007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42536969,
+      "conceptName": "Toxigenic Clostridium difficile",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "736050006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42536970,
+      "conceptName": "Non-toxigenic Clostridium difficile",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "736051005",
+      "standardConcept": "S"
+    }
+  ]
+}

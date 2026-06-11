@@ -1,0 +1,77 @@
+{
+  "id": 373,
+  "name": "Morganella morganii",
+  "description": null,
+  "version": "1.0.0",
+  "createdBy": "Boris Delange",
+  "createdDate": "2026-06-11",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2026-06-11",
+  "createdByTool": "INDICATE Data Dictionary v1.2.3 (https://github.com/indicate-eu/data-dictionary)",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 4348164,
+          "conceptName": "Morganella morganii",
+          "domainId": "Observation",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Organism",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "243301005",
+          "validStartDate": "20020131",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "bcb76537-31c0-41dd-b8fa-cce92af07dce",
+    "organization": {
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
+    },
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "Morganella morganii",
+        "category": "Microbiology",
+        "subcategory": "Bacteria",
+        "shortDescription": null,
+        "longDescription": null
+      },
+      "fr": {
+        "name": "Morganella morganii",
+        "category": "Microbiologie",
+        "subcategory": "Bactéries",
+        "shortDescription": null,
+        "longDescription": null
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [],
+    "versions": [],
+    "distributionStats": null
+  }
+}

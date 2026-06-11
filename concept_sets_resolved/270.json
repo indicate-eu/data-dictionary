@@ -1,9 +1,6 @@
 {
   "conceptSetId": 270,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
-  },
+  "vocabularyVersion": null,
   "resolvedConcepts": [
     {
       "conceptId": 4006847,
@@ -67,15 +64,6 @@
       "conceptClassId": "Procedure",
       "conceptCode": "409612006",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 37392838,
-      "conceptName": "Blood culture",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "1009211000000104",
-      "standardConcept": null
     }
   ]
 }

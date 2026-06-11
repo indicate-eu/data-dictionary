@@ -1,9 +1,6 @@
 {
   "conceptSetId": 229,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
-  },
+  "vocabularyVersion": null,
   "resolvedConcepts": [
     {
       "conceptId": 604385,
@@ -66,6 +63,78 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "1296582000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1447095,
+      "conceptName": "Corynebacterium crudilactis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "117631000181106",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1447096,
+      "conceptName": "Corynebacterium deserti",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "117641000181104",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1447097,
+      "conceptName": "Corynebacterium epidermidicanis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "117651000181101",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1447098,
+      "conceptName": "Corynebacterium guangdongense",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "117661000181103",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1447099,
+      "conceptName": "Corynebacterium trachiae",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "117671000181108",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1447100,
+      "conceptName": "Corynebacterium uterequi",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "117681000181105",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1447541,
+      "conceptName": "Corynebacterium ramonii",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "1345065004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1447542,
+      "conceptName": "Corynebacterium silvaticum",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "1345066003",
       "standardConcept": "S"
     },
     {

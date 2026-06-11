@@ -1,0 +1,177 @@
+{
+  "conceptSetId": 380,
+  "vocabularyVersion": null,
+  "resolvedConcepts": [
+    {
+      "conceptId": 604775,
+      "conceptName": "Legionella pneumophila serogroup, not serogroup 1",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "1003646009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4011488,
+      "conceptName": "Legionella pneumophila ss. fraseri",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "103456005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4011489,
+      "conceptName": "Legionella pneumophila ss. pneumophila",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "103458006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4011493,
+      "conceptName": "Legionella pneumophila serogroup 9",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "103471009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4013414,
+      "conceptName": "Legionella pneumophila serogroup 1",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "103463005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4013415,
+      "conceptName": "Legionella pneumophila serogroup 8",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "103470005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4013745,
+      "conceptName": "Legionella pneumophila ss. pascullei",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "103457001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4013856,
+      "conceptName": "Legionella pneumophila serogroup 3",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "103465003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4013857,
+      "conceptName": "Legionella pneumophila serogroup 5",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "103467006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4014195,
+      "conceptName": "Legionella pneumophila serogroup 2",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "103464004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4014196,
+      "conceptName": "Legionella pneumophila serogroup 4",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "103466002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4014197,
+      "conceptName": "Legionella pneumophila serogroup 6",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "103468001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4014198,
+      "conceptName": "Legionella pneumophila serogroup 7",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "103469009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4037906,
+      "conceptName": "Legionella pneumophilia serogroup 10",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "131322009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4037907,
+      "conceptName": "Legionella pneumophilia serogroup 14",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "131326007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4038275,
+      "conceptName": "Legionella pneumophilia serogroup 11",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "131323004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4038276,
+      "conceptName": "Legionella pneumophilia serogroup 12",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "131324005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4040167,
+      "conceptName": "Legionella pneumophilia serogroup 13",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "131325006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4216497,
+      "conceptName": "Legionella pneumophila",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "80897008",
+      "standardConcept": "S"
+    }
+  ]
+}

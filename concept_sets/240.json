@@ -1,12 +1,12 @@
 {
   "id": 240,
-  "name": "Gram-positive cocci in clusters",
-  "description": null,
-  "version": "1.0.0",
+  "name": "Gram stain morphology",
+  "description": "Gram stain morphology — direct-microscopy descriptions of organisms seen on a Gram-stained smear (cocci/bacilli, Gram-positive/negative, arrangement).",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -20,8 +20,179 @@
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
           "conceptCode": "70003006",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
+          "validStartDate": "20020131",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4189521,
+          "conceptName": "Gram-positive cocci in chains",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Clinical Finding",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "61609004",
+          "validStartDate": "20020131",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 42535911,
+          "conceptName": "Gram-positive cocci in chains, clusters, and pairs",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Clinical Finding",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "734444009",
+          "validStartDate": "20180131",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4306758,
+          "conceptName": "Gram-positive bacillus",
+          "domainId": "Observation",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Organism",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "83514008",
+          "validStartDate": "20020131",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 42535912,
+          "conceptName": "Gram-positive bacillus in chains",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Clinical Finding",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "734445005",
+          "validStartDate": "20180131",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 42535913,
+          "conceptName": "Gram-positive bacilli in palisades",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Clinical Finding",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "734446006",
+          "validStartDate": "20180131",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4015777,
+          "conceptName": "Gram-positive diplococcus",
+          "domainId": "Observation",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Organism",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "11471007",
+          "validStartDate": "20020131",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4336840,
+          "conceptName": "Gram-negative bacillus",
+          "domainId": "Observation",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Organism",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "87172008",
+          "validStartDate": "20020131",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4308411,
+          "conceptName": "Gram-negative diplococcus",
+          "domainId": "Observation",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Organism",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "83410001",
+          "validStartDate": "20020131",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4081940,
+          "conceptName": "Gram-negative coccus",
+          "domainId": "Observation",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Organism",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "18383003",
+          "validStartDate": "20020131",
+          "validEndDate": "20991231",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
@@ -35,24 +206,31 @@
   "metadata": {
     "uniqueId": "5280ecb0-27a6-4ed6-b000-5da7eee6ee45",
     "organization": {
-      "name": "INDICATE Consortium",
-      "url": "https://indicate-eu.org"
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
     },
-    "reviewStatus": "draft",
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Gram-positive cocci in clusters",
+        "name": "Gram stain morphology",
         "category": "Microbiology",
-        "subcategory": "Microorganism",
-        "shortDescription": null,
+        "subcategory": "Direct examination",
+        "shortDescription": "Gram stain morphology — direct-microscopy descriptions of organisms on a Gram-stained smear (Gram-positive/negative cocci or bacilli and their arrangement: clusters, chains, pairs).",
         "longDescription": null
       },
       "fr": {
-        "name": "Gram-positive cocci in clusters",
+        "name": "Morphologie au Gram",
         "category": "Microbiologie",
-        "subcategory": "Micro-organisme",
-        "shortDescription": null,
+        "subcategory": "Examen direct",
+        "shortDescription": "Morphologie au Gram — descriptions à la microscopie directe des organismes sur un frottis coloré au Gram (cocci ou bacilles à Gram positif/négatif et leur disposition : amas, chaînettes, paires).",
         "longDescription": null
       }
     },
@@ -64,7 +242,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Repurpose as a single 'Gram stain morphology' set covering the common direct-examination morphologies (Gram-positive/negative cocci and bacilli, with arrangement: clusters/chains/pairs/palisades/diplococci) instead of only 'Gram-positive cocci in clusters'. Moved to a 'Direct examination' subcategory."
+      }
+    ],
     "distributionStats": null
   }
 }
