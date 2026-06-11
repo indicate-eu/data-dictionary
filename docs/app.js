@@ -6,7 +6,7 @@ var App = (function() {
   // These are intentionally not configurable: forks ride on this app version.
   // The dictionary's own identity (title, branding, organization) lives in config.json.
   var APP_NAME = 'INDICATE Data Dictionary';
-  var APP_VERSION = '1.2.2';
+  var APP_VERSION = '1.2.3';
   var APP_GITHUB_URL = 'https://github.com/indicate-eu/data-dictionary';
 
   // Config injected by build.py from config.json (root). Branding, GitHub repo of the fork, etc.
@@ -1086,6 +1086,13 @@ var App = (function() {
     return s.length > n ? s.substring(0, n) + '...' : s;
   }
 
+  // Plain (translated) label for a concept's Standard flag — used both for the
+  // badge text and as the data-tooltip on its cell, so a clipped badge can be
+  // read in full on hover.
+  function standardLabel(concept) {
+    var sc = concept.standardConcept;
+    return i18n(sc === 'S' ? 'Standard' : (sc === 'C' ? 'Classification' : 'Non-standard'));
+  }
   function standardBadge(concept) {
     var sc = concept.standardConcept;
     if (sc === 'S') return '<span class="badge badge-standard">' + escapeHtml(i18n('Standard')) + '</span>';
@@ -1975,15 +1982,20 @@ var App = (function() {
 
     function lockWidths() {
       if (table.classList.contains('col-resizable')) return;
-      table.classList.add('col-resizable');
-      ths.forEach(function(th) {
-        // Skip columns that are currently hidden — their offsetWidth is 0, and freezing
-        // it would persist that 0 even after the user reveals the column. We keep the
-        // existing inline width (from HTML `style="width:Xpx"`) so revealing the column
-        // gives it back its intended width.
-        if (th.offsetParent === null || th.offsetWidth === 0) return;
-        th.style.width = th.offsetWidth + 'px';
+      // Measure the CURRENT rendered widths FIRST, while the table is still
+      // table-layout:auto. Reading offsetWidth after switching to
+      // table-layout:fixed would capture the post-relayout widths instead, so
+      // every column would visibly jump the instant the user merely pressed on
+      // a boundary (before any drag). Snapshot, then apply, then switch.
+      var widths = ths.map(function(th) {
+        // Hidden columns (offsetWidth 0) keep their inline width so revealing
+        // them later restores the intended size — don't freeze them at 0.
+        return (th.offsetParent === null || th.offsetWidth === 0) ? null : th.offsetWidth;
       });
+      ths.forEach(function(th, i) {
+        if (widths[i] != null) th.style.width = widths[i] + 'px';
+      });
+      table.classList.add('col-resizable');
     }
 
     // Optionally engage table-layout:fixed immediately (so cell-truncate takes effect
@@ -2101,11 +2113,23 @@ var App = (function() {
     function sizeHandles() {
       if (!thead) return;
       var headH = thead.getBoundingClientRect().height;
+      // Table not laid out yet (e.g. in a hidden tab/detail view): bail rather
+      // than freezing the handles at height 0 — which would leave the column
+      // boundaries invisible until something else forced a reflow. A
+      // ResizeObserver re-runs this the moment the thead gains real height.
+      if (headH === 0) return;
       table.querySelectorAll('.col-resize-handle').forEach(function(h) {
         var thH = h.parentElement.getBoundingClientRect().height;
         // height = full thead, so the handle covers the filter row too.
         h.style.height = Math.max(thH, Math.round(headH)) + 'px';
       });
+    }
+    // Re-size the handles whenever the header's box changes — crucially, when
+    // the table goes from hidden (height 0) to visible, so the boundary lines
+    // appear as soon as the user opens the tab/detail without needing a manual
+    // reflow (the "they show up only when I open devtools" symptom).
+    if (thead && typeof ResizeObserver === 'function') {
+      new ResizeObserver(sizeHandles).observe(thead);
     }
 
     // Add resize handles
@@ -2129,18 +2153,32 @@ var App = (function() {
         handle.classList.add('dragging');
         document.body.style.cursor = 'col-resize';
         document.body.style.userSelect = 'none';
+        var MIN_W = 40;
         var startX = e.clientX;
         var startW = th.offsetWidth;
-        var nextTh = ths[idx + 1];
+        // Resize against the nearest VISIBLE column to the right (skip hidden
+        // ones, whose width is 0). The boundary only ever trades width between
+        // these two columns, so the table's total width is conserved and it can
+        // never grow past the container (which would push content off-screen).
+        var nextTh = null;
+        for (var k = idx + 1; k < ths.length; k++) {
+          if (ths[k].offsetWidth > 0) { nextTh = ths[k]; break; }
+        }
         var nextStartW = nextTh ? nextTh.offsetWidth : 0;
 
         function onMove(ev) {
           var dx = ev.clientX - startX;
-          var newW = Math.max(40, startW + dx);
-          th.style.width = newW + 'px';
           if (nextTh) {
-            var newNextW = Math.max(40, nextStartW - dx);
-            nextTh.style.width = newNextW + 'px';
+            // Clamp dx so neither column drops below MIN_W. Growing th is paid
+            // for entirely by shrinking nextTh — so dx can't exceed the slack
+            // nextTh has above MIN_W, nor shrink th below MIN_W.
+            dx = Math.min(dx, nextStartW - MIN_W);
+            dx = Math.max(dx, MIN_W - startW);
+            th.style.width = (startW + dx) + 'px';
+            nextTh.style.width = (nextStartW - dx) + 'px';
+          } else {
+            // No column to the right to trade with: just respect the minimum.
+            th.style.width = Math.max(MIN_W, startW + dx) + 'px';
           }
         }
         function onUp() {
@@ -2266,6 +2304,7 @@ var App = (function() {
     statusBadge: statusBadge,
     truncate: truncate,
     standardBadge: standardBadge,
+    standardLabel: standardLabel,
     validBadge: validBadge,
     buildMultiSelectDropdown: buildMultiSelectDropdown,
     updateMsToggleLabel: updateMsToggleLabel,

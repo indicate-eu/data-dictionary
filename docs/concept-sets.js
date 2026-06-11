@@ -57,7 +57,10 @@ var ConceptSetsPage = (function() {
   var exprSelectedIdxs = new Set();
   var exprImportEditor = null;
   var addConceptResults = [];      // all results from SQL query
-  var addConceptFiltered = [];     // after column-filter
+  var addConceptFiltered = [];     // after column-filter + sort
+  // Client-side column sort over the loaded SQL result. Empty key = keep the
+  // SQL relevance/depth ordering the query returned.
+  var addSort = { key: '', asc: true };
   var addConceptSelectedIds = new Set();
   var addMultiSelect = false;
   var addSelectedConcept = null; // currently focused row in single-select mode
@@ -245,7 +248,7 @@ var ConceptSetsPage = (function() {
         '<td class="cell-truncate" data-tooltip="' + App.escapeHtml(d.name) + '"><strong>' + App.escapeHtml(d.name) + '</strong></td>' +
         '<td class="cell-truncate"' + (d.description ? ' data-tooltip="' + App.escapeHtml(d.description) + '"' : '') + '>' + App.escapeHtml(d.description || '') + '</td>' +
         '<td class="td-center">' + App.escapeHtml(d.version) + '</td>' +
-        '<td class="td-center">' + App.statusBadge(d.reviewStatus) + '</td>' +
+        '<td class="td-center" data-tooltip="' + App.escapeHtml(App.statusLabel(d.reviewStatus)) + '">' + App.statusBadge(d.reviewStatus) + '</td>' +
         '</tr>';
     }).join('');
 
@@ -475,7 +478,7 @@ var ConceptSetsPage = (function() {
         '<td class="cell-truncate" data-tooltip="' + App.escapeHtml(cCode) + '">' + App.escapeHtml(cCode) + '</td>' +
         '<td class="cell-truncate" data-tooltip="' + App.escapeHtml(cDomain) + '">' + App.escapeHtml(cDomain) + '</td>' +
         '<td class="cell-truncate" data-tooltip="' + App.escapeHtml(cClass) + '">' + App.escapeHtml(cClass) + '</td>' +
-        '<td class="td-center">' + App.standardBadge(c) + '</td>' +
+        '<td class="td-center" data-tooltip="' + App.escapeHtml(App.standardLabel(c)) + '">' + App.standardBadge(c) + '</td>' +
         excludeCell + descCell + mappedCell +
         '</tr>';
     }).join('');
@@ -1710,6 +1713,7 @@ var ConceptSetsPage = (function() {
     tbody.innerHTML = '<tr><td colspan="8" class="td-center" style="padding:20px; color:var(--text-muted)"><i class="fas fa-spinner fa-spin"></i> Loading concepts...</td></tr>';
     addConceptResults = [];
     addConceptFiltered = [];
+    addSort = { key: '', asc: true };
 
     var whereParts = buildAddFilterWhere();
 
@@ -1739,6 +1743,7 @@ var ConceptSetsPage = (function() {
     tbody.innerHTML = '<tr><td colspan="' + colSpan + '" class="td-center" style="padding:20px; color:var(--text-muted)"><i class="fas fa-spinner fa-spin"></i> Searching...</td></tr>';
     addConceptResults = [];
     addConceptFiltered = [];
+    addSort = { key: '', asc: true };
     addConceptSelectedIds.clear();
     addSelectedConcept = null;
     document.getElementById('expr-add-select-all').checked = false;
@@ -1861,7 +1866,36 @@ var ConceptSetsPage = (function() {
         return true;
       });
     }
+    addConceptFiltered = sortAddRows(addConceptFiltered);
     renderAddResults();
+  }
+
+  // Sort the filtered add-results by the active column. concept_id sorts
+  // numerically; everything else case-insensitive string. Stable. Empty key
+  // leaves the SQL ordering (relevance/depth) untouched.
+  function sortAddRows(rows) {
+    if (!addSort.key) return rows;
+    function val(r) {
+      if (addSort.key === 'concept_id') return Number(r.concept_id);
+      if (addSort.key === 'standard_concept') {
+        return r.standard_concept === 'S' ? 'Standard'
+          : (r.standard_concept === 'C' ? 'Classification' : 'Non-standard');
+      }
+      var v = r[addSort.key];
+      return v == null ? '' : v;
+    }
+    var decorated = rows.map(function(r, i) { return { r: r, i: i }; });
+    decorated.sort(function(a, b) {
+      var va = val(a.r), vb = val(b.r), cmp;
+      if (typeof va === 'number' && typeof vb === 'number') cmp = va - vb;
+      else {
+        va = String(va).toLowerCase(); vb = String(vb).toLowerCase();
+        cmp = va < vb ? -1 : va > vb ? 1 : 0;
+      }
+      if (cmp === 0) cmp = a.i - b.i;
+      return addSort.asc ? cmp : -cmp;
+    });
+    return decorated.map(function(d) { return d.r; });
   }
 
   // --- Render results ---
@@ -1869,6 +1903,13 @@ var ConceptSetsPage = (function() {
     var tbody = document.getElementById('expr-add-results-tbody');
     var table = document.getElementById('expr-add-results-table');
     var colSpan = 8;
+    // Reflect the active sort column in the header arrows.
+    table.querySelectorAll('thead th[data-sort]').forEach(function(th) {
+      var isCur = th.dataset.sort === addSort.key;
+      th.classList.toggle('sorted', isCur);
+      var icon = th.querySelector('.sort-icon');
+      if (icon) icon.textContent = (isCur && !addSort.asc) ? '▼' : '▲';
+    });
     // Show column filter row when we have results
     if (addConceptResults.length > 0) {
       table.classList.add('add-show-col-filters');
@@ -3087,7 +3128,7 @@ var ConceptSetsPage = (function() {
         '<td class="cell-truncate" data-tooltip="' + App.escapeHtml(code) + '">' + App.escapeHtml(code) + '</td>' +
         '<td class="cell-truncate" data-tooltip="' + App.escapeHtml(domain) + '">' + App.escapeHtml(domain) + '</td>' +
         '<td class="cell-truncate" data-tooltip="' + App.escapeHtml(klass) + '">' + App.escapeHtml(klass) + '</td>' +
-        '<td class="td-center">' + App.standardBadge(c) + '</td>' +
+        '<td class="td-center" data-tooltip="' + App.escapeHtml(App.standardLabel(c)) + '">' + App.standardBadge(c) + '</td>' +
         '</tr>';
     }).join('');
     applyColumnVisibility();
@@ -6179,8 +6220,19 @@ var ConceptSetsPage = (function() {
       var field = input.getAttribute('data-field');
       if (field && !isNaN(idx) && exprEditItems[idx]) {
         exprEditItems[idx][field] = input.checked;
-        // Re-render row when exclude changes so toggle colors update
-        if (field === 'isExcluded') renderExpressionTable();
+        // When exclude flips, the descendants/mapped toggles in the same row
+        // recolor (red when excluded). Update their class IN PLACE rather than
+        // re-rendering the whole table — a full re-render rebuilds the DOM, so
+        // the exclude toggle would jump to its new state with no slide
+        // transition. Toggling the class keeps the CSS .2s slide on all three.
+        if (field === 'isExcluded') {
+          var row = input.closest('tr');
+          if (row) {
+            row.querySelectorAll('input[data-field="includeDescendants"], input[data-field="includeMapped"]').forEach(function(cb) {
+              cb.closest('.toggle-switch').classList.toggle('toggle-exclude', input.checked);
+            });
+          }
+        }
       }
     });
     document.getElementById('expression-tbody').addEventListener('click', function(e) {
@@ -6399,6 +6451,16 @@ var ConceptSetsPage = (function() {
         applyAddColumnFilters();
       });
     });
+    // Add concepts: column sort (click a header cell). Only the label row has
+    // data-sort; the filter row below it doesn't, so its inputs are unaffected.
+    document.getElementById('expr-add-results-table').querySelector('thead').addEventListener('click', function(e) {
+      var th = e.target.closest('th[data-sort]');
+      if (!th) return;
+      if (addSort.key === th.dataset.sort) addSort.asc = !addSort.asc;
+      else { addSort.key = th.dataset.sort; addSort.asc = true; }
+      applyAddColumnFilters();
+    });
+    App.initColResize('expr-add-results-table');
 
     // Resolved concept row click -> concept detail (fresh navigation, reset history)
     document.getElementById('resolved-tbody').addEventListener('click', function(e) {
@@ -6605,6 +6667,7 @@ var ConceptSetsPage = (function() {
     App.initColResize('cs-table');
     App.initColResize('resolved-table');
     App.initColResize('expression-table');
+    App.initColResize('cs-review-table');
   }
 
   // ==================== PAGE MODULE ====================

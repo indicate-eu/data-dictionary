@@ -1074,7 +1074,7 @@ for f in ['CONCEPT','CONCEPT_ANCESTOR','CONCEPT_RELATIONSHIP','CONCEPT_SYNONYM',
           <i class="fas fa-download"></i> <span data-i18n="Export">Export</span>
         </button>
       </div>
-      <div class="panel-table-wrap" style="flex:1; min-height:0; overflow:auto" id="conv-table-wrap">
+      <div class="panel-table-wrap" style="flex:1; min-height:0; overflow-y:auto; overflow-x:hidden" id="conv-table-wrap">
         <table id="conv-table">
           <thead>
             <tr>
@@ -1139,7 +1139,7 @@ for f in ['CONCEPT','CONCEPT_ANCESTOR','CONCEPT_RELATIONSHIP','CONCEPT_SYNONYM',
           <i class="fas fa-download"></i> <span data-i18n="Export">Export</span>
         </button>
       </div>
-      <div class="panel-table-wrap" style="flex:1; min-height:0; overflow:auto" id="ru-table-wrap">
+      <div class="panel-table-wrap" style="flex:1; min-height:0; overflow-y:auto; overflow-x:hidden" id="ru-table-wrap">
         <table id="ru-table">
           <thead>
             <tr>
@@ -1815,13 +1815,13 @@ Enter your review comments here using Markdown syntax.
           <thead>
             <tr>
               <th class="expr-add-check-col" style="width:36px"><input type="checkbox" id="expr-add-select-all"></th>
-              <th data-i18n="Concept ID">Concept ID</th>
-              <th data-i18n="Concept Name">Concept Name</th>
-              <th data-i18n="Vocabulary">Vocabulary</th>
-              <th data-i18n="Concept Code">Code</th>
-              <th data-i18n="Domain">Domain</th>
-              <th data-i18n="Class">Class</th>
-              <th style="text-align:center" data-i18n="Standard">Standard</th>
+              <th data-sort="concept_id"><span data-i18n="Concept ID">Concept ID</span> <span class="sort-icon">&#9650;</span></th>
+              <th data-sort="concept_name"><span data-i18n="Concept Name">Concept Name</span> <span class="sort-icon">&#9650;</span></th>
+              <th data-sort="vocabulary_id"><span data-i18n="Vocabulary">Vocabulary</span> <span class="sort-icon">&#9650;</span></th>
+              <th data-sort="concept_code"><span data-i18n="Concept Code">Code</span> <span class="sort-icon">&#9650;</span></th>
+              <th data-sort="domain_id"><span data-i18n="Domain">Domain</span> <span class="sort-icon">&#9650;</span></th>
+              <th data-sort="concept_class_id"><span data-i18n="Class">Class</span> <span class="sort-icon">&#9650;</span></th>
+              <th data-sort="standard_concept" style="text-align:center"><span data-i18n="Standard">Standard</span> <span class="sort-icon">&#9650;</span></th>
             </tr>
             <tr class="filter-row" id="expr-add-col-filter-row">
               <th class="expr-add-check-col"></th>
@@ -2219,17 +2219,26 @@ Enter your review comments here using Markdown syntax.
     <div id="cpick-active-filters" class="expr-add-active-filters" style="display:none"></div>
     <!-- Results table -->
     <div id="cpick-results-wrap" style="flex:1; min-height:0; display:flex; flex-direction:column">
-      <div id="cpick-table-scroll" style="flex:1; min-height:0; overflow:auto">
+      <div id="cpick-table-scroll" style="flex:1; min-height:0; overflow-y:auto; overflow-x:hidden">
         <table class="concept-related-table" id="cpick-results-table">
           <thead>
             <tr>
-              <th data-i18n="Concept ID">Concept ID</th>
-              <th data-i18n="Concept Name">Concept Name</th>
-              <th data-i18n="Vocabulary">Vocabulary</th>
-              <th data-i18n="Concept Code">Code</th>
-              <th data-i18n="Domain">Domain</th>
-              <th data-i18n="Class">Class</th>
-              <th style="text-align:center" data-i18n="Standard">Standard</th>
+              <th data-sort="concept_id"><span data-i18n="Concept ID">Concept ID</span> <span class="sort-icon">&#9650;</span></th>
+              <th data-sort="concept_name"><span data-i18n="Concept Name">Concept Name</span> <span class="sort-icon">&#9650;</span></th>
+              <th data-sort="vocabulary_id"><span data-i18n="Vocabulary">Vocabulary</span> <span class="sort-icon">&#9650;</span></th>
+              <th data-sort="concept_code"><span data-i18n="Concept Code">Code</span> <span class="sort-icon">&#9650;</span></th>
+              <th data-sort="domain_id"><span data-i18n="Domain">Domain</span> <span class="sort-icon">&#9650;</span></th>
+              <th data-sort="concept_class_id"><span data-i18n="Class">Class</span> <span class="sort-icon">&#9650;</span></th>
+              <th data-sort="standard_concept" style="text-align:center"><span data-i18n="Standard">Standard</span> <span class="sort-icon">&#9650;</span></th>
+            </tr>
+            <tr class="filter-row" id="cpick-col-filter-row">
+              <th><input type="text" class="column-filter" data-col="concept_id" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
+              <th><input type="text" class="column-filter" data-col="concept_name" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
+              <th><input type="text" class="column-filter" data-col="vocabulary_id" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
+              <th><input type="text" class="column-filter" data-col="concept_code" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
+              <th><input type="text" class="column-filter" data-col="domain_id" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
+              <th><input type="text" class="column-filter" data-col="concept_class_id" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
+              <th><input type="text" class="column-filter" data-col="standard_concept" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
             </tr>
           </thead>
           <tbody id="cpick-results-tbody"></tbody>

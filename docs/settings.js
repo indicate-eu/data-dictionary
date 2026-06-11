@@ -789,9 +789,13 @@ var SettingsPage = (function() {
   // Reusable single-select concept search modal (issue #6): IDs/names are no
   // longer typed by hand — the user picks a concept from the OHDSI vocabulary.
   var pickResults = [];      // raw rows from the last query
-  var pickFiltered = [];     // mirrors pickResults (server-side filtering)
+  var pickFiltered = [];     // pickResults after per-column filter + sort
   var pickSelected = null;   // currently highlighted row
   var pickPage = 1, pickPageSize = 50;
+  // Per-column text filters ({ concept_name: 'foo', ... }) and sort, both
+  // applied client-side over pickResults (the full SQL result, up to 10k rows).
+  var pickColFilters = {};
+  var pickSort = { key: '', asc: true };
   var pickOnSelect = null;   // callback(concept) when user confirms
   var pickKind = 'concept';  // 'concept' (any) | 'unit' (UCUM units)
   // Badge filters (multi-select), same model as the concept-sets Add modal.
@@ -1041,9 +1045,11 @@ var SettingsPage = (function() {
     var tbody = document.getElementById('cpick-results-tbody');
     VocabDB.query(sql).then(function(rows) {
       pickResults = rows || [];
-      pickFiltered = pickResults;
+      // A fresh query supersedes the SQL ORDER BY relevance ranking, so start
+      // with no client sort (keep that ranking) and the current column filters.
+      pickSort = { key: '', asc: true };
+      derivePickFiltered();
       pickSelected = null;
-      pickPage = 1;
       document.getElementById('cpick-submit').disabled = true;
       document.getElementById('cpick-selected-label').textContent =
         App.i18n(pickKind === 'unit' ? 'No unit selected' : 'No concept selected');
@@ -1053,8 +1059,40 @@ var SettingsPage = (function() {
     });
   }
 
+  // Human-readable Standard column value, so the column filter and sort act on
+  // what the user actually sees ("Standard"/"Classification"/"Non-standard").
+  function pickStandardText(r) {
+    return r.standard_concept === 'S' ? 'Standard'
+      : (r.standard_concept === 'C' ? 'Classification' : 'Non-standard');
+  }
+
+  function pickCellValue(r, col) {
+    if (col === 'standard_concept') return pickStandardText(r);
+    var v = r[col];
+    return v == null ? '' : v;
+  }
+
+  // Rebuild pickFiltered from pickResults: apply each per-column text filter
+  // (case-insensitive substring), then the active sort. Resets to page 1.
+  function derivePickFiltered() {
+    var rows = pickResults.filter(function(r) {
+      for (var col in pickColFilters) {
+        var q = (pickColFilters[col] || '').toLowerCase();
+        if (!q) continue;
+        if (String(pickCellValue(r, col)).toLowerCase().indexOf(q) === -1) return false;
+      }
+      return true;
+    });
+    pickFiltered = sortRows(rows, pickSort, function(r, key) {
+      if (key === 'concept_id') return Number(r.concept_id);
+      return pickCellValue(r, key);
+    });
+    pickPage = 1;
+  }
+
   function renderPickerResults() {
     var tbody = document.getElementById('cpick-results-tbody');
+    syncSortIndicators('cpick-results-table', pickSort);
     if (pickFiltered.length === 0) {
       tbody.innerHTML = '<tr><td colspan="7" class="td-center" style="padding:20px; color:var(--text-muted)">No results found.</td></tr>';
       document.getElementById('cpick-pagination').style.display = 'none';
@@ -1276,6 +1314,25 @@ var SettingsPage = (function() {
         function(p) { pickPage = p; },
         renderPickerResults, 'cpick-table-scroll');
     });
+    // Per-column text filters (the second header row).
+    document.getElementById('cpick-col-filter-row').addEventListener('input', function(e) {
+      var input = e.target.closest('.column-filter');
+      if (!input) return;
+      pickColFilters[input.dataset.col] = input.value;
+      derivePickFiltered();
+      renderPickerResults();
+    });
+    // Column sort (click a header cell). The filter row is a separate <tr>, so
+    // only the label row carries data-sort and triggers this.
+    document.getElementById('cpick-results-table').querySelector('thead').addEventListener('click', function(e) {
+      var th = e.target.closest('th[data-sort]');
+      if (!th) return;
+      handleSortClick(pickSort, th.dataset.sort, function() {
+        derivePickFiltered();
+        renderPickerResults();
+      });
+    });
+    App.initColResize('cpick-results-table');
 
     // Test conversion modal
     document.getElementById('test-conv-close').addEventListener('click', function() {
@@ -1375,6 +1432,9 @@ var SettingsPage = (function() {
     ruData = JSON.parse(JSON.stringify(App.recommendedUnits));
     renderConvTable();
     renderRUTable();
+    // Column resize on the settings datatables (same as the concept-sets list).
+    App.initColResize('conv-table');
+    App.initColResize('ru-table');
   }
 
   function show(query) {

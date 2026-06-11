@@ -1438,17 +1438,22 @@ td .status-badge:hover, td .version-badge:hover {
   filter: none;
   transform: none;
 }
-td .status-badge, td .version-badge {
+td .status-badge, td .version-badge,
+td .badge-standard, td .badge-classification, td .badge-non-standard {
   cursor: default;
   /* Never wrap to a second line in a narrow column — clip with an ellipsis
-     instead (e.g. "Pending Review" when the Status column is squeezed). */
+     instead (e.g. "Pending Review" when the Status column is squeezed, or
+     "Classification" when the Standard column is). */
   max-width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 /* The cell must clip so the badge's ellipsis engages when the column narrows. */
-td.td-center:has(> .status-badge), td.td-center:has(> .version-badge) {
+td.td-center:has(> .status-badge), td.td-center:has(> .version-badge),
+td.td-center:has(> .badge-standard),
+td.td-center:has(> .badge-classification),
+td.td-center:has(> .badge-non-standard) {
   overflow: hidden;
 }
 
@@ -2892,6 +2897,9 @@ select.form-input { appearance: auto; }
    search row + active-filter chips their own side padding to keep the textfield
    off the modal edges. */
 #cpick-search-row { display: flex; flex-wrap: nowrap; gap: 8px; align-items: center; position: relative; flex-shrink: 0; margin-bottom: 10px; padding: 0 16px; }
+/* Reserve the scrollbar gutter so it never overlays the last (Standard) column,
+   matching the concept-sets list. overflow-x is clipped inline. */
+#cpick-table-scroll { scrollbar-gutter: stable; }
 #cpick-active-filters { padding-left: 16px; padding-right: 16px; }
 #cpick-pagination { flex-shrink: 0; border-top: 1px solid var(--border); margin-top: 0; padding-top: 8px; }
 
@@ -2900,8 +2908,11 @@ select.form-input { appearance: auto; }
 #expr-add-search-row { display: flex; gap: 8px; align-items: center; position: relative; flex-shrink: 0; }
 
 /* Add concepts: top half (results table + pagination) */
-#expr-add-results-wrap { flex: 1; min-height: 0; display: flex; flex-direction: column; overflow-y: auto; }
-#expr-add-table-scroll { flex: 1; min-height: 0; overflow-y: auto; }
+#expr-add-results-wrap { flex: 1; min-height: 0; display: flex; flex-direction: column; overflow-y: auto; overflow-x: hidden; }
+/* Clip horizontal overflow (the fixed-layout table is always 100% wide) so a
+   resized column never produces a horizontal scrollbar; reserve the vertical
+   scrollbar gutter so it doesn't overlay the Standard column. */
+#expr-add-table-scroll { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; scrollbar-gutter: stable; }
 #expr-add-results-wrap > .pagination { flex-shrink: 0; }
 
 /* Add concepts: bottom half (details + hierarchy) */
@@ -2975,7 +2986,8 @@ select.form-input { appearance: auto; }
 /* Add concepts: column filter row */
 #expr-add-col-filter-row { display: none; }
 #expr-add-results-table.add-show-col-filters #expr-add-col-filter-row { display: table-row; }
-#expr-add-col-filter-row .column-filter { font-size: 11px; padding: 2px 6px; }
+#expr-add-col-filter-row .column-filter,
+#cpick-col-filter-row .column-filter { font-size: 11px; padding: 2px 6px; }
 
 /* Add concepts: checkbox column in multi-select */
 .expr-add-check-col { display: none; }
