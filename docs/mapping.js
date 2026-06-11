@@ -1426,6 +1426,14 @@ var MappingPage = (function() {
         });
       });
       searchInput.addEventListener('click', function(e) { e.stopPropagation(); });
+      searchInput.addEventListener('keydown', function(e) {
+        if (e.key !== 'Enter') return;
+        e.preventDefault();
+        var visible = [].filter.call(container.querySelectorAll('.ms-option-single'), function(opt) {
+          return opt.style.display !== 'none';
+        });
+        if (visible.length === 1) visible[0].click();
+      });
     }
     dropdown.addEventListener('click', function(e) {
       var btn = e.target.closest('.ms-option-single');

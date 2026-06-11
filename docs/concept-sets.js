@@ -728,7 +728,7 @@ var ConceptSetsPage = (function() {
   }
 
   function doOptimizeExpression(modal, body, footer) {
-    body.innerHTML = '<div class="loading-inline"><i class="fas fa-spinner fa-spin"></i> Analyzing hierarchy...</div>';
+    body.innerHTML = '<div class="loading-inline"><i class="fas fa-spinner fa-spin"></i> ' + App.i18n('Analyzing hierarchy...') + '</div>';
 
     var items = JSON.parse(JSON.stringify(exprEditItems));
 
@@ -2140,10 +2140,15 @@ var ConceptSetsPage = (function() {
       return ' <i class="far fa-clone detail-copy-btn" data-copy="' + App.escapeHtml(String(value)) + '" title="Copy"></i>';
     };
 
+    // Concept IDs in the 2-billion range are local/custom (not in Athena) — no Athena link.
+    var idRowHtml = Number(r.concept_id) > 2000000000
+      ? '<div class="detail-item"><strong>OMOP Concept ID:</strong><span style="color:var(--text-muted)">' + App.i18n('No link available (custom concept)') + '</span></div>'
+      : '<div class="detail-item"><strong>OMOP Concept ID:</strong><span><a href="' + athenaUrl + '" target="_blank">' + r.concept_id + '</a>' + copyBtn(r.concept_id) + '</span></div>';
+
     el.innerHTML = alreadyHtml +
       '<div class="concept-details-container"><div class="concept-details-grid">' +
       '<div class="detail-item"><strong>Concept Name:</strong><span>' + App.escapeHtml(r.concept_name) + copyBtn(r.concept_name) + '</span></div>' +
-      '<div class="detail-item"><strong>OMOP Concept ID:</strong><span><a href="' + athenaUrl + '" target="_blank">' + r.concept_id + '</a>' + copyBtn(r.concept_id) + '</span></div>' +
+      idRowHtml +
       '<div class="detail-item"><strong>Vocabulary ID:</strong><span>' + App.escapeHtml(r.vocabulary_id) + '</span></div>' +
       '<div class="detail-item"><strong>Concept Code:</strong><span>' + App.escapeHtml(r.concept_code || '') + copyBtn(r.concept_code || '') + '</span></div>' +
       '<div class="detail-item"><strong>Domain:</strong><span>' + App.escapeHtml(r.domain_id || '') + '</span></div>' +
@@ -2204,7 +2209,7 @@ var ConceptSetsPage = (function() {
       doLoadAddModalHierarchy(conceptId, el);
     }).catch(function(err) {
       var errTarget = addModalHierarchyWrapper ? addModalHierarchyWrapper.querySelector('.amh-canvas') : el;
-      if (errTarget) errTarget.innerHTML = '<div class="loading-inline" style="color:var(--danger)">Error: ' + App.escapeHtml(err.message) + '</div>';
+      if (errTarget) errTarget.innerHTML = '<div class="loading-inline" style="color:var(--danger)">' + App.i18n('Error: ') + App.escapeHtml(err.message) + '</div>';
     });
   }
 
@@ -2233,7 +2238,7 @@ var ConceptSetsPage = (function() {
       var self = results[2] && results[2][0];
       if (!self) {
         var t = addModalHierarchyWrapper ? addModalHierarchyWrapper.querySelector('.amh-canvas') : el;
-        if (t) t.innerHTML = '<div class="empty-state"><p>Concept not found</p></div>';
+        if (t) t.innerHTML = '<div class="empty-state"><p>' + App.i18n('Concept not found') + '</p></div>';
         return;
       }
 
@@ -2243,7 +2248,7 @@ var ConceptSetsPage = (function() {
 
       if (allIds.length === 1) {
         var t2 = addModalHierarchyWrapper ? addModalHierarchyWrapper.querySelector('.amh-canvas') : el;
-        if (t2) t2.innerHTML = '<div class="empty-state"><p>No hierarchy</p></div>';
+        if (t2) t2.innerHTML = '<div class="empty-state"><p>' + App.i18n('No hierarchy') + '</p></div>';
         return;
       }
 
@@ -2255,7 +2260,7 @@ var ConceptSetsPage = (function() {
       });
     }).catch(function(err) {
       var errTarget = addModalHierarchyWrapper ? addModalHierarchyWrapper.querySelector('.amh-canvas') : el;
-      if (errTarget) errTarget.innerHTML = '<div class="loading-inline" style="color:var(--danger)">Error: ' + App.escapeHtml(err.message) + '</div>';
+      if (errTarget) errTarget.innerHTML = '<div class="loading-inline" style="color:var(--danger)">' + App.i18n('Error: ') + App.escapeHtml(err.message) + '</div>';
     });
   }
 
@@ -2281,10 +2286,10 @@ var ConceptSetsPage = (function() {
           '<button class="hierarchy-btn amh-back-btn" title="Back" disabled><i class="fas fa-arrow-left"></i></button>' +
           '<div class="hierarchy-header-title">' + App.escapeHtml(self.concept_name) + '<span class="hierarchy-id">#' + selfId + ' · ' + App.escapeHtml(self.vocabulary_id) + '</span></div>' +
           '<div class="hierarchy-controls">' +
-            '<button class="hierarchy-btn amh-zoom-in" title="Zoom in"><i class="fas fa-search-plus"></i></button>' +
-            '<button class="hierarchy-btn amh-zoom-out" title="Zoom out"><i class="fas fa-search-minus"></i></button>' +
-            '<button class="hierarchy-btn amh-fit" title="Fit to view"><i class="fas fa-compress-arrows-alt"></i></button>' +
-            '<button class="hierarchy-btn amh-fullscreen" title="Toggle fullscreen"><i class="fas fa-expand"></i></button>' +
+            '<button class="hierarchy-btn amh-zoom-in" title="' + App.i18n('Zoom in') + '"><i class="fas fa-search-plus"></i></button>' +
+            '<button class="hierarchy-btn amh-zoom-out" title="' + App.i18n('Zoom out') + '"><i class="fas fa-search-minus"></i></button>' +
+            '<button class="hierarchy-btn amh-fit" title="' + App.i18n('Fit to view') + '"><i class="fas fa-compress-arrows-alt"></i></button>' +
+            '<button class="hierarchy-btn amh-fullscreen" title="' + App.i18n('Toggle fullscreen') + '"><i class="fas fa-expand"></i></button>' +
           '</div>' +
         '</div>' +
         '<div class="amh-canvas"></div>';
@@ -2308,7 +2313,7 @@ var ConceptSetsPage = (function() {
         wrapper.classList.toggle('fullscreen', addModalHierarchyFullscreen);
         var icon = this.querySelector('i');
         icon.className = addModalHierarchyFullscreen ? 'fas fa-compress' : 'fas fa-expand';
-        this.title = addModalHierarchyFullscreen ? 'Exit fullscreen' : 'Toggle fullscreen';
+        this.title = addModalHierarchyFullscreen ? App.i18n('Exit fullscreen') : App.i18n('Toggle fullscreen');
         setTimeout(function() { if (addModalHierarchyNetwork) addModalHierarchyNetwork.fit({ animation: { duration: 300 } }); }, 100);
       });
     }
@@ -2537,6 +2542,14 @@ var ConceptSetsPage = (function() {
       });
     });
     searchInput.addEventListener('click', function(e) { e.stopPropagation(); });
+    searchInput.addEventListener('keydown', function(e) {
+      if (e.key !== 'Enter') return;
+      e.preventDefault();
+      var visible = [].filter.call(container.querySelectorAll('.ms-option-single'), function(opt) {
+        return opt.style.display !== 'none';
+      });
+      if (visible.length === 1) visible[0].click();
+    });
     dropdown.addEventListener('click', function(e) {
       var opt = e.target.closest('.ms-option-single');
       if (!opt) return;
@@ -2773,8 +2786,8 @@ var ConceptSetsPage = (function() {
     vocabulary: { label: 'Vocabulary', visible: true },
     conceptId: { label: 'Concept ID', visible: false },
     name: { label: 'Concept Name', visible: true },
-    code: { label: 'Concept Code', visible: true },
-    domain: { label: 'Domain', visible: false },
+    code: { label: 'Concept Code', visible: false },
+    domain: { label: 'Domain', visible: true },
     'class': { label: 'Concept Class', visible: true },
     standard: { label: 'Standard', visible: true }
   };
@@ -3360,9 +3373,10 @@ var ConceptSetsPage = (function() {
     var validityText = isValid ? 'Valid' : 'Invalid (' + App.escapeHtml(concept.invalidReason || '') + ')';
     var validityColor = isValid ? '#28a745' : '#dc3545';
 
+    var isCustomConcept = Number(concept.conceptId) > 2000000000;
     var fhirHtml = fhirUrl
       ? '<a href="' + fhirUrl + '" target="_blank">' + App.escapeHtml(concept.vocabularyId) + '</a>'
-      : '<span style="color:var(--text-muted)">No link available</span>';
+      : '<span style="color:var(--text-muted)">' + (isCustomConcept ? App.i18n('No link available (custom concept)') : App.i18n('No link available')) + '</span>';
 
     var backBtnHtml = conceptDetailHistory.length > 0
       ? '<div style="margin-bottom:8px"><button class="btn-outline-sm" id="concept-detail-back"><i class="fas fa-arrow-left"></i> Back</button></div>'
@@ -3372,10 +3386,15 @@ var ConceptSetsPage = (function() {
       return ' <i class="far fa-clone detail-copy-btn" data-copy="' + App.escapeHtml(String(value)) + '" title="Copy"></i>';
     };
 
+    // Concept IDs in the 2-billion range are local/custom (not in Athena) — no Athena link.
+    var idRowHtml = isCustomConcept
+      ? '<div class="detail-item"><strong>OMOP Concept ID:</strong><span style="color:var(--text-muted)">' + App.i18n('No link available (custom concept)') + '</span></div>'
+      : '<div class="detail-item"><strong>OMOP Concept ID:</strong><span><a href="' + athenaUrl + '" target="_blank">' + concept.conceptId + '</a>' + copyBtn(concept.conceptId) + '</span></div>';
+
     el.innerHTML = backBtnHtml +
       '<div class="concept-details-container"><div class="concept-details-grid">' +
       '<div class="detail-item"><strong>Concept Name:</strong><span>' + App.escapeHtml(concept.conceptName) + copyBtn(concept.conceptName) + '</span></div>' +
-      '<div class="detail-item"><strong>OMOP Concept ID:</strong><span><a href="' + athenaUrl + '" target="_blank">' + concept.conceptId + '</a>' + copyBtn(concept.conceptId) + '</span></div>' +
+      idRowHtml +
       '<div class="detail-item"><strong>Vocabulary ID:</strong><span>' + App.escapeHtml(concept.vocabularyId) + '</span></div>' +
       '<div class="detail-item"><strong>FHIR Resource:</strong><span>' + fhirHtml + '</span></div>' +
       '<div class="detail-item"><strong>Concept Code:</strong><span>' + App.escapeHtml(concept.conceptCode) + copyBtn(concept.conceptCode) + '</span></div>' +
@@ -3472,9 +3491,9 @@ var ConceptSetsPage = (function() {
     var activeTab = lastVocabTab || 'related';
     var tabsHtml =
       '<div class="concept-vocab-tab-bar">' +
-        '<button class="concept-vocab-tab' + (activeTab === 'related' ? ' active' : '') + '" data-vtab="related">Related</button>' +
-        '<button class="concept-vocab-tab' + (activeTab === 'hierarchy' ? ' active' : '') + '" data-vtab="hierarchy">Hierarchy</button>' +
-        '<button class="concept-vocab-tab' + (activeTab === 'synonyms' ? ' active' : '') + '" data-vtab="synonyms">Synonyms</button>' +
+        '<button class="concept-vocab-tab' + (activeTab === 'related' ? ' active' : '') + '" data-vtab="related">' + App.i18n('Related') + '</button>' +
+        '<button class="concept-vocab-tab' + (activeTab === 'hierarchy' ? ' active' : '') + '" data-vtab="hierarchy">' + App.i18n('Hierarchy') + '</button>' +
+        '<button class="concept-vocab-tab' + (activeTab === 'synonyms' ? ' active' : '') + '" data-vtab="synonyms">' + App.i18n('Synonyms') + '</button>' +
       '</div>' +
       '<div class="concept-vocab-content" data-vtab-content="related"' + (activeTab !== 'related' ? ' style="display:none"' : '') + '></div>' +
       '<div class="concept-vocab-content" data-vtab-content="hierarchy"' + (activeTab !== 'hierarchy' ? ' style="display:none"' : '') + '></div>' +
@@ -3543,7 +3562,7 @@ var ConceptSetsPage = (function() {
     relatedFilterName = '';
     relatedFilterId = '';
 
-    el.innerHTML = '<div class="loading-inline"><i class="fas fa-spinner fa-spin"></i> Loading...</div>';
+    el.innerHTML = '<div class="loading-inline"><i class="fas fa-spinner fa-spin"></i> ' + App.i18n('Loading...') + '</div>';
 
     var sql =
       'SELECT cr.relationship_id, c.concept_id, c.concept_name, c.vocabulary_id, ' +
@@ -3555,13 +3574,13 @@ var ConceptSetsPage = (function() {
 
     VocabDB.query(sql).then(function(rows) {
       if (!rows || rows.length === 0) {
-        el.innerHTML = '<div class="loading-inline">No related concepts found.</div>';
+        el.innerHTML = '<div class="loading-inline">' + App.i18n('No related concepts found.') + '</div>';
         return;
       }
       relatedRows = rows;
       renderRelatedPage();
     }).catch(function(err) {
-      el.innerHTML = '<div class="loading-inline" style="color:var(--danger)">Error: ' + App.escapeHtml(err.message) + '</div>';
+      el.innerHTML = '<div class="loading-inline" style="color:var(--danger)">' + App.i18n('Error: ') + App.escapeHtml(err.message) + '</div>';
     });
   }
 
@@ -3582,12 +3601,12 @@ var ConceptSetsPage = (function() {
     // The shell (headers + filter inputs + pager) is rendered ONCE; filtering
     // only re-renders the body, so the filter input keeps focus while typing.
     relatedEl.innerHTML = '<table class="concept-related-table"><thead><tr>' +
-      '<th>Relationship</th><th>Vocabulary</th><th>Concept Name</th><th>Concept ID</th>' +
+      '<th>' + App.i18n('Relationship') + '</th><th>' + App.i18n('Vocabulary') + '</th><th>' + App.i18n('Concept Name') + '</th><th>' + App.i18n('Concept ID') + '</th>' +
       '</tr><tr class="filter-row">' +
-      '<th><input type="text" class="column-filter" id="rel-filter-relationship" placeholder="Filter..." value="' + App.escapeHtml(relatedFilterRelationship) + '"></th>' +
-      '<th><input type="text" class="column-filter" id="rel-filter-vocabulary" placeholder="Filter..." value="' + App.escapeHtml(relatedFilterVocabulary) + '"></th>' +
-      '<th><input type="text" class="column-filter" id="rel-filter-name" placeholder="Filter..." value="' + App.escapeHtml(relatedFilterName) + '"></th>' +
-      '<th><input type="text" class="column-filter" id="rel-filter-id" placeholder="Filter..." value="' + App.escapeHtml(relatedFilterId) + '"></th>' +
+      '<th><input type="text" class="column-filter" id="rel-filter-relationship" placeholder="' + App.i18n('Filter...') + '" value="' + App.escapeHtml(relatedFilterRelationship) + '"></th>' +
+      '<th><input type="text" class="column-filter" id="rel-filter-vocabulary" placeholder="' + App.i18n('Filter...') + '" value="' + App.escapeHtml(relatedFilterVocabulary) + '"></th>' +
+      '<th><input type="text" class="column-filter" id="rel-filter-name" placeholder="' + App.i18n('Filter...') + '" value="' + App.escapeHtml(relatedFilterName) + '"></th>' +
+      '<th><input type="text" class="column-filter" id="rel-filter-id" placeholder="' + App.i18n('Filter...') + '" value="' + App.escapeHtml(relatedFilterId) + '"></th>' +
       '</tr></thead><tbody></tbody></table>' +
       '<div class="related-pager" id="rel-pager" style="display:none">' +
         '<button class="btn-outline-sm" id="rel-prev"><i class="fas fa-chevron-left"></i></button>' +
@@ -3651,7 +3670,7 @@ var ConceptSetsPage = (function() {
       pager.style.display = '';
       document.getElementById('rel-prev').disabled = relatedPage === 0;
       document.getElementById('rel-next').disabled = relatedPage >= totalPages - 1;
-      document.getElementById('rel-pager-info').textContent = (start + 1) + '–' + end + ' of ' + total;
+      document.getElementById('rel-pager-info').textContent = (start + 1) + '–' + end + ' ' + App.i18n('of') + ' ' + total;
     } else {
       pager.style.display = 'none';
     }
@@ -3695,12 +3714,11 @@ var ConceptSetsPage = (function() {
             '<div class="hierarchy-warn-box">' +
               '<i class="fas fa-exclamation-triangle" style="color:var(--warning); font-size:18px"></i>' +
               '<div style="margin-top:8px">' +
-                'This concept has <strong>' + total + '</strong> nodes in the hierarchy. ' +
-                'Loading may be slow.' +
+                App.i18n('This concept has') + ' <strong>' + total + '</strong> ' + App.i18n('nodes in the hierarchy. Loading may be slow.') +
               '</div>' +
               '<div style="display:flex; gap:8px; margin-top:12px">' +
-                '<button class="btn-outline-sm" id="hierarchy-warn-cancel"><i class="fas fa-times"></i> Cancel</button>' +
-                '<button class="btn-outline-sm" id="hierarchy-load-anyway"><i class="fas fa-project-diagram"></i> Load anyway</button>' +
+                '<button class="btn-outline-sm" id="hierarchy-warn-cancel"><i class="fas fa-times"></i> ' + App.i18n('Cancel') + '</button>' +
+                '<button class="btn-outline-sm" id="hierarchy-load-anyway"><i class="fas fa-project-diagram"></i> ' + App.i18n('Load anyway') + '</button>' +
               '</div>' +
             '</div>' +
           '</div>';
@@ -3736,7 +3754,7 @@ var ConceptSetsPage = (function() {
       buildHierarchyGraph(conceptId, el);
     }).catch(function(err) {
       hierarchyWrapper = null;
-      el.innerHTML = '<div class="loading-inline" style="color:var(--danger)">Error: ' + App.escapeHtml(err.message) + '</div>';
+      el.innerHTML = '<div class="loading-inline" style="color:var(--danger)">' + App.i18n('Error: ') + App.escapeHtml(err.message) + '</div>';
     });
   }
 
@@ -3788,7 +3806,7 @@ var ConceptSetsPage = (function() {
         var self = results[2] && results[2][0];
 
         if (!self) {
-          el.innerHTML = '<div class="loading-inline">Concept not found in vocabulary database.</div>';
+          el.innerHTML = '<div class="loading-inline">' + App.i18n('Concept not found in vocabulary database.') + '</div>';
           return;
         }
 
@@ -3798,7 +3816,7 @@ var ConceptSetsPage = (function() {
         descendants.forEach(function(d) { allIds.push(Number(d.concept_id)); });
 
         if (allIds.length === 1) {
-          el.innerHTML = '<div class="loading-inline">No hierarchy relationships found for this concept.</div>';
+          el.innerHTML = '<div class="loading-inline">' + App.i18n('No hierarchy relationships found for this concept.') + '</div>';
           return;
         }
 
@@ -3814,7 +3832,7 @@ var ConceptSetsPage = (function() {
         });
       })
       .catch(function(err) {
-        el.innerHTML = '<div class="loading-inline" style="color:var(--danger)">Error: ' + App.escapeHtml(err.message) + '</div>';
+        el.innerHTML = '<div class="loading-inline" style="color:var(--danger)">' + App.i18n('Error: ') + App.escapeHtml(err.message) + '</div>';
       });
   }
 
@@ -3977,7 +3995,7 @@ var ConceptSetsPage = (function() {
       // First render — create the full wrapper
       var headerHtml =
         '<div class="hierarchy-header">' +
-          '<button class="hierarchy-btn" id="hierarchy-back-btn" title="Back to previous concept"' +
+          '<button class="hierarchy-btn" id="hierarchy-back-btn" title="' + App.i18n('Back to previous concept') + '"' +
             (hierarchyHistory.length === 0 ? ' disabled' : '') + '>' +
             '<i class="fas fa-arrow-left"></i></button>' +
           '<div class="hierarchy-header-title">' +
@@ -3985,10 +4003,10 @@ var ConceptSetsPage = (function() {
             '<span class="hierarchy-id">#' + selfId + ' · ' + App.escapeHtml(self.vocabulary_id) + '</span>' +
           '</div>' +
           '<div class="hierarchy-controls">' +
-            '<button class="hierarchy-btn" id="hierarchy-zoom-in" title="Zoom in"><i class="fas fa-search-plus"></i></button>' +
-            '<button class="hierarchy-btn" id="hierarchy-zoom-out" title="Zoom out"><i class="fas fa-search-minus"></i></button>' +
-            '<button class="hierarchy-btn" id="hierarchy-fit" title="Fit to view"><i class="fas fa-compress-arrows-alt"></i></button>' +
-            '<button class="hierarchy-btn" id="hierarchy-fullscreen" title="Toggle fullscreen"><i class="fas fa-expand"></i></button>' +
+            '<button class="hierarchy-btn" id="hierarchy-zoom-in" title="' + App.i18n('Zoom in') + '"><i class="fas fa-search-plus"></i></button>' +
+            '<button class="hierarchy-btn" id="hierarchy-zoom-out" title="' + App.i18n('Zoom out') + '"><i class="fas fa-search-minus"></i></button>' +
+            '<button class="hierarchy-btn" id="hierarchy-fit" title="' + App.i18n('Fit to view') + '"><i class="fas fa-compress-arrows-alt"></i></button>' +
+            '<button class="hierarchy-btn" id="hierarchy-fullscreen" title="' + App.i18n('Toggle fullscreen') + '"><i class="fas fa-expand"></i></button>' +
           '</div>' +
         '</div>' +
         '<div id="hierarchy-graph-canvas" style="height:100%; flex:1"></div>';
@@ -4030,7 +4048,7 @@ var ConceptSetsPage = (function() {
         wrapper.classList.toggle('fullscreen', hierarchyIsFullscreen);
         var icon = this.querySelector('i');
         icon.className = hierarchyIsFullscreen ? 'fas fa-compress' : 'fas fa-expand';
-        this.title = hierarchyIsFullscreen ? 'Exit fullscreen' : 'Toggle fullscreen';
+        this.title = hierarchyIsFullscreen ? App.i18n('Exit fullscreen') : App.i18n('Toggle fullscreen');
         setTimeout(function() {
           if (vocabTabsHierarchyNetwork) vocabTabsHierarchyNetwork.fit({ animation: { duration: 300 } });
         }, 100);
@@ -4046,7 +4064,7 @@ var ConceptSetsPage = (function() {
           if (fsBtn) {
             var icon = fsBtn.querySelector('i');
             icon.className = 'fas fa-expand';
-            fsBtn.title = 'Toggle fullscreen';
+            fsBtn.title = App.i18n('Toggle fullscreen');
           }
           setTimeout(function() {
             if (vocabTabsHierarchyNetwork) vocabTabsHierarchyNetwork.fit({ animation: { duration: 300 } });
@@ -4200,7 +4218,7 @@ var ConceptSetsPage = (function() {
   }
 
   function loadSynonyms(conceptId, el) {
-    el.innerHTML = '<div class="loading-inline"><i class="fas fa-spinner fa-spin"></i> Loading...</div>';
+    el.innerHTML = '<div class="loading-inline"><i class="fas fa-spinner fa-spin"></i> ' + App.i18n('Loading...') + '</div>';
     VocabDB.query(
       'SELECT cs.concept_synonym_name, c.concept_name AS language ' +
       'FROM concept_synonym cs ' +
@@ -4209,11 +4227,11 @@ var ConceptSetsPage = (function() {
       'ORDER BY c.concept_name, cs.concept_synonym_name'
     ).then(function(rows) {
         if (!rows || rows.length === 0) {
-          el.innerHTML = '<div class="loading-inline">No synonyms found.</div>';
+          el.innerHTML = '<div class="loading-inline">' + App.i18n('No synonyms found.') + '</div>';
           return;
         }
         var html = '<table class="concept-related-table"><thead><tr>' +
-          '<th>Synonym</th><th>Language</th>' +
+          '<th>' + App.i18n('Synonym') + '</th><th>' + App.i18n('Language') + '</th>' +
           '</tr></thead><tbody>';
         rows.forEach(function(r) {
           var synName = decodeEscapedUtf8(r.concept_synonym_name || '');
@@ -4224,7 +4242,7 @@ var ConceptSetsPage = (function() {
         el.innerHTML = html;
       })
       .catch(function(err) {
-        el.innerHTML = '<div class="loading-inline" style="color:var(--danger)">Error: ' + App.escapeHtml(err.message) + '</div>';
+        el.innerHTML = '<div class="loading-inline" style="color:var(--danger)">' + App.i18n('Error: ') + App.escapeHtml(err.message) + '</div>';
       });
   }
 
@@ -4303,7 +4321,7 @@ var ConceptSetsPage = (function() {
     // Numeric data
     var nd = profile.numeric_data;
     if (nd && (nd.mean != null || nd.median != null || nd.min != null)) {
-      html += '<h4 style="font-size:13px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px; margin:16px 0 8px">Numeric Summary</h4>';
+      html += '<h4 style="font-size:13px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px; margin:16px 0 8px">' + App.i18n('Numeric Summary') + '</h4>';
       html += '<table class="stats-summary-table"><tbody>';
       var rows = [
         ['Min', nd.min], ['P5', nd.p5], ['P25 (Q1)', nd.p25], ['Median', nd.median],
@@ -4319,7 +4337,7 @@ var ConceptSetsPage = (function() {
     // Histogram
     var hist = profile.histogram;
     if (hist && hist.length > 0) {
-      html += '<h4 style="font-size:13px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px; margin:16px 0 8px">Distribution</h4>';
+      html += '<h4 style="font-size:13px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px; margin:16px 0 8px">' + App.i18n('Distribution') + '</h4>';
       var maxCount = Math.max.apply(null, hist.map(function(h) { return h.count || 0; }));
       html += '<div class="stats-histogram">';
       hist.forEach(function(h) {
@@ -4336,7 +4354,7 @@ var ConceptSetsPage = (function() {
     // Categorical data
     var cat = profile.categorical_data;
     if (cat && cat.length > 0) {
-      html += '<h4 style="font-size:13px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px; margin:16px 0 8px">Categories</h4>';
+      html += '<h4 style="font-size:13px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px; margin:16px 0 8px">' + App.i18n('Categories') + '</h4>';
       var maxCatPct = Math.max.apply(null, cat.map(function(c) { return c.percent || 0; }));
       html += '<div class="stats-histogram">';
       cat.forEach(function(c) {

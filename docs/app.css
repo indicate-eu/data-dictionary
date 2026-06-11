@@ -1441,6 +1441,11 @@ td .status-badge:hover, td .version-badge:hover {
 td .status-badge, td .version-badge,
 td .badge-standard, td .badge-classification, td .badge-non-standard {
   cursor: default;
+  /* Centre the badge in the line box — without this, a `.badge` sits on the
+     baseline, which both nudges it too high and reserves descender space that
+     makes the row taller than sibling tables (e.g. the resolved/expression
+     Standard column vs. the concept-sets datatable). */
+  vertical-align: middle;
   /* Never wrap to a second line in a narrow column — clip with an ellipsis
      instead (e.g. "Pending Review" when the Status column is squeezed, or
      "Classification" when the Standard column is). */
