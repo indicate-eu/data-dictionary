@@ -5590,5 +5590,71 @@
     "targetUnitConceptId": 720868,
     "targetUnitCode": "{fraction}",
     "targetUnitName": "fraction"
+  },
+  {
+    "conceptId": 4353938,
+    "conceptName": "End tidal carbon dioxide concentration",
+    "sourceUnitConceptId": 8876,
+    "sourceUnitCode": "mm[Hg]",
+    "sourceUnitName": "millimeter mercury column",
+    "conversionFactor": 0.133322,
+    "targetUnitConceptId": 44777602,
+    "targetUnitCode": "kPa",
+    "targetUnitName": "kilopascal"
+  },
+  {
+    "conceptId": 4353938,
+    "conceptName": "End tidal carbon dioxide concentration",
+    "sourceUnitConceptId": 44777602,
+    "sourceUnitCode": "kPa",
+    "sourceUnitName": "kilopascal",
+    "conversionFactor": 7.50062,
+    "targetUnitConceptId": 8876,
+    "targetUnitCode": "mm[Hg]",
+    "targetUnitName": "millimeter mercury column"
+  },
+  {
+    "conceptId": 3035357,
+    "conceptName": "Carbon dioxide [Partial pressure] in Exhaled gas --at end expiration",
+    "sourceUnitConceptId": 8876,
+    "sourceUnitCode": "mm[Hg]",
+    "sourceUnitName": "millimeter mercury column",
+    "conversionFactor": 0.133322,
+    "targetUnitConceptId": 44777602,
+    "targetUnitCode": "kPa",
+    "targetUnitName": "kilopascal"
+  },
+  {
+    "conceptId": 3035357,
+    "conceptName": "Carbon dioxide [Partial pressure] in Exhaled gas --at end expiration",
+    "sourceUnitConceptId": 44777602,
+    "sourceUnitCode": "kPa",
+    "sourceUnitName": "kilopascal",
+    "conversionFactor": 7.50062,
+    "targetUnitConceptId": 8876,
+    "targetUnitCode": "mm[Hg]",
+    "targetUnitName": "millimeter mercury column"
+  },
+  {
+    "conceptId": 3035115,
+    "conceptName": "Carbon dioxide [Partial pressure] in Exhaled gas by Calculated --at end expiration",
+    "sourceUnitConceptId": 8876,
+    "sourceUnitCode": "mm[Hg]",
+    "sourceUnitName": "millimeter mercury column",
+    "conversionFactor": 0.133322,
+    "targetUnitConceptId": 44777602,
+    "targetUnitCode": "kPa",
+    "targetUnitName": "kilopascal"
+  },
+  {
+    "conceptId": 3035115,
+    "conceptName": "Carbon dioxide [Partial pressure] in Exhaled gas by Calculated --at end expiration",
+    "sourceUnitConceptId": 44777602,
+    "sourceUnitCode": "kPa",
+    "sourceUnitName": "kilopascal",
+    "conversionFactor": 7.50062,
+    "targetUnitConceptId": 8876,
+    "targetUnitCode": "mm[Hg]",
+    "targetUnitName": "millimeter mercury column"
   }
 ]

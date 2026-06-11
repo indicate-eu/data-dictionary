@@ -1,6 +1,6 @@
 {
   "id": 356,
-  "name": "Surgical airway insertion",
+  "name": "Tracheostomy and cricothyroidotomy",
   "description": null,
   "version": "1.0.0",
   "createdBy": "Boris Delange",
@@ -118,14 +118,14 @@
     "origin": null,
     "translations": {
       "en": {
-        "name": "Surgical airway insertion",
+        "name": "Tracheostomy and cricothyroidotomy",
         "category": "Ventilation",
         "subcategory": "Ventilation device",
         "shortDescription": null,
         "longDescription": null
       },
       "fr": {
-        "name": "Pose de voie aérienne chirurgicale",
+        "name": "Trachéotomie et cricothyroïdotomie",
         "category": "Ventilation",
         "subcategory": "Dispositif de ventilation",
         "shortDescription": null,

@@ -1,10 +1,43 @@
 {
   "conceptSetId": 312,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
-  },
+  "vocabularyVersion": null,
   "resolvedConcepts": [
+    {
+      "conceptId": 3012287,
+      "conceptName": "Carbon dioxide/Gas.total.at end expiration in Exhaled gas by Infrared absorption",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "19888-7",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3017485,
+      "conceptName": "Carbon dioxide/Gas.total.at end expiration in Exhaled gas",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "19889-5",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3035115,
+      "conceptName": "Carbon dioxide [Partial pressure] in Exhaled gas by Calculated --at end expiration",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "19890-3",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3035357,
+      "conceptName": "Carbon dioxide [Partial pressure] in Exhaled gas --at end expiration",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "19891-1",
+      "standardConcept": "S"
+    },
     {
       "conceptId": 4353938,
       "conceptName": "End tidal carbon dioxide concentration",

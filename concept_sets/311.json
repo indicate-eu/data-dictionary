@@ -1,7 +1,7 @@
 {
   "id": 311,
   "name": "Carbon dioxide production",
-  "description": null,
+  "description": "CO2 production (VCO2) — volume of CO2 exhaled per minute, in L/min (absolute, not body-indexed).",
   "version": "1.0.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
@@ -38,21 +38,21 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Carbon dioxide production",
         "category": "Ventilation",
         "subcategory": "Ventilation parameters",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "CO2 production (VCO2) — volume of CO2 exhaled per minute, in L/min (absolute, not body-indexed).",
+        "longDescription": "## Definition & Clinical Context\n\nCarbon dioxide production (VCO2) is the volume of carbon dioxide a patient's body produces and exhales per unit time, a marker of metabolic rate. It is measured by analysing the patient's exhaled gas, typically by a ventilator's volumetric capnography or a metabolic (indirect calorimetry) module. In source data it is a single numeric value per patient-timestamp, reported in litres per minute (**L/min**) [1]. It is recorded in intensive care and anaesthesia, mainly for ventilated patients and during indirect calorimetry.\n\n## Included Concepts\n\nThis set contains the single LOINC concept for absolute carbon dioxide production:\n\n- *21490580 / 60825-7 — Carbon dioxide production (VCO2) in Respiratory system (LOINC)*: VCO2 in L/min.\n\n**Note on units**: reported in **`8698 / L/min — liter per minute` (UCUM)**, the recommended unit.\n\n## Mapping Notes\n\n- Map a recorded VCO2 value (in L/min, or mL/min after conversion) to *21490580 / 60825-7 — Carbon dioxide production (VCO2) in Respiratory system*.\n- **Absolute vs indexed**: this set is the absolute VCO2 (L/min). Body-size–indexed variants (VCO2 per body surface area or per ideal body weight) have different units and are not part of this set.\n- **Not the ventilatory equivalent**: the ventilatory equivalent for CO2 (minute volume divided by VCO2, used in exercise testing) is a different measurement and does not map here."
       },
       "fr": {
         "name": "Production de CO2",
         "category": "Ventilation",
         "subcategory": "Paramètres ventilatoires",
-        "shortDescription": null,
+        "shortDescription": "Production de CO2 (VCO2) — volume de CO2 expiré par minute, en L/min (absolu, non indexé).",
         "longDescription": null
       }
     },

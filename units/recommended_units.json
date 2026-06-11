@@ -30545,5 +30545,181 @@
     "recommendedUnitName": "liter per minute",
     "recommendedUnitCode": "L/min",
     "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 21490580,
+    "conceptName": "Carbon dioxide production (VCO2) in Respiratory system",
+    "conceptCode": "60825-7",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 8698,
+    "recommendedUnitName": "liter per minute",
+    "recommendedUnitCode": "L/min",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 4353938,
+    "conceptName": "End tidal carbon dioxide concentration",
+    "conceptCode": "250784008",
+    "vocabularyId": "SNOMED",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 8876,
+    "recommendedUnitName": "millimeter mercury column",
+    "recommendedUnitCode": "mm[Hg]",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 3035357,
+    "conceptName": "Carbon dioxide [Partial pressure] in Exhaled gas --at end expiration",
+    "conceptCode": "19891-1",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 8876,
+    "recommendedUnitName": "millimeter mercury column",
+    "recommendedUnitCode": "mm[Hg]",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 3035115,
+    "conceptName": "Carbon dioxide [Partial pressure] in Exhaled gas by Calculated --at end expiration",
+    "conceptCode": "19890-3",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 8876,
+    "recommendedUnitName": "millimeter mercury column",
+    "recommendedUnitCode": "mm[Hg]",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 3012287,
+    "conceptName": "Carbon dioxide/Gas.total.at end expiration in Exhaled gas by Infrared absorption",
+    "conceptCode": "19888-7",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 8554,
+    "recommendedUnitName": "percent",
+    "recommendedUnitCode": "%",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 3017485,
+    "conceptName": "Carbon dioxide/Gas.total.at end expiration in Exhaled gas",
+    "conceptCode": "19889-5",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 8554,
+    "recommendedUnitName": "percent",
+    "recommendedUnitCode": "%",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 3029268,
+    "conceptName": "Horowitz index adjusted to patients actual temperature in Arterial blood",
+    "conceptCode": "50989-3",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 8876,
+    "recommendedUnitName": "millimeter mercury column",
+    "recommendedUnitCode": "mm[Hg]",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 3029316,
+    "conceptName": "Horowitz index in Venous blood",
+    "conceptCode": "50986-9",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 8876,
+    "recommendedUnitName": "millimeter mercury column",
+    "recommendedUnitCode": "mm[Hg]",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 3029523,
+    "conceptName": "Horowitz index adjusted to patients actual temperature in Mixed venous blood",
+    "conceptCode": "50990-1",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 8876,
+    "recommendedUnitName": "millimeter mercury column",
+    "recommendedUnitCode": "mm[Hg]",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 3029599,
+    "conceptName": "Horowitz index in Mixed venous blood",
+    "conceptCode": "50985-1",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 8876,
+    "recommendedUnitName": "millimeter mercury column",
+    "recommendedUnitCode": "mm[Hg]",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 3029880,
+    "conceptName": "Horowitz index in Blood",
+    "conceptCode": "50982-8",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 8876,
+    "recommendedUnitName": "millimeter mercury column",
+    "recommendedUnitCode": "mm[Hg]",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 3029906,
+    "conceptName": "Horowitz index adjusted to patients actual temperature in Blood",
+    "conceptCode": "50987-7",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 8876,
+    "recommendedUnitName": "millimeter mercury column",
+    "recommendedUnitCode": "mm[Hg]",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 3029943,
+    "conceptName": "Horowitz index in Arterial blood",
+    "conceptCode": "50984-4",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 8876,
+    "recommendedUnitName": "millimeter mercury column",
+    "recommendedUnitCode": "mm[Hg]",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 3030774,
+    "conceptName": "Horowitz index in Capillary blood",
+    "conceptCode": "50983-6",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 8876,
+    "recommendedUnitName": "millimeter mercury column",
+    "recommendedUnitCode": "mm[Hg]",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 3032208,
+    "conceptName": "Horowitz index adjusted to patients actual temperature in Capillary blood",
+    "conceptCode": "50988-5",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 8876,
+    "recommendedUnitName": "millimeter mercury column",
+    "recommendedUnitCode": "mm[Hg]",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 3032443,
+    "conceptName": "Horowitz index adjusted to patients actual temperature in Venous blood",
+    "conceptCode": "50991-9",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 8876,
+    "recommendedUnitName": "millimeter mercury column",
+    "recommendedUnitCode": "mm[Hg]",
+    "recommendedUnitVocabularyId": "UCUM"
   }
 ]
