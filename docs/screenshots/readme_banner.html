@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>INDICATE Data Dictionary — README banner</title>
+<meta name="viewport" content="width=1200, initial-scale=1">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  :root {
+    --primary: #0f60af;
+    --primary-hover: #0d4f8f;
+    --accent: #e65100;
+    --ink: #1f2d3d;
+    --muted: #64748b;
+    --card-w: 1200px;
+    --card-h: 424px;
+    --clin: #1f6fb2;
+    --clin-soft: #e8f1fb;
+    --eng: #e65100;
+    --eng-soft: #fff3e0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #fff;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  #frame {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card {
+    width: var(--card-w);
+    height: var(--card-h);
+    position: relative;
+    transform-origin: center center;
+    background: #ffffff;
+    color: var(--ink);
+    overflow: hidden;
+    border-radius: 18px;
+    border: 1px solid #e8edf3;
+  }
+
+  /* Faint dotted texture, very subtle on white */
+  .card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(15,96,175,.05) 1px, transparent 1px);
+    background-size: 26px 26px;
+    pointer-events: none;
+  }
+
+  /* Header row */
+  .head {
+    position: absolute;
+    top: 30px;
+    left: 48px;
+    right: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 10;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+  }
+  .brand img { height: 46px; display: block; }
+  .brand .wm {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+  }
+  .brand .wm .t {
+    font-size: 18px;
+    font-weight: 900;
+    color: var(--primary);
+    letter-spacing: -.2px;
+  }
+  .brand .wm .s {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 15px;
+    background: var(--clin-soft);
+    border: 1px solid #d3e3f4;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--primary);
+  }
+  .badge i { color: var(--accent); }
+
+  /* Headline */
+  .headline-wrap {
+    position: absolute;
+    top: 56px;
+    left: 60px;
+    right: 60px;
+    text-align: center;
+    z-index: 5;
+  }
+  .headline {
+    font-size: 23px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--ink);
+    max-width: 920px;
+    margin: 0 auto;
+  }
+  .headline em { font-style: italic; color: var(--muted); }
+  .headline .hl-clinician { color: var(--clin); font-style: normal; font-weight: 800; }
+  .headline .hl-engineer { color: var(--eng); font-style: normal; font-weight: 800; }
+
+  /* Stage */
+  .stage {
+    position: absolute;
+    top: 158px;
+    left: 0;
+    right: 0;
+    bottom: 36px;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 20px;
+    padding: 0 48px;
+    z-index: 5;
+  }
+
+  .world {
+    flex: 1 1 0;
+    max-width: 300px;
+    background: #fff;
+    border: 1.5px solid #e6ecf3;
+    border-radius: 16px;
+    padding: 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(31,45,61,.05);
+  }
+  .world.clinician { border-color: #d3e3f4; }
+  .world.engineer { border-color: #ffd9b3; }
+
+  .world .world-icon {
+    flex: 0 0 auto;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 23px;
+    margin-bottom: 2px;
+  }
+  .world.clinician .world-icon { background: var(--clin-soft); color: var(--clin); }
+  .world.engineer .world-icon { background: var(--eng-soft); color: var(--eng); }
+
+  .world .world-label {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .world .world-title {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+  .world .world-quote {
+    font-size: 13px;
+    font-style: italic;
+    color: #475569;
+    line-height: 1.4;
+    margin-top: 2px;
+  }
+  .world .world-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+    margin-top: 6px;
+  }
+  .world .tag {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 10px;
+    font-family: ui-monospace, SFMono-Regular, monospace;
+    letter-spacing: 0.2px;
+  }
+  .world.clinician .tag { background: var(--clin-soft); color: var(--clin); border: 1px solid #d3e3f4; }
+  .world.engineer .tag { background: var(--eng-soft); color: var(--eng); border: 1px solid #ffd9b3; }
+
+  /* Center bridge */
+  .bridge {
+    flex: 0 0 auto;
+    width: 264px;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .bridge-card {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(160deg, var(--primary) 0%, var(--primary-hover) 70%, #0b4378 100%);
+    border-radius: 16px;
+    padding: 20px 22px;
+    box-shadow: 0 14px 32px rgba(15,96,175,.32);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 9px;
+    position: relative;
+    color: #fff;
+  }
+  .bridge-card .bridge-icon {
+    flex: 0 0 auto;
+    width: 54px;
+    height: 54px;
+    border-radius: 12px;
+    background: rgba(255,204,128,.18);
+    border: 1px solid rgba(255,204,128,.5);
+    color: #ffcc80;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+  }
+  .bridge-card .bridge-title {
+    font-size: 21px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.15;
+  }
+  .bridge-card .bridge-sub {
+    font-size: 12px;
+    font-weight: 700;
+    color: rgba(255,255,255,.9);
+    line-height: 1.45;
+  }
+
+  /* Arrows */
+  .arrow {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1px;
+    color: #c2cdda;
+  }
+  .arrow i { font-size: 17px; }
+
+  @media print {
+    @page { size: 1200px 424px; margin: 0; }
+    html, body { background: #fff; overflow: visible; height: auto; }
+    #frame { position: static; display: block; }
+    .card { transform: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div id="frame">
+  <div class="card" id="card">
+
+    <div class="headline-wrap">
+      <p class="headline">
+        <span class="hl-clinician">Clinicians</span> don't ask for <em>LOINC 1975-2</em>.
+        They ask for <em>"total bilirubin"</em>.<br>
+        <span class="hl-engineer">Data engineers</span> need the exact concept IDs.
+      </p>
+    </div>
+
+    <div class="stage">
+      <!-- Left world: clinician -->
+      <div class="world clinician">
+        <div class="world-icon"><i class="fa-solid fa-user-doctor"></i></div>
+        <div class="world-label">Clinician</div>
+        <div class="world-title">Clinical variable</div>
+        <div class="world-quote">"I need total bilirubin."</div>
+        <div class="world-tags">
+          <span class="tag">plain language</span>
+          <span class="tag">research protocol</span>
+        </div>
+      </div>
+
+      <div class="arrow">
+        <i class="fa-solid fa-chevron-right"></i>
+        <i class="fa-solid fa-chevron-right"></i>
+      </div>
+
+      <!-- Bridge -->
+      <div class="bridge">
+        <div class="bridge-card">
+          <div class="bridge-icon"><i class="fa-solid fa-book-open"></i></div>
+          <div class="bridge-title">INDICATE<br>Data Dictionary</div>
+          <div class="bridge-sub">Peer-reviewed &middot; versioned<br>ATLAS-compatible</div>
+        </div>
+      </div>
+
+      <div class="arrow">
+        <i class="fa-solid fa-chevron-right"></i>
+        <i class="fa-solid fa-chevron-right"></i>
+      </div>
+
+      <!-- Right world: data engineer -->
+      <div class="world engineer">
+        <div class="world-icon"><i class="fa-solid fa-database"></i></div>
+        <div class="world-label">Data engineer</div>
+        <div class="world-title">OMOP concepts</div>
+        <div class="world-quote">"LOINC 1975-2, descendants,<br>unit conversions."</div>
+        <div class="world-tags">
+          <span class="tag">concept IDs</span>
+          <span class="tag">OMOP SQL</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const card = document.getElementById('card');
+  function fit() {
+    const sw = 1200, sh = 424;
+    const vw = window.innerWidth, vh = window.innerHeight;
+    const scale = Math.min(vw / sw, vh / sh) * 0.96;
+    card.style.transform = `scale(${scale})`;
+  }
+  window.addEventListener('resize', fit);
+  fit();
+</script>
+
+</body>
+</html>
