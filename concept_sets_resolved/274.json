@@ -1,10 +1,25 @@
 {
   "conceptSetId": 274,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "LOINC": "LOINC 2.80"
-  },
+  "vocabularyVersion": null,
   "resolvedConcepts": [
+    {
+      "conceptId": 600652,
+      "conceptName": "Recumbent body height",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "1149101003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 607590,
+      "conceptName": "Body height",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "1153637007",
+      "standardConcept": "S"
+    },
     {
       "conceptId": 3036277,
       "conceptName": "Body height",
@@ -12,6 +27,15 @@
       "domainId": "Measurement",
       "conceptClassId": "Clinical Observation",
       "conceptCode": "8302-2",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4093975,
+      "conceptName": "Standing height",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "248333004",
       "standardConcept": "S"
     }
   ]

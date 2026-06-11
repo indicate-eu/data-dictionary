@@ -1,12 +1,12 @@
 {
   "id": 273,
   "name": "Birth weight",
-  "description": null,
-  "version": "1.0.0",
+  "description": "Birth weight — body weight measured at birth; in grams (g) or kilograms (kg).",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -28,6 +28,25 @@
         "isExcluded": false,
         "includeDescendants": false,
         "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3011043,
+          "conceptName": "Birth weight Measured",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "8339-4",
+          "validStartDate": "1996-09-06",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
       }
     ]
   },
@@ -35,25 +54,32 @@
   "metadata": {
     "uniqueId": "44ea82a3-98ae-4a1b-86f9-51a070e91e97",
     "organization": {
-      "name": "INDICATE Consortium",
-      "url": "https://indicate-eu.org"
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
     },
-    "reviewStatus": "draft",
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Birth weight",
         "category": "Other",
         "subcategory": "Demographic data",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Birth weight — body weight measured at birth; in grams (g) or kilograms (kg).",
+        "longDescription": "## Definition & Clinical Context\n\nBirth weight is the body weight of a newborn measured at birth. It produces a single numeric value timestamped at (or near) the time of birth, and is a core neonatal anthropometric measurement used to classify low/very-low birth weight. It is reported in grams (g) or kilograms (kg).\n\n## Included Concepts\n\n- *4264825 / 364589006 — Birth weight (SNOMED)*: the newborn's weight at birth.\n- *3011043 / 8339-4 — Birth weight Measured (LOINC)*: the equivalent LOINC concept.\n\nBoth standard concepts represent the same variable.\n\n## Mapping Notes\n\n- Map any neonatal weight recorded at birth here, using *4264825 / 364589006 — Birth weight* (SNOMED) or *3011043 / 8339-4 — Birth weight Measured* (LOINC).\n- Birth weight is also a descendant of the *Body weight* set; this set is the focused neonatal view of the same measurement.\n- Watch the unit: neonatal scales often report grams, not kilograms — preserve the source unit."
       },
       "fr": {
         "name": "Poids à la naissance",
         "category": "Autres",
         "subcategory": "Données démographiques",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Poids de naissance — poids corporel mesuré à la naissance ; en grammes (g) ou kilogrammes (kg).",
+        "longDescription": "## Définition et contexte clinique\n\nLe poids de naissance est le poids corporel d'un nouveau-né mesuré à la naissance. Il produit une valeur numérique unique horodatée au (ou près du) moment de la naissance, et constitue une mesure anthropométrique néonatale fondamentale servant à classer les faibles/très faibles poids de naissance. Il est exprimé en grammes (g) ou kilogrammes (kg).\n\n## Concepts inclus\n\n- *4264825 / 364589006 — Birth weight (SNOMED)* : le poids du nouveau-né à la naissance.\n- *3011043 / 8339-4 — Birth weight Measured (LOINC)* : le concept LOINC équivalent.\n\nLes deux concepts standards représentent la même variable.\n\n## Notes de mapping\n\n- Mapper ici tout poids néonatal relevé à la naissance, via *4264825 / 364589006 — Birth weight* (SNOMED) ou *3011043 / 8339-4 — Birth weight Measured* (LOINC).\n- Le poids de naissance est aussi un descendant du jeu *Body weight* ; ce jeu en est la vue néonatale ciblée.\n- Attention à l'unité : les balances néonatales rapportent souvent des grammes, pas des kilogrammes — conserver l'unité source."
       }
     },
     "createdByDetails": {
@@ -64,7 +90,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Rebuilt on standard concepts: SNOMED Birth weight + LOINC Birth weight Measured. Added clinical description and mapping notes. Moved to pending review."
+      }
+    ],
     "distributionStats": null
   }
 }

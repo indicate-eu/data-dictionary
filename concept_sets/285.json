@@ -1,45 +1,26 @@
 {
   "id": 285,
   "name": "Contraindication to enteral feeding",
-  "description": null,
-  "version": "1.0.0",
+  "description": "Contraindication to enteral feeding — a documented reason enteral (tube) feeding must not be given; recorded as a flag.",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
       {
         "concept": {
-          "conceptId": 4141768,
-          "conceptName": "Medical contraindication to procedure",
+          "conceptId": 2100000009,
+          "conceptName": "Contraindication to enteral feeding",
           "domainId": "Observation",
-          "vocabularyId": "SNOMED",
+          "vocabularyId": "INDICATE",
           "conceptClassId": "Context-dependent",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "266757004",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 44813449,
-          "conceptName": "Medical contraindication to ear syringing",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Context-dependent",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "784911000000106",
-          "validStartDate": "2011-10-03",
+          "standardConcept": "",
+          "standardConceptCaption": "Non-standard",
+          "conceptCode": "contraindication-to-enteral-feeding",
+          "validStartDate": "2026-06-11",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
@@ -54,25 +35,32 @@
   "metadata": {
     "uniqueId": "134fc96c-369f-4ac3-a1ba-9ecefa659fff",
     "organization": {
-      "name": "INDICATE Consortium",
-      "url": "https://indicate-eu.org"
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
     },
-    "reviewStatus": "draft",
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Contraindication to enteral feeding",
         "category": "Other",
         "subcategory": "Nutrition",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Contraindication to enteral feeding — a documented reason enteral (tube) feeding must not be given; recorded as a flag.",
+        "longDescription": "## Definition & Clinical Context\n\nThis set captures the fact that, at a given time, enteral (tube) feeding is contraindicated for the patient — for example because of bowel obstruction, ischaemia, severe ileus, or an unprotected airway. It is a documented flag (present / recorded), not a numeric measurement, and is used to explain why a patient is on parenteral nutrition or is being kept nil-by-mouth.\n\nThere is **no standard SNOMED or LOINC concept** for \"contraindication to enteral feeding\" specifically (SNOMED only has the generic *Medical contraindication to procedure*). To represent this variable precisely without pulling in unrelated contraindications, the set uses a single **local INDICATE concept**.\n\n## Included Concepts\n\n- *2100000009 / contraindication-to-enteral-feeding — Contraindication to enteral feeding (INDICATE)*: a local concept created because no standard term exists. Custom concepts use the INDICATE vocabulary and are non-standard by definition.\n\n## Mapping Notes\n\n- Map any documented contraindication to enteral / tube feeding to *2100000009 / contraindication-to-enteral-feeding* (INDICATE).\n- Treat it as a flag (recorded = contraindication present); the specific reason, if captured, is a separate observation.\n- Do **not** map generic \"contraindication to procedure\" records here unless the source makes clear the procedure is enteral feeding."
       },
       "fr": {
         "name": "Contre-indication à la nutrition entérale",
         "category": "Autres",
         "subcategory": "Nutrition",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Contre-indication à la nutrition entérale — raison documentée empêchant la nutrition entérale (par sonde) ; enregistrée comme indicateur.",
+        "longDescription": "## Définition et contexte clinique\n\nCe jeu capture le fait qu'à un instant donné la nutrition entérale (par sonde) est contre-indiquée pour le patient — par exemple en cas d'occlusion intestinale, d'ischémie, d'iléus sévère ou de voie aérienne non protégée. Il s'agit d'un indicateur documenté (présent / enregistré), non d'une mesure numérique, servant à expliquer pourquoi un patient est sous nutrition parentérale ou maintenu à jeun.\n\nIl n'existe **aucun concept standard SNOMED ou LOINC** spécifique pour « contre-indication à la nutrition entérale » (SNOMED ne propose que le générique *Medical contraindication to procedure*). Pour représenter précisément cette variable sans inclure de contre-indications sans rapport, le jeu utilise un unique **concept local INDICATE**.\n\n## Concepts inclus\n\n- *2100000009 / contraindication-to-enteral-feeding — Contraindication to enteral feeding (INDICATE)* : concept local créé faute de terme standard existant. Les concepts personnalisés utilisent le vocabulaire INDICATE et sont non standards par définition.\n\n## Notes de mapping\n\n- Mapper toute contre-indication documentée à la nutrition entérale / par sonde vers *2100000009 / contraindication-to-enteral-feeding* (INDICATE).\n- Le traiter comme un indicateur (enregistré = contre-indication présente) ; la raison précise, si elle est saisie, relève d'une observation distincte.\n- Ne **pas** mapper ici les enregistrements génériques « contre-indication à un acte » sauf si la source précise que l'acte est la nutrition entérale."
       }
     },
     "createdByDetails": {
@@ -83,7 +71,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "No standard SNOMED/LOINC concept exists; replaced the incorrect placeholders (Medical contraindication to procedure, contraindication to ear syringing) with a local INDICATE concept 'Contraindication to enteral feeding'. Added description. Moved to pending review."
+      }
+    ],
     "distributionStats": null
   }
 }

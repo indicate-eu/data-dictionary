@@ -1,12 +1,12 @@
 {
   "id": 288,
   "name": "Advance care plan agreed",
-  "description": null,
-  "version": "1.0.0",
+  "description": "Advance care plan agreed — a flag that an advance care plan has been agreed with the patient.",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -35,25 +35,32 @@
   "metadata": {
     "uniqueId": "21662e81-6263-4319-a2b9-ded2e0130b17",
     "organization": {
-      "name": "INDICATE Consortium",
-      "url": "https://indicate-eu.org"
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
     },
-    "reviewStatus": "draft",
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Advance care plan agreed",
         "category": "Other",
         "subcategory": "Other",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Advance care plan agreed — a flag that an advance care plan has been agreed with the patient.",
+        "longDescription": "## Definition & Clinical Context\n\nThis set captures the fact that an advance care plan has been agreed with the patient — a documented record of the patient's wishes about future care (including limits on treatment). It is a flag (recorded = a plan has been agreed), not a numeric measurement, and is used in end-of-life and goals-of-care decision-making.\n\n## Included Concepts\n\n- *36685263 / 1095851000000100 — Advance care plan agreed (SNOMED)*: the agreed-plan flag.\n\n## Mapping Notes\n\n- Map a documented \"advance care plan agreed\" record here, using *36685263 / 1095851000000100 — Advance care plan agreed* (SNOMED).\n- Treat it as a flag (presence = a plan has been agreed). The plan's content (e.g. resuscitation status, treatment limits) is captured by separate observations, not this set."
       },
       "fr": {
         "name": "Directives anticipées établies",
         "category": "Autres",
         "subcategory": "Autres",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Plan de soins anticipé convenu — indicateur attestant qu'un plan de soins anticipé a été convenu avec le patient.",
+        "longDescription": "## Définition et contexte clinique\n\nCe jeu capture le fait qu'un plan de soins anticipé a été convenu avec le patient — un enregistrement documenté des souhaits du patient quant à ses soins futurs (y compris les limitations de traitement). Il s'agit d'un indicateur (enregistré = un plan a été convenu), non d'une mesure numérique, utilisé dans les décisions de fin de vie et d'objectifs de soins.\n\n## Concepts inclus\n\n- *36685263 / 1095851000000100 — Advance care plan agreed (SNOMED)* : l'indicateur de plan convenu.\n\n## Notes de mapping\n\n- Mapper ici un enregistrement documenté « plan de soins anticipé convenu », via *36685263 / 1095851000000100 — Advance care plan agreed* (SNOMED).\n- Le traiter comme un indicateur (présence = un plan a été convenu). Le contenu du plan (statut de réanimation, limitations de traitement) est capturé par des observations distinctes, hors de ce jeu."
       }
     },
     "createdByDetails": {
@@ -64,7 +71,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Confirmed single standard SNOMED concept (Advance care plan agreed). Added description. Moved to pending review."
+      }
+    ],
     "distributionStats": null
   }
 }

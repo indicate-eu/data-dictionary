@@ -1,9 +1,6 @@
 {
   "conceptSetId": 284,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
-  },
+  "vocabularyVersion": null,
   "resolvedConcepts": [
     {
       "conceptId": 1073500,
@@ -12,6 +9,15 @@
       "domainId": "Measurement",
       "conceptClassId": "Observable Entity",
       "conceptCode": "1304200008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3032445,
+      "conceptName": "Ideal body weight",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "50064-5",
       "standardConcept": "S"
     },
     {

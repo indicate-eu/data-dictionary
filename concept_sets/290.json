@@ -1,19 +1,19 @@
 {
   "id": 290,
   "name": "Surrogate decision maker documented",
-  "description": null,
-  "version": "1.0.0",
+  "description": "Surrogate decision maker documented — a flag that an active healthcare surrogate (proxy decision maker) is on record for the patient.",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
       {
         "concept": {
           "conceptId": 762209,
-          "conceptName": "Active heathcare surrogate",
+          "conceptName": "Active healthcare surrogate",
           "domainId": "Observation",
           "vocabularyId": "SNOMED",
           "conceptClassId": "Clinical Finding",
@@ -35,25 +35,32 @@
   "metadata": {
     "uniqueId": "62bc2bc6-e152-438c-89fd-0779911ead96",
     "organization": {
-      "name": "INDICATE Consortium",
-      "url": "https://indicate-eu.org"
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
     },
-    "reviewStatus": "draft",
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Surrogate decision maker documented",
         "category": "Other",
         "subcategory": "Other",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Surrogate decision maker documented — a flag that an active healthcare surrogate (proxy decision maker) is on record for the patient.",
+        "longDescription": "## Definition & Clinical Context\n\nThis set captures the fact that the patient has an active healthcare surrogate on record — a person authorised to make care decisions on the patient's behalf when the patient cannot. It is a flag (recorded = a surrogate is in place), not a numeric measurement, and is relevant to consent and goals-of-care decisions, especially for incapacitated ICU patients.\n\n## Included Concepts\n\n- *762209 / 3021000175108 — Active healthcare surrogate (SNOMED)*: the surrogate-on-record flag.\n\n## Mapping Notes\n\n- Map a documented active surrogate / healthcare proxy here, using *762209 / 3021000175108 — Active healthcare surrogate* (SNOMED).\n- Treat it as a flag (presence = a surrogate decision maker is documented). The surrogate's identity or relationship is captured separately, not in this set."
       },
       "fr": {
         "name": "Personne de confiance documentée",
         "category": "Autres",
         "subcategory": "Autres",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Décideur substitut documenté — indicateur attestant qu'un mandataire de santé actif (décideur substitut) est enregistré pour le patient.",
+        "longDescription": "## Définition et contexte clinique\n\nCe jeu capture le fait que le patient dispose d'un mandataire de santé actif enregistré — une personne autorisée à prendre des décisions de soins au nom du patient lorsque celui-ci ne le peut pas. Il s'agit d'un indicateur (enregistré = un substitut est en place), non d'une mesure numérique, pertinent pour le consentement et les décisions d'objectifs de soins, en particulier chez le patient de réanimation incapable de s'exprimer.\n\n## Concepts inclus\n\n- *762209 / 3021000175108 — Active healthcare surrogate (SNOMED)* : l'indicateur de substitut enregistré.\n\n## Notes de mapping\n\n- Mapper ici un mandataire de santé / substitut actif documenté, via *762209 / 3021000175108 — Active healthcare surrogate* (SNOMED).\n- Le traiter comme un indicateur (présence = un décideur substitut est documenté). L'identité ou le lien du substitut est capturé séparément, hors de ce jeu."
       }
     },
     "createdByDetails": {
@@ -64,7 +71,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Replaced the typo'd concept with the valid SNOMED Active healthcare surrogate. Added description. Moved to pending review."
+      }
+    ],
     "distributionStats": null
   }
 }

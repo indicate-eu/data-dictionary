@@ -1,9 +1,6 @@
 {
   "conceptSetId": 272,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
-  },
+  "vocabularyVersion": null,
   "resolvedConcepts": [
     {
       "conceptId": 4014465,
@@ -12,6 +9,15 @@
       "domainId": "Measurement",
       "conceptClassId": "Observable Entity",
       "conceptCode": "169886007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36304231,
+      "conceptName": "Body height Measured --at birth",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "89269-5",
       "standardConcept": "S"
     }
   ]

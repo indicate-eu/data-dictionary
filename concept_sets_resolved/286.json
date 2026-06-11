@@ -1,9 +1,6 @@
 {
   "conceptSetId": 286,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "LOINC": "LOINC 2.80"
-  },
+  "vocabularyVersion": null,
   "resolvedConcepts": [
     {
       "conceptId": 3026267,
@@ -12,6 +9,15 @@
       "domainId": "Measurement",
       "conceptClassId": "Clinical Observation",
       "conceptCode": "9057-1",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37206982,
+      "conceptName": "Energy intake",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "787787004",
       "standardConcept": "S"
     }
   ]

@@ -1,12 +1,12 @@
 {
   "id": 272,
   "name": "Birth height",
-  "description": null,
-  "version": "1.0.0",
+  "description": "Birth length — body length measured at birth; in centimetres (cm).",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -28,6 +28,25 @@
         "isExcluded": false,
         "includeDescendants": false,
         "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 36304231,
+          "conceptName": "Body height Measured --at birth",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "89269-5",
+          "validStartDate": "2018-06-15",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
       }
     ]
   },
@@ -35,25 +54,32 @@
   "metadata": {
     "uniqueId": "1277dd5b-a76e-4e70-8268-20c7dbb65707",
     "organization": {
-      "name": "INDICATE Consortium",
-      "url": "https://indicate-eu.org"
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
     },
-    "reviewStatus": "draft",
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Birth height",
         "category": "Other",
         "subcategory": "Demographic data",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Birth length — body length measured at birth; in centimetres (cm).",
+        "longDescription": "## Definition & Clinical Context\n\nBirth length is the body length of a newborn measured at birth, head to heel, with the infant lying down. It produces a single numeric value timestamped at (or near) the time of birth, and is part of routine neonatal anthropometry alongside birth weight and head circumference. It is reported in centimetres (cm).\n\n## Included Concepts\n\n- *4014465 / 169886007 — Birth length (SNOMED)*: the newborn's length at birth.\n- *36304231 / 89269-5 — Body height Measured --at birth (LOINC)*: the equivalent LOINC concept.\n\nBoth standard concepts represent the same variable; both are reported in cm.\n\n## Mapping Notes\n\n- Map any neonatal length/height recorded at birth here, using *4014465 / 169886007 — Birth length* (SNOMED) or *36304231 / 89269-5 — Body height Measured --at birth* (LOINC).\n- Birth length is also a descendant of the *Body height* set; this set is the focused neonatal view of the same measurement."
       },
       "fr": {
         "name": "Taille à la naissance",
         "category": "Autres",
         "subcategory": "Données démographiques",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Taille de naissance — longueur du corps mesurée à la naissance ; en centimètres (cm).",
+        "longDescription": "## Définition et contexte clinique\n\nLa taille de naissance est la longueur du corps d'un nouveau-né mesurée à la naissance, de la tête aux talons, l'enfant étant couché. Elle produit une valeur numérique unique horodatée au (ou près du) moment de la naissance, et fait partie de l'anthropométrie néonatale de routine avec le poids de naissance et le périmètre crânien. Elle est exprimée en centimètres (cm).\n\n## Concepts inclus\n\n- *4014465 / 169886007 — Birth length (SNOMED)* : la longueur du nouveau-né à la naissance.\n- *36304231 / 89269-5 — Body height Measured --at birth (LOINC)* : le concept LOINC équivalent.\n\nLes deux concepts standards représentent la même variable ; tous deux en cm.\n\n## Notes de mapping\n\n- Mapper ici toute taille/longueur néonatale relevée à la naissance, via *4014465 / 169886007 — Birth length* (SNOMED) ou *36304231 / 89269-5 — Body height Measured --at birth* (LOINC).\n- La taille de naissance est aussi un descendant du jeu *Body height* ; ce jeu en est la vue néonatale ciblée."
       }
     },
     "createdByDetails": {
@@ -64,7 +90,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Rebuilt on standard concepts: SNOMED Birth length + LOINC Body height Measured --at birth. Added clinical description and mapping notes. Moved to pending review."
+      }
+    ],
     "distributionStats": null
   }
 }

@@ -1,15 +1,34 @@
 {
   "id": 274,
   "name": "Body height",
-  "description": null,
-  "version": "1.0.0",
+  "description": "Body height (stature) — how tall the patient is, standing or recumbent; in centimetres (cm).",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
+      {
+        "concept": {
+          "conceptId": 607590,
+          "conceptName": "Body height",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1153637007",
+          "validStartDate": "2021-07-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
       {
         "concept": {
           "conceptId": 3036277,
@@ -28,6 +47,120 @@
         "isExcluded": false,
         "includeDescendants": false,
         "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37160441,
+          "conceptName": "Estimated body height",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1162418000",
+          "validStartDate": "2021-09-30",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37160440,
+          "conceptName": "Pre-amputation estimated body height",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1162417005",
+          "validStartDate": "2021-09-30",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37160428,
+          "conceptName": "Pre-amputation measured body height",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1162392001",
+          "validStartDate": "2021-09-30",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37160442,
+          "conceptName": "Self reported body height",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1162419008",
+          "validStartDate": "2021-09-30",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37164398,
+          "conceptName": "Self reported peak adult body height",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1230278008",
+          "validStartDate": "2022-07-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4014465,
+          "conceptName": "Birth length",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "169886007",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
       }
     ]
   },
@@ -35,25 +168,32 @@
   "metadata": {
     "uniqueId": "5dbd429c-26ea-4f31-af22-1d4b0a50b4d7",
     "organization": {
-      "name": "INDICATE Consortium",
-      "url": "https://indicate-eu.org"
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
     },
-    "reviewStatus": "draft",
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Body height",
         "category": "Other",
         "subcategory": "Demographic data",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Body height (stature) — how tall the patient is, standing or recumbent; in centimetres (cm).",
+        "longDescription": "## Definition & Clinical Context\n\nBody height produces a single numeric value per patient-timestamp, taken standing (stadiometer) or, for patients who cannot stand, lying down (recumbent length, typical for infants and bedridden ICU patients). It is recorded on admission and used for weight-for-height calculations, drug and ventilator settings, and nutritional assessment. It is reported in centimetres (cm).\n\n## Included Concepts\n\nThe set is anchored on the SNOMED *Body height* concept with its descendants, plus the generic LOINC body-height concept (LOINC carries no hierarchy, so it is listed flat). They are grouped below by measurement posture for readability only — all belong to the same `body_height` variable, all in cm.\n\n### Generic body height (default)\n\n- *607590 / 1153637007 — Body height (SNOMED)* and *3036277 / 8302-2 — Body height (LOINC)*: the default, posture not specified.\n\n### By posture\n\n- *4093975 / 248333004 — Standing height (SNOMED)*: measured standing.\n- *600652 / 1149101003 — Recumbent body height (SNOMED)*: measured lying down (infants, bedridden patients).\n\n**Note on units**: reported in **centimetres** (`8582 / cm — centimeter`, UCUM), the recommended unit.\n\n## Mapping Notes\n\n- **Default concept** when the source records a height without specifying posture: *607590 / 1153637007 — Body height* (SNOMED) or *3036277 / 8302-2 — Body height* (LOINC).\n- **Posture is an attribute, not a separate variable**: map to *Standing height* or *Recumbent body height* only when the source documents the posture; otherwise use the generic concept.\n- **Excluded from the set** (do not map here): self-reported height, estimated height, and pre-amputation estimated/measured height — these are not directly measured current heights. Birth length is also excluded because it has its own dedicated *Birth height* set.\n- This set is built symmetrically with the *Body weight* set (same anchoring strategy) so height and weight map consistently."
       },
       "fr": {
         "name": "Taille corporelle",
         "category": "Autres",
         "subcategory": "Données démographiques",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Taille corporelle (stature) — stature du patient, debout ou couchée ; en centimètres (cm).",
+        "longDescription": "## Définition et contexte clinique\n\nLa taille corporelle produit une valeur numérique unique par patient-horodatage, prise debout (toise) ou, pour les patients ne pouvant se tenir debout, en position couchée (taille en décubitus, habituelle chez le nourrisson et le patient alité de réanimation). Elle est relevée à l'admission et sert aux calculs poids/taille, aux réglages médicamenteux et ventilatoires et à l'évaluation nutritionnelle. Elle est exprimée en centimètres (cm).\n\n## Concepts inclus\n\nLe jeu est ancré sur le concept SNOMED *Body height* et ses descendants, plus le concept LOINC générique de taille (LOINC n'a pas de hiérarchie, il est donc listé à plat). Ils sont regroupés ci-dessous par posture de mesure, à titre de lisibilité uniquement — tous relèvent de la même variable `body_height`, tous en cm.\n\n### Taille générique (par défaut)\n\n- *607590 / 1153637007 — Body height (SNOMED)* et *3036277 / 8302-2 — Body height (LOINC)* : par défaut, posture non précisée.\n\n### Par posture\n\n- *4093975 / 248333004 — Standing height (SNOMED)* : mesurée debout.\n- *600652 / 1149101003 — Recumbent body height (SNOMED)* : mesurée couchée (nourrissons, patients alités).\n\n**Note sur les unités** : exprimée en **centimètres** (`8582 / cm — centimeter`, UCUM), l'unité recommandée.\n\n## Notes de mapping\n\n- **Concept par défaut** quand la source enregistre une taille sans préciser la posture : *607590 / 1153637007 — Body height* (SNOMED) ou *3036277 / 8302-2 — Body height* (LOINC).\n- **La posture est un attribut, pas une variable distincte** : ne mapper vers *Standing height* ou *Recumbent body height* que si la source documente la posture ; sinon utiliser le concept générique.\n- **Exclus du jeu** (ne pas mapper ici) : taille auto-déclarée, taille estimée, taille pré-amputation estimée/mesurée — ce ne sont pas des tailles actuelles directement mesurées. La longueur de naissance est aussi exclue car elle dispose de son propre jeu *Birth height*.\n- Ce jeu est construit symétriquement au jeu *Body weight* (même stratégie d'ancrage), pour un mapping cohérent taille/poids."
       }
     },
     "createdByDetails": {
@@ -64,7 +204,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Resolves issue #2: rebuilt symmetrically with Body weight — anchored on SNOMED Body height with descendants, plus generic LOINC, excluding self-reported/estimated/pre-amputation variants; birth length kept. Added clinical description and mapping notes. Birth length is excluded because it has its own Birth height set. Moved to pending review."
+      }
+    ],
     "distributionStats": null
   }
 }

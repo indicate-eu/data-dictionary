@@ -1,20 +1,39 @@
 {
   "id": 284,
   "name": "Ideal body weight",
-  "description": null,
-  "version": "1.0.0",
+  "description": "Ideal body weight (IBW) — a height-based target weight used for dosing and ventilator settings; in kilograms (kg).",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
       {
         "concept": {
+          "conceptId": 4062985,
+          "conceptName": "Ideal body weight",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "170804003",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
           "conceptId": 1073500,
           "conceptName": "Adjusted ideal body weight",
-          "domainId": "Observation",
+          "domainId": "Measurement",
           "vocabularyId": "SNOMED",
           "conceptClassId": "Observable Entity",
           "standardConcept": "S",
@@ -31,15 +50,15 @@
       },
       {
         "concept": {
-          "conceptId": 4062985,
+          "conceptId": 3032445,
           "conceptName": "Ideal body weight",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Observable Entity",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "170804003",
-          "validStartDate": "2002-01-31",
+          "conceptCode": "50064-5",
+          "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
@@ -54,25 +73,32 @@
   "metadata": {
     "uniqueId": "b92e8564-f938-4af8-a80e-ace72963c248",
     "organization": {
-      "name": "INDICATE Consortium",
-      "url": "https://indicate-eu.org"
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
     },
-    "reviewStatus": "draft",
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Ideal body weight",
         "category": "Other",
         "subcategory": "Demographic data",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Ideal body weight (IBW) — a height-based target weight used for dosing and ventilator settings; in kilograms (kg).",
+        "longDescription": "## Definition & Clinical Context\n\nIdeal body weight (IBW) is a *calculated* target weight derived from a patient's height and sex, not a measured weight. It produces a single numeric value used to set drug doses and tidal-volume ventilator settings independently of the patient's actual (possibly oedematous or obese) weight. It is reported in kilograms (kg). Adjusted ideal body weight (AdjBW) is a related correction applied for obese patients.\n\n## Included Concepts\n\n- *4062985 / 170804003 — Ideal body weight (SNOMED)* and *3032445 / 50064-5 — Ideal body weight (LOINC)*: the standard height/sex-based target weight.\n- *1073500 / 1304200008 — Adjusted ideal body weight (SNOMED)*: IBW corrected for obesity (lean-mass-adjusted).\n\nBoth are computed values; both in kg.\n\n## Mapping Notes\n\n- Map a calculated target weight here — **not** a measured weight (measured weight belongs in the *Body weight* set).\n- Use *4062985 / 170804003 — Ideal body weight* (SNOMED) or *3032445 / 50064-5 — Ideal body weight* (LOINC) for the standard IBW; use *1073500 / 1304200008 — Adjusted ideal body weight* (SNOMED) only when the source explicitly records the adjusted (obesity-corrected) value."
       },
       "fr": {
         "name": "Poids idéal théorique",
         "category": "Autres",
         "subcategory": "Données démographiques",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Poids corporel idéal (IBW) — poids cible fondé sur la taille, utilisé pour les posologies et réglages ventilatoires ; en kilogrammes (kg).",
+        "longDescription": "## Définition et contexte clinique\n\nLe poids corporel idéal (IBW) est un poids cible *calculé* à partir de la taille et du sexe du patient, et non un poids mesuré. Il produit une valeur numérique unique servant à régler les posologies et le volume courant ventilatoire indépendamment du poids réel (parfois œdémateux ou obèse). Il est exprimé en kilogrammes (kg). Le poids idéal ajusté (AdjBW) est une correction apparentée appliquée chez le patient obèse.\n\n## Concepts inclus\n\n- *4062985 / 170804003 — Ideal body weight (SNOMED)* et *3032445 / 50064-5 — Ideal body weight (LOINC)* : le poids cible standard fondé sur taille/sexe.\n- *1073500 / 1304200008 — Adjusted ideal body weight (SNOMED)* : IBW corrigé de l'obésité (ajusté à la masse maigre).\n\nDeux valeurs calculées ; toutes deux en kg.\n\n## Notes de mapping\n\n- Mapper ici un poids cible calculé — **pas** un poids mesuré (le poids mesuré relève du jeu *Body weight*).\n- Utiliser *4062985 / 170804003 — Ideal body weight* (SNOMED) ou *3032445 / 50064-5 — Ideal body weight* (LOINC) pour l'IBW standard ; utiliser *1073500 / 1304200008 — Adjusted ideal body weight* (SNOMED) uniquement quand la source enregistre explicitement la valeur ajustée (corrigée de l'obésité)."
       }
     },
     "createdByDetails": {
@@ -83,7 +109,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Kept Ideal body weight + Adjusted ideal body weight (calculated target weights, distinct from measured Body weight). Added clinical description and mapping notes. Moved to pending review."
+      }
+    ],
     "distributionStats": null
   }
 }

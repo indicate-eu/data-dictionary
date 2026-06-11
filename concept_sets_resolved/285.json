@@ -1,27 +1,15 @@
 {
   "conceptSetId": 285,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
-  },
+  "vocabularyVersion": null,
   "resolvedConcepts": [
     {
-      "conceptId": 4141768,
-      "conceptName": "Medical contraindication to procedure",
-      "vocabularyId": "SNOMED",
+      "conceptId": 2100000009,
+      "conceptName": "Contraindication to enteral feeding",
+      "vocabularyId": "INDICATE",
       "domainId": "Observation",
       "conceptClassId": "Context-dependent",
-      "conceptCode": "266757004",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44813449,
-      "conceptName": "Medical contraindication to ear syringing",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Context-dependent",
-      "conceptCode": "784911000000106",
-      "standardConcept": "S"
+      "conceptCode": "contraindication-to-enteral-feeding",
+      "standardConcept": ""
     }
   ]
 }

@@ -1,9 +1,6 @@
 {
   "conceptSetId": 287,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
-  },
+  "vocabularyVersion": null,
   "resolvedConcepts": [
     {
       "conceptId": 604877,
@@ -39,6 +36,15 @@
       "domainId": "Observation",
       "conceptClassId": "Observable Entity",
       "conceptCode": "226245008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45771253,
+      "conceptName": "Pediatric energy requirement",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "702387006",
       "standardConcept": "S"
     }
   ]

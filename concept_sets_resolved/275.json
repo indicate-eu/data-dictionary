@@ -1,10 +1,16 @@
 {
   "conceptSetId": 275,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
-  },
+  "vocabularyVersion": null,
   "resolvedConcepts": [
+    {
+      "conceptId": 3025315,
+      "conceptName": "Body weight",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "29463-7",
+      "standardConcept": "S"
+    },
     {
       "conceptId": 4099154,
       "conceptName": "Body weight",
@@ -15,39 +21,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4175354,
-      "conceptName": "Body weight without shoes",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "425024002",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 4178502,
       "conceptName": "Body weight measure",
       "vocabularyId": "SNOMED",
       "domainId": "Measurement",
       "conceptClassId": "Observable Entity",
       "conceptCode": "363808001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4310154,
-      "conceptName": "Body weight with shoes",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "424927000",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37160439,
-      "conceptName": "Pre-amputation measured body weight",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "1162416001",
       "standardConcept": "S"
     },
     {

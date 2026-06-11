@@ -1,34 +1,15 @@
 {
   "id": 275,
   "name": "Body weight",
-  "description": null,
-  "version": "1.0.0",
+  "description": "Body weight — how much the patient weighs (any measured context, incl. dialysis and dry weight); in kilograms (kg).",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
-      {
-        "concept": {
-          "conceptId": 4093981,
-          "conceptName": "Previous well-weight",
-          "domainId": "Measurement",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Observable Entity",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "248351003",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
       {
         "concept": {
           "conceptId": 4099154,
@@ -45,248 +26,20 @@
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 4175354,
-          "conceptName": "Body weight without shoes",
+          "conceptId": 3025315,
+          "conceptName": "Body weight",
           "domainId": "Measurement",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Observable Entity",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "425024002",
-          "validStartDate": "2007-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4178502,
-          "conceptName": "Body weight measure",
-          "domainId": "Measurement",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Observable Entity",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "363808001",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4264825,
-          "conceptName": "Birth weight",
-          "domainId": "Measurement",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Observable Entity",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "364589006",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4268280,
-          "conceptName": "Baseline weight",
-          "domainId": "Measurement",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Observable Entity",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "400967004",
-          "validStartDate": "2003-07-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4310154,
-          "conceptName": "Body weight with shoes",
-          "domainId": "Measurement",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Observable Entity",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "424927000",
-          "validStartDate": "2007-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 37160426,
-          "conceptName": "Dosing body weight",
-          "domainId": "Measurement",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Observable Entity",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "1162388008",
-          "validStartDate": "2021-09-30",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 37160427,
-          "conceptName": "Self reported pre-pregnancy body weight",
-          "domainId": "Measurement",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Observable Entity",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "1162389000",
-          "validStartDate": "2021-09-30",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 37160437,
-          "conceptName": "Pre-amputation estimated body weight",
-          "domainId": "Measurement",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Observable Entity",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "1162414003",
-          "validStartDate": "2021-09-30",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 37160439,
-          "conceptName": "Pre-amputation measured body weight",
-          "domainId": "Measurement",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Observable Entity",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "1162416001",
-          "validStartDate": "2021-09-30",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 37160443,
-          "conceptName": "Post-dialysis body weight",
-          "domainId": "Measurement",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Observable Entity",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "1162420002",
-          "validStartDate": "2021-09-30",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 37160447,
-          "conceptName": "Pre-dialysis body weight",
-          "domainId": "Measurement",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Observable Entity",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "1162421003",
-          "validStartDate": "2021-09-30",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 37164397,
-          "conceptName": "Self reported peak body weight",
-          "domainId": "Measurement",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Observable Entity",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "1230277003",
-          "validStartDate": "2022-07-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 37205098,
-          "conceptName": "Self reported body weight",
-          "domainId": "Measurement",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Observable Entity",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "784399000",
-          "validStartDate": "2019-07-31",
+          "conceptCode": "29463-7",
+          "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
@@ -310,45 +63,216 @@
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
-        "isExcluded": false,
+        "isExcluded": true,
         "includeDescendants": false,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 40484200,
-          "conceptName": "Dry body weight",
+          "conceptId": 37205098,
+          "conceptName": "Self reported body weight",
           "domainId": "Measurement",
           "vocabularyId": "SNOMED",
           "conceptClassId": "Observable Entity",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "445541000",
-          "validStartDate": "2010-07-31",
+          "conceptCode": "784399000",
+          "validStartDate": "2019-07-31",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
-        "isExcluded": false,
+        "isExcluded": true,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37164397,
+          "conceptName": "Self reported peak body weight",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1230277003",
+          "validStartDate": "2022-07-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
         "includeDescendants": false,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 42536495,
-          "conceptName": "Current body weight",
+          "conceptId": 37160427,
+          "conceptName": "Self reported pre-pregnancy body weight",
           "domainId": "Measurement",
           "vocabularyId": "SNOMED",
           "conceptClassId": "Observable Entity",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "735395000",
-          "validStartDate": "2018-01-31",
+          "conceptCode": "1162389000",
+          "validStartDate": "2021-09-30",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
-        "isExcluded": false,
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37160437,
+          "conceptName": "Pre-amputation estimated body weight",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1162414003",
+          "validStartDate": "2021-09-30",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37160439,
+          "conceptName": "Pre-amputation measured body weight",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1162416001",
+          "validStartDate": "2021-09-30",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37160426,
+          "conceptName": "Dosing body weight",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1162388008",
+          "validStartDate": "2021-09-30",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4093981,
+          "conceptName": "Previous well-weight",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "248351003",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4268280,
+          "conceptName": "Baseline weight",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "400967004",
+          "validStartDate": "2003-07-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4264825,
+          "conceptName": "Birth weight",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "364589006",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4310154,
+          "conceptName": "Body weight with shoes",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "424927000",
+          "validStartDate": "2007-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4175354,
+          "conceptName": "Body weight without shoes",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "425024002",
+          "validStartDate": "2007-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
         "includeDescendants": false,
         "includeMapped": false
       }
@@ -358,25 +282,32 @@
   "metadata": {
     "uniqueId": "ee61e95b-4548-4e48-bf5e-13b823c98af0",
     "organization": {
-      "name": "INDICATE Consortium",
-      "url": "https://indicate-eu.org"
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
     },
-    "reviewStatus": "draft",
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Body weight",
         "category": "Other",
         "subcategory": "Demographic data",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Body weight — how much the patient weighs (any measured context, incl. dialysis and dry weight); in kilograms (kg).",
+        "longDescription": "## Definition & Clinical Context\n\nBody weight produces a single numeric value per patient-timestamp, read off a scale, bed scale, or hoist scale. It is recorded on admission and repeatedly during the stay, and underpins drug dosing, fluid balance, nutrition, and ventilator settings. It is reported in kilograms (kg).\n\n## Included Concepts\n\nThe set is anchored on the SNOMED *Body weight* concept with its descendants, plus the generic LOINC body-weight concept (LOINC carries no hierarchy, so it is listed flat). They are grouped below by context for readability only — all belong to the same `body_weight` variable, all in kg.\n\n### Generic body weight (default)\n\n- *4099154 / 27113001 — Body weight (SNOMED)*, *4178502 / 363808001 — Body weight measure (SNOMED)* and *3025315 / 29463-7 — Body weight (LOINC)*: the default, context not specified.\n- *42536495 / 735395000 — Current body weight (SNOMED)*: the patient's weight now.\n\n### Dialysis / dry weight (ICU and renal)\n\n- *37160447 / 1162421003 — Pre-dialysis body weight (SNOMED)* and *37160443 / 1162420002 — Post-dialysis body weight (SNOMED)*: weights measured around a dialysis session.\n- *40484200 / 445541000 — Dry body weight (SNOMED)*: the target euvolaemic weight (no fluid overload).\n\n**Note on units**: reported in **kilograms** (`9529 / kg — kilogram`, UCUM), the recommended unit.\n\n## Mapping Notes\n\n- **Default concept** when the source records a weight without qualification: *4099154 / 27113001 — Body weight* (SNOMED) or *3025315 / 29463-7 — Body weight* (LOINC).\n- **Context (dialysis, dry weight) is an attribute, not a separate variable**: map to a context-specific concept only when the source documents it; otherwise use the generic concept.\n- **Excluded from the set** (do not map here): self-reported weight, estimated weight (incl. Broselow paediatric estimation), dosing weight (the weight used to compute drug doses, not a measured weight), baseline weight, previous well-weight, pre-amputation estimated/measured weight, and weight with/without shoes (ambulatory context, not relevant in the ICU) — these are derived, reported, or special-purpose values, not a directly measured current weight. Birth weight is also excluded because it has its own dedicated *Birth weight* set. Ideal/adjusted body weight is a separate set (*Ideal body weight*).\n- This set is built symmetrically with the *Body height* set (same anchoring strategy) so height and weight map consistently."
       },
       "fr": {
         "name": "Poids corporel",
         "category": "Autres",
         "subcategory": "Données démographiques",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Poids corporel — masse du patient (tout contexte mesuré, y compris dialyse et poids sec) ; en kilogrammes (kg).",
+        "longDescription": "## Définition et contexte clinique\n\nLe poids corporel produit une valeur numérique unique par patient-horodatage, lu sur une balance, un lit-balance ou un lève-malade pesant. Il est relevé à l'admission et de façon répétée durant le séjour, et sous-tend les posologies, le bilan hydrique, la nutrition et les réglages ventilatoires. Il est exprimé en kilogrammes (kg).\n\n## Concepts inclus\n\nLe jeu est ancré sur le concept SNOMED *Body weight* et ses descendants, plus le concept LOINC générique de poids (LOINC n'a pas de hiérarchie, listé à plat). Regroupés ci-dessous par contexte à titre de lisibilité uniquement — tous relèvent de la même variable `body_weight`, tous en kg.\n\n### Poids générique (par défaut)\n\n- *4099154 / 27113001 — Body weight (SNOMED)*, *4178502 / 363808001 — Body weight measure (SNOMED)* et *3025315 / 29463-7 — Body weight (LOINC)* : par défaut, contexte non précisé.\n- *42536495 / 735395000 — Current body weight (SNOMED)* : le poids actuel du patient.\n\n### Dialyse / poids sec (réanimation et néphrologie)\n\n- *37160447 / 1162421003 — Pre-dialysis body weight (SNOMED)* et *37160443 / 1162420002 — Post-dialysis body weight (SNOMED)* : poids mesurés autour d'une séance de dialyse.\n- *40484200 / 445541000 — Dry body weight (SNOMED)* : le poids cible euvolémique (sans surcharge hydrique).\n\n**Note sur les unités** : exprimé en **kilogrammes** (`9529 / kg — kilogram`, UCUM), l'unité recommandée.\n\n## Notes de mapping\n\n- **Concept par défaut** quand la source enregistre un poids sans précision : *4099154 / 27113001 — Body weight* (SNOMED) ou *3025315 / 29463-7 — Body weight* (LOINC).\n- **Le contexte (dialyse, poids sec) est un attribut, pas une variable distincte** : ne mapper vers un concept contextuel que si la source le documente ; sinon utiliser le concept générique.\n- **Exclus du jeu** (ne pas mapper ici) : poids auto-déclaré, poids estimé (y compris estimation pédiatrique de Broselow), poids de posologie (le poids servant à calculer les doses, pas un poids mesuré), poids de référence, poids antérieur en bonne santé, poids pré-amputation estimé/mesuré, et poids avec/sans chaussures (contexte ambulatoire, sans intérêt en réanimation) — valeurs dérivées, déclarées ou à finalité particulière, et non un poids actuel directement mesuré. Le poids de naissance est aussi exclu car il dispose de son propre jeu *Birth weight*. Le poids idéal/ajusté constitue un jeu distinct (*Ideal body weight*).\n- Ce jeu est construit symétriquement au jeu *Body height* (même stratégie d'ancrage), pour un mapping cohérent taille/poids."
       }
     },
     "createdByDetails": {
@@ -387,7 +318,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Resolves issue #2: anchored on SNOMED Body weight with descendants, plus generic LOINC; excluded self-reported/estimated/dosing/baseline/previous-well/pre-amputation weights; birth weight and dialysis/dry weights kept. Added clinical description and mapping notes. Birth weight is excluded because it has its own Birth weight set. Moved to pending review."
+      }
+    ],
     "distributionStats": null
   }
 }

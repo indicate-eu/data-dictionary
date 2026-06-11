@@ -1,110 +1,15 @@
 {
   "id": 289,
   "name": "Consultation with patient",
-  "description": null,
-  "version": "1.0.0",
+  "description": "Consultation with patient — a clinical encounter between a clinician and the patient (any setting); recorded as an event.",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
-      {
-        "concept": {
-          "conceptId": 764768,
-          "conceptName": "Pharmacokinetic consultation",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "6051000124107",
-          "validStartDate": "2012-03-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 764769,
-          "conceptName": "Risk evaluation and mitigation strategy consultation",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "6061000124109",
-          "validStartDate": "2012-03-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4027135,
-          "conceptName": "Subsequent hospital visit by physician",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "12843005",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4089048,
-          "conceptName": "New patient consultation",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "185387006",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4211804,
-          "conceptName": "Consultation for unaccompanied minor",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "416520008",
-          "validStartDate": "2005-07-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
       {
         "concept": {
           "conceptId": 37164964,
@@ -121,64 +26,7 @@
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 37168078,
-          "conceptName": "Face to face consultation with patient",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "1269515004",
-          "validStartDate": "2023-04-30",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 37208165,
-          "conceptName": "Consultation for suicide risk management",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "461231000124109",
-          "validStartDate": "2019-03-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 40489429,
-          "conceptName": "Telemedicine consultation with patient",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "448337001",
-          "validStartDate": "2011-07-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       }
     ]
@@ -187,25 +35,32 @@
   "metadata": {
     "uniqueId": "4c452a10-4385-4cdc-a98a-36b3e03480e1",
     "organization": {
-      "name": "INDICATE Consortium",
-      "url": "https://indicate-eu.org"
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
     },
-    "reviewStatus": "draft",
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Consultation with patient",
         "category": "Other",
         "subcategory": "Other",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Consultation with patient — a clinical encounter between a clinician and the patient (any setting); recorded as an event.",
+        "longDescription": "## Definition & Clinical Context\n\nThis set captures a clinical encounter between a clinician and the patient — a consultation event, regardless of setting (face-to-face, telemedicine, new vs follow-up). It is recorded as an event (it happened at a given time), not a numeric measurement, and is used to track patient contacts.\n\n## Included Concepts\n\nThe set is anchored on the SNOMED *Consultation with patient* concept with its descendants, grouped below for readability — all are the same `consultation` event variable.\n\n### Generic consultation (default)\n\n- *37164964 / 1237136005 — Consultation with patient (SNOMED)*: the default consultation event.\n- *4089048 / 185387006 — New patient consultation (SNOMED)* and *4027135 / 12843005 — Subsequent hospital visit by physician (SNOMED)*: new vs follow-up encounters.\n\n### By modality\n\n- *37168078 / 1269515004 — Face to face consultation with patient (SNOMED)*, *40489429 / 448337001 — Telemedicine consultation with patient (SNOMED)*, *1450350 / 2365641000000100 — Group face to face consultation (SNOMED)*.\n\n### By context / purpose\n\n- *4211804 / 416520008 — Consultation for unaccompanied minor (SNOMED)*, *37208165 / 461231000124109 — Consultation for suicide risk management (SNOMED)*, *764768 / 6051000124107 — Pharmacokinetic consultation (SNOMED)*, *764769 / 6061000124109 — Risk evaluation and mitigation strategy consultation (SNOMED)*.\n\n## Mapping Notes\n\n- Map a patient-consultation event here, using *37164964 / 1237136005 — Consultation with patient* (SNOMED) by default.\n- **Modality, encounter type and purpose are attributes**: map to a specific variant only when the source documents it; otherwise use the generic concept."
       },
       "fr": {
         "name": "Consultation avec le patient",
         "category": "Autres",
         "subcategory": "Autres",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Consultation avec le patient — rencontre clinique entre un soignant et le patient (tout contexte) ; enregistrée comme un événement.",
+        "longDescription": "## Définition et contexte clinique\n\nCe jeu capture une rencontre clinique entre un soignant et le patient — un événement de consultation, quel que soit le contexte (présentiel, télémédecine, première fois vs suivi). Il est enregistré comme un événement (il a eu lieu à un instant donné), non comme une mesure numérique, et sert à suivre les contacts avec le patient.\n\n## Concepts inclus\n\nLe jeu est ancré sur le concept SNOMED *Consultation with patient* et ses descendants, regroupés ci-dessous pour la lisibilité — tous constituent la même variable d'événement `consultation`.\n\n### Consultation générique (par défaut)\n\n- *37164964 / 1237136005 — Consultation with patient (SNOMED)* : l'événement de consultation par défaut.\n- *4089048 / 185387006 — New patient consultation (SNOMED)* et *4027135 / 12843005 — Subsequent hospital visit by physician (SNOMED)* : première rencontre vs suivi.\n\n### Par modalité\n\n- *37168078 / 1269515004 — Face to face consultation with patient (SNOMED)*, *40489429 / 448337001 — Telemedicine consultation with patient (SNOMED)*, *1450350 / 2365641000000100 — Group face to face consultation (SNOMED)*.\n\n### Par contexte / finalité\n\n- *4211804 / 416520008 — Consultation for unaccompanied minor (SNOMED)*, *37208165 / 461231000124109 — Consultation for suicide risk management (SNOMED)*, *764768 / 6051000124107 — Pharmacokinetic consultation (SNOMED)*, *764769 / 6061000124109 — Risk evaluation and mitigation strategy consultation (SNOMED)*.\n\n## Notes de mapping\n\n- Mapper ici un événement de consultation patient, via *37164964 / 1237136005 — Consultation with patient* (SNOMED) par défaut.\n- **La modalité, le type de rencontre et la finalité sont des attributs** : ne mapper vers une variante spécifique que si la source la documente ; sinon utiliser le concept générique."
       }
     },
     "createdByDetails": {
@@ -216,7 +71,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Anchored on SNOMED Consultation with patient with descendants instead of a hand-listed flat set (same resolved members, now maintainable). Added clinical description and mapping notes. Moved to pending review."
+      }
+    ],
     "distributionStats": null
   }
 }

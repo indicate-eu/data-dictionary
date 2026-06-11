@@ -1,12 +1,12 @@
 {
   "id": 278,
   "name": "Gestational age",
-  "description": null,
-  "version": "1.0.0",
+  "description": "Gestational age — duration of the pregnancy at the moment of assessment; in weeks (or weeks + days).",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -28,6 +28,25 @@
         "isExcluded": false,
         "includeDescendants": false,
         "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 1077378,
+          "conceptName": "Gestational age",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "598151000005105",
+          "validStartDate": "2024-03-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
       }
     ]
   },
@@ -35,25 +54,32 @@
   "metadata": {
     "uniqueId": "18926a27-6a78-4f42-944b-e500505f6bb8",
     "organization": {
-      "name": "INDICATE Consortium",
-      "url": "https://indicate-eu.org"
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
     },
-    "reviewStatus": "draft",
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Gestational age",
         "category": "Other",
         "subcategory": "Demographic data",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Gestational age — duration of the pregnancy at the moment of assessment; in weeks (or weeks + days).",
+        "longDescription": "## Definition & Clinical Context\n\nGestational age is how far along a pregnancy is, counted from the first day of the last menstrual period (or from an early ultrasound estimate). It produces a numeric value, usually expressed in completed weeks (sometimes weeks + days), and is assessed during pregnancy to date the pregnancy and guide care. This set is the *current* gestational age at the time of assessment; the duration at the moment of delivery is a separate set (*Gestational age at birth*).\n\n## Included Concepts\n\n- *3012266 / 18185-9 — Gestational age (LOINC)* and *1077378 / 598151000005105 — Gestational age (SNOMED)*: the same variable in both vocabularies.\n\n## Mapping Notes\n\n- Map any antenatal gestational-age assessment here, using *3012266 / 18185-9 — Gestational age* (LOINC) or *1077378 / 598151000005105 — Gestational age* (SNOMED).\n- Do **not** map gestational age recorded specifically at birth here — use the *Gestational age at birth* set for that.\n- Watch the unit: gestational age may be stored as decimal weeks, weeks + days, or total days — preserve the source representation."
       },
       "fr": {
         "name": "Âge gestationnel",
         "category": "Autres",
         "subcategory": "Données démographiques",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Âge gestationnel — durée de la grossesse au moment de l'évaluation ; en semaines (ou semaines + jours).",
+        "longDescription": "## Définition et contexte clinique\n\nL'âge gestationnel indique l'avancement de la grossesse, compté à partir du premier jour des dernières règles (ou d'une estimation échographique précoce). Il produit une valeur numérique, généralement exprimée en semaines révolues (parfois semaines + jours), évaluée pendant la grossesse pour la dater et orienter la prise en charge. Ce jeu correspond à l'âge gestationnel *courant* au moment de l'évaluation ; la durée au moment de l'accouchement constitue un jeu distinct (*Gestational age at birth*).\n\n## Concepts inclus\n\n- *3012266 / 18185-9 — Gestational age (LOINC)* et *1077378 / 598151000005105 — Gestational age (SNOMED)* : la même variable dans les deux vocabulaires.\n\n## Notes de mapping\n\n- Mapper ici toute évaluation anténatale de l'âge gestationnel, via *3012266 / 18185-9 — Gestational age* (LOINC) ou *1077378 / 598151000005105 — Gestational age* (SNOMED).\n- Ne **pas** mapper ici l'âge gestationnel relevé spécifiquement à la naissance — utiliser le jeu *Gestational age at birth*.\n- Attention à l'unité : l'âge gestationnel peut être stocké en semaines décimales, semaines + jours, ou en jours totaux — conserver la représentation source."
       }
     },
     "createdByDetails": {
@@ -64,7 +90,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Added the standard SNOMED Gestational age concept alongside the LOINC one. Added clinical description distinguishing antenatal gestational age from gestational age at birth. Moved to pending review."
+      }
+    ],
     "distributionStats": null
   }
 }

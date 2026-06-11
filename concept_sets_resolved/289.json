@@ -1,9 +1,6 @@
 {
   "conceptSetId": 289,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
-  },
+  "vocabularyVersion": null,
   "resolvedConcepts": [
     {
       "conceptId": 764768,
@@ -21,6 +18,15 @@
       "domainId": "Observation",
       "conceptClassId": "Procedure",
       "conceptCode": "6061000124109",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1450350,
+      "conceptName": "Group face to face consultation",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Procedure",
+      "conceptCode": "2365641000000100",
       "standardConcept": "S"
     },
     {

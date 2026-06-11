@@ -1,12 +1,12 @@
 {
   "id": 286,
   "name": "Energy intake",
-  "description": null,
-  "version": "1.0.0",
+  "description": "Energy (calorie) intake — total energy actually taken in over a period; in kilocalories (kcal).",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -28,6 +28,25 @@
         "isExcluded": false,
         "includeDescendants": false,
         "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37206982,
+          "conceptName": "Energy intake",
+          "domainId": "Observation",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "787787004",
+          "validStartDate": "2019-07-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
       }
     ]
   },
@@ -35,25 +54,32 @@
   "metadata": {
     "uniqueId": "cdfe61a3-6b2d-433a-908f-af1380de47b7",
     "organization": {
-      "name": "INDICATE Consortium",
-      "url": "https://indicate-eu.org"
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
     },
-    "reviewStatus": "draft",
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Energy intake",
         "category": "Other",
         "subcategory": "Nutrition",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Energy (calorie) intake — total energy actually taken in over a period; in kilocalories (kcal).",
+        "longDescription": "## Definition & Clinical Context\n\nEnergy intake is the total amount of food energy a patient has actually taken in — orally, enterally, or parenterally — over a defined period (typically 24 hours). It produces a numeric value used to track nutritional delivery against the patient's requirement. It is reported in kilocalories (kcal).\n\n## Included Concepts\n\n- *3026267 / 9057-1 — Calorie intake total 24 hour (LOINC)*: total energy intake over 24 hours.\n- *37206982 / 787787004 — Energy intake (SNOMED)*: the generic SNOMED energy-intake concept.\n\nBoth represent energy actually consumed (delivered), in kcal.\n\n## Mapping Notes\n\n- Map recorded delivered/consumed energy here. Use *3026267 / 9057-1 — Calorie intake total 24 hour* (LOINC) for a 24-hour total, or *37206982 / 787787004 — Energy intake* (SNOMED) for the generic value.\n- Do **not** map energy *requirement* (a target, not what was delivered) here — that is the *Energy requirement* set."
       },
       "fr": {
         "name": "Apport énergétique",
         "category": "Autres",
         "subcategory": "Nutrition",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Apport énergétique (calorique) — énergie totale réellement ingérée sur une période ; en kilocalories (kcal).",
+        "longDescription": "## Définition et contexte clinique\n\nL'apport énergétique est la quantité totale d'énergie alimentaire réellement ingérée par un patient — par voie orale, entérale ou parentérale — sur une période définie (typiquement 24 heures). Il produit une valeur numérique servant à suivre l'apport nutritionnel par rapport au besoin du patient. Il est exprimé en kilocalories (kcal).\n\n## Concepts inclus\n\n- *3026267 / 9057-1 — Calorie intake total 24 hour (LOINC)* : apport énergétique total sur 24 heures.\n- *37206982 / 787787004 — Energy intake (SNOMED)* : le concept SNOMED générique d'apport énergétique.\n\nTous deux représentent l'énergie réellement consommée (délivrée), en kcal.\n\n## Notes de mapping\n\n- Mapper ici l'énergie délivrée/consommée enregistrée. Utiliser *3026267 / 9057-1 — Calorie intake total 24 hour* (LOINC) pour un total sur 24 h, ou *37206982 / 787787004 — Energy intake* (SNOMED) pour la valeur générique.\n- Ne **pas** mapper ici le *besoin* énergétique (une cible, pas ce qui a été délivré) — c'est le jeu *Energy requirement*."
       }
     },
     "createdByDetails": {
@@ -64,7 +90,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Rebuilt on standard concepts: LOINC Calorie intake total 24 hour + SNOMED Energy intake. Added clinical description distinguishing intake (delivered) from requirement (target). Moved to pending review."
+      }
+    ],
     "distributionStats": null
   }
 }

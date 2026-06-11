@@ -1,12 +1,12 @@
 {
   "id": 279,
   "name": "Gestational age at birth",
-  "description": null,
-  "version": "1.0.0",
+  "description": "Gestational age at birth — duration of the completed pregnancy at delivery; in weeks (or weeks + days).",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -35,25 +35,32 @@
   "metadata": {
     "uniqueId": "98586212-b9ae-45b7-9ea3-3d4c98037557",
     "organization": {
-      "name": "INDICATE Consortium",
-      "url": "https://indicate-eu.org"
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
     },
-    "reviewStatus": "draft",
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Gestational age at birth",
         "category": "Other",
         "subcategory": "Demographic data",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Gestational age at birth — duration of the completed pregnancy at delivery; in weeks (or weeks + days).",
+        "longDescription": "## Definition & Clinical Context\n\nGestational age at birth is the length of the completed pregnancy at the moment of delivery — the value used to classify a newborn as preterm, term, or post-term. It produces a single numeric value, usually in completed weeks (sometimes weeks + days), timestamped at birth. It is distinct from the antenatal *Gestational age*, which is the current duration at any point during pregnancy.\n\n## Included Concepts\n\n- *4260747 / 412726003 — Length of gestation at birth (SNOMED)*: the gestational duration at delivery.\n\n## Mapping Notes\n\n- Map the gestational duration recorded at delivery here, using *4260747 / 412726003 — Length of gestation at birth* (SNOMED).\n- For gestational age assessed *during* pregnancy (not at birth), use the *Gestational age* set instead.\n- Watch the unit: may be stored as weeks, weeks + days, or total days — preserve the source representation."
       },
       "fr": {
         "name": "Âge gestationnel a la naissance",
         "category": "Autres",
         "subcategory": "Données démographiques",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Âge gestationnel à la naissance — durée de la grossesse menée à terme à l'accouchement ; en semaines (ou semaines + jours).",
+        "longDescription": "## Définition et contexte clinique\n\nL'âge gestationnel à la naissance est la durée de la grossesse menée à terme au moment de l'accouchement — la valeur servant à classer un nouveau-né comme prématuré, à terme ou post-terme. Il produit une valeur numérique unique, généralement en semaines révolues (parfois semaines + jours), horodatée à la naissance. Il se distingue de l'*âge gestationnel* anténatal, qui est la durée courante à un instant quelconque de la grossesse.\n\n## Concepts inclus\n\n- *4260747 / 412726003 — Length of gestation at birth (SNOMED)* : la durée de gestation à l'accouchement.\n\n## Notes de mapping\n\n- Mapper ici la durée de gestation relevée à l'accouchement, via *4260747 / 412726003 — Length of gestation at birth* (SNOMED).\n- Pour l'âge gestationnel évalué *pendant* la grossesse (hors naissance), utiliser le jeu *Gestational age*.\n- Attention à l'unité : peut être stockée en semaines, semaines + jours, ou jours totaux — conserver la représentation source."
       }
     },
     "createdByDetails": {
@@ -64,7 +71,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Confirmed single standard SNOMED concept (Length of gestation at birth). Added clinical description distinguishing it from antenatal gestational age. Moved to pending review."
+      }
+    ],
     "distributionStats": null
   }
 }
