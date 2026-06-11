@@ -912,7 +912,36 @@ var App = (function() {
     'Failed to parse CSV: ':         { fr: 'Échec de l\'analyse du CSV : ' },
     'Failed to read the file.':      { fr: 'Échec de la lecture du fichier.' },
     'Showing the first 500 rows out of': { fr: 'Affichage des 500 premières lignes sur' },
-    'shown':                         { fr: 'affichées' }
+    'shown':                         { fr: 'affichées' },
+
+    // Concept detail — vocab tabs (Related / Hierarchy / Synonyms) & links
+    'Related':                       { fr: 'Associés' },
+    'Synonyms':                      { fr: 'Synonymes' },
+    'No link available':             { fr: 'Aucun lien disponible' },
+    'No link available (custom concept)': { fr: 'Aucun lien disponible (concept personnalisé)' },
+    'No related concepts found.':    { fr: 'Aucun concept associé trouvé.' },
+    'Error: ':                       { fr: 'Erreur : ' },
+    'Relationship':                  { fr: 'Relation' },
+    'of':                            { fr: 'sur' },
+    'Load anyway':                   { fr: 'Charger quand même' },
+    'This concept has':              { fr: 'Ce concept comporte' },
+    'nodes in the hierarchy. Loading may be slow.': { fr: 'nœuds dans la hiérarchie. Le chargement peut être lent.' },
+    'Concept not found in vocabulary database.': { fr: 'Concept introuvable dans la base de vocabulaire.' },
+    'No hierarchy relationships found for this concept.': { fr: 'Aucune relation hiérarchique trouvée pour ce concept.' },
+    'Back to previous concept':      { fr: 'Revenir au concept précédent' },
+    'Zoom in':                       { fr: 'Zoom avant' },
+    'Zoom out':                      { fr: 'Zoom arrière' },
+    'Fit to view':                   { fr: 'Ajuster à la vue' },
+    'Toggle fullscreen':             { fr: 'Basculer en plein écran' },
+    'Exit fullscreen':               { fr: 'Quitter le plein écran' },
+    'No synonyms found.':            { fr: 'Aucun synonyme trouvé.' },
+    'Synonym':                       { fr: 'Synonyme' },
+    'Language':                      { fr: 'Langue' },
+    'Concept not found':             { fr: 'Concept introuvable' },
+    'No hierarchy':                  { fr: 'Aucune hiérarchie' },
+    'Numeric Summary':               { fr: 'Résumé numérique' },
+    'Distribution':                  { fr: 'Distribution' },
+    'Categories':                    { fr: 'Catégories' }
   };
 
   function i18n(key) {
@@ -1166,6 +1195,20 @@ var App = (function() {
         });
       });
       searchInput.addEventListener('click', function(e) { e.stopPropagation(); });
+      searchInput.addEventListener('keydown', function(e) {
+        if (e.key !== 'Enter') return;
+        e.preventDefault();
+        var visible = [].filter.call(container.querySelectorAll('.ms-option'), function(opt) {
+          return opt.style.display !== 'none';
+        });
+        if (visible.length !== 1) return;
+        var cb = visible[0].querySelector('input[type="checkbox"]');
+        if (!cb) return;
+        cb.checked = !cb.checked;
+        cb.dispatchEvent(new Event('change', { bubbles: true }));
+        dropdown.style.display = 'none';
+        dropdown.style.maxHeight = '';
+      });
     }
     var btnAll = dropdown.querySelector('.ms-btn-all');
     var btnNone = dropdown.querySelector('.ms-btn-none');
