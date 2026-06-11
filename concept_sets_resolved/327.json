@@ -1,10 +1,6 @@
 {
   "conceptSetId": 327,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "LOINC": "LOINC 2.80",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
-  },
+  "vocabularyVersion": null,
   "resolvedConcepts": [
     {
       "conceptId": 1002491,
@@ -383,24 +379,6 @@
       "conceptClassId": "Clinical Observation",
       "conceptCode": "40442-6",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 3557049,
-      "conceptName": "Resting heart rate",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "511831000000106",
-      "standardConcept": null
-    },
-    {
-      "conceptId": 4239408,
-      "conceptName": "Heart rate",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "364075005",
-      "standardConcept": null
     },
     {
       "conceptId": 21490670,
