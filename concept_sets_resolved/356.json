@@ -3,6 +3,114 @@
   "vocabularyVersion": null,
   "resolvedConcepts": [
     {
+      "conceptId": 1073322,
+      "conceptName": "Construction of tracheostomy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "1303805000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4065590,
+      "conceptName": "Permanent tracheostomy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "21619009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4068680,
+      "conceptName": "Cricothyroidotomy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "173067007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4134560,
+      "conceptName": "Emergency cricothyroidotomy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "398142004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4134745,
+      "conceptName": "Percutaneous dilational tracheostomy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "397930006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4143728,
+      "conceptName": "Percutaneous tracheostomy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "307007002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4166281,
+      "conceptName": "Anterior tracheostomy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "274969000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4168864,
+      "conceptName": "Lateral tracheostomy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "274970004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4195473,
+      "conceptName": "Temporary tracheostomy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "43988005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4199580,
+      "conceptName": "Mediastinal tracheostomy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "52536006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4208093,
+      "conceptName": "Tracheostomy, emergency procedure by transtracheal approach",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "55622001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4335586,
+      "conceptName": "Open cricothyroidotomy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "232692007",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4337046,
       "conceptName": "Minitrach insertion",
       "vocabularyId": "SNOMED",
@@ -39,12 +147,48 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 4337731,
+      "conceptName": "Percutaneous cricothyroidotomy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "232689008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4339624,
+      "conceptName": "Percutaneous dilatational cricothyroidotomy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "232690004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37205949,
+      "conceptName": "Cannula cricothyroidotomy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "785905003",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 37206251,
       "conceptName": "Scalpel bougie cricothyroidotomy",
       "vocabularyId": "SNOMED",
       "domainId": "Procedure",
       "conceptClassId": "Procedure",
       "conceptCode": "785906002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37206252,
+      "conceptName": "Wire guided cricothyroidotomy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "785907006",
       "standardConcept": "S"
     }
   ]

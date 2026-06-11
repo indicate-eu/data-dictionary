@@ -1,32 +1,32 @@
 {
   "id": 356,
   "name": "Tracheostomy and cricothyroidotomy",
-  "description": null,
-  "version": "1.0.0",
+  "description": "Procedures creating a neck (transtracheal) airway: tracheostomy and cricothyroidotomy (surgical or percutaneous).",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-06-10",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-06-10",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
       {
         "concept": {
-          "conceptId": 4337047,
-          "conceptName": "Insertion of tracheostomy tube",
+          "conceptId": 4068680,
+          "conceptName": "Cricothyroidotomy",
           "domainId": "Procedure",
           "vocabularyId": "SNOMED",
           "conceptClassId": "Procedure",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "232685002",
+          "conceptCode": "173067007",
           "validStartDate": "2002-01-31",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
@@ -45,19 +45,38 @@
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
         "concept": {
-          "conceptId": 4337046,
-          "conceptName": "Minitrach insertion",
+          "conceptId": 1073322,
+          "conceptName": "Construction of tracheostomy",
           "domainId": "Procedure",
           "vocabularyId": "SNOMED",
           "conceptClassId": "Procedure",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "232684003",
+          "conceptCode": "1303805000",
+          "validStartDate": "2024-04-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4337047,
+          "conceptName": "Insertion of tracheostomy tube",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "232685002",
           "validStartDate": "2002-01-31",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
@@ -88,20 +107,39 @@
       },
       {
         "concept": {
-          "conceptId": 37206251,
-          "conceptName": "Scalpel bougie cricothyroidotomy",
+          "conceptId": 4175285,
+          "conceptName": "Complete laryngectomy with radical neck dissection, synchronous thyroidectomy and synchronous tracheostomy",
           "domainId": "Procedure",
           "vocabularyId": "SNOMED",
           "conceptClassId": "Procedure",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "785906002",
-          "validStartDate": "2019-07-31",
+          "conceptCode": "50339005",
+          "validStartDate": "2002-01-31",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
-        "isExcluded": false,
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4216541,
+          "conceptName": "Total laryngectomy with partial pharyngectomy and synchronous tracheostomy",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "7240008",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
         "includeDescendants": false,
         "includeMapped": false
       }
@@ -114,21 +152,21 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Tracheostomy and cricothyroidotomy",
         "category": "Ventilation",
         "subcategory": "Ventilation device",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Procedures creating a neck (transtracheal) airway: tracheostomy and cricothyroidotomy (surgical or percutaneous).",
+        "longDescription": "## Definition & Clinical Context\n\nThis set covers the procedures that create a tracheal airway through the front of the neck — a **tracheostomy** (an opening into the trachea, surgical or percutaneous) or a **cricothyroidotomy** (an opening through the cricothyroid membrane, typically an emergency rescue airway). Both bypass the upper airway and larynx, unlike endotracheal intubation. In source data this is a **procedure** record marking that the airway was created (or the tube inserted); there is no unit. It is recorded in intensive care, anaesthesia, and emergency settings. The procedures differ by site (cricothyroidotomy vs tracheostomy), technique (surgical/open vs percutaneous/Seldinger), and context (elective vs emergency).\n\n## Included Concepts\n\nThe set is anchored on the SNOMED procedure hierarchies for cricothyroidotomy and tracheostomy creation (with descendants), plus the tube-insertion procedures. Grouped here by site.\n\n### Cricothyroidotomy\n\nAnchored on *Cricothyroidotomy* and *Cricothyroidotomy tube insertion* with their descendants.\n\n- *4068680 / 173067007 — Cricothyroidotomy (SNOMED)*: the general concept.\n- *4134560 / 398142004 — Emergency cricothyroidotomy (SNOMED)*.\n- *4335586 / 232692007 — Open cricothyroidotomy (SNOMED)*: surgical.\n- *4337731 / 232689008 — Percutaneous cricothyroidotomy (SNOMED)* and *4339624 / 232690004 — Percutaneous dilatational cricothyroidotomy (SNOMED)*.\n- *37205949 / 785905003 — Cannula cricothyroidotomy (SNOMED)*, *37206251 / 785906002 — Scalpel bougie cricothyroidotomy (SNOMED)*, *37206252 / 785907006 — Wire guided cricothyroidotomy (SNOMED)*.\n- *4337618 / 232683009 — Cricothyroidotomy tube insertion (SNOMED)* and its descendant *4337046 / 232684003 — Minitrach insertion (SNOMED)* (a small-bore cricothyroidotomy/minitracheostomy).\n\n### Tracheostomy\n\nAnchored on *Construction of tracheostomy* with its descendants, plus the tube-insertion concepts.\n\n- *1073322 / 1303805000 — Construction of tracheostomy (SNOMED)*: the general concept.\n- *4143728 / 307007002 — Percutaneous tracheostomy (SNOMED)* and *4134745 / 397930006 — Percutaneous dilational tracheostomy (SNOMED)*.\n- *4166281 / 274969000 — Anterior tracheostomy (SNOMED)*, *4168864 / 274970004 — Lateral tracheostomy (SNOMED)*, *4199580 / 52536006 — Mediastinal tracheostomy (SNOMED)*.\n- *4065590 / 21619009 — Permanent tracheostomy (SNOMED)*, *4195473 / 43988005 — Temporary tracheostomy (SNOMED)*, *4208093 / 55622001 — Tracheostomy, emergency procedure by transtracheal approach (SNOMED)*.\n- *4337047 / 232685002 — Insertion of tracheostomy tube (SNOMED)*.\n- *4337048 / 232686001 — Insertion of tracheal T-tube (SNOMED)*: placement of a tracheal T-tube (e.g. Montgomery) through a tracheostomy stoma.\n\n## Excluded Concepts\n\nMajor head-and-neck cancer operations that include a synchronous tracheostomy are excluded, as they are laryngectomy procedures rather than airway-creation procedures:\n\n- *4175285 / 50339005 — Complete laryngectomy with radical neck dissection, synchronous thyroidectomy and synchronous tracheostomy (SNOMED)*.\n- *4216541 / 7240008 — Total laryngectomy with partial pharyngectomy and synchronous tracheostomy (SNOMED)*.\n\n## Mapping Notes\n\n- **Default concepts** when the source does not specify the technique: *4068680 / 173067007 — Cricothyroidotomy* for a cricothyroidotomy, *1073322 / 1303805000 — Construction of tracheostomy* for a tracheostomy. Map to a specific technique (percutaneous, open, emergency…) only when documented.\n- **Cricothyroidotomy vs tracheostomy**: cricothyroidotomy is through the cricothyroid membrane (higher, usually an emergency rescue airway); tracheostomy is lower, through the tracheal rings. Map to the matching site.\n- **Not endotracheal intubation**: placing a tube through the mouth/nose and larynx is a different procedure, captured in the Endotracheal intubation concept set.\n- **Procedure, not device**: this set is the creation/insertion procedure. The tracheostomy *tube* (the device) is captured in the Tracheostomy tube concept set; tube *removal* (decannulation) and *changes* are in their own sets.\n- **Laryngectomy with synchronous tracheostomy** is not mapped here (it is a laryngectomy procedure).\n"
       },
       "fr": {
         "name": "Trachéotomie et cricothyroïdotomie",
         "category": "Ventilation",
         "subcategory": "Dispositif de ventilation",
-        "shortDescription": null,
+        "shortDescription": "Gestes de création d’une voie aérienne cervicale (transtrachéale) : trachéotomie et cricothyroïdotomie (chirurgicale ou percutanée).",
         "longDescription": null
       }
     },
@@ -140,7 +178,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Design and describe the set: anchor on SNOMED Cricothyroidotomy (4068680) + Cricothyroidotomy tube insertion (4337618) and Construction of tracheostomy (1073322), all with descendants, plus tracheostomy/T-tube tube insertion (4337047, 4337048). Excludes laryngectomy-with-synchronous-tracheostomy oncologic procedures. Resolves to 21."
+      }
+    ],
     "distributionStats": null
   }
 }
