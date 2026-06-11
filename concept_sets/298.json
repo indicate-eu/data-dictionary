@@ -1,25 +1,44 @@
 {
   "id": 298,
-  "name": "Renal replacement therapy",
-  "description": null,
-  "version": "1.0.0",
+  "name": "Renal replacement therapy (RRT)",
+  "description": "Renal replacement therapy (RRT) — continuous, intermittent and hybrid dialysis/filtration for kidney failure.",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
       {
         "concept": {
-          "conceptId": 4049846,
-          "conceptName": "Continuous venovenous hemodiafiltration",
+          "conceptId": 37018292,
+          "conceptName": "Continuous renal replacement therapy",
           "domainId": "Procedure",
           "vocabularyId": "SNOMED",
           "conceptClassId": "Procedure",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "233590002",
+          "conceptCode": "714749008",
+          "validStartDate": "2016-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4120120,
+          "conceptName": "Hemodialysis",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "302497006",
           "validStartDate": "2002-01-31",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
@@ -31,14 +50,33 @@
       },
       {
         "concept": {
-          "conceptId": 4050862,
-          "conceptName": "Intermittent hemodialysis with continuous ultrafiltration",
+          "conceptId": 4050864,
+          "conceptName": "Hemofiltration",
           "domainId": "Procedure",
           "vocabularyId": "SNOMED",
           "conceptClassId": "Procedure",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "233577009",
+          "conceptCode": "233581009",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4049845,
+          "conceptName": "Hemodiafiltration",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "233586004",
           "validStartDate": "2002-01-31",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
@@ -69,6 +107,25 @@
       },
       {
         "concept": {
+          "conceptId": 4050862,
+          "conceptName": "Intermittent hemodialysis with continuous ultrafiltration",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "233577009",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
           "conceptId": 4051327,
           "conceptName": "Intermittent hemodialysis with sequential ultrafiltration",
           "domainId": "Procedure",
@@ -88,14 +145,14 @@
       },
       {
         "concept": {
-          "conceptId": 4051329,
-          "conceptName": "Continuous venovenous hemodialysis",
+          "conceptId": 4050865,
+          "conceptName": "Intermittent hemofiltration",
           "domainId": "Procedure",
           "vocabularyId": "SNOMED",
           "conceptClassId": "Procedure",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "233580005",
+          "conceptCode": "233582002",
           "validStartDate": "2002-01-31",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
@@ -107,15 +164,53 @@
       },
       {
         "concept": {
-          "conceptId": 4051330,
-          "conceptName": "Continuous venovenous hemofiltration",
+          "conceptId": 4052538,
+          "conceptName": "Intermittent hemodiafiltration",
           "domainId": "Procedure",
           "vocabularyId": "SNOMED",
           "conceptClassId": "Procedure",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "233585000",
+          "conceptCode": "233587008",
           "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 44783963,
+          "conceptName": "Sustained low-efficiency dialysis",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "698074000",
+          "validStartDate": "2014-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 619390,
+          "conceptName": "Prolonged intermittent renal replacement therapy",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "895382009",
+          "validStartDate": "2021-01-31",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
@@ -133,21 +228,21 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Renal replacement therapy",
+        "name": "Renal replacement therapy (RRT)",
         "category": "Procedures",
         "subcategory": "Renal replacement therapy",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Renal replacement therapy (RRT) — continuous, intermittent and hybrid dialysis/filtration for kidney failure.",
+        "longDescription": "## Definition & Clinical Context\n\nRenal replacement therapy (RRT) replaces kidney function in acute or chronic kidney failure by removing waste products and excess fluid from the blood. In the ICU it is delivered as continuous therapy (CRRT, run around the clock in haemodynamically unstable patients), intermittent haemodialysis (IHD), or hybrid/prolonged modalities (SLED/PIRRT). In source data this is a **procedure** record indicating that the patient received RRT; there is no unit. It is recorded in intensive care and nephrology. Modalities differ by continuity (continuous vs intermittent), the solute-removal principle (diffusion = dialysis, convection = filtration, or both = diafiltration), and the vascular access (veno-venous vs arterio-venous).\n\n## Included Concepts\n\nThe set anchors on the SNOMED procedure *Continuous renal replacement therapy* with its descendants (covering all continuous modalities), plus the intermittent and hybrid modalities listed explicitly. Grouped here by continuity.\n\n### Continuous (CRRT)\n\nAnchored on *Continuous renal replacement therapy* with descendants — veno-venous and arterio-venous haemodialysis (CVVHD/CAVHD), haemofiltration (CVVHF/CAVHF) and haemodiafiltration (CVVHDF/CAVHDF).\n\n- *37018292 / 714749008 — Continuous renal replacement therapy (SNOMED)*\n- (descendants: continuous veno-venous and arterio-venous haemodialysis, haemofiltration and haemodiafiltration variants)\n\n### Intermittent\n\n- *4051326 / 233575001 — Intermittent hemodialysis (SNOMED)*\n- *4050862 / 233577009 — Intermittent hemodialysis with continuous ultrafiltration (SNOMED)*\n- *4051327 / 233576000 — Intermittent hemodialysis with sequential ultrafiltration (SNOMED)*\n- *4050865 / 233582002 — Intermittent hemofiltration (SNOMED)*\n- *4052538 / 233587008 — Intermittent hemodiafiltration (SNOMED)*\n\n### Hybrid / prolonged\n\n- *44783963 / 698074000 — Sustained low-efficiency dialysis (SNOMED)*\n- *619390 / 895382009 — Prolonged intermittent renal replacement therapy (SNOMED)*\n\n### Generic modalities\n\n- *4120120 / 302497006 — Hemodialysis (SNOMED)*\n- *4050864 / 233581009 — Hemofiltration (SNOMED)*\n- *4049845 / 233586004 — Hemodiafiltration (SNOMED)*\n\n## Mapping Notes\n\n- **Default concepts** when the source records RRT without detail: map a generic 'dialysis/haemodialysis' to *4120120 / 302497006 — Hemodialysis*, generic continuous therapy to *37018292 / 714749008 — Continuous renal replacement therapy*. Map to a specific modality (CVVHDF, IHD, SLED…) when documented.\n- **Diafiltration vs dialysis vs filtration**: diafiltration (HDF) combines diffusion and convection; map to the matching concept rather than collapsing to plain dialysis when the source distinguishes them.\n- **This is the RRT procedure**, not chronic-care/home-dialysis administrative concepts (home, maintenance, nocturnal dialysis) — those are not part of this acute-care set — nor the vascular access (dialysis catheter), which is a separate device.\n- **Peritoneal dialysis** is a different RRT route, rare in adult ICU; it is not included here.\n"
       },
       "fr": {
-        "name": "Renal replacement therapy",
+        "name": "Épuration extrarénale (EER)",
         "category": "Actes",
         "subcategory": "Épuration extra-rénale",
-        "shortDescription": null,
+        "shortDescription": "Épuration extrarénale (EER) — dialyse/filtration continue, intermittente et hybride en cas d’insuffisance rénale.",
         "longDescription": null
       }
     },
@@ -159,7 +254,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Rename to \"Renal replacement therapy (RRT)\". Anchor on Continuous renal replacement therapy (37018292) with descendants (all continuous modalities) and add intermittent (IHD + UF variants, intermittent HF/HDF), hybrid (SLED, PIRRT) and generic (hemodialysis/hemofiltration/hemodiafiltration) modalities. Excludes chronic/home dialysis noise. Added clinical description."
+      }
+    ],
     "distributionStats": null
   }
 }

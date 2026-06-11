@@ -1,129 +1,15 @@
 {
   "id": 293,
   "name": "Enteral feeding",
-  "description": null,
-  "version": "1.1.0",
+  "description": "Enteral (tube) feeding — nutrition delivered into the GI tract via a feeding tube, by any route or method.",
+  "version": "1.2.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-06-10",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
-      {
-        "concept": {
-          "conceptId": 1244020,
-          "conceptName": "Gastrojejunostomy tube feeding",
-          "domainId": "Procedure",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "47441000087101",
-          "validStartDate": "2023-10-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4021170,
-          "conceptName": "Percutaneous endoscopic gastrostomy feeding",
-          "domainId": "Procedure",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "225373002",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4021171,
-          "conceptName": "Jejunostomy feeding",
-          "domainId": "Procedure",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "225374008",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4041331,
-          "conceptName": "Orogastric feeding",
-          "domainId": "Procedure",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "229913009",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4041332,
-          "conceptName": "Nasoduodenal feeding",
-          "domainId": "Procedure",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "229915002",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4041333,
-          "conceptName": "Gastrostomy feeding",
-          "domainId": "Procedure",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "229917005",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
       {
         "concept": {
           "conceptId": 4042005,
@@ -140,140 +26,7 @@
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4042006,
-          "conceptName": "Esophagostomy feeding",
-          "domainId": "Procedure",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "229916001",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4047288,
-          "conceptName": "Nasogastric feeding",
-          "domainId": "Procedure",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "229914003",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4079763,
-          "conceptName": "Nasal tube feeding",
-          "domainId": "Procedure",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "183028005",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4125454,
-          "conceptName": "Button gastrostomy feeding",
-          "domainId": "Procedure",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "289133003",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4151009,
-          "conceptName": "Nasojejunal feeding",
-          "domainId": "Procedure",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "310244003",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4211519,
-          "conceptName": "Tube feeding by drip method",
-          "domainId": "Procedure",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "56948003",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4306560,
-          "conceptName": "Tube feeding by syringe method",
-          "domainId": "Procedure",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "38903004",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       }
     ]
@@ -285,21 +38,21 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Enteral feeding",
         "category": "Procedures",
         "subcategory": "Nutrition",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Enteral (tube) feeding — nutrition delivered into the GI tract via a feeding tube, by any route or method.",
+        "longDescription": "## Definition & Clinical Context\n\nEnteral feeding (tube feeding) is the delivery of nutrition directly into the gastrointestinal tract through a feeding tube, used when a patient cannot eat safely or adequately by mouth. In source data this is a **procedure** record indicating that the patient received enteral nutrition; there is no unit. It is recorded in intensive care and across acute care. The variants differ by the route/site of the tube (nasogastric, orogastric, nasoduodenal, nasojejunal, gastrostomy, jejunostomy, etc.) and by the delivery method (continuous drip vs syringe/bolus).\n\n## Included Concepts\n\nThe set is anchored on the SNOMED procedure *Enteral feeding* with all its descendants, so every route and method resolves automatically (and future SNOMED additions are captured). This currently resolves to the following concepts.\n\n### Generic (default)\n\n- *4042005 / 229912004 — Enteral feeding (SNOMED)*: the general concept; the default when the route is not specified.\n\n### By tube route / site\n\n- *4047288 / 229914003 — Nasogastric feeding (SNOMED)*: via a nasogastric tube (the most common ICU route).\n- *4041331 / 229913009 — Orogastric feeding (SNOMED)*: via an orogastric tube.\n- *4079763 / 183028005 — Nasal tube feeding (SNOMED)*: via a nasal tube (route into stomach/duodenum unspecified).\n- *4041332 / 229915002 — Nasoduodenal feeding (SNOMED)* and *4151009 / 310244003 — Nasojejunal feeding (SNOMED)*: post-pyloric nasal routes.\n- *4042006 / 229916001 — Esophagostomy feeding (SNOMED)*.\n- *4041333 / 229917005 — Gastrostomy feeding (SNOMED)*, *4021170 / 225373002 — Percutaneous endoscopic gastrostomy feeding (SNOMED)* (PEG), *4125454 / 289133003 — Button gastrostomy feeding (SNOMED)*.\n- *4021171 / 225374008 — Jejunostomy feeding (SNOMED)* and *1244020 / 47441000087101 — Gastrojejunostomy tube feeding (SNOMED)*.\n\n### By delivery method\n\n- *4211519 / 56948003 — Tube feeding by drip method (SNOMED)*: continuous/gravity drip.\n- *4306560 / 38903004 — Tube feeding by syringe method (SNOMED)*: bolus.\n\n## Mapping Notes\n\n- **Default concept** when the source records enteral/tube feeding without a specific route: *4042005 / 229912004 — Enteral feeding*. Map to a specific route (nasogastric, gastrostomy, jejunostomy…) only when documented.\n- **Route vs method are independent**: a record may mention both (e.g. nasogastric continuous drip); map to the most specific single concept available, do not split one event across two concepts.\n- **Not parenteral nutrition**: intravenous (parenteral) nutrition is a different route and is not part of this set.\n- **The feeding act, not the tube device**: inserting the feeding tube and the tube itself are separate concepts; this set is the act of feeding via the enteral route.\n"
       },
       "fr": {
         "name": "Nutrition entérale",
         "category": "Actes",
         "subcategory": "Nutrition",
-        "shortDescription": null,
+        "shortDescription": "Nutrition entérale (par sonde) — nutrition administrée dans le tube digestif via une sonde, quelle que soit la voie ou la méthode.",
         "longDescription": null
       }
     },
@@ -317,6 +70,12 @@
         "date": "2026-06-10",
         "author": "Boris Delange",
         "message": "Removed deprecated SNOMED concepts 4175457 'Tube feeding by Barron pump' and 4263536 'Tube feeding of patient' (invalid in OMOP). Both map to 4042005 'Enteral feeding', which was already present in the set, so resolution is unchanged."
+      },
+      {
+        "version": "1.2.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Replace the flat list of 14 routes/methods with a single anchor on Enteral feeding (4042005) + includeDescendants (resolves to exactly the same 14, robust to future SNOMED additions). Added clinical description."
       }
     ],
     "distributionStats": null

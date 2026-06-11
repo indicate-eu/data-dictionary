@@ -1,10 +1,34 @@
 {
   "conceptSetId": 298,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
-  },
+  "vocabularyVersion": null,
   "resolvedConcepts": [
+    {
+      "conceptId": 619390,
+      "conceptName": "Prolonged intermittent renal replacement therapy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "895382009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4049844,
+      "conceptName": "Continuous arteriovenous hemofiltration",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "233584001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4049845,
+      "conceptName": "Hemodiafiltration",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "233586004",
+      "standardConcept": "S"
+    },
     {
       "conceptId": 4049846,
       "conceptName": "Continuous venovenous hemodiafiltration",
@@ -21,6 +45,51 @@
       "domainId": "Procedure",
       "conceptClassId": "Procedure",
       "conceptCode": "233577009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4050863,
+      "conceptName": "Continuous hemodialysis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "233578004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4050864,
+      "conceptName": "Hemofiltration",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "233581009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4050865,
+      "conceptName": "Intermittent hemofiltration",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "233582002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4050866,
+      "conceptName": "Continuous hemodiafiltration",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "233588003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4050867,
+      "conceptName": "Continuous arteriovenous hemodiafiltration",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "233589006",
       "standardConcept": "S"
     },
     {
@@ -42,6 +111,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 4051328,
+      "conceptName": "Continuous arteriovenous hemodialysis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "233579007",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4051329,
       "conceptName": "Continuous venovenous hemodialysis",
       "vocabularyId": "SNOMED",
@@ -57,6 +135,51 @@
       "domainId": "Procedure",
       "conceptClassId": "Procedure",
       "conceptCode": "233585000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4052537,
+      "conceptName": "Continuous hemofiltration",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "233583007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4052538,
+      "conceptName": "Intermittent hemodiafiltration",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "233587008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4120120,
+      "conceptName": "Hemodialysis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "302497006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37018292,
+      "conceptName": "Continuous renal replacement therapy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "714749008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44783963,
+      "conceptName": "Sustained low-efficiency dialysis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Procedure",
+      "conceptClassId": "Procedure",
+      "conceptCode": "698074000",
       "standardConcept": "S"
     }
   ]

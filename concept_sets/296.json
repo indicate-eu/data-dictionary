@@ -1,26 +1,26 @@
 {
   "id": 296,
-  "name": "Prone positioning",
-  "description": null,
-  "version": "1.0.0",
+  "name": "Prone position",
+  "description": "Prone (face-down) body position — the position state, not the act of placing the patient prone.",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
       {
         "concept": {
-          "conceptId": 4196006,
-          "conceptName": "Placing subject in prone position",
-          "domainId": "Procedure",
+          "conceptId": 4050473,
+          "conceptName": "Prone body position",
+          "domainId": "Observation",
           "vocabularyId": "SNOMED",
-          "conceptClassId": "Procedure",
+          "conceptClassId": "Clinical Finding",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "431182000",
-          "validStartDate": "2008-07-31",
+          "conceptCode": "1240000",
+          "validStartDate": "2002-01-31",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
@@ -38,21 +38,21 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Prone positioning",
+        "name": "Prone position",
         "category": "Procedures",
         "subcategory": "Patient position",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Prone (face-down) body position — the position state, not the act of placing the patient prone.",
+        "longDescription": "## Definition & Clinical Context\n\nProne position is the body position in which the patient lies face-down (on the stomach). In intensive care, placing a patient prone improves oxygenation in severe ARDS and is a standard intervention there. In source data this set captures the **position state** — that the patient is/was in the prone position — as an observation, rather than the action of turning the patient prone. There is no unit. It is recorded in intensive care and anaesthesia.\n\n## Included Concepts\n\n- *4050473 / 1240000 — Prone body position (SNOMED)*: the patient is in the prone (face-down) body position.\n\n## Mapping Notes\n\n- This concept captures the **state** (the patient is prone), not the act of placing the patient prone. Source records of the *procedure* 'placing subject in prone position' or 'assisted ventilation in prone position' describe the action/intervention; map the resulting position state here.\n- **Not semi-prone / lateral**: the semi-prone and lateral positions are distinct body positions and are not part of this set.\n"
       },
       "fr": {
         "name": "Décubitus ventral",
         "category": "Actes",
         "subcategory": "Position du patient",
-        "shortDescription": null,
+        "shortDescription": "Décubitus ventral (face vers le bas) — l’état de position, non le geste de mise en décubitus ventral.",
         "longDescription": null
       }
     },
@@ -64,7 +64,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Capture the position STATE: replace \"Placing subject in prone position\" (4196006, the action) with \"Prone body position\" (4050473, the state Observation); rename set to \"Prone position\". Added description."
+      }
+    ],
     "distributionStats": null
   }
 }

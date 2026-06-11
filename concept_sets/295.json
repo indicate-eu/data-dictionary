@@ -1,7 +1,7 @@
 {
   "id": 295,
   "name": "Order not to mobilize",
-  "description": null,
+  "description": "Clinical order that the patient must not be mobilized (bed rest); the directive itself, not the mobility status.",
   "version": "1.0.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
@@ -45,14 +45,14 @@
         "name": "Order not to mobilize",
         "category": "Procedures",
         "subcategory": "Patient position",
-        "shortDescription": null,
+        "shortDescription": "Clinical order that the patient must not be mobilized (bed rest); the directive itself, not the mobility status.",
         "longDescription": "## Definition & Clinical Context\n\nAn order not to mobilize is a clinical directive indicating that a patient must not be mobilized — that is, must remain in bed or in a fixed position. This order is typically issued in the ICU or acute care setting when mobilization could be harmful, for example during hemodynamic instability, uncontrolled intracranial hypertension, unstable spinal fracture, active hemorrhage, or the immediate postoperative period following certain procedures [1].\n\nThis concept captures the clinical decision (the order itself), not the patient's mobility status. It is recorded as a binary observation: the order is either active or absent. It should not be confused with the patient's actual level of mobilization, which is captured by separate concept sets.\n\n## Included Concepts\n\nThis concept set contains a single custom concept, as no equivalent exists in standard terminologies (SNOMED, LOINC).\n\n## Mapping Notes\n\n- **Source labels**: \"No mobilization order\", \"Bed rest order\", \"Do not mobilize\", \"Strict bed rest\" → map to this concept.\n- **Distinguish from mobility status**: This concept captures the *order* (a directive), not the *observation* that the patient does not mobilize. \"Patient does not mobilize\" (a clinical finding) should not be mapped here.\n- **Value**: This is typically a binary observation — the order is active or not. Use `value_as_concept_id` with appropriate Yes/No concepts if needed, or simply record the observation row when the order is active.\n\n## References\n\n[1] Hodgson CL, Stiller K, Needham DM, et al. Expert consensus and recommendations on safety criteria for active mobilization of mechanically ventilated critically ill adults. Crit Care. 2014;18(6):658. doi:10.1186/s13054-014-0658-y. PMID: 25475522"
       },
       "fr": {
         "name": "Prescription de non-mobilisation",
         "category": "Actes",
         "subcategory": "Position du patient",
-        "shortDescription": null,
+        "shortDescription": "Prescription indiquant que le patient ne doit pas être mobilisé (repos au lit) ; la directive elle-même, non le statut de mobilité.",
         "longDescription": "## Définition et contexte clinique\n\nLa prescription de non-mobilisation est une directive clinique indiquant qu'un patient ne doit pas être mobilisé — c'est-à-dire qu'il doit rester alité ou dans une position fixe. Cette prescription est typiquement émise en réanimation ou en soins aigus lorsque la mobilisation pourrait être délétère, par exemple en cas d'instabilité hémodynamique, d'hypertension intracrânienne non contrôlée, de fracture rachidienne instable, d'hémorragie active, ou en période postopératoire immédiate après certaines interventions [1].\n\nCe concept capture la décision clinique (la prescription elle-même), et non le statut de mobilité du patient. Il est enregistré comme une observation binaire : la prescription est active ou absente. Il ne doit pas être confondu avec le niveau de mobilisation effectif du patient, qui est capturé par des concept sets distincts.\n\n## Concepts inclus\n\nCe concept set contient un seul concept custom, aucun équivalent n'existant dans les terminologies standard (SNOMED, LOINC).\n\n## Notes de mapping\n\n- **Libellés sources** : « Interdiction de lever », « Repos strict au lit », « Non-mobilisation », « Alitement strict » → mapper vers ce concept.\n- **Distinguer du statut de mobilité** : Ce concept capture la *prescription* (une directive), et non l'*observation* que le patient ne se mobilise pas. « Le patient ne se mobilise pas » (un constat clinique) ne doit pas être mappé ici.\n- **Valeur** : Il s'agit typiquement d'une observation binaire — la prescription est active ou non. Utiliser `value_as_concept_id` avec les concepts Oui/Non appropriés si nécessaire, ou simplement enregistrer la ligne d'observation lorsque la prescription est active.\n\n## Références\n\n[1] Hodgson CL, Stiller K, Needham DM, et al. Expert consensus and recommendations on safety criteria for active mobilization of mechanically ventilated critically ill adults. Crit Care. 2014;18(6):658. doi:10.1186/s13054-014-0658-y. PMID: 25475522"
       }
     },

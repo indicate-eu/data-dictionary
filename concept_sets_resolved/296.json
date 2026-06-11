@@ -1,17 +1,14 @@
 {
   "conceptSetId": 296,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
-  },
+  "vocabularyVersion": null,
   "resolvedConcepts": [
     {
-      "conceptId": 4196006,
-      "conceptName": "Placing subject in prone position",
+      "conceptId": 4050473,
+      "conceptName": "Prone body position",
       "vocabularyId": "SNOMED",
-      "domainId": "Procedure",
-      "conceptClassId": "Procedure",
-      "conceptCode": "431182000",
+      "domainId": "Observation",
+      "conceptClassId": "Clinical Finding",
+      "conceptCode": "1240000",
       "standardConcept": "S"
     }
   ]
