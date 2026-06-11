@@ -1,10 +1,6 @@
 {
   "conceptSetId": 332,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "LOINC": "LOINC 2.80",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
-  },
+  "vocabularyVersion": null,
   "resolvedConcepts": [
     {
       "conceptId": 1175625,
@@ -22,6 +18,24 @@
       "domainId": "Measurement",
       "conceptClassId": "Clinical Observation",
       "conceptCode": "19841-6",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3007469,
+      "conceptName": "Breath rate setting Ventilator",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "19834-1",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3007646,
+      "conceptName": "Breath rate spontaneous and mechanical --on ventilator",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "19840-8",
       "standardConcept": "S"
     },
     {
@@ -121,6 +135,15 @@
       "domainId": "Measurement",
       "conceptClassId": "Clinical Observation",
       "conceptCode": "9300-5",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3026892,
+      "conceptName": "Breath rate spontaneous --on ventilator",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "19839-0",
       "standardConcept": "S"
     },
     {

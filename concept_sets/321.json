@@ -1,8 +1,8 @@
 {
   "id": 321,
-  "name": "Respiratory rate (RR)",
-  "description": "Respiratory rate — breaths per minute (/min), incl. ventilator set/measured/spontaneous rates.",
-  "version": "1.2.0",
+  "name": "[Deprecated] Respiratory rate (ventilation parameters)",
+  "description": "Deprecated — merged into the single Respiratory rate (RR) concept set; use that set instead.",
+  "version": "1.3.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
@@ -114,21 +114,21 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "pending_review",
+    "reviewStatus": "deprecated",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Respiratory rate (RR)",
+        "name": "[Deprecated] Respiratory rate (ventilation parameters)",
         "category": "Ventilation",
         "subcategory": "Ventilation parameters",
-        "shortDescription": "Respiratory rate — breaths per minute (/min), incl. ventilator set/measured/spontaneous rates.",
-        "longDescription": "## Definition & Clinical Context\n\nRespiratory rate is the number of breaths per minute. In ventilated patients it includes the rate set on the ventilator and the measured rate (which combines mandatory ventilator breaths and the patient's own spontaneous breaths). In source data it is a single numeric value per patient-timestamp. It is recorded across intensive care, anaesthesia, wards and emergency settings. It is reported in breaths per minute (recorded with the UCUM unit /min).\n\n## Included Concepts\n\nThe set lists the SNOMED and LOINC concepts for respiratory / breath rate. All are reported in /min.\n\n### Generic respiratory rate (default)\n\n- *3024171 / 9279-1 — Respiratory rate (LOINC)* and *4313591 / 86290005 — Respiratory rate (SNOMED)*: the patient's breathing frequency; the default.\n\n- *4108446 / 250810003 — Total breath rate (SNOMED)*, *4154772 / 271625008 — Rate of spontaneous respiration (SNOMED)*, *45770405 / 927961000000102 — Baseline respiratory rate (SNOMED)*: further SNOMED respiratory-rate variants (descendants of the generic concept).\n\n### On the ventilator\n\n- *3007646 / 19840-8 — Breath rate spontaneous and mechanical --on ventilator (LOINC)*: total (spontaneous + mandatory) measured rate.\n- *3026892 / 19839-0 — Breath rate spontaneous --on ventilator (LOINC)*: the patient's own breaths only.\n- *3007469 / 19834-1 — Breath rate setting Ventilator (LOINC)*: the set (mandatory) rate.\n\n**Note on units**: reported in **/min** (`8541 / /min — per minute`, UCUM), the recommended unit (breaths per minute).\n\n## Mapping Notes\n\n- **Default concept** when the source records a respiratory rate without qualification: *3024171 / 9279-1 — Respiratory rate* (or its SNOMED equivalent *4313591 / 86290005*).\n- **Setting vs measured**: map the set ventilator rate to *3007469 / 19834-1 — Breath rate setting Ventilator*; the measured total rate to *3007646 / 19840-8*; the spontaneous component to *3026892 / 19839-0*.\n- Use the generic concept when the source does not distinguish spontaneous from mandatory breaths.\n"
+        "shortDescription": "Deprecated — merged into the single Respiratory rate (RR) concept set; use that set instead.",
+        "longDescription": "Deprecated — merged into the single Respiratory rate (RR) concept set; use that set instead."
       },
       "fr": {
-        "name": "Fréquence respiratoire (FR)",
+        "name": "[Obsolète] Fréquence respiratoire (paramètres ventilatoires)",
         "category": "Ventilation",
         "subcategory": "Paramètres ventilatoires",
-        "shortDescription": "Fréquence respiratoire — cycles par minute (/min), y compris fréquences ventilateur réglée/mesurée/spontanée.",
+        "shortDescription": "Obsolète — fusionné dans le concept set unique Fréquence respiratoire (FR) ; utiliser ce dernier.",
         "longDescription": null
       }
     },
@@ -152,6 +152,12 @@
         "date": "2026-06-11",
         "author": "Boris Delange",
         "message": "Anchor the SNOMED Respiratory rate concept (4313591) on its descendants, picking up Total breath rate (4108446), Rate of spontaneous respiration (4154772) and Baseline respiratory rate (45770405)."
+      },
+      {
+        "version": "1.3.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Deprecated: merged into the single Respiratory rate (RR) concept set (the vital-sign respiratory-rate set)."
       }
     ],
     "distributionStats": null
