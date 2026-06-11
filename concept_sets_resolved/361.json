@@ -1,0 +1,24 @@
+{
+  "conceptSetId": 361,
+  "vocabularyVersion": null,
+  "resolvedConcepts": [
+    {
+      "conceptId": 3012287,
+      "conceptName": "Carbon dioxide/Gas.total.at end expiration in Exhaled gas by Infrared absorption",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "19888-7",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3017485,
+      "conceptName": "Carbon dioxide/Gas.total.at end expiration in Exhaled gas",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "19889-5",
+      "standardConcept": "S"
+    }
+  ]
+}

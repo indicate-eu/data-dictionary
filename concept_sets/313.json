@@ -1,6 +1,6 @@
 {
   "id": 313,
-  "name": "Horowitz index",
+  "name": "Horowitz index (PaO2/FiO2)",
   "description": "Horowitz index (PaO2/FiO2 ratio) — arterial oxygen partial pressure over inspired O2 fraction, in mmHg; ARDS/SOFA marker.",
   "version": "1.0.0",
   "createdBy": "Boris Delange",
@@ -213,14 +213,14 @@
     "origin": null,
     "translations": {
       "en": {
-        "name": "Horowitz index",
+        "name": "Horowitz index (PaO2/FiO2)",
         "category": "Ventilation",
         "subcategory": "Ventilation parameters",
         "shortDescription": "Horowitz index (PaO2/FiO2 ratio) — arterial oxygen partial pressure over inspired O2 fraction, in mmHg; ARDS/SOFA marker.",
         "longDescription": "## Definition & Clinical Context\n\nThe Horowitz index (also written **P/F ratio** or **PaO2/FiO2**) is the ratio of the arterial oxygen partial pressure (PaO2) to the fraction of inspired oxygen (FiO2) — for example, PaO2 of 80 mmHg on FiO2 0.40 gives a Horowitz index of 200 [1]. It is a standard marker of how well the lungs oxygenate the blood, used to grade the severity of acute respiratory distress syndrome (ARDS) and embedded in acuity scores such as SOFA, SAPS II and SAPS III [1]. In source data it is a single numeric value per patient-timestamp, derived from a blood-gas PaO2 and the concurrent FiO2. It is recorded in intensive care for ventilated and oxygen-treated patients. The numerator (PaO2) is in mmHg and the FiO2 is a unitless fraction, so the ratio is reported in **mmHg** [1].\n\n## Included Concepts\n\nThe set lists the LOINC concepts for the Horowitz index, grouped by the blood specimen the oxygen partial pressure comes from. Within each specimen there are two variants: a plain index and one **adjusted to the patient's actual temperature** (blood-gas values can be temperature-corrected).\n\n### Arterial blood (default)\n\nThe Horowitz index is by definition an arterial measurement; these are the concepts to use in almost all cases.\n\n- *3029943 / 50984-4 — Horowitz index in Arterial blood (LOINC)*.\n- *3029268 / 50989-3 — Horowitz index adjusted to patients actual temperature in Arterial blood (LOINC)*.\n\n### Blood (unspecified)\n\nUse when the source does not state the specimen.\n\n- *3029880 / 50982-8 — Horowitz index in Blood (LOINC)*.\n- *3029906 / 50987-7 — Horowitz index adjusted to patients actual temperature in Blood (LOINC)*.\n\n### Venous blood\n\n- *3029316 / 50986-9 — Horowitz index in Venous blood (LOINC)*.\n- *3032443 / 50991-9 — Horowitz index adjusted to patients actual temperature in Venous blood (LOINC)*.\n\n### Mixed venous blood\n\n- *3029599 / 50985-1 — Horowitz index in Mixed venous blood (LOINC)*.\n- *3029523 / 50990-1 — Horowitz index adjusted to patients actual temperature in Mixed venous blood (LOINC)*.\n\n### Capillary blood\n\n- *3030774 / 50983-6 — Horowitz index in Capillary blood (LOINC)*.\n- *3032208 / 50988-5 — Horowitz index adjusted to patients actual temperature in Capillary blood (LOINC)*.\n\n**Note on units**: all concepts are reported in **`8876 / mm[Hg] — millimeter mercury column`** (UCUM), the recommended unit.\n\n## Mapping Notes\n\n- **Default concept** when the source records a Horowitz index / P/F ratio without specifying the specimen: *3029880 / 50982-8 — Horowitz index in Blood*. When the value is known to come from an arterial blood gas (the usual case), prefer *3029943 / 50984-4 — Horowitz index in Arterial blood*.\n- **Temperature-adjusted vs not**: map to an \"adjusted to patient's actual temperature\" concept only when the source explicitly states the blood-gas values were temperature-corrected; otherwise use the plain variant for that specimen.\n- **Units of the ratio**: the value is in mmHg because PaO2 is in mmHg and FiO2 is a 0–1 fraction. If a source computes the index from a PaO2 in kPa, the resulting ratio is in kPa and must be converted to mmHg (×7.50) before mapping.\n- **Do not confuse with its components**: PaO2 (arterial oxygen partial pressure) and FiO2 are separate measurements in their own concept sets; this set is only the ratio.\n- **Not the SpO2/FiO2 ratio**: the S/F ratio (peripheral oxygen saturation over FiO2) is a different surrogate and does not map here.\n\n## References\n\n[1] Regenstrief Institute. LOINC code 50984-4 — Horowitz index in Arterial blood.\n    Available: <a href=\"https://loinc.org/50984-4/\" target=\"_blank\">https://loinc.org/50984-4/</a>"
       },
       "fr": {
-        "name": "Index de Horowitz",
+        "name": "Index de Horowitz (PaO2/FiO2)",
         "category": "Ventilation",
         "subcategory": "Paramètres ventilatoires",
         "shortDescription": "Index de Horowitz (rapport PaO2/FiO2) — pression partielle artérielle d’O2 sur fraction inspirée d’O2, en mmHg ; marqueur SDRA/SOFA.",

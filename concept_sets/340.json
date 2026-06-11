@@ -1,12 +1,12 @@
 {
   "id": 340,
-  "name": "Ventilation mode - Volume driven (VCV)",
-  "description": "Volume-controlled ventilation modes — the ventilator delivers a set tidal volume.",
-  "version": "1.1.0",
+  "name": "[Deprecated] Ventilation mode - Volume driven (VCV)",
+  "description": "[Deprecated] Merged into the Ventilation mode concept set.",
+  "version": "1.2.0",
   "createdBy": "Gregor Lichtner",
   "createdDate": "2026-03-23",
   "modifiedBy": "Gregor Lichtner",
-  "modifiedDate": "2026-06-10",
+  "modifiedDate": "2026-06-11",
   "createdByTool": null,
   "expression": {
     "items": [
@@ -114,21 +114,22 @@
       "name": "INDICATE Consortium",
       "url": "https://indicate-eu.org"
     },
-    "reviewStatus": "pending_review",
+    "reviewStatus": "deprecated",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Ventilation mode - Volume driven (VCV)",
+        "name": "[Deprecated] Ventilation mode - Volume driven (VCV)",
         "category": "Ventilation",
         "subcategory": "Ventilation mode",
-        "shortDescription": "Volume-controlled ventilation modes — the ventilator delivers a set tidal volume.",
-        "longDescription": "## Definition & Clinical Context\n\nVolume-controlled mechanical ventilation modes, where the ventilator delivers a set tidal volume and the resulting airway pressure varies with the patient's lung mechanics. In source data this is a **procedure** record indicating the ventilation mode in use; there is no unit. It is recorded in intensive care and anaesthesia for ventilated patients. The mode is independent of whether ventilation is invasive (via an endotracheal/tracheostomy tube) or non-invasive (via a mask) — that distinction is captured in the Invasive mechanical ventilation and Non-invasive ventilation concept sets.\n\n## Included Concepts\n\nThe set lists the SNOMED procedure concepts for these modes.\n\n- *4055375 / 243150007 — Assisted controlled mandatory ventilation (SNOMED)*\n- *4245036 / 59427005 — Synchronized intermittent mandatory ventilation (SNOMED)*\n- *37152363 / 1186621003 — Synchronized intermittent mandatory ventilation - volume control pressure-support inflation (SNOMED)*\n- *37152385 / 1186680000 — Synchronized intermittent mandatory ventilation volume control inflation and an assured constant airway pressure adjunct during expiratory phase (SNOMED)*\n- *37152409 / 1186745009 — Assist control ventilation volume-control inflation-type (SNOMED)*\n\n## Mapping Notes\n\n- Map a recorded ventilation mode to the matching concept here based on the control variable / mode family, regardless of whether the patient is invasively or non-invasively ventilated.\n- **Mode vs ventilation act**: this set captures the *mode* only; whether the patient is on invasive or non-invasive ventilation is recorded separately (Invasive mechanical ventilation / Non-invasive ventilation concept sets).\n"
+        "shortDescription": "**Deprecated.** This set has been merged into the single **Ventilation mode** concept set; use that set instead. Kept for history.",
+        "longDescription": "**Deprecated.** This set has been merged into the single **Ventilation mode** concept set; use that set instead. Kept for history."
       },
       "fr": {
         "category": "Ventilation",
         "subcategory": "Mode de ventilation",
-        "name": "Mode de ventilation - Piloté en volume (VCV)",
-        "shortDescription": "Modes de ventilation à volume contrôlé — le ventilateur délivre un volume courant réglé."
+        "name": "[Obsolète] Mode de ventilation - Piloté en volume (VCV)",
+        "shortDescription": "**Obsolète.** Fusionné dans le concept set unique « Mode de ventilation » ; utiliser ce dernier.",
+        "longDescription": null
       }
     },
     "createdByDetails": {
@@ -141,10 +142,10 @@
     "reviews": [],
     "versions": [
       {
-        "version": "1.1.0",
-        "date": "2026-06-10",
+        "version": "1.2.0",
+        "date": "2026-06-11",
         "author": "Boris Delange",
-        "message": "Reorganize Ventilation mode subcategory: VCV holds volume-control modes. Added clinical description."
+        "message": "Deprecated: merged into the unified Ventilation mode concept set."
       }
     ],
     "distributionStats": null

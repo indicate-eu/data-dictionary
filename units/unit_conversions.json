@@ -5656,5 +5656,27 @@
     "targetUnitConceptId": 8876,
     "targetUnitCode": "mm[Hg]",
     "targetUnitName": "millimeter mercury column"
+  },
+  {
+    "conceptId": 4215838,
+    "conceptName": "Inspiratory pressure setting",
+    "sourceUnitConceptId": 44777590,
+    "sourceUnitCode": "cm[H2O]",
+    "sourceUnitName": "centimeter watercolumn",
+    "conversionFactor": 0.980665,
+    "targetUnitConceptId": 720858,
+    "targetUnitCode": "mbar",
+    "targetUnitName": "millibar"
+  },
+  {
+    "conceptId": 4215838,
+    "conceptName": "Inspiratory pressure setting",
+    "sourceUnitConceptId": 720858,
+    "sourceUnitCode": "mbar",
+    "sourceUnitName": "millibar",
+    "conversionFactor": 1.019716,
+    "targetUnitConceptId": 44777590,
+    "targetUnitCode": "cm[H2O]",
+    "targetUnitName": "centimeter watercolumn"
   }
 ]

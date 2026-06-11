@@ -30721,5 +30721,16 @@
     "recommendedUnitName": "millimeter mercury column",
     "recommendedUnitCode": "mm[Hg]",
     "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 4215838,
+    "conceptName": "Inspiratory pressure setting",
+    "conceptCode": "417071008",
+    "vocabularyId": "SNOMED",
+    "domainId": "Observation",
+    "recommendedUnitConceptId": 44777590,
+    "recommendedUnitName": "centimeter watercolumn",
+    "recommendedUnitCode": "cm[H2O]",
+    "recommendedUnitVocabularyId": "UCUM"
   }
 ]

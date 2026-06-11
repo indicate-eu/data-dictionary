@@ -1,12 +1,12 @@
 {
   "id": 339,
-  "name": "Ventilation mode - Pressure driven (PCV)",
-  "description": "Pressure-controlled and volume-targeted-pressure-control (dual) ventilation modes — the ventilator regulates airway pressure.",
-  "version": "1.1.0",
+  "name": "Ventilation mode",
+  "description": "Ventilation mode in use (PCV, VCV, SIMV, pressure support, CPAP/BiPAP, APRV, NAVA, high-frequency, CMV…) — one variable, all modes.",
+  "version": "1.2.0",
   "createdBy": "Gregor Lichtner",
   "createdDate": "2026-03-23",
   "modifiedBy": "Gregor Lichtner",
-  "modifiedDate": "2026-06-10",
+  "modifiedDate": "2026-06-11",
   "createdByTool": null,
   "expression": {
     "items": [
@@ -218,6 +218,671 @@
         "isExcluded": false,
         "includeDescendants": false,
         "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37152409,
+          "conceptName": "Assist control ventilation volume-control inflation-type",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1186745009",
+          "validStartDate": "2021-11-30",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4055375,
+          "conceptName": "Assisted controlled mandatory ventilation",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "243150007",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4245036,
+          "conceptName": "Synchronized intermittent mandatory ventilation",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "59427005",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37152363,
+          "conceptName": "Synchronized intermittent mandatory ventilation - volume control pressure-support inflation",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1186621003",
+          "validStartDate": "2022-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37152385,
+          "conceptName": "Synchronized intermittent mandatory ventilation volume control inflation and an assured constant airway pressure adjunct during expiratory phase",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1186680000",
+          "validStartDate": "2022-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37154096,
+          "conceptName": "Pressure support ventilation",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1259864003",
+          "validStartDate": "2022-12-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4165535,
+          "conceptName": "Continuous positive airway pressure ventilation treatment",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "47545007",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4055262,
+          "conceptName": "Dual pressure spontaneous ventilation support",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "243142003",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3661883,
+          "conceptName": "Nocturnal dual pressure spontaneous ventilation support",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "34291000175108",
+          "validStartDate": "2020-07-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37152400,
+          "conceptName": "Continuous spontaneous ventilation with pressure support",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1186731003",
+          "validStartDate": "2022-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37152401,
+          "conceptName": "Continuous spontaneous ventilation with volume targeted pressure-support",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1186732005",
+          "validStartDate": "2022-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37152402,
+          "conceptName": "Continuous spontaneous ventilation with effort support",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1186733000",
+          "validStartDate": "2022-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 40491848,
+          "conceptName": "Bilevel positive airway pressure titration",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "447243000",
+          "validStartDate": "2011-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37152378,
+          "conceptName": "Spontaneous timed ventilation with pressure-support for spontaneous breaths and volume-control ventilator initiated inflation",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1186658003",
+          "validStartDate": "2021-11-30",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37152379,
+          "conceptName": "Spontaneous timed ventilation with pressure-support for spontaneous breaths and pressure-control with flow termination for ventilator initiated inflation",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1186672007",
+          "validStartDate": "2021-11-30",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37152380,
+          "conceptName": "Spontaneous timed ventilation with volume targeted pressure-support for spontaneous breaths and volume targeted pressure-control for ventilator initiated inflations",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1186674008",
+          "validStartDate": "2021-11-30",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37152383,
+          "conceptName": "Continuous positive airway pressure with an assured constant airway pressure adjunct",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1186678006",
+          "validStartDate": "2022-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37152791,
+          "conceptName": "Spontaneous and/or timed ventilation",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1197780003",
+          "validStartDate": "2022-02-28",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3661882,
+          "conceptName": "Nocturnal continuous positive airway pressure",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "34281000175105",
+          "validStartDate": "2020-07-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4072515,
+          "conceptName": "Airway pressure release ventilation",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "243143008",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37153603,
+          "conceptName": "Continuous mandatory ventilation",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1222606000",
+          "validStartDate": "2022-05-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37153604,
+          "conceptName": "Continuous mandatory ventilation with sigh",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1222607009",
+          "validStartDate": "2022-05-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37151336,
+          "conceptName": "Continuous mandatory ventilation volume-control inflation-type and assured constant airway pressure adjunct in the expiratory phase",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1187022003",
+          "validStartDate": "2022-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37151337,
+          "conceptName": "Continuous mandatory ventilation pressure-control inflation-type",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1187023008",
+          "validStartDate": "2022-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37151338,
+          "conceptName": "Continuous mandatory ventilation pressure-control inflation-type and assured constant airway pressure adjunct",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1187024002",
+          "validStartDate": "2022-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37151339,
+          "conceptName": "Continuous mandatory ventilation volume-targeted pressure-control inflation-type",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1187025001",
+          "validStartDate": "2022-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37152413,
+          "conceptName": "Continuous mandatory ventilation volume-control inflation-type",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1186749003",
+          "validStartDate": "2022-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37152407,
+          "conceptName": "Intermittent mandatory ventilation with synchronized-termination pressure-control and assured constant airway pressure adjunct",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1186742007",
+          "validStartDate": "2022-03-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37157430,
+          "conceptName": "Intermittent mandatory ventilation with synchronized-termination pressure control and assured constant airway pressure adjunct during the inflation phase",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1217390002",
+          "validStartDate": "2022-06-30",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37157167,
+          "conceptName": "Intermittent mandatory ventilation",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1197612007",
+          "validStartDate": "2022-02-28",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37158487,
+          "conceptName": "Continuous flow apneic ventilation",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1260411001",
+          "validStartDate": "2023-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4074666,
+          "conceptName": "High frequency oscillatory ventilation",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "243155002",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4055377,
+          "conceptName": "High frequency jet ventilation",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "243154003",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4055376,
+          "conceptName": "High frequency positive pressure ventilation",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "243153009",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 1243692,
+          "conceptName": "Neurally adjusted ventilatory assist",
+          "domainId": "Procedure",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1297240007",
+          "validStartDate": "2024-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
       }
     ]
   },
@@ -232,17 +897,18 @@
     "origin": null,
     "translations": {
       "en": {
-        "name": "Ventilation mode - Pressure driven (PCV)",
+        "name": "Ventilation mode",
         "category": "Ventilation",
         "subcategory": "Ventilation mode",
-        "shortDescription": "Pressure-controlled and volume-targeted-pressure-control (dual) ventilation modes — the ventilator regulates airway pressure.",
-        "longDescription": "## Definition & Clinical Context\n\nPressure-controlled mechanical ventilation modes, where the ventilator targets a set airway pressure and the delivered tidal volume varies with the patient's lung mechanics. Also includes dual / volume-targeted pressure-control modes (e.g. PRVC), where pressure is the controlled variable but a tidal volume is set as the target. In source data this is a **procedure** record indicating the ventilation mode in use; there is no unit. It is recorded in intensive care and anaesthesia for ventilated patients. The mode is independent of whether ventilation is invasive (via an endotracheal/tracheostomy tube) or non-invasive (via a mask) — that distinction is captured in the Invasive mechanical ventilation and Non-invasive ventilation concept sets.\n\n## Included Concepts\n\nThe set lists the SNOMED procedure concepts for these modes.\n\n- *37152364 / 1186622005 — Synchronized intermittent mandatory ventilation - pressure-control pressure-support inflation (SNOMED)*\n- *37152384 / 1186679003 — Synchronized intermittent mandatory ventilation - volume targeted pressure-control and pressure-support inflation (SNOMED)*\n- *37152386 / 1186681001 — Synchronized intermittent mandatory ventilation with pressure-control, two levels of pressure-support and an assured constant airway pressure adjunct (SNOMED)*\n- *37152387 / 1186682008 — Synchronized intermittent mandatory ventilation with pressure-control, one level of pressure-support active during both phases and an assured constant airway pressure adjunct (SNOMED)*\n- *37152388 / 1186683003 — Synchronized intermittent mandatory ventilation with pressure-control, an assured constant airway pressure adjunct and pressure-support at the higher pressure level only (SNOMED)*\n- *37152389 / 1186684009 — Synchronized intermittent mandatory ventilation with synchronized termination pressure-control, pressure-support and an assured constant airway pressure adjunct (SNOMED)*\n- *37152390 / 1186685005 — Synchronized intermittent mandatory ventilation with volume targeted pressure-control, pressure-support and an assured constant airway pressure adjunct (SNOMED)*\n- *37152408 / 1186744008 — Assist control ventilation volume-targeted pressure-control inflation-type and assured constant airway pressure adjunct (SNOMED)*\n- *37152410 / 1186746005 — Assist control ventilation pressure control inflation-type (SNOMED)*\n- *37152411 / 1186747001 — Assist control ventilation volume-targeted pressure-control inflation-type (SNOMED)*\n- *37152412 / 1186748006 — Assist control ventilation pressure-control inflation-type and assured constant airway pressure adjunct (SNOMED)*\n\n## Mapping Notes\n\n- Map a recorded ventilation mode to the matching concept here based on the control variable / mode family, regardless of whether the patient is invasively or non-invasively ventilated.\n- **Mode vs ventilation act**: this set captures the *mode* only; whether the patient is on invasive or non-invasive ventilation is recorded separately (Invasive mechanical ventilation / Non-invasive ventilation concept sets).\n"
+        "shortDescription": "Ventilation mode in use (PCV, VCV, SIMV, pressure support, CPAP/BiPAP, APRV, NAVA, high-frequency, CMV…) — one variable, all modes.",
+        "longDescription": "## Definition & Clinical Context\n\nThe ventilation mode is the control strategy a mechanical ventilator uses to deliver breaths — how it triggers, targets and cycles each breath (for example volume-controlled, pressure-controlled, pressure support, CPAP, or high-frequency). In source data this is a single categorical variable per patient-timestamp whose value is the mode in use; it is a **procedure** record with no unit. It is recorded in intensive care and anaesthesia for ventilated patients. The mode is independent of whether ventilation is invasive (via a tube) or non-invasive (via a mask) — that distinction is captured in the Invasive mechanical ventilation and Non-invasive ventilation concept sets.\n\n## Included Concepts\n\nThis set groups all SNOMED ventilation-mode concepts in one place (a single `ventilation_mode` variable). They are organised below by mode family for readability only — all are part of the same set.\n\n### Pressure-controlled (and volume-targeted pressure-control)\n\n- *37152410 / 1186746005 — Assist control ventilation pressure control inflation-type (SNOMED)*\n- *37152412 / 1186748006 — Assist control ventilation pressure-control inflation-type and assured constant airway pressure adjunct (SNOMED)*\n- *37152411 / 1186747001 — Assist control ventilation volume-targeted pressure-control inflation-type (SNOMED)*\n- *37152408 / 1186744008 — Assist control ventilation volume-targeted pressure-control inflation-type and assured constant airway pressure adjunct (SNOMED)*\n- *37152364 / 1186622005 — Synchronized intermittent mandatory ventilation - pressure-control pressure-support inflation (SNOMED)*\n- *37152384 / 1186679003 — Synchronized intermittent mandatory ventilation - volume targeted pressure-control and pressure-support inflation (SNOMED)*\n- *37152386 / 1186681001 — Synchronized intermittent mandatory ventilation with pressure-control, two levels of pressure-support and an assured constant airway pressure adjunct (SNOMED)*\n- *37152387 / 1186682008 — Synchronized intermittent mandatory ventilation with pressure-control, one level of pressure-support active during both phases and an assured constant airway pressure adjunct (SNOMED)*\n- *37152388 / 1186683003 — Synchronized intermittent mandatory ventilation with pressure-control, an assured constant airway pressure adjunct and pressure-support at the higher pressure level only (SNOMED)*\n- *37152389 / 1186684009 — Synchronized intermittent mandatory ventilation with synchronized termination pressure-control, pressure-support and an assured constant airway pressure adjunct (SNOMED)*\n- *37152390 / 1186685005 — Synchronized intermittent mandatory ventilation with volume targeted pressure-control, pressure-support and an assured constant airway pressure adjunct (SNOMED)*\n\n### Volume-controlled\n\n- *37152409 / 1186745009 — Assist control ventilation volume-control inflation-type (SNOMED)*\n- *4055375 / 243150007 — Assisted controlled mandatory ventilation (SNOMED)*\n- *4245036 / 59427005 — Synchronized intermittent mandatory ventilation (SNOMED)*\n- *37152363 / 1186621003 — Synchronized intermittent mandatory ventilation - volume control pressure-support inflation (SNOMED)*\n- *37152385 / 1186680000 — Synchronized intermittent mandatory ventilation volume control inflation and an assured constant airway pressure adjunct during expiratory phase (SNOMED)*\n\n### Spontaneous / support\n\n- *37154096 / 1259864003 — Pressure support ventilation (SNOMED)*\n- *4165535 / 47545007 — Continuous positive airway pressure ventilation treatment (SNOMED)*\n- *4055262 / 243142003 — Dual pressure spontaneous ventilation support (SNOMED)*\n- *3661883 / 34291000175108 — Nocturnal dual pressure spontaneous ventilation support (SNOMED)*\n- *37152400 / 1186731003 — Continuous spontaneous ventilation with pressure support (SNOMED)*\n- *37152401 / 1186732005 — Continuous spontaneous ventilation with volume targeted pressure-support (SNOMED)*\n- *37152402 / 1186733000 — Continuous spontaneous ventilation with effort support (SNOMED)*\n- *40491848 / 447243000 — Bilevel positive airway pressure titration (SNOMED)*\n- *37152378 / 1186658003 — Spontaneous timed ventilation with pressure-support for spontaneous breaths and volume-control ventilator initiated inflation (SNOMED)*\n- *37152379 / 1186672007 — Spontaneous timed ventilation with pressure-support for spontaneous breaths and pressure-control with flow termination for ventilator initiated inflation (SNOMED)*\n- *37152380 / 1186674008 — Spontaneous timed ventilation with volume targeted pressure-support for spontaneous breaths and volume targeted pressure-control for ventilator initiated inflations (SNOMED)*\n- *37152383 / 1186678006 — Continuous positive airway pressure with an assured constant airway pressure adjunct (SNOMED)*\n- *37152791 / 1197780003 — Spontaneous and/or timed ventilation (SNOMED)*\n- *3661882 / 34281000175105 — Nocturnal continuous positive airway pressure (SNOMED)*\n\n### High-frequency, NAVA, APRV, CMV and other advanced modes\n\n- *4072515 / 243143008 — Airway pressure release ventilation (SNOMED)*\n- *37153603 / 1222606000 — Continuous mandatory ventilation (SNOMED)*\n- *37153604 / 1222607009 — Continuous mandatory ventilation with sigh (SNOMED)*\n- *37151336 / 1187022003 — Continuous mandatory ventilation volume-control inflation-type and assured constant airway pressure adjunct in the expiratory phase (SNOMED)*\n- *37151337 / 1187023008 — Continuous mandatory ventilation pressure-control inflation-type (SNOMED)*\n- *37151338 / 1187024002 — Continuous mandatory ventilation pressure-control inflation-type and assured constant airway pressure adjunct (SNOMED)*\n- *37151339 / 1187025001 — Continuous mandatory ventilation volume-targeted pressure-control inflation-type (SNOMED)*\n- *37152413 / 1186749003 — Continuous mandatory ventilation volume-control inflation-type (SNOMED)*\n- *37152407 / 1186742007 — Intermittent mandatory ventilation with synchronized-termination pressure-control and assured constant airway pressure adjunct (SNOMED)*\n- *37157430 / 1217390002 — Intermittent mandatory ventilation with synchronized-termination pressure control and assured constant airway pressure adjunct during the inflation phase (SNOMED)*\n- *37157167 / 1197612007 — Intermittent mandatory ventilation (SNOMED)*\n- *37158487 / 1260411001 — Continuous flow apneic ventilation (SNOMED)*\n- *4074666 / 243155002 — High frequency oscillatory ventilation (SNOMED)*\n- *4055377 / 243154003 — High frequency jet ventilation (SNOMED)*\n- *4055376 / 243153009 — High frequency positive pressure ventilation (SNOMED)*\n- *1243692 / 1297240007 — Neurally adjusted ventilatory assist (SNOMED)*\n\n## Mapping Notes\n\n- Map a recorded ventilation mode to the matching concept here, whatever its family. The mode families above are descriptive groupings, not separate sets.\n- **Mode vs ventilation act**: this set is the *mode*; whether the patient is on invasive or non-invasive ventilation is recorded separately (Invasive mechanical ventilation / Non-invasive ventilation concept sets). A patient has both a ventilation act and a mode at the same time.\n- **Dual / volume-targeted pressure-control** modes (e.g. PRVC) are grouped with the pressure-controlled family, since pressure is the controlled variable.\n- **No unit**: the value is the mode itself, not a measurement.\n"
       },
       "fr": {
         "category": "Ventilation",
         "subcategory": "Mode de ventilation",
-        "name": "Mode de ventilation - Piloté en pression (PCV)",
-        "shortDescription": "Modes de ventilation à pression contrôlée et à pression contrôlée régulée en volume (dual) — le ventilateur régule la pression des voies aériennes."
+        "name": "Mode de ventilation",
+        "shortDescription": "Mode de ventilation utilisé (PCV, VCV, SIMV, aide inspiratoire, CPAP/BiPAP, APRV, NAVA, haute fréquence, CMV…) — une seule variable, tous les modes.",
+        "longDescription": null
       }
     },
     "createdByDetails": {
@@ -255,10 +921,10 @@
     "reviews": [],
     "versions": [
       {
-        "version": "1.1.0",
-        "date": "2026-06-10",
+        "version": "1.2.0",
+        "date": "2026-06-11",
         "author": "Boris Delange",
-        "message": "Reorganize Ventilation mode subcategory: PCV now holds pressure-control + volume-targeted-pressure-control (PRVC) modes; BiPAP titration moved to Spontaneous/support, APRV to Other/advanced. Added clinical description."
+        "message": "Merge all ventilation-mode concept sets into one Ventilation mode set (a single ventilation_mode variable). Absorbs the volume-controlled (was 340, now deprecated), spontaneous/support (was 357, deleted) and other/advanced (was 360, deleted) sets. 46 concepts, grouped by family in the description."
       }
     ],
     "distributionStats": null
