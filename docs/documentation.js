@@ -55,6 +55,13 @@ var DocumentationPage = (function() {
           { id: 'dev-tools', label: en ? 'Dev Tools' : 'Outils de d\u00e9veloppement' },
           { id: 'local-data', label: en ? 'Local Data' : 'Donn\u00e9es locales' }
         ]
+      },
+      {
+        title: en ? 'Forking & Sharing' : 'Forker & Partager',
+        items: [
+          { id: 'forking', label: en ? 'Forking the dictionary' : 'Forker le dictionnaire' },
+          { id: 'sharing-concept-sets', label: en ? 'Sharing concept sets' : 'Partager des jeux de concepts' }
+        ]
       }
     ];
   }
@@ -79,7 +86,9 @@ var DocumentationPage = (function() {
       'mapping-recommendations': en ? mappingRecoEN()        : mappingRecoFR(),
       'dictionary-settings':  en ? dictSettingsEN()          : dictSettingsFR(),
       'dev-tools':            en ? devToolsEN()              : devToolsFR(),
-      'local-data':           en ? localDataEN()             : localDataFR()
+      'local-data':           en ? localDataEN()             : localDataFR(),
+      'forking':              en ? forkingEN()               : forkingFR(),
+      'sharing-concept-sets': en ? sharingEN()               : sharingFR()
     };
   }
 
@@ -4452,6 +4461,192 @@ var DocumentationPage = (function() {
       + '<p>La base de vocabulaires stock\u00e9e dans IndexedDB est ind\u00e9pendante de l\u2019action R\u00e9initialiser les donn\u00e9es locales. '
       + 'Pour la g\u00e9rer, utilisez l\u2019onglet <strong>Vocabulaires OHDSI</strong> dans '
       + docLink('dictionary-settings', 'Param\u00e8tres du dictionnaire') + '.</p>';
+  }
+
+  // ==================== FORKING & SHARING ====================
+
+  function forkingEN() {
+    return '<h1>Forking the dictionary</h1>'
+      + '<p>This application is a <strong>template</strong>. Any team \u2014 a specialty, a registry, a single hospital \u2014 '
+      + 'can stand up its own governed data dictionary from it: same app, same format, your own content, on free static hosting '
+      + '(GitHub Pages or GitLab Pages). There is no backend to run.</p>'
+
+      + infoBox('Full guide',
+        'This page is an overview. The complete, command-by-command guide lives in '
+        + '<a href="https://github.com/indicate-eu/data-dictionary/blob/main/FORKING.md" target="_blank" rel="noopener">FORKING.md</a> at the repository root '
+        + '(initial setup, day-to-day, updating from upstream, deployment).', 'info')
+
+      + '<h2>1. Create your repository</h2>'
+      + '<p>On GitHub, use <strong>\u201cUse this template\u201d</strong> \u2192 <em>Create a new repository</em> (this gives you a clean history, '
+      + 'not a fork tied to INDICATE). On GitLab, import the repo by URL \u2014 the shipped <code>.gitlab-ci.yml</code> makes GitLab Pages work out of the box.</p>'
+
+      + '<h2>2. Make it yours: <code>config.json</code></h2>'
+      + '<p>One file at the repo root identifies the dictionary as yours \u2014 title, organization, GitHub repo, branding, custom vocabulary prefix:</p>'
+      + '<pre><code>{\n'
+      + '  "title": "My Team Data Dictionary",\n'
+      + '  "github": { "repo": "my-org/my-repo", "branch": "main",\n'
+      + '              "upstream": "https://github.com/indicate-eu/data-dictionary.git" },\n'
+      + '  "organization": { "name": "My Team", "url": "https://my-team.example.org" },\n'
+      + '  "customVocabulary": { "id": "MYTEAM", "codePrefix": "MYTEAM-" }\n'
+      + '}</code></pre>'
+      + '<p><code>github.upstream</code> stays pointed at INDICATE so you can pull code updates later. '
+      + '<code>organization</code> becomes the default author of new concept sets.</p>'
+
+      + '<h2>3. Wipe the INDICATE content</h2>'
+      + '<p>Replace the branding assets in <code>docs/</code> (<code>logo.png</code>, <code>favicon.png</code>), then clear the example content:</p>'
+      + '<pre><code>python3 reset.py</code></pre>'
+      + '<p>This empties <code>concept_sets/</code>, <code>projects/</code> and resets the id counters, while keeping generic content '
+      + '(unit conversions, mapping recommendations) and your configuration. It then rebuilds <code>docs/data.json</code>.</p>'
+
+      + '<h2>4. Add your content &amp; deploy</h2>'
+      + '<p>Create concept sets in the SPA (then <em>Propose on GitHub</em>), or edit <code>concept_sets/&lt;id&gt;.json</code> directly and run '
+      + '<code>python3 build.py</code>. Then enable Pages: GitHub \u2192 <em>Settings \u2192 Pages \u2192 Deploy from a branch \u2192 main / <code>/docs</code></em>. '
+      + 'Every push redeploys.</p>'
+
+      + '<h2>5. Stay up to date</h2>'
+      + '<p>INDICATE keeps shipping fixes and features. Pull them into your fork without touching your content:</p>'
+      + '<pre><code>python3 update_from_upstream.py</code></pre>'
+      + '<p>It updates code paths (scripts, <code>docs/*.js|html|css</code>, skills, <code>CLAUDE.md</code>, <code>FORKING.md</code>) from upstream '
+      + 'and leaves your <code>concept_sets/</code>, <code>projects/</code>, <code>config.json</code> and branding alone.</p>'
+
+      + infoBox('Reuse, don\u2019t reinvent',
+        'Forks are not islands. You can <strong>import concept sets from other dictionaries</strong> (including INDICATE\u2019s) instead of '
+        + 'redefining the same variables \u2014 see ' + docLink('sharing-concept-sets', 'Sharing concept sets') + '.', 'info');
+  }
+
+  function forkingFR() {
+    return '<h1>Forker le dictionnaire</h1>'
+      + '<p>Cette application est un <strong>mod\u00e8le</strong>. N\u2019importe quelle \u00e9quipe \u2014 une sp\u00e9cialit\u00e9, un registre, un seul h\u00f4pital \u2014 '
+      + 'peut en d\u00e9river son propre dictionnaire de donn\u00e9es gouvern\u00e9\u00a0: m\u00eame application, m\u00eame format, votre contenu, sur un h\u00e9bergement statique gratuit '
+      + '(GitHub Pages ou GitLab Pages). Aucun serveur \u00e0 g\u00e9rer.</p>'
+
+      + infoBox('Guide complet',
+        'Cette page est une vue d\u2019ensemble. Le guide d\u00e9taill\u00e9, commande par commande, se trouve dans '
+        + '<a href="https://github.com/indicate-eu/data-dictionary/blob/main/FORKING.md" target="_blank" rel="noopener">FORKING.md</a> \u00e0 la racine du d\u00e9p\u00f4t '
+        + '(installation initiale, usage quotidien, mises \u00e0 jour amont, d\u00e9ploiement).', 'info')
+
+      + '<h2>1. Cr\u00e9er votre d\u00e9p\u00f4t</h2>'
+      + '<p>Sur GitHub, utilisez <strong>\u00ab\u00a0Use this template\u00a0\u00bb</strong> \u2192 <em>Create a new repository</em> (cela donne un historique propre, '
+      + 'pas un fork li\u00e9 \u00e0 INDICATE). Sur GitLab, importez le d\u00e9p\u00f4t par URL \u2014 le <code>.gitlab-ci.yml</code> fourni fait fonctionner GitLab Pages sans configuration.</p>'
+
+      + '<h2>2. L\u2019approprier\u00a0: <code>config.json</code></h2>'
+      + '<p>Un seul fichier \u00e0 la racine identifie le dictionnaire comme le v\u00f4tre \u2014 titre, organisation, d\u00e9p\u00f4t GitHub, identit\u00e9 visuelle, pr\u00e9fixe de vocabulaire\u00a0:</p>'
+      + '<pre><code>{\n'
+      + '  "title": "Dictionnaire de mon \u00e9quipe",\n'
+      + '  "github": { "repo": "mon-org/mon-repo", "branch": "main",\n'
+      + '              "upstream": "https://github.com/indicate-eu/data-dictionary.git" },\n'
+      + '  "organization": { "name": "Mon \u00e9quipe", "url": "https://mon-equipe.example.org" },\n'
+      + '  "customVocabulary": { "id": "MONEQUIPE", "codePrefix": "MONEQUIPE-" }\n'
+      + '}</code></pre>'
+      + '<p><code>github.upstream</code> reste point\u00e9 vers INDICATE pour pouvoir r\u00e9cup\u00e9rer les mises \u00e0 jour de code. '
+      + '<code>organization</code> devient l\u2019auteur par d\u00e9faut des nouveaux jeux de concepts.</p>'
+
+      + '<h2>3. Effacer le contenu INDICATE</h2>'
+      + '<p>Remplacez les \u00e9l\u00e9ments de marque dans <code>docs/</code> (<code>logo.png</code>, <code>favicon.png</code>), puis videz le contenu d\u2019exemple\u00a0:</p>'
+      + '<pre><code>python3 reset.py</code></pre>'
+      + '<p>Cela vide <code>concept_sets/</code>, <code>projects/</code> et r\u00e9initialise les compteurs d\u2019id, tout en conservant le contenu g\u00e9n\u00e9rique '
+      + '(conversions d\u2019unit\u00e9s, recommandations de mapping) et votre configuration. Puis reconstruit <code>docs/data.json</code>.</p>'
+
+      + '<h2>4. Ajouter votre contenu &amp; d\u00e9ployer</h2>'
+      + '<p>Cr\u00e9ez des jeux de concepts dans la SPA (puis <em>Proposer sur GitHub</em>), ou modifiez <code>concept_sets/&lt;id&gt;.json</code> directement et lancez '
+      + '<code>python3 build.py</code>. Puis activez Pages\u00a0: GitHub \u2192 <em>Settings \u2192 Pages \u2192 Deploy from a branch \u2192 main / <code>/docs</code></em>. '
+      + 'Chaque push red\u00e9ploie.</p>'
+
+      + '<h2>5. Rester \u00e0 jour</h2>'
+      + '<p>INDICATE continue de livrer corrections et fonctionnalit\u00e9s. R\u00e9cup\u00e9rez-les dans votre fork sans toucher \u00e0 votre contenu\u00a0:</p>'
+      + '<pre><code>python3 update_from_upstream.py</code></pre>'
+      + '<p>Il met \u00e0 jour les fichiers de code (scripts, <code>docs/*.js|html|css</code>, skills, <code>CLAUDE.md</code>, <code>FORKING.md</code>) depuis l\u2019amont '
+      + 'et laisse intacts vos <code>concept_sets/</code>, <code>projects/</code>, <code>config.json</code> et votre identit\u00e9 visuelle.</p>'
+
+      + infoBox('R\u00e9utiliser, pas r\u00e9inventer',
+        'Les forks ne sont pas des \u00eelots. Vous pouvez <strong>importer des jeux de concepts depuis d\u2019autres dictionnaires</strong> (dont celui d\u2019INDICATE) '
+        + 'au lieu de red\u00e9finir les m\u00eames variables \u2014 voir ' + docLink('sharing-concept-sets', 'Partager des jeux de concepts') + '.', 'info');
+  }
+
+  function sharingEN() {
+    return '<h1>Sharing concept sets</h1>'
+      + '<p>Forks are not isolated. A concept set authored in one dictionary \u2014 yours, INDICATE\u2019s, or any other fork \u2014 can be '
+      + '<strong>imported into another</strong>, so teams reuse each other\u2019s work instead of redefining the same clinical variables. '
+      + 'Because every dictionary uses the same JSON format, an import is just a copy of the file plus a little provenance bookkeeping.</p>'
+
+      + '<h2>Importing from another dictionary</h2>'
+      + '<p>On the concept sets list, click <strong>Import</strong>. Two modes:</p>'
+      + '<ul>'
+      + '<li><strong>From a repository</strong> \u2014 paste another dictionary\u2019s repo URL (e.g. '
+      + '<code>https://github.com/indicate-eu/data-dictionary</code>). The app loads its published catalog and lists every concept set in a '
+      + 'sortable, filterable table. Each row is flagged <strong>New</strong>, <strong>Already imported</strong>, or <strong>Conflict</strong> '
+      + '(you have that set at a different version \u2014 importing overwrites your local copy). Tick the ones you want and import.</li>'
+      + '<li><strong>From a single concept set</strong> \u2014 paste a raw JSON URL (a GitHub <code>/blob/</code> page URL is converted to its raw '
+      + 'form automatically) and preview it, or paste the JSON directly and import in one click.</li>'
+      + '</ul>'
+      + '<p>Imported sets land in your local catalog; review them, then ' + docLink('reviewing', 'Propose on GitHub') + ' to commit them to your repo.</p>'
+
+      + '<h2>How sharing stays traceable</h2>'
+      + '<p>Four metadata fields (under <code>metadata</code> in each <code>concept_sets/&lt;id&gt;.json</code>) keep a shared set traceable back to its source. '
+      + 'You never edit them by hand \u2014 the app writes them on create, edit and import:</p>'
+      + '<ul>'
+      + '<li><strong><code>uniqueId</code></strong> \u2014 a UUID identifying the concept set\u2019s <em>lineage</em>. Generated once at creation and '
+      + '<strong>kept unchanged when the set is imported</strong>, so the same set keeps the same id everywhere it travels. A <code>uniqueId</code> is '
+      + 'unique within a repo: importing one you already have either skips it (same version) or overwrites your copy (different version) \u2014 never a duplicate.</li>'
+      + '<li><strong><code>organization</code></strong> \u2014 split into <code>created</code> (the authoring team, immutable) and <code>current</code> '
+      + '(who maintains the latest content). On import, <code>current</code> becomes <em>your</em> organization while <code>created</code> stays the original author.</li>'
+      + '<li><strong><code>sourceRepo</code></strong> \u2014 the repo currently maintaining the object, refreshed on every edit. Living inside the JSON, it '
+      + 'survives even a manual copy-paste.</li>'
+      + '<li><strong><code>origin</code></strong> \u2014 the provenance of an imported copy, written <strong>once at import</strong> then frozen: '
+      + '<code>{ uniqueId, repo, version, commit, organization, importedDate }</code>. The <code>commit</code> is the exact source SHA, so you can always '
+      + 'fetch back the precise version your copy came from. For sets created in your own dictionary, <code>origin</code> is <code>null</code>.</li>'
+      + '</ul>'
+
+      + infoBox('The fork model, in one line',
+        'Importing is a <strong>fork of a single concept set</strong>: same <code>uniqueId</code> (shared lineage), your '
+        + '<code>organization.current</code>, a frozen <code>origin</code> pointing at the source. Two dictionaries can then evolve the same set '
+        + 'independently, and <code>origin</code> + <code>uniqueId</code> make the relationship \u2014 and any divergence \u2014 explicit.', 'info')
+
+      + '<p>The id in the file name (<code>concept_sets/383.json</code>) is a <strong>local</strong> display id, re-assigned on import to avoid collisions. '
+      + 'Cross-dictionary matching is always done on <code>uniqueId</code>, never on that number.</p>';
+  }
+
+  function sharingFR() {
+    return '<h1>Partager des jeux de concepts</h1>'
+      + '<p>Les forks ne sont pas isol\u00e9s. Un jeu de concepts cr\u00e9\u00e9 dans un dictionnaire \u2014 le v\u00f4tre, celui d\u2019INDICATE ou tout autre fork \u2014 peut \u00eatre '
+      + '<strong>import\u00e9 dans un autre</strong>, pour que les \u00e9quipes r\u00e9utilisent le travail des autres au lieu de red\u00e9finir les m\u00eames variables cliniques. '
+      + 'Comme tous les dictionnaires partagent le m\u00eame format JSON, un import n\u2019est qu\u2019une copie du fichier accompagn\u00e9e d\u2019un peu de tra\u00e7abilit\u00e9.</p>'
+
+      + '<h2>Importer depuis un autre dictionnaire</h2>'
+      + '<p>Dans la liste des jeux de concepts, cliquez sur <strong>Importer</strong>. Deux modes\u00a0:</p>'
+      + '<ul>'
+      + '<li><strong>Depuis un d\u00e9p\u00f4t</strong> \u2014 collez l\u2019URL du d\u00e9p\u00f4t d\u2019un autre dictionnaire (par ex. '
+      + '<code>https://github.com/indicate-eu/data-dictionary</code>). L\u2019application charge son catalogue publi\u00e9 et liste tous les jeux de concepts dans un '
+      + 'tableau triable et filtrable. Chaque ligne est marqu\u00e9e <strong>Nouveau</strong>, <strong>D\u00e9j\u00e0 import\u00e9</strong> ou <strong>Conflit</strong> '
+      + '(vous avez ce jeu dans une version diff\u00e9rente \u2014 l\u2019import \u00e9crase votre copie locale). Cochez ceux voulus et importez.</li>'
+      + '<li><strong>Depuis un seul jeu de concepts</strong> \u2014 collez une URL JSON brute (une URL de page GitHub <code>/blob/</code> est convertie '
+      + 'automatiquement en sa forme brute) et pr\u00e9visualisez-la, ou collez directement le JSON et importez en un clic.</li>'
+      + '</ul>'
+      + '<p>Les jeux import\u00e9s arrivent dans votre catalogue local\u00a0; relisez-les, puis ' + docLink('reviewing', 'Proposez sur GitHub') + ' pour les commiter dans votre d\u00e9p\u00f4t.</p>'
+
+      + '<h2>Comment le partage reste tra\u00e7able</h2>'
+      + '<p>Quatre champs de m\u00e9tadonn\u00e9es (sous <code>metadata</code> dans chaque <code>concept_sets/&lt;id&gt;.json</code>) gardent un jeu partag\u00e9 tra\u00e7able jusqu\u2019\u00e0 sa source. '
+      + 'Vous ne les modifiez jamais \u00e0 la main \u2014 l\u2019application les \u00e9crit \u00e0 la cr\u00e9ation, \u00e0 l\u2019\u00e9dition et \u00e0 l\u2019import\u00a0:</p>'
+      + '<ul>'
+      + '<li><strong><code>uniqueId</code></strong> \u2014 un UUID identifiant la <em>lign\u00e9e</em> du jeu de concepts. G\u00e9n\u00e9r\u00e9 une fois \u00e0 la cr\u00e9ation et '
+      + '<strong>conserv\u00e9 tel quel \u00e0 l\u2019import</strong>, le m\u00eame jeu garde donc le m\u00eame id partout o\u00f9 il voyage. Un <code>uniqueId</code> est unique au sein d\u2019un d\u00e9p\u00f4t\u00a0: '
+      + 'importer un id que vous avez d\u00e9j\u00e0 l\u2019ignore (m\u00eame version) ou \u00e9crase votre copie (version diff\u00e9rente) \u2014 jamais de doublon.</li>'
+      + '<li><strong><code>organization</code></strong> \u2014 divis\u00e9 en <code>created</code> (l\u2019\u00e9quipe auteure, immuable) et <code>current</code> '
+      + '(qui maintient le contenu actuel). \u00c0 l\u2019import, <code>current</code> devient <em>votre</em> organisation tandis que <code>created</code> reste l\u2019auteur d\u2019origine.</li>'
+      + '<li><strong><code>sourceRepo</code></strong> \u2014 le d\u00e9p\u00f4t qui maintient actuellement l\u2019objet, rafra\u00eechi \u00e0 chaque \u00e9dition. Vivant dans le JSON, il '
+      + 'survit m\u00eame \u00e0 un copier-coller manuel.</li>'
+      + '<li><strong><code>origin</code></strong> \u2014 la provenance d\u2019une copie import\u00e9e, \u00e9crite <strong>une seule fois \u00e0 l\u2019import</strong> puis fig\u00e9e\u00a0: '
+      + '<code>{ uniqueId, repo, version, commit, organization, importedDate }</code>. Le <code>commit</code> est le SHA exact de la source, vous pouvez donc toujours '
+      + 'r\u00e9cup\u00e9rer la version pr\u00e9cise dont votre copie est tir\u00e9e. Pour les jeux cr\u00e9\u00e9s dans votre propre dictionnaire, <code>origin</code> vaut <code>null</code>.</li>'
+      + '</ul>'
+
+      + infoBox('Le mod\u00e8le de fork, en une ligne',
+        'Importer, c\u2019est <strong>forker un seul jeu de concepts</strong>\u00a0: m\u00eame <code>uniqueId</code> (lign\u00e9e partag\u00e9e), votre '
+        + '<code>organization.current</code>, un <code>origin</code> fig\u00e9 pointant vers la source. Deux dictionnaires peuvent alors faire \u00e9voluer le m\u00eame jeu '
+        + 'ind\u00e9pendamment, et <code>origin</code> + <code>uniqueId</code> rendent la relation \u2014 et toute divergence \u2014 explicite.', 'info')
+
+      + '<p>L\u2019id dans le nom du fichier (<code>concept_sets/383.json</code>) est un id d\u2019affichage <strong>local</strong>, r\u00e9attribu\u00e9 \u00e0 l\u2019import pour \u00e9viter les collisions. '
+      + 'La correspondance entre dictionnaires se fait toujours sur <code>uniqueId</code>, jamais sur ce num\u00e9ro.</p>';
   }
 
   function dictSettingsFR() {

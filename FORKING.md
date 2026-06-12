@@ -269,3 +269,33 @@ https://<group>.gitlab.io/<project>/
 ### 4.3. Rebuilding data files when needed
 
 If you would rather not commit the generated files (`docs/data.json`, `docs/data_inline.js`, `docs/resolved_concept_ids.json`, `docs/concept_sets_resolved/`), add them to `.gitignore` and uncomment the build step inside `.gitlab-ci.yml` (or set up an equivalent GitHub Actions workflow). The default setup commits them to keep CI minimal — the data is the canonical artifact, the page just serves it.
+
+---
+
+## 5. Sharing concept sets between dictionaries
+
+Forks are not isolated. A concept set authored in one dictionary (yours, INDICATE's, or any other fork) can be **imported into another** — so teams can reuse each other's work instead of redefining the same variables. The format is identical across all forks, so an import is just a copy of the JSON plus some bookkeeping.
+
+### 5.1. Importing from another dictionary
+
+In the SPA, on the concept sets list, click **Import**. Two modes:
+
+- **From a repository** — paste the URL of another dictionary's repo (e.g. `https://github.com/indicate-eu/data-dictionary`). The app fetches that dictionary's published catalog (`data.json` from its Pages site) and its `concept_sets_versions.json`, then lists every concept set in a table. Filter/sort, tick the ones you want, and import. Each row is flagged **New**, **Already imported**, or **Conflict** (you already have that set at a different version — importing overwrites your local copy).
+- **From a single concept set** — paste a raw JSON URL (e.g. a `raw.githubusercontent.com/.../concept_sets/10.json` link; a GitHub `/blob/` page URL is converted automatically) and preview it, or paste the JSON directly and import in one click.
+
+Imported sets land in your local catalog (in the browser's `localStorage`); review them, then **Propose on GitHub** to commit them to your repo like any other edit.
+
+### 5.2. Identity & provenance — how sharing stays traceable
+
+So that a shared set can always be traced back to where it came from, four metadata fields work together (all under `metadata` in each `concept_sets/<id>.json`):
+
+- **`uniqueId`** — a UUID identifying the concept set's *lineage*. It is generated once at creation and **kept unchanged when the set is imported into another repo**. So the same concept set keeps the same `uniqueId` everywhere it travels — even after the importing team edits it. A `uniqueId` is unique *within* a repo: importing one you already have either skips it (same version) or overwrites your copy (different version), never creates a duplicate.
+- **`organization`** — split into `created` (the team that authored the set, immutable) and `current` (the team responsible for the latest content). When you import a set, `current` becomes *your* organization while `created` stays the original author — so authorship is preserved but it's clear who maintains the copy now.
+- **`sourceRepo`** — the URL of the repo currently maintaining the object, refreshed on every edit. Because it lives inside the JSON, provenance survives even a manual copy-paste.
+- **`origin`** — the provenance of an imported copy, written **once at import** and then frozen: `{ uniqueId, repo, version, commit, organization, importedDate }`. The `commit` is the exact source SHA (read from the source repo's `concept_sets_versions.json`), so you can always fetch back the precise version your copy was derived from. For sets created in your own dictionary, `origin` is `null`.
+
+You don't manage these fields by hand — the SPA writes them on create, edit, and import. The id you see in the file name (`concept_sets/383.json`) is a **local** display id, re-assigned on import to avoid collisions; cross-dictionary matching is done on `uniqueId`, never on that number.
+
+### 5.3. The fork model in one line
+
+Importing is a **fork of a single concept set**: same `uniqueId` (shared lineage), your `organization.current`, a frozen `origin` pointing at the source. Two dictionaries can then evolve the same set independently, and the `origin` + `uniqueId` make the relationship — and any divergence — explicit.
