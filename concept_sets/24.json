@@ -1,15 +1,35 @@
 {
   "id": 24,
-  "name": "Metastatic carcinoma",
-  "description": null,
-  "version": "1.0.0",
+  "name": "Metastatic malignant neoplasm",
+  "description": "Metastatic malignant neoplasm — cancer that has spread to distant sites; one of the APACHE IV chronic health conditions.",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
-    "items": []
+    "items": [
+      {
+        "concept": {
+          "conceptId": 432851,
+          "conceptName": "Metastatic malignant neoplasm",
+          "domainId": "Condition",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Disorder",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "128462008",
+          "validStartDate": "20020131",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      }
+    ]
   },
   "tags": [],
   "metadata": {
@@ -25,21 +45,21 @@
       }
     },
     "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Metastatic carcinoma",
+        "name": "Metastatic malignant neoplasm",
         "category": "Conditions",
-        "subcategory": "APACHE IV - Chronic health conditions",
-        "shortDescription": null,
-        "longDescription": null
+        "subcategory": "Haematologic / oncologic",
+        "shortDescription": "Metastatic malignant neoplasm — cancer that has spread to distant sites; one of the APACHE IV chronic health conditions.",
+        "longDescription": "## Definition & Clinical Context\n\nA metastatic malignant neoplasm is a cancer that has spread (metastasised) from its primary site to distant organs. In intensive care, metastatic disease is a major prognostic comorbidity and informs goals-of-care discussions. Metastatic cancer is one of the chronic health items in the APACHE IV severity model.\n\n## Scope\n\nThe set is anchored on the SNOMED concept *432851 / 128462008 — Metastatic malignant neoplasm* with all descendants included, capturing secondary/metastatic malignant neoplasms across sites.\n\n## Mapping Notes\n\n- This set captures the **metastatic** state. A localised (non-metastatic) primary cancer is conceptually distinct and does not, by itself, map here.\n- Haematologic malignancies (leukemia, lymphoma, myeloma) have their own sets and are not \"metastatic solid tumours\"."
       },
       "fr": {
-        "name": "Carcinome métastatique",
+        "name": "Néoplasme malin métastatique",
         "category": "Pathologies",
-        "subcategory": "APACHE IV - Pathologies chroniques",
-        "shortDescription": null,
+        "subcategory": "Hématologique / oncologique",
+        "shortDescription": "Néoplasme malin métastatique — cancer disséminé à distance ; l'une des comorbidités chroniques d'APACHE IV.",
         "longDescription": null
       }
     },
@@ -51,7 +71,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Fill the expression: anchor on SNOMED Metastatic malignant neoplasm (128462008) with descendants; rename accordingly; subcategory Haematologic / oncologic; added clinical description."
+      }
+    ],
     "distributionStats": null
   }
 }

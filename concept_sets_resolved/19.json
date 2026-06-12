@@ -1,7 +1,546 @@
 {
   "conceptSetId": 19,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26"
-  },
-  "resolvedConcepts": []
+  "vocabularyVersion": null,
+  "resolvedConcepts": [
+    {
+      "conceptId": 192675,
+      "conceptName": "Biliary cirrhosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1761006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 194692,
+      "conceptName": "Cirrhosis - non-alcoholic",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "266468003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 196463,
+      "conceptName": "Alcoholic cirrhosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "420054005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 605193,
+      "conceptName": "Liver cirrhosis due to classical cystic fibrosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1010616001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3656096,
+      "conceptName": "Cirrhosis of liver due to and following cardiac procedure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "871619002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4003673,
+      "conceptName": "Obstructive biliary cirrhosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "109819003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4046016,
+      "conceptName": "Toxic cirrhosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "123604002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4046123,
+      "conceptName": "Secondary biliary cirrhosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "12368000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4048057,
+      "conceptName": "Nutritional cirrhosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "123605001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4048083,
+      "conceptName": "Advanced cirrhosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "123717006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4049282,
+      "conceptName": "Cholangiolitic cirrhosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "123606000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4049419,
+      "conceptName": "Latent cirrhosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "123716002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4050640,
+      "conceptName": "Mixed micro and macronodular cirrhosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "15999000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4053079,
+      "conceptName": "Syphilitic cirrhosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "16070004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4055209,
+      "conceptName": "Unilobular portal cirrhosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "197291001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4055210,
+      "conceptName": "Diffuse nodular cirrhosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "197293003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4055212,
+      "conceptName": "Bacterial portal cirrhosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "197303009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4058680,
+      "conceptName": "Fatty portal cirrhosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "197294009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4058681,
+      "conceptName": "Capsular portal cirrhosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "197296006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4058682,
+      "conceptName": "Syphilitic portal cirrhosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "197305002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4059285,
+      "conceptName": "Pigmentary portal cirrhosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "197299004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4059287,
+      "conceptName": "Toxic portal cirrhosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "197301006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4059289,
+      "conceptName": "Biliary cirrhosis of children",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "197310003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4064161,
+      "conceptName": "Cirrhosis of liver",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "19943007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4071022,
+      "conceptName": "Micronodular cirrhosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "21861000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4098583,
+      "conceptName": "Posthepatitic cirrhosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "27156006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4135822,
+      "conceptName": "Primary biliary cholangitis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "31712002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4140536,
+      "conceptName": "Parasitic cirrhosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "33144001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4141628,
+      "conceptName": "Cardiac portal cirrhosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "266470007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4143008,
+      "conceptName": "Drug-induced cirrhosis of liver",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "425413006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4144116,
+      "conceptName": "Juvenile portal cirrhosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "266471006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4148254,
+      "conceptName": "Multilobular portal cirrhosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "266469006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4153294,
+      "conceptName": "Cirrhosis secondary to cholestasis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "271440004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4159158,
+      "conceptName": "Early cirrhosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "371139006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4163687,
+      "conceptName": "Cruveilhier-Baumgarten syndrome",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "45256007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4184779,
+      "conceptName": "Macronodular cirrhosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "43904005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4203601,
+      "conceptName": "Glissonian cirrhosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "536002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4232955,
+      "conceptName": "Cryptogenic cirrhosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "89580002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4252074,
+      "conceptName": "Cardiac cirrhosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "74669004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4268006,
+      "conceptName": "Indian childhood cirrhosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "6183001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4292401,
+      "conceptName": "Clonorchiasis with biliary cirrhosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "37688005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4294539,
+      "conceptName": "Florid cirrhosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "76301009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4300060,
+      "conceptName": "Pigment cirrhosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "78208005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4304584,
+      "conceptName": "Portal cirrhosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "419728003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4313567,
+      "conceptName": "Postnecrotic cirrhosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "86454000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4340392,
+      "conceptName": "Laennec's cirrhosis, non-alcoholic",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "235895002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4340393,
+      "conceptName": "Infectious cirrhosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "235896001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4340946,
+      "conceptName": "Hypoxia-associated cirrhosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "235897005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37110890,
+      "conceptName": "Cirrhotic cardiomyopathy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "725416005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37111265,
+      "conceptName": "Cirrhosis of liver caused by amiodarone",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "725939009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37111266,
+      "conceptName": "Cirrhosis of liver caused by methyldopa",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "725940006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37117933,
+      "conceptName": "Cirrhosis of liver caused by methotrexate",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "725938001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37396157,
+      "conceptName": "Idiopathic copper associated cirrhosis of liver",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "715864007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37396401,
+      "conceptName": "Decompensated cirrhosis of liver",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "716203000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37399445,
+      "conceptName": "Reynolds syndrome",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "715401008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42539566,
+      "conceptName": "Cirrhosis of liver with primary sclerosing cholangitis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "735733008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43531723,
+      "conceptName": "Cirrhosis of liver due to chronic hepatitis C",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "831000119103",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44783142,
+      "conceptName": "North American Indian childhood cirrhosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "699189004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44805713,
+      "conceptName": "Cirrhosis associated with cystic fibrosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "776981000000103",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45772057,
+      "conceptName": "Cirrhosis of liver due to hepatitis B",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "103611000119102",
+      "standardConcept": "S"
+    }
+  ]
 }

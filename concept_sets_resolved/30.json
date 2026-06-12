@@ -1,7 +1,1149 @@
 {
   "conceptSetId": 30,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26"
-  },
-  "resolvedConcepts": []
+  "vocabularyVersion": null,
+  "resolvedConcepts": [
+    {
+      "conceptId": 193323,
+      "conceptName": "Neonatal diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "49817004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 194700,
+      "conceptName": "Diabetes mellitus in mother complicating pregnancy, childbirth AND/OR puerperium",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "76751001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 195771,
+      "conceptName": "Secondary diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "8801005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 201254,
+      "conceptName": "Type 1 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "46635009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 201820,
+      "conceptName": "Diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "73211009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 201826,
+      "conceptName": "Type 2 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "44054006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 604357,
+      "conceptName": "Ketosis-prone diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "890171006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 606039,
+      "conceptName": "Pre-existing malnutrition-related diabetes mellitus in pregnancy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1142044000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 765478,
+      "conceptName": "Diabetes mellitus caused by drug without complication",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "367391000119102",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1075372,
+      "conceptName": "Intermediate DEND syndrome",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1303868000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1244603,
+      "conceptName": "Presymptomatic type 1 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1290118005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3661732,
+      "conceptName": "Newly diagnosed type 1 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "870528001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4006979,
+      "conceptName": "Leprechaunism syndrome",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "111307005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4024659,
+      "conceptName": "Gestational diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "11687002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4030061,
+      "conceptName": "Malnutrition-related diabetes mellitus - fibrocalculous",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "237600004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4030066,
+      "conceptName": "Photomyoclonus, diabetes mellitus, deafness, nephropathy and cerebral dysfunction",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "237612000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4034960,
+      "conceptName": "Secondary endocrine diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "237601000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4034961,
+      "conceptName": "Muscular atrophy, ataxia, retinitis pigmentosa, and diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "237611007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4034963,
+      "conceptName": "Megaloblastic anemia, thiamine-responsive, with diabetes mellitus and sensorineural deafness",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "237617006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4047906,
+      "conceptName": "Insulin dependent diabetes mellitus type 1A",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "23045005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4048202,
+      "conceptName": "Houssay's syndrome",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "123763000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4058243,
+      "conceptName": "Diabetes mellitus during pregnancy, childbirth and the puerperium",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "199223000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4062687,
+      "conceptName": "Pre-existing malnutrition-related diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "199231005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4063042,
+      "conceptName": "Pre-existing type 1 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "199229001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4063043,
+      "conceptName": "Pre-existing type 2 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "199230006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4079850,
+      "conceptName": "Diabetes mellitus in neonate small for gestational age",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "276560009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4084643,
+      "conceptName": "Extreme insulin resistance with acanthosis nigricans, hirsutism AND abnormal insulin receptors",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "24203005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4099214,
+      "conceptName": "Type 1 diabetes mellitus with ulcer",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "190368000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4099215,
+      "conceptName": "Type 1 diabetes mellitus maturity onset",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "190372001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4099334,
+      "conceptName": "Steroid-induced diabetes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "190447002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4099651,
+      "conceptName": "Type 2 diabetes mellitus with ulcer",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "190389009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4099741,
+      "conceptName": "Fibrocalculous pancreatic diabetes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "2751001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4102018,
+      "conceptName": "Insulin dependent diabetes mellitus type 1B",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "28032008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4129378,
+      "conceptName": "Transient neonatal diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "237603002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4129516,
+      "conceptName": "Maternally inherited diabetes and deafness",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "237619009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4129519,
+      "conceptName": "Pregnancy and type 2 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "237627000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4129524,
+      "conceptName": "Insulin resistance - type A",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "237651005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4129525,
+      "conceptName": "Insulin resistance - type B",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "237652003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4130162,
+      "conceptName": "Insulin treated type 2 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "237599002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4130164,
+      "conceptName": "Maturity onset diabetes of the young, type 2",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "237604008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4131907,
+      "conceptName": "Lipoatrophic diabetes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "127012008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4140808,
+      "conceptName": "Rabson-Mendenhall syndrome",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "33559001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4143529,
+      "conceptName": "Diabetes mellitus associated with cystic fibrosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "426705001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4144583,
+      "conceptName": "Diabetes mellitus due to cystic fibrosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "427089005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4145827,
+      "conceptName": "Latent autoimmune diabetes mellitus in adult",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "426875007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4166381,
+      "conceptName": "Maternal diabetes mellitus with hypoglycemia affecting fetus OR newborn",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "4783006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4178452,
+      "conceptName": "Diabetes mellitus associated with pancreatic disease",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "51002006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4178790,
+      "conceptName": "Diabetes mellitus associated with receptor abnormality",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "42954008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4192852,
+      "conceptName": "Diabetes mellitus caused by insulin receptor antibodies",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "75682002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4202383,
+      "conceptName": "Drug-induced diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "5368009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4212631,
+      "conceptName": "Protein-deficient diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "57886004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4228483,
+      "conceptName": "Newly diagnosed diabetes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "405749004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4230254,
+      "conceptName": "Type 2 diabetes mellitus in nonobese",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "359642000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4235410,
+      "conceptName": "Diabetes mellitus induced by non-steroid drugs",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "408540003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4237068,
+      "conceptName": "Diabetes mellitus due to structurally abnormal insulin",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "91352004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4240589,
+      "conceptName": "Diabetes mellitus associated with hormonal etiology",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "59079001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4245270,
+      "conceptName": "Diabetes mellitus associated with genetic syndrome",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "5969009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4263902,
+      "conceptName": "Gestational diabetes mellitus class A2",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "46894009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4304377,
+      "conceptName": "Type 2 diabetes mellitus in obese",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "81531005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4322638,
+      "conceptName": "Wolfram syndrome",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "70694009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4326434,
+      "conceptName": "Gestational diabetes mellitus class A1",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "75022004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4327944,
+      "conceptName": "Malnutrition related diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "75524006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36713275,
+      "conceptName": "Atypical diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "530558861000132104",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36715051,
+      "conceptName": "Atherosclerosis, deafness, diabetes, epilepsy, nephropathy syndrome",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "720519003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36715417,
+      "conceptName": "DEND syndrome",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "721088003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36716258,
+      "conceptName": "Pancreatic hypoplasia, diabetes mellitus, congenital heart disease syndrome",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "722206009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36717215,
+      "conceptName": "Intellectual disability, craniofacial dysmorphism, hypogonadism, diabetes mellitus syndrome",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "722454003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37018765,
+      "conceptName": "Gestational diabetes mellitus complicating pregnancy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "40801000119106",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37110041,
+      "conceptName": "Permanent neonatal diabetes mellitus with cerebellar agenesis syndrome",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "724067006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37116379,
+      "conceptName": "Stimmler syndrome",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "733072002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37116960,
+      "conceptName": "Wolfram-like syndrome",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "734022008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37162799,
+      "conceptName": "Intrauterine growth restriction, short stature, early adult-onset diabetes syndrome",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1197592001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37163431,
+      "conceptName": "Ketosis-resistant diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1217044000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37163452,
+      "conceptName": "Fulminant type 1 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1217068008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165632,
+      "conceptName": "Juvenile-onset diabetes mellitus, central and peripheral neurodegeneration syndrome",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255271005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37168689,
+      "conceptName": "Wolfram syndrome type 1",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1285518004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37168690,
+      "conceptName": "Wolfram syndrome type 2",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1285519007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37174264,
+      "conceptName": "Diabetes mellitus type 1 stage 1",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "721111000124107",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37174265,
+      "conceptName": "Diabetes mellitus type 1 stage 2",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "721121000124104",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37174270,
+      "conceptName": "Diabetes mellitus type 1 stage 3",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "721201000124104",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37204232,
+      "conceptName": "Primary microcephaly, mild intellectual disability, young-onset diabetes syndrome",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "782755007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37204277,
+      "conceptName": "Primary microcephaly, epilepsy, permanent neonatal diabetes syndrome",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "782825008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37204818,
+      "conceptName": "Myopathy and diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "783722008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37311329,
+      "conceptName": "Woodhouse Sakati syndrome",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "816067005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37396524,
+      "conceptName": "Gingival disease co-occurrent with diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "716362006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40482883,
+      "conceptName": "Posttransplant diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "445260006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40484649,
+      "conceptName": "Well controlled type 1 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "444074000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40485020,
+      "conceptName": "Well controlled type 2 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "444110003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42537681,
+      "conceptName": "Diabetes mellitus caused by chemical",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "737212004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43531006,
+      "conceptName": "Maturity onset diabetes of the young, type 1",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "609562003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43531007,
+      "conceptName": "Pre-existing diabetes mellitus in pregnancy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "609563008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43531008,
+      "conceptName": "Pre-existing type 1 diabetes mellitus in pregnancy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "609564002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43531009,
+      "conceptName": "Pregnancy and type 1 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "609566000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43531010,
+      "conceptName": "Pre-existing type 2 diabetes mellitus in pregnancy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "609567009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43531011,
+      "conceptName": "Diabetes mellitus due to genetic defect in beta cell function",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "609568004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43531012,
+      "conceptName": "Maturity-onset diabetes of the young, type 3",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "609570008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43531013,
+      "conceptName": "Maturity-onset diabetes of the young, type 4",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "609571007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43531014,
+      "conceptName": "Maturity-onset diabetes of the young, type 5",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "609572000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43531015,
+      "conceptName": "Maturity-onset diabetes of the young, type 7",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "609574004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43531016,
+      "conceptName": "Maturity-onset diabetes of the young, type 9",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "609576002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43531017,
+      "conceptName": "Maturity-onset diabetes of the young, type 10",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "609577006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43531018,
+      "conceptName": "Maturity-onset diabetes of the young, type 11",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "609578001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43531019,
+      "conceptName": "Diabetes mellitus, transient neonatal 2",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "609580007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43531020,
+      "conceptName": "Diabetes mellitus, transient neonatal 3",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "609581006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43531597,
+      "conceptName": "Disorder due to well controlled type 2 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "201000119106",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43531640,
+      "conceptName": "Maturity-onset diabetes of the young",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "609561005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43531641,
+      "conceptName": "Permanent neonatal diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "609565001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43531642,
+      "conceptName": "Diabetes mellitus due to genetic defect in insulin action",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "609569007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43531643,
+      "conceptName": "Maturity-onset diabetes of the young, type 6",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "609573005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43531644,
+      "conceptName": "Maturity-onset diabetes of the young, type 8",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "609575003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43531645,
+      "conceptName": "Diabetes mellitus, transient neonatal 1",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "609579009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44787902,
+      "conceptName": "Lipoatrophic diabetes mellitus without complication",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "112991000000101",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44792134,
+      "conceptName": "Maternally inherited diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "335621000000101",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44793113,
+      "conceptName": "Diabetes mellitus with multiple complications",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "385041000000108",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44793114,
+      "conceptName": "Pre-existing diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "385051000000106",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45757077,
+      "conceptName": "Diabetes mellitus due to pancreatic injury",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "105401000119101",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45757079,
+      "conceptName": "Pre-existing diabetes mellitus in mother complicating childbirth",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "106281000119103",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45757124,
+      "conceptName": "Gestational diabetes mellitus in childbirth",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "10753491000119101",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45757129,
+      "conceptName": "Diabetes mellitus in mother complicating childbirth",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "10754881000119104",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45757474,
+      "conceptName": "Diabetes mellitus type 2 without retinopathy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1481000119100",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45757508,
+      "conceptName": "Type 2 diabetes mellitus controlled by diet",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "164971000119101",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45757674,
+      "conceptName": "Diabetes mellitus type 1 without retinopathy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "31321000119102",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45757789,
+      "conceptName": "Postpartum gestational diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "40791000119105",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45766050,
+      "conceptName": "Diabetes mellitus in remission",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "703136005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45766051,
+      "conceptName": "Type I diabetes mellitus in remission",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "703137001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45766052,
+      "conceptName": "Type II diabetes mellitus in remission",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "703138006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46274096,
+      "conceptName": "Gingivitis co-occurrent with diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "709147009",
+      "standardConcept": "S"
+    }
+  ]
 }

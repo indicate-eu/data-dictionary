@@ -1,7 +1,123 @@
 {
   "conceptSetId": 17,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26"
-  },
-  "resolvedConcepts": []
+  "vocabularyVersion": null,
+  "resolvedConcepts": [
+    {
+      "conceptId": 193256,
+      "conceptName": "Alcoholic fatty liver",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "50325005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 196463,
+      "conceptName": "Alcoholic cirrhosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "420054005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 201343,
+      "conceptName": "Acute alcoholic liver disease",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "9953008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 201612,
+      "conceptName": "Alcoholic liver damage",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "41309000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1450344,
+      "conceptName": "Metabolic dysfunction and alcohol associated liver disease",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "235601000112100",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4146181,
+      "conceptName": "Chronic alcoholic hepatitis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "307757001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4195620,
+      "conceptName": "Zieve's syndrome",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "44047000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4340383,
+      "conceptName": "Alcoholic hepatitis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "235875008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4340385,
+      "conceptName": "Alcoholic fibrosis and sclerosis of liver",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "235880004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4340386,
+      "conceptName": "Alcoholic hepatic failure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "235881000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36715922,
+      "conceptName": "Fibrosis of liver caused by alcohol",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "721710005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37017009,
+      "conceptName": "Chronic alcoholic liver disease",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "713181003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37017151,
+      "conceptName": "Acute on chronic alcoholic liver disease",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "713370005",
+      "standardConcept": "S"
+    }
+  ]
 }

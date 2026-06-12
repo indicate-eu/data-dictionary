@@ -1,10 +1,16 @@
 {
   "conceptSetId": 31,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
-  },
+  "vocabularyVersion": null,
   "resolvedConcepts": [
+    {
+      "conceptId": 764914,
+      "conceptName": "Infection of hemodialysis tunneled catheter",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "831000124100",
+      "standardConcept": "S"
+    },
     {
       "conceptId": 764921,
       "conceptName": "Infection of hemodialysis catheter",
@@ -24,12 +30,39 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 1077006,
+      "conceptName": "Localized infection associated with central venous catheter",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "328871000119103",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4149606,
       "conceptName": "Infection of intravenous catheter",
       "vocabularyId": "SNOMED",
       "domainId": "Condition",
       "conceptClassId": "Disorder",
       "conceptCode": "310643001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4181811,
+      "conceptName": "Infection of vascular catheter",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "429268001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4201197,
+      "conceptName": "Candidemia associated with intravascular line",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "432480003",
       "standardConcept": "S"
     },
     {
@@ -42,6 +75,24 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 37395728,
+      "conceptName": "Infection of hemodialysis catheter exit site",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "715272002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42537043,
+      "conceptName": "CLABSI - central line associated bloodstream infection",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "736152001",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 42537216,
       "conceptName": "Catheter related bloodstream infection",
       "vocabularyId": "SNOMED",
@@ -51,12 +102,57 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 42537495,
+      "conceptName": "Infection of bloodstream associated with hemodialysis catheter in situ",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "736918003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42537497,
+      "conceptName": "Infection of bloodstream associated with tunneled hemodialysis catheter in situ",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "736920000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42537540,
+      "conceptName": "Infection of bloodstream associated with temporary hemodialysis catheter in situ",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "736984007",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 43021261,
       "conceptName": "Infection associated with totally implantable venous access device",
       "vocabularyId": "SNOMED",
       "domainId": "Condition",
       "conceptClassId": "Disorder",
       "conceptCode": "473052005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43021262,
+      "conceptName": "Infection of tunnel site of tunneled central venous catheter",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "473054006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43021283,
+      "conceptName": "Infection associated with vascular device",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "473083009",
       "standardConcept": "S"
     }
   ]

@@ -1,7 +1,420 @@
 {
   "conceptSetId": 27,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26"
-  },
-  "resolvedConcepts": []
+  "vocabularyVersion": null,
+  "resolvedConcepts": [
+    {
+      "conceptId": 255573,
+      "conceptName": "Chronic obstructive pulmonary disease",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "13645005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 257004,
+      "conceptName": "Acute exacerbation of chronic obstructive pulmonary disease",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "195951007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 259043,
+      "conceptName": "Emphysematous bleb of lung",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "57686001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 261325,
+      "conceptName": "Pulmonary emphysema",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "87433001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 261895,
+      "conceptName": "Compensatory emphysema",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "33325001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 440748,
+      "conceptName": "Interstitial emphysema of lung",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "77690003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 605066,
+      "conceptName": "Emphysema of left lung",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1010333003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 605067,
+      "conceptName": "Emphysema of right lung",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1010334009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3654571,
+      "conceptName": "Chronic emphysema caused by vapor",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "836477007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3654836,
+      "conceptName": "Chronic obliterative bronchiolitis caused by chemical fumes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "840350008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3654837,
+      "conceptName": "Chronic obliterative bronchiolitis caused by vapor",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "840351007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4046986,
+      "conceptName": "End stage chronic obstructive pulmonary disease",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "135836000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4050732,
+      "conceptName": "Pulmonary emphysema in alpha-1 PI deficiency",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "233674008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4050733,
+      "conceptName": "Toxic emphysema",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "233675009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4050734,
+      "conceptName": "Scar emphysema",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "233677001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4050961,
+      "conceptName": "Giant bullous emphysema",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "16003001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4056405,
+      "conceptName": "Obstructive emphysema",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "16846004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4083395,
+      "conceptName": "Vanishing lung",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "23958009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4110048,
+      "conceptName": "Chronic bullous emphysema",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "195957006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4110056,
+      "conceptName": "Chronic obstructive pulmonary disease with acute lower respiratory infection",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "196001008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4110635,
+      "conceptName": "Segmental bullous emphysema",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "195958001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4112828,
+      "conceptName": "Zonal bullous emphysema",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "195959009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4112836,
+      "conceptName": "Chronic emphysema caused by chemical fumes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "196026004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4115044,
+      "conceptName": "Acute infective exacerbation of chronic obstructive pulmonary disease",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "285381006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4136683,
+      "conceptName": "Paraseptal emphysema",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "31898008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4145496,
+      "conceptName": "Bullous emphysema with collapse",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "266355005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4148124,
+      "conceptName": "Atrophic (senile) emphysema",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "266356006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4166508,
+      "conceptName": "Congenital emphysema",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "47895001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4166517,
+      "conceptName": "Chronic obliterative bronchiolitis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "47938003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4177944,
+      "conceptName": "Panacinar emphysema",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "4981000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4193588,
+      "conceptName": "Moderate chronic obstructive pulmonary disease",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "313297008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4196712,
+      "conceptName": "Mild chronic obstructive pulmonary disease",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "313296004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4209097,
+      "conceptName": "Severe chronic obstructive pulmonary disease",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "313299006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4246105,
+      "conceptName": "Hemolytic anemia with emphysema AND cutis laxa",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "60805002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4281815,
+      "conceptName": "Congenital lobar emphysema",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "66987001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4286497,
+      "conceptName": "Centriacinar emphysema",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "68328006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4315386,
+      "conceptName": "Ruptured emphysematous bleb of lung",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "86680006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4321845,
+      "conceptName": "Bronchial atresia with segmental pulmonary emphysema",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "70756004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37161191,
+      "conceptName": "Bronchiolitis obliterans syndrome following allogeneic stem cell transplant",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1177120001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42538810,
+      "conceptName": "Bronchiolitis obliterans syndrome due to and after lung transplantation",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "762618008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43530693,
+      "conceptName": "Acute exacerbation of chronic obstructive pulmonary disease with asthma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1751000119100",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44791725,
+      "conceptName": "Very severe chronic obstructive pulmonary disease",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "293991000000106",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44807895,
+      "conceptName": "Acute non-infective exacerbation of chronic obstructive pulmonary disease",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "847091000000104",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45769389,
+      "conceptName": "Pulmonary emphysema co-occurrent with fibrosis of lung",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "708030004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46269701,
+      "conceptName": "Chronic obstructive pulmonary disease with acute bronchitis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "106001000119101",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46274062,
+      "conceptName": "Asthma-chronic obstructive pulmonary disease overlap syndrome",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "10692761000119107",
+      "standardConcept": "S"
+    }
+  ]
 }

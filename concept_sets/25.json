@@ -1,15 +1,35 @@
 {
   "id": 25,
   "name": "Multiple myeloma",
-  "description": null,
-  "version": "1.0.0",
+  "description": "Multiple myeloma — malignancy of plasma cells; one of the APACHE IV chronic health conditions.",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
-    "items": []
+    "items": [
+      {
+        "concept": {
+          "conceptId": 437233,
+          "conceptName": "Multiple myeloma",
+          "domainId": "Condition",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Disorder",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "109989006",
+          "validStartDate": "20020131",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      }
+    ]
   },
   "tags": [],
   "metadata": {
@@ -25,21 +45,21 @@
       }
     },
     "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Multiple myeloma",
         "category": "Conditions",
-        "subcategory": "APACHE IV - Chronic health conditions",
-        "shortDescription": null,
-        "longDescription": null
+        "subcategory": "Haematologic / oncologic",
+        "shortDescription": "Multiple myeloma — malignancy of plasma cells; one of the APACHE IV chronic health conditions.",
+        "longDescription": "## Definition & Clinical Context\n\nMultiple myeloma is a malignancy of plasma cells (a type of white blood cell) in the bone marrow, associated with bone disease, renal impairment, anaemia and immunosuppression. In intensive care it is a comorbidity affecting infection risk, renal function and prognosis. Myeloma is one of the chronic health items in the APACHE IV severity model (grouped with leukemia).\n\n## Scope\n\nThe set is anchored on the SNOMED concept *437233 / 109989006 — Multiple myeloma* with all descendants included, capturing multiple myeloma and its variants.\n\n## Mapping Notes\n\n- Leukemia and lymphoma are distinct haematologic malignancies captured by their own sets."
       },
       "fr": {
         "name": "Myélome multiple",
         "category": "Pathologies",
-        "subcategory": "APACHE IV - Pathologies chroniques",
-        "shortDescription": null,
+        "subcategory": "Hématologique / oncologique",
+        "shortDescription": "Myélome multiple — cancer des plasmocytes ; l'une des comorbidités chroniques d'APACHE IV.",
         "longDescription": null
       }
     },
@@ -51,7 +71,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Fill the expression: anchor on SNOMED Multiple myeloma (109989006) with descendants; subcategory Haematologic / oncologic; added clinical description."
+      }
+    ],
     "distributionStats": null
   }
 }

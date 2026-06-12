@@ -1,127 +1,32 @@
 {
   "id": 31,
   "name": "Catheter infection",
-  "description": null,
-  "version": "1.0.0",
+  "description": "Catheter infection — infection related to an intravascular catheter (line infection, catheter-related bloodstream infection).",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
       {
         "concept": {
-          "conceptId": 764921,
-          "conceptName": "Infection of hemodialysis catheter",
+          "conceptId": 43021283,
+          "conceptName": "Infection associated with vascular device",
           "domainId": "Condition",
           "vocabularyId": "SNOMED",
           "conceptClassId": "Disorder",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "841000124105",
-          "validStartDate": "2011-08-01",
-          "validEndDate": "2099-12-31",
+          "conceptCode": "473083009",
+          "validStartDate": "20130131",
+          "validEndDate": "20991231",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 764924,
-          "conceptName": "Infection of hemodialysis temporary catheter",
-          "domainId": "Condition",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Disorder",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "851000124107",
-          "validStartDate": "2011-08-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4149606,
-          "conceptName": "Infection of intravenous catheter",
-          "domainId": "Condition",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Disorder",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "310643001",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4326841,
-          "conceptName": "Infection of central venous catheter exit site",
-          "domainId": "Condition",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Disorder",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "430957008",
-          "validStartDate": "2008-07-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 42537216,
-          "conceptName": "Catheter related bloodstream infection",
-          "domainId": "Condition",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Disorder",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "736442006",
-          "validStartDate": "2018-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 43021261,
-          "conceptName": "Infection associated with totally implantable venous access device",
-          "domainId": "Condition",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Disorder",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "473052005",
-          "validStartDate": "2013-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
         "includeMapped": false
       }
     ]
@@ -140,21 +45,21 @@
       }
     },
     "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Catheter infection",
         "category": "Conditions",
         "subcategory": "Hospitalization complications",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Catheter infection — infection related to an intravascular catheter (line infection, catheter-related bloodstream infection).",
+        "longDescription": "## Definition & Clinical Context\n\nCatheter infection covers infections related to an intravascular catheter or vascular access device — from local exit-site or tunnel infection to catheter-related bloodstream infection (CRBSI) / central line-associated bloodstream infection (CLABSI). These are common, preventable hospitalisation complications in intensive care, where central venous and haemodialysis catheters are frequent.\n\n## Scope\n\nThe set is anchored on the SNOMED concept *43021283 / 473083009 — Infection associated with vascular device* with all descendants included. It therefore captures infections of intravenous and central venous catheters (including exit-site and tunnel-site infections), totally implantable venous access devices, and haemodialysis catheters (tunnelled and temporary), as well as catheter-related/central-line-associated bloodstream infection and intravascular-line candidaemia.\n\n## Mapping Notes\n\n- This set captures infections **of/related to** a vascular catheter or device, not the presence of the catheter itself or its mechanical complications.\n- Urinary catheter infection (CAUTI) and peritoneal dialysis catheter infection are intentionally **not** part of this set — the anchor is restricted to vascular devices."
       },
       "fr": {
         "name": "Infection de cathéter",
         "category": "Pathologies",
-        "subcategory": "Complications hospitalières",
-        "shortDescription": null,
+        "subcategory": "Complications de l'hospitalisation",
+        "shortDescription": "Infection de cathéter — infection liée à un cathéter intravasculaire (infection de ligne, bactériémie liée au cathéter).",
         "longDescription": null
       }
     },
@@ -166,7 +71,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Anchor on SNOMED 'Infection associated with vascular device' (473083009) with descendants (replacing the flat list of 6 concepts; now 17 vascular-catheter infection concepts, excluding urinary/peritoneal catheter infections). Subcategory Hospitalization complications; added clinical description."
+      }
+    ],
     "distributionStats": null
   }
 }

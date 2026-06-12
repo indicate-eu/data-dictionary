@@ -1,15 +1,35 @@
 {
   "id": 17,
   "name": "Alcoholic liver disease",
-  "description": null,
-  "version": "1.0.0",
+  "description": "Alcoholic liver disease — liver damage caused by chronic alcohol use, from fatty liver to alcoholic hepatitis and alcoholic cirrhosis.",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
-    "items": []
+    "items": [
+      {
+        "concept": {
+          "conceptId": 201612,
+          "conceptName": "Alcoholic liver damage",
+          "domainId": "Condition",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Disorder",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "41309000",
+          "validStartDate": "20020131",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      }
+    ]
   },
   "tags": [],
   "metadata": {
@@ -25,21 +45,21 @@
       }
     },
     "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Alcoholic liver disease",
         "category": "Conditions",
-        "subcategory": "APACHE IV - Chronic health conditions",
-        "shortDescription": null,
-        "longDescription": null
+        "subcategory": "Chronic organ failure",
+        "shortDescription": "Alcoholic liver disease — liver damage caused by chronic alcohol use, from fatty liver to alcoholic hepatitis and alcoholic cirrhosis.",
+        "longDescription": "## Definition & Clinical Context\n\nAlcoholic liver disease is the spectrum of liver damage caused by chronic alcohol use, ranging from reversible fatty liver (steatosis) through alcoholic hepatitis to alcoholic cirrhosis and alcoholic hepatic failure. In intensive care it is relevant as a comorbidity affecting coagulation, drug metabolism, infection risk and prognosis, and as a cause of admission (e.g. severe alcoholic hepatitis, decompensated alcoholic cirrhosis).\n\n## Scope\n\nThe set is anchored on the SNOMED concept *201612 / 41309000 — Alcoholic liver damage* with all descendants included, so it captures the full spectrum: alcoholic fatty liver, alcoholic hepatitis (acute and chronic), alcoholic fibrosis, alcoholic cirrhosis, and alcoholic hepatic failure.\n\n## Mapping Notes\n\n- This set overlaps the Cirrhosis of liver set by a single concept (alcoholic cirrhosis): a patient with alcoholic cirrhosis maps to both sets, which is expected since the two variables answer different questions (alcohol as a cause vs. cirrhosis as an outcome).\n- Non-alcoholic liver disease (e.g. viral hepatitis, non-alcoholic fatty liver disease) is **not** part of this set."
       },
       "fr": {
         "name": "Maladie alcoolique du foie",
         "category": "Pathologies",
-        "subcategory": "APACHE IV - Pathologies chroniques",
-        "shortDescription": null,
+        "subcategory": "Défaillance chronique d'organe",
+        "shortDescription": "Maladie alcoolique du foie — atteinte hépatique liée à l'alcool, de la stéatose à l'hépatite alcoolique et la cirrhose alcoolique.",
         "longDescription": null
       }
     },
@@ -51,7 +71,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Fill the expression: anchor on SNOMED Alcoholic liver damage (41309000) with descendants; subcategory Chronic organ failure; added clinical description."
+      }
+    ],
     "distributionStats": null
   }
 }

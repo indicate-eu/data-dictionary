@@ -1,10 +1,727 @@
 {
   "conceptSetId": 21,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
-  },
+  "vocabularyVersion": null,
   "resolvedConcepts": [
+    {
+      "conceptId": 1246785,
+      "conceptName": "Immunodeficiency caused by long term therapeutic use of immunosuppressant",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "950410381000119107",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4011158,
+      "conceptName": "Immunodeficiency secondary to chemotherapy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "103081004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4012259,
+      "conceptName": "Immunodeficiency secondary to trauma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "103078009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4012260,
+      "conceptName": "Immunodeficiency secondary to corticosteroid",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "103079001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4012261,
+      "conceptName": "Immunodeficiency due to radiotherapy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "103080003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4012702,
+      "conceptName": "Immunodeficiency secondary to neoplasm",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "103077004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4045982,
+      "conceptName": "Vacuolar myelopathy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "230202002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4100982,
+      "conceptName": "Immunodeficiency following hereditary defective response to Epstein-Barr virus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "191008001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4122338,
+      "conceptName": "Transient immunodeficiency of infancy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "234643002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4122339,
+      "conceptName": "Drug-induced immunodeficiency",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "234645009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4125822,
+      "conceptName": "Age-related immunodeficiency",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "234642007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4140977,
+      "conceptName": "Secondary immune deficiency disorder",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "33286000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4211956,
+      "conceptName": "Neutropenia with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "416729007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4220603,
+      "conceptName": "Skin rash with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "420281004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4221489,
+      "conceptName": "Acquired immunodeficiency syndrome-associated disorder",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "420721002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4221503,
+      "conceptName": "Pneumococcal pneumonia with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "420787001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4221607,
+      "conceptName": "Mycobacteriosis with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "420818005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4221911,
+      "conceptName": "Fatigue with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "420900006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4222062,
+      "conceptName": "Candidiasis of lung with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "421047005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4222224,
+      "conceptName": "Hepatomegaly with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "421230000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4222250,
+      "conceptName": "Encephalitis with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "420244003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4222383,
+      "conceptName": "Intestinal malabsorption with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "420321004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4222402,
+      "conceptName": "Hematopoietic system disease with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "420384005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4222405,
+      "conceptName": "Acute endocarditis with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "420395004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4222712,
+      "conceptName": "Cryptococcosis with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "421403008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4222717,
+      "conceptName": "Subacute adenoviral encephalitis with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "421415007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4223032,
+      "conceptName": "Bacterial pneumonia with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "420544002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4223276,
+      "conceptName": "Central nervous system demyelinating disease with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "420718004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4223597,
+      "conceptName": "Strongyloidiasis with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "421883002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4223738,
+      "conceptName": "Noninfectious gastroenteritis with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "421983003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4223918,
+      "conceptName": "Retinal vascular changes with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "420308006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4224078,
+      "conceptName": "Myelopathy with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "420452002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4224096,
+      "conceptName": "Kaposi's sarcoma with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "420524008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4224240,
+      "conceptName": "Presenile dementia with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "421023003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4224425,
+      "conceptName": "Subacute myocarditis with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "421272004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4224553,
+      "conceptName": "Agranulocytosis with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "421312009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4224566,
+      "conceptName": "Skin disorder with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "421394009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4224578,
+      "conceptName": "Nocardiosis with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "421431004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4224740,
+      "conceptName": "Coccidioidomycosis with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "422337001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4224860,
+      "conceptName": "Organic dementia with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "420614009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4225017,
+      "conceptName": "Salmonella infection with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "420764009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4225027,
+      "conceptName": "Malaise with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "420801006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4225170,
+      "conceptName": "Histoplasmosis with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "420945005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4225318,
+      "conceptName": "Viral pneumonia with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "421508002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4225643,
+      "conceptName": "Respiratory disorder with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "421874007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4225810,
+      "conceptName": "Aplastic anemia with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "421102007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4225989,
+      "conceptName": "Infectious gastroenteritis with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "421454008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4226110,
+      "conceptName": "Central nervous disorder with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "421998001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4226357,
+      "conceptName": "Malignant neoplasm with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "422282000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4226388,
+      "conceptName": "Reticulosarcoma with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "420302007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4226502,
+      "conceptName": "Pneumocystosis with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "420403001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4226629,
+      "conceptName": "Salivary gland disease with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "420549007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4226631,
+      "conceptName": "Progressive multifocal leukoencephalopathy with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "420554003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4226658,
+      "conceptName": "Tuberculosis with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "421571007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4226662,
+      "conceptName": "Polyneuropathy with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "421597001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4226790,
+      "conceptName": "Blindness with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "421706001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4226792,
+      "conceptName": "Candidiasis of mouth with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "421710003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4226905,
+      "conceptName": "Thrombocytopenia with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "421766003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4227053,
+      "conceptName": "Myocarditis with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "421929001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4227072,
+      "conceptName": "Radiculitis with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "420658009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4227077,
+      "conceptName": "Nutritional deficiency with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "420691000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4227205,
+      "conceptName": "Organic brain syndrome with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "420774007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4227229,
+      "conceptName": "Dermatomycosis with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "420877009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4227350,
+      "conceptName": "Subacute endocarditis with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "420938005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4227380,
+      "conceptName": "Disseminated candidiasis with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "421077004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4227519,
+      "conceptName": "Neuritis with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "422012004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4227539,
+      "conceptName": "Herpes zoster with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "422127002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4227969,
+      "conceptName": "Primary lymphoma of brain with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "421283008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4227974,
+      "conceptName": "Myelitis with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "421315006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4228115,
+      "conceptName": "Retinopathy with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "421460008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4228133,
+      "conceptName": "Dementia with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "421529006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4228272,
+      "conceptName": "Failure to thrive in infant with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "421660003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4228277,
+      "conceptName": "Pneumonia with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "421671002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4228290,
+      "conceptName": "Infective arthritis with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "421708000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4228440,
+      "conceptName": "Encephalopathy with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "421827003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4228612,
+      "conceptName": "Encephalomyelitis with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "422089004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4228745,
+      "conceptName": "Neuralgia with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "422136003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4228754,
+      "conceptName": "Dyspnea with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "422177004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4228757,
+      "conceptName": "Low vision with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "422189002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4228760,
+      "conceptName": "Hyperhidrosis with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "422194002",
+      "standardConcept": "S"
+    },
     {
       "conceptId": 4242843,
       "conceptName": "Immunosuppression",
@@ -12,6 +729,78 @@
       "domainId": "Condition",
       "conceptClassId": "Clinical Finding",
       "conceptCode": "38013005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4267414,
+      "conceptName": "AIDS",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "62479008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36674970,
+      "conceptName": "Lymphoproliferative disorder caused by methotrexate",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "771073006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36712750,
+      "conceptName": "Immunodeficiency caused by long term therapeutic use of drug",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "10838971000119103",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37166798,
+      "conceptName": "AIDS (acquired immunodeficiency syndrome) wasting syndrome",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1260096003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40493262,
+      "conceptName": "Infectious disease with acquired immune deficiency syndrome",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "445945000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44783780,
+      "conceptName": "Cholangitis with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "697965002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784137,
+      "conceptName": "Sepsis with acquired immunodeficiency syndrome",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "700053002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45757102,
+      "conceptName": "Acquired immune deficiency syndrome complicating childbirth",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "10746341000119109",
       "standardConcept": "S"
     }
   ]

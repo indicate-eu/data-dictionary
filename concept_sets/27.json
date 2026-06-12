@@ -1,15 +1,35 @@
 {
   "id": 27,
-  "name": "COPD",
-  "description": null,
-  "version": "1.0.0",
+  "name": "Chronic obstructive pulmonary disease (COPD)",
+  "description": "Chronic obstructive pulmonary disease (COPD) — chronic airflow limitation from chronic bronchitis and/or emphysema.",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
-    "items": []
+    "items": [
+      {
+        "concept": {
+          "conceptId": 255573,
+          "conceptName": "Chronic obstructive pulmonary disease",
+          "domainId": "Condition",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Disorder",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "13645005",
+          "validStartDate": "20020131",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      }
+    ]
   },
   "tags": [],
   "metadata": {
@@ -25,21 +45,21 @@
       }
     },
     "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "COPD",
+        "name": "Chronic obstructive pulmonary disease (COPD)",
         "category": "Conditions",
-        "subcategory": "General conditions",
-        "shortDescription": null,
-        "longDescription": null
+        "subcategory": "Chronic organ failure",
+        "shortDescription": "Chronic obstructive pulmonary disease (COPD) — chronic airflow limitation from chronic bronchitis and/or emphysema.",
+        "longDescription": "## Definition & Clinical Context\n\nChronic obstructive pulmonary disease (COPD) is a chronic respiratory condition characterised by persistent airflow limitation, usually from a mix of small-airway disease (chronic bronchitis) and parenchymal destruction (emphysema). In intensive care it matters as a pre-existing comorbidity that affects respiratory reserve, weaning from mechanical ventilation, and prognosis.\n\n## Scope\n\nThe set is anchored on the SNOMED concept *255573 / 13645005 — Chronic obstructive pulmonary disease* with all descendants included, so it captures the documented diagnosis of COPD and its sub-types (including chronic bronchitis and emphysema variants and COPD with acute exacerbation). It represents the presence of the diagnosis, not its severity grade (e.g. GOLD stage), which is not encoded at the concept level.\n\n## Mapping Notes\n\n- Map a documented diagnosis of COPD, chronic bronchitis, or emphysema to this set.\n- Asthma is a distinct diagnosis and is **not** part of this set, even though both cause airflow obstruction.\n- An acute exacerbation of COPD is included here as a COPD sub-type; if the source separately needs the acute event, that is captured by the exacerbation concept within this tree."
       },
       "fr": {
-        "name": "COPD",
+        "name": "Bronchopneumopathie chronique obstructive (BPCO)",
         "category": "Pathologies",
-        "subcategory": "Pathologies générales",
-        "shortDescription": null,
+        "subcategory": "Défaillance chronique d'organe",
+        "shortDescription": "Bronchopneumopathie chronique obstructive (BPCO) — limitation chronique des débits aériens (bronchite chronique et/ou emphysème).",
         "longDescription": null
       }
     },
@@ -51,7 +71,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Fill the expression: anchor on SNOMED Chronic obstructive pulmonary disease (13645005) with descendants; full name 'Chronic obstructive pulmonary disease (COPD)'; subcategory Chronic organ failure; added clinical description."
+      }
+    ],
     "distributionStats": null
   }
 }

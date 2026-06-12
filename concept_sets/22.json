@@ -1,15 +1,35 @@
 {
   "id": 22,
   "name": "Leukemia",
-  "description": null,
-  "version": "1.0.0",
+  "description": "Leukemia — malignancy of blood-forming cells; one of the APACHE IV chronic health conditions.",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
-    "items": []
+    "items": [
+      {
+        "concept": {
+          "conceptId": 317510,
+          "conceptName": "Leukemia",
+          "domainId": "Condition",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Disorder",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "93143009",
+          "validStartDate": "20020131",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      }
+    ]
   },
   "tags": [],
   "metadata": {
@@ -25,21 +45,21 @@
       }
     },
     "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Leukemia",
         "category": "Conditions",
-        "subcategory": "APACHE IV - Chronic health conditions",
-        "shortDescription": null,
-        "longDescription": null
+        "subcategory": "Haematologic / oncologic",
+        "shortDescription": "Leukemia — malignancy of blood-forming cells; one of the APACHE IV chronic health conditions.",
+        "longDescription": "## Definition & Clinical Context\n\nLeukemia is a malignancy of the blood-forming (haematopoietic) cells, producing abnormal white cells in the blood and bone marrow. In intensive care it is a major comorbidity (cytopenias, immunosuppression, complications of chemotherapy) and a cause of admission. Leukemia is one of the chronic health items in the APACHE IV severity model.\n\n## Scope\n\nThe set is anchored on the SNOMED concept *317510 / 93143009 — Leukemia* with all descendants included, capturing acute and chronic leukemias, lymphoid and myeloid lineages, and their subtypes (including leukemia in remission).\n\n## Mapping Notes\n\n- Lymphoma and multiple myeloma are related haematologic malignancies captured by their own sets.\n- Leukemia in remission is included in this tree; the set records the diagnosis, not the disease activity status."
       },
       "fr": {
         "name": "Leucémie",
         "category": "Pathologies",
-        "subcategory": "APACHE IV - Pathologies chroniques",
-        "shortDescription": null,
+        "subcategory": "Hématologique / oncologique",
+        "shortDescription": "Leucémie — cancer des cellules sanguines ; l'une des comorbidités chroniques d'APACHE IV.",
         "longDescription": null
       }
     },
@@ -51,7 +71,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Fill the expression: anchor on SNOMED Leukemia (93143009) with descendants; subcategory Haematologic / oncologic; added clinical description."
+      }
+    ],
     "distributionStats": null
   }
 }

@@ -1,7 +1,798 @@
 {
   "conceptSetId": 24,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26"
-  },
-  "resolvedConcepts": []
+  "vocabularyVersion": null,
+  "resolvedConcepts": [
+    {
+      "conceptId": 132570,
+      "conceptName": "Leukemic reticuloendotheliosis of lymph nodes of head, face and neck",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188645002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 193429,
+      "conceptName": "Leukemic reticuloendotheliosis of intra-abdominal lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "93144003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 196650,
+      "conceptName": "Leukemic reticuloendotheliosis of intrapelvic lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "93145002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 318989,
+      "conceptName": "Leukemic reticuloendotheliosis of lymph nodes of multiple sites",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "93150008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 432851,
+      "conceptName": "Metastatic malignant neoplasm",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "128462008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 439268,
+      "conceptName": "Leukemic reticuloendotheliosis of lymph nodes of inguinal region and lower limb",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188649008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 439269,
+      "conceptName": "Leukemic reticuloendotheliosis of lymph nodes of axilla and upper limb",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188648000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 442095,
+      "conceptName": "Leukemic reticuloendotheliosis of intrathoracic lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "93146001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 604497,
+      "conceptName": "Metastatic adenocarcinoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "354081000119101",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1075530,
+      "conceptName": "Metastatic malignant neoplasm to nipple",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1306321008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1075531,
+      "conceptName": "Metastatic malignant neoplasm to ectopic site of breast",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1306322001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1075532,
+      "conceptName": "Metastatic malignant neoplasm to areola",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1306323006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1075916,
+      "conceptName": "Metastatic balloon cell malignant melanoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1332483008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1075917,
+      "conceptName": "Metastatic anaplastic thyroid carcinoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1332484002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1075918,
+      "conceptName": "Metastatic endometrial stromal sarcoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1332485001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1075919,
+      "conceptName": "Metastatic amelanotic malignant melanoma to skin",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1332486000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1076162,
+      "conceptName": "Metastatic desmoplastic malignant melanoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1335987009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1076216,
+      "conceptName": "Metastatic spindle cell rhabdomyosarcoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1336170004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1076217,
+      "conceptName": "Metastatic synovial sarcoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1336171000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1076218,
+      "conceptName": "Metastatic ganglioneuroblastoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1336172007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1076219,
+      "conceptName": "Metastatic superficial spreading melanoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1336173002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1076220,
+      "conceptName": "Metastatic fibrosarcoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1336176005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1076221,
+      "conceptName": "Metastatic spindle cell melanoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1336177001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1076222,
+      "conceptName": "Metastatic myxofibrosarcoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1336182008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1076223,
+      "conceptName": "Metastatic pleomorphic rhabdomyosarcoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1336185005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1076224,
+      "conceptName": "Metastatic lentigo maligna melanoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1336186006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1076225,
+      "conceptName": "Metastatic glassy cell carcinoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1336188007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1076227,
+      "conceptName": "Metastatic inflammatory carcinoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1336190008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1076300,
+      "conceptName": "Metastatic infantile fibrosarcoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1339049006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1076301,
+      "conceptName": "Metastatic malignant glioma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1339050006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1076302,
+      "conceptName": "Metastatic germinoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1339051005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1076511,
+      "conceptName": "Metastatic well-differentiated neuroendocrine tumor to regional lymph node",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "140633841000119106",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1244565,
+      "conceptName": "Metastatic well-differentiated neuroendocrine tumor",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1290060007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1244716,
+      "conceptName": "Metastatic cholangiocarcinoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1290690001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1244718,
+      "conceptName": "Metastatic apocrine adenocarcinoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1290695006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1244720,
+      "conceptName": "Metastatic eccrine porocarcinoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1290697003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1244721,
+      "conceptName": "Metastatic pilomatrix carcinoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1290698008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1244722,
+      "conceptName": "Metastatic lobular carcinoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1290700004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1245145,
+      "conceptName": "Metastatic malignant melanoma of unknown primary",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1296851009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1450198,
+      "conceptName": "Metastatic well-differentiated neuroendocrine neoplasm to bone",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "16067571000119106",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1450199,
+      "conceptName": "Metastatic well-differentiated neuroendocrine neoplasm to peritoneum",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "16067651000119101",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1450482,
+      "conceptName": "Metastatic nuclear protein in testis associated carcinoma to liver",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "417437921000119101",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1450873,
+      "conceptName": "Metastatic nuclear protein in testis associated carcinoma to bone",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "932947661000119102",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3654579,
+      "conceptName": "Lymphomatous infiltrate of kidney",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "836486002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4080741,
+      "conceptName": "Malignant lymphoma of thyroid gland",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "278051002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4126118,
+      "conceptName": "Leukemic infiltrate of kidney",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "236512004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4145870,
+      "conceptName": "Metastatic adenocarcinoma of unknown origin",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "307226002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4147162,
+      "conceptName": "Metastatic malignant neoplasm to respiratory and digestive systems",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "269473008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4197152,
+      "conceptName": "Leukemic infiltrate of retina",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "314418005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4199641,
+      "conceptName": "Leukemic infiltrate of choroid",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "314408000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4297353,
+      "conceptName": "Leukemic infiltration of skin (chronic T-cell lymphocytic leukemia)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404122003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4298848,
+      "conceptName": "T-cell leukemic infiltration of skin",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "402879006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4299143,
+      "conceptName": "Leukemic infiltration of skin (T-cell lymphoblastic leukemia)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404124002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4299151,
+      "conceptName": "Leukemic infiltration of skin in hairy-cell leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404139001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4299153,
+      "conceptName": "Leukemic infiltration of skin in myeloid leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404151004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4299154,
+      "conceptName": "Leukemic infiltration of skin in chronic myeloid leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404153001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4299155,
+      "conceptName": "Leukemic infiltration of skin in monocytic leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404154007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4300784,
+      "conceptName": "Leukemic infiltration of skin in acute myeloid leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404152006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4301510,
+      "conceptName": "Metastatic squamous cell carcinoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "403906006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4301665,
+      "conceptName": "Leukemic infiltration of skin (T-cell prolymphocytic leukemia)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404123008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4301780,
+      "conceptName": "Leukemic infiltration of skin",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404156009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4301781,
+      "conceptName": "Specific skin infiltration in Hodgkin's disease",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404157000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4307000,
+      "conceptName": "Leukemic infiltration of orbit",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "423032007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36684857,
+      "conceptName": "Metastatic non-small cell lung cancer",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "457721000124104",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36715103,
+      "conceptName": "Donor derived melanoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "720587009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37016150,
+      "conceptName": "Non-Hodgkin lymphoma of central nervous system metastatic to lymph node of lower limb",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "116811000119106",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37018877,
+      "conceptName": "Non-Hodgkin lymphoma of central nervous system metastatic to lymph node of upper limb",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "116821000119104",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37162050,
+      "conceptName": "Metastatic hepatocellular carcinoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1186612004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37162300,
+      "conceptName": "Metastatic clear cell renal cell carcinoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1187285005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37162723,
+      "conceptName": "Metastatic carcinoma to lymph node of lower limb",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1197327004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165127,
+      "conceptName": "Metastatic small cell neuroendocrine carcinoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1240362006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165252,
+      "conceptName": "Metastatic neuroblastoma to paraspinal area",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1251459007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165253,
+      "conceptName": "Metastatic extraskeletal osteosarcoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1251465007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165395,
+      "conceptName": "Metastatic acantholytic squamous cell carcinoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1254749009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165664,
+      "conceptName": "Oligometastatic malignant neoplasm",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255358009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37167258,
+      "conceptName": "Metastatic lymphoepithelial carcinoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1264068000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37167301,
+      "conceptName": "Metastatic adenosquamous carcinoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1264116009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37167302,
+      "conceptName": "Metastatic oxyphilic adenocarcinoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1264118005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37167409,
+      "conceptName": "Metastatic papillary squamous cell carcinoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1264258003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37167429,
+      "conceptName": "Metastatic sebaceous adenocarcinoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1264367001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37167895,
+      "conceptName": "Metastatic rhabdomyosarcoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1269121005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37168383,
+      "conceptName": "Metastatic embryonal rhabdomyosarcoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1279882001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37168858,
+      "conceptName": "Metastatic collecting duct renal cell carcinoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1286896000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37168860,
+      "conceptName": "Metastatic cystic renal cell carcinoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1286898004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40480137,
+      "conceptName": "Metastatic sarcoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "443144000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40481908,
+      "conceptName": "Metastatic malignant melanoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "443493003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45772700,
+      "conceptName": "Metastatic neuroblastoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "704152002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45773365,
+      "conceptName": "Metastatic renal cell carcinoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "702392008",
+      "standardConcept": "S"
+    }
+  ]
 }

@@ -1,0 +1,15 @@
+{
+  "conceptSetId": 383,
+  "vocabularyVersion": null,
+  "resolvedConcepts": [
+    {
+      "conceptId": 1450877,
+      "conceptName": "APACHE IV (Acute Physiology and Chronic Health Evaluation IV) score",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "1351474005",
+      "standardConcept": "S"
+    }
+  ]
+}

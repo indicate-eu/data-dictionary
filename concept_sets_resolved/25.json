@@ -1,7 +1,177 @@
 {
   "conceptSetId": 25,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26"
-  },
-  "resolvedConcepts": []
+  "vocabularyVersion": null,
+  "resolvedConcepts": [
+    {
+      "conceptId": 133154,
+      "conceptName": "Plasma cell leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "95210003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 133158,
+      "conceptName": "Plasma cell leukemia in remission",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "95209008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 436059,
+      "conceptName": "Multiple myeloma in remission",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "94704006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 437233,
+      "conceptName": "Multiple myeloma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "109989006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 760936,
+      "conceptName": "Plasma cell leukemia in relapse",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "122981000119101",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 764229,
+      "conceptName": "Relapse multiple myeloma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "452291000124109",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4079684,
+      "conceptName": "Non-secretory myeloma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277580004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4082464,
+      "conceptName": "Light chain myeloma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277579002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4111355,
+      "conceptName": "IgA myeloma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "285420006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4111356,
+      "conceptName": "IgG myeloma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "285421005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4112310,
+      "conceptName": "Immunoglobulin D myeloma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "285422003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4137510,
+      "conceptName": "Osteosclerotic myeloma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "425657001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4184985,
+      "conceptName": "Smoldering myeloma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "413587002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4188299,
+      "conceptName": "Kappa light chain myeloma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "414553000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4190642,
+      "conceptName": "Plasma cell myeloma/plasmacytoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "415110002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4197600,
+      "conceptName": "Lambda light chain myeloma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "313427003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4258135,
+      "conceptName": "Asymptomatic multiple myeloma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "440422002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4259972,
+      "conceptName": "Indolent multiple myeloma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "441313008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42538151,
+      "conceptName": "Osteoporosis co-occurrent and due to multiple myeloma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "739301006",
+      "standardConcept": "S"
+    }
+  ]
 }

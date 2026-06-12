@@ -1,7 +1,258 @@
 {
   "conceptSetId": 20,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26"
-  },
-  "resolvedConcepts": []
+  "vocabularyVersion": null,
+  "resolvedConcepts": [
+    {
+      "conceptId": 196455,
+      "conceptName": "Hepatorenal syndrome",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "51292008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 606766,
+      "conceptName": "Hepatic failure following surgical procedure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1148573000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1450217,
+      "conceptName": "Acute on chronic liver failure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "2053831000122108",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4026032,
+      "conceptName": "Acute hepatic failure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "197270009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4059281,
+      "conceptName": "Subacute hepatic failure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "197275004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4119093,
+      "conceptName": "Hepatorenal syndrome following delivery",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "22846003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4149888,
+      "conceptName": "Hepatorenal syndrome due to a procedure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "31005002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4184847,
+      "conceptName": "Acute hepatic failure due to drugs",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "413438002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4245975,
+      "conceptName": "Hepatic failure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "59927004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4265212,
+      "conceptName": "Familial arthrogryposis-cholestatic hepatorenal syndrome",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "62216007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4308408,
+      "conceptName": "Hepatorenal syndrome as a complication of care",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "213231008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4309163,
+      "conceptName": "Hepatic failure as a complication of care",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "213230009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4331292,
+      "conceptName": "Hepatic failure due to a procedure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "22508003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4340386,
+      "conceptName": "Alcoholic hepatic failure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "235881000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4340389,
+      "conceptName": "Fulminant hepatic failure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "235884008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4340390,
+      "conceptName": "Chronic hepatic failure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "235886005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4342773,
+      "conceptName": "Subfulminant hepatic failure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "235885009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36676901,
+      "conceptName": "Acute infantile liver failure with multisystemic involvement syndrome",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "774207004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36715006,
+      "conceptName": "Acute infantile liver failure due to synthesis defect of mitochondrial deoxyribonucleic acid encoded protein",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "720461006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36716708,
+      "conceptName": "Acute hepatic failure caused by hepatitis virus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "722864002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36716709,
+      "conceptName": "Subacute hepatic failure caused by hepatitis virus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "722865001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37162423,
+      "conceptName": "Acute infantile liver failure, cerebellar ataxia, peripheral sensory motor neuropathy syndrome",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1187643003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37162893,
+      "conceptName": "Chronic hepatic failure due to portosystemic shunt",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1197736003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37163225,
+      "conceptName": "Fever-associated acute infantile liver failure syndrome",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1208726006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37166820,
+      "conceptName": "Congenital cataract, severe neonatal hepatopathy, global developmental delay syndrome",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1260140008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37168714,
+      "conceptName": "Hepatorenal syndrome with acute kidney injury",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1285574007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37396401,
+      "conceptName": "Decompensated cirrhosis of liver",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "716203000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45769564,
+      "conceptName": "End stage liver disease",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "708248004",
+      "standardConcept": "S"
+    }
+  ]
 }

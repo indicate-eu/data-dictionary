@@ -1,7 +1,195 @@
 {
   "conceptSetId": 28,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26"
-  },
-  "resolvedConcepts": []
+  "vocabularyVersion": null,
+  "resolvedConcepts": [
+    {
+      "conceptId": 315295,
+      "conceptName": "Congestive rheumatic heart failure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "82523003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 444031,
+      "conceptName": "Chronic heart failure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "48447003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 764874,
+      "conceptName": "Acute on chronic heart failure co-occurrent with normal ejection fraction",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "7401000175100",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 764876,
+      "conceptName": "Chronic heart failure co-occurrent with normal ejection fraction",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "7411000175102",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1245073,
+      "conceptName": "Acute exacerbation of chronic heart failure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1296659009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4009047,
+      "conceptName": "Chronic left-sided heart failure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "111283005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4014159,
+      "conceptName": "Chronic right-sided heart failure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "10335000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4184497,
+      "conceptName": "Rheumatic left ventricular failure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "43736008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4195892,
+      "conceptName": "Chronic cor pulmonale",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "79955004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4206009,
+      "conceptName": "Chronic left-sided congestive heart failure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "5375005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4229440,
+      "conceptName": "Chronic congestive heart failure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "88805009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4284562,
+      "conceptName": "Chronic right-sided congestive heart failure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "66989003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4311437,
+      "conceptName": "Decompensated chronic heart failure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "424404003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37309625,
+      "conceptName": "Acute on chronic right-sided congestive heart failure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "16838951000119100",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479192,
+      "conceptName": "Chronic systolic heart failure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "441481004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479576,
+      "conceptName": "Chronic diastolic heart failure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "441530006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40480602,
+      "conceptName": "Acute on chronic systolic heart failure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "443253003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40481043,
+      "conceptName": "Acute on chronic diastolic heart failure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "443344007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44782655,
+      "conceptName": "Acute exacerbation of chronic congestive heart failure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "698296002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44782719,
+      "conceptName": "Chronic combined systolic and diastolic heart failure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "153941000119100",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44782733,
+      "conceptName": "Acute on chronic combined systolic and diastolic heart failure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "153951000119103",
+      "standardConcept": "S"
+    }
+  ]
 }

@@ -1,0 +1,77 @@
+{
+  "id": 383,
+  "name": "APACHE IV score",
+  "description": "APACHE IV (Acute Physiology and Chronic Health Evaluation IV) score — ICU severity-of-illness and hospital-mortality prediction score.",
+  "version": "1.0.0",
+  "createdBy": "Boris Delange",
+  "createdDate": "2026-06-11",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2026-06-11",
+  "createdByTool": "INDICATE Data Dictionary v1.2.3 (https://github.com/indicate-eu/data-dictionary)",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 1450877,
+          "conceptName": "APACHE IV (Acute Physiology and Chronic Health Evaluation IV) score",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1351474005",
+          "validStartDate": "20241101",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "5052b032-1eb2-46f6-95db-c437a66a6225",
+    "organization": {
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
+    },
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "APACHE IV score",
+        "category": "Clinical observations",
+        "subcategory": "Severity scores",
+        "shortDescription": "APACHE IV (Acute Physiology and Chronic Health Evaluation IV) score — ICU severity-of-illness and hospital-mortality prediction score.",
+        "longDescription": "## Definition & Clinical Context\n\nThe APACHE IV (Acute Physiology and Chronic Health Evaluation IV) score is a severity-of-illness score that predicts hospital mortality for adult intensive care patients, developed by Zimmerman et al. in 2006 from 110,558 ICU admissions in 104 US ICUs [1]. Unlike the older APACHE II, APACHE IV is not a simple additive point sheet: it is a multivariate logistic-regression model (142 variables in total, of which 115 are diagnosis categories) that uses worst-value data from the first 24 hours of ICU admission to estimate a probability of hospital death (and a predicted ICU length of stay). It is used for ICU benchmarking and case-mix adjustment, not for individual treatment decisions.\n\n## Items used in the calculation\n\nThe model combines the following components. The percentages indicate each group's relative contribution to the model's explanatory power for mortality (from the paper's Figure 2).\n\n### Acute Physiology Score (APS) — 65.6%\n\nThe APS is a weighted sum of the worst values recorded during the first ICU day; it ranges from 0 to 252. It is built from 16 measurements:\n\n- Pulse rate (heart rate)\n- Mean arterial pressure\n- Temperature\n- Respiratory rate\n- Oxygenation: PaO2/FiO2 ratio (when FiO2 ≥ 0.5, the alveolar-arterial oxygen gradient P(A-a)O2 is used instead)\n- Haematocrit\n- White blood cell count\n- Serum creatinine\n- Urine output\n- Blood urea nitrogen (BUN)\n- Serum sodium\n- Serum albumin\n- Serum bilirubin\n- Serum glucose\n- Acid-base abnormalities (from arterial pH and PaCO2)\n- Neurological abnormalities (derived from the Glasgow Coma Scale)\n\n### ICU admission diagnosis — 16.5%\n\nThe primary reason for ICU admission, selected from 116 diagnostic categories (mapped from 430 diseases/procedures), classified as non-operative or post-operative and then by body system. This is the single largest predictor after the APS.\n\n### Age — 9.4%\n\nEntered as a continuous variable with spline terms (the paper's reference age bands are 0–45, 46–55, 56–60, 61–65, 66–70, 71–75, 76–85, 85+).\n\n### Chronic health items — 5.0%\n\nSeven severe pre-existing comorbidities, each contributing when present (odds ratios in the paper ranged from 1.55 to 2.96; not applied to elective-surgery patients):\n\n- AIDS\n- Hepatic failure\n- Cirrhosis\n- Immunosuppression\n- Lymphoma\n- Leukemia or multiple myeloma\n- Metastatic tumour\n\nEach of these is available as its own concept set in the Conditions category (Acquired immunodeficiency syndrome (AIDS), Hepatic failure, Cirrhosis of liver, Immunosuppression, Malignant lymphoma, Leukemia, Multiple myeloma, Metastatic malignant neoplasm).\n\n### Admission and treatment variables — 2.9%\n\n- ICU admission source (e.g. floor, emergency room, operating/recovery room, another ICU, another hospital)\n- Length of stay before ICU admission\n- Emergency surgery (yes/no)\n- Rescaled Glasgow Coma Scale (15 minus the measured GCS)\n- Unable to assess GCS due to sedation or paralysis (yes/no) — this avoids defaulting a sedated patient's GCS to normal\n- Thrombolytic therapy (for patients with acute myocardial infarction, yes/no)\n\n### Mechanical ventilation — 0.6%\n\nWhether the patient was mechanically ventilated on ICU day 1 (yes/no).\n\n## Scope\n\nThis concept set captures the **APACHE IV score value itself** (the computed result), anchored on the SNOMED concept *1450877 / 1351474005 — APACHE IV (Acute Physiology and Chronic Health Evaluation IV) score*. It does not capture the individual inputs listed above, which are recorded by their own measurement concept sets (heart rate, blood pressure, temperature, oxygenation, laboratory values, Glasgow Coma Scale, etc.).\n\n## Mapping Notes\n\n- Map a recorded APACHE IV score (the numeric result) to this concept.\n- Do not map the component inputs here; map those to their respective measurement concept sets.\n- APACHE II and APACHE III are earlier, distinct versions of the score and are not part of this set.\n\n## References\n\n[1] Zimmerman JE, Kramer AA, McNair DS, Malila FM. Acute Physiology and Chronic Health Evaluation (APACHE) IV: hospital mortality assessment for today's critically ill patients. Crit Care Med. 2006;34(5):1297-1310.\n    Available: <a href=\"https://pubmed.ncbi.nlm.nih.gov/16540951/\" target=\"_blank\">https://pubmed.ncbi.nlm.nih.gov/16540951/</a>"
+      },
+      "fr": {
+        "name": "Score APACHE IV",
+        "category": "Observations cliniques",
+        "subcategory": "Scores de gravité",
+        "shortDescription": "Score APACHE IV (Acute Physiology and Chronic Health Evaluation IV) — score de gravité et de prédiction de la mortalité hospitalière en réanimation.",
+        "longDescription": null
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [],
+    "versions": [],
+    "distributionStats": null
+  }
+}

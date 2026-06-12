@@ -1,12 +1,12 @@
 {
   "id": 21,
   "name": "Immunosuppression",
-  "description": null,
-  "version": "1.0.0",
+  "description": "Immunosuppression — suppressed resistance to infection from therapy or disease; one of the APACHE IV chronic health conditions.",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -20,13 +20,32 @@
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
           "conceptCode": "38013005",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
+          "validStartDate": "20020131",
+          "validEndDate": "20991231",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4140977,
+          "conceptName": "Secondary immune deficiency disorder",
+          "domainId": "Condition",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Disorder",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "33286000",
+          "validStartDate": "20020131",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
         "includeMapped": false
       }
     ]
@@ -45,21 +64,21 @@
       }
     },
     "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Immunosuppression",
         "category": "Conditions",
-        "subcategory": "APACHE IV - Chronic health conditions",
-        "shortDescription": null,
-        "longDescription": null
+        "subcategory": "Immune",
+        "shortDescription": "Immunosuppression — suppressed resistance to infection from therapy or disease; one of the APACHE IV chronic health conditions.",
+        "longDescription": "## Definition & Clinical Context\n\nImmunosuppression is a state in which the body's resistance to infection is reduced, either by therapy (immunosuppressive drugs, chemotherapy, radiotherapy, transplantation) or by an underlying disease. In intensive care it markedly raises the risk and severity of infection and affects prognosis. Immunosuppression is one of the chronic health items in the APACHE IV severity model (where AIDS, lymphoma, leukemia and myeloma are counted as separate items).\n\n## Scope\n\nThe set is anchored on two SNOMED concepts with their descendants: *4242843 / 38013005 — Immunosuppression* and *4140977 / 33286000 — Secondary immune deficiency disorder*. It therefore captures acquired immunosuppression: drug-induced and iatrogenic immunodeficiency, immunodeficiency secondary to chemotherapy, radiotherapy or neoplasm, and age-related immunodeficiency.\n\n## Mapping Notes\n\n- This set intentionally focuses on **acquired/secondary** immunosuppression rather than primary (congenital) immunodeficiency disorders.\n- Because AIDS sits under secondary immune deficiency in SNOMED, an AIDS patient may resolve into both this set and the AIDS set; in the APACHE IV model these are scored as separate chronic health items."
       },
       "fr": {
         "name": "Immunosuppression",
         "category": "Pathologies",
-        "subcategory": "APACHE IV - Pathologies chroniques",
-        "shortDescription": null,
+        "subcategory": "Immunitaire",
+        "shortDescription": "Immunosuppression — résistance à l'infection diminuée par traitement ou maladie ; l'une des comorbidités chroniques d'APACHE IV.",
         "longDescription": null
       }
     },
@@ -71,7 +90,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Expand the expression: anchor on Immunosuppression (38013005) and Secondary immune deficiency disorder (33286000) with descendants; subcategory Immune; added clinical description."
+      }
+    ],
     "distributionStats": null
   }
 }

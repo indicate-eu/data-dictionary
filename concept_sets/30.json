@@ -1,15 +1,35 @@
 {
   "id": 30,
   "name": "Diabetes mellitus",
-  "description": null,
-  "version": "1.0.0",
+  "description": "Diabetes mellitus — chronic disorder of high blood glucose; all types.",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
-    "items": []
+    "items": [
+      {
+        "concept": {
+          "conceptId": 201820,
+          "conceptName": "Diabetes mellitus",
+          "domainId": "Condition",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Disorder",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "73211009",
+          "validStartDate": "20020131",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      }
+    ]
   },
   "tags": [],
   "metadata": {
@@ -25,21 +45,21 @@
       }
     },
     "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Diabetes mellitus",
         "category": "Conditions",
-        "subcategory": "General conditions",
-        "shortDescription": null,
-        "longDescription": null
+        "subcategory": "Metabolic",
+        "shortDescription": "Diabetes mellitus — chronic disorder of high blood glucose; all types.",
+        "longDescription": "## Definition & Clinical Context\n\nDiabetes mellitus is a chronic metabolic disorder of persistently high blood glucose, from absolute insulin deficiency (type 1) or insulin resistance with relative deficiency (type 2), among other forms. In intensive care it is a common comorbidity that affects glucose control, infection risk, and the management of many acute illnesses.\n\n## Scope\n\nThe set is anchored on the SNOMED concept *201820 / 73211009 — Diabetes mellitus* with all descendants included, so it captures **all types** (type 1, type 2, secondary, gestational, and others) and diabetes with complications.\n\n## Mapping Notes\n\n- All documented types of diabetes map here; the set records the presence of diabetes, not its type or control.\n- Diabetes that has caused chronic kidney disease maps here **and** to the Chronic kidney disease set (the two variables are recorded independently).\n- Transient stress hyperglycaemia without a diabetes diagnosis is not part of this set."
       },
       "fr": {
-        "name": "Diabète",
+        "name": "Diabète sucré",
         "category": "Pathologies",
-        "subcategory": "Pathologies générales",
-        "shortDescription": null,
+        "subcategory": "Métabolique",
+        "shortDescription": "Diabète sucré — trouble chronique de l'hyperglycémie ; tous types.",
         "longDescription": null
       }
     },
@@ -51,7 +71,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Fill the expression: anchor on SNOMED Diabetes mellitus (73211009) with descendants; subcategory Metabolic; added clinical description."
+      }
+    ],
     "distributionStats": null
   }
 }

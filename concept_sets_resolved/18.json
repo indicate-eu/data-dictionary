@@ -1,7 +1,1365 @@
 {
   "conceptSetId": 18,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26"
-  },
-  "resolvedConcepts": []
+  "vocabularyVersion": null,
+  "resolvedConcepts": [
+    {
+      "conceptId": 193782,
+      "conceptName": "End-stage renal disease",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "46177005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 197921,
+      "conceptName": "Renal osteodystrophy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "16726004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 198185,
+      "conceptName": "Chronic renal failure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "90688005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 443597,
+      "conceptName": "Chronic kidney disease stage 3",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "433144002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 443601,
+      "conceptName": "Chronic kidney disease stage 2",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "431856006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 443611,
+      "conceptName": "Chronic kidney disease stage 5",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "433146000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 443612,
+      "conceptName": "Chronic kidney disease stage 4",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "431857002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 443614,
+      "conceptName": "Chronic kidney disease stage 1",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "431855005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 443961,
+      "conceptName": "Anemia of chronic renal failure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "49708008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 601161,
+      "conceptName": "Chronic kidney disease stage 1 due to drug induced diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "368421000119108",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 601162,
+      "conceptName": "Chronic kidney disease stage 2 due to drug induced diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "368431000119106",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 601163,
+      "conceptName": "Chronic kidney disease stage 3 due to drug induced diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "368441000119102",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 601164,
+      "conceptName": "Chronic kidney disease stage 4 due to drug induced diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "368451000119100",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 601165,
+      "conceptName": "Chronic kidney disease stage 5 due to drug induced diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "368461000119103",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 601166,
+      "conceptName": "End stage renal disease on dialysis due to drug induced diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "368471000119109",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 619681,
+      "conceptName": "Renal osteodystrophy with high bone turnover",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "897310009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 619682,
+      "conceptName": "Renal osteodystrophy with normal bone turnover",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "897311008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 619683,
+      "conceptName": "Renal osteodystrophy with low bone turnover",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "897312001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 760850,
+      "conceptName": "Benign hypertensive heart disease and chronic renal disease stage 5",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "120261000119101",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 762000,
+      "conceptName": "Benign hypertensive heart disease and chronic renal disease stage 2",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "285061000119106",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 762001,
+      "conceptName": "Benign hypertensive heart disease and chronic renal disease stage 3",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "285081000119102",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 762033,
+      "conceptName": "Malignant hypertensive heart disease and chronic renal disease stage 3",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "285911000119109",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 762034,
+      "conceptName": "Malignant hypertensive heart disease and chronic renal disease stage 4",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "285921000119102",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 765535,
+      "conceptName": "Benign hypertensive heart disease and chronic renal disease stage 1",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "285041000119107",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 765536,
+      "conceptName": "Benign hypertensive heart disease and chronic renal disease stage 4",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "285101000119109",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1075886,
+      "conceptName": "Hypertension in chronic kidney disease stage 3B due to type 1 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1332436006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1075887,
+      "conceptName": "Hypertension in chronic kidney disease stage 3A due to type 1 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1332441003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1075888,
+      "conceptName": "Hypertension in chronic kidney disease stage 3 due to type 1 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1332442005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1075903,
+      "conceptName": "Hypertension in chronic kidney disease stage 2 due to type 1 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1332464001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1075904,
+      "conceptName": "Hypertension in chronic kidney disease stage 3B due to type 2 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1332465000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1075905,
+      "conceptName": "Hypertension in chronic kidney disease stage 3A due to type 2 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1332466004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1075906,
+      "conceptName": "Hypertension in chronic kidney disease stage 5 due to type 1 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1332467008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1075907,
+      "conceptName": "Hypertension in chronic kidney disease stage 4 due to type 1 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1332468003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1075908,
+      "conceptName": "Chronic kidney disease stage 3B due to type 2 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1332469006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1075909,
+      "conceptName": "Chronic kidney disease stage 3A due to type 2 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1332470007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1075910,
+      "conceptName": "Chronic kidney disease stage 3B due to type 1 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1332471006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1075911,
+      "conceptName": "Chronic kidney disease stage 3A due to type 1 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1332472004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1245004,
+      "conceptName": "Osteoporosis due to chronic kidney disease",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1295482007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4030520,
+      "conceptName": "End stage renal failure on dialysis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "236435004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4125970,
+      "conceptName": "End stage renal failure with renal transplant",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "236436003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4126449,
+      "conceptName": "Adynamic bone disease",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "236552002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4128067,
+      "conceptName": "Acute-on-chronic renal failure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "236433006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4128200,
+      "conceptName": "End stage renal failure untreated by renal replacement therapy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "236434000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4239804,
+      "conceptName": "Chronic milk alkali syndrome",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "57557005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4322556,
+      "conceptName": "Chronic progressive renal failure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "425369003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36679002,
+      "conceptName": "Hyperuricemia, pulmonary hypertension, renal failure, alkalosis syndrome",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "776416004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36716184,
+      "conceptName": "Chronic kidney disease following donor nephrectomy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "722098007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36716455,
+      "conceptName": "Chronic kidney disease due to traumatic loss of kidney",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "722467000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36716947,
+      "conceptName": "Chronic renal insufficiency",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "723190009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36717349,
+      "conceptName": "Chronic kidney disease due to systemic infection",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "722150000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36717534,
+      "conceptName": "Chronic kidney disease due to and following excision of neoplasm of kidney",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "722149000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37017104,
+      "conceptName": "Chronic kidney disease mineral and bone disorder",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "713313000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37017813,
+      "conceptName": "Chronic kidney disease stage 5 on dialysis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "714152005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37018761,
+      "conceptName": "Chronic kidney disease stage 5 with transplant",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "714153000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37018886,
+      "conceptName": "End stage renal disease due to hypertension",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "111411000119103",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37019193,
+      "conceptName": "Anemia co-occurrent and due to chronic kidney disease stage 3",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "691421000119108",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37163330,
+      "conceptName": "Sagliker syndrome",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1208934006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37163454,
+      "conceptName": "Renal osteodystrophy due to hyperparathyroidism",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1217070004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42872405,
+      "conceptName": "Anemia, pre-end stage renal disease on erythropoietin protocol",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1801000119106",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43020437,
+      "conceptName": "Malignant hypertensive chronic kidney disease stage 5",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "153851000119106",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43020455,
+      "conceptName": "Malignant hypertensive end stage renal disease",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "285841000119104",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43020456,
+      "conceptName": "Malignant hypertensive chronic kidney disease stage 3",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "285871000119106",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43020457,
+      "conceptName": "Malignant hypertensive chronic kidney disease stage 4",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "285881000119109",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43021835,
+      "conceptName": "Hypertensive heart AND chronic kidney disease stage 3",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "96731000119100",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43021836,
+      "conceptName": "Hypertensive heart AND chronic kidney disease stage 2",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "96741000119109",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43021852,
+      "conceptName": "Malignant hypertensive chronic kidney disease",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "285831000119108",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43021853,
+      "conceptName": "Malignant hypertensive chronic kidney disease stage 1",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "285851000119102",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43021854,
+      "conceptName": "Malignant hypertensive chronic kidney disease stage 2",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "285861000119100",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43021864,
+      "conceptName": "Malignant hypertensive end stage renal disease on dialysis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "286371000119107",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43531559,
+      "conceptName": "Chronic kidney disease stage 1 due to type 2 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "751000119104",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43531562,
+      "conceptName": "Chronic kidney disease stage 5 due to type 2 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "711000119100",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43531566,
+      "conceptName": "Chronic kidney disease stage 2 due to type 2 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "741000119101",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43531577,
+      "conceptName": "Chronic kidney disease stage 4 due to type 2 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "721000119107",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43531578,
+      "conceptName": "Chronic kidney disease due to type 2 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "771000119108",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43531653,
+      "conceptName": "Chronic kidney disease stage 3 due to type 2 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "731000119105",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44782429,
+      "conceptName": "Chronic kidney disease due to hypertension",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "104931000119100",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44782689,
+      "conceptName": "Chronic kidney disease stage 4 due to hypertension",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "129151000119102",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44782690,
+      "conceptName": "Chronic kidney disease stage 5 due to hypertension",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "129161000119100",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44782691,
+      "conceptName": "Chronic kidney disease stage 3 due to hypertension",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "129171000119106",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44782692,
+      "conceptName": "Chronic kidney disease stage 2 due to hypertension",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "129181000119109",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44782703,
+      "conceptName": "Chronic kidney disease stage 1 due to hypertension",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "117681000119102",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44782717,
+      "conceptName": "End stage renal disease on dialysis due to hypertension",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "153891000119101",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784621,
+      "conceptName": "Hypertensive heart and chronic kidney disease",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "8501000119104",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784637,
+      "conceptName": "Hypertensive heart AND chronic kidney disease on dialysis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "96701000119107",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784638,
+      "conceptName": "Hypertensive heart AND chronic kidney disease stage 5",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "96711000119105",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784639,
+      "conceptName": "Hypertensive heart AND chronic kidney disease stage 4",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "96721000119103",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784640,
+      "conceptName": "Hypertensive heart AND chronic kidney disease stage 1",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "96751000119106",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44792226,
+      "conceptName": "Chronic kidney disease stage 1 with proteinuria",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "324121000000109",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44792227,
+      "conceptName": "Chronic kidney disease stage 1 without proteinuria",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "324151000000104",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44792228,
+      "conceptName": "Chronic kidney disease stage 2 with proteinuria",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "324181000000105",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44792229,
+      "conceptName": "Chronic kidney disease stage 2 without proteinuria",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "324211000000106",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44792230,
+      "conceptName": "Chronic kidney disease stage 3 with proteinuria",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "324251000000105",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44792231,
+      "conceptName": "Chronic kidney disease stage 3 without proteinuria",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "324281000000104",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44792232,
+      "conceptName": "Chronic kidney disease stage 3A with proteinuria",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "324311000000101",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44792249,
+      "conceptName": "Chronic kidney disease stage 3A without proteinuria",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "324341000000100",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44792250,
+      "conceptName": "Chronic kidney disease stage 3B with proteinuria",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "324371000000106",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44792251,
+      "conceptName": "Chronic kidney disease stage 3B without proteinuria",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "324411000000105",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44792252,
+      "conceptName": "Chronic kidney disease stage 4 with proteinuria",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "324441000000106",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44792253,
+      "conceptName": "Chronic kidney disease stage 4 without proteinuria",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "324471000000100",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44792254,
+      "conceptName": "Chronic kidney disease stage 5 with proteinuria",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "324501000000107",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44792255,
+      "conceptName": "Chronic kidney disease stage 5 without proteinuria",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "324541000000105",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45757137,
+      "conceptName": "Pre-existing hypertensive heart and chronic kidney disease in mother complicating childbirth",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "10757401000119104",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45757139,
+      "conceptName": "Pre-existing hypertensive heart and chronic kidney disease in mother complicating pregnancy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "10757481000119107",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45757356,
+      "conceptName": "Pre-existing hypertensive chronic kidney disease in mother complicating pregnancy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "118781000119108",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45757392,
+      "conceptName": "Hypertension concurrent and due to end stage renal disease on dialysis due to type 2 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "127991000119101",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45757393,
+      "conceptName": "Hypertension concurrent and due to end stage renal disease on dialysis due to type 1 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "128001000119105",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45757444,
+      "conceptName": "Hypertension in chronic kidney disease stage 5 due to type 2 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "140101000119109",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45757445,
+      "conceptName": "Hypertension in chronic kidney disease stage 4 due to type 2 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "140111000119107",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45757446,
+      "conceptName": "Hypertension in chronic kidney disease stage 3 due to type 2 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "140121000119100",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45757447,
+      "conceptName": "Hypertension in chronic kidney disease stage 2 due to type 2 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "140131000119102",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45763854,
+      "conceptName": "Chronic kidney disease stage 3A",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "700378005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45763855,
+      "conceptName": "Chronic kidney disease stage 3B",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "700379002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45768813,
+      "conceptName": "Anemia in end stage renal disease",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "707324008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45769901,
+      "conceptName": "Chronic kidney disease stage 2 due to type 1 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "90731000119103",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45769902,
+      "conceptName": "Chronic kidney disease stage 4 due to type 1 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "90751000119109",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45769903,
+      "conceptName": "Chronic kidney disease stage 5 due to type 1 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "90761000119106",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45769904,
+      "conceptName": "End stage renal disease on dialysis due to type 1 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "90771000119100",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45769906,
+      "conceptName": "End stage renal disease on dialysis due to type 2 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "90791000119104",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45771064,
+      "conceptName": "Hypertension in chronic kidney disease due to type 2 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "71421000119105",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45771067,
+      "conceptName": "Hypertension in chronic kidney disease due to type 1 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "71701000119105",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45771075,
+      "conceptName": "Chronic kidney disease stage 3 due to type 1 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "90741000119107",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45772751,
+      "conceptName": "Hypertension concurrent and due to end stage renal disease on dialysis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "704667004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45773576,
+      "conceptName": "Chronic kidney disease stage 1 due to type 1 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "90721000119101",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45773688,
+      "conceptName": "Chronic kidney disease due to type 1 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "96441000119101",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46270353,
+      "conceptName": "Chronic kidney disease due to benign hypertension",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "284961000119106",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46270354,
+      "conceptName": "Chronic kidney disease stage 1 due to benign hypertension",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "284971000119100",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46270355,
+      "conceptName": "Chronic kidney disease stage 2 due to benign hypertension",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "284981000119102",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46270356,
+      "conceptName": "Chronic kidney disease stage 5 due to benign hypertension",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "285011000119108",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46270969,
+      "conceptName": "Mixed renal osteodystrophy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "708975004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46271022,
+      "conceptName": "Chronic kidney disease",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "709044004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46273164,
+      "conceptName": "End stage renal disease due to benign hypertension",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "712487000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46273514,
+      "conceptName": "Chronic kidney disease stage 4 due to benign hypertension",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "285001000119105",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46273636,
+      "conceptName": "Chronic kidney disease stage 3 due to benign hypertension",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "284991000119104",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46284566,
+      "conceptName": "CKD G1A1 - chronic kidney disease with glomerular filtration rate category G1 and albuminuria category A1",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "949401000000103",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46284567,
+      "conceptName": "CKD G1A2 - chronic kidney disease with glomerular filtration rate category G1 and albuminuria category A2",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "949421000000107",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46284570,
+      "conceptName": "CKD G1A3 - chronic kidney disease with glomerular filtration rate category G1 and albuminuria category A3",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "949481000000108",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46284572,
+      "conceptName": "CKD G2A1 - chronic kidney disease with glomerular filtration rate category G2 and albuminuria category A1",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "949521000000108",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46284575,
+      "conceptName": "CKD G2A3 - chronic kidney disease with glomerular filtration rate category G2 and albuminuria category A3",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "949621000000109",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46284587,
+      "conceptName": "CKD G3aA1 - chronic kidney disease with glomerular filtration rate category G3a and albuminuria category A1",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "949881000000106",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46284588,
+      "conceptName": "CKD G3aA3 - chronic kidney disease with glomerular filtration rate category G3a and albuminuria category A3",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "949921000000100",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46284591,
+      "conceptName": "CKD G3bA1 - chronic kidney disease with glomerular filtration rate category G3b and albuminuria category A1",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "950061000000103",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46284592,
+      "conceptName": "CKD G3bA2 - chronic kidney disease with glomerular filtration rate category G3b and albuminuria category A2",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "950081000000107",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46284593,
+      "conceptName": "CKD G3bA3 - chronic kidney disease with glomerular filtration rate category G3b and albuminuria category A3",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "950101000000101",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46284597,
+      "conceptName": "CKD G4A1 - chronic kidney disease with glomerular filtration rate category G4 and albuminuria category A1",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "950181000000106",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46284598,
+      "conceptName": "CKD G4A2 - chronic kidney disease with glomerular filtration rate category G4 and albuminuria category A2",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "950211000000107",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46284599,
+      "conceptName": "CKD G4A3 - chronic kidney disease with glomerular filtration rate category G4 and albuminuria category A3",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "950231000000104",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46284600,
+      "conceptName": "CKD G5A1 - chronic kidney disease with glomerular filtration rate category G5 and albuminuria category A1",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "950251000000106",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46284602,
+      "conceptName": "CKD G5A2 - chronic kidney disease with glomerular filtration rate category G5 and albuminuria category A2",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "950291000000103",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46284603,
+      "conceptName": "CKD G5A3 - chronic kidney disease with glomerular filtration rate category G5 and albuminuria category A3",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "950311000000102",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46286992,
+      "conceptName": "CKD G3aA2 - chronic kidney disease with glomerular filtration rate category G3a and albuminuria category A2",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "949901000000109",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46287169,
+      "conceptName": "CKD G2A2 - chronic kidney disease with glomerular filtration rate category G2 and albuminuria category A2",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "949561000000100",
+      "standardConcept": "S"
+    }
+  ]
 }

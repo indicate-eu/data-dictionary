@@ -1,15 +1,35 @@
 {
   "id": 28,
   "name": "Chronic heart failure",
-  "description": null,
-  "version": "1.0.0",
+  "description": "Chronic heart failure — long-standing impairment of the heart's pumping function.",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
-    "items": []
+    "items": [
+      {
+        "concept": {
+          "conceptId": 444031,
+          "conceptName": "Chronic heart failure",
+          "domainId": "Condition",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Disorder",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "48447003",
+          "validStartDate": "20020131",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      }
+    ]
   },
   "tags": [],
   "metadata": {
@@ -25,21 +45,21 @@
       }
     },
     "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Chronic heart failure",
         "category": "Conditions",
-        "subcategory": "General conditions",
-        "shortDescription": null,
-        "longDescription": null
+        "subcategory": "Chronic organ failure",
+        "shortDescription": "Chronic heart failure — long-standing impairment of the heart's pumping function.",
+        "longDescription": "## Definition & Clinical Context\n\nChronic heart failure is a long-standing impairment of the heart's ability to pump blood, causing breathlessness, fatigue and fluid retention. In intensive care it is a comorbidity affecting fluid management, weaning and prognosis, and a cause of admission when decompensated.\n\n## Scope\n\nThe set is anchored on the SNOMED concept *444031 / 48447003 — Chronic heart failure* with all descendants included, capturing chronic heart failure and its subtypes.\n\n## Mapping Notes\n\n- Acute heart failure / acute decompensation is a distinct clinical event; this set captures the chronic condition.\n- Heart failure with preserved versus reduced ejection fraction is not distinguished at the set level."
       },
       "fr": {
         "name": "Insuffisance cardiaque chronique",
         "category": "Pathologies",
-        "subcategory": "Pathologies générales",
-        "shortDescription": null,
+        "subcategory": "Défaillance chronique d'organe",
+        "shortDescription": "Insuffisance cardiaque chronique — altération durable de la fonction de pompe cardiaque.",
         "longDescription": null
       }
     },
@@ -51,7 +71,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Fill the expression: anchor on SNOMED Chronic heart failure (48447003) with descendants; subcategory Chronic organ failure; added clinical description."
+      }
+    ],
     "distributionStats": null
   }
 }

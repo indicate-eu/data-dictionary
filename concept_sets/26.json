@@ -1,12 +1,12 @@
 {
   "id": 26,
-  "name": "Adult Respiratory Distress Syndrome (ARDS)",
-  "description": null,
-  "version": "1.0.0",
+  "name": "Acute respiratory distress syndrome (ARDS)",
+  "description": "Acute respiratory distress syndrome (ARDS) — acute, severe, diffuse lung injury causing hypoxaemic respiratory failure.",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -45,21 +45,21 @@
       }
     },
     "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Adult Respiratory Distress Syndrome (ARDS)",
+        "name": "Acute respiratory distress syndrome (ARDS)",
         "category": "Conditions",
-        "subcategory": "General conditions",
-        "shortDescription": null,
-        "longDescription": null
+        "subcategory": "Acute / critical illness",
+        "shortDescription": "Acute respiratory distress syndrome (ARDS) — acute, severe, diffuse lung injury causing hypoxaemic respiratory failure.",
+        "longDescription": "## Definition & Clinical Context\n\nAcute respiratory distress syndrome (ARDS) is acute, diffuse inflammatory lung injury causing severe hypoxaemic respiratory failure with bilateral pulmonary infiltrates not fully explained by cardiac failure. It is a defining condition of intensive care, typically requiring mechanical ventilation, and is triggered by pneumonia, sepsis, aspiration, trauma and other insults.\n\n## Scope\n\nThe set is anchored on the SNOMED concept *4195694 / 67782005 — Acute respiratory distress syndrome*. It captures the diagnosis of ARDS as an acute critical-illness condition.\n\n## Mapping Notes\n\n- ARDS is an acute syndrome, distinct from chronic respiratory comorbidities such as COPD.\n- The older term \"adult respiratory distress syndrome\" refers to the same condition; the current term is \"acute respiratory distress syndrome\"."
       },
       "fr": {
-        "name": "ARDS",
+        "name": "Syndrome de détresse respiratoire aiguë (SDRA)",
         "category": "Pathologies",
-        "subcategory": "Pathologies générales",
-        "shortDescription": null,
+        "subcategory": "Affection aiguë / critique",
+        "shortDescription": "Syndrome de détresse respiratoire aiguë (SDRA) — atteinte pulmonaire aiguë, sévère et diffuse, responsable d'une insuffisance respiratoire hypoxémique.",
         "longDescription": null
       }
     },
@@ -71,7 +71,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Rename to 'Acute respiratory distress syndrome (ARDS)' (current terminology); subcategory Acute / critical illness; added clinical description."
+      }
+    ],
     "distributionStats": null
   }
 }

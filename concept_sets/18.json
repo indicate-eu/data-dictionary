@@ -1,15 +1,35 @@
 {
   "id": 18,
   "name": "Chronic kidney disease",
-  "description": null,
-  "version": "1.0.0",
+  "description": "Chronic kidney disease (CKD) — long-standing reduction in kidney function; all stages and causes.",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
-    "items": []
+    "items": [
+      {
+        "concept": {
+          "conceptId": 46271022,
+          "conceptName": "Chronic kidney disease",
+          "domainId": "Condition",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Disorder",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "709044004",
+          "validStartDate": "20150731",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      }
+    ]
   },
   "tags": [],
   "metadata": {
@@ -25,21 +45,21 @@
       }
     },
     "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Chronic kidney disease",
         "category": "Conditions",
-        "subcategory": "APACHE IV - Chronic health conditions",
-        "shortDescription": null,
-        "longDescription": null
+        "subcategory": "Chronic organ failure",
+        "shortDescription": "Chronic kidney disease (CKD) — long-standing reduction in kidney function; all stages and causes.",
+        "longDescription": "## Definition & Clinical Context\n\nChronic kidney disease (CKD) is a long-standing reduction in kidney function (low glomerular filtration rate and/or kidney damage) persisting over months. In intensive care it is a pre-existing comorbidity that influences fluid and drug handling, the risk of acute-on-chronic kidney injury, and prognosis. In the APACHE IV severity model, severe chronic renal failure / dialysis dependence is one of the chronic health items; this set is broader (see Scope).\n\n## Scope\n\nThe set is anchored on the SNOMED concept *46271022 / 709044004 — Chronic kidney disease* with all descendants included. It therefore captures **all stages** (stage 1 through stage 5 / end-stage renal disease) and **all causes** (hypertensive, diabetic, obstructive, etc.). It is the general \"has CKD\" variable, not restricted to the dialysis-dependent or end-stage form.\n\n## Mapping Notes\n\n- Map any documented stage or cause of CKD to this set.\n- CKD caused by diabetes is included here **and** the diabetes diagnosis would map to the Diabetes mellitus set — the two are recorded independently.\n- Acute kidney injury (a reversible, short-term event) is a distinct condition and is **not** part of this set."
       },
       "fr": {
-        "name": "Insuffisance rénale chronique",
+        "name": "Maladie rénale chronique",
         "category": "Pathologies",
-        "subcategory": "APACHE IV - Pathologies chroniques",
-        "shortDescription": null,
+        "subcategory": "Défaillance chronique d'organe",
+        "shortDescription": "Maladie rénale chronique (MRC) — altération durable de la fonction rénale ; tous stades et causes.",
         "longDescription": null
       }
     },
@@ -51,7 +71,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Fill the expression: anchor on SNOMED Chronic kidney disease (709044004) with descendants; subcategory Chronic organ failure; added clinical description."
+      }
+    ],
     "distributionStats": null
   }
 }

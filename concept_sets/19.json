@@ -1,15 +1,35 @@
 {
   "id": 19,
   "name": "Cirrhosis of liver",
-  "description": null,
-  "version": "1.0.0",
+  "description": "Cirrhosis of liver — advanced scarring of the liver, all causes; one of the APACHE IV chronic health conditions.",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
-    "items": []
+    "items": [
+      {
+        "concept": {
+          "conceptId": 4064161,
+          "conceptName": "Cirrhosis of liver",
+          "domainId": "Condition",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Disorder",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "19943007",
+          "validStartDate": "20020131",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      }
+    ]
   },
   "tags": [],
   "metadata": {
@@ -25,21 +45,21 @@
       }
     },
     "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Cirrhosis of liver",
         "category": "Conditions",
-        "subcategory": "APACHE IV - Chronic health conditions",
-        "shortDescription": null,
-        "longDescription": null
+        "subcategory": "Chronic organ failure",
+        "shortDescription": "Cirrhosis of liver — advanced scarring of the liver, all causes; one of the APACHE IV chronic health conditions.",
+        "longDescription": "## Definition & Clinical Context\n\nCirrhosis is advanced, diffuse scarring (fibrosis) of the liver with nodular regeneration, the common end-stage of many chronic liver diseases. In intensive care it is a major comorbidity affecting coagulation, fluid balance, infection risk, drug handling and prognosis. Cirrhosis is one of the chronic health items in the APACHE IV severity model.\n\n## Scope\n\nThe set is anchored on the SNOMED concept *4064161 / 19943007 — Cirrhosis of liver* with all descendants included, so it captures cirrhosis of **all causes** (biliary, viral, cardiac, non-alcoholic, alcoholic, cryptogenic, etc.), including advanced and decompensated forms.\n\n## Mapping Notes\n\n- All aetiologies of cirrhosis map here. Alcoholic cirrhosis maps both here and to the Alcoholic liver disease set (the two variables answer different questions).\n- Hepatic failure (loss of liver function) is captured by its own set; a cirrhotic patient who develops hepatic failure maps to both."
       },
       "fr": {
-        "name": "Cirrhose hépatique",
+        "name": "Cirrhose du foie",
         "category": "Pathologies",
-        "subcategory": "APACHE IV - Pathologies chroniques",
-        "shortDescription": null,
+        "subcategory": "Défaillance chronique d'organe",
+        "shortDescription": "Cirrhose du foie — fibrose hépatique avancée, toutes causes ; l'une des comorbidités chroniques d'APACHE IV.",
         "longDescription": null
       }
     },
@@ -51,7 +71,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Fill the expression: anchor on SNOMED Cirrhosis of liver (19943007) with descendants; subcategory Chronic organ failure; added clinical description."
+      }
+    ],
     "distributionStats": null
   }
 }

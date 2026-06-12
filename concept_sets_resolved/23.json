@@ -1,7 +1,4137 @@
 {
   "conceptSetId": 23,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26"
-  },
-  "resolvedConcepts": []
+  "vocabularyVersion": null,
+  "resolvedConcepts": [
+    {
+      "conceptId": 132841,
+      "conceptName": "Malignant lymphoma of lymph nodes of multiple sites",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "93197009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 133511,
+      "conceptName": "Lethal midline granuloma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "58961005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 134879,
+      "conceptName": "Mycosis fungoides of intrathoracic lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "94709001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 135194,
+      "conceptName": "Lymphosarcoma of intrathoracic lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188501009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 135764,
+      "conceptName": "Mycosis fungoides of lymph nodes of multiple sites",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188627002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 136655,
+      "conceptName": "Hodgkin's disease, mixed cellularity of intrathoracic lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188576003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 136928,
+      "conceptName": "Hodgkin's disease, nodular sclerosis of intrathoracic lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188566001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 138378,
+      "conceptName": "Sezary's disease of lymph nodes of axilla and upper limb",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188633006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 139759,
+      "conceptName": "Reticulosarcoma of lymph nodes of multiple sites",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "95230004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 140663,
+      "conceptName": "Hodgkin's paragranuloma of lymph nodes of multiple sites",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188531003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 140664,
+      "conceptName": "Sézary's disease of lymph nodes of multiple sites",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188637007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 141243,
+      "conceptName": "Hodgkin's disease, lymphocytic depletion of intrathoracic lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188586002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 192265,
+      "conceptName": "Reticulosarcoma of intrapelvic lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "95225003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 192268,
+      "conceptName": "Hodgkin's disease, mixed cellularity of intra-abdominal lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188577007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 193157,
+      "conceptName": "Hodgkin's disease, nodular sclerosis of spleen",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "93518009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 193428,
+      "conceptName": "Burkitt's lymphoma of intrapelvic lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188515006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 193434,
+      "conceptName": "Hodgkin's disease, nodular sclerosis of intra-abdominal lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188567005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 194594,
+      "conceptName": "Hodgkin's disease, mixed cellularity of intrapelvic lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188580008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 194876,
+      "conceptName": "Hodgkin's disease, lymphocytic-histiocytic predominance of intrapelvic lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "93494007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 195195,
+      "conceptName": "Malignant lymphoma of intrapelvic lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "93192003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 195196,
+      "conceptName": "Hodgkin's sarcoma of intrapelvic lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "93548007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 195201,
+      "conceptName": "Lymphosarcoma of spleen",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188506004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 195760,
+      "conceptName": "Sézary's disease of spleen",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "95263006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 195761,
+      "conceptName": "Hodgkin's disease of intrapelvic lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "93521006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 196355,
+      "conceptName": "Hodgkin's granuloma of spleen",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "93536009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 197228,
+      "conceptName": "Lymphosarcoma of intra-abdominal lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188502002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 198088,
+      "conceptName": "Nodular lymphoma of intrapelvic lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "95187002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 198372,
+      "conceptName": "Hodgkin's sarcoma of intra-abdominal lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "93547002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 198374,
+      "conceptName": "Nodular lymphoma of spleen",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "95193005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 198381,
+      "conceptName": "Hodgkin's disease, lymphocytic-histiocytic predominance of spleen",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "93500006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 198702,
+      "conceptName": "Lymphosarcoma of lymph nodes of inguinal region and lower limb",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188504001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 198704,
+      "conceptName": "Hodgkin's disease of spleen",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "93527005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 198707,
+      "conceptName": "Nodular lymphoma of lymph nodes of inguinal region and lower limb",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188613007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 198710,
+      "conceptName": "Hodgkin's sarcoma of spleen",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "93554008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 198986,
+      "conceptName": "Hodgkin's paragranuloma of intrapelvic lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188529007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 199760,
+      "conceptName": "Hodgkin's disease, nodular sclerosis of intrapelvic lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188570009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 200338,
+      "conceptName": "Nodular lymphoma of intra-abdominal lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "95186006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 200343,
+      "conceptName": "Malignant lymphoma of spleen",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "93198004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 200349,
+      "conceptName": "Malignant lymphoma of intra-abdominal lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "93191005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 200355,
+      "conceptName": "Hodgkin's disease of intra-abdominal lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "93520007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 200659,
+      "conceptName": "Reticulosarcoma of intra-abdominal lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "95224004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 200660,
+      "conceptName": "Reticulosarcoma of lymph nodes of inguinal region and lower limb",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188493000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 200662,
+      "conceptName": "Lymphosarcoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188498009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 201242,
+      "conceptName": "Hodgkin's disease, lymphocytic-histiocytic predominance of intra-abdominal lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "93493001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 201810,
+      "conceptName": "Lymphosarcoma of intrapelvic lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188505000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 201813,
+      "conceptName": "Mycosis fungoides of intra-abdominal lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "94707004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 313980,
+      "conceptName": "Hodgkin's disease, lymphocytic depletion of lymph nodes of multiple sites",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188593003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 315202,
+      "conceptName": "Hodgkin's disease, mixed cellularity of lymph nodes of multiple sites",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188582000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 315481,
+      "conceptName": "Burkitt's lymphoma of lymph nodes of multiple sites",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188517003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 315763,
+      "conceptName": "Hodgkin's disease, nodular sclerosis of lymph nodes of multiple sites",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188572001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 316356,
+      "conceptName": "Hodgkin's disease of lymph nodes of multiple sites",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "93526001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 316649,
+      "conceptName": "Hodgkin's sarcoma of lymph nodes of multiple sites",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188551004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 318697,
+      "conceptName": "Lymphosarcoma of lymph nodes of multiple sites",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188507008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 320337,
+      "conceptName": "Hodgkin's granuloma of lymph nodes of multiple sites",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188541000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 320347,
+      "conceptName": "Nodular lymphoma of lymph nodes of multiple sites",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "95192000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 321522,
+      "conceptName": "Hodgkin's disease, lymphocytic-histiocytic predominance of lymph nodes of multiple sites",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188562004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 373152,
+      "conceptName": "Primary central nervous system lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "307649006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 432571,
+      "conceptName": "Malignant lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "118600007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 432574,
+      "conceptName": "Diffuse large B-cell lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "109969005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 433156,
+      "conceptName": "Hodgkin's sarcoma of intrathoracic lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "93549004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 434592,
+      "conceptName": "B-cell lymphoma (clinical)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "109979007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 434881,
+      "conceptName": "Peripheral T-cell lymphoma (clinical)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "109977009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 435193,
+      "conceptName": "Reticulosarcoma of intrathoracic lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "95226002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 435207,
+      "conceptName": "Nodular lymphoma of lymph nodes of head, face and neck",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188609000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 435492,
+      "conceptName": "Nodular lymphoma of intrathoracic lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "95188007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 435753,
+      "conceptName": "Malignant lymphoma of intrathoracic lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "93193008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 436920,
+      "conceptName": "Reticulosarcoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "373168002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 437505,
+      "conceptName": "Nodular lymphoma of lymph nodes of axilla and upper limb",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188612002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 438106,
+      "conceptName": "Reticulosarcoma of lymph nodes of head, face and neck",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188489006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 438380,
+      "conceptName": "Lymphosarcoma of lymph nodes of head, face and neck",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188500005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 438709,
+      "conceptName": "Hodgkin's paragranuloma of intrathoracic lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188524002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 439265,
+      "conceptName": "Sézary's disease of intrathoracic lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188631008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 439266,
+      "conceptName": "Sézary's disease of lymph nodes of inguinal region and lower limb",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188634000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 439267,
+      "conceptName": "Sézary's disease of intra-abdominal lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188632001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 439270,
+      "conceptName": "Sézary's disease of intrapelvic lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188635004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 439281,
+      "conceptName": "Hodgkin's disease, lymphocytic depletion of spleen",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188592008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 439282,
+      "conceptName": "Hodgkin's disease, lymphocytic depletion of intrapelvic lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188591001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 439285,
+      "conceptName": "Hodgkin's disease, lymphocytic depletion of intra-abdominal lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188587006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 439291,
+      "conceptName": "Hodgkin's granuloma of intra-abdominal lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188536008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 439293,
+      "conceptName": "Burkitt's lymphoma of spleen",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188516007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 440058,
+      "conceptName": "Malignant lymphoma of extranodal AND/OR solid organ site",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "93199007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 440350,
+      "conceptName": "Malignant lymphoma - lymphocytic, intermediate differentiation",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "274905008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 440351,
+      "conceptName": "Hodgkin's disease, lymphocytic-histiocytic predominance of intrathoracic lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "93495008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 440354,
+      "conceptName": "Hodgkin's granuloma of intrathoracic lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "93531004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 440957,
+      "conceptName": "Lymphosarcoma and reticulosarcoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188487008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 440965,
+      "conceptName": "Hodgkin's disease of intrathoracic lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "93522004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 441241,
+      "conceptName": "Reticulosarcoma of lymph nodes of axilla and upper limb",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188492005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 441803,
+      "conceptName": "Lymphosarcoma of lymph nodes of axilla and upper limb",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188503007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 442128,
+      "conceptName": "Reticulosarcoma of spleen",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "95231000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 442156,
+      "conceptName": "Hodgkin's granuloma of intrapelvic lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "93530003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 442159,
+      "conceptName": "Hodgkin's disease, mixed cellularity of spleen",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "93509007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 442168,
+      "conceptName": "Mycosis fungoides of spleen",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "94714002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 442169,
+      "conceptName": "Mycosis fungoides of intrapelvic lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "94708009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 600664,
+      "conceptName": "Lymphoma of lacrimal gland",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1153382001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 600665,
+      "conceptName": "Lymphoma of liver",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1153383006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 602073,
+      "conceptName": "Mycosis fungoides of inguinal lymph node",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "686981000119108",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 603012,
+      "conceptName": "Malignant lymphoma of duodenum",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1153354008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 603013,
+      "conceptName": "Malignant lymphoma of esophagus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1153355009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 603014,
+      "conceptName": "Lymphoma of anus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1153356005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 603015,
+      "conceptName": "Lymphoma of appendix",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1153357001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 603291,
+      "conceptName": "Non-Hodgkin's lymphoma in remission",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "143291000119104",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 604486,
+      "conceptName": "Adult T-cell leukemia/lymphoma in remission",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "898197001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 606914,
+      "conceptName": "Follicular lymphoma grade 3b",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1148845007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 606916,
+      "conceptName": "Follicular non-Hodgkin's lymphoma in situ",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1148847004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 606919,
+      "conceptName": "Follicular lymphoma grade 3a",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1148851002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 607373,
+      "conceptName": "Pediatric nodal marginal zone B cell lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1153336009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 607382,
+      "conceptName": "Primary non-Hodgkin malignant lymphoma of uveal tract",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1153346006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 607383,
+      "conceptName": "Primary non-Hodgkin malignant lymphoma of vitreoretinal tract",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1153347002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 607384,
+      "conceptName": "Primary effusion lymphoma due to human immune deficiency virus infection",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1153348007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 607956,
+      "conceptName": "Composite Hodgkin and non-Hodgkin lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1156403002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 608282,
+      "conceptName": "Intravascular large B-cell lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1157162007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 609126,
+      "conceptName": "Mycosis fungoides of facial lymph node",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "16775311000119107",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 609236,
+      "conceptName": "Mycosis fungoides of lower limb lymph node",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "686991000119106",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 760724,
+      "conceptName": "Marginal zone lymphoma of inguinal lymph node",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "116711000119103",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 760726,
+      "conceptName": "Marginal zone lymphoma of thoracic lymph node",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "116741000119104",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 760728,
+      "conceptName": "Peripheral T-cell lymphoma of spleen",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "117061000119101",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 760729,
+      "conceptName": "Peripheral T-cell lymphoma of axillary lymph node",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "117091000119108",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 760730,
+      "conceptName": "Peripheral T-cell lymphoma of thoracic lymph node",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "117111000119100",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 764078,
+      "conceptName": "Marginal zone lymphoma of axillary lymph node",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "450521000124109",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 764839,
+      "conceptName": "Diffuse non-Hodgkin's lymphoma Lugano stage I",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "68261000119102",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 764840,
+      "conceptName": "Diffuse non-Hodgkin's lymphoma Lugano stage IV",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "68291000119109",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 765717,
+      "conceptName": "Diffuse non-Hodgkin's lymphoma Lugano stage III",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "456911000124108",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 765741,
+      "conceptName": "Diffuse non-Hodgkin's lymphoma Lugano stage II",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "68271000119108",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1077431,
+      "conceptName": "Sézary syndrome of lymph nodes of upper limb",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "688231000119103",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1077432,
+      "conceptName": "Sézary syndrome of lymph nodes of axilla",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "688241000119107",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1246721,
+      "conceptName": "Mycosis fungoides of axillary lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "686961000119104",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1246726,
+      "conceptName": "Sézary syndrome of inguinal lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "688271000119100",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3654298,
+      "conceptName": "Relapsing classical Hodgkin lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "830057003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3654579,
+      "conceptName": "Lymphomatous infiltrate of kidney",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "836486002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3654886,
+      "conceptName": "Diffuse large B-cell lymphoma of small intestine",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "840423002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3654887,
+      "conceptName": "Diffuse large B-cell lymphoma of stomach",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "840424008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3655629,
+      "conceptName": "Large B-cell lymphoma arising in HHV8-associated multicentric Castleman disease",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "866098005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4001329,
+      "conceptName": "Follicular non-Hodgkin's lymphoma, mixed small cleaved cell and large cell (clinical)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "109971005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4002356,
+      "conceptName": "Diffuse non-Hodgkin's lymphoma, small cell (clinical)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "109968002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4002357,
+      "conceptName": "Follicular non-Hodgkin's lymphoma, small cleaved cell (clinical)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "109970006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4002358,
+      "conceptName": "Lymphoepithelioid lymphoma (clinical)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "109976000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4003180,
+      "conceptName": "Diffuse non-Hodgkin's lymphoma, small cleaved cell (clinical)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "109967007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4003182,
+      "conceptName": "T-zone lymphoma (clinical)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "109975001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4003183,
+      "conceptName": "T-cell lymphoma (clinical)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "109978004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4003188,
+      "conceptName": "Adult T-cell leukemia/lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "110007008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4003830,
+      "conceptName": "Diffuse non-Hodgkin's lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "109962001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4003831,
+      "conceptName": "Diffuse non-Hodgkin's lymphoma, undifferentiated",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "109964000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4003832,
+      "conceptName": "Diffuse non-Hodgkin's lymphoma, immunoblastic (clinical)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "109966003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4003833,
+      "conceptName": "Follicular non-Hodgkin's lymphoma, large cell (clinical)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "109972003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4029188,
+      "conceptName": "Primary cutaneous CD30+ large T-cell lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "128875000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4030667,
+      "conceptName": "Lymphoma of kidney",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "236513009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4038835,
+      "conceptName": "Hodgkin's disease (clinical)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "118599009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4038838,
+      "conceptName": "Non-Hodgkin's lymphoma (clinical)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "118601006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4038839,
+      "conceptName": "Hodgkin lymphoma, nodular lymphocyte predominance (clinical)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "118605002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4038840,
+      "conceptName": "Hodgkin's sarcoma (clinical)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "118606001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4038841,
+      "conceptName": "Lymphocyte-rich classical Hodgkin lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "118607005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4038842,
+      "conceptName": "Hodgkin's disease, nodular sclerosis (clinical)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "118608000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4038843,
+      "conceptName": "Hodgkin's disease, mixed cellularity (clinical)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "118609008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4040380,
+      "conceptName": "Mycosis fungoides (clinical)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "118618005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4041797,
+      "conceptName": "Hodgkin's granuloma (clinical)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "118602004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4041798,
+      "conceptName": "Hodgkin's disease, lymphocytic depletion (clinical)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "118610003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4041799,
+      "conceptName": "Sezary's disease",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "118611004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4041800,
+      "conceptName": "Burkitt's lymphoma (clinical)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "118617000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4045412,
+      "conceptName": "Orbital lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "13048006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4079287,
+      "conceptName": "Hodgkin's disease, nodular sclerosis - mixed cellularity",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277611003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4079288,
+      "conceptName": "Follicular low grade B-cell lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277618009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4079289,
+      "conceptName": "Follicular malignant lymphoma - small cleaved cell",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277625002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4079290,
+      "conceptName": "Nodular high grade B-cell lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277627005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4079291,
+      "conceptName": "Diffuse malignant lymphoma - large non-cleaved cell",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277629008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4079293,
+      "conceptName": "Diffuse malignant lymphoma - centroblastic polymorphic",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277632006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4079689,
+      "conceptName": "Hodgkin's disease, nodular sclerosis - lymphocytic predominance",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277610002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4079690,
+      "conceptName": "Prethymic and thymic T-cell lymphoma/leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277614006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4079691,
+      "conceptName": "Diffuse low grade B-cell lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277616008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4079692,
+      "conceptName": "High grade B-cell lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277617004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4079693,
+      "conceptName": "Monocytoid B-cell lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277623009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4079696,
+      "conceptName": "High grade T-cell lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277643003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4080741,
+      "conceptName": "Malignant lymphoma of thyroid gland",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "278051002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4080742,
+      "conceptName": "Malignant lymphoma of breast",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "278052009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4082486,
+      "conceptName": "Hodgkin's disease, nodular sclerosis - lymphocytic depletion",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277612005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4082487,
+      "conceptName": "Cutaneous peripheral T-cell lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277613000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4082488,
+      "conceptName": "Diffuse high grade B-cell lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277626001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4082491,
+      "conceptName": "Low grade T-cell lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277642008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4082627,
+      "conceptName": "Enteropathy-associated T-cell lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277654008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4082659,
+      "conceptName": "Granulomatous slack skin disease",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277796003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4091768,
+      "conceptName": "Burkitt's lymphoma of intrathoracic lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188511002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4091916,
+      "conceptName": "Malignant lymphoma - small cleaved cell",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188675007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4094543,
+      "conceptName": "Diffuse malignant lymphoma - small non-cleaved cell",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188674006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4094544,
+      "conceptName": "Malignant lymphoma - mixed small and large cell",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188676008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4097560,
+      "conceptName": "Burkitt's lymphoma of intra-abdominal lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188512009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4097572,
+      "conceptName": "Follicular non-Hodgkin's mixed small cleaved and large cell lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188672005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4098597,
+      "conceptName": "Waldenström macroglobulinemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "190818004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4110167,
+      "conceptName": "Intermediate grade B-cell lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "285776004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4116063,
+      "conceptName": "Proliferating angioendotheliomatosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "254792006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4119130,
+      "conceptName": "Malignant lymphoma - small lymphocytic",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "302841002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4119131,
+      "conceptName": "Nodular malignant lymphoma, lymphocytic - well differentiated",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "302845006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4121330,
+      "conceptName": "Diffuse malignant lymphoma - centroblastic",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "302842009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4121331,
+      "conceptName": "Nodular malignant lymphoma, lymphocytic - intermediate differentiation",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "302848008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4121853,
+      "conceptName": "Malignant lymphoma, follicular center cell, cleaved",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "303056000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4121970,
+      "conceptName": "Malignant lymphoma, follicular center cell, non-cleaved",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "303057009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4123298,
+      "conceptName": "Malignant lymphoma, follicular center cell",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "303055001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4131931,
+      "conceptName": "Malignant lymphoma of lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "127220001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4141255,
+      "conceptName": "Malignant lymphoma - lymphoplasmacytic",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "307623001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4141258,
+      "conceptName": "Malignant lymphoma, centroblastic type, follicular",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "307647008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4142582,
+      "conceptName": "Malignant lymphoma in remission",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "427141003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4143679,
+      "conceptName": "Hodgkin's disease, lymphocytic depletion of lymph nodes of head",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "426885008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4144198,
+      "conceptName": "Prolymphocytic lymphosarcoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "307622006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4144199,
+      "conceptName": "Diffuse malignant lymphoma - centroblastic-centrocytic",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "307624007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4144302,
+      "conceptName": "Hodgkin's disease in remission",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "426071002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4146024,
+      "conceptName": "Malignant lymphoma - centrocytic",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "307625008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4146026,
+      "conceptName": "Hodgkin's disease, nodular sclerosis - cellular phase",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "307635002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4146027,
+      "conceptName": "Malignant lymphoma, mixed lymphocytic-histiocytic, nodular",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "307636001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4146031,
+      "conceptName": "Malignant lymphoma, lymphocytic, poorly differentiated, nodular",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "307646004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4146628,
+      "conceptName": "Hodgkin's disease, lymphocytic depletion, diffuse fibrosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "307633009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4146629,
+      "conceptName": "Hodgkin's disease, lymphocytic depletion, reticular type",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "307634003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4146630,
+      "conceptName": "Malignant lymphoma, centroblastic-centrocytic, follicular",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "307637005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4147411,
+      "conceptName": "Follicular lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "308121000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4149840,
+      "conceptName": "Nodular lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "269476000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4153374,
+      "conceptName": "Malignant lymphoma, large cell, polymorphous, immunoblastic",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "371134001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4173972,
+      "conceptName": "Hodgkin's disease, lymphocytic predominance - diffuse",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277609007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4173973,
+      "conceptName": "Low grade B-cell lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277615007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4173976,
+      "conceptName": "Mucosa-associated lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277622004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4173977,
+      "conceptName": "Follicular malignant lymphoma - mixed cell type",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277624003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4173978,
+      "conceptName": "Diffuse malignant lymphoma - large cleaved cell",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277628000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4173985,
+      "conceptName": "Malignant lymphoma of testis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277664004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4174442,
+      "conceptName": "Lymphoma of intestine",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "276815004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4174765,
+      "conceptName": "Gastric lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "276811008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4174769,
+      "conceptName": "Primary cerebral lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "276836002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4184976,
+      "conceptName": "Angioimmunoblastic T-cell lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "413537009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4189506,
+      "conceptName": "Mucosa-associated lymphoid tissue (MALT) lymphoma of orbit",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "414780005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4212994,
+      "conceptName": "Extranodal NK/T-cell lymphoma, nasal type",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "414166008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4226388,
+      "conceptName": "Reticulosarcoma with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "420302007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4226624,
+      "conceptName": "Malignant lymphoma of the eye region",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "420519005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4227209,
+      "conceptName": "Primary intraocular non-Hodgkin malignant lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "420788006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4227963,
+      "conceptName": "T-lymphoblastic lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "421246008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4227969,
+      "conceptName": "Primary lymphoma of brain with AIDS (acquired immunodeficiency syndrome)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "421283008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4266193,
+      "conceptName": "Primary cutaneous lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "400001003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4266805,
+      "conceptName": "Primary cutaneous T-cell lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "400122007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4291595,
+      "conceptName": "Hodgkin's disease affecting skin",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "402882001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4294434,
+      "conceptName": "Primary cutaneous large T-cell lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "402880009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4294435,
+      "conceptName": "Primary cutaneous B-cell lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "402881008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4297351,
+      "conceptName": "Erythrodermic mycosis fungoides",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404114005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4297352,
+      "conceptName": "Localized pagetoid reticulosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404120006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4297354,
+      "conceptName": "CD-30 negative cutaneous T-cell lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404128004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4297356,
+      "conceptName": "Primary cutaneous marginal zone B-cell lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404140004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4297357,
+      "conceptName": "Primary cutaneous immunocytoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404141000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4297358,
+      "conceptName": "Primary cutaneous diffuse large cell B-cell lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404144008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4299139,
+      "conceptName": "Hypomelanotic mycosis fungoides",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404110001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4299140,
+      "conceptName": "Granulomatous mycosis fungoides",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404112009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4299141,
+      "conceptName": "Mycosis fungoides with systemic infiltration",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404116007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4299142,
+      "conceptName": "Pagetoid reticulosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404119000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4299145,
+      "conceptName": "CD-30 positive pleomorphic large T-cell cutaneous lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404126000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4299146,
+      "conceptName": "CD-30 positive T-immunoblastic cutaneous lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404127009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4299147,
+      "conceptName": "CD-30 negative anaplastic large T-cell cutaneous lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404129007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4299148,
+      "conceptName": "CD-30 negative T-immunoblastic cutaneous lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404131003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4299149,
+      "conceptName": "Anaplastic large T-cell systemic malignant lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404134006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4299150,
+      "conceptName": "Angiocentric NK/T-cell malignant lymphoma involving skin",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404135007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4300694,
+      "conceptName": "Lymphomatoid papulosis with Hodgkin's disease",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404106004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4300695,
+      "conceptName": "Patch/plaque stage mycosis fungoides",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404107008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4300696,
+      "conceptName": "Lymphomatoid papulosis-associated mycosis fungoides",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404111002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4300697,
+      "conceptName": "Syringotropic mycosis fungoides",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404118008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4300698,
+      "conceptName": "Generalized pagetoid reticulosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404121005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4300699,
+      "conceptName": "CD-30 negative pleomorphic large T-cell cutaneous lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404130002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4300701,
+      "conceptName": "Precursor B-cell lymphoblastic lymphoma involving skin",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404137004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4301660,
+      "conceptName": "Poikilodermatous mycosis fungoides",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404108003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4301661,
+      "conceptName": "Follicular mucinosis type mycosis fungoides",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404109006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4301662,
+      "conceptName": "Tumor stage mycosis fungoides",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404113004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4301663,
+      "conceptName": "Bullous mycosis fungoides",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404115006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4301664,
+      "conceptName": "Spongiotic mycosis fungoides",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404117003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4301666,
+      "conceptName": "Subcutaneous panniculitis-like T-cell lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404133000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4301667,
+      "conceptName": "Small lymphocytic B-cell lymphoma involving skin",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404138009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4301668,
+      "conceptName": "Primary cutaneous follicular center B-cell lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404143002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4301781,
+      "conceptName": "Specific skin infiltration in Hodgkin's disease",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404157000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4311872,
+      "conceptName": "Lymphoma of retroperitoneal space",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "422853008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4313228,
+      "conceptName": "Mixed cell type lymphosarcoma of intrapelvic lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "94687005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4313229,
+      "conceptName": "Mixed cell type lymphosarcoma of intrathoracic lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "94688000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4314201,
+      "conceptName": "Mixed cell type lymphosarcoma of intra-abdominal lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "94686001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4314501,
+      "conceptName": "Mixed cell type lymphosarcoma of lymph nodes of head, face, and neck",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "94690004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4334256,
+      "conceptName": "Lymphoma of retina",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "232075002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4345328,
+      "conceptName": "African Burkitt's lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "240531002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35610166,
+      "conceptName": "Angioimmunoblastic T-cell lymphoma with dysproteinaemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1090241000000107",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35610325,
+      "conceptName": "Follicular lymphoma, cutaneous follicle centre",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1091861000000100",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35610328,
+      "conceptName": "B-cell Hodgkin's lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1091891000000106",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35610331,
+      "conceptName": "B-cell non-Hodgkin's lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1091921000000103",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35622133,
+      "conceptName": "Primary lymphoma of conjunctiva",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "763477007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35622279,
+      "conceptName": "Splenic marginal zone B-cell lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "763666008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35622400,
+      "conceptName": "Splenic diffuse red pulp small B-cell lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "763884007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35622904,
+      "conceptName": "Primary cutaneous CD8 positive aggressive epidermotropic cytotoxic T-cell lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "765136002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35623049,
+      "conceptName": "Classic mycosis fungoides",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "765328000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35624275,
+      "conceptName": "Primary bone lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "766935007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36676804,
+      "conceptName": "Primary cutaneous anaplastic large cell lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "773995001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36684462,
+      "conceptName": "Marginal zone lymphoma of lymph nodes of multiple sites",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "116841000119105",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36684463,
+      "conceptName": "Mantle cell lymphoma of lymph nodes of multiple sites",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "116871000119103",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36684464,
+      "conceptName": "Peripheral T-cell lymphoma of lymph nodes of multiple sites",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "117211000119105",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36684807,
+      "conceptName": "B-cell lymphoma of intra-abdominal lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "350951000119101",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36684809,
+      "conceptName": "B-cell lymphoma of lymph nodes of multiple sites",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "351211000119104",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36684812,
+      "conceptName": "Small lymphocytic B-cell lymphoma of lymph nodes of multiple sites",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "352251000119109",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36684813,
+      "conceptName": "Small lymphocytic B-cell lymphoma of intra-abdominal lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "352411000119109",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36684814,
+      "conceptName": "Non-Hodgkin's lymphoma of lymph nodes of multiple sites",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "352791000119108",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36684826,
+      "conceptName": "Follicular non-Hodgkin's lymphoma of lymph nodes of multiple sites",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "354851000119101",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36715795,
+      "conceptName": "Follicular lymphoma of small intestine",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "721555001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36715966,
+      "conceptName": "Adult T-cell leukemia/lymphoma of skin",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "721762007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36716775,
+      "conceptName": "B-cell lymphoma unclassifiable with features intermediate between classical Hodgkin lymphoma and diffuse large B-cell lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "722954005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37016150,
+      "conceptName": "Non-Hodgkin lymphoma of central nervous system metastatic to lymph node of lower limb",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "116811000119106",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37017112,
+      "conceptName": "Primary cerebral lymphoma co-occurrent with human immunodeficiency virus infection",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "713325002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37017243,
+      "conceptName": "Reticulosarcoma co-occurrent with human immunodeficiency virus infection",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "713483007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37017270,
+      "conceptName": "Primary effusion lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "713516007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37017442,
+      "conceptName": "Diffuse non-Hodgkin immunoblastic lymphoma co-occurrent with human immunodeficiency virus infection",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "713718006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37017595,
+      "conceptName": "Burkitt lymphoma co-occurrent with human immunodeficiency virus infection",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "713897006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37018062,
+      "conceptName": "Primary effusion lymphoma co-occurrent with infection caused by Human herpesvirus 8",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "714463003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37018876,
+      "conceptName": "Lymphoma of colon",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "133751000119102",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37018877,
+      "conceptName": "Non-Hodgkin lymphoma of central nervous system metastatic to lymph node of upper limb",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "116821000119104",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37110400,
+      "conceptName": "T-cell histiocyte rich large B-cell lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "724645006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37110401,
+      "conceptName": "Diffuse large B-cell lymphoma co-occurrent with chronic inflammation caused by Epstein-Barr virus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "724647003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37110402,
+      "conceptName": "Plasmablastic lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "724648008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37116745,
+      "conceptName": "Primary cutaneous gamma-delta-positive T-cell lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "733627006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37116982,
+      "conceptName": "Diffuse large B-cell lymphoma of central nervous system",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "734066005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37118088,
+      "conceptName": "Nodal marginal zone B-cell lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "726721002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37155437,
+      "conceptName": "Hodgkin disease, nodular sclerosis of lymph nodes of head",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255792009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37160351,
+      "conceptName": "Malignant lymphoma of uveal tract",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1162264008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37160987,
+      "conceptName": "High grade B-cell lymphoma with MYC and BCL2 and/or BCL6 rearrangements",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1172704005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37162618,
+      "conceptName": "B cell lymphoma of small intestine",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1196900003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37162734,
+      "conceptName": "T-cell lymphoma of small intestine",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1197344000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37163570,
+      "conceptName": "Precursor cell lymphoblastic lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1217301006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165100,
+      "conceptName": "Primary oculocerebral non-Hodgkin lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1237578005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165631,
+      "conceptName": "Lymphoplasmacytic lymphoma without immunoglobulin M production",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255270006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165779,
+      "conceptName": "Hodgkin lymphoma, lymphocyte depletion of lymph nodes of neck",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255666008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165781,
+      "conceptName": "Hodgkin lymphoma, lymphocyte depletion of lymph nodes of head and neck",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255687003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165787,
+      "conceptName": "Hodgkin granuloma of lymph nodes of head",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255726001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165788,
+      "conceptName": "Hodgkin granuloma of lymph nodes of neck",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255727005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165789,
+      "conceptName": "Hodgkin granuloma of lymph nodes of head and neck",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255728000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165792,
+      "conceptName": "Hodgkin disease, lymphocytic-histiocytic predominance of lymph nodes of head",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255737000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165793,
+      "conceptName": "Hodgkin disease, lymphocytic-histiocytic predominance of lymph nodes of neck",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255738005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165794,
+      "conceptName": "Hodgkin disease, lymphocytic-histiocytic predominance of lymph nodes of head and neck",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255739002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165798,
+      "conceptName": "Hodgkin sarcoma of lymph nodes of head",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255743003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165799,
+      "conceptName": "Hodgkin sarcoma of lymph nodes of neck",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255744009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165800,
+      "conceptName": "Hodgkin sarcoma of lymph nodes of head and neck",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255745005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165804,
+      "conceptName": "Burkitt tumor of lymph nodes of head",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255749004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165805,
+      "conceptName": "Burkitt tumor of lymph nodes of neck",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255750004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165806,
+      "conceptName": "Burkitt tumor of lymph nodes of head and neck",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255751000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165807,
+      "conceptName": "Mycosis fungoides of lymph nodes of head",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255752007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165808,
+      "conceptName": "Mycosis fungoides of lymph nodes of neck",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255753002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165809,
+      "conceptName": "Mycosis fungoides of lymph nodes of head and neck",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255754008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165812,
+      "conceptName": "Hodgkin paragranuloma of lymph nodes of head",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255784000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165813,
+      "conceptName": "Hodgkin paragranuloma of lymph nodes of neck",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255785004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165814,
+      "conceptName": "Hodgkin paragranuloma of lymph nodes of head and neck",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255786003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165816,
+      "conceptName": "Hodgkin disease, mixed cellularity of lymph nodes of head",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255788002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165817,
+      "conceptName": "Hodgkin disease, mixed cellularity of lymph nodes of neck",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255789005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165818,
+      "conceptName": "Hodgkin disease, mixed cellularity of lymph nodes of head and neck",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255790001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165819,
+      "conceptName": "Hodgkin disease, nodular sclerosis of lymph nodes of head and neck",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255791002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165820,
+      "conceptName": "Hodgkin disease, nodular sclerosis of lymph nodes of neck",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255793004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165822,
+      "conceptName": "Burkitt lymphoma of lymph nodes of lower limb",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255796007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165823,
+      "conceptName": "Hodgkin disease, nodular sclerosis of lymph nodes of lower limb",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255797003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165824,
+      "conceptName": "Hodgkin granuloma of lymph nodes of upper limb",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255798008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165825,
+      "conceptName": "Sézary disease of lymph nodes of head",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255799000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165826,
+      "conceptName": "Sézary disease of lymph nodes of neck",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255800001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165827,
+      "conceptName": "Sézary disease of lymph nodes of head and neck",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255801002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165828,
+      "conceptName": "Hodgkin disease of lymph nodes of head",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255802009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165829,
+      "conceptName": "Hodgkin disease of lymph nodes of neck",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255803004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165830,
+      "conceptName": "Hodgkin disease of lymph nodes of head and neck",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255804005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165831,
+      "conceptName": "Malignant lymphoma of lymph nodes of head",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255805006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165832,
+      "conceptName": "Malignant lymphoma of lymph nodes of neck",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255806007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165833,
+      "conceptName": "Malignant lymphoma of lymph nodes of head and neck",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255807003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165834,
+      "conceptName": "Hodgkin sarcoma of lymph nodes of upper limb",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255808008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165837,
+      "conceptName": "Hodgkin disease, mixed cellularity of lymph nodes of upper limb",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255811009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165838,
+      "conceptName": "Hodgkin disease, nodular sclerosis of lymph nodes of upper limb",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255812002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165840,
+      "conceptName": "Hodgkin disease, lymphocytic-histiocytic predominance of lymph nodes of upper limb",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255814001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165849,
+      "conceptName": "Hodgkin sarcoma of lymph nodes of lower limb",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255883001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165851,
+      "conceptName": "Mycosis fungoides of lymph nodes of upper limb",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255886009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165852,
+      "conceptName": "Hodgkin's paragranuloma of lymph nodes of lower limb",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255887000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165853,
+      "conceptName": "Hodgkin paragranuloma of lymph nodes of upper limb",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255888005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165854,
+      "conceptName": "Hodgkin disease, lymphocytic depletion of lymph nodes of upper limb",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255890006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165855,
+      "conceptName": "Hodgkin disease, lymphocytic depletion of lymph nodes of lower limb",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255892003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165856,
+      "conceptName": "Hodgkin granuloma of lymph nodes of lower limb",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255894002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165857,
+      "conceptName": "Burkitt lymphoma of lymph nodes of upper limb",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255895001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165858,
+      "conceptName": "Hodgkin disease, lymphocytic-histiocytic predominance of lymph nodes of lower limb",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255897009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165859,
+      "conceptName": "Hodgkin disease, mixed cellularity of lymph nodes of lower limb",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255898004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165862,
+      "conceptName": "Hodgkin disease of lymph nodes of lower limb",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255902005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165864,
+      "conceptName": "Hodgkin disease of lymph nodes of upper limb",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255905007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165865,
+      "conceptName": "Malignant lymphoma of lymph nodes of upper limb",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255906008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165866,
+      "conceptName": "Malignant lymphoma of lymph nodes of lower limb",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1255907004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37208173,
+      "conceptName": "Refractory Hodgkin's lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "461311000124107",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37396219,
+      "conceptName": "ALK-positive large B-cell lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "715950008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37397538,
+      "conceptName": "Primary pulmonary lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "718200007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37399015,
+      "conceptName": "Epstein-Barr virus positive diffuse large B-cell lymphoma of elderly",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "716788007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40479608,
+      "conceptName": "Mantle cell lymphoma of spleen",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "441559006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40480206,
+      "conceptName": "Mucosa-associated lymphoid tissue (MALT) lymphoma of stomach",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "444597005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40481357,
+      "conceptName": "Large cell lymphoma of intrapelvic lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "441962003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40481522,
+      "conceptName": "Primary mediastinal (thymic) large B-cell lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "444910004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40481901,
+      "conceptName": "Mantle cell lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "443487006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40482893,
+      "conceptName": "Extranodal marginal zone B-cell lymphoma of mucosa-associated lymphoid tissue (MALT-lymphoma)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "445269007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40483374,
+      "conceptName": "Hepatosplenic T-cell lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "445406001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40484012,
+      "conceptName": "Non-Hodgkin lymphoma associated with Human immunodeficiency virus infection",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "442537007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40486027,
+      "conceptName": "Lymphoma of pylorus of stomach",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "447656001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40486029,
+      "conceptName": "Lymphoma of fundus of stomach",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "447658000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40486166,
+      "conceptName": "Diffuse non-Hodgkin's lymphoma of soft tissue",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "449216004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40486167,
+      "conceptName": "Diffuse non-Hodgkin's lymphoma of skin",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "449217008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40486168,
+      "conceptName": "Lymphoma of sigmoid colon",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "449218003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40486169,
+      "conceptName": "Follicular non-Hodgkin's lymphoma of nasopharynx",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "449219006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40486171,
+      "conceptName": "Diffuse follicle center lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "449220000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40486172,
+      "conceptName": "Diffuse non-Hodgkin's lymphoma of central nervous system",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "449221001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40486173,
+      "conceptName": "Follicular non-Hodgkin's lymphoma of stomach",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "449222008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40486545,
+      "conceptName": "Lymphoma of pyloric antrum of stomach",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "447766003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40486589,
+      "conceptName": "Lymphoma of greater curvature of stomach",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "447805007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40486590,
+      "conceptName": "Lymphoma of cardia of stomach",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "447806008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40486637,
+      "conceptName": "Non-Hodgkin's lymphoma of tonsil",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "449292003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40486654,
+      "conceptName": "Follicular non-Hodgkin's lymphoma of ovary",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "449307001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40486666,
+      "conceptName": "Non-Hodgkin's lymphoma of prostate",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "449318001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40487141,
+      "conceptName": "Follicular non-Hodgkin's lymphoma of testis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "449418000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40487142,
+      "conceptName": "Follicular non-Hodgkin's lymphoma of intestine",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "449419008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40487528,
+      "conceptName": "Non-Hodgkin's lymphoma of extranodal site",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "447989004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40488897,
+      "conceptName": "Diffuse non-Hodgkin's lymphoma of prostate",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "448213004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40488901,
+      "conceptName": "Follicular non-Hodgkin's lymphoma of prostate",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "448217003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40488904,
+      "conceptName": "Non-Hodgkin's lymphoma of bone",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "448220006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40488917,
+      "conceptName": "Follicular non-Hodgkin's lymphoma of nose",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "448231003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40488942,
+      "conceptName": "Non-Hodgkin's lymphoma of central nervous system",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "448254007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40488958,
+      "conceptName": "Lymphoma of lesser curvature of stomach",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "448269008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40489407,
+      "conceptName": "Follicular non-Hodgkin's lymphoma of soft tissue",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "448317000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40489409,
+      "conceptName": "Diffuse non-Hodgkin's lymphoma of nasopharynx",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "448319002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40489448,
+      "conceptName": "Non-Hodgkin's lymphoma of intestine",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "448354009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40489467,
+      "conceptName": "Non-Hodgkin's lymphoma of nasopharynx",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "448371005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40489468,
+      "conceptName": "Non-Hodgkin's lymphoma of lung",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "448372003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40489472,
+      "conceptName": "Non-Hodgkin's lymphoma of ovary",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "448376000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40489481,
+      "conceptName": "Non-Hodgkin's lymphoma of nose",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "448384001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40489483,
+      "conceptName": "Non-Hodgkin's lymphoma of oral cavity",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "448386004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40489484,
+      "conceptName": "Non-Hodgkin's lymphoma of testis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "448387008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40489940,
+      "conceptName": "Non-Hodgkin's lymphoma of skin",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "448447004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40489960,
+      "conceptName": "Diffuse non-Hodgkin's lymphoma of testis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "448465000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40489963,
+      "conceptName": "Diffuse non-Hodgkin's lymphoma of oral cavity",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "448468003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40490458,
+      "conceptName": "Lymphoma of pelvis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "448553002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40490460,
+      "conceptName": "Lymphoma of body of stomach",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "448555009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40490465,
+      "conceptName": "Diffuse non-Hodgkin's lymphoma of extranodal site",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "448560008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40490467,
+      "conceptName": "Follicular non-Hodgkin's lymphoma of extranodal site",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "448561007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40490518,
+      "conceptName": "Diffuse non-Hodgkin's lymphoma of uterine cervix",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "448607004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40490520,
+      "conceptName": "Diffuse non-Hodgkin's lymphoma of ovary",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "448609001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40490918,
+      "conceptName": "Marginal zone lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "447100004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40490988,
+      "conceptName": "Diffuse non-Hodgkin's lymphoma of stomach",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "448663003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40490991,
+      "conceptName": "Follicular non-Hodgkin's lymphoma of bone",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "448666006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40490998,
+      "conceptName": "Follicular non-Hodgkin's lymphoma of lung",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "448672006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40491440,
+      "conceptName": "Non-Hodgkin's lymphoma of stomach",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "448709005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40491472,
+      "conceptName": "Non-Hodgkin's lymphoma of soft tissue",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "448738008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40491512,
+      "conceptName": "Non-Hodgkin's lymphoma of uterine cervix",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "448774004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40492018,
+      "conceptName": "Follicular non-Hodgkin's lymphoma of skin",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "448865007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40492020,
+      "conceptName": "Diffuse non-Hodgkin's lymphoma of lung",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "448867004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40492940,
+      "conceptName": "Follicular non-Hodgkin's lymphoma of central nervous system",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "448995000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40493006,
+      "conceptName": "Lymphoma of lower esophagus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "449053004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40493011,
+      "conceptName": "Follicular non-Hodgkin's lymphoma of tonsil",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "449058008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40493012,
+      "conceptName": "Follicular non-Hodgkin's lymphoma of uterine cervix",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "449059000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40493017,
+      "conceptName": "Follicular non-Hodgkin's lymphoma of oral cavity",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "449063007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40493019,
+      "conceptName": "Diffuse non-Hodgkin's lymphoma of nose",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "449065000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40493027,
+      "conceptName": "Gastrointestinal lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "449072004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40493029,
+      "conceptName": "Lymphoma of small bowel",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "449074003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40493030,
+      "conceptName": "Lymphoma of cardioesophageal junction",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "449075002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40493514,
+      "conceptName": "Diffuse non-Hodgkin's lymphoma of tonsil",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "449173006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40493517,
+      "conceptName": "Diffuse non-Hodgkin's lymphoma of intestine",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "449176003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40493518,
+      "conceptName": "Diffuse non-Hodgkin's lymphoma of bone",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "449177007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42537145,
+      "conceptName": "Pediatric follicular lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "736322001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42538850,
+      "conceptName": "Classical Hodgkin lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "762690000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42539527,
+      "conceptName": "Primary cutaneous diffuse large cell B-cell lymphoma of lower extremity",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "735332000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44783557,
+      "conceptName": "Hepatosplenic gamma-delta cell lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "699657009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44808015,
+      "conceptName": "Follicular lymphoma grade 1",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "847481000000109",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44808028,
+      "conceptName": "Follicular lymphoma grade 3",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "847651000000100",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44814156,
+      "conceptName": "Follicular lymphoma grade 2",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "847631000000107",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45765770,
+      "conceptName": "Follicular non-Hodgkin's lymphoma diffuse follicle center sub-type grade 1",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "702786004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45765919,
+      "conceptName": "Follicular non-Hodgkin's lymphoma diffuse follicle center cell sub-type grade 2",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "702977001",
+      "standardConcept": "S"
+    }
+  ]
 }

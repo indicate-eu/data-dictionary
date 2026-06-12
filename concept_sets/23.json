@@ -1,15 +1,35 @@
 {
   "id": 23,
-  "name": "Lymphoma",
-  "description": null,
-  "version": "1.0.0",
+  "name": "Malignant lymphoma",
+  "description": "Malignant lymphoma — malignancy of the lymphatic system (Hodgkin and non-Hodgkin); one of the APACHE IV chronic health conditions.",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
-    "items": []
+    "items": [
+      {
+        "concept": {
+          "conceptId": 432571,
+          "conceptName": "Malignant lymphoma",
+          "domainId": "Condition",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Disorder",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "118600007",
+          "validStartDate": "20020131",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      }
+    ]
   },
   "tags": [],
   "metadata": {
@@ -25,21 +45,21 @@
       }
     },
     "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Lymphoma",
+        "name": "Malignant lymphoma",
         "category": "Conditions",
-        "subcategory": "APACHE IV - Chronic health conditions",
-        "shortDescription": null,
-        "longDescription": null
+        "subcategory": "Haematologic / oncologic",
+        "shortDescription": "Malignant lymphoma — malignancy of the lymphatic system (Hodgkin and non-Hodgkin); one of the APACHE IV chronic health conditions.",
+        "longDescription": "## Definition & Clinical Context\n\nMalignant lymphoma is a malignancy of the lymphatic system, comprising Hodgkin lymphoma and the many non-Hodgkin lymphomas. In intensive care it is a comorbidity associated with immunosuppression and chemotherapy complications, and a cause of admission. Lymphoma is one of the chronic health items in the APACHE IV severity model.\n\n## Scope\n\nThe set is anchored on the SNOMED concept *432571 / 118600007 — Malignant lymphoma* with all descendants included, so it captures Hodgkin and the full range of non-Hodgkin lymphoma subtypes.\n\n## Mapping Notes\n\n- Leukemia and multiple myeloma are distinct haematologic malignancies captured by their own sets."
       },
       "fr": {
-        "name": "Lymphome",
+        "name": "Lymphome malin",
         "category": "Pathologies",
-        "subcategory": "APACHE IV - Pathologies chroniques",
-        "shortDescription": null,
+        "subcategory": "Hématologique / oncologique",
+        "shortDescription": "Lymphome malin — cancer du système lymphatique (Hodgkin et non hodgkinien) ; l'une des comorbidités chroniques d'APACHE IV.",
         "longDescription": null
       }
     },
@@ -51,7 +71,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Fill the expression: anchor on SNOMED Malignant lymphoma (118600007) with descendants; rename to 'Malignant lymphoma'; subcategory Haematologic / oncologic; added clinical description."
+      }
+    ],
     "distributionStats": null
   }
 }

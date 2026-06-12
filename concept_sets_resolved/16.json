@@ -1,9 +1,6 @@
 {
   "conceptSetId": 16,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
-  },
+  "vocabularyVersion": null,
   "resolvedConcepts": [
     {
       "conceptId": 4045982,
@@ -669,6 +666,15 @@
       "domainId": "Condition",
       "conceptClassId": "Disorder",
       "conceptCode": "700053002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45757102,
+      "conceptName": "Acquired immune deficiency syndrome complicating childbirth",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "10746341000119109",
       "standardConcept": "S"
     }
   ]

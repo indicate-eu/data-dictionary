@@ -1,7 +1,1491 @@
 {
   "conceptSetId": 22,
-  "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26"
-  },
-  "resolvedConcepts": []
+  "vocabularyVersion": null,
+  "resolvedConcepts": [
+    {
+      "conceptId": 132570,
+      "conceptName": "Leukemic reticuloendotheliosis of lymph nodes of head, face and neck",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188645002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 132572,
+      "conceptName": "Chronic myeloid leukemia in remission",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "92817004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 132850,
+      "conceptName": "Myeloid leukemia in remission",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "94716000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 132853,
+      "conceptName": "Lymphoid leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188725004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 133154,
+      "conceptName": "Plasma cell leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "95210003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 133158,
+      "conceptName": "Plasma cell leukemia in remission",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "95209008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 133438,
+      "conceptName": "Chronic lymphoid leukemia in remission",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "92813000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 134305,
+      "conceptName": "Acute lymphoid leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "91857003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 134596,
+      "conceptName": "Lymphoid leukemia in remission",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "93169003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 134597,
+      "conceptName": "Chronic leukemia in remission",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "92811003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 134603,
+      "conceptName": "Chronic myeloid leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "92818009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 135496,
+      "conceptName": "Acute leukemia in remission",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "91854005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 135762,
+      "conceptName": "Acute myeloid leukemia in remission",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "91860005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 135766,
+      "conceptName": "Leukemia in remission",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "93142004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 135768,
+      "conceptName": "Acute monocytic leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "413441006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 136656,
+      "conceptName": "Subacute lymphoid leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188726003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 136930,
+      "conceptName": "Megakaryocytic leukemia in remission",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "94148006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 138099,
+      "conceptName": "Erythroleukemia, FAB M6",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "93451002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 138379,
+      "conceptName": "Chronic lymphoid leukemia, disease",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "92814006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 138708,
+      "conceptName": "Acute leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "91855006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 140057,
+      "conceptName": "Chronic leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "92812005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 140352,
+      "conceptName": "Acute myeloid leukemia, disease",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "91861009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 140666,
+      "conceptName": "Myeloid leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188732008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 140672,
+      "conceptName": "Acute monocytic leukemia in remission",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "91858008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 141816,
+      "conceptName": "Acute lymphoid leukemia in remission",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "91856007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 193429,
+      "conceptName": "Leukemic reticuloendotheliosis of intra-abdominal lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "93144003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 196650,
+      "conceptName": "Leukemic reticuloendotheliosis of intrapelvic lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "93145002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 313159,
+      "conceptName": "Megakaryocytic leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188754005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 315497,
+      "conceptName": "Subacute leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "302855005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 317510,
+      "conceptName": "Leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "93143009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 318989,
+      "conceptName": "Leukemic reticuloendotheliosis of lymph nodes of multiple sites",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "93150008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 321526,
+      "conceptName": "Monocytic leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188744006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 439268,
+      "conceptName": "Leukemic reticuloendotheliosis of lymph nodes of inguinal region and lower limb",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188649008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 439269,
+      "conceptName": "Leukemic reticuloendotheliosis of lymph nodes of axilla and upper limb",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188648000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 442095,
+      "conceptName": "Leukemic reticuloendotheliosis of intrathoracic lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "93146001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 443719,
+      "conceptName": "Relapsing chronic myeloid leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "415287001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 600661,
+      "conceptName": "Mixed phenotype acute leukemia with T-cell and myeloid lineage",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1153379006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 600663,
+      "conceptName": "Mixed phenotype acute leukemia with myeloid and B-cell lymphoid phenotypes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1153381008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 604486,
+      "conceptName": "Adult T-cell leukemia/lymphoma in remission",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "898197001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 604487,
+      "conceptName": "T-cell prolymphocytic leukemia in remission",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "898198006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 606958,
+      "conceptName": "Acute myeloid leukemia with t(8;21)(q22;q22) RUNX1-RUNX1T1",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1148906001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 607405,
+      "conceptName": "Mixed phenotype acute leukemia with t(9;22) (q34;q11.2); BCR-ABL1",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1153377008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 608277,
+      "conceptName": "Acute myeloid leukemia with 11q23 abnormality",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1157157006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 760932,
+      "conceptName": "Chronic monocytic leukemia in relapse",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "122881000119107",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 760933,
+      "conceptName": "Myeloid leukemia in relapse",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "122901000119109",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 760934,
+      "conceptName": "Lymphoid leukemia in relapse",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "122951000119108",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 760935,
+      "conceptName": "Chronic lymphoid leukemia in relapse",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "122961000119105",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 760936,
+      "conceptName": "Plasma cell leukemia in relapse",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "122981000119101",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 760962,
+      "conceptName": "Chronic leukemia in relapse",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "123781000119107",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 764781,
+      "conceptName": "Acute myeloid leukemia, minimal differentiation, FAB M0 in remission",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "61311000119104",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 764782,
+      "conceptName": "Acute myeloid leukemia without maturation, FAB M1 in remission",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "61321000119106",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3572249,
+      "conceptName": "Relapsing acute myeloid leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "12281000132104",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3572256,
+      "conceptName": "Refractory acute myeloid leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "12291000132102",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3654647,
+      "conceptName": "B lymphoblastic leukemia lymphoma with t(5;14)(q31;q32); IL3-IGH",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "838340006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3654648,
+      "conceptName": "B lymphoblastic leukemia lymphoma with t(v;11q23); MLL rearranged",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "838341005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3654649,
+      "conceptName": "B lymphoblastic leukemia lymphoma with t(12;21) (p13;q22); TEL/AML1 (ETV6-RUNX1)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "838342003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3654650,
+      "conceptName": "B lymphoblastic leukemia lymphoma with t(1;19)(Q23;P13.3); E2A-PBX1 (TCF3/PBX1)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "838343008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3654651,
+      "conceptName": "B lymphoblastic leukemia lymphoma with hypodiploidy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "838344002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3654653,
+      "conceptName": "B lymphoblastic leukemia lymphoma with hyperdiploidy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "838346000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3654662,
+      "conceptName": "Acute myeloid leukemia with CBFB::MYH11 fusion",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "838355002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4001331,
+      "conceptName": "Prolymphocytic leukemia (clinical)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "110006004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4002496,
+      "conceptName": "Mast cell leukemia (clinical)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "110002002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4002497,
+      "conceptName": "Acute promyelocytic leukemia, FAB M3",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "110004001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4003184,
+      "conceptName": "Acute panmyelosis with myelofibrosis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "109991003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4003187,
+      "conceptName": "Acute myelomonocytic leukemia, FAB M4",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "110005000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4003188,
+      "conceptName": "Adult T-cell leukemia/lymphoma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "110007008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4038845,
+      "conceptName": "Hairy cell leukemia (clinical)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "118613001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4079280,
+      "conceptName": "Common acute lymphoblastic leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277573001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4079281,
+      "conceptName": "Null cell acute lymphoblastic leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277574007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4079683,
+      "conceptName": "T-cell prolymphocytic leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277567002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4079686,
+      "conceptName": "Acute megakaryoblastic leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277602003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4081867,
+      "conceptName": "Acute biphenotypic leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "278453007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4082338,
+      "conceptName": "Chronic lymphocytic prolymphocytic leukemia syndrome",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277549009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4082459,
+      "conceptName": "Hairy cell leukemia variant",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277568007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4082460,
+      "conceptName": "Large granular lymphocytic leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277569004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4082461,
+      "conceptName": "Precursor B-cell acute lymphoblastic leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277572006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4082462,
+      "conceptName": "T-lymphoblastic leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277575008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4082481,
+      "conceptName": "Juvenile chronic myeloid leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277587001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4091925,
+      "conceptName": "Chronic eosinophilic leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188733003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4094549,
+      "conceptName": "Aleukemic lymphoid leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188728002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4095897,
+      "conceptName": "Compound leukemias",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "190030009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4097581,
+      "conceptName": "Chronic neutrophilic leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188734009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4097582,
+      "conceptName": "Chloroma",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188737002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4097706,
+      "conceptName": "Myelomonocytic leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188768003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4097707,
+      "conceptName": "Subacute myelomonocytic leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "188770007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4112803,
+      "conceptName": "Acute promyelocytic leukemia - hypogranular variant",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "285769009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4121332,
+      "conceptName": "Aleukemic leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "302856006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4133599,
+      "conceptName": "Chronic myelomonocytic leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "127225006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4137687,
+      "conceptName": "Acute promyelocytic leukemia, FAB M3, in remission",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "425869007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4138008,
+      "conceptName": "Philadelphia chromosome-positive acute lymphoblastic leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "425688002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4138466,
+      "conceptName": "Aleukemic leukemia in remission",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "426217000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4138752,
+      "conceptName": "Precursor B-cell acute lymphoblastic leukemia in remission",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "425941003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4138903,
+      "conceptName": "Acute myeloid leukemia with maturation, FAB M2, in remission",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "426124006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4139054,
+      "conceptName": "Subacute lymphoid leukemia in remission",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "426370008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4139358,
+      "conceptName": "Erythroleukemia, FAB M6 in remission",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "426642002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4139554,
+      "conceptName": "Atypical hairy cell leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "307341004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4142105,
+      "conceptName": "Acute myelomonocytic leukemia, FAB M4, in remission",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "427658007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4142254,
+      "conceptName": "Aleukemic lymphoid leukemia in remission",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "426248008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4143848,
+      "conceptName": "Subacute leukemia in remission",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "427056005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4143997,
+      "conceptName": "T-lymphoblastic leukemia in remission",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "427642009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4144191,
+      "conceptName": "Basophilic leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "307592006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4146022,
+      "conceptName": "Neutrophilic leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "307617006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4153344,
+      "conceptName": "Acute lymphoblastic leukemia, transitional pre-B-cell",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "371012000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4173824,
+      "conceptName": "B-cell chronic lymphocytic leukemia variant",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277474005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4173956,
+      "conceptName": "Richter's syndrome",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277550009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4173957,
+      "conceptName": "Splenic lymphoma with villous lymphocytes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277551008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4173962,
+      "conceptName": "Lymphoma with spill",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277570003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4173963,
+      "conceptName": "B-cell acute lymphoblastic leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277571004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4173974,
+      "conceptName": "B-cell prolymphocytic leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "277619001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4175688,
+      "conceptName": "Hypergranular promyelocytic leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "278189009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4185301,
+      "conceptName": "Chronic myeloid leukemia in myeloid blast crisis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "413843002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4187635,
+      "conceptName": "Accelerated phase chronic myeloid leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "413389003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4188973,
+      "conceptName": "Chronic myeloid leukemia in lymphoid blast crisis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "413842007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4188975,
+      "conceptName": "Chronic phase chronic myeloid leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "413847001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4211481,
+      "conceptName": "Blastic phase chronic myeloid leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "413656006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4230253,
+      "conceptName": "Acute myeloid leukemia without maturation, FAB M1",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "359640008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4233531,
+      "conceptName": "Acute myeloid leukemia, minimal differentiation, FAB M0",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "359631009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4234749,
+      "conceptName": "Acute myeloid leukemia with maturation, FAB M2",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "359648001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4245460,
+      "conceptName": "Hairy cell leukemia of spleen",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "93151007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4297355,
+      "conceptName": "Aggressive NK-cell leukemia involving skin",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404136008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4299151,
+      "conceptName": "Leukemic infiltration of skin in hairy-cell leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404139001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4299153,
+      "conceptName": "Leukemic infiltration of skin in myeloid leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404151004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4299154,
+      "conceptName": "Leukemic infiltration of skin in chronic myeloid leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404153001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4299155,
+      "conceptName": "Leukemic infiltration of skin in monocytic leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404154007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4299273,
+      "conceptName": "Mast cell leukemia affecting skin",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404172001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4300784,
+      "conceptName": "Leukemic infiltration of skin in acute myeloid leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "404152006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4326339,
+      "conceptName": "Smoldering chronic lymphocytic leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "430338009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35607963,
+      "conceptName": "Megakaryoblastic acute myeloid leukemia with t(1;22)(p13;q13)",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "763796007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35622003,
+      "conceptName": "Acute myeloid leukemia with NPM1 somatic mutation",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "763309005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35622696,
+      "conceptName": "Acute myeloid leukemia with CEBPA somatic mutations",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "764855007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35622760,
+      "conceptName": "Inherited acute myeloid leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "764940002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36676614,
+      "conceptName": "Differentiation syndrome due to and following chemotherapy co-occurrent with acute promyelocytic leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "773537001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36683269,
+      "conceptName": "Acute myeloid leukemia with inv(3)(q21q26.2) or t(3;3)(q21;q26.2); RPN1-EVI1",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "780844005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36684812,
+      "conceptName": "Small lymphocytic B-cell lymphoma of lymph nodes of multiple sites",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "352251000119109",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36684813,
+      "conceptName": "Small lymphocytic B-cell lymphoma of intra-abdominal lymph nodes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "352411000119109",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36712834,
+      "conceptName": "Acute lymphoid leukemia relapse",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "12301000132103",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36712835,
+      "conceptName": "Refractory acute lymphoid leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "12311000132101",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36715589,
+      "conceptName": "Acute leukemia of ambiguous lineage",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "721308005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36717161,
+      "conceptName": "Aggressive natural killer-cell leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "721310007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36717231,
+      "conceptName": "Meningeal leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "722795004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37017893,
+      "conceptName": "Philadelphia chromosome-negative precursor B-cell acute lymphoblastic leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "714251006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37018868,
+      "conceptName": "Disorder of central nervous system co-occurrent and due to acute lymphoid leukemia in remission",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "61291000119103",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37018869,
+      "conceptName": "Disorder of central nervous system co-occurrent and due to acute lymphoid leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "61301000119102",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37109936,
+      "conceptName": "B lymphoblastic leukemia lymphoma with t(9:22) (q34;q11.2); BCR-ABL 1",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "723889003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37110870,
+      "conceptName": "Acute myeloid leukemia with t(8;16)(p11;p13) translocation",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "725390002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37110902,
+      "conceptName": "Chronic lymphocytic leukemia genetic mutation variant",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "725437002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37116722,
+      "conceptName": "Acute myeloid leukemia with t(6;9)(p23;q34) translocation",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "733598001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37119145,
+      "conceptName": "Myeloid leukemia associated with Down syndrome",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "724644005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37160492,
+      "conceptName": "Acute myeloid leukemia in complete remission",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1162531007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37162251,
+      "conceptName": "Mixed phenotype acute leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1187123005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37165057,
+      "conceptName": "Acute myeloid leukemia with BCR-ABL1",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1237368006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37167452,
+      "conceptName": "Acute undifferentiated leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1264458000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37311926,
+      "conceptName": "Juvenile myelomonocytic leukemia in remission",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "788972003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37312023,
+      "conceptName": "B-cell prolymphocytic leukemia in remission",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "788874003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40481524,
+      "conceptName": "Acute myeloid leukemia with t(9:11)(p22;q23); MLLT3-MLL",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "444911000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40482847,
+      "conceptName": "Juvenile myelomonocytic leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "445227008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40483761,
+      "conceptName": "Acute myeloid leukemia with myelodysplasia-related changes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "445448008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44783718,
+      "conceptName": "T-cell large granular lymphocytic leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "699818003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44784140,
+      "conceptName": "Emberger syndrome",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "700057001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44811227,
+      "conceptName": "Clinical stage A chronic lymphocytic leukaemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "863741000000108",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44811228,
+      "conceptName": "Clinical stage B chronic lymphocytic leukaemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "863761000000109",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 44814026,
+      "conceptName": "Clinical stage C chronic lymphocytic leukaemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "863781000000100",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45765495,
+      "conceptName": "Core binding factor acute myeloid leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "702446006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 45766268,
+      "conceptName": "Cytogenetically normal acute myeloid leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "703387000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46271363,
+      "conceptName": "Periodontitis co-occurrent with leukemia",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "709471005",
+      "standardConcept": "S"
+    }
+  ]
 }

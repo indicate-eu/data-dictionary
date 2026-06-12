@@ -1,12 +1,12 @@
 {
   "id": 32,
   "name": "Ventilator-associated pneumonia",
-  "description": null,
-  "version": "1.0.0",
+  "description": "Ventilator-associated pneumonia (VAP) — pneumonia developing during mechanical ventilation.",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-02-12",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -45,21 +45,21 @@
       }
     },
     "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
-    "reviewStatus": "draft",
+    "reviewStatus": "pending_review",
     "origin": null,
     "translations": {
       "en": {
         "name": "Ventilator-associated pneumonia",
         "category": "Conditions",
         "subcategory": "Hospitalization complications",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "Ventilator-associated pneumonia (VAP) — pneumonia developing during mechanical ventilation.",
+        "longDescription": "## Definition & Clinical Context\n\nVentilator-associated pneumonia (VAP) is pneumonia that develops in a patient who has been mechanically ventilated (typically beyond 48 hours of intubation). It is a key hospitalisation complication in intensive care, associated with prolonged ventilation, longer ICU stay and increased mortality, and is widely tracked as a quality indicator.\n\n## Scope\n\nThe set is anchored on the SNOMED concept *259992 / 429271009 — Ventilator associated pneumonia*. It captures the VAP diagnosis specifically.\n\n## Mapping Notes\n\n- VAP is distinct from community-acquired or non-ventilator hospital-acquired pneumonia; map only pneumonia identified as ventilator-associated."
       },
       "fr": {
         "name": "Pneumonie acquise sous ventilation mécanique",
         "category": "Pathologies",
-        "subcategory": "Complications hospitalières",
-        "shortDescription": null,
+        "subcategory": "Complications de l'hospitalisation",
+        "shortDescription": "Pneumonie acquise sous ventilation (PAVM) — pneumonie survenant au cours de la ventilation mécanique.",
         "longDescription": null
       }
     },
@@ -71,7 +71,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-06-11",
+        "author": "Boris Delange",
+        "message": "Subcategory Hospitalization complications; added clinical description."
+      }
+    ],
     "distributionStats": null
   }
 }
