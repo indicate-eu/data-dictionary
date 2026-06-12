@@ -4763,15 +4763,38 @@ var ConceptSetsPage = (function() {
     var rows = versions.slice().reverse().map(function(v) {
       return '<tr>' +
         '<td style="white-space:nowrap; font-weight:600">' + App.escapeHtml(v.version || '') + '</td>' +
-        '<td>' + App.escapeHtml(v.message || v.summary || '') + '</td>' +
+        '<td style="white-space:pre-wrap">' + App.escapeHtml(v.message || v.summary || '') + '</td>' +
+        '<td style="white-space:nowrap">' + versionAuthorCell(v) + '</td>' +
         '<td style="white-space:nowrap; color:var(--text-muted); font-size:12px">' + App.escapeHtml(v.date || '') + '</td>' +
         '</tr>';
     }).join('');
     body.innerHTML = '<table class="data-table" style="width:100%; font-size:13px"><thead><tr>' +
       '<th style="white-space:nowrap">' + App.escapeHtml(App.i18n('Version')) + '</th>' +
       '<th>' + App.escapeHtml(App.i18n('Message')) + '</th>' +
+      '<th style="white-space:nowrap">' + App.escapeHtml(App.i18n('Author')) + '</th>' +
       '<th style="white-space:nowrap">' + App.escapeHtml(App.i18n('Date')) + '</th>' +
       '</tr></thead><tbody>' + rows + '</tbody></table>';
+  }
+
+  // Author cell for a version row: a name badge with a hoverable black tooltip
+  // carrying the author's details (affiliation, profession, ORCID link). When no
+  // authorDetails are recorded, the tooltip says so.
+  function versionAuthorCell(v) {
+    var d = v.authorDetails || {};
+    var name = [d.firstName, d.lastName].filter(Boolean).join(' ') || v.author || '—';
+    var rows = [];
+    if (d.affiliation) rows.push('<span class="author-tooltip-row">' + App.escapeHtml(d.affiliation) + '</span>');
+    if (d.profession) rows.push('<span class="author-tooltip-row">' + App.escapeHtml(d.profession) + '</span>');
+    if (d.orcid) rows.push('<span class="author-tooltip-row">ORCID: <a href="https://orcid.org/' +
+      encodeURIComponent(d.orcid) + '" target="_blank" rel="noopener">' + App.escapeHtml(d.orcid) + '</a></span>');
+    if (!rows.length) {
+      rows.push('<span class="author-tooltip-row author-tooltip-muted">' +
+        App.escapeHtml(App.i18n('No info for this author')) + '</span>');
+    }
+    return '<span class="author-badge-wrap" tabindex="0">' +
+      '<span class="author-badge">' + App.escapeHtml(name) + '</span>' +
+      '<span class="author-tooltip">' + rows.join('') + '</span>' +
+    '</span>';
   }
 
   function openVersionModal() {
@@ -4806,10 +4829,19 @@ var ConceptSetsPage = (function() {
     if (!selectedConceptSet.metadata.versions) selectedConceptSet.metadata.versions = [];
     var prof = App.getUserProfile() || {};
     var authorName = [prof.firstName, prof.lastName].filter(Boolean).join(' ');
+    // author (string) stays for simple display/back-compat; authorDetails mirrors
+    // createdByDetails so each version records who made it (affiliation, ORCID).
     selectedConceptSet.metadata.versions.push({
       version: newVersion,
       date: new Date().toISOString().slice(0, 10),
       author: authorName,
+      authorDetails: {
+        firstName: prof.firstName || '',
+        lastName: prof.lastName || '',
+        affiliation: prof.affiliation || '',
+        profession: prof.profession || '',
+        orcid: prof.orcid || ''
+      },
       message: message
     });
 
@@ -6067,7 +6099,7 @@ var ConceptSetsPage = (function() {
   // below a big empty gap (the reserve was the masked paste editor's footprint).
   function reserveSinglePanesHeight(on) {
     var panes = document.getElementById('cs-import-single-panes');
-    if (panes) panes.style.minHeight = on ? '42vh' : '0';
+    if (panes) panes.style.minHeight = on ? '481px' : '0';
   }
 
   // Single-mode sub-tabs: 'url' (fetch → datatable) vs 'paste' (direct JSON import).
@@ -6090,6 +6122,11 @@ var ConceptSetsPage = (function() {
         importPasteEditor = ace.edit('cs-import-single-ace');
         importPasteEditor.setTheme('ace/theme/chrome');
         importPasteEditor.session.setMode('ace/mode/json');
+        // Keep JSON syntax highlighting but disable Ace's background JSON linter:
+        // it flags an empty/partial buffer with a gutter error ("unexpected ''"),
+        // which is noise — we validate the JSON ourselves on import with a clear
+        // message.
+        importPasteEditor.session.setUseWorker(false);
         importPasteEditor.setFontSize(12);
         importPasteEditor.setShowPrintMargin(false);
         importPasteEditor.session.setUseWrapMode(true);
@@ -6484,8 +6521,9 @@ var ConceptSetsPage = (function() {
     // current owner = me; creator (organization.created) preserved as-is.
     if (!m.organization) m.organization = { created: myOrg, current: myOrg };
     m.organization.current = myOrg;
-    // sourceRepo = my repo (I maintain this copy now).
-    m.sourceRepo = App.getConfigRepoUrl();
+    // sourceRepo = my repo (I maintain this copy now). Keep it ordered after
+    // organization so imported sets match the canonical key order.
+    App.setSourceRepoOrdered(m, App.getConfigRepoUrl());
 
     if (c.status === 'conflict' && c.localId != null) {
       cs.id = c.localId;          // keep the local id (uniqueId unique per repo)
@@ -6656,8 +6694,59 @@ var ConceptSetsPage = (function() {
   }
 
   // ==================== EVENTS ====================
+  // The author tooltip is position:fixed (to escape the modal-body overflow clip)
+  // and stays open while the pointer is over the badge OR the tooltip, so its
+  // ORCID link is clickable. Delegated, set up once.
+  function initAuthorTooltips() {
+    var activeTip = null;
+    var hideTimer = null;
+
+    function show(wrap) {
+      if (hideTimer) { clearTimeout(hideTimer); hideTimer = null; }
+      var tip = wrap.querySelector('.author-tooltip');
+      var badge = wrap.querySelector('.author-badge');
+      if (!tip || !badge) return;
+      if (activeTip && activeTip !== tip) activeTip.classList.remove('show');
+      activeTip = tip;
+      var r = badge.getBoundingClientRect();
+      tip.style.left = Math.round(r.left) + 'px';
+      // No gap: butt the tooltip against the badge so the pointer can cross
+      // continuously from badge to tooltip without losing hover.
+      tip.style.top = Math.round(r.bottom) + 'px';
+      tip.classList.add('show');
+      requestAnimationFrame(function() {
+        var tr = tip.getBoundingClientRect();
+        if (tr.right > window.innerWidth - 6) {
+          tip.style.left = Math.round(window.innerWidth - tr.width - 6) + 'px';
+        }
+      });
+    }
+
+    function scheduleHide() {
+      if (hideTimer) clearTimeout(hideTimer);
+      hideTimer = setTimeout(function() {
+        if (activeTip) { activeTip.classList.remove('show'); activeTip = null; }
+        hideTimer = null;
+      }, 160);
+    }
+
+    document.addEventListener('mouseover', function(e) {
+      var wrap = e.target.closest && e.target.closest('.author-badge-wrap');
+      var overTip = e.target.closest && e.target.closest('.author-tooltip');
+      if (wrap) show(wrap);
+      else if (overTip && hideTimer) { clearTimeout(hideTimer); hideTimer = null; }
+    });
+    document.addEventListener('mouseout', function(e) {
+      var toWrap = e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest('.author-badge-wrap');
+      var toTip = e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest('.author-tooltip');
+      var fromAuthor = e.target.closest && (e.target.closest('.author-badge-wrap') || e.target.closest('.author-tooltip'));
+      if (fromAuthor && !toWrap && !toTip) scheduleHide();
+    });
+  }
+
   function initEvents() {
     initImportEvents();
+    initAuthorTooltips();
     // Version snapshot banner: "View latest version" action.
     // Navigate FIRST and let the hashchange render the latest version: pushing
     // a new history entry keeps the pinned-version URL in history, so the

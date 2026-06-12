@@ -921,7 +921,7 @@
       <h3><i class="fas fa-cloud-download-alt"></i> <span data-i18n="Import concept sets">Import concept sets</span></h3>
       <button class="modal-close" id="cs-import-modal-close">&times;</button>
     </div>
-    <div class="modal-body" style="display:flex; flex-direction:column; gap:14px; padding:20px; min-height:560px">
+    <div class="modal-body" style="display:flex; flex-direction:column; gap:14px; padding:20px; min-height:659px">
       <p style="margin:0; color:var(--text-muted); font-size:13px" data-i18n="Import concept sets from another INDICATE dictionary.">Import concept sets from another INDICATE dictionary.</p>
 
       <!-- Mode toggle -->
@@ -953,9 +953,16 @@
              height across the URL/Paste sub-tabs. The reserve is dropped once a
              preview datatable is shown (JS toggles min-height) so there's no big
              empty gap above the table. -->
-        <div id="cs-import-single-panes" style="margin-top:14px; min-height:42vh">
+        <div id="cs-import-single-panes" style="margin-top:14px; min-height:481px">
           <!-- Sub-pane: URL -->
           <div id="cs-import-single-url-pane">
+            <div class="vocab-info-box vocab-info-warning" style="margin-bottom:10px">
+              <i class="fas fa-exclamation-triangle"></i>
+              <span>
+                <span data-i18n="Importing a single concept set does not capture the source commit (origin.commit stays empty), so the exact source version can't be traced back later.">Importing a single concept set does not capture the source commit (origin.commit stays empty), so the exact source version can't be traced back later.</span><br>
+                <span data-i18n="Prefer importing From a repository when you can — it records the source commit.">Prefer importing From a repository when you can — it records the source commit.</span>
+              </span>
+            </div>
             <div style="display:flex; gap:8px">
               <input type="text" class="form-input" id="cs-import-single-url" style="flex:1" placeholder="https://raw.githubusercontent.com/org/repo/main/concept_sets/10.json">
               <button class="btn-secondary-custom" id="cs-import-single-fetch-btn"><i class="fas fa-search"></i> <span data-i18n="Fetch">Fetch</span></button>
@@ -965,6 +972,13 @@
 
           <!-- Sub-pane: paste — imported via the footer Import button -->
           <div id="cs-import-single-paste-pane" style="display:none">
+            <div class="vocab-info-box vocab-info-warning" style="margin-bottom:10px">
+              <i class="fas fa-exclamation-triangle"></i>
+              <span>
+                <span data-i18n="Importing a single concept set does not capture the source commit (origin.commit stays empty), so the exact source version can't be traced back later.">Importing a single concept set does not capture the source commit (origin.commit stays empty), so the exact source version can't be traced back later.</span><br>
+                <span data-i18n="Prefer importing From a repository when you can — it records the source commit.">Prefer importing From a repository when you can — it records the source commit.</span>
+              </span>
+            </div>
             <label class="form-label" data-i18n="Paste the concept set JSON">Paste the concept set JSON</label>
             <div id="cs-import-single-ace" style="height:38vh; min-height:280px; max-height:480px; border:1px solid var(--border); border-radius:4px"></div>
           </div>
@@ -1696,7 +1710,7 @@ Enter your review comments here using Markdown syntax.
 
 <!-- Version Modal -->
 <div class="modal-overlay" id="cs-version-modal" style="display:none">
-  <div class="modal" style="max-width:1000px; max-height:80vh; display:flex; flex-direction:column">
+  <div class="modal" style="max-width:1180px; width:96vw; max-height:80vh; display:flex; flex-direction:column">
     <div class="modal-header">
       <h3><i class="fas fa-code-branch"></i> <span data-i18n="Create New Version">Create New Version</span></h3>
       <button class="modal-close" id="cs-version-close">&times;</button>

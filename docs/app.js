@@ -6,7 +6,7 @@ var App = (function() {
   // These are intentionally not configurable: forks ride on this app version.
   // The dictionary's own identity (title, branding, organization) lives in config.json.
   var APP_NAME = 'INDICATE Data Dictionary';
-  var APP_VERSION = '1.2.4';
+  var APP_VERSION = '1.2.5';
   var APP_GITHUB_URL = 'https://github.com/indicate-eu/data-dictionary';
 
   // Config injected by build.py from config.json (root). Branding, GitHub repo of the fork, etc.
@@ -1479,10 +1479,30 @@ var App = (function() {
     return o.created || o; // {created,current} → created; flat → itself
   }
 
+  // Set metadata.sourceRepo to `url`, keeping it positioned right after
+  // `organization` (the canonical key order, matching the migration). A plain
+  // `m.sourceRepo = url` would otherwise append it at the end of the object, so
+  // SPA-written sets would diverge from migrated ones. Rebuilds the object in
+  // order; no-op-safe when organization is absent (appends sourceRepo instead).
+  function setSourceRepoOrdered(m, url) {
+    if (!m) return;
+    if ('sourceRepo' in m && m.sourceRepo === url) return;
+    var rebuilt = {};
+    var placed = false;
+    Object.keys(m).forEach(function(k) {
+      if (k === 'sourceRepo') return;            // drop old position; re-add below
+      rebuilt[k] = m[k];
+      if (k === 'organization') { rebuilt.sourceRepo = url; placed = true; }
+    });
+    if (!placed) rebuilt.sourceRepo = url;        // no organization key → append
+    Object.keys(m).forEach(function(k) { delete m[k]; });
+    Object.keys(rebuilt).forEach(function(k) { m[k] = rebuilt[k]; });
+  }
+
   // Normalize a concept set's metadata in place to the cross-repo-sharing schema:
   //  - organization: flat {name,url} → {created, current} (both = the old value)
   //  - sourceRepo: default to this repo's URL when absent (so legacy/imported sets
-  //    without it still carry a provenance pointer)
+  //    without it still carry a provenance pointer), positioned after organization
   // Idempotent; safe to run on every load. See ISSUE: cross-repo sharing.
   function normalizeConceptSetMeta(cs) {
     if (!cs || !cs.metadata) return cs;
@@ -1495,7 +1515,7 @@ var App = (function() {
     } else if (o && ('created' in o) && !('current' in o)) {
       m.organization = { created: o.created, current: o.created };
     }
-    if (m.sourceRepo == null) m.sourceRepo = getConfigRepoUrl();
+    if (m.sourceRepo == null) setSourceRepoOrdered(m, getConfigRepoUrl());
     return cs;
   }
 
@@ -1786,7 +1806,7 @@ var App = (function() {
     // touch organization.created (authorship) or origin (frozen at import).
     normalizeConceptSetMeta(cs);
     if (cs.metadata) {
-      cs.metadata.sourceRepo = getConfigRepoUrl();
+      setSourceRepoOrdered(cs.metadata, getConfigRepoUrl());
       var myOrg = getOrganization();
       if (myOrg && myOrg.name) {
         if (!cs.metadata.organization) cs.metadata.organization = { created: myOrg, current: myOrg };
@@ -2428,6 +2448,7 @@ var App = (function() {
     getConfigRepoUrl: getConfigRepoUrl,
     csCreatedOrg: csCreatedOrg,
     normalizeConceptSetMeta: normalizeConceptSetMeta,
+    setSourceRepoOrdered: setSourceRepoOrdered,
     openExportModal: openExportModal,
     initSharedEvents: initSharedEvents,
     getCSData: getCSData,

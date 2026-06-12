@@ -1237,6 +1237,44 @@ tbody td {
 }
 .app-tooltip.visible { opacity: 1; }
 
+/* Author badge + hover tooltip (version history). The tooltip is hoverable
+   (the badge keeps :hover via a small bridge gap) so its ORCID link is
+   clickable — unlike the global pointer-events:none .app-tooltip. */
+.author-badge-wrap { position: relative; display: inline-block; }
+.author-badge {
+  display: inline-block;
+  padding: 2px 9px;
+  border-radius: 11px;
+  background: #d6dde6;
+  border: 1px solid #b9c4d0;
+  color: #2c3a47;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: default;
+}
+.author-tooltip {
+  position: fixed;            /* fixed → escapes the modal-body overflow clip */
+  z-index: 100000;
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  padding: 8px 11px;
+  border-radius: 6px;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0,0,0,.25);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .12s ease;
+}
+.author-tooltip.show { opacity: 1; visibility: visible; }
+.author-tooltip a { color: #6cb2ff; text-decoration: none; }
+.author-tooltip a:hover { text-decoration: underline; }
+.author-tooltip .author-tooltip-row { display: block; }
+.author-tooltip .author-tooltip-muted { color: #bbb; }
+
 .export-btn {
   padding: 6px 14px;
   background: white;
