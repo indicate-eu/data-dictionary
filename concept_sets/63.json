@@ -35,9 +35,16 @@
   "metadata": {
     "uniqueId": "b89fbc04-d7d9-4682-af14-f0e141cefd18",
     "organization": {
-      "name": "INDICATE Consortium",
-      "url": "https://indicate-eu.org"
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
     },
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
     "reviewStatus": "pending_review",
     "origin": null,
     "translations": {

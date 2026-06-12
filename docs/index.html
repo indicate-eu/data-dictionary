@@ -93,7 +93,7 @@
         <button class="btn-primary-custom btn-gray" id="cs-edit-list-btn" title="Edit concept sets">
           <i class="fas fa-pen"></i> <span data-i18n="Edit">Edit</span>
         </button>
-        <button class="btn-primary-custom btn-gray" id="cs-import-btn" title="Import concept sets from another dictionary">
+        <button class="btn-primary-custom btn-purple" id="cs-import-btn" title="Import concept sets from another dictionary">
           <i class="fas fa-cloud-download-alt"></i> <span data-i18n="Import">Import</span>
         </button>
         <button class="btn-primary-custom" id="cs-export-all-btn">
@@ -149,8 +149,8 @@
         <button class="btn-primary-custom btn-gray" id="cs-edit-btn" style="display:none" title="Edit">
           <i class="fas fa-pen"></i> <span data-i18n="Edit">Edit</span>
         </button>
-        <button class="btn-primary-custom btn-purple" id="expr-import-btn" style="display:none" data-i18n-title="Import ATLAS JSON" title="Import ATLAS JSON">
-          <i class="fas fa-file-import"></i> Import
+        <button class="btn-primary-custom btn-purple" id="expr-import-btn" style="display:none" data-i18n-title="Import concepts into this concept set's expression" title="Import concepts into this concept set's expression">
+          <i class="fas fa-cloud-download-alt"></i> <span data-i18n="Import concepts">Import concepts</span>
         </button>
         <button class="btn-primary-custom btn-gray" id="cs-edit-cancel-btn" style="display:none"><i class="fas fa-times"></i> <span data-i18n="Cancel">Cancel</span></button>
         <button class="btn-primary-custom" id="cs-edit-save-btn" style="display:none"><i class="fas fa-save"></i> <span data-i18n="Save">Save</span></button>
@@ -916,12 +916,12 @@
 
 <!-- Import concept sets from another dictionary repo (cross-repo sharing) -->
 <div class="modal-overlay" id="cs-import-modal" style="display:none">
-  <div class="modal-box" id="cs-import-modal-box" style="width:1040px; max-width:96vw">
+  <div class="modal-box" id="cs-import-modal-box" style="width:1180px; max-width:97vw">
     <div class="modal-header">
       <h3><i class="fas fa-cloud-download-alt"></i> <span data-i18n="Import concept sets">Import concept sets</span></h3>
       <button class="modal-close" id="cs-import-modal-close">&times;</button>
     </div>
-    <div class="modal-body" style="display:flex; flex-direction:column; gap:14px; padding:20px">
+    <div class="modal-body" style="display:flex; flex-direction:column; gap:14px; padding:20px; min-height:560px">
       <p style="margin:0; color:var(--text-muted); font-size:13px" data-i18n="Import concept sets from another INDICATE dictionary.">Import concept sets from another INDICATE dictionary.</p>
 
       <!-- Mode toggle -->
@@ -940,15 +940,35 @@
         <p style="margin:6px 0 0; color:var(--text-muted); font-size:12px" data-i18n="Enter the URL of another dictionary repo (GitHub, GitLab, or any host serving its docs/data.json).">Enter the URL of another dictionary repo (GitHub, GitLab, or any host serving its docs/data.json).</p>
       </div>
 
-      <!-- Mode B: single JSON -->
+      <!-- Mode B: single JSON — URL fetch vs. paste, chosen via a centered toggle -->
       <div id="cs-import-mode-single" style="display:none">
-        <label class="form-label" for="cs-import-single-url" data-i18n="Concept set JSON URL">Concept set JSON URL</label>
-        <div style="display:flex; gap:8px">
-          <input type="text" class="form-input" id="cs-import-single-url" style="flex:1" placeholder="https://…/concept_sets/10.json">
-          <button class="btn-secondary-custom" id="cs-import-single-fetch-btn"><i class="fas fa-search"></i> <span data-i18n="Fetch">Fetch</span></button>
+        <div class="toggle-bar" style="justify-content:center">
+          <div class="toggle-group" id="cs-import-single-toggle">
+            <button class="toggle-btn active" data-single-mode="url" data-i18n="From a URL">From a URL</button>
+            <button class="toggle-btn" data-single-mode="paste" data-i18n="Paste JSON">Paste JSON</button>
+          </div>
         </div>
-        <label class="form-label" style="margin-top:10px" data-i18n="…or paste the JSON">…or paste the JSON</label>
-        <div id="cs-import-single-ace" style="height:340px; border:1px solid var(--border); border-radius:4px"></div>
+
+        <!-- Sub-pane wrapper: reserve a stable height so the modal keeps the same
+             height across the URL/Paste sub-tabs. The reserve is dropped once a
+             preview datatable is shown (JS toggles min-height) so there's no big
+             empty gap above the table. -->
+        <div id="cs-import-single-panes" style="margin-top:14px; min-height:42vh">
+          <!-- Sub-pane: URL -->
+          <div id="cs-import-single-url-pane">
+            <div style="display:flex; gap:8px">
+              <input type="text" class="form-input" id="cs-import-single-url" style="flex:1" placeholder="https://raw.githubusercontent.com/org/repo/main/concept_sets/10.json">
+              <button class="btn-secondary-custom" id="cs-import-single-fetch-btn"><i class="fas fa-search"></i> <span data-i18n="Fetch">Fetch</span></button>
+            </div>
+            <p style="margin:6px 0 0; color:var(--text-muted); font-size:12px" data-i18n="Use the raw file URL (raw.githubusercontent.com / …/-/raw/…), not the GitHub/GitLab page (/blob/). A /blob/ URL is converted automatically when possible.">Use the raw file URL (raw.githubusercontent.com / …/-/raw/…), not the GitHub/GitLab page (/blob/). A /blob/ URL is converted automatically when possible.</p>
+          </div>
+
+          <!-- Sub-pane: paste — imported via the footer Import button -->
+          <div id="cs-import-single-paste-pane" style="display:none">
+            <label class="form-label" data-i18n="Paste the concept set JSON">Paste the concept set JSON</label>
+            <div id="cs-import-single-ace" style="height:38vh; min-height:280px; max-height:480px; border:1px solid var(--border); border-radius:4px"></div>
+          </div>
+        </div>
       </div>
 
       <!-- Status / errors -->
@@ -962,29 +982,40 @@
             <input type="checkbox" id="cs-import-select-all"> <span data-i18n="Select all new">Select all new</span>
           </label>
           <span id="cs-import-count" style="color:var(--text-muted); font-size:12px"></span>
+          <div style="margin-left:auto; position:relative">
+            <button type="button" class="btn-secondary-custom btn-sm" id="cs-import-columns-btn"><i class="fas fa-table-columns"></i> <span data-i18n="Columns">Columns</span></button>
+            <div id="cs-import-columns-menu" style="display:none; position:absolute; right:0; top:100%; margin-top:4px; background:white; border:1px solid var(--border); border-radius:var(--radius); box-shadow:0 4px 12px rgba(0,0,0,.12); padding:8px 10px; z-index:10; white-space:nowrap">
+              <label style="display:flex; align-items:center; gap:6px; font-size:13px; cursor:pointer; padding:3px 0"><input type="checkbox" class="cs-import-col-toggle" data-col="status" checked> <span data-i18n="Status">Status</span></label>
+              <label style="display:flex; align-items:center; gap:6px; font-size:13px; cursor:pointer; padding:3px 0"><input type="checkbox" class="cs-import-col-toggle" data-col="description"> <span data-i18n="Description">Description</span></label>
+            </div>
+          </div>
         </div>
         <table class="data-table" id="cs-import-table" style="width:100%">
           <thead>
             <tr>
-              <th style="width:34px"></th>
-              <th data-sort="name" style="width:30%"><span data-i18n="Name">Name</span> <span class="sort-icon">&#9650;</span></th>
-              <th data-sort="category" style="width:20%"><span data-i18n="Category">Category</span> <span class="sort-icon">&#9650;</span></th>
-              <th data-sort="version" style="width:70px" class="td-center"><span data-i18n="Version">Version</span> <span class="sort-icon">&#9650;</span></th>
-              <th data-sort="organization" style="width:20%"><span data-i18n="Organization">Organization</span> <span class="sort-icon">&#9650;</span></th>
-              <th data-sort="status" style="width:190px"><span data-i18n="Status">Status</span> <span class="sort-icon">&#9650;</span></th>
+              <th data-col="select" style="width:34px"></th>
+              <th data-col="category" data-sort="category" style="width:16%"><span data-i18n="Category">Category</span> <span class="sort-icon">&#9650;</span></th>
+              <th data-col="subcategory" data-sort="subcategory" style="width:16%"><span data-i18n="Subcategory">Subcategory</span> <span class="sort-icon">&#9650;</span></th>
+              <th data-col="name" data-sort="name" style="width:24%"><span data-i18n="Name">Name</span> <span class="sort-icon">&#9650;</span></th>
+              <th data-col="version" data-sort="version" style="width:70px" class="td-center"><span data-i18n="Version">Version</span> <span class="sort-icon">&#9650;</span></th>
+              <th data-col="organization" data-sort="organization" style="width:16%"><span data-i18n="Organization">Organization</span> <span class="sort-icon">&#9650;</span></th>
+              <th data-col="status" data-sort="status" style="width:180px"><span data-i18n="Status">Status</span> <span class="sort-icon">&#9650;</span></th>
+              <th data-col="description" data-sort="description" style="width:24%; display:none"><span data-i18n="Description">Description</span> <span class="sort-icon">&#9650;</span></th>
             </tr>
             <tr class="filter-row">
-              <th></th>
-              <th><input type="text" class="column-filter" id="cs-import-filter-name" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
-              <th><input type="text" class="column-filter" id="cs-import-filter-category" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
-              <th><input type="text" class="column-filter" id="cs-import-filter-version" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
-              <th><input type="text" class="column-filter" id="cs-import-filter-organization" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
-              <th><select class="column-filter" id="cs-import-filter-status">
+              <th data-col="select"></th>
+              <th data-col="category"><div class="ms-container" id="cs-import-filter-category"></div></th>
+              <th data-col="subcategory"><div class="ms-container" id="cs-import-filter-subcategory"></div></th>
+              <th data-col="name"><input type="text" class="column-filter" id="cs-import-filter-name" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
+              <th data-col="version"><input type="text" class="column-filter" id="cs-import-filter-version" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
+              <th data-col="organization"><select class="column-filter" id="cs-import-filter-organization"><option value="" data-i18n="All">All</option></select></th>
+              <th data-col="status"><select class="column-filter" id="cs-import-filter-status">
                 <option value="" data-i18n="All">All</option>
                 <option value="new" data-i18n="New">New</option>
                 <option value="conflict" data-i18n="Conflict (newer version)">Conflict (newer version)</option>
                 <option value="up_to_date" data-i18n="Already imported">Already imported</option>
               </select></th>
+              <th data-col="description" style="display:none"><input type="text" class="column-filter" id="cs-import-filter-description" placeholder="Filter..." data-i18n-placeholder="Filter..."></th>
             </tr>
           </thead>
           <tbody id="cs-import-tbody"></tbody>
@@ -997,7 +1028,7 @@
     </div>
     <div class="modal-footer">
       <button class="btn-secondary-custom" id="cs-import-modal-cancel" data-i18n="Cancel">Cancel</button>
-      <button class="btn-primary-custom" id="cs-import-modal-submit" disabled><i class="fas fa-cloud-download-alt"></i> <span data-i18n="Import selected">Import selected</span></button>
+      <button class="btn-primary-custom" id="cs-import-modal-submit" disabled><i class="fas fa-cloud-download-alt"></i> <span data-i18n="Import">Import</span></button>
     </div>
   </div>
 </div>
@@ -1806,16 +1837,20 @@ Enter your review comments here using Markdown syntax.
 
 <!-- Expression editor: Import ATLAS JSON modal -->
 <div class="modal-overlay" id="expr-import-modal" style="display:none">
-  <div class="modal" style="width:700px; max-height:85vh">
+  <div class="modal" style="width:700px; max-height:92vh">
     <div class="modal-header">
-      <h3><i class="fas fa-file-import"></i> <span data-i18n="Import ATLAS JSON">Import ATLAS JSON</span></h3>
+      <h3><i class="fas fa-file-import"></i> <span data-i18n="Import concepts">Import concepts</span></h3>
       <button class="modal-close" id="expr-import-close">&times;</button>
     </div>
     <div class="modal-body">
-      <p style="font-size:13px; color:var(--text-muted); margin-bottom:8px" data-i18n='Paste an ATLAS concept set expression JSON. Format: {"items": [...]}'>
-        Paste an ATLAS concept set expression JSON. Format: <code>{"items": [...]}</code>
+      <div class="vocab-info-box" style="margin-bottom:10px">
+        <i class="fas fa-info-circle"></i>
+        <span data-i18n="This adds concepts to the current concept set's expression only — it does not change its name, description or other metadata. Existing concepts are kept; duplicates are skipped. To import a whole concept set (name, description, metadata), use Import on the concept sets list (previous page) instead.">This adds concepts to the current concept set's expression only — it does not change its name, description or other metadata. Existing concepts are kept; duplicates are skipped. To import a whole concept set (name, description, metadata), use Import on the concept sets list (previous page) instead.</span>
+      </div>
+      <p style="font-size:13px; color:var(--text-muted); margin-bottom:8px" data-i18n='Paste an ATLAS or INDICATE concept set expression JSON. Format: {"items": [...]}'>
+        Paste an ATLAS or INDICATE concept set expression JSON. Format: <code>{"items": [...]}</code>
       </p>
-      <div id="expr-import-ace" style="height:350px; border:1px solid var(--border); border-radius:var(--radius)"></div>
+      <div id="expr-import-ace" style="height:46vh; min-height:350px; border:1px solid var(--border); border-radius:var(--radius)"></div>
       <div id="expr-import-error" style="margin-top:8px; font-size:12px; color:var(--danger); display:none"></div>
     </div>
     <div class="modal-footer">

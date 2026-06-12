@@ -39,6 +39,15 @@ Key fields not obvious from the example:
 - **Root `name`/`description` mirror English**: top-level `name` = `metadata.translations.en.name`; top-level `description` = `metadata.translations.en.shortDescription`. The SPA keeps them in sync on edit; translations are the source of truth.
 - **`shortDescription`** is the one-line datatable summary; **`longDescription`** is full Markdown shown in the detail view. Both live per-language. **No cross-language fallback** anywhere — a missing translation shows nothing (intentional, to encourage filling it).
 
+### Identity & provenance (cross-repo sharing)
+
+Concept sets are designed to be shared between separate dictionary repos (e.g. different organizations, each on their own Git host). Four metadata fields carry identity and provenance — see the migration script `migrate_cross_repo_sharing.py` and the import flow in `docs/concept-sets.js`:
+
+- **`metadata.uniqueId`** — the **lineage** id (UUID). The "same" concept set across versions *and* across forks/repos. Generated once at creation; **carried over unchanged when imported** into another repo (fork model: same lineage, divergence tracked). **A `uniqueId` is unique within a repo** — importing one that already exists either skips (same `version`) or overwrites the local copy (different `version`); never duplicate it.
+- **`metadata.organization`** — `{ created, current }`, each `{name, url}`. `created` = the org that authored the set (immutable). `current` = the org that owns the **latest** content; set to *my* org on every edit and on import. (Legacy flat `{name, url}` is normalized to both at read time by `App.normalizeConceptSetMeta`.)
+- **`metadata.sourceRepo`** — full URL of the repo that currently maintains this object. **Refreshed on every edit** (and on import) to *my* repo. Because it travels inside the JSON, provenance survives even an uncoordinated manual copy-paste.
+- **`metadata.origin`** — provenance of *this* copy, written **once at import** by the importer and then **frozen** (never touched on later edits, so an A→B→C chain doesn't telescope). `null` for sets created here. Shape: `{ uniqueId, repo (URL), version, commit (source SHA from the source's `conceptSetVersions`), organization, importedDate }`. We deliberately have **no `versionId`/content hash** — source repos are assumed reachable, so `repo` + `version` + `commit` is enough to fetch the exact source back.
+
 ## Conventions
 
 - **Multilingual is language-first**: `{ en: {...}, fr: {...} }` keyed by BCP 47 code, camelCase fields (`shortDescription`). Applies to concept sets (`metadata.translations`), projects (`translations`), groups (`groups[].translations`), mapping recommendations. When adding a translatable field, put it **inside** the per-language object — never a field-first `{en, fr}` inline object. (Rationale: issue #17.) The SPA normalizes legacy `localStorage` shapes at read time, but all committed JSON must use the current shape.

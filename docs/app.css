@@ -1289,6 +1289,9 @@ td .status-badge {
   width: 100%;
 }
 .column-filter:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(15,96,175,.1); }
+.column-filter::placeholder { color: #c9c9c9; opacity: 1; font-style: italic; }
+#cs-import-table tbody tr.cs-import-clickable { cursor: pointer; }
+#cs-import-table tbody tr.cs-import-clickable:hover { background: #f1f5fb; }
 .ms-container { position: relative; }
 .ms-toggle {
   padding: 5px 8px;
@@ -1744,6 +1747,9 @@ td.td-center:has(> .badge-non-standard) {
   transition: border-color .15s;
 }
 .form-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(15,96,175,.1); }
+.form-input::placeholder { color: #b3b3b3; opacity: 1; }
+.form-input::-webkit-input-placeholder { color: #b3b3b3; opacity: 1; }
+.form-input::-moz-placeholder { color: #b3b3b3; opacity: 1; }
 textarea.form-input { resize: vertical; min-height: 100px; }
 select.form-input { appearance: auto; }
 .input-with-add { display: flex; gap: 6px; align-items: center; }

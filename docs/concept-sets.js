@@ -1418,12 +1418,14 @@ var ConceptSetsPage = (function() {
 
   function deleteExprSelected() {
     if (exprSelectedIdxs.size === 0) return;
-    openExprDeleteConfirm(exprSelectedIdxs.size, function() {
+    var count = exprSelectedIdxs.size;
+    openExprDeleteConfirm(count, function() {
       var sorted = Array.from(exprSelectedIdxs).sort(function(a, b) { return b - a; });
       sorted.forEach(function(idx) { exprEditItems.splice(idx, 1); });
       exprSelectedIdxs.clear();
       updateToolbar();
       renderExpressionTable();
+      App.showToast(App.i18n(count > 1 ? '{n} concepts removed' : '{n} concept removed').replace('{n}', count), 'success');
     });
   }
 
@@ -1433,6 +1435,7 @@ var ConceptSetsPage = (function() {
       exprSelectedIdxs.clear();
       updateToolbar();
       renderExpressionTable();
+      App.showToast(App.i18n('{n} concept removed').replace('{n}', 1), 'success');
     });
   }
 
@@ -1448,6 +1451,9 @@ var ConceptSetsPage = (function() {
       exprImportEditor.setShowPrintMargin(false);
     }
     exprImportEditor.setValue('', -1);
+    // The editor height is vh-based; re-measure now that the modal is visible so it
+    // fills the taller box.
+    setTimeout(function() { exprImportEditor.resize(); }, 0);
     exprImportEditor.focus();
   }
 
@@ -5600,6 +5606,7 @@ var ConceptSetsPage = (function() {
 
     // Normal mode buttons
     document.getElementById('cs-edit-list-btn').style.display = selectionMode ? 'none' : '';
+    document.getElementById('cs-import-btn').style.display = selectionMode ? 'none' : '';
     document.getElementById('cs-export-all-btn').style.display = selectionMode ? 'none' : '';
     // Add Concept Set only visible in edit mode
     document.getElementById('cs-create-btn').style.display = selectionMode ? '' : 'none';
@@ -5950,9 +5957,14 @@ var ConceptSetsPage = (function() {
       createdByTool: App.toolTag(),
       expression: { items: [] },
       tags: [],
-      metadata: {
+      metadata: (function() {
+        // Cross-repo sharing: creator and current owner both start as my org;
+        // sourceRepo = this repo (refreshed on every edit); origin null (not imported).
+        var myOrg = App.getOrganization() || App.config.organization || { name: '', url: '' };
+        return {
         uniqueId: crypto.randomUUID(),
-        organization: App.getOrganization() || App.config.organization || { name: '', url: '' },
+        organization: { created: myOrg, current: myOrg },
+        sourceRepo: App.getConfigRepoUrl(),
         reviewStatus: 'draft',
         origin: null,
         translations: {
@@ -5969,7 +5981,8 @@ var ConceptSetsPage = (function() {
         reviews: [],
         versions: [],
         distributionStats: null
-      }
+        };
+      })()
     };
 
     App.addConceptSet(cs);
@@ -5978,8 +5991,673 @@ var ConceptSetsPage = (function() {
     App.showToast(App.i18n('Concept set created.'), 'success');
   }
 
+  // ==================== IMPORT (cross-repo sharing) ====================
+  // Import concept sets from another INDICATE dictionary repo. Lineage (uniqueId)
+  // and authorship are preserved; the importer re-assigns a local id, stamps
+  // origin (frozen) and organization.current = my org, and refreshes sourceRepo.
+  // See the cross-repo-sharing issue for the full model.
+  var importMode = 'repo';   // 'repo' | 'single'
+  var importCandidates = [];  // [{ cs, sourceRepoUrl, sourceCommit, status, selected }]
+  var importResultsMode = null;  // which mode ('repo'|'single') produced importCandidates
+  var singleSubMode = 'url';     // single-mode sub-tab: 'url' | 'paste'
+  var importPasteEditor = null;  // Ace editor for the single-set paste field
+  // Datatable view state. Default sort: by status (importable first), then name.
+  var importSort = { key: 'status', asc: true };
+  var importPage = 1;
+  var IMPORT_PAGE_SIZE = 10;
+  var importColVisible = { status: true, description: false };
+  var importFilters = { name: '', category: new Set(), subcategory: new Set(), version: '', organization: '', description: '', status: '' };
+  // Lower rank sorts first when sorting ascending by status: New, then Conflict,
+  // then Already-imported (so the rows you can act on are at the top).
+  var IMPORT_STATUS_RANK = { 'new': 0, 'conflict': 1, 'up_to_date': 2 };
+
+  function openCsImportModal() {
+    importMode = 'repo';
+    importCandidates = [];
+    setImportMode('repo');
+    document.getElementById('cs-import-repo-url').value = '';
+    document.getElementById('cs-import-single-url').value = '';
+    if (importPasteEditor) importPasteEditor.setValue('', -1);
+    importSort = { key: 'status', asc: true };
+    importPage = 1;
+    importResultsMode = null;
+    singleSubMode = 'url';
+    importFilters = { name: '', category: new Set(), subcategory: new Set(), version: '', organization: '', description: '', status: '' };
+    importColVisible = { status: true, description: false };
+    ['name','version','description'].forEach(function(k) {
+      var el = document.getElementById('cs-import-filter-' + k); if (el) el.value = '';
+    });
+    var orgF = document.getElementById('cs-import-filter-organization'); if (orgF) orgF.value = '';
+    var stF = document.getElementById('cs-import-filter-status'); if (stF) stF.value = '';
+    document.querySelectorAll('.cs-import-col-toggle').forEach(function(cb) {
+      cb.checked = !!importColVisible[cb.getAttribute('data-col')];
+    });
+    var colMenu = document.getElementById('cs-import-columns-menu'); if (colMenu) colMenu.style.display = 'none';
+    document.getElementById('cs-import-status').style.display = 'none';
+    document.getElementById('cs-import-error').style.display = 'none';
+    document.getElementById('cs-import-results').style.display = 'none';
+    document.getElementById('cs-import-modal-submit').disabled = true;
+    document.getElementById('cs-import-modal').style.display = 'flex';
+  }
+
+  function closeCsImportModal() {
+    document.getElementById('cs-import-modal').style.display = 'none';
+  }
+
+  function setImportMode(mode) {
+    importMode = mode;
+    document.querySelectorAll('#cs-import-tabs .settings-tab').forEach(function(t) {
+      t.classList.toggle('active', t.getAttribute('data-import-mode') === mode);
+    });
+    document.getElementById('cs-import-mode-repo').style.display = (mode === 'repo') ? '' : 'none';
+    document.getElementById('cs-import-mode-single').style.display = (mode === 'single') ? '' : 'none';
+    // The results datatable lives outside the mode panes. Keep the fetched
+    // candidates around (don't discard them on a tab switch) but only show the
+    // table in the mode they belong to. Transient status/errors always clear.
+    document.getElementById('cs-import-status').style.display = 'none';
+    document.getElementById('cs-import-error').style.display = 'none';
+    if (importCandidates.length && importResultsMode === mode) renderImportResults();
+    else document.getElementById('cs-import-results').style.display = 'none';
+    if (mode === 'single') setSingleSubMode(singleSubMode);
+    updateImportFooter();
+  }
+
+  // Toggle the single-mode height reserve. On: keeps the modal tall/stable across
+  // the URL/Paste sub-tabs. Off: collapses it so a preview datatable doesn't sit
+  // below a big empty gap (the reserve was the masked paste editor's footprint).
+  function reserveSinglePanesHeight(on) {
+    var panes = document.getElementById('cs-import-single-panes');
+    if (panes) panes.style.minHeight = on ? '42vh' : '0';
+  }
+
+  // Single-mode sub-tabs: 'url' (fetch → datatable) vs 'paste' (direct JSON import).
+  function setSingleSubMode(sub) {
+    singleSubMode = sub;
+    document.querySelectorAll('#cs-import-single-toggle .toggle-btn').forEach(function(b) {
+      b.classList.toggle('active', b.getAttribute('data-single-mode') === sub);
+    });
+    document.getElementById('cs-import-single-url-pane').style.display = (sub === 'url') ? '' : 'none';
+    document.getElementById('cs-import-single-paste-pane').style.display = (sub === 'paste') ? '' : 'none';
+    // The datatable (preview) belongs to the URL sub-flow only.
+    var showingResults = false;
+    if (sub === 'paste') document.getElementById('cs-import-results').style.display = 'none';
+    else if (importCandidates.length && importResultsMode === 'single') { renderImportResults(); showingResults = true; }
+    // Reserve the tall height only while no datatable is shown (keeps the modal
+    // stable across sub-tabs without leaving a big empty gap above a preview).
+    reserveSinglePanesHeight(!showingResults);
+    if (sub === 'paste') {
+      if (!importPasteEditor) {
+        importPasteEditor = ace.edit('cs-import-single-ace');
+        importPasteEditor.setTheme('ace/theme/chrome');
+        importPasteEditor.session.setMode('ace/mode/json');
+        importPasteEditor.setFontSize(12);
+        importPasteEditor.setShowPrintMargin(false);
+        importPasteEditor.session.setUseWrapMode(true);
+        // Enable/disable the footer Import button as the user types.
+        importPasteEditor.session.on('change', function() {
+          if (isImportPasteFlow()) updateImportFooter();
+        });
+      }
+      setTimeout(function() { importPasteEditor.resize(); }, 0);
+    }
+    updateImportFooter();
+  }
+
+  function importShowError(msg) {
+    var el = document.getElementById('cs-import-error');
+    el.textContent = msg;
+    el.style.display = '';
+  }
+  function importShowStatus(html) {
+    var el = document.getElementById('cs-import-status');
+    el.innerHTML = html;
+    el.style.display = '';
+  }
+
+  // Turn a repo URL into raw file URLs for that repo. Handles GitHub
+  // (raw.githubusercontent.com), GitLab (/-/raw/), and the common case where the
+  // user already pasted a Pages site or a direct data.json URL.
+  // Returns { dataJson, versions } — versions points at the repo-root
+  // concept_sets_versions.json (the {id:{version:sha}} index, not present in
+  // data.json), used to freeze origin.commit. versions may be null when we can't
+  // derive it (e.g. user pasted a bare data.json URL).
+  function resolveRepoUrls(repoUrl) {
+    var u = repoUrl.trim().replace(/\/+$/, '');
+    if (!u) return null;
+    if (/data\.json($|\?)/.test(u)) return { dataJson: u, altDataJson: null, versions: null };
+    var ghm = u.match(/^https?:\/\/github\.com\/([^\/]+)\/([^\/]+?)(?:\.git)?$/);
+    if (ghm) {
+      // data.json is published to the Pages *site* root (docs/ is NOT committed, so
+      // raw.githubusercontent.com 404s for it); concept_sets_versions.json IS on raw.
+      var ghPages = 'https://' + ghm[1].toLowerCase() + '.github.io/' + ghm[2] + '/data.json';
+      var ghRaw = 'https://raw.githubusercontent.com/' + ghm[1] + '/' + ghm[2] + '/main/';
+      return { dataJson: ghPages, altDataJson: ghRaw + 'docs/data.json', versions: ghRaw + 'concept_sets_versions.json' };
+    }
+    var glm = u.match(/^https?:\/\/gitlab\.com\/([^\/]+)\/([^\/]+?)(?:\.git)?$/);
+    if (glm) {
+      var glPages = 'https://' + glm[1].toLowerCase() + '.gitlab.io/' + glm[2] + '/data.json';
+      var glRaw = 'https://gitlab.com/' + glm[1] + '/' + glm[2] + '/-/raw/main/';
+      return { dataJson: glPages, altDataJson: glRaw + 'docs/data.json', versions: glRaw + 'concept_sets_versions.json' };
+    }
+    // Fallback for any other host. Two common shapes:
+    //   - a GitHub/GitLab Pages site root serving the built data.json at its root
+    //   - a repo root serving the raw tree (data.json under docs/)
+    // We can't tell which from the URL, so derive both candidate data.json URLs;
+    // importFetchRepo tries them in order. versions sits at the repo root.
+    if (/\/docs$/.test(u)) {
+      var rootU = u.replace(/\/docs$/, '');
+      return { dataJson: u + '/data.json', altDataJson: null, versions: rootU + '/concept_sets_versions.json' };
+    }
+    return { dataJson: u + '/data.json', altDataJson: u + '/docs/data.json', versions: u + '/concept_sets_versions.json' };
+  }
+
+  // Classify an incoming concept set against what we already have locally, keyed
+  // on metadata.uniqueId (the lineage id). A uniqueId is unique within our repo.
+  //   'new'        — no local set with this uniqueId → clean import
+  //   'up_to_date' — local set, same version → skip (duplicate)
+  //   'conflict'   — local set, different version → overwrite-or-cancel choice
+  function classifyImport(cs) {
+    var uid = cs && cs.metadata && cs.metadata.uniqueId;
+    if (!uid) return { status: 'new', localId: null };
+    // getCSData() rows are a projected view; the raw set (with metadata) is on .raw
+    var local = App.getCSData().find(function(l) {
+      return l.raw && l.raw.metadata && l.raw.metadata.uniqueId === uid;
+    });
+    if (!local) return { status: 'new', localId: null };
+    if ((local.raw.version || '') === (cs.version || '')) return { status: 'up_to_date', localId: local.id };
+    return { status: 'conflict', localId: local.id };
+  }
+
+  function importStatusBadge(status) {
+    if (status === 'new') return '<span class="badge" style="background:var(--success-bg,#e6f4ea); color:var(--success,#137333)" data-i18n="New">New</span>';
+    if (status === 'up_to_date') return '<span class="badge" style="background:var(--bg-muted,#eee); color:var(--text-muted)" data-i18n="Already imported">Already imported</span>';
+    return '<span class="badge" style="background:var(--warning-bg,#fef7e0); color:var(--warning,#b06000)" data-i18n="Conflict (newer version)">Conflict (newer version)</span>';
+  }
+
+  // Fetch + parse a foreign data.json, build candidates, render the table.
+  function importFetchRepo() {
+    document.getElementById('cs-import-error').style.display = 'none';
+    document.getElementById('cs-import-results').style.display = 'none';
+    var repoUrl = document.getElementById('cs-import-repo-url').value.trim();
+    var urls = resolveRepoUrls(repoUrl);
+    if (!urls) { importShowError(App.i18n('Please enter a repository URL.')); return; }
+    importShowStatus('<i class="fas fa-spinner fa-spin"></i> ' + App.i18n('Fetching catalog…'));
+    // Fetch the catalog (required) and the version→SHA index (optional: lets us
+    // freeze origin.commit; absent index just leaves commit null). When the host
+    // shape is ambiguous, fall back to the alternate data.json location.
+    function fetchJson(url) {
+      return fetch(url).then(function(r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); });
+    }
+    var dataP = fetchJson(urls.dataJson).catch(function(err) {
+      if (urls.altDataJson) return fetchJson(urls.altDataJson);
+      throw err;
+    });
+    var versP = urls.versions
+      ? fetch(urls.versions).then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; })
+      : Promise.resolve(null);
+    Promise.all([dataP, versP]).then(function(res) {
+      var data = res[0];
+      var shaIndex = res[1] || {};   // { id: { version: sha } } from concept_sets_versions.json
+      var sets = data.conceptSets || [];
+      // Prefer the foreign repo's own configured URL for provenance; fall back to
+      // what the user typed (stripped of any /data.json suffix).
+      var srcRepo = (data.config && data.config.github && (
+        (data.config.github.upstream && data.config.github.upstream.replace(/\.git$/, '')) ||
+        (data.config.github.repo && 'https://github.com/' + data.config.github.repo)
+      )) || repoUrl.replace(/\/?(docs\/)?data\.json($|\?.*)/, '');
+      importResultsMode = 'repo';
+      importCandidates = sets.map(function(cs) {
+        var cls = classifyImport(cs);
+        var vidx = shaIndex[cs.id] || shaIndex[String(cs.id)] || {};
+        return {
+          cs: cs,
+          sourceRepoUrl: srcRepo,
+          sourceCommit: vidx[cs.version] || null,
+          status: cls.status,
+          localId: cls.localId,
+          selected: cls.status === 'new'
+        };
+      });
+      populateImportOrgFilter();
+      buildImportCatSubcatFilters();
+      renderImportResults();
+    }).catch(function(err) {
+      document.getElementById('cs-import-status').style.display = 'none';
+      importShowError(App.i18n('Could not load catalog from this URL.') + ' (' + err.message + ')');
+    });
+  }
+
+  // Fetch a single concept-set JSON from a URL → preview in the datatable. The
+  // pasted-JSON sub-flow has its own direct Import button (importPastedSingle).
+  // Convert a GitHub/GitLab "view file" URL (which serves an HTML page, not JSON)
+  // into the raw-content URL that actually returns the file.
+  //   github.com/<o>/<r>/blob/<ref>/<path>  -> raw.githubusercontent.com/<o>/<r>/<ref>/<path>
+  //   gitlab.com/<o>/<r>/-/blob/<ref>/<path> -> gitlab.com/<o>/<r>/-/raw/<ref>/<path>
+  function toRawFileUrl(url) {
+    var gh = url.match(/^https?:\/\/github\.com\/([^\/]+)\/([^\/]+)\/blob\/(.+)$/);
+    if (gh) return 'https://raw.githubusercontent.com/' + gh[1] + '/' + gh[2] + '/' + gh[3];
+    var gl = url.match(/^https?:\/\/gitlab\.com\/(.+?)\/-\/blob\/(.+)$/);
+    if (gl) return 'https://gitlab.com/' + gl[1] + '/-/raw/' + gl[2];
+    return url;
+  }
+
+  function importFetchSingle() {
+    document.getElementById('cs-import-error').style.display = 'none';
+    document.getElementById('cs-import-results').style.display = 'none';
+    var url = toRawFileUrl(document.getElementById('cs-import-single-url').value.trim());
+    if (!url) { importShowError(App.i18n('Enter a JSON URL.')); return; }
+    importShowStatus('<i class="fas fa-spinner fa-spin"></i> ' + App.i18n('Fetching concept set…'));
+    fetch(url).then(function(r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    }).then(function(cs) {
+      // Best-effort source repo from a raw URL like .../<repo>/main/concept_sets/10.json
+      var srcRepo = url.replace(/\/?(docs\/)?concept_sets\/.*$/, '').replace(/\/-?\/?raw\/[^\/]+$/, '');
+      buildSingleCandidate(cs, srcRepo);
+    }).catch(function(err) {
+      document.getElementById('cs-import-status').style.display = 'none';
+      importShowError(App.i18n('Could not load concept set from this URL.') + ' (' + err.message + ')');
+    });
+  }
+
+  function buildSingleCandidate(cs, srcRepo) {
+    if (!cs || !cs.metadata) { importShowError(App.i18n('This does not look like a concept set JSON.')); return; }
+    var cls = classifyImport(cs);
+    importResultsMode = 'single';
+    importCandidates = [{
+      cs: cs, sourceRepoUrl: srcRepo || '', sourceCommit: null,
+      status: cls.status, localId: cls.localId, selected: cls.status !== 'up_to_date'
+    }];
+    populateImportOrgFilter();
+    buildImportCatSubcatFilters();
+    renderImportResults();
+  }
+
+  // Display fields for one candidate (name/category/version/org), lower-cased
+  // helpers used by both filtering and sorting.
+  function importRowFields(c) {
+    var cs = c.cs;
+    var tr = (cs.metadata.translations && cs.metadata.translations[App.lang]) || {};
+    return {
+      name: tr.name || cs.name || ('#' + cs.id),
+      category: tr.category || '',
+      subcategory: tr.subcategory || '',
+      version: cs.version || '',
+      organization: (App.csCreatedOrg(cs) || {}).name || '',
+      description: tr.shortDescription || cs.description || '',
+      status: c.status
+    };
+  }
+
+  // Apply column filters then the active sort. Returns candidates paired with their
+  // original index in importCandidates (selection is keyed on that, not row order).
+  function importVisibleCandidates() {
+    var f = importFilters;
+    var rows = importCandidates.map(function(c, i) {
+      return { c: c, i: i, fields: importRowFields(c) };
+    }).filter(function(r) {
+      var fl = r.fields;
+      if (f.name && fl.name.toLowerCase().indexOf(f.name.toLowerCase()) < 0) return false;
+      if (f.category.size && !f.category.has(fl.category)) return false;
+      if (f.subcategory.size && !f.subcategory.has(fl.subcategory)) return false;
+      if (f.version && fl.version.toLowerCase().indexOf(f.version.toLowerCase()) < 0) return false;
+      // Organization filter is an exact-match dropdown (empty = all).
+      if (f.organization && fl.organization !== f.organization) return false;
+      if (f.description && fl.description.toLowerCase().indexOf(f.description.toLowerCase()) < 0) return false;
+      if (f.status && r.c.status !== f.status) return false;
+      return true;
+    });
+    var key = importSort.key, asc = importSort.asc;
+    rows.sort(function(a, b) {
+      var cmp;
+      if (key === 'status') {
+        // Primary: status rank (importable first). Secondary: name A→Z.
+        cmp = (IMPORT_STATUS_RANK[a.c.status] - IMPORT_STATUS_RANK[b.c.status]);
+        if (cmp === 0) cmp = a.fields.name.toLowerCase() < b.fields.name.toLowerCase() ? -1
+                           : a.fields.name.toLowerCase() > b.fields.name.toLowerCase() ? 1 : 0;
+      } else {
+        var va = String(a.fields[key] || '').toLowerCase();
+        var vb = String(b.fields[key] || '').toLowerCase();
+        cmp = va < vb ? -1 : va > vb ? 1 : 0;
+      }
+      if (cmp === 0) cmp = a.i - b.i; // stable
+      return asc ? cmp : -cmp;
+    });
+    return rows;
+  }
+
+  function renderImportResults() {
+    document.getElementById('cs-import-status').style.display = 'none';
+    var tbody = document.getElementById('cs-import-tbody');
+    var rows = importVisibleCandidates();
+    // Clamp the page to the available range (filters may have shrunk the set).
+    var totalPages = Math.max(1, Math.ceil(rows.length / IMPORT_PAGE_SIZE));
+    if (importPage > totalPages) importPage = totalPages;
+    var start = (importPage - 1) * IMPORT_PAGE_SIZE;
+    var pageRows = rows.slice(start, start + IMPORT_PAGE_SIZE);
+    var stHide = importColVisible.status ? '' : ' style="display:none"';
+    var deHide = importColVisible.description ? '' : ' style="display:none"';
+    tbody.innerHTML = pageRows.map(function(r) {
+      var c = r.c, fl = r.fields;
+      var disabled = (c.status === 'up_to_date');
+      return '<tr data-idx="' + r.i + '"' + (disabled ? '' : ' class="cs-import-clickable"') + '>' +
+        '<td class="td-center" data-col="select"><input type="checkbox" class="cs-import-row-cb" data-idx="' + r.i + '"' +
+          (c.selected ? ' checked' : '') + (disabled ? ' disabled' : '') + '></td>' +
+        '<td class="cell-truncate" data-col="category" data-tooltip="' + App.escapeHtml(fl.category) + '">' + (fl.category ? '<span class="badge badge-category">' + App.escapeHtml(fl.category) + '</span>' : '') + '</td>' +
+        '<td class="cell-truncate" data-col="subcategory" data-tooltip="' + App.escapeHtml(fl.subcategory) + '">' + (fl.subcategory ? '<span class="badge badge-subcategory">' + App.escapeHtml(fl.subcategory) + '</span>' : '') + '</td>' +
+        '<td class="cell-truncate" data-col="name" title="' + App.escapeHtml(fl.name) + '">' + App.escapeHtml(fl.name) + '</td>' +
+        '<td class="td-center" data-col="version">' + App.escapeHtml(fl.version) + '</td>' +
+        '<td class="cell-truncate" data-col="organization" title="' + App.escapeHtml(fl.organization) + '">' + App.escapeHtml(fl.organization) + '</td>' +
+        '<td class="cell-truncate" data-col="status"' + stHide + '>' + importStatusBadge(c.status) + '</td>' +
+        '<td class="cell-truncate" data-col="description"' + deHide + ' title="' + App.escapeHtml(fl.description) + '">' + App.escapeHtml(fl.description) + '</td>' +
+      '</tr>';
+    }).join('');
+    applyImportColumnVisibility();
+    syncImportSortIndicators();
+    document.getElementById('cs-import-results').style.display = '';
+    reserveSinglePanesHeight(false); // a datatable is shown → no need to reserve gap
+    renderImportPagination(rows.length);
+    // Enable column borders + drag-resize (same UX as the concept-sets table).
+    App.initColResize('cs-import-table');
+    updateImportFooter();
+  }
+
+  // Show/hide the toggleable columns (status, description) in header, filter row
+  // and body, driven by importColVisible.
+  function applyImportColumnVisibility() {
+    Object.keys(importColVisible).forEach(function(col) {
+      var show = importColVisible[col];
+      document.querySelectorAll('#cs-import-table [data-col="' + col + '"]').forEach(function(el) {
+        el.style.display = show ? '' : 'none';
+      });
+    });
+  }
+
+  // Fill the organization filter dropdown from the distinct creator orgs present
+  // in the current candidates.
+  function populateImportOrgFilter() {
+    var sel = document.getElementById('cs-import-filter-organization');
+    if (!sel) return;
+    var orgs = {};
+    importCandidates.forEach(function(c) {
+      var o = (App.csCreatedOrg(c.cs) || {}).name || '';
+      if (o) orgs[o] = true;
+    });
+    var names = Object.keys(orgs).sort(function(a, b) { return a.toLowerCase().localeCompare(b.toLowerCase()); });
+    sel.innerHTML = '<option value="">' + App.escapeHtml(App.i18n('All')) + '</option>' +
+      names.map(function(n) { return '<option value="' + App.escapeHtml(n) + '">' + App.escapeHtml(n) + '</option>'; }).join('');
+  }
+
+  // Build the category/subcategory multi-select dropdowns, reusing the same widget
+  // (and look) as the general concept-sets table.
+  function buildImportCatSubcatFilters() {
+    var cats = {}, subs = {};
+    importCandidates.forEach(function(c) {
+      var fl = importRowFields(c);
+      if (fl.category) cats[fl.category] = true;
+      if (fl.subcategory) subs[fl.subcategory] = true;
+    });
+    var catVals = Object.keys(cats).sort(function(a, b) { return a.toLowerCase().localeCompare(b.toLowerCase()); });
+    var subVals = Object.keys(subs).sort(function(a, b) { return a.toLowerCase().localeCompare(b.toLowerCase()); });
+    App.buildMultiSelectDropdown('cs-import-filter-category', catVals, importFilters.category, function() {
+      importPage = 1; renderImportResults();
+    });
+    App.buildMultiSelectDropdown('cs-import-filter-subcategory', subVals, importFilters.subcategory, function() {
+      importPage = 1; renderImportResults();
+    });
+  }
+
+    function renderImportPagination(totalItems) {
+    var el = document.getElementById('cs-import-pagination');
+    var info = document.getElementById('cs-import-page-info');
+    var btnBox = document.getElementById('cs-import-page-buttons');
+    var totalPages = Math.max(1, Math.ceil(totalItems / IMPORT_PAGE_SIZE));
+    var start = (importPage - 1) * IMPORT_PAGE_SIZE;
+    info.textContent = totalItems === 0 ? App.i18n('No items')
+      : (App.i18n('Showing {a}-{b} of {n}')
+          .replace('{a}', start + 1)
+          .replace('{b}', Math.min(start + IMPORT_PAGE_SIZE, totalItems))
+          .replace('{n}', totalItems));
+    el.style.display = '';
+    if (totalPages <= 1) { btnBox.innerHTML = ''; return; }
+    var btns = '';
+    btns += '<button ' + (importPage <= 1 ? 'disabled' : '') + ' data-page="prev">&lsaquo;</button>';
+    var maxBtns = 7;
+    var sp = Math.max(1, importPage - Math.floor(maxBtns / 2));
+    var ep = Math.min(totalPages, sp + maxBtns - 1);
+    if (ep - sp < maxBtns - 1) sp = Math.max(1, ep - maxBtns + 1);
+    for (var i = sp; i <= ep; i++) {
+      btns += '<button ' + (i === importPage ? 'class="active"' : '') + ' data-page="' + i + '">' + i + '</button>';
+    }
+    btns += '<button ' + (importPage >= totalPages ? 'disabled' : '') + ' data-page="next">&rsaquo;</button>';
+    btnBox.innerHTML = btns;
+  }
+
+  function syncImportSortIndicators() {
+    document.querySelectorAll('#cs-import-table thead th[data-sort]').forEach(function(th) {
+      var icon = th.querySelector('.sort-icon');
+      var isCur = th.getAttribute('data-sort') === importSort.key;
+      th.classList.toggle('sorted', isCur);
+      if (icon) icon.innerHTML = (isCur && !importSort.asc) ? '&#9660;' : '&#9650;';
+    });
+  }
+
+  // True when the active flow is the single-mode paste sub-tab (direct JSON import,
+  // no datatable selection).
+  function isImportPasteFlow() {
+    return importMode === 'single' && singleSubMode === 'paste';
+  }
+
+  function updateImportFooter() {
+    var submit = document.getElementById('cs-import-modal-submit');
+    if (isImportPasteFlow()) {
+      // Paste flow: the single Import button parses + imports the pasted JSON.
+      // No row selection, so no "n of total" count; enable when there's text.
+      document.getElementById('cs-import-count').textContent = '';
+      var hasText = !!(importPasteEditor && importPasteEditor.getValue().trim());
+      submit.disabled = !hasText;
+      return;
+    }
+    var n = importCandidates.filter(function(c) { return c.selected; }).length;
+    var total = importCandidates.length;
+    document.getElementById('cs-import-count').textContent = total
+      ? App.i18n('{n} of {total} selected').replace('{n}', n).replace('{total}', total) : '';
+    submit.disabled = (n === 0);
+  }
+
+  // Import one candidate: stamp provenance, set current owner = my org, then either
+  // overwrite the diverged local copy (conflict) or add as a new local set.
+  // Returns 'imported' or 'overwritten'.
+  function importOneCandidate(c, myOrg, today) {
+    var cs = JSON.parse(JSON.stringify(c.cs)); // deep copy — never mutate the source object
+    App.normalizeConceptSetMeta(cs);           // ensure org {created,current} + sourceRepo shape
+    var m = cs.metadata;
+    // origin: provenance of THIS copy, written once, frozen thereafter.
+    m.origin = {
+      uniqueId: m.uniqueId || null,
+      repo: c.sourceRepoUrl || (m.sourceRepo || ''),
+      version: cs.version || null,
+      commit: c.sourceCommit || null,
+      organization: App.csCreatedOrg(cs) || null,
+      importedDate: today
+    };
+    // current owner = me; creator (organization.created) preserved as-is.
+    if (!m.organization) m.organization = { created: myOrg, current: myOrg };
+    m.organization.current = myOrg;
+    // sourceRepo = my repo (I maintain this copy now).
+    m.sourceRepo = App.getConfigRepoUrl();
+
+    if (c.status === 'conflict' && c.localId != null) {
+      cs.id = c.localId;          // keep the local id (uniqueId unique per repo)
+      App.updateConceptSet(cs);
+      return 'overwritten';
+    }
+    cs.id = App.nextConceptSetId();
+    App.addConceptSet(cs);
+    return 'imported';
+  }
+
+  // Perform the import for all selected candidates (datatable flow).
+  function doImport() {
+    var selected = importCandidates.filter(function(c) { return c.selected; });
+    if (!selected.length) return;
+    var myOrg = App.getOrganization() || App.config.organization || { name: '', url: '' };
+    var today = new Date().toISOString().split('T')[0];
+    var imported = 0, overwritten = 0;
+    selected.forEach(function(c) {
+      if (importOneCandidate(c, myOrg, today) === 'overwritten') overwritten++; else imported++;
+    });
+    closeCsImportModal();
+    renderAll();
+    var msg = App.i18n('{n} concept set(s) imported.').replace('{n}', imported);
+    if (overwritten) msg += ' ' + App.i18n('{n} updated.').replace('{n}', overwritten);
+    App.showToast(msg, 'success', 5000);
+  }
+
+  // Direct import of a single pasted JSON — no datatable, no checkbox. Parses,
+  // classifies, asks before overwriting a diverged local copy, then imports.
+  function importPastedSingle() {
+    document.getElementById('cs-import-error').style.display = 'none';
+    var text = importPasteEditor ? importPasteEditor.getValue().trim() : '';
+    if (!text) { importShowError(App.i18n('Paste a concept set JSON first.')); return; }
+    var cs;
+    try { cs = JSON.parse(text); }
+    catch (e) { importShowError(App.i18n('Invalid JSON.') + ' (' + e.message + ')'); return; }
+    if (!cs || !cs.metadata) { importShowError(App.i18n('This does not look like a concept set JSON.')); return; }
+    var cls = classifyImport(cs);
+    if (cls.status === 'up_to_date') {
+      App.showToast(App.i18n('This concept set is already imported (same version).'), 'warning', 4000);
+      return;
+    }
+    if (cls.status === 'conflict') {
+      var name = (cs.metadata.translations && cs.metadata.translations[App.lang] && cs.metadata.translations[App.lang].name) || cs.name || ('#' + cs.id);
+      if (!window.confirm(App.i18n('A different version of "{name}" already exists locally. Overwrite it?').replace('{name}', name))) return;
+    }
+    var myOrg = App.getOrganization() || App.config.organization || { name: '', url: '' };
+    var today = new Date().toISOString().split('T')[0];
+    var candidate = { cs: cs, sourceRepoUrl: (cs.metadata.sourceRepo || ''), sourceCommit: null, status: cls.status, localId: cls.localId };
+    var result = importOneCandidate(candidate, myOrg, today);
+    closeCsImportModal();
+    renderAll();
+    App.showToast(result === 'overwritten'
+      ? App.i18n('Concept set updated.')
+      : App.i18n('Concept set imported.'), 'success', 4000);
+  }
+
+  function initImportEvents() {
+    var byId = function(id) { return document.getElementById(id); };
+    var importBtn = byId('cs-import-btn');
+    if (importBtn) importBtn.addEventListener('click', openCsImportModal);
+    byId('cs-import-modal-close').addEventListener('click', closeCsImportModal);
+    byId('cs-import-modal-cancel').addEventListener('click', closeCsImportModal);
+    // Click outside the box (on the overlay) closes the modal, like every other modal.
+    byId('cs-import-modal').addEventListener('click', function(e) {
+      if (e.target === this) closeCsImportModal();
+    });
+    byId('cs-import-tabs').addEventListener('click', function(e) {
+      var t = e.target.closest('.settings-tab');
+      if (t) setImportMode(t.getAttribute('data-import-mode'));
+    });
+    byId('cs-import-fetch-btn').addEventListener('click', importFetchRepo);
+    byId('cs-import-repo-url').addEventListener('keydown', function(e) { if (e.key === 'Enter') importFetchRepo(); });
+    byId('cs-import-single-fetch-btn').addEventListener('click', importFetchSingle);
+    byId('cs-import-single-url').addEventListener('keydown', function(e) { if (e.key === 'Enter') importFetchSingle(); });
+    byId('cs-import-tbody').addEventListener('change', function(e) {
+      var cb = e.target.closest('.cs-import-row-cb');
+      if (!cb) return;
+      var idx = parseInt(cb.getAttribute('data-idx'), 10);
+      if (importCandidates[idx]) importCandidates[idx].selected = cb.checked;
+      updateImportFooter();
+    });
+    // Clicking anywhere on a row toggles its checkbox (except when the click is on
+    // the checkbox itself, which already fires 'change').
+    byId('cs-import-tbody').addEventListener('click', function(e) {
+      if (e.target.closest('.cs-import-row-cb')) return;
+      var tr = e.target.closest('tr');
+      if (!tr) return;
+      var cb = tr.querySelector('.cs-import-row-cb');
+      if (!cb || cb.disabled) return;
+      cb.checked = !cb.checked;
+      cb.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+    byId('cs-import-select-all').addEventListener('change', function(e) {
+      var on = e.target.checked;
+      // Only toggles NEW sets — conflicts overwrite a local copy, so they must be
+      // selected one by one, deliberately.
+      importCandidates.forEach(function(c) { if (c.status === 'new') c.selected = on; });
+      renderImportResults();
+      byId('cs-import-select-all').checked = on;
+    });
+    // Sortable column headers.
+    byId('cs-import-table').querySelectorAll('thead th[data-sort]').forEach(function(th) {
+      th.style.cursor = 'pointer';
+      th.addEventListener('click', function() {
+        var key = th.getAttribute('data-sort');
+        if (importSort.key === key) importSort.asc = !importSort.asc;
+        else { importSort.key = key; importSort.asc = true; }
+        importPage = 1;
+        renderImportResults();
+      });
+    });
+    // Text column filters (category/subcategory are multi-select dropdowns, built
+    // on each render — see buildImportCatSubcatFilters).
+    ['name','version','description'].forEach(function(k) {
+      byId('cs-import-filter-' + k).addEventListener('input', function(e) {
+        importFilters[k] = e.target.value; importPage = 1; renderImportResults();
+      });
+    });
+    // Dropdown filters (organization, status).
+    byId('cs-import-filter-organization').addEventListener('change', function(e) {
+      importFilters.organization = e.target.value; importPage = 1; renderImportResults();
+    });
+    byId('cs-import-filter-status').addEventListener('change', function(e) {
+      importFilters.status = e.target.value; importPage = 1; renderImportResults();
+    });
+    // Columns show/hide menu.
+    byId('cs-import-columns-btn').addEventListener('click', function(e) {
+      e.stopPropagation();
+      var menu = byId('cs-import-columns-menu');
+      menu.style.display = (menu.style.display === 'none') ? '' : 'none';
+    });
+    document.querySelectorAll('.cs-import-col-toggle').forEach(function(cb) {
+      cb.addEventListener('change', function() {
+        importColVisible[cb.getAttribute('data-col')] = cb.checked;
+        applyImportColumnVisibility();
+      });
+    });
+    // Close the columns menu on an outside click.
+    document.addEventListener('click', function(e) {
+      var menu = byId('cs-import-columns-menu');
+      if (!menu || menu.style.display === 'none') return;
+      if (e.target.closest('#cs-import-columns-menu') || e.target.closest('#cs-import-columns-btn')) return;
+      menu.style.display = 'none';
+    });
+    // Pagination buttons.
+    byId('cs-import-page-buttons').addEventListener('click', function(e) {
+      var btn = e.target.closest('button[data-page]');
+      if (!btn || btn.disabled) return;
+      var val = btn.getAttribute('data-page');
+      if (val === 'prev') importPage = Math.max(1, importPage - 1);
+      else if (val === 'next') importPage = importPage + 1;
+      else importPage = parseInt(val, 10);
+      renderImportResults();
+    });
+    // The single footer Import button: paste sub-flow imports the pasted JSON,
+    // every other flow imports the selected datatable rows.
+    byId('cs-import-modal-submit').addEventListener('click', function() {
+      if (isImportPasteFlow()) importPastedSingle();
+      else doImport();
+    });
+    // Single-mode sub-tabs (URL / Paste).
+    byId('cs-import-single-toggle').addEventListener('click', function(e) {
+      var b = e.target.closest('.toggle-btn');
+      if (b) setSingleSubMode(b.getAttribute('data-single-mode'));
+    });
+  }
+
   // ==================== EVENTS ====================
   function initEvents() {
+    initImportEvents();
     // Version snapshot banner: "View latest version" action.
     // Navigate FIRST and let the hashchange render the latest version: pushing
     // a new history entry keeps the pinned-version URL in history, so the
@@ -6779,6 +7457,7 @@ var ConceptSetsPage = (function() {
     closeBulkExportModal();
     closeDeleteConfirm();
     closeImportModal();
+    closeCsImportModal();
     closeAddModal();
     closeVersionModal();
     closeStatusModal();
