@@ -4435,6 +4435,12 @@ var ConceptSetsPage = (function() {
     return ((reviewer.firstName || '') + ' ' + (reviewer.lastName || '')).trim();
   }
 
+  // Day (YYYY-MM-DD) shown in the UI; derived from the full reviewTimestamp.
+  // Falls back to a legacy reviewDate for reviews stored before the timestamp change.
+  function reviewDay(r) {
+    return (r.reviewTimestamp || r.reviewDate || '').split('T')[0];
+  }
+
   function renderReviewTable() {
     var f = {
       reviewer: document.getElementById('review-filter-reviewer').value.toLowerCase(),
@@ -4445,7 +4451,7 @@ var ConceptSetsPage = (function() {
     };
     var rows = reviewSourceReviews.filter(function(r) {
       if (f.reviewer && reviewerName(r).toLowerCase().indexOf(f.reviewer) === -1) return false;
-      if (f.date && (r.reviewDate || '').toLowerCase().indexOf(f.date) === -1) return false;
+      if (f.date && reviewDay(r).toLowerCase().indexOf(f.date) === -1) return false;
       if (f.status && (r.status || '') !== f.status) return false;
       if (f.version && (r.version || '').toLowerCase().indexOf(f.version) === -1) return false;
       if (f.comments && (r.comments || '').toLowerCase().indexOf(f.comments) === -1) return false;
@@ -4459,7 +4465,7 @@ var ConceptSetsPage = (function() {
       } else {
         var acc = {
           reviewer: function(r) { return reviewerName(r).toLowerCase(); },
-          date: function(r) { return r.reviewDate || ''; },
+          date: function(r) { return r.reviewTimestamp || r.reviewDate || ''; }, // full timestamp → tie-breaks same-day reviews
           status: function(r) { return r.status || ''; },
           comments: function(r) { return (r.comments || '').toLowerCase(); }
         }[reviewSort.key];
@@ -4487,7 +4493,7 @@ var ConceptSetsPage = (function() {
     tbody.innerHTML = rows.map(function(r, idx) {
       return '<tr data-review-idx="' + idx + '" style="cursor:pointer" title="' + App.escapeHtml(App.i18n('Click to view the full review')) + '">' +
         '<td>' + App.escapeHtml(reviewerName(r) || 'Unknown') + '</td>' +
-        '<td>' + App.escapeHtml(r.reviewDate || '') + '</td>' +
+        '<td>' + App.escapeHtml(reviewDay(r)) + '</td>' +
         '<td class="td-center">' + App.statusBadge(r.status) + '</td>' +
         '<td>' + App.escapeHtml(r.version || '') + '</td>' +
         '<td class="desc-truncated">' + App.escapeHtml(App.truncate(r.comments || '', 150)) + '</td>' +
@@ -4500,7 +4506,7 @@ var ConceptSetsPage = (function() {
     if (!r) return;
     var name = reviewerName(r) || 'Unknown';
     var titleEl = document.getElementById('cs-review-view-title');
-    var titleHtml = App.escapeHtml(name + (r.reviewDate ? ' — ' + r.reviewDate : ''));
+    var titleHtml = App.escapeHtml(name + (reviewDay(r) ? ' — ' + reviewDay(r) : ''));
 
     // Version badge: blue when the review targets the current version, red
     // (and clickable, opening the pinned version) when it targets an older one.
@@ -4712,7 +4718,7 @@ var ConceptSetsPage = (function() {
     var review = {
       reviewId: maxId + 1,
       reviewer: reviewerInfo,
-      reviewDate: new Date().toISOString().split('T')[0],
+      reviewTimestamp: new Date().toISOString(),
       status: status,
       comments: comments,
       version: selectedConceptSet.version || '1.0.0'
