@@ -2,11 +2,11 @@
   "id": 327,
   "name": "Heart rate",
   "description": "Heart rate — the number of heartbeats per minute (bpm); any measurement method or site. Excludes pulse waveform, rhythm and fetal heart rate.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-06-11",
+  "modifiedDate": "2026-08-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -750,6 +750,348 @@
         "isExcluded": true,
         "includeDescendants": true,
         "includeMapped": true
+      },
+      {
+        "concept": {
+          "conceptId": 1002575,
+          "conceptName": "Arterial pulse intensity | Brachial artery Left | Specific heart rate",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Non-Standard",
+          "conceptCode": "LP415763-4",
+          "validStartDate": "20191213",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": true,
+        "includeMapped": true
+      },
+      {
+        "concept": {
+          "conceptId": 1003288,
+          "conceptName": "Arterial pulse intensity | Brachial artery Right | Specific heart rate",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Non-Standard",
+          "conceptCode": "LP415764-2",
+          "validStartDate": "20191213",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": true,
+        "includeMapped": true
+      },
+      {
+        "concept": {
+          "conceptId": 1003699,
+          "conceptName": "Arterial pulse intensity | Carotid artery Left | Specific heart rate",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Non-Standard",
+          "conceptCode": "LP415765-9",
+          "validStartDate": "20191213",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": true,
+        "includeMapped": true
+      },
+      {
+        "concept": {
+          "conceptId": 1002944,
+          "conceptName": "Arterial pulse intensity | Carotid artery Right | Specific heart rate",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Non-Standard",
+          "conceptCode": "LP415766-7",
+          "validStartDate": "20191213",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": true,
+        "includeMapped": true
+      },
+      {
+        "concept": {
+          "conceptId": 1003449,
+          "conceptName": "Arterial pulse intensity | Dorsal pedal artery Left | Specific heart rate",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Non-Standard",
+          "conceptCode": "LP415768-3",
+          "validStartDate": "20191213",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": true,
+        "includeMapped": true
+      },
+      {
+        "concept": {
+          "conceptId": 1003210,
+          "conceptName": "Arterial pulse intensity | Dorsal pedal artery Right | Specific heart rate",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Non-Standard",
+          "conceptCode": "LP415769-1",
+          "validStartDate": "20191213",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": true,
+        "includeMapped": true
+      },
+      {
+        "concept": {
+          "conceptId": 1003745,
+          "conceptName": "Arterial pulse intensity | Dorsal pedal artery | Specific heart rate",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Non-Standard",
+          "conceptCode": "LP415767-5",
+          "validStartDate": "20191213",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": true,
+        "includeMapped": true
+      },
+      {
+        "concept": {
+          "conceptId": 1003446,
+          "conceptName": "Arterial pulse intensity | Femoral artery Left | Specific heart rate",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Non-Standard",
+          "conceptCode": "LP415770-9",
+          "validStartDate": "20191213",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": true,
+        "includeMapped": true
+      },
+      {
+        "concept": {
+          "conceptId": 1003690,
+          "conceptName": "Arterial pulse intensity | Femoral artery Right | Specific heart rate",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Non-Standard",
+          "conceptCode": "LP415771-7",
+          "validStartDate": "20191213",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": true,
+        "includeMapped": true
+      },
+      {
+        "concept": {
+          "conceptId": 1002804,
+          "conceptName": "Arterial pulse intensity | Popliteal artery Left | Specific heart rate",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Non-Standard",
+          "conceptCode": "LP415772-5",
+          "validStartDate": "20191213",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": true,
+        "includeMapped": true
+      },
+      {
+        "concept": {
+          "conceptId": 1003315,
+          "conceptName": "Arterial pulse intensity | Popliteal artery Right | Specific heart rate",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Non-Standard",
+          "conceptCode": "LP415773-3",
+          "validStartDate": "20191213",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": true,
+        "includeMapped": true
+      },
+      {
+        "concept": {
+          "conceptId": 1002603,
+          "conceptName": "Arterial pulse intensity | Posterior tibial artery Left | Specific heart rate",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Non-Standard",
+          "conceptCode": "LP415774-1",
+          "validStartDate": "20191213",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": true,
+        "includeMapped": true
+      },
+      {
+        "concept": {
+          "conceptId": 1003629,
+          "conceptName": "Arterial pulse intensity | Posterior tibial artery Right | Specific heart rate",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Non-Standard",
+          "conceptCode": "LP415775-8",
+          "validStartDate": "20191213",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": true,
+        "includeMapped": true
+      },
+      {
+        "concept": {
+          "conceptId": 1002491,
+          "conceptName": "Arterial pulse intensity | Radial artery Left | Specific heart rate",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Non-Standard",
+          "conceptCode": "LP415776-6",
+          "validStartDate": "20191213",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": true,
+        "includeMapped": true
+      },
+      {
+        "concept": {
+          "conceptId": 1003773,
+          "conceptName": "Arterial pulse intensity | Radial artery Right | Specific heart rate",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Non-Standard",
+          "conceptCode": "LP415777-4",
+          "validStartDate": "20191213",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": true,
+        "includeMapped": true
+      },
+      {
+        "concept": {
+          "conceptId": 1004092,
+          "conceptName": "Arterial pulse intensity | Ulnar artery Left | Specific heart rate",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Non-Standard",
+          "conceptCode": "LP415778-2",
+          "validStartDate": "20191213",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": true,
+        "includeMapped": true
+      },
+      {
+        "concept": {
+          "conceptId": 1002638,
+          "conceptName": "Arterial pulse intensity | Ulnar artery Right | Specific heart rate",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Non-Standard",
+          "conceptCode": "LP415779-0",
+          "validStartDate": "20191213",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": true,
+        "includeMapped": true
+      },
+      {
+        "concept": {
+          "conceptId": 1003918,
+          "conceptName": "Arterial pulse intensity | XXX | General heart rate",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Non-Standard",
+          "conceptCode": "LP415753-5",
+          "validStartDate": "20191213",
+          "validEndDate": "20991231",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": true,
+        "includeMapped": true
       }
     ]
   },
@@ -799,6 +1141,12 @@
         "date": "2026-06-11",
         "author": "Boris Delange",
         "message": "Exclude non-standard SNOMED concepts 4239408 (Heart rate) and 3557049 (Resting heart rate); standard equivalents already covered."
+      },
+      {
+        "version": "1.0.2",
+        "date": "2026-08-11",
+        "author": "Boris Delange",
+        "message": "Exclude the 18 \"Arterial pulse intensity\" LOINC hierarchy concepts pulled in as descendants of 1004025 (Heart rate). They grade the palpated intensity of a pulse (absent, weak, bounding) on a qualitative scale, not a rate in beats per minute, so they do not belong to this variable. The existing exclusions of 21494979 (Pulse intensity assessment panel) and 1003061 (Arterial pulse quality) sit on a different branch and did not cover them."
       }
     ],
     "distributionStats": {}
