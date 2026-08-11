@@ -14,7 +14,7 @@
   },
   "createdBy": "Alexandre Mebazaa",
   "createdDate": "2024-12-01",
-  "modifiedDate": "2026-05-27",
+  "modifiedDate": "2026-08-11",
   "groups": [
     {
       "id": "group-default",
@@ -34,83 +34,83 @@
         },
         {
           "id": 16,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 17,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 18,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 19,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 20,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 21,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 22,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 23,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 24,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 25,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 26,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 27,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 28,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 30,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 149,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 151,
-          "version": "1.0.0"
+          "version": "1.2.0"
         },
         {
           "id": 352,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 152,
-          "version": "1.0.0"
+          "version": "1.2.0"
         },
         {
           "id": 353,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 153,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 354,
@@ -118,55 +118,55 @@
         },
         {
           "id": 155,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 159,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 160,
-          "version": "1.0.0"
+          "version": "1.2.0"
         },
         {
           "id": 355,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 163,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 164,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 165,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 166,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 167,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 168,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 169,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 170,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 171,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 345,
@@ -174,7 +174,7 @@
         },
         {
           "id": 172,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 346,
@@ -214,35 +214,35 @@
         },
         {
           "id": 181,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 182,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 183,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 184,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 185,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 186,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 187,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 189,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 190,
@@ -290,19 +290,19 @@
         },
         {
           "id": 201,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 202,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 203,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 204,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 351,
@@ -310,115 +310,111 @@
         },
         {
           "id": 205,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 206,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 207,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 208,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 209,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 210,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 211,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 212,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 213,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 214,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 215,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 216,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 217,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 218,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 219,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 220,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 221,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 222,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 274,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 275,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 284,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 301,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 306,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 307,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 318,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 319,
           "version": "1.0.0"
         },
         {
-          "id": 321,
-          "version": "1.0.0"
-        },
-        {
           "id": 322,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 324,
@@ -426,7 +422,7 @@
         },
         {
           "id": 325,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 326,
@@ -434,7 +430,7 @@
         },
         {
           "id": 327,
-          "version": "1.0.0"
+          "version": "1.0.2"
         },
         {
           "id": 328,
@@ -446,19 +442,19 @@
         },
         {
           "id": 330,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 331,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 332,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 333,
-          "version": "1.0.0"
+          "version": "1.1.0"
         },
         {
           "id": 347,
