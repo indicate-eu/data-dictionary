@@ -2,11 +2,11 @@
   "id": 275,
   "name": "Body weight",
   "description": "Body weight — how much the patient weighs (any measured context, incl. dialysis and dry weight); in kilograms (kg).",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-06-11",
+  "modifiedDate": "2026-08-12",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -324,6 +324,12 @@
         "date": "2026-06-11",
         "author": "Boris Delange",
         "message": "Resolves issue #2: anchored on SNOMED Body weight with descendants, plus generic LOINC; excluded self-reported/estimated/dosing/baseline/previous-well/pre-amputation weights; birth weight and dialysis/dry weights kept. Added clinical description and mapping notes. Birth weight is excluded because it has its own Birth weight set. Moved to pending review."
+      },
+      {
+        "version": "1.1.1",
+        "date": "2026-08-12",
+        "author": "Boris Delange",
+        "message": "Document the unit conversion in the description: pounds are converted with [lb_us] (8739), since OMOP has no concept for the UCUM code [lb_av], and the remaining pound concepts ([lb_ap], [lb_tr]) are ~18% lighter. No change to the expression."
       }
     ],
     "distributionStats": null
