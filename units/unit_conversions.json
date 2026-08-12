@@ -7658,5 +7658,137 @@
     "targetUnitConceptId": 8753,
     "targetUnitCode": "mmol/L",
     "targetUnitName": "millimole per liter"
+  },
+  {
+    "conceptId": 3025315,
+    "conceptName": "Body weight",
+    "sourceUnitConceptId": 8739,
+    "sourceUnitCode": "[lb_us]",
+    "sourceUnitName": "pound (US)",
+    "conversionFactor": 0.45359237,
+    "targetUnitConceptId": 9529,
+    "targetUnitCode": "kg",
+    "targetUnitName": "kilogram"
+  },
+  {
+    "conceptId": 4099154,
+    "conceptName": "Body weight",
+    "sourceUnitConceptId": 8739,
+    "sourceUnitCode": "[lb_us]",
+    "sourceUnitName": "pound (US)",
+    "conversionFactor": 0.45359237,
+    "targetUnitConceptId": 9529,
+    "targetUnitCode": "kg",
+    "targetUnitName": "kilogram"
+  },
+  {
+    "conceptId": 4178502,
+    "conceptName": "Body weight measure",
+    "sourceUnitConceptId": 8739,
+    "sourceUnitCode": "[lb_us]",
+    "sourceUnitName": "pound (US)",
+    "conversionFactor": 0.45359237,
+    "targetUnitConceptId": 9529,
+    "targetUnitCode": "kg",
+    "targetUnitName": "kilogram"
+  },
+  {
+    "conceptId": 37160443,
+    "conceptName": "Post-dialysis body weight",
+    "sourceUnitConceptId": 8739,
+    "sourceUnitCode": "[lb_us]",
+    "sourceUnitName": "pound (US)",
+    "conversionFactor": 0.45359237,
+    "targetUnitConceptId": 9529,
+    "targetUnitCode": "kg",
+    "targetUnitName": "kilogram"
+  },
+  {
+    "conceptId": 37160447,
+    "conceptName": "Pre-dialysis body weight",
+    "sourceUnitConceptId": 8739,
+    "sourceUnitCode": "[lb_us]",
+    "sourceUnitName": "pound (US)",
+    "conversionFactor": 0.45359237,
+    "targetUnitConceptId": 9529,
+    "targetUnitCode": "kg",
+    "targetUnitName": "kilogram"
+  },
+  {
+    "conceptId": 40484200,
+    "conceptName": "Dry body weight",
+    "sourceUnitConceptId": 8739,
+    "sourceUnitCode": "[lb_us]",
+    "sourceUnitName": "pound (US)",
+    "conversionFactor": 0.45359237,
+    "targetUnitConceptId": 9529,
+    "targetUnitCode": "kg",
+    "targetUnitName": "kilogram"
+  },
+  {
+    "conceptId": 42536495,
+    "conceptName": "Current body weight",
+    "sourceUnitConceptId": 8739,
+    "sourceUnitCode": "[lb_us]",
+    "sourceUnitName": "pound (US)",
+    "conversionFactor": 0.45359237,
+    "targetUnitConceptId": 9529,
+    "targetUnitCode": "kg",
+    "targetUnitName": "kilogram"
+  },
+  {
+    "conceptId": 3011043,
+    "conceptName": "Birth weight Measured",
+    "sourceUnitConceptId": 8739,
+    "sourceUnitCode": "[lb_us]",
+    "sourceUnitName": "pound (US)",
+    "conversionFactor": 0.45359237,
+    "targetUnitConceptId": 9529,
+    "targetUnitCode": "kg",
+    "targetUnitName": "kilogram"
+  },
+  {
+    "conceptId": 4264825,
+    "conceptName": "Birth weight",
+    "sourceUnitConceptId": 8739,
+    "sourceUnitCode": "[lb_us]",
+    "sourceUnitName": "pound (US)",
+    "conversionFactor": 0.45359237,
+    "targetUnitConceptId": 9529,
+    "targetUnitCode": "kg",
+    "targetUnitName": "kilogram"
+  },
+  {
+    "conceptId": 1073500,
+    "conceptName": "Adjusted ideal body weight",
+    "sourceUnitConceptId": 8739,
+    "sourceUnitCode": "[lb_us]",
+    "sourceUnitName": "pound (US)",
+    "conversionFactor": 0.45359237,
+    "targetUnitConceptId": 9529,
+    "targetUnitCode": "kg",
+    "targetUnitName": "kilogram"
+  },
+  {
+    "conceptId": 3032445,
+    "conceptName": "Ideal body weight",
+    "sourceUnitConceptId": 8739,
+    "sourceUnitCode": "[lb_us]",
+    "sourceUnitName": "pound (US)",
+    "conversionFactor": 0.45359237,
+    "targetUnitConceptId": 9529,
+    "targetUnitCode": "kg",
+    "targetUnitName": "kilogram"
+  },
+  {
+    "conceptId": 4062985,
+    "conceptName": "Ideal body weight",
+    "sourceUnitConceptId": 8739,
+    "sourceUnitCode": "[lb_us]",
+    "sourceUnitName": "pound (US)",
+    "conversionFactor": 0.45359237,
+    "targetUnitConceptId": 9529,
+    "targetUnitCode": "kg",
+    "targetUnitName": "kilogram"
   }
 ]

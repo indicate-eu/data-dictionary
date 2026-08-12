@@ -33031,5 +33031,181 @@
     "recommendedUnitName": "percent",
     "recommendedUnitCode": "%",
     "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 4099154,
+    "conceptName": "Body weight",
+    "conceptCode": "27113001",
+    "vocabularyId": "SNOMED",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 9529,
+    "recommendedUnitName": "kilogram",
+    "recommendedUnitCode": "kg",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 4178502,
+    "conceptName": "Body weight measure",
+    "conceptCode": "363808001",
+    "vocabularyId": "SNOMED",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 9529,
+    "recommendedUnitName": "kilogram",
+    "recommendedUnitCode": "kg",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 37160443,
+    "conceptName": "Post-dialysis body weight",
+    "conceptCode": "1162420002",
+    "vocabularyId": "SNOMED",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 9529,
+    "recommendedUnitName": "kilogram",
+    "recommendedUnitCode": "kg",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 37160447,
+    "conceptName": "Pre-dialysis body weight",
+    "conceptCode": "1162421003",
+    "vocabularyId": "SNOMED",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 9529,
+    "recommendedUnitName": "kilogram",
+    "recommendedUnitCode": "kg",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 40484200,
+    "conceptName": "Dry body weight",
+    "conceptCode": "445541000",
+    "vocabularyId": "SNOMED",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 9529,
+    "recommendedUnitName": "kilogram",
+    "recommendedUnitCode": "kg",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 42536495,
+    "conceptName": "Current body weight",
+    "conceptCode": "735395000",
+    "vocabularyId": "SNOMED",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 9529,
+    "recommendedUnitName": "kilogram",
+    "recommendedUnitCode": "kg",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 3011043,
+    "conceptName": "Birth weight Measured",
+    "conceptCode": "8339-4",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 9529,
+    "recommendedUnitName": "kilogram",
+    "recommendedUnitCode": "kg",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 4264825,
+    "conceptName": "Birth weight",
+    "conceptCode": "364589006",
+    "vocabularyId": "SNOMED",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 9529,
+    "recommendedUnitName": "kilogram",
+    "recommendedUnitCode": "kg",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 1073500,
+    "conceptName": "Adjusted ideal body weight",
+    "conceptCode": "1304200008",
+    "vocabularyId": "SNOMED",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 9529,
+    "recommendedUnitName": "kilogram",
+    "recommendedUnitCode": "kg",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 3032445,
+    "conceptName": "Ideal body weight",
+    "conceptCode": "50064-5",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 9529,
+    "recommendedUnitName": "kilogram",
+    "recommendedUnitCode": "kg",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 4062985,
+    "conceptName": "Ideal body weight",
+    "conceptCode": "170804003",
+    "vocabularyId": "SNOMED",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 9529,
+    "recommendedUnitName": "kilogram",
+    "recommendedUnitCode": "kg",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 3022217,
+    "conceptName": "INR in Platelet poor plasma by Coagulation assay",
+    "conceptCode": "6301-6",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 8523,
+    "recommendedUnitName": "ratio",
+    "recommendedUnitCode": "{ratio}",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 3032080,
+    "conceptName": "INR in Blood by Coagulation assay",
+    "conceptCode": "34714-6",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 8523,
+    "recommendedUnitName": "ratio",
+    "recommendedUnitCode": "{ratio}",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 3039326,
+    "conceptName": "INR in Platelet poor plasma by Coagulation assay --post heparin neutralization",
+    "conceptCode": "52129-4",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 8523,
+    "recommendedUnitName": "ratio",
+    "recommendedUnitCode": "{ratio}",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 3042605,
+    "conceptName": "INR in Platelet poor plasma or blood by Coagulation assay",
+    "conceptCode": "38875-1",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 8523,
+    "recommendedUnitName": "ratio",
+    "recommendedUnitCode": "{ratio}",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 3051593,
+    "conceptName": "INR in Capillary blood by Coagulation assay",
+    "conceptCode": "46418-0",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 8523,
+    "recommendedUnitName": "ratio",
+    "recommendedUnitCode": "{ratio}",
+    "recommendedUnitVocabularyId": "UCUM"
   }
 ]
