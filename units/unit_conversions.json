@@ -7977,5 +7977,60 @@
     "targetUnitConceptId": 8582,
     "targetUnitCode": "cm",
     "targetUnitName": "centimeter"
+  },
+  {
+    "conceptId": 3007760,
+    "conceptName": "Creatinine [Mass/volume] in Arterial blood",
+    "sourceUnitConceptId": 8840,
+    "sourceUnitCode": "mg/dL",
+    "sourceUnitName": "milligram per deciliter",
+    "conversionFactor": 10.0,
+    "targetUnitConceptId": 8751,
+    "targetUnitCode": "mg/L",
+    "targetUnitName": "milligram per liter"
+  },
+  {
+    "conceptId": 3016723,
+    "conceptName": "Creatinine [Mass/volume] in Serum or Plasma",
+    "sourceUnitConceptId": 8840,
+    "sourceUnitCode": "mg/dL",
+    "sourceUnitName": "milligram per deciliter",
+    "conversionFactor": 10.0,
+    "targetUnitConceptId": 8751,
+    "targetUnitCode": "mg/L",
+    "targetUnitName": "milligram per liter"
+  },
+  {
+    "conceptId": 3018968,
+    "conceptName": "Creatinine [Mass/volume] in Serum or Plasma --post dialysis",
+    "sourceUnitConceptId": 8840,
+    "sourceUnitCode": "mg/dL",
+    "sourceUnitName": "milligram per deciliter",
+    "conversionFactor": 10.0,
+    "targetUnitConceptId": 8751,
+    "targetUnitCode": "mg/L",
+    "targetUnitName": "milligram per liter"
+  },
+  {
+    "conceptId": 3022243,
+    "conceptName": "Creatinine [Mass/volume] in Serum or Plasma --pre dialysis",
+    "sourceUnitConceptId": 8840,
+    "sourceUnitCode": "mg/dL",
+    "sourceUnitName": "milligram per deciliter",
+    "conversionFactor": 10.0,
+    "targetUnitConceptId": 8751,
+    "targetUnitCode": "mg/L",
+    "targetUnitName": "milligram per liter"
+  },
+  {
+    "conceptId": 3051825,
+    "conceptName": "Creatinine [Mass/volume] in Blood",
+    "sourceUnitConceptId": 8840,
+    "sourceUnitCode": "mg/dL",
+    "sourceUnitName": "milligram per deciliter",
+    "conversionFactor": 10.0,
+    "targetUnitConceptId": 8751,
+    "targetUnitCode": "mg/L",
+    "targetUnitName": "milligram per liter"
   }
 ]
