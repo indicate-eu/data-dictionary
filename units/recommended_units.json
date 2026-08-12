@@ -27857,9 +27857,9 @@
     "conceptCode": "59470-5",
     "vocabularyId": "LOINC",
     "domainId": "Measurement",
-    "recommendedUnitConceptId": 8751,
-    "recommendedUnitName": "milligram per liter",
-    "recommendedUnitCode": "mg/L",
+    "recommendedUnitConceptId": 8840,
+    "recommendedUnitName": "milligram per deciliter",
+    "recommendedUnitCode": "mg/dL",
     "recommendedUnitVocabularyId": "UCUM"
   },
   {
@@ -27868,9 +27868,9 @@
     "conceptCode": "59471-3",
     "vocabularyId": "LOINC",
     "domainId": "Measurement",
-    "recommendedUnitConceptId": 8753,
-    "recommendedUnitName": "millimole per liter",
-    "recommendedUnitCode": "mmol/L",
+    "recommendedUnitConceptId": 8840,
+    "recommendedUnitName": "milligram per deciliter",
+    "recommendedUnitCode": "mg/dL",
     "recommendedUnitVocabularyId": "UCUM"
   },
   {
