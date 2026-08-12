@@ -7790,5 +7790,60 @@
     "targetUnitConceptId": 9529,
     "targetUnitCode": "kg",
     "targetUnitName": "kilogram"
+  },
+  {
+    "conceptId": 3002106,
+    "conceptName": "Lactate [Mass/volume] in Venous blood",
+    "sourceUnitConceptId": 8840,
+    "sourceUnitCode": "mg/dL",
+    "sourceUnitName": "milligram per deciliter",
+    "conversionFactor": 0.111012,
+    "targetUnitConceptId": 8753,
+    "targetUnitCode": "mmol/L",
+    "targetUnitName": "millimole per liter"
+  },
+  {
+    "conceptId": 3020138,
+    "conceptName": "Lactate [Mass/volume] in Serum or Plasma",
+    "sourceUnitConceptId": 8840,
+    "sourceUnitCode": "mg/dL",
+    "sourceUnitName": "milligram per deciliter",
+    "conversionFactor": 0.111012,
+    "targetUnitConceptId": 8753,
+    "targetUnitCode": "mmol/L",
+    "targetUnitName": "millimole per liter"
+  },
+  {
+    "conceptId": 3040968,
+    "conceptName": "Lactate [Mass/volume] in Capillary blood",
+    "sourceUnitConceptId": 8840,
+    "sourceUnitCode": "mg/dL",
+    "sourceUnitName": "milligram per deciliter",
+    "conversionFactor": 0.111012,
+    "targetUnitConceptId": 8753,
+    "targetUnitCode": "mmol/L",
+    "targetUnitName": "millimole per liter"
+  },
+  {
+    "conceptId": 40762125,
+    "conceptName": "Lactate [Mass/volume] in Blood",
+    "sourceUnitConceptId": 8840,
+    "sourceUnitCode": "mg/dL",
+    "sourceUnitName": "milligram per deciliter",
+    "conversionFactor": 0.111012,
+    "targetUnitConceptId": 8753,
+    "targetUnitCode": "mmol/L",
+    "targetUnitName": "millimole per liter"
+  },
+  {
+    "conceptId": 3035561,
+    "conceptName": "Lactate [Mass/volume] in Arterial blood",
+    "sourceUnitConceptId": 8840,
+    "sourceUnitCode": "mg/dL",
+    "sourceUnitName": "milligram per deciliter",
+    "conversionFactor": 0.111012,
+    "targetUnitConceptId": 8753,
+    "targetUnitCode": "mmol/L",
+    "targetUnitName": "millimole per liter"
   }
 ]
