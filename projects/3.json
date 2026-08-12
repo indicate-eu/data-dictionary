@@ -14,7 +14,7 @@
   },
   "createdBy": "Paul Elbers",
   "createdDate": "2024-12-01",
-  "modifiedDate": "2026-08-12",
+  "modifiedDate": "2026-08-13",
   "groups": [
     {
       "id": "group-default",
@@ -258,7 +258,7 @@
         },
         {
           "id": 182,
-          "version": "1.1.0"
+          "version": "1.1.1"
         },
         {
           "id": 183,
@@ -278,7 +278,7 @@
         },
         {
           "id": 187,
-          "version": "1.1.0"
+          "version": "1.1.1"
         },
         {
           "id": 188,
