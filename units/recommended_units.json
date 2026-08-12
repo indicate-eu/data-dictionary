@@ -33372,5 +33372,27 @@
     "recommendedUnitName": "centimeter",
     "recommendedUnitCode": "cm",
     "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 4014465,
+    "conceptName": "Birth length",
+    "conceptCode": "169886007",
+    "vocabularyId": "SNOMED",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 8582,
+    "recommendedUnitName": "centimeter",
+    "recommendedUnitCode": "cm",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 36304231,
+    "conceptName": "Body height Measured --at birth",
+    "conceptCode": "89269-5",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 8582,
+    "recommendedUnitName": "centimeter",
+    "recommendedUnitCode": "cm",
+    "recommendedUnitVocabularyId": "UCUM"
   }
 ]

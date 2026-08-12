@@ -7845,5 +7845,137 @@
     "targetUnitConceptId": 8753,
     "targetUnitCode": "mmol/L",
     "targetUnitName": "millimole per liter"
+  },
+  {
+    "conceptId": 600652,
+    "conceptName": "Recumbent body height",
+    "sourceUnitConceptId": 9327,
+    "sourceUnitCode": "[in_i]",
+    "sourceUnitName": "inch (international)",
+    "conversionFactor": 2.54,
+    "targetUnitConceptId": 8582,
+    "targetUnitCode": "cm",
+    "targetUnitName": "centimeter"
+  },
+  {
+    "conceptId": 600652,
+    "conceptName": "Recumbent body height",
+    "sourceUnitConceptId": 9330,
+    "sourceUnitCode": "[in_us]",
+    "sourceUnitName": "inch (US)",
+    "conversionFactor": 2.54000508,
+    "targetUnitConceptId": 8582,
+    "targetUnitCode": "cm",
+    "targetUnitName": "centimeter"
+  },
+  {
+    "conceptId": 607590,
+    "conceptName": "Body height",
+    "sourceUnitConceptId": 9327,
+    "sourceUnitCode": "[in_i]",
+    "sourceUnitName": "inch (international)",
+    "conversionFactor": 2.54,
+    "targetUnitConceptId": 8582,
+    "targetUnitCode": "cm",
+    "targetUnitName": "centimeter"
+  },
+  {
+    "conceptId": 607590,
+    "conceptName": "Body height",
+    "sourceUnitConceptId": 9330,
+    "sourceUnitCode": "[in_us]",
+    "sourceUnitName": "inch (US)",
+    "conversionFactor": 2.54000508,
+    "targetUnitConceptId": 8582,
+    "targetUnitCode": "cm",
+    "targetUnitName": "centimeter"
+  },
+  {
+    "conceptId": 3036277,
+    "conceptName": "Body height",
+    "sourceUnitConceptId": 9327,
+    "sourceUnitCode": "[in_i]",
+    "sourceUnitName": "inch (international)",
+    "conversionFactor": 2.54,
+    "targetUnitConceptId": 8582,
+    "targetUnitCode": "cm",
+    "targetUnitName": "centimeter"
+  },
+  {
+    "conceptId": 3036277,
+    "conceptName": "Body height",
+    "sourceUnitConceptId": 9330,
+    "sourceUnitCode": "[in_us]",
+    "sourceUnitName": "inch (US)",
+    "conversionFactor": 2.54000508,
+    "targetUnitConceptId": 8582,
+    "targetUnitCode": "cm",
+    "targetUnitName": "centimeter"
+  },
+  {
+    "conceptId": 4093975,
+    "conceptName": "Standing height",
+    "sourceUnitConceptId": 9327,
+    "sourceUnitCode": "[in_i]",
+    "sourceUnitName": "inch (international)",
+    "conversionFactor": 2.54,
+    "targetUnitConceptId": 8582,
+    "targetUnitCode": "cm",
+    "targetUnitName": "centimeter"
+  },
+  {
+    "conceptId": 4093975,
+    "conceptName": "Standing height",
+    "sourceUnitConceptId": 9330,
+    "sourceUnitCode": "[in_us]",
+    "sourceUnitName": "inch (US)",
+    "conversionFactor": 2.54000508,
+    "targetUnitConceptId": 8582,
+    "targetUnitCode": "cm",
+    "targetUnitName": "centimeter"
+  },
+  {
+    "conceptId": 4014465,
+    "conceptName": "Birth length",
+    "sourceUnitConceptId": 9327,
+    "sourceUnitCode": "[in_i]",
+    "sourceUnitName": "inch (international)",
+    "conversionFactor": 2.54,
+    "targetUnitConceptId": 8582,
+    "targetUnitCode": "cm",
+    "targetUnitName": "centimeter"
+  },
+  {
+    "conceptId": 4014465,
+    "conceptName": "Birth length",
+    "sourceUnitConceptId": 9330,
+    "sourceUnitCode": "[in_us]",
+    "sourceUnitName": "inch (US)",
+    "conversionFactor": 2.54000508,
+    "targetUnitConceptId": 8582,
+    "targetUnitCode": "cm",
+    "targetUnitName": "centimeter"
+  },
+  {
+    "conceptId": 36304231,
+    "conceptName": "Body height Measured --at birth",
+    "sourceUnitConceptId": 9327,
+    "sourceUnitCode": "[in_i]",
+    "sourceUnitName": "inch (international)",
+    "conversionFactor": 2.54,
+    "targetUnitConceptId": 8582,
+    "targetUnitCode": "cm",
+    "targetUnitName": "centimeter"
+  },
+  {
+    "conceptId": 36304231,
+    "conceptName": "Body height Measured --at birth",
+    "sourceUnitConceptId": 9330,
+    "sourceUnitCode": "[in_us]",
+    "sourceUnitName": "inch (US)",
+    "conversionFactor": 2.54000508,
+    "targetUnitConceptId": 8582,
+    "targetUnitCode": "cm",
+    "targetUnitName": "centimeter"
   }
 ]
