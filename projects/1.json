@@ -14,7 +14,7 @@
   },
   "createdBy": "Christian Jung",
   "createdDate": "2024-12-01",
-  "modifiedDate": "2026-08-11",
+  "modifiedDate": "2026-08-12",
   "groups": [
     {
       "id": "group-default",
@@ -670,7 +670,7 @@
         },
         {
           "id": 170,
-          "version": "1.1.0"
+          "version": "1.1.1"
         },
         {
           "id": 171,
@@ -1090,7 +1090,7 @@
         },
         {
           "id": 275,
-          "version": "1.1.0"
+          "version": "1.1.1"
         },
         {
           "id": 278,
