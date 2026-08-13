@@ -10283,7 +10283,7 @@
     "sourceUnitConceptId": 8725,
     "sourceUnitCode": "ng/L",
     "sourceUnitName": "nanogram per liter",
-    "conversionFactor": 0.288684,
+    "conversionFactor": 0.288018,
     "targetUnitConceptId": 8729,
     "targetUnitCode": "pmol/L",
     "targetUnitName": "picomole per liter"
@@ -10294,7 +10294,7 @@
     "sourceUnitConceptId": 8729,
     "sourceUnitCode": "pmol/L",
     "sourceUnitName": "picomole per liter",
-    "conversionFactor": 3.464,
+    "conversionFactor": 3.472,
     "targetUnitConceptId": 8725,
     "targetUnitCode": "ng/L",
     "targetUnitName": "nanogram per liter"
@@ -10305,7 +10305,7 @@
     "sourceUnitConceptId": 8725,
     "sourceUnitCode": "ng/L",
     "sourceUnitName": "nanogram per liter",
-    "conversionFactor": 0.288684,
+    "conversionFactor": 0.288018,
     "targetUnitConceptId": 8729,
     "targetUnitCode": "pmol/L",
     "targetUnitName": "picomole per liter"
@@ -10316,7 +10316,7 @@
     "sourceUnitConceptId": 8729,
     "sourceUnitCode": "pmol/L",
     "sourceUnitName": "picomole per liter",
-    "conversionFactor": 3.464,
+    "conversionFactor": 3.472,
     "targetUnitConceptId": 8725,
     "targetUnitCode": "ng/L",
     "targetUnitName": "nanogram per liter"
@@ -10327,7 +10327,7 @@
     "sourceUnitConceptId": 8725,
     "sourceUnitCode": "ng/L",
     "sourceUnitName": "nanogram per liter",
-    "conversionFactor": 0.288684,
+    "conversionFactor": 0.288018,
     "targetUnitConceptId": 8729,
     "targetUnitCode": "pmol/L",
     "targetUnitName": "picomole per liter"
@@ -10338,7 +10338,7 @@
     "sourceUnitConceptId": 8729,
     "sourceUnitCode": "pmol/L",
     "sourceUnitName": "picomole per liter",
-    "conversionFactor": 3.464,
+    "conversionFactor": 3.472,
     "targetUnitConceptId": 8725,
     "targetUnitCode": "ng/L",
     "targetUnitName": "nanogram per liter"
