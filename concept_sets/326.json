@@ -2,11 +2,11 @@
   "id": 326,
   "name": "Diastolic arterial pressure",
   "description": "Diastolic arterial pressure — the arterial blood pressure during cardiac relaxation (the lower number of a blood-pressure reading); any site, method or position.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-06-11",
+  "modifiedDate": "2026-08-13",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -527,7 +527,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.0.1",
+        "date": "2026-08-13",
+        "author": "Boris Delange",
+        "message": "Version bump for the units note added earlier without one: documents why the recommended unit for the non-invasive blood pressure codes deviates from the cm[H2O] listed by LOINC."
+      }
+    ],
     "distributionStats": null
   }
 }
