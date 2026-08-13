@@ -12,6 +12,33 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 36303946,
+      "conceptName": "Pressure.plateau Respiratory system airway --on ventilator",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "76259-1",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36304439,
+      "conceptName": "Pressure.plateau Respiratory system airway",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "60829-9",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37040392,
+      "conceptName": "Pressure.plateau | Respiratory system airway | Respiratory measures and Ventilator management",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "LOINC Hierarchy",
+      "conceptCode": "LP409162-7",
+      "standardConcept": "C"
+    },
+    {
       "conceptId": 44782825,
       "conceptName": "Airway plateau pressure",
       "vocabularyId": "SNOMED",

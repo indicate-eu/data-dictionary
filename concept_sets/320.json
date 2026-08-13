@@ -2,11 +2,11 @@
   "id": 320,
   "name": "Plateau pressure (Pplat)",
   "description": "Plateau pressure (Pplat) — airway pressure during an end-inspiratory hold, in cmH2O.",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-06-11",
+  "modifiedDate": "2026-08-13",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -27,6 +27,25 @@
         },
         "isExcluded": false,
         "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37040392,
+          "conceptName": "Pressure.plateau | Respiratory system airway | Respiratory measures and Ventilator management",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP409162-7",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
         "includeMapped": false
       },
       {
@@ -72,7 +91,7 @@
         "category": "Ventilation",
         "subcategory": "Ventilation parameters",
         "shortDescription": "Plateau pressure (Pplat) — airway pressure during an end-inspiratory hold, in cmH2O.",
-        "longDescription": "## Definition & Clinical Context\n\nPlateau pressure (Pplat) is the airway pressure measured during an end-inspiratory hold (no gas flow), reflecting the pressure distending the alveoli — the elastic recoil of the lungs and chest wall. It is a key target in lung-protective ventilation (kept ≤ ~30 cmH2O). In source data it is a single numeric value per patient-timestamp, obtained by the ventilator during an inspiratory pause. It is recorded in intensive care and anaesthesia for ventilated patients. It is reported in centimetres of water (cmH2O); some ventilators display mbar (1 cmH2O ≈ 0.98 mbar).\n\n## Included Concepts\n\n- *44782825 / 698822002 — Airway plateau pressure (SNOMED)*: the plateau pressure measured during an inspiratory hold (the default).\n- *21490565 / 60802-6 — Dynamic plateau pressure (LOINC)*: a plateau pressure estimated under dynamic (non-hold) conditions.\n\n**Note on units**: reported in **cmH2O** (`44777590 / cm[H2O] — centimeter watercolumn`, UCUM), the recommended unit, with a registered cmH2O↔mbar conversion (1 cmH2O = 0.98 mbar).\n\n## Mapping Notes\n\n- **Default concept** when the source records a plateau pressure (Pplat): *44782825 / 698822002 — Airway plateau pressure*. Use *21490565 / 60802-6 — Dynamic plateau pressure* only when the source specifies a dynamic (non-hold) estimate.\n- Convert mbar to cmH2O (×1.02) before mapping.\n- **Not peak, mean or PEEP**: these are distinct pressures in their own concept sets.\n"
+        "longDescription": "## Definition & Clinical Context\n\nPlateau pressure (Pplat) is the airway pressure measured during an end-inspiratory hold (no gas flow), reflecting the pressure distending the alveoli — the elastic recoil of the lungs and chest wall. It is a key target in lung-protective ventilation (kept ≤ ~30 cmH2O). In source data it is a single numeric value per patient-timestamp, obtained by the ventilator during an inspiratory pause. It is recorded in intensive care and anaesthesia for ventilated patients. It is reported in centimetres of water (cmH2O); some ventilators display mbar (1 cmH2O ≈ 0.98 mbar).\n\n## Included Concepts\n\nThe set resolves to four concepts: one SNOMED observable entity and three LOINC \"Clinical Observation\" codes.\n\n- *44782825 / 698822002 — Airway plateau pressure (SNOMED)*: the plateau pressure measured during an inspiratory hold. Vocabulary-agnostic and the default when the source carries no LOINC code.\n- *36304439 / 60829-9 — Pressure.plateau Respiratory system airway (LOINC)*: the generic LOINC plateau pressure, context unspecified.\n- *36303946 / 76259-1 — Pressure.plateau Respiratory system airway --on ventilator (LOINC)*: the same measurement, with the \"on ventilator\" context made explicit.\n- *21490565 / 60802-6 — Dynamic plateau pressure (LOINC)*: a plateau pressure estimated under dynamic (non-hold) conditions.\n\nThe two `Pressure.plateau` LOINC codes are pulled in through their shared LOINC Hierarchy anchor, which covers exactly these two and nothing else.\n\n**Note on units**: reported in **cmH2O** (`44777590 / cm[H2O] — centimeter watercolumn`, UCUM), the recommended unit, with a registered cmH2O↔mbar conversion (1 cmH2O = 0.98 mbar).\n\n## Mapping Notes\n\n- **Default concept** when the source records a plateau pressure (Pplat) without a LOINC code: *44782825 / 698822002 — Airway plateau pressure*.\n- **Source carries a LOINC code**: keep it. Use *36303946 / 76259-1 — Pressure.plateau Respiratory system airway --on ventilator* when the source states the patient was on the ventilator, otherwise *36304439 / 60829-9 — Pressure.plateau Respiratory system airway*. In practice these two and the SNOMED concept denote the same measurement — an end-inspiratory hold pressure — so downstream analyses should treat them as one variable.\n- **Use *21490565 / 60802-6 — Dynamic plateau pressure* only** when the source explicitly reports a dynamic (non-hold) estimate. Its LOINC component is `Pressure.plateau dynamic`, distinct from the `Pressure.plateau` component of the two codes above.\n- Convert mbar to cmH2O (×1.02) before mapping.\n- **Not peak, mean or PEEP**: these are distinct pressures in their own concept sets.\n"
       },
       "fr": {
         "name": "Pression de plateau (Pplat)",
@@ -91,6 +110,12 @@
     },
     "reviews": [],
     "versions": [
+      {
+        "version": "1.2.0",
+        "date": "2026-08-13",
+        "author": "Boris Delange",
+        "message": "Add the two LOINC Pressure.plateau concepts (60829-9, 76259-1) via their LOINC Hierarchy anchor, as suggested in issue #23. Describe them and clarify that Dynamic plateau pressure is a distinct LOINC component. Resolves to 4."
+      },
       {
         "version": "1.1.0",
         "date": "2026-06-11",
