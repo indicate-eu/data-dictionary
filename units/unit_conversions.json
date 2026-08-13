@@ -10496,5 +10496,137 @@
     "targetUnitConceptId": 44777604,
     "targetUnitCode": "L/L",
     "targetUnitName": "liter per liter"
+  },
+  {
+    "conceptId": 3052716,
+    "conceptName": "Fibrin D-dimer [Mass/volume] in Platelet poor plasma by Immunoassay.DDU",
+    "sourceUnitConceptId": 44777663,
+    "sourceUnitCode": "mg{FEU}/L",
+    "sourceUnitName": "milligram of fibrinogen equivalent unit per liter",
+    "conversionFactor": 500.0,
+    "targetUnitConceptId": 8748,
+    "targetUnitCode": "ug/L",
+    "targetUnitName": "microgram per liter"
+  },
+  {
+    "conceptId": 3052716,
+    "conceptName": "Fibrin D-dimer [Mass/volume] in Platelet poor plasma by Immunoassay.DDU",
+    "sourceUnitConceptId": 8748,
+    "sourceUnitCode": "ug/L",
+    "sourceUnitName": "microgram per liter",
+    "conversionFactor": 0.002,
+    "targetUnitConceptId": 44777663,
+    "targetUnitCode": "mg{FEU}/L",
+    "targetUnitName": "milligram of fibrinogen equivalent unit per liter"
+  },
+  {
+    "conceptId": 3048530,
+    "conceptName": "Fibrin D-dimer DDU [Mass/volume] in Platelet poor plasma",
+    "sourceUnitConceptId": 44777663,
+    "sourceUnitCode": "mg{FEU}/L",
+    "sourceUnitName": "milligram of fibrinogen equivalent unit per liter",
+    "conversionFactor": 500.0,
+    "targetUnitConceptId": 8748,
+    "targetUnitCode": "ug/L",
+    "targetUnitName": "microgram per liter"
+  },
+  {
+    "conceptId": 3048530,
+    "conceptName": "Fibrin D-dimer DDU [Mass/volume] in Platelet poor plasma",
+    "sourceUnitConceptId": 8748,
+    "sourceUnitCode": "ug/L",
+    "sourceUnitName": "microgram per liter",
+    "conversionFactor": 0.002,
+    "targetUnitConceptId": 44777663,
+    "targetUnitCode": "mg{FEU}/L",
+    "targetUnitName": "milligram of fibrinogen equivalent unit per liter"
+  },
+  {
+    "conceptId": 37021210,
+    "conceptName": "Fibrin D-dimer [Mass/volume] in Blood by Immunoassay.DDU",
+    "sourceUnitConceptId": 44777663,
+    "sourceUnitCode": "mg{FEU}/L",
+    "sourceUnitName": "milligram of fibrinogen equivalent unit per liter",
+    "conversionFactor": 500.0,
+    "targetUnitConceptId": 8748,
+    "targetUnitCode": "ug/L",
+    "targetUnitName": "microgram per liter"
+  },
+  {
+    "conceptId": 37021210,
+    "conceptName": "Fibrin D-dimer [Mass/volume] in Blood by Immunoassay.DDU",
+    "sourceUnitConceptId": 8748,
+    "sourceUnitCode": "ug/L",
+    "sourceUnitName": "microgram per liter",
+    "conversionFactor": 0.002,
+    "targetUnitConceptId": 44777663,
+    "targetUnitCode": "mg{FEU}/L",
+    "targetUnitName": "milligram of fibrinogen equivalent unit per liter"
+  },
+  {
+    "conceptId": 3052648,
+    "conceptName": "Fibrin D-dimer [Mass/volume] in Platelet poor plasma by Immunoassay.FEU",
+    "sourceUnitConceptId": 44777663,
+    "sourceUnitCode": "mg{FEU}/L",
+    "sourceUnitName": "milligram of fibrinogen equivalent unit per liter",
+    "conversionFactor": 500.0,
+    "targetUnitConceptId": 8748,
+    "targetUnitCode": "ug/L",
+    "targetUnitName": "microgram per liter"
+  },
+  {
+    "conceptId": 3052648,
+    "conceptName": "Fibrin D-dimer [Mass/volume] in Platelet poor plasma by Immunoassay.FEU",
+    "sourceUnitConceptId": 8748,
+    "sourceUnitCode": "ug/L",
+    "sourceUnitName": "microgram per liter",
+    "conversionFactor": 0.002,
+    "targetUnitConceptId": 44777663,
+    "targetUnitCode": "mg{FEU}/L",
+    "targetUnitName": "milligram of fibrinogen equivalent unit per liter"
+  },
+  {
+    "conceptId": 3051714,
+    "conceptName": "Fibrin D-dimer FEU [Mass/volume] in Platelet poor plasma",
+    "sourceUnitConceptId": 44777663,
+    "sourceUnitCode": "mg{FEU}/L",
+    "sourceUnitName": "milligram of fibrinogen equivalent unit per liter",
+    "conversionFactor": 500.0,
+    "targetUnitConceptId": 8748,
+    "targetUnitCode": "ug/L",
+    "targetUnitName": "microgram per liter"
+  },
+  {
+    "conceptId": 3051714,
+    "conceptName": "Fibrin D-dimer FEU [Mass/volume] in Platelet poor plasma",
+    "sourceUnitConceptId": 8748,
+    "sourceUnitCode": "ug/L",
+    "sourceUnitName": "microgram per liter",
+    "conversionFactor": 0.002,
+    "targetUnitConceptId": 44777663,
+    "targetUnitCode": "mg{FEU}/L",
+    "targetUnitName": "milligram of fibrinogen equivalent unit per liter"
+  },
+  {
+    "conceptId": 42870366,
+    "conceptName": "Fibrin D-dimer [Mass/volume] in Blood by Rapid immunoassay",
+    "sourceUnitConceptId": 44777663,
+    "sourceUnitCode": "mg{FEU}/L",
+    "sourceUnitName": "milligram of fibrinogen equivalent unit per liter",
+    "conversionFactor": 500.0,
+    "targetUnitConceptId": 8748,
+    "targetUnitCode": "ug/L",
+    "targetUnitName": "microgram per liter"
+  },
+  {
+    "conceptId": 42870366,
+    "conceptName": "Fibrin D-dimer [Mass/volume] in Blood by Rapid immunoassay",
+    "sourceUnitConceptId": 8748,
+    "sourceUnitCode": "ug/L",
+    "sourceUnitName": "microgram per liter",
+    "conversionFactor": 0.002,
+    "targetUnitConceptId": 44777663,
+    "targetUnitCode": "mg{FEU}/L",
+    "targetUnitName": "milligram of fibrinogen equivalent unit per liter"
   }
 ]

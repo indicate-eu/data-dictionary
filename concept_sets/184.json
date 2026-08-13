@@ -2,11 +2,11 @@
   "id": 184,
   "name": "Glycated hemoglobin (HbA1c) in blood",
   "description": null,
-  "version": "1.1.0",
+  "version": "1.1.1",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-05-27",
+  "modifiedDate": "2026-08-13",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -204,7 +204,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.1",
+        "date": "2026-08-13",
+        "author": "Boris Delange",
+        "message": "Add the recommended unit % (NGSP scale) to the five ratio concepts that had none; the NGSP/IFCC affine conversion was already documented and stored."
+      }
+    ],
     "distributionStats": null
   }
 }
