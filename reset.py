@@ -13,7 +13,9 @@ Run from the repository root:
     python3 reset.py --yes  # non-interactive
 
 After reset, run build.py to regenerate the static site data files (the script
-does this automatically unless --no-build is passed).
+does this automatically unless --no-build is passed, or the repository has no
+commit yet — build.py needs a HEAD to record version snapshots against, so on a
+fresh fork the build is skipped and you commit first).
 """
 
 import argparse
@@ -82,6 +84,20 @@ def _read_json(path):
         return json.load(f)
 
 
+def _has_commit():
+    """True if the repository has at least one commit (i.e. HEAD resolves)."""
+    try:
+        rc = subprocess.call(
+            ["git", "rev-parse", "--verify", "HEAD"],
+            cwd=ROOT,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+    except FileNotFoundError:
+        return False
+    return rc == 0
+
+
 def _write_json(path, data):
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2)
@@ -120,6 +136,16 @@ def main():
 
     if args.no_build:
         print("\nDone. Run `python3 build.py` to regenerate docs/data.json and docs/data_inline.js.")
+        return
+
+    if not _has_commit():
+        # A brand-new fork has no HEAD yet, and build.py needs one to record the
+        # commit behind each concept set version. Committing first is the fix, so
+        # say so rather than failing on a git error the reader has to decode.
+        print("\nSkipping build.py: this repository has no commits yet.")
+        print("Commit your files, then run `python3 build.py`:")
+        print("  git add -A && git commit -m 'Initialize fork'")
+        print("  python3 build.py")
         return
 
     print("\nRunning build.py to regenerate static site data...")

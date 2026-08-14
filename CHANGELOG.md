@@ -64,11 +64,16 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   a fork on Framagit.
 - **`build.py` and `snapshot.py` failed opaquely without git or without a commit.**
   A missing `git` binary raises `FileNotFoundError`, which neither script caught,
-  so CI images without git ended on a bare traceback. And `reset.py` on a fresh
-  fork runs `build.py` before the first commit, where `git rev-parse HEAD` reports
-  "ambiguous argument 'HEAD'". Both now exit with a message naming the fix. When
-  `git show` fails for a pinned version, the warning now points at the shallow
-  clone as the likely cause.
+  so CI images without git ended on a bare traceback. It now exits with a message
+  naming the fix. When `git show` fails for a pinned version, the warning points
+  at the shallow clone as the likely cause.
+- **`reset.py` on a fresh fork no longer fails on the build step.** `FORKING.md`
+  wipes the content (§1.5) before the first commit (§1.7), but `reset.py` ended by
+  running `build.py`, which needs a `HEAD` to record version snapshots against — so
+  following the guide in order hit "ambiguous argument 'HEAD'". A note explained the
+  workaround, but it silently reordered the two sections and was easy to miss.
+  `reset.py` now detects that the repository has no commit, skips the build, and
+  prints the two commands to run next; the guide's order works as written.
 - **"Propose on GitHub" pointed at github.com from non-GitHub forks.** Every edit
   and blob URL was built by interpolating `config.github.repo` into a hardcoded
   `https://github.com/`, so the main contribution path was broken for the GitLab

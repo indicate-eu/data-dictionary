@@ -104,7 +104,7 @@ Flags:
 - `--yes` — skip the confirmation prompt
 - `--no-build` — skip the rebuild step
 
-On a brand-new repository with no commit yet, the rebuild step stops with "this repository has no commits yet": `build.py` records the commit of each concept set version, and there is no `HEAD` to record. Harmless — commit your files, then run `python3 build.py`. Use `--no-build` to skip it outright.
+**On a brand-new repository with no commit yet, `reset.py` skips the build and tells you so.** `build.py` records the commit behind each concept set version, and a repository without a first commit has no `HEAD` to record. Nothing is wrong — make the first commit ([§1.7](#17-first-commit)), then run `python3 build.py`. You do not need `--no-build` for this.
 
 ### 1.6. Set up local terminology paths (optional but recommended)
 
@@ -188,6 +188,8 @@ git push
 `git add -A` rather than a hand-written list: `reset.py` touches six paths, and missing one leaves INDICATE content in your repo. Besides deleting `concept_sets/`, `projects/` and `concept_sets_resolved/`, it also empties `mapping_recommendations/mapping_recommendations.json` and resets `id_counters.json` **and `concept_sets_versions.json`** — that last one carries INDICATE's whole version index, and it is easy to leave behind.
 
 Nothing generated can slip in: `docs/data.json`, `docs/data_inline.js`, `docs/resolved_concept_ids.json`, `docs/concept_sets_resolved/` and `config.local.json` are all gitignored, and CI rebuilds them on every push (see §4).
+
+If [§1.5](#15-wipe-indicate-content) skipped the build because the repository had no commit yet, this is the point where you can run it — `python3 build.py`, now that `HEAD` exists. It only matters for previewing locally; CI builds the published site either way.
 
 Then publish the static site (see §4 below).
 
