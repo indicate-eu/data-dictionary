@@ -156,15 +156,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4178505,
-      "conceptName": "Body temperature measure",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "363816005",
-      "standardConcept": null
-    },
-    {
       "conceptId": 4188706,
       "conceptName": "Axillary temperature",
       "vocabularyId": "SNOMED",
@@ -514,33 +505,6 @@
       "conceptClassId": "Observable Entity",
       "conceptCode": "1222808002",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 40362568,
-      "conceptName": "Body temperature",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "276535009",
-      "standardConcept": null
-    },
-    {
-      "conceptId": 40387958,
-      "conceptName": "Body temperature",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "1942004",
-      "standardConcept": null
-    },
-    {
-      "conceptId": 40540392,
-      "conceptName": "Body temperature observable",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "363815009",
-      "standardConcept": null
     },
     {
       "conceptId": 44782834,

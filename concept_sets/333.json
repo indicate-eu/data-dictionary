@@ -2,11 +2,11 @@
   "id": 333,
   "name": "Oxygen saturation (SpO2)",
   "description": "Oxygen saturation (SpO2) — the percentage of haemoglobin carrying oxygen, measured non-invasively by pulse oximetry at the periphery; reported in %.",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-08-13",
+  "modifiedDate": "2026-08-14",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -293,7 +293,7 @@
         },
         "isExcluded": false,
         "includeDescendants": true,
-        "includeMapped": true
+        "includeMapped": false
       },
       {
         "concept": {
@@ -312,7 +312,7 @@
         },
         "isExcluded": true,
         "includeDescendants": true,
-        "includeMapped": true
+        "includeMapped": false
       },
       {
         "concept": {
@@ -331,7 +331,7 @@
         },
         "isExcluded": true,
         "includeDescendants": true,
-        "includeMapped": true
+        "includeMapped": false
       },
       {
         "concept": {
@@ -350,7 +350,7 @@
         },
         "isExcluded": true,
         "includeDescendants": true,
-        "includeMapped": true
+        "includeMapped": false
       },
       {
         "concept": {
@@ -369,7 +369,7 @@
         },
         "isExcluded": true,
         "includeDescendants": true,
-        "includeMapped": true
+        "includeMapped": false
       }
     ]
   },
@@ -425,6 +425,12 @@
         "date": "2026-08-13",
         "author": "Boris Delange",
         "message": "Move the units note from Mapping Notes to Included Concepts, where 94 of the dictionary's 102 unit notes already live. Text unchanged; the recommended unit is a property of the listed concepts rather than a mapping instruction."
+      },
+      {
+        "version": "1.1.2",
+        "date": "2026-08-14",
+        "author": "Boris Delange",
+        "message": "Drop includeMapped: it only pulled in the non-standard SNOMED concept 341251000000105 alongside the standard concept it maps to. Resolves to 19."
       }
     ],
     "distributionStats": null

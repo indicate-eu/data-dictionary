@@ -65,7 +65,7 @@
         },
         "isExcluded": true,
         "includeDescendants": true,
-        "includeMapped": true
+        "includeMapped": false
       }
     ]
   },

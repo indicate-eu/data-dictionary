@@ -163,15 +163,6 @@
       "conceptClassId": "Observable Entity",
       "conceptCode": "993701000000102",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 40458249,
-      "conceptName": "Urine output volume",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "251842000",
-      "standardConcept": null
     }
   ]
 }

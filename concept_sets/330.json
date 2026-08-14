@@ -2,11 +2,11 @@
   "id": 330,
   "name": "Body temperature",
   "description": "Body temperature — the patient's temperature measured at any anatomical site (oral, rectal, axillary, tympanic, core, skin, etc.); reported in °C or °F.",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-08-13",
+  "modifiedDate": "2026-08-14",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -483,7 +483,7 @@
         },
         "isExcluded": false,
         "includeDescendants": true,
-        "includeMapped": true
+        "includeMapped": false
       },
       {
         "concept": {
@@ -502,7 +502,7 @@
         },
         "isExcluded": true,
         "includeDescendants": true,
-        "includeMapped": true
+        "includeMapped": false
       },
       {
         "concept": {
@@ -521,7 +521,7 @@
         },
         "isExcluded": true,
         "includeDescendants": true,
-        "includeMapped": true
+        "includeMapped": false
       },
       {
         "concept": {
@@ -540,7 +540,7 @@
         },
         "isExcluded": true,
         "includeDescendants": true,
-        "includeMapped": true
+        "includeMapped": false
       },
       {
         "concept": {
@@ -559,7 +559,7 @@
         },
         "isExcluded": true,
         "includeDescendants": true,
-        "includeMapped": true
+        "includeMapped": false
       },
       {
         "concept": {
@@ -578,7 +578,7 @@
         },
         "isExcluded": true,
         "includeDescendants": true,
-        "includeMapped": true
+        "includeMapped": false
       },
       {
         "concept": {
@@ -597,7 +597,7 @@
         },
         "isExcluded": true,
         "includeDescendants": true,
-        "includeMapped": true
+        "includeMapped": false
       }
     ]
   },
@@ -659,6 +659,12 @@
         "date": "2026-08-13",
         "author": "Boris Delange",
         "message": "Name the recommended unit (Cel) and spell out that the Fahrenheit conversion is affine; note the LOINC 'deg' error on the nasal and ear temperature codes."
+      },
+      {
+        "version": "1.1.3",
+        "date": "2026-08-14",
+        "author": "Boris Delange",
+        "message": "Drop includeMapped: it only pulled in non-standard SNOMED concepts (363816005, 276535009, 1942004, 363815009) alongside the standard concepts they map to. Resolves to 61."
       }
     ],
     "distributionStats": null

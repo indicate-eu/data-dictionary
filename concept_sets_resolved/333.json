@@ -3,15 +3,6 @@
   "vocabularyVersion": null,
   "resolvedConcepts": [
     {
-      "conceptId": 3555589,
-      "conceptName": "Peripheral oxygen saturation",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "341251000000105",
-      "standardConcept": null
-    },
-    {
       "conceptId": 4196147,
       "conceptName": "Peripheral oxygen saturation",
       "vocabularyId": "SNOMED",
