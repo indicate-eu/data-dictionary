@@ -30,6 +30,15 @@ def git_show(sha, repo_path):
         return result.stdout
     except subprocess.CalledProcessError:
         return None
+    except FileNotFoundError:
+        # Without git we cannot read historical versions at all. snapshot.py runs
+        # first and exits with a clear message, so reaching this means git vanished
+        # mid-run; returning None would silently drop pinned versions instead.
+        raise SystemExit(
+            "git is not installed, but build.py needs it to read pinned concept set\n"
+            "versions. In CI, use an image that ships git (e.g. python:3.12-alpine\n"
+            "plus `apk add --no-cache git`)."
+        )
 
 
 def project_cs_entries(p):
@@ -92,6 +101,12 @@ def collect_versioned_snapshots(projects, concept_sets, versions_index):
         print("  WARNINGS while collecting versioned snapshots:")
         for cs_id, version, why in missing:
             print(f"    concept set {cs_id} v{version}: {why}")
+        # The commonest cause in CI is a shallow clone: the SHA is indexed but the
+        # commit was never fetched, so a project pins a version the site cannot
+        # show. Name the fix rather than leaving a bare "git show ... failed".
+        if any("git show" in why for _, _, why in missing):
+            print("  If this runs in CI, fetch the full history (GitLab: GIT_DEPTH: 0,")
+            print("  GitHub Actions: fetch-depth: 0) — a shallow clone cannot read past commits.")
     return cs_versions
 
 

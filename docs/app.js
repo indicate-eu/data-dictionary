@@ -9,18 +9,71 @@ var App = (function() {
   var APP_VERSION = '1.2.6';
   var APP_GITHUB_URL = 'https://github.com/indicate-eu/data-dictionary';
 
-  // Config injected by build.py from config.json (root). Branding, GitHub repo of the fork, etc.
+  // Config injected by build.py from config.json (root). Branding, the fork's own
+  // repository, etc.
   var config = (typeof DATA !== 'undefined' && DATA.config) ? DATA.config : {};
+
+  /**
+   * The `repository` config block: url, repo slug, branch, upstream, forge.
+   *
+   * Named `github` until v1.2.6, back when the project only targeted GitHub —
+   * misleading on a GitLab fork, where every key still read `github.*`. The old
+   * name stays accepted so existing forks keep working without editing anything.
+   */
+  function repoConfig() {
+    return config.repository || config.github || {};
+  }
 
   // Full URL of THIS dictionary's repo (the fork's own repo), e.g.
   // "https://github.com/indicate-eu/data-dictionary". Used to stamp metadata.sourceRepo
-  // and origin.repo so provenance survives a copy to another repo. config.github may
+  // and origin.repo so provenance survives a copy to another repo. The config may
   // carry either an `upstream` URL (…\.git) or an owner/repo `repo` slug; normalize both.
   function getConfigRepoUrl() {
-    var gh = config.github || {};
+    var gh = repoConfig();
+    if (gh.url) return String(gh.url).replace(/\.git$/, '').replace(/\/+$/, '');
+    if (gh.repo) return forgeOrigin() + '/' + gh.repo;
+    // Last resort. `upstream` is the project this fork came from, not the fork
+    // itself, so it only stands in when nothing else identifies this repo.
     if (gh.upstream) return String(gh.upstream).replace(/\.git$/, '');
-    if (gh.repo) return 'https://github.com/' + gh.repo;
     return '';
+  }
+
+  // ---------------------------------------------------------------------------
+  // Forge awareness
+  //
+  // A fork can live on GitHub, gitlab.com, or a self-hosted GitLab (framagit.org
+  // and the like), so the origin cannot be hardcoded. `github.upstream` carries a
+  // full URL, which is the only place the actual host appears — derive both the
+  // origin and the forge kind from it, and fall back to GitHub, which is what the
+  // upstream project uses.
+  //
+  // Edit and blob URLs happen to share the same shape on both forges
+  // (/edit/<branch>/<path>, /blob/<branch>/<path>), so only the origin changes.
+  // ---------------------------------------------------------------------------
+
+  function forgeOrigin() {
+    var gh = repoConfig();
+    // `repository.url` is THIS fork's forge root. Not `upstream`: that points at the
+    // project this fork was derived from (INDICATE, on GitHub), so a GitLab fork
+    // legitimately keeps a github.com upstream and reading it here would send
+    // every "Propose" link to the wrong host.
+    var m = String(gh.url || '').match(/^(https?:\/\/[^\/]+)/);
+    return m ? m[1] : 'https://github.com';
+  }
+
+  /**
+   * 'GitLab' or 'GitHub' — for user-facing labels ("Propose on GitLab").
+   * Set `github.forge` in config.json for a self-hosted instance whose domain
+   * says nothing about which forge it runs.
+   */
+  function forgeName() {
+    var declared = repoConfig().forge || '';
+    if (/^gitlab$/i.test(declared)) return 'GitLab';
+    if (/^github$/i.test(declared)) return 'GitHub';
+    // github.com is the only host we can name with certainty; anything else is
+    // assumed to be GitLab, which is the other forge this project supports. A
+    // self-hosted instance that is neither should set `github.forge`.
+    return /(^|\.)github\.com$/i.test(forgeOrigin().replace(/^https?:\/\//, '')) ? 'GitHub' : 'GitLab';
   }
 
   // ==================== STATE ====================
@@ -965,9 +1018,39 @@ var App = (function() {
   };
 
   function i18n(key) {
-    if (lang === 'en') return key;
-    var entry = I18N[key];
-    return (entry && entry[lang]) || key;
+    var out = key;
+    if (lang !== 'en') {
+      var entry = I18N[key];
+      out = (entry && entry[lang]) || key;
+    }
+    return localizeForge(out);
+  }
+
+  // Strings are written with "GitHub" because that is where the upstream project
+  // lives, but a fork may sit on GitLab — swap the name at render time so every
+  // label, tooltip and toast names the forge the user will actually land on.
+  // Only the bare word is replaced: "raw.githubusercontent.com" and "GitHub/GitLab"
+  // (which already names both) must survive untouched.
+  function localizeForge(s) {
+    if (typeof s !== 'string' || forgeName() === 'GitHub') return s;
+    return s
+      .replace(/GitHub(?!\/GitLab)(?!usercontent)/g, 'GitLab')
+      .replace(/fa-github\b/g, 'fa-gitlab');
+  }
+
+  function repoSlug() {
+    return repoConfig().repo || '';
+  }
+
+  /**
+   * Build an /edit/ or /blob/ URL for `filePath` at `branch`. The two forges do
+   * NOT share the shape: GitLab namespaces repository routes under `/-/`
+   * (`/-/edit/main/x.json`), GitHub does not (`/edit/main/x.json`).
+   */
+  function forgePath(kind, branch, filePath) {
+    var infix = forgeName() === 'GitLab' ? '/-/' : '/';
+    return forgeOrigin() + '/' + repoSlug() + infix + kind + '/' + branch + '/' +
+      String(filePath).replace(/^\//, '');
   }
 
   function formatDate(dateStr) {
@@ -990,6 +1073,15 @@ var App = (function() {
     document.querySelectorAll('[data-i18n-title]').forEach(function(el) {
       el.title = i18n(el.getAttribute('data-i18n-title'));
     });
+    // Static markup carries the GitHub mark; swap it on a GitLab fork so the icon
+    // matches the label next to it. Idempotent, so re-running on a language
+    // switch is harmless.
+    if (forgeName() === 'GitLab') {
+      document.querySelectorAll('i.fa-github').forEach(function(el) {
+        el.classList.remove('fa-github');
+        el.classList.add('fa-gitlab');
+      });
+    }
   }
 
   // ==================== HELPERS ====================
@@ -2001,10 +2093,9 @@ var App = (function() {
   }
 
   // Base URL serving the repository tree at `sha`, or null for hosts we cannot
-  // address. config.github has no host field, so GitLab is detected from
-  // `upstream` and GitHub is the default.
+  // address, derived from the fork's own repository URL.
   function repoRawBase(sha) {
-    var gh = (config.github || {});
+    var gh = repoConfig();
     var m = (gh.repo || '').match(/^([^\/]+)\/([^\/]+)$/);
     if (!m) return null;
     if ((gh.upstream || '').toLowerCase().indexOf('gitlab') >= 0) {
@@ -2440,21 +2531,26 @@ var App = (function() {
     // "INDICATE Data Dictionary v1.2.1 (https://github.com/indicate-eu/data-dictionary)"
     toolTag: function() { return APP_NAME + ' v' + APP_VERSION + ' (' + APP_GITHUB_URL + ')'; },
     config: config,
+    // Named `github*` for history; they address whichever forge the fork lives on.
+    repoConfig: repoConfig,
+    forgeName: forgeName,
+    forgeOrigin: forgeOrigin,
+    forgePath: forgePath,
+    localizeForge: localizeForge,
     github: function(path) {
-      var repo = (config.github && config.github.repo) || '';
-      var branch = (config.github && config.github.branch) || 'main';
-      var p = path || '';
-      return 'https://github.com/' + repo + '/' + p.replace(/^\//, '').replace(/^edit\//, 'edit/' + branch + '/').replace(/^blob\//, 'blob/' + branch + '/');
+      var branch = repoConfig().branch || 'main';
+      var p = (path || '').replace(/^\//, '');
+      var m = p.match(/^(edit|blob)\/(.*)$/);
+      if (m) return forgePath(m[1], branch, m[2]);
+      return forgeOrigin() + '/' + repoSlug() + '/' + p;
     },
     githubEdit: function(filePath) {
-      var repo = (config.github && config.github.repo) || '';
-      var branch = (config.github && config.github.branch) || 'main';
-      return 'https://github.com/' + repo + '/edit/' + branch + '/' + filePath.replace(/^\//, '');
+      var branch = repoConfig().branch || 'main';
+      return forgePath('edit', branch, filePath);
     },
     githubBlob: function(filePath) {
-      var repo = (config.github && config.github.repo) || '';
-      var branch = (config.github && config.github.branch) || 'main';
-      return 'https://github.com/' + repo + '/blob/' + branch + '/' + filePath.replace(/^\//, '');
+      var branch = repoConfig().branch || 'main';
+      return forgePath('blob', branch, filePath);
     },
     // State getters/setters
     get conceptSets() { return conceptSets; },

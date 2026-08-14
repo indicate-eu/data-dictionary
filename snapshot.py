@@ -76,8 +76,22 @@ def current_head_sha():
             check=True,
         )
         return result.stdout.strip()
+    except FileNotFoundError:
+        sys.exit(
+            "git is not installed, but snapshot.py needs it to record the commit of each\n"
+            "concept set version. In CI, use an image that ships git (e.g. python:3.12-alpine\n"
+            "plus `apk add --no-cache git`)."
+        )
     except subprocess.CalledProcessError as e:
-        sys.exit(f"git rev-parse HEAD failed: {e.stderr.strip()}")
+        stderr = e.stderr.strip()
+        # A fresh fork right after reset.py has no commit yet, so HEAD does not
+        # resolve. Say so plainly instead of echoing git's "ambiguous argument".
+        if "ambiguous argument 'HEAD'" in stderr or "unknown revision" in stderr:
+            sys.exit(
+                "This repository has no commits yet, so there is no HEAD to snapshot against.\n"
+                "Commit your files first, then run build.py again."
+            )
+        sys.exit(f"git rev-parse HEAD failed: {stderr}")
 
 
 def dirty_paths():

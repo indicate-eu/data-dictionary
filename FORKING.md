@@ -23,14 +23,21 @@ If you prefer GitLab, mirror or import the repo there: GitLab's `New project` �
 
 ### 1.2. Edit `config.json`
 
-This file at the repo root holds everything that identifies the dictionary as yours:
+This file at the repo root holds everything that identifies the dictionary as yours. Decide these before editing — they are your input, not defaults to leave alone:
+
+- the dictionary's **name** and **default language**;
+- your **repository URL** (`repository.url`) — **the one setting most often forgotten on a non-GitHub fork**, and every "Propose" link points at github.com without it;
+- your **organization** name and URL;
+- a **vocabulary prefix** for concepts you create yourself (e.g. `MYTEAM-`);
+- a **logo** and a **favicon** (§1.3).
 
 ```json
 {
   "title": "My Team Data Dictionary",
   "languages": ["en", "fr"],
   "defaultLanguage": "en",
-  "github": {
+  "repository": {
+    "url": "https://github.com/<your-org>/<your-repo>",
     "repo": "<your-org>/<your-repo>",
     "branch": "main",
     "upstream": "https://github.com/indicate-eu/data-dictionary.git",
@@ -58,11 +65,15 @@ This file at the repo root holds everything that identifies the dictionary as yo
 
 Key fields:
 - **`title`** — shown in the browser tab and the SPA header. This is the name of *your* dictionary.
-- **`github.repo`** — the URL fragment used for "Propose on GitHub" links (`https://github.com/<repo>/edit/<branch>/...`).
-- **`github.upstream`** — kept pointing at INDICATE's repo so `update_from_upstream.py` knows where to pull code updates from.
+- **`repository.url`** — full URL of *your* repo, e.g. `https://gitlab.com/my-team/data-dictionary` or `https://framagit.org/my-team/data-dictionary`. **Set this if you are not on GitHub**: its host becomes the origin of every "Propose" link, and the app relabels its buttons "Propose on GitLab" accordingly. Defaults to github.com when absent.
+- **`repository.repo`** — the `<owner>/<project>` slug of your repo, used to build "Propose" links (`<url-host>/<repo>/edit/<branch>/...`). GitHub and GitLab share that URL shape.
+- **`repository.upstream`** — kept pointing at INDICATE's repo so `update_from_upstream.py` knows where to pull code updates from. This is a *different* repo from yours, which is why the forge is read from `repository.url` and not from here.
+- **`repository.forge`** *(optional)* — `"gitlab"` or `"github"`. Only needed for a self-hosted instance whose domain says nothing about which software it runs; anything that is not github.com is otherwise assumed to be GitLab.
 - **`organization`** — default `metadata.organization` written into new concept sets.
 - **`customVocabulary`** — vocabulary id and code prefix used when a user adds a *custom* concept (not from OMOP) inside the SPA.
 - **`tabs`** — set `false` to hide the Projects or Mapping Recommendations tabs if you don't need them.
+
+This block was called `github` before v1.2.6, back when the project only targeted GitHub. That name is still read, so an older fork keeps working; rename it to `repository` when convenient.
 
 **Not configurable** (intentionally): the application name and version shown in the footer always reference the master upstream INDICATE app, since that's what's running here. Your dictionary content is versioned per concept set (`version` field in each `concept_sets/<id>.json`), independently of the app version.
 
@@ -85,12 +96,15 @@ The Documentation page (`#/documentation`, served from `docs/documentation.js`) 
 python3 reset.py
 ```
 
-This wipes `concept_sets/`, `projects/`, `concept_sets_resolved/`, resets `units/recommended_units.json` to `[]` and `id_counters.json` to `{1, 1}`. Generic content (`units/unit_conversions.json`, `mapping_recommendations/`) and configuration are kept. After confirming, the script also runs `build.py` to regenerate `docs/data.json`.
+This wipes `concept_sets/`, `projects/` and `concept_sets_resolved/`, empties the content of `mapping_recommendations/mapping_recommendations.json` (its structure is preserved), and resets `id_counters.json` to `{1, 1}` and `concept_sets_versions.json` to `{}`.
+
+Kept as-is: `config.json`, `config.local.json`, `units/unit_conversions.json`, `units/recommended_units.json` (the unit tables are generic, so your fork starts with them) and `docs/`. After confirming, the script also runs `build.py`.
 
 Flags:
 - `--yes` — skip the confirmation prompt
-- `--keep-units` — also keep `recommended_units.json` (otherwise reset to `[]`)
 - `--no-build` — skip the rebuild step
+
+On a brand-new repository with no commit yet, the rebuild step stops with "this repository has no commits yet": `build.py` records the commit of each concept set version, and there is no `HEAD` to record. Harmless — commit your files, then run `python3 build.py`. Use `--no-build` to skip it outright.
 
 ### 1.6. Set up local terminology paths (optional but recommended)
 
@@ -165,11 +179,15 @@ Once filled in:
 ### 1.7. First commit
 
 ```bash
-git add config.json docs/logo.png docs/favicon.png docs/data.json docs/data_inline.js
-git add concept_sets/ projects/ units/recommended_units.json id_counters.json
+git add -A
+git status            # check nothing unexpected is staged
 git commit -m "Initialize fork for <my team>"
 git push
 ```
+
+`git add -A` rather than a hand-written list: `reset.py` touches six paths, and missing one leaves INDICATE content in your repo. Besides deleting `concept_sets/`, `projects/` and `concept_sets_resolved/`, it also empties `mapping_recommendations/mapping_recommendations.json` and resets `id_counters.json` **and `concept_sets_versions.json`** — that last one carries INDICATE's whole version index, and it is easy to leave behind.
+
+Nothing generated can slip in: `docs/data.json`, `docs/data_inline.js`, `docs/resolved_concept_ids.json`, `docs/concept_sets_resolved/` and `config.local.json` are all gitignored, and CI rebuilds them on every push (see §4).
 
 Then publish the static site (see §4 below).
 
@@ -211,10 +229,10 @@ python3 update_from_upstream.py
 ```
 
 What it does:
-1. Adds (or updates) a git remote named `upstream` pointing at the URL in `config.json -> github.upstream`.
+1. Adds (or updates) a git remote named `upstream` pointing at the URL in `config.json -> repository.upstream`.
 2. Runs `git fetch upstream <branch>`.
-3. Checks out a fixed list of code paths from `upstream/<branch>`: `build.py`, `resolve.py`, `reset.py`, `update_from_upstream.py`, all of `docs/*.js`, `docs/*.html`, `docs/*.css`, `.claude/skills/`, `CLAUDE.md`, `FORKING.md`, `config.local.example.json`, `.gitignore`, `.gitlab-ci.yml`.
-4. Leaves your content alone: `concept_sets/`, `projects/`, `units/`, `mapping_recommendations/`, `id_counters.json`, `config.json`, `config.local.json`, `docs/logo.png`, `docs/favicon.png`, `docs/data_dictionary.png`, and the generated `docs/data.json` / `docs/data_inline.js`.
+3. Checks out a fixed list of code paths from `upstream/<branch>` (see `UPSTREAM_PATHS` in the script for the authoritative list): `build.py`, `resolve.py`, `snapshot.py`, `reset.py`, `update_from_upstream.py`, all of `docs/*.js`, `docs/*.html`, `docs/app.css`, `.claude/skills/`, `CLAUDE.md`, `FORKING.md`, `concept_set.example.json`, `config.local.example.json`, `.gitignore`, `.gitlab-ci.yml`, `.github/workflows/build-and-deploy.yml`.
+4. Leaves your content alone: `concept_sets/`, `projects/`, `units/`, `mapping_recommendations/`, `concept_sets_resolved/`, `concept_sets_versions.json`, `id_counters.json`, `config.json`, `config.local.json`, `docs/logo.png`, `docs/favicon.png`, `docs/data_dictionary.png`. The generated files under `docs/` are untouched too, but they are gitignored anyway — rerun `python3 build.py` after the update.
 
 Flags:
 - `--dry-run` — show what would change without modifying anything
@@ -242,33 +260,33 @@ If a code change conflicts with a local customization (e.g. you edited `docs/doc
 
 ## 4. Deployment
 
-The static site lives in `docs/`. Both GitHub Pages and GitLab Pages can serve it directly without a build step (because `docs/data.json` and `docs/data_inline.js` are committed — they are regenerated locally with `python3 build.py` whenever source data changes).
+The static site lives in `docs/`, but **the data files it needs are not committed**. `docs/data.json`, `docs/data_inline.js`, `docs/resolved_concept_ids.json` and `docs/concept_sets_resolved/` are gitignored and regenerated by `build.py`, so **CI must run the build before publishing**. Both shipped configurations do; if you write your own, it has to as well, otherwise the page loads and the app dies on `DATA is not defined` because `data_inline.js` 404s.
+
+The build needs **Python 3 and git** (it reads the commits recorded in `concept_sets_versions.json` for the versions your projects pin), and **the full history** — a shallow clone cannot read past commits, so a pinned version would silently vanish from the published site.
 
 ### 4.1. GitHub Pages
 
-In the GitHub repo: `Settings` → `Pages` → `Source: Deploy from a branch` → `Branch: main, folder: /docs` → `Save`. After 1–2 minutes the site is published at:
+The repo ships `.github/workflows/build-and-deploy.yml`, which runs `build.py` and deploys `docs/` on every push to `main`.
+
+In the GitHub repo: `Settings` → `Pages` → `Source: **GitHub Actions**` (not "Deploy from a branch" — that would publish `docs/` without building it). After the first successful run the site is published at:
 
 ```
 https://<your-org>.github.io/<your-repo>/
 ```
 
-Each push to `main` redeploys automatically. You can also use a custom domain via the same settings page.
+Custom domains are configured on the same settings page.
 
 ### 4.2. GitLab Pages
 
-The repo ships a `.gitlab-ci.yml` that publishes `docs/` to GitLab Pages on every push to the default branch. No configuration needed beyond pushing the repo to GitLab — GitLab Pages is enabled by default for public projects, and the `pages` job runs as part of the standard pipeline.
+The repo ships a `.gitlab-ci.yml` that runs `build.py` and publishes `docs/` on every push to the default branch. Nothing to configure beyond pushing — Pages is enabled by default for public projects, and the `pages` job runs as part of the standard pipeline.
 
-After the first successful pipeline, the site is published at:
+After the first successful pipeline, read the published URL from `Settings` → `Pages`. On gitlab.com it follows `https://<group>.gitlab.io/<project>/` (or `<username>` for personal namespaces), but **self-hosted instances differ** — Framagit, for example, generates a per-project subdomain such as `https://data-dictionary-2a8740.frama.io`. Don't assume the gitlab.com shape.
 
-```
-https://<group>.gitlab.io/<project>/
-```
+### 4.3. Committing the data files instead
 
-(or, for personal namespaces, `https://<username>.gitlab.io/<project>/`). Custom domains are configured in `Settings` → `Pages`.
+If you would rather keep CI minimal and commit the generated files, remove the four entries under "Generated by build.py" from `.gitignore`, run `python3 build.py` locally after every change to source data, and commit the result. You can then drop the build step from whichever CI configuration you use.
 
-### 4.3. Rebuilding data files when needed
-
-If you would rather not commit the generated files (`docs/data.json`, `docs/data_inline.js`, `docs/resolved_concept_ids.json`, `docs/concept_sets_resolved/`), add them to `.gitignore` and uncomment the build step inside `.gitlab-ci.yml` (or set up an equivalent GitHub Actions workflow). The default setup commits them to keep CI minimal — the data is the canonical artifact, the page just serves it.
+This is not the default, and it is easy to get wrong: forget one rebuild and the published site silently serves stale data. Prefer building in CI unless you have a specific reason not to.
 
 ---
 

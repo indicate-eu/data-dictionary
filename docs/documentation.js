@@ -4484,12 +4484,13 @@ var DocumentationPage = (function() {
       + '<p>One file at the repo root identifies the dictionary as yours \u2014 title, organization, GitHub repo, branding, custom vocabulary prefix:</p>'
       + '<pre><code>{\n'
       + '  "title": "My Team Data Dictionary",\n'
-      + '  "github": { "repo": "my-org/my-repo", "branch": "main",\n'
-      + '              "upstream": "https://github.com/indicate-eu/data-dictionary.git" },\n'
+      + '  "repository": { "url": "https://github.com/my-org/my-repo",\n'
+      + '                  "repo": "my-org/my-repo", "branch": "main",\n'
+      + '                  "upstream": "https://github.com/indicate-eu/data-dictionary.git" },\n'
       + '  "organization": { "name": "My Team", "url": "https://my-team.example.org" },\n'
       + '  "customVocabulary": { "id": "MYTEAM", "codePrefix": "MYTEAM-" }\n'
       + '}</code></pre>'
-      + '<p><code>github.upstream</code> stays pointed at INDICATE so you can pull code updates later. '
+      + '<p><code>repository.upstream</code> stays pointed at INDICATE so you can pull code updates later. '
       + '<code>organization</code> becomes the default author of new concept sets.</p>'
 
       + '<h2>3. Wipe the INDICATE content</h2>'
@@ -4533,12 +4534,13 @@ var DocumentationPage = (function() {
       + '<p>Un seul fichier \u00e0 la racine identifie le dictionnaire comme le v\u00f4tre \u2014 titre, organisation, d\u00e9p\u00f4t GitHub, identit\u00e9 visuelle, pr\u00e9fixe de vocabulaire\u00a0:</p>'
       + '<pre><code>{\n'
       + '  "title": "Dictionnaire de mon \u00e9quipe",\n'
-      + '  "github": { "repo": "mon-org/mon-repo", "branch": "main",\n'
-      + '              "upstream": "https://github.com/indicate-eu/data-dictionary.git" },\n'
+      + '  "repository": { "url": "https://github.com/mon-org/mon-repo",\n'
+      + '                  "repo": "mon-org/mon-repo", "branch": "main",\n'
+      + '                  "upstream": "https://github.com/indicate-eu/data-dictionary.git" },\n'
       + '  "organization": { "name": "Mon \u00e9quipe", "url": "https://mon-equipe.example.org" },\n'
       + '  "customVocabulary": { "id": "MONEQUIPE", "codePrefix": "MONEQUIPE-" }\n'
       + '}</code></pre>'
-      + '<p><code>github.upstream</code> reste point\u00e9 vers INDICATE pour pouvoir r\u00e9cup\u00e9rer les mises \u00e0 jour de code. '
+      + '<p><code>repository.upstream</code> reste point\u00e9 vers INDICATE pour pouvoir r\u00e9cup\u00e9rer les mises \u00e0 jour de code. '
       + '<code>organization</code> devient l\u2019auteur par d\u00e9faut des nouveaux jeux de concepts.</p>'
 
       + '<h2>3. Effacer le contenu INDICATE</h2>'
@@ -4792,10 +4794,13 @@ var DocumentationPage = (function() {
       try { _hierarchyGraphs[k].destroy(); } catch (e) {}
     });
     _hierarchyGraphs = {};
+    // The documentation is written against GitHub, where the upstream project
+    // lives; on a GitLab fork every mention is renamed at render time so the text
+    // matches the forge the reader is actually on.
     if (!isDev() && isSectionDraft(currentSection)) {
-      document.getElementById('doc-content-inner').innerHTML = draftPlaceholder();
+      document.getElementById('doc-content-inner').innerHTML = App.localizeForge(draftPlaceholder());
     } else {
-      document.getElementById('doc-content-inner').innerHTML = section;
+      document.getElementById('doc-content-inner').innerHTML = App.localizeForge(section);
     }
     setTimeout(initDocSqlEditor, 50);
   }

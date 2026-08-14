@@ -156,11 +156,14 @@ def main():
 
     ensure_git_repo()
 
-    cfg = load_config().get("github", {})
+    # "repository" since v1.2.6; "github" is the pre-rename name, still accepted so
+    # forks created before it keep working untouched.
+    full_cfg = load_config()
+    cfg = full_cfg.get("repository") or full_cfg.get("github") or {}
     url = args.upstream or cfg.get("upstream")
     branch = args.branch or cfg.get("upstreamBranch") or "main"
     if not url:
-        sys.exit("Error: no upstream URL. Pass --upstream <url>, or set github.upstream in config.json.")
+        sys.exit("Error: no upstream URL. Pass --upstream <url>, or set repository.upstream in config.json.")
 
     if not args.dry_run and not working_tree_clean():
         print("Warning: working tree has uncommitted changes. The update will mix with them.")

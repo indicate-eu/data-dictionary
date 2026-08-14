@@ -2,7 +2,8 @@
   "title": "INDICATE Data Dictionary",
   "languages": ["en", "fr"],
   "defaultLanguage": "en",
-  "github": {
+  "repository": {
+    "url": "https://github.com/indicate-eu/data-dictionary",
     "repo": "indicate-eu/data-dictionary",
     "branch": "main",
     "upstream": "https://github.com/indicate-eu/data-dictionary.git",

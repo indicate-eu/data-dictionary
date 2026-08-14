@@ -39,6 +39,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- **`config.json`'s `github` block is now `repository`.** The name dated from when
+  the project only targeted GitHub, and read as a contradiction on a GitLab fork
+  where every key was still `github.*`. `github` is still accepted, so existing
+  forks keep working untouched.
 - **Past versions are no longer embedded in `data.json`.** Only small pinned
   definitions are (up to 500 expression items); resolved lists and large
   definitions are fetched instead. Previously a pinned snapshot had no size limit
@@ -48,6 +52,42 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   pattern `ensureResolvedLoaded` already used for deferred resolved files.
 
 ### Fixed
+
+- **GitLab forks published a broken site.** `.gitlab-ci.yml` only copied `docs/`
+  into `public/`, on the stated assumption that `docs/data.json` and
+  `docs/data_inline.js` were committed — but `.gitignore` excludes them, so every
+  GitLab fork deployed without its data files and the app died on `DATA is not
+  defined`. The job now runs `build.py` like the GitHub workflow does, on an image
+  carrying Python and git, and fetches the full history (`GIT_DEPTH: 0`): a shallow
+  clone cannot read the past commits that pinned versions point at, which would
+  drop those concept sets from the published site with only a warning. Reported by
+  a fork on Framagit.
+- **`build.py` and `snapshot.py` failed opaquely without git or without a commit.**
+  A missing `git` binary raises `FileNotFoundError`, which neither script caught,
+  so CI images without git ended on a bare traceback. And `reset.py` on a fresh
+  fork runs `build.py` before the first commit, where `git rev-parse HEAD` reports
+  "ambiguous argument 'HEAD'". Both now exit with a message naming the fix. When
+  `git show` fails for a pinned version, the warning now points at the shallow
+  clone as the likely cause.
+- **"Propose on GitHub" pointed at github.com from non-GitHub forks.** Every edit
+  and blob URL was built by interpolating `config.github.repo` into a hardcoded
+  `https://github.com/`, so the main contribution path was broken for the GitLab
+  forks `FORKING.md` invites. URLs now derive their origin from a new
+  `config.github.url` (the fork's own repo — not `upstream`, which points at the
+  project it was forked from), and use each forge's route shape: GitLab
+  namespaces these under `/-/`, GitHub does not. Buttons, tooltips, toasts and the
+  documentation say "GitLab" on a GitLab fork, and the GitHub mark is swapped for
+  the GitLab one. `config.github.forge` overrides the detection for a self-hosted
+  instance whose domain gives nothing away.
+- **`FORKING.md` documented the opposite of what the repo ships.** §4.3 presented
+  committed data files as the default and building in CI as the opt-in, when the
+  shipped `.gitignore` is the reverse; §4.1 told readers to serve `/docs` from a
+  branch, which skips the build. §4.2 also asserted a gitlab.com Pages URL shape
+  that self-hosted instances do not follow. §1.5 described a `--keep-units` flag
+  that does not exist and claimed `reset.py` wipes `recommended_units.json` (it
+  keeps it) while omitting that it empties `mapping_recommendations.json` and
+  resets `concept_sets_versions.json`; §1.7 staged two gitignored files, which
+  `git add` refuses; §3's list of synced paths omitted `snapshot.py`.
 
 - **SQL export: missing unit filter on single-unit concept sets.** The optional
   `AND unit_concept_id IN (…)` filter was only emitted when unit conversions were

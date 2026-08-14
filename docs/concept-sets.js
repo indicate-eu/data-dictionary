@@ -2,8 +2,8 @@
 var ConceptSetsPage = (function() {
   'use strict';
 
-  function GITHUB_REPO() { return (App.config.github && App.config.github.repo) || ''; }
-  function GITHUB_BRANCH() { return (App.config.github && App.config.github.branch) || 'main'; }
+  function GITHUB_REPO() { return App.repoConfig().repo || ''; }
+  function GITHUB_BRANCH() { return App.repoConfig().branch || 'main'; }
   function CUSTOM_VOCAB_ID() { return (App.config.customVocabulary && App.config.customVocabulary.id) || 'CUSTOM'; }
   function CUSTOM_VOCAB_PREFIX() { return (App.config.customVocabulary && App.config.customVocabulary.codePrefix) || 'CUSTOM-'; }
 
@@ -317,7 +317,7 @@ var ConceptSetsPage = (function() {
     var link = document.getElementById('cs-view-json');
     if (!selectedConceptSet || !link) return;
     var folder = (csConceptMode === 'expression') ? 'concept_sets' : 'concept_sets_resolved';
-    link.href = 'https://github.com/' + GITHUB_REPO() + '/blob/' + GITHUB_BRANCH() + '/' + folder + '/' + selectedConceptSet.id + '.json';
+    link.href = App.forgePath('blob', GITHUB_BRANCH(), folder + '/' + selectedConceptSet.id + '.json');
   }
 
   function switchConceptMode(mode) {
@@ -5346,19 +5346,15 @@ var ConceptSetsPage = (function() {
   }
 
   // Permalink to this concept set at the version the SQL was generated from, so a
-  // query pasted into an ETL repo stays traceable back to its definition. The site
-  // root is derived from config.github.repo (Pages/GitLab Pages convention, same
-  // as resolveRepoUrls below) and falls back to wherever the app is running, which
-  // keeps forks and local previews correct.
+  // query pasted into an ETL repo stays traceable back to its definition.
+  //
+  // The site root is read from where the app is actually running rather than
+  // derived from the repository slug: the <owner>.github.io/<project>/ convention
+  // only holds on GitHub Pages, and self-hosted GitLab instances publish under
+  // per-project subdomains that no slug can predict.
   function conceptSetPermalink(cs) {
-    var base = null;
-    var repo = (App.config && App.config.github && App.config.github.repo) || '';
-    var m = repo.match(/^([^\/]+)\/([^\/]+)$/);
-    if (m) base = 'https://' + m[1].toLowerCase() + '.github.io/' + m[2] + '/';
-    if (!base) {
-      base = window.location.origin + window.location.pathname;
-      if (!/\/$/.test(base)) base = base.replace(/[^\/]*$/, '');
-    }
+    var base = window.location.origin + window.location.pathname;
+    if (!/\/$/.test(base)) base = base.replace(/[^\/]*$/, '');
     var url = base + '#/concept-sets?id=' + cs.id;
     if (cs.version) url += '&version=' + encodeURIComponent(cs.version);
     return url;
@@ -6396,10 +6392,15 @@ var ConceptSetsPage = (function() {
       var sets = data.conceptSets || [];
       // Prefer the foreign repo's own configured URL for provenance; fall back to
       // what the user typed (stripped of any /data.json suffix).
-      var srcRepo = (data.config && data.config.github && (
-        (data.config.github.upstream && data.config.github.upstream.replace(/\.git$/, '')) ||
-        (data.config.github.repo && 'https://github.com/' + data.config.github.repo)
-      )) || repoUrl.replace(/\/?(docs\/)?data\.json($|\?.*)/, '');
+      var srcCfg = (data.config && (data.config.repository || data.config.github)) || null;
+      var typedRepo = repoUrl.replace(/\/?(docs\/)?data\.json($|\?.*)/, '');
+      // A bare `repo` slug carries no host, so it cannot be turned into a URL
+      // without guessing the forge — the URL the user actually typed is used
+      // instead, which is right whichever forge the source lives on.
+      var srcRepo = (srcCfg && (
+        (srcCfg.url && srcCfg.url.replace(/\.git$/, '')) ||
+        (srcCfg.upstream && srcCfg.upstream.replace(/\.git$/, ''))
+      )) || typedRepo;
       importResultsMode = 'repo';
       importCandidates = sets.map(function(cs) {
         var cls = classifyImport(cs);
