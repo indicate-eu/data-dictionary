@@ -1585,6 +1585,10 @@ LIMIT 50</div>
           <div id="export-sql-unit-row" class="export-sql-unit-row" style="display:none">
             <label for="export-sql-unit-select" data-i18n="Reference unit:">Reference unit:</label>
             <select id="export-sql-unit-select"></select>
+            <label id="export-sql-drop-units-label" class="export-sql-drop-units" style="display:none">
+              <input type="checkbox" id="export-sql-drop-units">
+              <span data-i18n="Drop rows in other units">Drop rows in other units</span>
+            </label>
             <span id="export-sql-unit-hint" class="export-sql-unit-hint"></span>
           </div>
           <button type="button" id="export-preview-copy-btn" class="export-preview-copy-btn">
@@ -1712,22 +1716,27 @@ Enter your review comments here using Markdown syntax.
 <div class="modal-overlay" id="cs-version-modal" style="display:none">
   <div class="modal" style="max-width:1180px; width:96vw; max-height:80vh; display:flex; flex-direction:column">
     <div class="modal-header">
-      <h3><i class="fas fa-code-branch"></i> <span data-i18n="Create New Version">Create New Version</span></h3>
+      <h3><i class="fas fa-code-branch"></i> <span data-i18n="Versions">Versions</span></h3>
       <button class="modal-close" id="cs-version-close">&times;</button>
     </div>
     <div class="modal-body" style="overflow-y:auto; flex:1; min-height:0">
-      <label style="font-size:12px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px; display:block" data-i18n="Version">Version</label>
-      <input type="text" id="cs-version-input" class="form-input" placeholder="e.g., 1.1.0" style="margin-bottom:12px">
-      <label style="font-size:12px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px; display:block"><span data-i18n="Message (optional)">Message (optional)</span></label>
-      <textarea id="cs-version-message" class="form-input" rows="3" data-i18n-placeholder="Describe what changed..." placeholder="Describe what changed..." style="margin-bottom:16px; resize:vertical"></textarea>
+      <button type="button" class="export-btn" id="cs-version-new-btn" style="margin-bottom:16px">
+        <i class="fas fa-plus"></i> <span data-i18n="Create New Version">Create New Version</span>
+      </button>
+      <div id="cs-version-form" style="display:none">
+        <label style="font-size:12px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px; display:block" data-i18n="Version">Version</label>
+        <input type="text" id="cs-version-input" class="form-input" placeholder="e.g., 1.1.0" style="margin-bottom:12px">
+        <label style="font-size:12px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px; display:block"><span data-i18n="Message (optional)">Message (optional)</span></label>
+        <textarea id="cs-version-message" class="form-input" rows="3" data-i18n-placeholder="Describe what changed..." placeholder="Describe what changed..." style="margin-bottom:16px; resize:vertical"></textarea>
+      </div>
       <div id="cs-version-history" style="display:none">
         <label style="font-size:12px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px; display:block" data-i18n="Version History">Version History</label>
         <div id="cs-version-history-body"></div>
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn-cancel" id="cs-version-cancel" data-i18n="Cancel">Cancel</button>
-      <button class="btn-submit" id="cs-version-save"><i class="fas fa-check"></i> <span data-i18n="Save">Save</span></button>
+      <button class="btn-cancel" id="cs-version-cancel" data-i18n="Close">Close</button>
+      <button class="btn-submit" id="cs-version-save" style="display:none"><i class="fas fa-check"></i> <span data-i18n="Save">Save</span></button>
     </div>
   </div>
 </div>

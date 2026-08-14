@@ -4767,8 +4767,14 @@ var ConceptSetsPage = (function() {
     }
     container.style.display = '';
     var rows = versions.slice().reverse().map(function(v) {
-      return '<tr>' +
-        '<td style="white-space:nowrap; font-weight:600">' + App.escapeHtml(v.version || '') + '</td>' +
+      // The whole row is the click target, not just the version number: a narrow
+      // cell is an awkward thing to aim at.
+      var attrs = (v.version && v.version !== cs.version)
+        ? ' class="version-history-row" data-goto-version="' + App.escapeHtml(v.version) + '"' +
+          ' title="' + App.escapeHtml(App.i18n('View this version')) + '"'
+        : '';
+      return '<tr' + attrs + '>' +
+        '<td style="white-space:nowrap; font-weight:600">' + versionLinkCell(cs, v.version) + '</td>' +
         '<td style="white-space:pre-wrap">' + App.escapeHtml(v.message || v.summary || '') + '</td>' +
         '<td style="white-space:nowrap">' + versionAuthorCell(v) + '</td>' +
         '<td style="white-space:nowrap; color:var(--text-muted); font-size:12px">' + App.escapeHtml(v.date || '') + '</td>' +
@@ -4780,6 +4786,25 @@ var ConceptSetsPage = (function() {
       '<th style="white-space:nowrap">' + App.escapeHtml(App.i18n('Author')) + '</th>' +
       '<th style="white-space:nowrap">' + App.escapeHtml(App.i18n('Date')) + '</th>' +
       '</tr></thead><tbody>' + rows + '</tbody></table>';
+  }
+
+  // Version cell for a history row: a green badge for the current version, a link
+  // style for the others (the row itself carries the click handler).
+  function versionLinkCell(cs, version) {
+    var label = App.escapeHtml(version || '');
+    if (!version) return label;
+    if (version === cs.version) {
+      // Native title rather than the .author-tooltip machinery: that one needs JS
+      // positioning to escape the modal-body overflow clip, which is overkill for
+      // a one-word label.
+      return '<span class="version-current-badge" title="' +
+        App.escapeHtml(App.i18n('Current version')) + '">' + label + '</span>';
+    }
+    // Not an <a>: the row-level handler navigates through Router.navigate, which
+    // preserves the active language. A raw href would drop `lang=fr`. It carries
+    // the badge's padding and a transparent border so every version number in the
+    // column starts at the same x, badge or not.
+    return '<span class="version-history-link">' + label + '</span>';
   }
 
   // Author cell for a version row: a name badge with a hoverable black tooltip
@@ -4803,13 +4828,25 @@ var ConceptSetsPage = (function() {
     '</span>';
   }
 
+  // The modal opens on the version history; the creation form is behind a button,
+  // since reading past versions is the common case and creating one the rare.
+  function showVersionForm(on) {
+    document.getElementById('cs-version-form').style.display = on ? '' : 'none';
+    document.getElementById('cs-version-save').style.display = on ? '' : 'none';
+    document.getElementById('cs-version-new-btn').style.display = on ? 'none' : '';
+    if (on) document.getElementById('cs-version-input').focus();
+  }
+
   function openVersionModal() {
     if (!selectedConceptSet || selectedSnapshotVersion) return;
     document.getElementById('cs-version-input').value = suggestNextVersion(selectedConceptSet.version);
     document.getElementById('cs-version-message').value = '';
     renderVersionHistory();
+    // With no history to read, the modal would show nothing but the button, so
+    // open straight on the form.
+    var hasHistory = ((selectedConceptSet.metadata && selectedConceptSet.metadata.versions) || []).length > 0;
+    showVersionForm(!hasHistory);
     document.getElementById('cs-version-modal').style.display = 'flex';
-    document.getElementById('cs-version-input').focus();
   }
 
   function closeVersionModal() {
@@ -4994,6 +5031,8 @@ var ConceptSetsPage = (function() {
     select.innerHTML = '<option>' + App.i18n('Loading units...') + '</option>';
     select.disabled = true;
     if (hint) hint.textContent = '';
+    var dropLabelReset = document.getElementById('export-sql-drop-units-label');
+    if (dropLabelReset) dropLabelReset.style.display = 'none';
 
     showExportPreview('-- ' + App.i18n('Loading...'), 'sql', { showUnitRow: true });
 
@@ -5028,6 +5067,13 @@ var ConceptSetsPage = (function() {
       select.innerHTML = opts;
       select.disabled = false;
       if (hint) hint.textContent = '';
+      // The checkbox only makes sense once a reference unit is selected.
+      var dropLabel = document.getElementById('export-sql-drop-units-label');
+      var dropBox = document.getElementById('export-sql-drop-units');
+      if (dropLabel && dropBox) {
+        dropLabel.style.display = '';
+        dropBox.checked = sqlDropOtherUnits();
+      }
 
       // Choose default: prefer the most common recommended unit among CS concepts
       var defaultUnitId = pickDefaultRefUnitId(unitEntries.map(function(u) { return u.unitId; }));
@@ -5252,6 +5298,39 @@ var ConceptSetsPage = (function() {
     return Object.keys(unitIdSet).map(function(k) { return parseInt(k, 10); });
   }
 
+  // Permalink to this concept set at the version the SQL was generated from, so a
+  // query pasted into an ETL repo stays traceable back to its definition. The site
+  // root is derived from config.github.repo (Pages/GitLab Pages convention, same
+  // as resolveRepoUrls below) and falls back to wherever the app is running, which
+  // keeps forks and local previews correct.
+  function conceptSetPermalink(cs) {
+    var base = null;
+    var repo = (App.config && App.config.github && App.config.github.repo) || '';
+    var m = repo.match(/^([^\/]+)\/([^\/]+)$/);
+    if (m) base = 'https://' + m[1].toLowerCase() + '.github.io/' + m[2] + '/';
+    if (!base) {
+      base = window.location.origin + window.location.pathname;
+      if (!/\/$/.test(base)) base = base.replace(/[^\/]*$/, '');
+    }
+    var url = base + '#/concept-sets?id=' + cs.id;
+    if (cs.version) url += '&version=' + encodeURIComponent(cs.version);
+    return url;
+  }
+
+  // "Drop rows in other units" checkbox: when on, the optional unit filter below
+  // is emitted as live SQL instead of a commented-out suggestion. Persisted across
+  // sessions, since it reflects how a team wants its exports to behave.
+  var SQL_DROP_UNITS_KEY = 'indicate_sql_drop_other_units';
+
+  function sqlDropOtherUnits() {
+    try { return localStorage.getItem(SQL_DROP_UNITS_KEY) === '1'; }
+    catch (e) { return false; }
+  }
+
+  function setSqlDropOtherUnits(on) {
+    try { localStorage.setItem(SQL_DROP_UNITS_KEY, on ? '1' : '0'); } catch (e) {}
+  }
+
   function buildOMOPSQL(refUnitId) {
     var cs = selectedConceptSet;
     var tr = App.t(cs);
@@ -5260,6 +5339,7 @@ var ConceptSetsPage = (function() {
 
     if (concepts.length === 0) {
       return '-- Concept Set: ' + csName + ' (ID: ' + cs.id + ')\n' +
+        '-- ' + conceptSetPermalink(cs) + '\n' +
         '-- No standard resolved concepts available.\n' +
         '-- Load an OHDSI vocabulary database or ensure concept sets are resolved.\n';
     }
@@ -5344,7 +5424,9 @@ var ConceptSetsPage = (function() {
 
     var lines = [];
     lines.push('-- ============================================================');
-    lines.push('-- Concept Set: ' + csName + ' (ID: ' + cs.id + ')');
+    lines.push('-- Concept Set: ' + csName + ' (ID: ' + cs.id +
+      (cs.version ? ', version ' + cs.version : '') + ')');
+    lines.push('-- ' + conceptSetPermalink(cs));
     lines.push('-- Generated by ' + App.toolTag());
     lines.push('-- Date: ' + new Date().toISOString().slice(0, 10));
     lines.push('-- ============================================================');
@@ -5382,6 +5464,11 @@ var ConceptSetsPage = (function() {
       // The resulting column keeps the standard OMOP name `value_as_number`.
       var valueAsNumberExpr = null;
       var unitConceptIdExpr = null;
+      // Declared here (not inside the `if`) so the optional unit filter below can
+      // still be emitted for a set that has a reference unit but no conversions.
+      var convertedSrcUnits = [];
+      var ambiguous = false;
+      var convGroups = [];
       if (domain === 'Measurement' && refUnitId) {
         var perConcept = getPerConceptConversions(domainConcepts, refUnitId);
 
@@ -5396,8 +5483,8 @@ var ConceptSetsPage = (function() {
             convBySrc[srcUnitId][conv.factor + '|' + (conv.offset || 0)] = conv;
           });
         });
-        var convertedSrcUnits = Object.keys(convBySrc).map(function(k) { return parseInt(k, 10); });
-        var ambiguous = Object.keys(convBySrc).some(function(srcUnitId) {
+        convertedSrcUnits = Object.keys(convBySrc).map(function(k) { return parseInt(k, 10); });
+        ambiguous = Object.keys(convBySrc).some(function(srcUnitId) {
           return Object.keys(convBySrc[srcUnitId]).length > 1;
         });
         // A concept set covers a single clinical variable (same analyte), so a
@@ -5411,7 +5498,6 @@ var ConceptSetsPage = (function() {
         // conversion set, so the generated CASE has one branch per distinct
         // conversion — not one per concept. Concepts with no conversion get no
         // branch at all (the outer ELSE already keeps their raw value).
-        var convGroups = [];
         (function() {
           var bySig = {};
           domainConcepts.forEach(function(c) {
@@ -5527,22 +5613,41 @@ var ConceptSetsPage = (function() {
       });
       lines.push(')');
 
-      // When conversions are applied, rows in a non-convertible unit are returned
-      // with their raw value and original unit (nothing is dropped). Offer an
-      // opt-in filter to exclude those rows for a fully-normalized result.
-      if (unitConceptIdExpr) {
-        lines.push('-- Optional: uncomment to drop rows whose unit cannot be converted to the reference unit');
-        if (!ambiguous) {
-          lines.push('-- AND unit_concept_id IN (' + [refUnitId].concat(convertedSrcUnits).join(', ') + ')');
+      // Nothing is ever dropped by the SELECT: a row whose unit cannot be
+      // converted (or whose set has no conversion at all) is returned with its
+      // raw value and original unit, silently. Offer an opt-in filter so the
+      // caller can exclude those rows and get a fully-normalized result.
+      if (domain === 'Measurement' && refUnitId) {
+        // `on` = the "Drop rows in other units" checkbox. When on, the filter is
+        // live SQL; when off, it stays a commented-out suggestion (the previous
+        // behaviour). `p` prefixes each line accordingly.
+        var on = sqlDropOtherUnits();
+        var p = on ? '' : '-- ';
+        if (!unitConceptIdExpr) {
+          // No conversion is registered for this set, so the reference unit is the
+          // only expected one. Rows in any other unit (or with none) would flow
+          // through unconverted and unflagged, so offer the same filter.
+          lines.push(on
+            ? '-- Keeping only rows already in ' + unitLabel(refUnitId) + ', the expected unit'
+            : '-- Optional: uncomment to keep only rows already in ' + unitLabel(refUnitId) + ', the expected unit');
+          lines.push(p + 'AND unit_concept_id = ' + refUnitId);
+        } else if (!ambiguous) {
+          lines.push(on
+            ? '-- Dropping rows whose unit cannot be converted to the reference unit'
+            : '-- Optional: uncomment to drop rows whose unit cannot be converted to the reference unit');
+          lines.push(p + 'AND unit_concept_id IN (' + [refUnitId].concat(convertedSrcUnits).join(', ') + ')');
         } else {
-          lines.push('-- AND (unit_concept_id = ' + refUnitId);
+          lines.push(on
+            ? '-- Dropping rows whose unit cannot be converted to the reference unit'
+            : '-- Optional: uncomment to drop rows whose unit cannot be converted to the reference unit');
+          lines.push(p + 'AND (unit_concept_id = ' + refUnitId);
           convGroups.forEach(function(grp) {
             var conceptCond = grp.ids.length === 1
               ? 'measurement_concept_id = ' + grp.ids[0]
               : 'measurement_concept_id IN (' + grp.ids.join(', ') + ')';
-            lines.push('--      OR (' + conceptCond + ' AND unit_concept_id IN (' + grp.srcIds.join(', ') + '))');
+            lines.push(p + '     OR (' + conceptCond + ' AND unit_concept_id IN (' + grp.srcIds.join(', ') + '))');
           });
-          lines.push('-- )');
+          lines.push(p + ')');
         }
       }
 
@@ -7351,6 +7456,12 @@ var ConceptSetsPage = (function() {
       var val = parseInt(this.value, 10);
       if (!isNaN(val)) updateExportPreviewContent(buildOMOPSQL(val));
     });
+    document.getElementById('export-sql-drop-units').addEventListener('change', function() {
+      setSqlDropOtherUnits(this.checked);
+      var sel = document.getElementById('export-sql-unit-select');
+      var val = parseInt(sel.value, 10);
+      updateExportPreviewContent(buildOMOPSQL(isNaN(val) ? null : val));
+    });
     document.getElementById('export-preview-copy-btn').addEventListener('click', function() {
       if (!exportPreviewEditor) return;
       var content = exportPreviewEditor.getValue();
@@ -7365,8 +7476,17 @@ var ConceptSetsPage = (function() {
     document.getElementById('cs-version-close').addEventListener('click', closeVersionModal);
     document.getElementById('cs-version-cancel').addEventListener('click', closeVersionModal);
     document.getElementById('cs-version-save').addEventListener('click', saveVersion);
+    document.getElementById('cs-version-new-btn').addEventListener('click', function() {
+      showVersionForm(true);
+    });
     document.getElementById('cs-version-modal').addEventListener('click', function(e) {
-      if (e.target === document.getElementById('cs-version-modal')) closeVersionModal();
+      if (e.target === document.getElementById('cs-version-modal')) { closeVersionModal(); return; }
+      // Clicking anywhere on a history row opens that snapshot. Skip clicks inside
+      // the author badge, whose tooltip carries its own ORCID link.
+      var row = e.target.closest('tr[data-goto-version]');
+      if (!row || e.target.closest('.author-badge-wrap')) return;
+      closeVersionModal();
+      Router.navigate('/concept-sets', { id: selectedConceptSet.id, version: row.dataset.gotoVersion });
     });
 
     // Status modal events

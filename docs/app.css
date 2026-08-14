@@ -1275,6 +1275,32 @@ tbody td {
 .author-tooltip .author-tooltip-row { display: block; }
 .author-tooltip .author-tooltip-muted { color: #bbb; }
 
+/* Version history table (Versions modal) */
+.version-current-badge {
+  display: inline-block;
+  padding: 2px 9px;
+  border-radius: 11px;
+  background: #d1f0dd;
+  border: 1px solid #7cc79a;
+  color: #14683b;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: help;
+}
+/* Same box as .version-current-badge (padding + 1px border) but invisible, so the
+   version numbers line up whether or not the row carries the badge. */
+.version-history-link {
+  display: inline-block;
+  padding: 2px 9px;
+  border: 1px solid transparent;
+  font-size: 12px;
+  color: var(--primary);
+}
+.version-history-row { cursor: pointer; }
+.version-history-row:hover { background: #f3f6fa; }
+.version-history-row:hover .version-history-link { text-decoration: underline; }
+
 .export-btn {
   padding: 6px 14px;
   background: white;
@@ -2124,6 +2150,21 @@ select.form-input { appearance: auto; }
   font-size: 12px;
   color: var(--text-muted);
   font-style: italic;
+}
+/* Overrides the bold, muted styling `.export-sql-unit-row label` applies to the
+   "Reference unit:" label — this one is a clickable checkbox caption. */
+.export-sql-unit-row label.export-sql-drop-units {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 400;
+  color: var(--text);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.export-sql-unit-row label.export-sql-drop-units input {
+  margin: 0;
+  cursor: pointer;
 }
 .export-preview-copy-btn {
   display: inline-flex;
