@@ -28,7 +28,7 @@ Three independent scripts; `build.py` does **not** re-resolve, it reads existing
 
 - **`resolve.py`** — expands `expression.items` (descendants via `concept_ancestor`, mapped via `concept_relationship`; resolved = included − excluded) using the OMOP vocab, writing `concept_sets_resolved/{id}.json`. Run only after editing a set's `expression`. Algorithm mirrors `R/fct_duckdb.R`.
 - **`snapshot.py`** — records `(id, version) → HEAD commit SHA` in `concept_sets_versions.json` for any version not yet indexed. Auto-called by `build.py`.
-- **`build.py`** — calls `snapshot.py`, then bundles all source JSON into `docs/data.json` + `docs/data_inline.js`. Resolved sets ≤100 concepts are inlined; larger ones are deferred to `docs/concept_sets_resolved/{id}.json` (lazy-loaded). See the script docstrings for output shape details.
+- **`build.py`** — calls `snapshot.py`, then bundles all source JSON into `docs/data.json` + `docs/data_inline.js`. Resolved sets ≤100 concepts are inlined; larger ones are deferred to `docs/concept_sets_resolved/{id}.json` (lazy-loaded). It also copies `concept_sets_versions.json` into the payload as `conceptSetVersionsIndex` — the SPA needs those SHAs at runtime (see below). See the script docstrings for output shape details.
 
 ## Data schemas
 
@@ -63,7 +63,14 @@ Concept sets are designed to be shared between separate dictionary repos (e.g. d
 
 ## Versioned concept sets in projects
 
-Projects pin each concept set to a `version` (`groups[].conceptSets: [{id, version}]`); the SPA renders that exact pinned version even after the source is bumped, preserving reproducibility. History is stored as an **index of commit SHAs** in `concept_sets_versions.json` (not duplicated files); `build.py` fetches the historical JSON via `git show <sha>:concept_sets/{id}.json`.
+Projects pin each concept set to a `version` (`groups[].conceptSets: [{id, version}]`); the SPA renders that exact pinned version even after the source is bumped, preserving reproducibility. History is stored as an **index of commit SHAs** in `concept_sets_versions.json` (not duplicated files).
+
+**Two paths serve a past version**, because inlining all of them would dwarf the payload (one microbiology set is 3.7 MB on its own):
+
+- **Inlined at build time** — `build.py` runs `git show <sha>:concept_sets/{id}.json` for versions a project pins, and embeds them in `conceptSetVersions`. Only definitions up to 500 expression items; resolved lists are never inlined.
+- **Fetched at runtime** — anything else (larger definitions, every resolved list, and versions no project pins) is pulled by the browser from the host's raw endpoint at the indexed SHA, which is why `conceptSetVersionsIndex` ships in `data.json`. `App.fetchConceptSetVersion(id, version)` caches the result so `getConceptSet`/`getResolvedConceptSet` serve it synchronously afterwards; a page that reads a pinned version must preload it first (`App.fetchPinnedVersions(project)`) — see the CSV export in `projects.js` and `ensureResolvedLoaded` in `mapping.js`.
+
+A version that was never snapshotted is therefore unreachable, not merely absent from pinned projects.
 
 **When bumping a `version`, follow the two-commit workflow** (details + the `HEAD`-SHA pitfall are in `snapshot.py`'s docstring):
 

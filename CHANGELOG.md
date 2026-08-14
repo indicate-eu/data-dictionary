@@ -22,11 +22,30 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   dropdown. When ticked, the unit filter is emitted as live SQL rather than a
   commented-out suggestion, so the query returns only rows in a unit that could be
   harmonised. The choice is kept in `localStorage` across sessions.
-- **Version history: clickable versions.** In the "Create New Version" modal, each
-  past version in the history table links to that exact snapshot
-  (`#/concept-sets?id=320&version=1.1.0`). Only versions that resolve to a stored
-  snapshot are linked, so a link never lands on the "version not available"
-  banner.
+- **Version history: clickable versions.** The version modal is now titled
+  "Versions" and opens on the history, with the creation form behind a button.
+  Each past version is a clickable row leading to that version
+  (`#/concept-sets?id=320&version=1.1.0`); the current one shows as a green badge.
+- **Any published version is now browsable.** Past versions are fetched on demand
+  from the repository at the commit recorded in `concept_sets_versions.json`, whose
+  index now ships in `data.json` (+34 KB). Both the definition and the resolved
+  concept list are retrieved, so an old version shows the concepts it actually had.
+  Results are cached, so the existing synchronous getters serve them afterwards.
+  This needs network access.
+- **Viewing a past version no longer traps you there.** The version modal opens
+  from a snapshot as well, and lists the *latest* set's history — so newer versions
+  are reachable, not just older ones. Creating a version stays restricted to the
+  latest. The green badge marks the version on screen.
+
+### Changed
+
+- **Past versions are no longer embedded in `data.json`.** Only small pinned
+  definitions are (up to 500 expression items); resolved lists and large
+  definitions are fetched instead. Previously a pinned snapshot had no size limit
+  at all, so pinning one microbiology set to an older version grew `data.json` from
+  3.8 MB to 7.4 MB. Pages that read a pinned version — project CSV export, the
+  update-concept-set diff, mapping coverage — now preload it first, following the
+  pattern `ensureResolvedLoaded` already used for deferred resolved files.
 
 ### Fixed
 

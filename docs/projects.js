@@ -1384,7 +1384,8 @@ var ProjectsPage = (function() {
       : { sign: '-', color: '#991b1b', bg: '#fee2e2' });
   }
 
-  function openUpdateCSModal(csId) {
+  function openUpdateCSModal(csId, options) {
+    options = options || {};
     if (!selectedProject) return;
     var cs = App.getConceptSet(csId);
     if (!cs) return;
@@ -1398,7 +1399,17 @@ var ProjectsPage = (function() {
 
     // Large resolved sets are deferred by build.py — fetch before diffing.
     if (App.resolvedDeferred && App.resolvedDeferred[csId] && !App.resolvedIndex[csId]) {
-      App.fetchResolved(csId).then(function() { openUpdateCSModal(csId); });
+      App.fetchResolved(csId).then(function() { openUpdateCSModal(csId, options); });
+      return;
+    }
+    // Same for the pinned side: its resolved list lives in the repository unless
+    // build.py embedded it. Without this the diff reads "unknown" and shows nothing.
+    // `_retried` guards against looping when the fetch fails — the modal then opens
+    // with the "diff unavailable" message it already handles.
+    if (!options._retried && !App.getResolvedConceptSet(csId, pinned) && App.versionCommitSha(csId, pinned)) {
+      App.fetchConceptSetVersion(csId, pinned).then(function() {
+        openUpdateCSModal(csId, { _retried: true });
+      });
       return;
     }
     updatingCSId = csId;
@@ -1591,6 +1602,14 @@ var ProjectsPage = (function() {
     // CSV export for project concepts
     document.getElementById('proj-export-csv').addEventListener('click', function() {
       if (!selectedProject) return;
+      // A pinned version too large to embed is fetched from the repository. Without
+      // this, getConceptSet returns null below and those concept sets drop out of
+      // the export silently.
+      App.fetchPinnedVersions(selectedProject).then(exportProjectCSV);
+    });
+
+    function exportProjectCSV() {
+      if (!selectedProject) return;
       var groups = App.getProjectGroups(selectedProject);
       var rows = [];
       rows.push(['group_name', 'group_rule',
@@ -1644,7 +1663,7 @@ var ProjectsPage = (function() {
       a.download = (projTr.name || 'project').replace(/[^a-zA-Z0-9]/g, '_') + '_concepts.csv';
       a.click();
       URL.revokeObjectURL(url);
-    });
+    }
 
     // Project JSON export
     document.getElementById('proj-export-json').addEventListener('click', function() {

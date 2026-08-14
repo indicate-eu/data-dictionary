@@ -45,9 +45,13 @@ def project_cs_entries(p):
 
 def collect_versioned_snapshots(projects, concept_sets, versions_index):
     """For each (id, version) pinned by a project where version != current source version,
-    fetch the snapshot of concept_sets/{id}.json and concept_sets_resolved/{id}.json at the
-    commit recorded in the index. Return (cs_versions, resolved_versions) dicts shaped as
-    {id: {version: full_json}}."""
+    fetch the snapshot of concept_sets/{id}.json at the commit recorded in the index.
+    Return {id: {version: full_json}}.
+
+    Only the *definition* is embedded. The resolved list of a pinned version is fetched
+    from the repository on demand instead: it is by far the heavier of the two (one
+    microbiology set alone weighs 2 MB), and unlike the current-version resolved files
+    it had no size threshold, so a single pinned set could have doubled data.json."""
     current_versions = {cs["id"]: cs.get("version") for cs in concept_sets}
     needed = set()
     for p in projects:
@@ -60,8 +64,13 @@ def collect_versioned_snapshots(projects, concept_sets, versions_index):
                 continue
             needed.add((cs_id, version))
 
+    # Same rationale as RESOLVED_INLINE_THRESHOLD for current-version resolved files:
+    # a definition with thousands of expression items (microbiology, drug classes)
+    # would dwarf the rest of the payload — set 238 alone is 3.7 MB. Those are fetched
+    # from the repository on demand instead.
+    SNAPSHOT_INLINE_MAX_ITEMS = 500
+
     cs_versions = {}
-    resolved_versions = {}
     missing = []
     for cs_id, version in sorted(needed):
         sha = versions_index.get(str(cs_id), {}).get(version)
@@ -72,17 +81,18 @@ def collect_versioned_snapshots(projects, concept_sets, versions_index):
         if cs_blob is None:
             missing.append((cs_id, version, f"git show concept_sets/{cs_id}.json @ {sha[:10]} failed"))
             continue
-        cs_versions.setdefault(str(cs_id), {})[version] = json.loads(cs_blob)
-
-        resolved_blob = git_show(sha, f"concept_sets_resolved/{cs_id}.json")
-        if resolved_blob is not None:
-            resolved_versions.setdefault(str(cs_id), {})[version] = json.loads(resolved_blob)
+        parsed = json.loads(cs_blob)
+        n_items = len((parsed.get("expression") or {}).get("items") or [])
+        if n_items > SNAPSHOT_INLINE_MAX_ITEMS:
+            print(f"    concept set {cs_id} v{version}: {n_items} expression items — fetched on demand")
+            continue
+        cs_versions.setdefault(str(cs_id), {})[version] = parsed
 
     if missing:
         print("  WARNINGS while collecting versioned snapshots:")
         for cs_id, version, why in missing:
             print(f"    concept set {cs_id} v{version}: {why}")
-    return cs_versions, resolved_versions
+    return cs_versions
 
 
 def load_json_dir(directory, sort_key="id"):
@@ -193,9 +203,8 @@ def main():
                     dst = os.path.join(docs_resolved_dir, f"{r['conceptSetId']}.json")
                     shutil.copy2(src, dst)
 
-    cs_versions, resolved_versions = collect_versioned_snapshots(projects, concept_sets, versions_index)
+    cs_versions = collect_versioned_snapshots(projects, concept_sets, versions_index)
     n_cs_snapshots = sum(len(v) for v in cs_versions.values())
-    n_resolved_snapshots = sum(len(v) for v in resolved_versions.values())
 
     data = {
         "dataVersion": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
@@ -205,7 +214,14 @@ def main():
         "projects": projects,
         "resolvedConceptSets": resolved_inline,
         "conceptSetVersions": cs_versions,
-        "resolvedConceptSetVersions": resolved_versions,
+        # Deliberately empty: the resolved list of a past version is fetched from the
+        # repository on demand. The key stays so older cached payloads keep parsing.
+        "resolvedConceptSetVersions": {},
+        # {id: {version: commit_sha}} for every published version, not just the ones
+        # snapshotted above. The app uses it to fetch a version's JSON straight from
+        # the host's raw endpoint when it is not embedded — that is what makes the
+        # whole version history browsable without inlining all of it here.
+        "conceptSetVersionsIndex": versions_index,
         "unitConversions": unit_conversions,
         "recommendedUnits": recommended_units,
         "mappingRecommendations": mapping_recommendations,
@@ -241,7 +257,7 @@ def main():
           f"({len(resolved) - deferred_count} inline, {deferred_count} deferred), "
           f"{len(unit_conversions)} unit conversions, {len(recommended_units)} recommended units, "
           f"mapping recommendations ({mr_langs} languages), "
-          f"versioned snapshots ({n_cs_snapshots} concept sets, {n_resolved_snapshots} resolved)")
+          f"versioned snapshots ({n_cs_snapshots} concept set definitions)")
     print(f"  -> docs/data.json ({os.path.getsize(os.path.join(DOCS, 'data.json')):,} bytes)")
     print(f"  -> docs/data_inline.js ({os.path.getsize(os.path.join(DOCS, 'data_inline.js')):,} bytes)")
 

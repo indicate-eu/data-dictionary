@@ -1338,7 +1338,11 @@ var MappingPage = (function() {
     if (_resolvedReady) return true;
     if (!_resolvedLoading) {
       var ids = Object.keys(App.resolvedDeferred || {});
-      _resolvedLoading = Promise.all(ids.map(function(id) { return App.fetchResolved(Number(id)); }))
+      var jobs = ids.map(function(id) { return App.fetchResolved(Number(id)); });
+      // Projects may pin a version too large for build.py to embed; coverage is
+      // computed against the pinned resolved list, so pull those in as well.
+      (App.projects || []).forEach(function(p) { jobs.push(App.fetchPinnedVersions(p)); });
+      _resolvedLoading = Promise.all(jobs)
         .then(function() { _resolvedReady = true; _conceptDictCache = null; });
     }
     if (onReady) _resolvedLoading.then(onReady);

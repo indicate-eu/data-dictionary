@@ -847,6 +847,7 @@ var App = (function() {
     'Drop rows in other units':      { fr: 'Exclure les lignes dans d\'autres unités' },
     'Versions':                      { fr: 'Versions' },
     'Current version':               { fr: 'Version actuelle' },
+    'Version shown':                 { fr: 'Version affichée' },
     'View this version':             { fr: 'Voir cette version' },
     '-- Select status --':           { fr: '-- Sélectionner un statut --' },
     'Status:':                       { fr: 'Statut :' },
@@ -918,6 +919,7 @@ var App = (function() {
     'No comments in this review.':    { fr: 'Aucun commentaire dans cette review.' },
     'No reviews match the current filters.': { fr: 'Aucune review ne correspond aux filtres actuels.' },
     'The requested version {pinned} is not available (it was never published or snapshotted). The latest version is {latest}.': { fr: 'La version demandée {pinned} n\'est pas disponible (elle n\'a jamais été publiée ou snapshotée). La dernière version est {latest}.' },
+    'Version {pinned} could not be loaded from the repository — check your connection and try again. The latest version is {latest}.': { fr: 'La version {pinned} n\'a pas pu être chargée depuis le dépôt — vérifiez votre connexion et réessayez. La dernière version est {latest}.' },
     'This review targets the current version': { fr: 'Cette review porte sur la version en cours' },
     'This review targets an earlier version (current: {v}) — click to open it': { fr: 'Cette review porte sur une version antérieure (en cours : {v}) — cliquez pour l\'ouvrir' },
     'OMOP source_to_concept_map':    { fr: 'OMOP source_to_concept_map' },
@@ -1955,7 +1957,8 @@ var App = (function() {
     if (live && live.version === version) return live;
     var snaps = (DATA.conceptSetVersions || {})[String(id)];
     if (snaps && snaps[version]) return snaps[version];
-    return null;
+    var got = fetchedVersions[id + '@' + version];
+    return (got && got.cs) || null;
   }
 
   /**
@@ -1970,13 +1973,99 @@ var App = (function() {
     }
     var snaps = (DATA.resolvedConceptSetVersions || {})[String(id)];
     if (snaps && snaps[version]) return snaps[version].resolvedConcepts || [];
-    return null;
+    var got = fetchedVersions[id + '@' + version];
+    return (got && got.resolved) || null;
   }
 
   /** Return the latest known version of concept set `id` (live or null). */
   function getLatestVersion(id) {
     var cs = conceptSets.find(function(c) { return c.id === id; });
     return cs ? (cs.version || '') : '';
+  }
+
+  // ---------------------------------------------------------------------------
+  // Past versions fetched from the repository
+  //
+  // build.py embeds only the small definitions a project pins; anything larger,
+  // and every resolved list, is pulled from the host's raw endpoint at the commit
+  // recorded in conceptSetVersionsIndex. Results land in fetchedVersions, which
+  // getConceptSet/getResolvedConceptSet consult, so once a version has been
+  // fetched every existing synchronous caller sees it.
+  // ---------------------------------------------------------------------------
+
+  var fetchedVersions = {};   // "id@version" -> { cs, resolved } | null when it failed
+  var inFlightVersions = {};  // "id@version" -> Promise, so concurrent asks share one call
+
+  function versionCommitSha(id, version) {
+    return ((DATA.conceptSetVersionsIndex || {})[String(id)] || {})[version] || null;
+  }
+
+  // Base URL serving the repository tree at `sha`, or null for hosts we cannot
+  // address. config.github has no host field, so GitLab is detected from
+  // `upstream` and GitHub is the default.
+  function repoRawBase(sha) {
+    var gh = (config.github || {});
+    var m = (gh.repo || '').match(/^([^\/]+)\/([^\/]+)$/);
+    if (!m) return null;
+    if ((gh.upstream || '').toLowerCase().indexOf('gitlab') >= 0) {
+      return 'https://gitlab.com/' + m[1] + '/' + m[2] + '/-/raw/' + sha + '/';
+    }
+    return 'https://raw.githubusercontent.com/' + m[1] + '/' + m[2] + '/' + sha + '/';
+  }
+
+  /**
+   * Fetch concept set `id` at `version` from the repository, resolving to
+   * { cs, resolved } or null when the version is unknown, the host unsupported or
+   * the network call fails. The resolved list is optional — a version predating
+   * its resolved file still yields its definition.
+   */
+  function fetchConceptSetVersion(id, version) {
+    var key = id + '@' + version;
+    if (Object.prototype.hasOwnProperty.call(fetchedVersions, key)) {
+      return Promise.resolve(fetchedVersions[key]);
+    }
+    if (inFlightVersions[key]) return inFlightVersions[key];
+
+    var sha = versionCommitSha(id, version);
+    var base = sha ? repoRawBase(sha) : null;
+    if (!base) { fetchedVersions[key] = null; return Promise.resolve(null); }
+
+    var p = fetch(base + 'concept_sets/' + id + '.json').then(function(resp) {
+      if (!resp.ok) throw new Error('HTTP ' + resp.status);
+      return resp.json();
+    }).then(function(cs) {
+      return fetch(base + 'concept_sets_resolved/' + id + '.json')
+        .then(function(r) { return r.ok ? r.json() : null; })
+        .catch(function() { return null; })
+        .then(function(res) {
+          var out = { cs: cs, resolved: (res && res.resolvedConcepts) || null };
+          fetchedVersions[key] = out;
+          delete inFlightVersions[key];
+          return out;
+        });
+    }).catch(function(err) {
+      console.warn('Could not fetch concept set ' + id + ' v' + version + ':', err);
+      fetchedVersions[key] = null;
+      delete inFlightVersions[key];
+      return null;
+    });
+    inFlightVersions[key] = p;
+    return p;
+  }
+
+  /**
+   * Preload every version a project pins that is not already available, so the
+   * synchronous getters below can serve them. Resolves once all are in.
+   */
+  function fetchPinnedVersions(project) {
+    var wanted = [];
+    getProjectGroups(project).forEach(function(g) {
+      (g.conceptSets || []).forEach(function(e) {
+        if (!e.version || getConceptSet(e.id, e.version)) return;
+        if (versionCommitSha(e.id, e.version)) wanted.push([e.id, e.version]);
+      });
+    });
+    return Promise.all(wanted.map(function(w) { return fetchConceptSetVersion(w[0], w[1]); }));
   }
 
   // Group rule constants
@@ -2372,6 +2461,12 @@ var App = (function() {
     get projects() { return projects; },
     get unitConversions() { return unitConversions; },
     get recommendedUnits() { return recommendedUnits; },
+    // {id: {version: commit_sha}} for every published version — lets a page fetch a
+    // version that build.py did not embed straight from the repository.
+    get conceptSetVersionsIndex() { return DATA.conceptSetVersionsIndex || {}; },
+    versionCommitSha: versionCommitSha,
+    fetchConceptSetVersion: fetchConceptSetVersion,
+    fetchPinnedVersions: fetchPinnedVersions,
     get mappingRecommendations() { return mappingRecommendations; },
     set mappingRecommendations(v) { mappingRecommendations = v; safeSet('indicate_user_mapping', JSON.stringify(v)); },
     getMappingContent: function(l) {

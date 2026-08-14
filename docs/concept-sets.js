@@ -3265,11 +3265,12 @@ var ConceptSetsPage = (function() {
       return;
     }
 
-    // Snapshot mode: the resolved concepts for the pinned version are inlined
-    // in DATA.resolvedConceptSetVersions by build.py. Never live-resolve in this
-    // mode — the current VocabDB may not match the snapshot's source vocab.
+    // Snapshot mode: the resolved concepts come from the version embedded by
+    // build.py, or from the copy fetched at that version's commit. Never
+    // live-resolve here — the current VocabDB may not match the snapshot's
+    // source vocab.
     if (selectedSnapshotVersion) {
-      var snap = App.getResolvedConceptSet(selectedConceptSet.id, selectedSnapshotVersion) || [];
+      var snap = resolvedForCurrentView();
       renderResolvedTableWithData(appendCustomConcepts(snap, items), keepFilters, skipFilterId);
       return;
     }
@@ -4537,6 +4538,21 @@ var ConceptSetsPage = (function() {
   }
 
   // ==================== CS DETAIL ====================
+
+  // Past versions are fetched from the repository by App (see fetchConceptSetVersion
+  // there); results are cached so App.getResolvedConceptSet serves them afterwards.
+  function versionCommitSha(id, version) { return App.versionCommitSha(id, version); }
+  function fetchConceptSetVersion(id, version) { return App.fetchConceptSetVersion(id, version); }
+
+  // The resolved concept list backing the current view: the version's own list when
+  // one is available, the live list otherwise.
+  function resolvedForCurrentView() {
+    if (selectedSnapshotVersion) {
+      return App.getResolvedConceptSet(selectedConceptSet.id, selectedSnapshotVersion) || [];
+    }
+    return App.getResolvedConceptSet(selectedConceptSet.id) || [];
+  }
+
   function showCSDetail(id, options) {
     options = options || {};
     var live = App.conceptSets.find(function(c) { return c.id === id; });
@@ -4547,7 +4563,19 @@ var ConceptSetsPage = (function() {
     if (requestedVersion && live && live.version !== requestedVersion) {
       var snap = App.getConceptSet(id, requestedVersion);
       if (snap) { cs = snap; isSnapshot = true; }
-      // Requested version has no snapshot: don't silently fall back to the
+      else if (!options._fetched && versionCommitSha(id, requestedVersion)) {
+        // Not embedded, but published: fetch it from the repository at its commit
+        // and re-enter once it lands — App caches it, so getConceptSet finds it on
+        // the second pass. `_fetched` stops a third round trip if it failed.
+        fetchConceptSetVersion(id, requestedVersion).then(function() {
+          var opts = {};
+          Object.keys(options).forEach(function(k) { opts[k] = options[k]; });
+          opts._fetched = true;
+          showCSDetail(id, opts);
+        });
+        return;
+      }
+      // Requested version could not be obtained: don't silently fall back to the
       // latest — show the banner and no content instead.
       else missing = true;
     }
@@ -4617,8 +4645,14 @@ var ConceptSetsPage = (function() {
       ? App.projects.find(function(p) { return p.id === selectedFromProjectId; })
       : null;
     if (selectedVersionMissing) {
-      msg = App.i18n('The requested version {pinned} is not available (it was never published or snapshotted). The latest version is {latest}.')
-        .replace('{pinned}', selectedSnapshotVersion).replace('{latest}', latest);
+      // A published version that could not be retrieved is a different situation
+      // from one that never existed — the first is a network or host problem the
+      // reader can act on (retry, go online), the second is not.
+      msg = versionCommitSha(selectedConceptSet.id, selectedSnapshotVersion)
+        ? App.i18n('Version {pinned} could not be loaded from the repository — check your connection and try again. The latest version is {latest}.')
+            .replace('{pinned}', selectedSnapshotVersion).replace('{latest}', latest)
+        : App.i18n('The requested version {pinned} is not available (it was never published or snapshotted). The latest version is {latest}.')
+            .replace('{pinned}', selectedSnapshotVersion).replace('{latest}', latest);
     } else if (fromProject) {
       var projName = (App.tProj(fromProject).name) || '';
       msg = App.i18n('You are viewing the pinned version {pinned} from project "{project}". The latest version is {latest}.')
@@ -4758,7 +4792,11 @@ var ConceptSetsPage = (function() {
   function renderVersionHistory() {
     var cs = selectedConceptSet;
     if (!cs) return;
-    var versions = (cs.metadata && cs.metadata.versions) || [];
+    // Always list the *latest* set's history, not the displayed one: a past version
+    // only knows about the versions that preceded it, so reading it while viewing
+    // an old snapshot would hide every newer version and strand the reader there.
+    var live = App.conceptSets.find(function(c) { return c.id === cs.id; }) || cs;
+    var versions = (live.metadata && live.metadata.versions) || [];
     var container = document.getElementById('cs-version-history');
     var body = document.getElementById('cs-version-history-body');
     if (versions.length === 0) {
@@ -4796,9 +4834,11 @@ var ConceptSetsPage = (function() {
     if (version === cs.version) {
       // Native title rather than the .author-tooltip machinery: that one needs JS
       // positioning to escape the modal-body overflow clip, which is overkill for
-      // a one-word label.
+      // a one-word label. The badge marks the version on screen, which is the
+      // latest one only when not viewing a snapshot.
       return '<span class="version-current-badge" title="' +
-        App.escapeHtml(App.i18n('Current version')) + '">' + label + '</span>';
+        App.escapeHtml(App.i18n(selectedSnapshotVersion ? 'Version shown' : 'Current version')) +
+        '">' + label + '</span>';
     }
     // Not an <a>: the row-level handler navigates through Router.navigate, which
     // preserves the active language. A raw href would drop `lang=fr`. It carries
@@ -4833,19 +4873,26 @@ var ConceptSetsPage = (function() {
   function showVersionForm(on) {
     document.getElementById('cs-version-form').style.display = on ? '' : 'none';
     document.getElementById('cs-version-save').style.display = on ? '' : 'none';
-    document.getElementById('cs-version-new-btn').style.display = on ? 'none' : '';
+    // Never bring the button back while viewing a past version: creating one is
+    // only allowed from the latest.
+    document.getElementById('cs-version-new-btn').style.display =
+      (on || selectedSnapshotVersion) ? 'none' : '';
     if (on) document.getElementById('cs-version-input').focus();
   }
 
   function openVersionModal() {
-    if (!selectedConceptSet || selectedSnapshotVersion) return;
+    if (!selectedConceptSet) return;
+    // Viewing a past version: the history is still readable — that is how you move
+    // between versions — but a new version can only be created from the latest one.
+    var readOnly = !!selectedSnapshotVersion;
     document.getElementById('cs-version-input').value = suggestNextVersion(selectedConceptSet.version);
     document.getElementById('cs-version-message').value = '';
     renderVersionHistory();
+    document.getElementById('cs-version-new-btn').style.display = readOnly ? 'none' : '';
     // With no history to read, the modal would show nothing but the button, so
     // open straight on the form.
     var hasHistory = ((selectedConceptSet.metadata && selectedConceptSet.metadata.versions) || []).length > 0;
-    showVersionForm(!hasHistory);
+    showVersionForm(!readOnly && !hasHistory);
     document.getElementById('cs-version-modal').style.display = 'flex';
   }
 
@@ -5270,7 +5317,7 @@ var ConceptSetsPage = (function() {
   function getSqlExportConcepts() {
     if (!selectedConceptSet) return [];
     var resolved = selectedSnapshotVersion
-      ? App.getResolvedConceptSet(selectedConceptSet.id, selectedSnapshotVersion)
+      ? resolvedForCurrentView()
       : App.resolvedIndex[selectedConceptSet.id];
     if ((!resolved || resolved.length === 0) && resolvedCurrentConcepts.length > 0) {
       resolved = resolvedCurrentConcepts;
