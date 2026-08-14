@@ -3,6 +3,24 @@
   "vocabularyVersion": null,
   "resolvedConcepts": [
     {
+      "conceptId": 3006369,
+      "conceptName": "Airway pressure --at zero inspiratory flow on ventilator",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "20060-0",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3012810,
+      "conceptName": "Airway pressure by Airway pressure monitor --at zero inspiratory flow on ventilator",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "20059-2",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 21490565,
       "conceptName": "Dynamic plateau pressure",
       "vocabularyId": "LOINC",
