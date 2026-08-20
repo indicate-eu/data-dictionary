@@ -502,6 +502,19 @@
         "status": "needs_revision",
         "comments": "Missing e.g. 4298391 Arterial blood pressure (SNOMED 386534000).",
         "version": "1.0.1"
+      },
+      {
+        "reviewId": 2,
+        "reviewer": {
+          "firstName": "Boris",
+          "lastName": "Delange",
+          "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+          "profession": "Medical Informatics and Intensive Care Physician",
+          "orcid": "0009-0002-6055-6935"
+        },
+        "reviewTimestamp": "2026-08-20T14:30:00.000Z",
+        "comments": "Reply to Maxim Moinat's review. 4298391 Arterial blood pressure is not a mean-pressure concept: it is the parent of systolic (4217013) and diastolic (35610320) arterial pressure. Adding it here would bring those into a set meant to hold mean pressure only. Keeping the set as it is.",
+        "version": "1.0.1"
       }
     ],
     "versions": [
