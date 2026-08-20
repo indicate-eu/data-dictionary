@@ -4769,12 +4769,19 @@ var ConceptSetsPage = (function() {
   }
 
   // ==================== GITHUB PROPOSE ====================
-  function proposeOnGitHub() {
+  function proposeOnGitHub(intro) {
     if (!selectedConceptSet) return;
     // A set created in the SPA has no file in the repo yet, so it must go to the
     // forge's create-file route; /edit/ would 404 on it.
     App.proposeOnForge('concept_sets/' + selectedConceptSet.id + '.json',
-      buildIndicateJSON(), App.isNewConceptSet(selectedConceptSet.id));
+      buildIndicateJSON(), App.isNewConceptSet(selectedConceptSet.id), intro);
+  }
+
+  // The Review tab's own Propose button. Reviews are serialized into the concept
+  // set JSON, so this is the same file hand-off — say so, since the user clicked
+  // "propose" on a review, not on the set.
+  function proposeReviewOnGitHub() {
+    proposeOnGitHub(App.i18n('Your review is saved **inside this concept set\'s JSON**, so proposing it means updating that file.'));
   }
 
   // ==================== VERSION MODAL ====================
@@ -7598,9 +7605,10 @@ var ConceptSetsPage = (function() {
       });
     });
 
-    // Propose on GitHub button
+    // Propose on GitHub button (Review tab). Wrapped rather than passed directly:
+    // the handler's first argument would otherwise be the click event.
     var proposeBtn = document.getElementById('cs-propose-github');
-    if (proposeBtn) proposeBtn.addEventListener('click', proposeOnGitHub);
+    if (proposeBtn) proposeBtn.addEventListener('click', function() { proposeReviewOnGitHub(); });
 
     // Review modal events
     document.getElementById('review-modal-close').addEventListener('click', closeReviewModal);

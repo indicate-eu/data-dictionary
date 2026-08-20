@@ -823,8 +823,6 @@ var App = (function() {
     'Review comments are required.': { fr: 'Les commentaires de relecture sont requis.' },
     'Review submitted! Use "Propose on GitHub" to submit a pull request.': { fr: 'Relecture soumise ! Utilisez « Proposer sur GitHub » pour soumettre une pull request.' },
     'JSON copied to clipboard! Paste it in the GitHub editor.': { fr: 'JSON copié dans le presse-papiers ! Collez-le dans l\'éditeur GitHub.' },
-    'JSON copied! Select all (Ctrl+A) in the editor and paste to replace the file.': { fr: 'JSON copié ! Sélectionnez tout (Ctrl+A) dans l\'éditeur et collez pour remplacer le fichier.' },
-    'JSON copied! Paste it into the new file, then commit.': { fr: 'JSON copié ! Collez-le dans le nouveau fichier, puis validez.' },
     'Opening {forge} with the file ready to commit.': { fr: 'Ouverture de {forge} avec le fichier prêt à valider.' },
     'Your browser blocked the new tab. Allow popups for this site and try again.': { fr: 'Votre navigateur a bloqué le nouvel onglet. Autorisez les fenêtres pop-up pour ce site et réessayez.' },
     'Here is what will happen:':     { fr: 'Voici ce qui va se passer :' },
@@ -844,7 +842,9 @@ var App = (function() {
     'Scroll down, **commit to a new branch**, and open the pull request.': { fr: 'Descendez, **validez sur une nouvelle branche**, puis ouvrez la pull request.' },
     'Then **commit to a new branch** and open the pull request.': { fr: 'Validez ensuite **sur une nouvelle branche** et ouvrez la pull request.' },
     'Copy this content manually':    { fr: 'Copiez ce contenu manuellement' },
-    'Your browser blocked clipboard access (this happens on sites served over plain HTTP). Copy the content below, then paste it into the editor that just opened.': { fr: 'Votre navigateur a bloqué l\'accès au presse-papiers (cela arrive sur les sites servis en HTTP simple). Copiez le contenu ci-dessous, puis collez-le dans l\'éditeur qui vient de s\'ouvrir.' },
+    'Your browser blocked automatic copying, so nothing has been opened yet. Copy the content below, then use the button to open the editor.': { fr: 'Votre navigateur a bloqué la copie automatique ; rien n\'a encore été ouvert. Copiez le contenu ci-dessous, puis utilisez le bouton pour ouvrir l\'éditeur.' },
+    'I have copied it — open {forge}': { fr: 'C\'est copié — ouvrir {forge}' },
+    'Your review is saved **inside this concept set\'s JSON**, so proposing it means updating that file.': { fr: 'Votre relecture est enregistrée **dans le JSON de ce jeu de concepts** : la proposer revient donc à mettre à jour ce fichier.' },
     'Target file:':                  { fr: 'Fichier cible :' },
     'Please enter a version number': { fr: 'Veuillez saisir un numéro de version' },
     'Copied to clipboard!':          { fr: 'Copié dans le presse-papiers !' },
@@ -1753,7 +1753,7 @@ var App = (function() {
    * Opening from the modal's button also keeps both privileged actions inside a
    * fresh user gesture, which is what popup blockers and the clipboard API require.
    */
-  function proposeOnForge(filePath, content, isNew) {
+  function proposeOnForge(filePath, content, isNew, intro) {
     var target = forgeFileUrl(filePath, { isNew: isNew, content: content });
     pendingPropose = { url: target.url, content: content, filePath: filePath,
                        isNew: isNew, prefilled: target.prefilled };
@@ -1781,6 +1781,10 @@ var App = (function() {
                 i18n('Then **commit to a new branch** and open the pull request.') ];
     }
 
+    // An optional lead-in for callers proposing something more specific than the
+    // file itself (the Review tab submits a review that rides inside this JSON).
+    if (intro) steps.unshift(intro);
+
     document.getElementById('propose-modal-title').textContent =
       isNew ? i18n('Create this file on {forge}').replace('{forge}', forge)
             : i18n('Update this file on {forge}').replace('{forge}', forge);
@@ -1800,24 +1804,43 @@ var App = (function() {
     pendingPropose = null;
     document.getElementById('propose-modal').style.display = 'none';
 
-    var opened = window.open(p.url, '_blank');
-    if (!opened) showToast(i18n('Your browser blocked the new tab. Allow popups for this site and try again.'), 'warning', 6000);
-    // A prefilled create carries its content in the URL; nothing to copy.
-    if (p.prefilled) return;
+    function openForge() {
+      var opened = window.open(p.url, '_blank');
+      if (!opened) showToast(i18n('Your browser blocked the new tab. Allow popups for this site and try again.'), 'warning', 6000);
+    }
 
+    // A prefilled create carries its content in the URL; nothing to copy.
+    if (p.prefilled) { openForge(); return; }
+
+    // Copy BEFORE opening the tab, and only open once it succeeded. window.open
+    // moves focus to the new tab, and the Clipboard API rejects on a document that
+    // no longer has focus — copying afterwards failed even over HTTPS. Opening the
+    // forge on failure would also strand the user in an editor with nothing to
+    // paste, so on failure we show the JSON instead and leave the page alone.
+    // No toast on success: the modal just walked through these exact steps.
     copyToClipboard(p.content).then(function(ok) {
-      if (!ok) { openManualCopyModal(p.filePath, p.content); return; }
-      showToast(i18n(p.isNew
-        ? 'JSON copied! Paste it into the new file, then commit.'
-        : 'JSON copied! Select all (Ctrl+A) in the editor and paste to replace the file.'), 'success', 7000);
+      if (!ok) { openManualCopyModal(p.filePath, p.content, p.url); return; }
+      openForge();
     });
   }
 
-  /** Last-resort: clipboard unavailable, so show the JSON for manual copying. */
-  function openManualCopyModal(filePath, content) {
+  /**
+   * Last-resort: the clipboard is unavailable, so show the JSON for manual copying.
+   * The forge is deliberately NOT open at this point — `forgeUrl` puts the user
+   * back in control of when to leave, once they actually hold the content.
+   */
+  var manualCopyForgeUrl = null;
+  function openManualCopyModal(filePath, content, forgeUrl) {
+    manualCopyForgeUrl = forgeUrl || null;
     document.getElementById('manual-copy-path').textContent = filePath;
     var area = document.getElementById('manual-copy-content');
     area.value = content;
+    var openBtn = document.getElementById('manual-copy-open');
+    openBtn.style.display = manualCopyForgeUrl ? '' : 'none';
+    if (manualCopyForgeUrl) {
+      openBtn.innerHTML = '<i class="fab fa-' + (forgeName() === 'GitLab' ? 'gitlab' : 'github') + '"></i> ' +
+        escapeHtml(i18n('I have copied it — open {forge}').replace('{forge}', forgeName()));
+    }
     document.getElementById('manual-copy-modal').style.display = 'flex';
     // Preselect so a single Ctrl+C is enough.
     setTimeout(function() { area.focus(); area.select(); }, 0);
@@ -1840,17 +1863,8 @@ var App = (function() {
   function executeExport(method) {
     if (!pendingExport) return;
     if (method === 'github') {
-      // `githubPath` + `githubIsNew` let the hand-off pick create-vs-edit; a caller
-      // that only supplies a prebuilt `githubUrl` keeps the old edit-only behaviour.
-      if (pendingExport.githubPath) {
-        proposeOnForge(pendingExport.githubPath, pendingExport.content, pendingExport.githubIsNew);
-      } else {
-        window.open(pendingExport.githubUrl, '_blank');
-        copyToClipboard(pendingExport.content).then(function(ok) {
-          if (ok) showToast(i18n('JSON copied! Select all (Ctrl+A) in the editor and paste to replace the file.'), 'success', 7000);
-          else openManualCopyModal(pendingExport.githubUrl, pendingExport.content);
-        });
-      }
+      // `githubPath` + `githubIsNew` let the hand-off pick create-vs-edit.
+      proposeOnForge(pendingExport.githubPath, pendingExport.content, pendingExport.githubIsNew);
     } else if (method === 'clipboard') {
       copyToClipboard(pendingExport.content).then(function(ok) {
         if (ok) showToast(i18n('Copied to clipboard!'), 'success');
@@ -2083,11 +2097,16 @@ var App = (function() {
     // Manual-copy fallback modal
     var manualCopyModal = document.getElementById('manual-copy-modal');
     if (manualCopyModal) {
-      var closeManualCopy = function() { manualCopyModal.style.display = 'none'; };
+      var closeManualCopy = function() { manualCopyModal.style.display = 'none'; manualCopyForgeUrl = null; };
       document.getElementById('manual-copy-close').addEventListener('click', closeManualCopy);
       document.getElementById('manual-copy-cancel').addEventListener('click', closeManualCopy);
       manualCopyModal.addEventListener('click', function(e) {
         if (e.target === manualCopyModal) closeManualCopy();
+      });
+      document.getElementById('manual-copy-open').addEventListener('click', function() {
+        var url = manualCopyForgeUrl;
+        closeManualCopy();
+        if (url) window.open(url, '_blank');
       });
     }
 

@@ -2211,12 +2211,13 @@ Enter your review comments here using Markdown syntax.
       <button class="modal-close" id="manual-copy-close">&times;</button>
     </div>
     <div class="modal-body">
-      <p style="margin-top:0" data-i18n="Your browser blocked clipboard access (this happens on sites served over plain HTTP). Copy the content below, then paste it into the editor that just opened.">Your browser blocked clipboard access (this happens on sites served over plain HTTP). Copy the content below, then paste it into the editor that just opened.</p>
-      <p style="font-size:13px; color:var(--text-muted)"><span data-i18n="Target file:">Target file:</span> <code id="manual-copy-path"></code></p>
+      <p style="margin-top:0" data-i18n="Your browser blocked automatic copying, so nothing has been opened yet. Copy the content below, then use the button to open the editor.">Your browser blocked automatic copying, so nothing has been opened yet. Copy the content below, then use the button to open the editor.</p>
+      <p style="font-size:13px; color:var(--text-muted); margin-bottom:18px"><span data-i18n="Target file:">Target file:</span> <code id="manual-copy-path"></code></p>
       <textarea id="manual-copy-content" readonly spellcheck="false" style="width:100%; height:320px; font-family:monospace; font-size:12px"></textarea>
     </div>
     <div class="modal-footer">
       <button class="btn-cancel" id="manual-copy-cancel" data-i18n="Close">Close</button>
+      <button class="btn-primary-custom" id="manual-copy-open" style="display:none"></button>
     </div>
   </div>
 </div>
