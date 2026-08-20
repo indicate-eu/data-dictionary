@@ -5,10 +5,18 @@ var DocumentationPage = (function() {
   var initialized = false;
   var currentSection = 'introduction';
 
-  // The fork's custom vocabulary id — the screenshots below mirror the real form,
-  // so they must show what this dictionary actually writes, not upstream's name.
+  // The fork's own identity — the screenshots below mirror real forms, so they must
+  // show what this dictionary actually writes, not upstream's name.
   function CUSTOM_VOCAB() {
     return (App.config.customVocabulary && App.config.customVocabulary.id) || 'CUSTOM';
+  }
+  function ORG_NAME() {
+    return (App.config.organization && App.config.organization.name) || 'Your Organization';
+  }
+  // Empty stays empty: a fork that left organization.url unset should see the blank
+  // field it will actually get, not a plausible-looking URL it never configured.
+  function ORG_URL() {
+    return (App.config.organization && App.config.organization.url) || '';
   }
 
   function isDev() {
@@ -173,9 +181,9 @@ var DocumentationPage = (function() {
       // Organization pane
       + '<div class="modal-body" id="' + orgPane + '" style="display:none">'
       + '<div class="form-group"><label>' + (en ? 'Organization Name *' : 'Nom de l\u2019organisation *') + '</label>'
-      + '<input type="text" class="form-input" value="INDICATE Consortium" readonly></div>'
+      + '<input type="text" class="form-input" value="' + App.escapeHtml(ORG_NAME()) + '" readonly></div>'
       + '<div class="form-group"><label>URL</label>'
-      + '<input type="text" class="form-input" value="https://indicate-eu.org" readonly></div>'
+      + '<input type="text" class="form-input" value="' + App.escapeHtml(ORG_URL()) + '" readonly></div>'
       + '</div>'
       // Footer
       + '<div class="modal-footer">'
