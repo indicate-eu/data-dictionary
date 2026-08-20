@@ -103,6 +103,19 @@
         "status": "needs_revision",
         "comments": "Not found in the Erasmus MC data. We do have 3035367 Carbon dioxide [Partial pressure] in Exhaled gas --at end expiration, with unit mmHg.",
         "version": "1.0.0"
+      },
+      {
+        "reviewId": 2,
+        "reviewer": {
+          "firstName": "Boris",
+          "lastName": "Delange",
+          "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+          "profession": "Medical Informatics and Intensive Care Physician",
+          "orcid": "0009-0002-6055-6935"
+        },
+        "reviewTimestamp": "2026-08-20T15:00:00.000Z",
+        "comments": "Reply to Maxim Moinat's review. The concept quoted is 3035357 (3035367 is Acetaldehyde in Urine), and it is already in concept set 312, End tidal carbon dioxide (PetCO2). End-tidal CO2 is split in two non-inter-convertible sets: 361 for the volume fraction in %, 312 for the partial pressure in mmHg/kPa. The mmHg concepts found in the EMC data belong to 312, so nothing is missing here.",
+        "version": "1.0.0"
       }
     ],
     "versions": [],

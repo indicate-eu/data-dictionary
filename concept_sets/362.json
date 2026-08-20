@@ -2,11 +2,11 @@
   "id": 362,
   "name": "Tidal volume per body weight (Vt/kg)",
   "description": "Tidal volume normalised to body weight, in mL/kg (lung-protective ventilation target). Absolute mL form is separate.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "createdBy": "Boris Delange",
   "createdDate": "2026-06-11",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-08-14",
+  "modifiedDate": "2026-08-20",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -91,7 +91,7 @@
         "category": "Ventilation",
         "subcategory": "Ventilation parameters",
         "shortDescription": "Tidal volume normalised to body weight, in mL/kg (lung-protective ventilation target). Absolute mL form is separate.",
-        "longDescription": "## Definition & Clinical Context\n\nTidal volume per body weight is the tidal volume normalised to the patient's body weight (usually predicted/ideal body weight), the central target of lung-protective ventilation (e.g. 6 mL/kg). In source data it is a single numeric value per patient-timestamp, reported in millilitres per kilogram (mL/kg). It is recorded in intensive care and anaesthesia for ventilated patients.\n\n## Included Concepts\n\nThe set lists the LOINC tidal-volume-per-body-weight concepts (mL/kg).\n\n- *3016864 / 20120-2 — Tidal volume.spontaneous+mechanical/Body weight [Volume/mass] corrected for compressible gas volume --on ventilator (LOINC)*\n- *3017054 / 20115-2 — Tidal volume.spontaneous/Body weight [Volume/mass] --on ventilator (LOINC)*\n- *3017878 / 20117-8 — Tidal volume.spontaneous+mechanical/Body weight [Volume/mass] --on ventilator (LOINC)*\n\n**Note on units**: reported in **mL/kg** (`9571 / mL/kg — milliliter per kilogram`, UCUM), the recommended unit.\n\n## Mapping Notes\n\n- Map a weight-indexed tidal volume (mL/kg) to one of these concepts.\n- **Not inter-convertible with absolute tidal volume**: the absolute tidal volume (mL) is a separate concept set; converting between mL and mL/kg requires the patient's (predicted) body weight, so the two are kept as separate, unit-homogeneous sets.\n"
+        "longDescription": "## Definition & Clinical Context\n\nTidal volume per body weight is the tidal volume normalised to the patient's body weight (usually predicted/ideal body weight), the central target of lung-protective ventilation (e.g. 6 mL/kg). In source data it is a single numeric value per patient-timestamp, reported in millilitres per kilogram (mL/kg). It is recorded in intensive care and anaesthesia for ventilated patients.\n\n## Included Concepts\n\nThe set lists the LOINC tidal-volume-per-body-weight concepts (mL/kg).\n\n- *3016864 / 20120-2 — Tidal volume.spontaneous+mechanical/Body weight [Volume/mass] corrected for compressible gas volume --on ventilator (LOINC)*\n- *3017054 / 20115-2 — Tidal volume.spontaneous/Body weight [Volume/mass] --on ventilator (LOINC)*\n- *3017878 / 20117-8 — Tidal volume.spontaneous+mechanical/Body weight [Volume/mass] --on ventilator (LOINC)*\n\n**Note on units**: reported in **mL/kg** (`9571 / mL/kg — milliliter per kilogram`, UCUM), the recommended unit.\n\n## Mapping Notes\n\n- Map a weight-indexed tidal volume (mL/kg) to one of these concepts.\n- **Not inter-convertible with absolute tidal volume**: the absolute tidal volume (mL) is a separate concept set; converting between mL and mL/kg requires the patient's (predicted) body weight, so the two are kept as separate, unit-homogeneous sets.\n- **Usually derived, not recorded**: most source systems store the absolute tidal volume (mL) and compute the mL/kg ratio at the bedside. If the source has no weight-indexed value, do not map here — keep the absolute volume in concept set 322 (Tidal volume) and derive the ratio at analysis time from predicted body weight (which depends on height and sex, not measured weight).\n"
       },
       "fr": {
         "name": "Volume courant rapporté au poids (Vt/kg)",
@@ -122,6 +122,19 @@
         "status": "needs_revision",
         "comments": "Not found in the Erasmus MC data. Might need to be derived from concept set 322 (Tidal volume) and body weight.",
         "version": "1.0.0"
+      },
+      {
+        "reviewId": 2,
+        "reviewer": {
+          "firstName": "Boris",
+          "lastName": "Delange",
+          "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+          "profession": "Medical Informatics and Intensive Care Physician",
+          "orcid": "0009-0002-6055-6935"
+        },
+        "reviewTimestamp": "2026-08-20T15:00:00.000Z",
+        "comments": "Reply to Maxim Moinat's review. The three LOINC concepts in this set are real and standard, but you are right that the value is rarely recorded as such: ventilators report an absolute tidal volume in mL, and the mL/kg ratio is usually computed from predicted body weight. The set is kept, since some centres do record it and the LOINC codes need a destination, and the Mapping Notes now say explicitly that the normal path is to map the absolute volume to concept set 322 and derive the ratio at analysis time.",
+        "version": "1.0.2"
       }
     ],
     "versions": [
@@ -130,6 +143,12 @@
         "date": "2026-08-14",
         "author": "Boris Delange",
         "message": "Drop the conversion instruction from the mapping notes: the conversion is registered in unit_conversions.json and applied by the SQL export, so restating it as a manual step is redundant."
+      },
+      {
+        "version": "1.0.2",
+        "date": "2026-08-20",
+        "author": "Boris Delange",
+        "message": "Mapping Notes: say that Vt/kg is usually derived rather than recorded. Ventilators report an absolute tidal volume and the ratio is computed from predicted body weight, so a source without a weight-indexed value should map to 322 and derive the ratio at analysis time. Raised by Maxim Moinat, who did not find the variable in the Erasmus MC data. No change to the expression."
       }
     ],
     "distributionStats": null
