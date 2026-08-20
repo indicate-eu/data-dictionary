@@ -5,6 +5,12 @@ var DocumentationPage = (function() {
   var initialized = false;
   var currentSection = 'introduction';
 
+  // The fork's custom vocabulary id — the screenshots below mirror the real form,
+  // so they must show what this dictionary actually writes, not upstream's name.
+  function CUSTOM_VOCAB() {
+    return (App.config.customVocabulary && App.config.customVocabulary.id) || 'CUSTOM';
+  }
+
   function isDev() {
     var h = window.location.hostname;
     return h === 'localhost' || h === '127.0.0.1' || h === '';
@@ -566,9 +572,10 @@ var DocumentationPage = (function() {
       + '<div class="custom-concept-row">'
       + '<label>' + (en ? 'Vocabulary' : 'Vocabulaire') + '</label>'
       + '<div class="custom-concept-input-wrap">'
-      + '<input type="text" class="form-input" value="INDICATE" readonly>'
+      + '<input type="text" class="form-input" value="' + App.escapeHtml(CUSTOM_VOCAB()) + '" readonly>'
       + '<span style="font-size:11px; color:var(--text-muted)">'
-      + (en ? 'Custom concepts use the INDICATE vocabulary' : 'Les concepts personnalis\u00e9s utilisent le vocabulaire INDICATE')
+      + (en ? 'Custom concepts use the ' + App.escapeHtml(CUSTOM_VOCAB()) + ' vocabulary'
+           : 'Les concepts personnalis\u00e9s utilisent le vocabulaire ' + App.escapeHtml(CUSTOM_VOCAB()))
       + '</span></div></div>'
       + '<div class="custom-concept-row">'
       + '<label>' + (en ? 'Concept Class *' : 'Classe *') + '</label>'

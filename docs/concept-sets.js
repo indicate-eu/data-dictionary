@@ -2652,6 +2652,9 @@ var ConceptSetsPage = (function() {
       tabCustom.classList.add('active');
       // Set next available ID
       document.getElementById('custom-concept-id').value = getNextCustomConceptId();
+      // Prefill from config rather than from markup: a value baked into index.html
+      // would be this fork's until update_from_upstream.py overwrites the file.
+      document.getElementById('custom-concept-vocabulary').value = CUSTOM_VOCAB_ID();
       buildCustomDropdowns();
     }
   }

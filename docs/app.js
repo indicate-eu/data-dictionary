@@ -936,7 +936,7 @@ var App = (function() {
     'Auto-assigned from 2,100,000,000': { fr: 'Auto-assigné à partir de 2 100 000 000' },
     'Enter concept name...':         { fr: 'Saisir le nom du concept...' },
     'Enter concept code (optional)...': { fr: 'Saisir le code du concept (optionnel)...' },
-    'Custom concepts use the INDICATE vocabulary': { fr: 'Les concepts personnalisés utilisent le vocabulaire INDICATE' },
+    'Custom concepts use the {vocab} vocabulary': { fr: 'Les concepts personnalisés utilisent le vocabulaire {vocab}' },
     '-- Select --':                  { fr: '-- Sélectionner --' },
     'Standard Concept':              { fr: 'Concept standard' },
     'Please enter a concept name.':  { fr: 'Veuillez saisir un nom de concept.' },
@@ -1146,16 +1146,30 @@ var App = (function() {
     return dateStr; // YYYY-MM-DD for EN
   }
 
+  /**
+   * Substitute the fork's own names into a translated string.
+   *
+   * Static markup cannot bake in a vocabulary id: it comes from config.json, so a
+   * fork that hardcodes one here has it silently overwritten by the next
+   * update_from_upstream.py. Translations therefore carry {vocab} and it is filled
+   * in at translate time, in every language.
+   */
+  function interpolateI18n(text) {
+    if (text.indexOf('{vocab}') === -1) return text;
+    var vocab = (config.customVocabulary && config.customVocabulary.id) || 'CUSTOM';
+    return text.split('{vocab}').join(vocab);
+  }
+
   /** Translate all elements with data-i18n attributes */
   function translateDOM() {
     document.querySelectorAll('[data-i18n]').forEach(function(el) {
-      el.textContent = i18n(el.getAttribute('data-i18n'));
+      el.textContent = interpolateI18n(i18n(el.getAttribute('data-i18n')));
     });
     document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
-      el.placeholder = i18n(el.getAttribute('data-i18n-placeholder'));
+      el.placeholder = interpolateI18n(i18n(el.getAttribute('data-i18n-placeholder')));
     });
     document.querySelectorAll('[data-i18n-title]').forEach(function(el) {
-      el.title = i18n(el.getAttribute('data-i18n-title'));
+      el.title = interpolateI18n(i18n(el.getAttribute('data-i18n-title')));
     });
     // Static markup carries the GitHub mark; swap it on a GitLab fork so the icon
     // matches the label next to it. Idempotent, so re-running on a language
