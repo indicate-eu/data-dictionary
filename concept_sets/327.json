@@ -2,11 +2,11 @@
   "id": 327,
   "name": "Heart rate",
   "description": "Heart rate — the number of heartbeats per minute (bpm); any measurement method or site. Excludes pulse waveform, rhythm and fetal heart rate.",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-08-11",
+  "modifiedDate": "2026-08-20",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -696,63 +696,6 @@
       },
       {
         "concept": {
-          "conceptId": 4239408,
-          "conceptName": "Heart rate",
-          "domainId": "Measurement",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Observable Entity",
-          "standardConcept": "",
-          "standardConceptCaption": "Non-standard",
-          "conceptCode": "364075005",
-          "validStartDate": "",
-          "validEndDate": "",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": true,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3557049,
-          "conceptName": "Resting heart rate",
-          "domainId": "Measurement",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Observable Entity",
-          "standardConcept": null,
-          "standardConceptCaption": "Non-standard",
-          "conceptCode": "511831000000106",
-          "validStartDate": "",
-          "validEndDate": "",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": true,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4091643,
-          "conceptName": "Fetal heart rate",
-          "domainId": "Measurement",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Observable Entity",
-          "standardConcept": "",
-          "standardConceptCaption": "Non-standard",
-          "conceptCode": "249043002",
-          "validStartDate": "",
-          "validEndDate": "",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": true,
-        "includeDescendants": true,
-        "includeMapped": false
-      },
-      {
-        "concept": {
           "conceptId": 1002575,
           "conceptName": "Arterial pulse intensity | Brachial artery Left | Specific heart rate",
           "domainId": "Measurement",
@@ -1148,6 +1091,19 @@
         "status": "needs_revision",
         "comments": "The expression can be simplified by removing the explicit exclusions of non-standard concepts: two non-standard SNOMED concepts (4239408 Heart rate and 3557049 Resting heart rate) are explicitly excluded, which is redundant as it does not change the resolved concept set.",
         "version": "1.0.1"
+      },
+      {
+        "reviewId": 2,
+        "reviewer": {
+          "firstName": "Boris",
+          "lastName": "Delange",
+          "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+          "profession": "Medical Informatics and Intensive Care Physician",
+          "orcid": "0009-0002-6055-6935"
+        },
+        "reviewTimestamp": "2026-08-20T15:30:00.000Z",
+        "comments": "Reply to Maxim Moinat's review. Confirmed, and fixed: the three non-standard exclusions (4239408 Heart rate, 3557049 Resting heart rate, 4091643 Fetal heart rate) are removed, with the resolved set unchanged at 43. They only became inert when includeMapped was dropped from every set. The criterion is that entry path being gone, not the concepts being non-standard. The standard exclusions are kept: they still document what the set deliberately leaves out (fetal heart rate, pulse intensity, heart rate on admission).",
+        "version": "1.0.3"
       }
     ],
     "versions": [
@@ -1162,6 +1118,12 @@
         "date": "2026-08-11",
         "author": "Boris Delange",
         "message": "Exclude the 18 \"Arterial pulse intensity\" LOINC hierarchy concepts pulled in as descendants of 1004025 (Heart rate). They grade the palpated intensity of a pulse (absent, weak, bounding) on a qualitative scale, not a rate in beats per minute, so they do not belong to this variable. The existing exclusions of 21494979 (Pulse intensity assessment panel) and 1003061 (Arterial pulse quality) sit on a different branch and did not cover them."
+      },
+      {
+        "version": "1.0.3",
+        "date": "2026-08-20",
+        "author": "Boris Delange",
+        "message": "Drop three non-standard exclusions that no longer do anything: 4239408 Heart rate, 3557049 Resting heart rate and 4091643 Fetal heart rate. They were needed while includeMapped was on, since Maps to/Mapped from pulled them in from the standard concepts they map to; includeMapped was removed from every set, so the entry path is gone. Raised by Maxim Moinat. Resolved set unchanged at 43. The standard scope exclusions (40758412 Fetal Heart rate, 21494979 Pulse intensity assessment panel, 4160327 Heart rate on admission) are kept: they document what the set deliberately leaves out."
       }
     ],
     "distributionStats": {}
