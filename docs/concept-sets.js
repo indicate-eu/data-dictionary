@@ -4494,9 +4494,9 @@ var ConceptSetsPage = (function() {
     tbody.innerHTML = rows.map(function(r, idx) {
       return '<tr data-review-idx="' + idx + '" style="cursor:pointer" title="' + App.escapeHtml(App.i18n('Click to view the full review')) + '">' +
         '<td>' + personBadgeCell(r.reviewer, reviewerName(r) || 'Unknown') + '</td>' +
-        '<td>' + App.escapeHtml(reviewDay(r)) + '</td>' +
+        '<td class="td-center">' + App.escapeHtml(reviewDay(r)) + '</td>' +
         '<td class="td-center">' + App.statusBadge(r.status) + '</td>' +
-        '<td>' + App.escapeHtml(r.version || '') + '</td>' +
+        '<td class="td-center">' + reviewVersionCell(r) + '</td>' +
         '<td class="desc-truncated">' + App.escapeHtml(App.truncate(r.comments || '', 150)) + '</td>' +
         '</tr>';
     }).join('');
@@ -4515,10 +4515,10 @@ var ConceptSetsPage = (function() {
       var latest = App.getLatestVersion(selectedConceptSet.id);
       var isCurrent = r.version === latest;
       if (isCurrent) {
-        titleHtml += ' <span class="review-version-badge current" data-tip="' +
+        titleHtml += ' <span class="review-version-badge version-current-badge" data-tip="' +
           App.escapeHtml(App.i18n('This review targets the current version')) + '">' + App.escapeHtml(r.version) + '</span>';
       } else {
-        titleHtml += ' <a class="review-version-badge outdated" href="#/concept-sets?id=' + selectedConceptSet.id +
+        titleHtml += ' <a class="review-version-badge version-old-badge" href="#/concept-sets?id=' + selectedConceptSet.id +
           '&version=' + encodeURIComponent(r.version) + '" data-tip="' +
           App.escapeHtml(App.i18n('This review targets an earlier version (current: {v}) — click to open it').replace('{v}', latest)) +
           '">' + App.escapeHtml(r.version) + '</a>';
@@ -4841,10 +4841,27 @@ var ConceptSetsPage = (function() {
         '">' + label + '</span>';
     }
     // Not an <a>: the row-level handler navigates through Router.navigate, which
-    // preserves the active language. A raw href would drop `lang=fr`. It carries
-    // the badge's padding and a transparent border so every version number in the
-    // column starts at the same x, badge or not.
-    return '<span class="version-history-link">' + label + '</span>';
+    // preserves the active language. A raw href would drop `lang=fr`. Styled as
+    // the red "earlier version" badge, same as in the review table.
+    return '<span class="version-old-badge version-history-link" title="' +
+      App.escapeHtml(App.i18n('View this version')) + '">' + label + '</span>';
+  }
+
+  // Version cell for a review row: a green badge when the review targets the
+  // current version, a red clickable one when it targets an earlier version
+  // (opening that version, like the badge in the review modal).
+  function reviewVersionCell(r) {
+    if (!r.version || !selectedConceptSet) return App.escapeHtml(r.version || '');
+    var label = App.escapeHtml(r.version);
+    var latest = App.getLatestVersion(selectedConceptSet.id);
+    if (r.version === latest) {
+      return '<span class="version-current-badge" title="' +
+        App.escapeHtml(App.i18n('This review targets the current version')) + '">' + label + '</span>';
+    }
+    return '<a class="version-old-badge" href="#/concept-sets?id=' + selectedConceptSet.id +
+      '&version=' + encodeURIComponent(r.version) + '" title="' +
+      App.escapeHtml(App.i18n('This review targets an earlier version (current: {v}) — click to open it').replace('{v}', latest)) +
+      '">' + label + '</a>';
   }
 
   // A name badge with a hoverable black tooltip carrying the person's details
@@ -7557,9 +7574,11 @@ var ConceptSetsPage = (function() {
 
     // Review table: click a row to view the full review (rendered Markdown)
     document.getElementById('cs-review-tbody').addEventListener('click', function(e) {
-      // The reviewer badge carries a hover tooltip with a clickable ORCID link:
-      // let that link open on its own instead of also opening the review modal.
+      // Two links live inside the row and must act on their own rather than also
+      // opening the review modal: the ORCID link in the reviewer tooltip, and the
+      // version badge that navigates to an earlier version.
       if (e.target.closest('.author-tooltip')) return;
+      if (e.target.closest('a.version-old-badge')) return;
       var tr = e.target.closest('tr[data-review-idx]');
       if (tr) openReviewViewModal(parseInt(tr.dataset.reviewIdx, 10));
     });
@@ -7567,7 +7586,7 @@ var ConceptSetsPage = (function() {
     document.getElementById('cs-review-view-modal').addEventListener('click', function(e) {
       if (e.target === document.getElementById('cs-review-view-modal')) closeReviewViewModal();
       // Outdated-version badge: navigate to the pinned version (href) and close.
-      if (e.target.closest('.review-version-badge.outdated')) closeReviewViewModal();
+      if (e.target.closest('a.review-version-badge')) closeReviewViewModal();
     });
 
     // Review table: column filters + sorting

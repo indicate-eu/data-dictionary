@@ -736,22 +736,14 @@ tbody td {
 }
 .panel-header h3 + .badge-count { margin-left: 8px; }
 
-/* Review view modal: version badge (blue = current version, red = older) */
+/* Review view modal: version badge. Colours come from .version-current-badge /
+   .version-old-badge (see "Version badges" below); this only adds the hover
+   tooltip, which the table badges get from the native title attribute. */
 #cs-review-view-title { display: inline-flex; align-items: center; gap: 8px; }
 .review-version-badge {
   position: relative;
-  display: inline-block;
-  padding: 2px 10px;
-  border-radius: 10px;
-  font-size: 12px;
-  font-weight: 600;
   line-height: 1.5;
-  color: #fff;
-  text-decoration: none;
 }
-.review-version-badge.current { background: var(--primary); }
-.review-version-badge.outdated { background: #dc2626; cursor: pointer; }
-.review-version-badge.outdated:hover { background: #b91c1c; }
 .review-version-badge::after {
   content: attr(data-tip);
   position: absolute;
@@ -1275,31 +1267,43 @@ tbody td {
 .author-tooltip .author-tooltip-row { display: block; }
 .author-tooltip .author-tooltip-muted { color: #bbb; }
 
-/* Version history table (Versions modal) */
-.version-current-badge {
+/* Version badges (Versions modal, review table, review modal).
+   One pair of tokens everywhere: soft green = the current version, soft red = an
+   earlier one. Same box in both cases, so a column of them lines up. */
+.version-current-badge,
+.version-old-badge {
   display: inline-block;
   padding: 2px 9px;
   border-radius: 11px;
-  background: #d1f0dd;
-  border: 1px solid #7cc79a;
-  color: #14683b;
   font-size: 12px;
   font-weight: 600;
   white-space: nowrap;
+  text-decoration: none;
   cursor: help;
 }
-/* Same box as .version-current-badge (padding + 1px border) but invisible, so the
-   version numbers line up whether or not the row carries the badge. */
-.version-history-link {
-  display: inline-block;
-  padding: 2px 9px;
-  border: 1px solid transparent;
-  font-size: 12px;
-  color: var(--primary);
+.version-current-badge {
+  background: #d1f0dd;
+  border: 1px solid #7cc79a;
+  color: #14683b;
 }
+.version-old-badge {
+  background: #fbdcdc;
+  border: 1px solid #e39a9a;
+  color: #9c2222;
+}
+/* Clickable variants: the badge opens that past version. */
+a.version-old-badge, a.version-current-badge { cursor: pointer; }
+a.version-old-badge:hover { background: #f6c9c9; border-color: #d47f7f; }
+a.version-current-badge:hover { background: #c2e9d2; border-color: #64b98a; }
+/* The row itself carries the click handler, so this is a <span> wearing the red
+   badge; it only needs the pointer cursor and a hover echo from the row. */
+.version-history-link { cursor: pointer; }
 .version-history-row { cursor: pointer; }
 .version-history-row:hover { background: #f3f6fa; }
-.version-history-row:hover .version-history-link { text-decoration: underline; }
+.version-history-row:hover .version-history-link {
+  background: #f6c9c9;
+  border-color: #d47f7f;
+}
 
 .export-btn {
   padding: 6px 14px;
