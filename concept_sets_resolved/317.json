@@ -75,6 +75,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 21490753,
+      "conceptName": "Volume expired per minute Respiratory system",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "75959-7",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 21490754,
       "conceptName": "Inspired minute Volume",
       "vocabularyId": "LOINC",

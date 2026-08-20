@@ -2,11 +2,11 @@
   "id": 317,
   "name": "Minute volume (MV)",
   "description": "Minute volume (minute ventilation) — gas volume moved per minute, in L/min (total, inspired/expired, spontaneous/mandatory, setting).",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-08-14",
+  "modifiedDate": "2026-08-20",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -218,6 +218,25 @@
         "isExcluded": false,
         "includeDescendants": false,
         "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 21490753,
+          "conceptName": "Volume expired per minute Respiratory system",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "75959-7",
+          "validStartDate": "2016-06-24",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
       }
     ]
   },
@@ -288,6 +307,12 @@
         "date": "2026-08-14",
         "author": "Boris Delange",
         "message": "Drop the conversion instruction from the mapping notes: the conversion is registered in unit_conversions.json and applied by the SQL export, so restating it as a manual step is redundant."
+      },
+      {
+        "version": "1.1.2",
+        "date": "2026-08-20",
+        "author": "Boris Delange",
+        "message": "Add 21490753 Volume expired per minute Respiratory system (LOINC 75959-7), flagged as missing by Maxim Moinat. The set already held its inspired counterpart 21490754 and both mechanical-ventilation forms (42527120/42527121), so the expired form was an omission."
       }
     ],
     "distributionStats": null

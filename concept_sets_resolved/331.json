@@ -93,6 +93,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 4150339,
+      "conceptName": "24 hour urine sample volume measurement",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Procedure",
+      "conceptCode": "271068005",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4191836,
       "conceptName": "24 hour urine output",
       "vocabularyId": "SNOMED",
