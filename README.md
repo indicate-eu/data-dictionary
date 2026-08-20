@@ -96,6 +96,13 @@ git commit -am "Snapshot concept set 10 v1.1.0"    # 3) commit the index update
 ```
 See the [documentation on projects](https://indicate-eu.github.io/data-dictionary/#/documentation?section=projects) for why versions are pinned and how to update them.
 
+That flow only records the version sitting on disk when you run it, so bumps merged while nobody snapshotted — pull requests opened from the app's *"Propose on GitHub"* button, for instance — leave gaps in the index. To catch up, walk the Git history:
+```bash
+python3 snapshot.py --backfill --dry-run   # list the missing (id, version) pairs
+python3 snapshot.py --backfill             # add them, then commit the index
+```
+It records the commit that actually introduced each version, and only ever adds — pairs already indexed are never repointed.
+
 ### Fork it for your own dictionary
 
 Any group (oncology, cardiology, primary care, a single-center registry…) can use this repo as a template, edit `config.json`, run `python3 reset.py`, and bootstrap their own governed data dictionary on GitHub Pages or GitLab Pages in minutes. See [FORKING.md](FORKING.md) for the end-to-end guide.
@@ -157,7 +164,7 @@ docs/                        # GitHub Pages SPA (browse/edit/review in the brows
 concept_sets_versions.json   # Index { id: { version: commit_sha } } — points to historical snapshots in Git
 build.py                     # Aggregates JSON → docs/data.json + docs/data_inline.js (also calls snapshot.py)
 resolve.py                   # Expands expressions via OMOP vocab (DuckDB)
-snapshot.py                  # Records commit SHAs in concept_sets_versions.json on version bumps
+snapshot.py                  # Records commit SHAs in concept_sets_versions.json on version bumps (--backfill recovers missed ones)
 reset.py                     # Wipes content for a fresh fork (see FORKING.md)
 update_from_upstream.py      # Pulls code updates from this repo into a fork
 config.json                  # Per-fork branding, GitHub repo, organization

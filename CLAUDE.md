@@ -80,6 +80,8 @@ A version that was never snapshotted is therefore unreachable, not merely absent
 
 `snapshot.py` is idempotent. **Never reuse a published `(id, version)` pair** — if a version is wrong, bump again rather than rewriting it.
 
+**Catching up on missed versions**: that workflow only stamps the version *currently on disk*, so versions bumped while nobody snapshotted are never indexed — typically contributions merged through the SPA's "Propose" button, since CI runs `build.py` but never commits the index back. `python3 snapshot.py --backfill` walks the git history of every `concept_sets/*.json` (deleted ones included) and records the commit that *introduced* each version — more accurate than the HEAD stamp, and it recovers the intermediate versions the default mode cannot see. Add `--dry-run` to preview. It is **additive only**: an already-indexed pair keeps its SHA even when the walk finds a different one, since published SHAs are resolved at runtime by the SPA; those disagreements are reported as divergences (`--show-divergences`) and never rewritten. The scan takes seconds, so it is opt-in and **never called by `build.py`**.
+
 ## SPA (`docs/`)
 
 Single-page app, hash-routed (`#/concept-sets`, `#/projects?id=1`, …). `app.js` exposes `window.App` (shared state + utilities like `escapeHtml`, `getConceptSet`, `standardBadge`); each page is an IIFE (`concept-sets.js`, `projects.js`, `settings.js`, `dev-tools.js`, …) exposing `show`/`hide`. `router.js` + `spa-init.js` boot it; `duckdb-loader.js` loads OHDSI Athena files into in-browser DuckDB-WASM. Users can edit concept sets/projects locally (`localStorage`) and "Propose on GitHub" (copies JSON, opens the edit URL for a PR). Read the relevant module before changing SPA behavior.

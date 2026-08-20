@@ -36,8 +36,34 @@ Why HEAD, and why two commits:
 This script is idempotent: pairs already in the index are never re-stamped, so
 re-running it (or build.py) does nothing once everything is recorded. Never edit
 concept_sets_versions.json by hand.
+
+Backfill (--backfill):
+  The default mode only ever sees the version currently on disk, so a version that
+  came and went between two runs is missed -- which is what happens when others push
+  bumps for a while and nobody snapshots in between (contributions merged through the
+  SPA's "Propose" button, for one: CI runs build.py but never commits the index).
+
+  --backfill walks the git history of every concept_sets/*.json instead, reads the
+  `version` field at each commit that touched it, and records the FIRST commit where
+  each version appears. That sha is strictly better than the HEAD approximation above:
+  it is the commit that actually introduced the version, so `git show <sha>:...` is
+  guaranteed to return that version's content. It also recovers the intermediate
+  versions the caveat above calls unreachable.
+
+  It is additive only. A pair already in the index keeps its recorded sha even when
+  the walk finds a different (more accurate) one, because those shas are published --
+  the SPA resolves them at runtime to fetch past versions, so rewriting one would
+  repoint a version someone already cited. Such disagreements are reported as
+  "divergences" and left alone; --show-divergences lists them individually.
+
+  Deleted concept sets are included: their file is gone from disk but a project may
+  still pin one, and the history still holds the content.
+
+  Cost: one `git log` per file plus one `git show` per touching commit -- seconds on a
+  repo this size, but enough that it stays opt-in and is never called by build.py.
 """
 
+import argparse
 import glob
 import json
 import os
@@ -113,6 +139,139 @@ def dirty_paths():
     return paths
 
 
+def all_historical_paths():
+    """Return every concept_sets/*.json path git has ever known, deleted ones included.
+
+    `git log --name-only --diff-filter=AMD` over the directory covers files that no
+    longer exist on disk: a project can still pin a version of a set that was later
+    removed, and the history is the only place left holding it.
+    """
+    result = subprocess.run(
+        ["git", "log", "--pretty=format:", "--name-only", "--diff-filter=AMD",
+         "--", "concept_sets"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+    paths = set()
+    for line in result.stdout.splitlines():
+        line = line.strip().strip('"')
+        if line.startswith("concept_sets/") and line.endswith(".json"):
+            paths.add(line)
+    return sorted(paths)
+
+
+def commits_touching(path):
+    """Commits that touched `path`, oldest first."""
+    result = subprocess.run(
+        ["git", "log", "--format=%H", "--reverse", "--", path],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+    return result.stdout.split()
+
+
+def read_at_commit(sha, path):
+    """Parse path's JSON as of `sha`, or None if absent/unreadable there.
+
+    A commit that deletes the file, or one where the JSON is malformed, simply has no
+    version to contribute -- the walk skips it rather than failing the whole backfill.
+    """
+    result = subprocess.run(
+        ["git", "show", f"{sha}:{path}"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode != 0:
+        return None
+    try:
+        return json.loads(result.stdout)
+    except json.JSONDecodeError:
+        return None
+
+
+def first_commit_per_version(path):
+    """Map {version: first sha where the file carried it} across path's whole history.
+
+    Keyed by the id seen alongside, so a file whose id changed mid-history (should not
+    happen, but the index is keyed by id) still attributes each version correctly.
+    """
+    found = {}
+    for sha in commits_touching(path):
+        cs = read_at_commit(sha, path)
+        if not isinstance(cs, dict):
+            continue
+        cs_id = cs.get("id")
+        version = cs.get("version")
+        if cs_id is None or not version:
+            continue
+        key = (str(cs_id), version)
+        if key not in found:
+            found[key] = sha
+    return found
+
+
+def backfill(dry_run=False, show_divergences=False):
+    index = load_index()
+
+    paths = all_historical_paths()
+    if not paths:
+        print("No concept set history found — nothing to backfill.")
+        return
+
+    print(f"Scanning the history of {len(paths)} concept set file(s)…")
+
+    new_entries = []
+    divergences = []
+
+    for path in paths:
+        for (key, version), sha in sorted(first_commit_per_version(path).items()):
+            recorded = index.get(key, {}).get(version)
+            if recorded is None:
+                index.setdefault(key, {})[version] = sha
+                new_entries.append((key, version, sha, path))
+            elif recorded != sha:
+                # Published sha wins — see the module docstring.
+                divergences.append((key, version, recorded, sha))
+
+    if divergences:
+        print()
+        print(f"{len(divergences)} pair(s) already indexed at a different commit than the "
+              f"one that introduced them.")
+        print("Left untouched: those shas are published and the app resolves them at runtime.")
+        if show_divergences:
+            for key, version, recorded, found in divergences:
+                print(f"  concept set {key} v{version}: indexed {recorded[:10]}, "
+                      f"introduced at {found[:10]}")
+        else:
+            print("Re-run with --show-divergences to list them.")
+
+    if not new_entries:
+        print()
+        print("No missing versions found. Index unchanged.")
+        return
+
+    print()
+    print(f"{'Would add' if dry_run else 'Added'} {len(new_entries)} missing "
+          f"(id, version) pair(s):")
+    for key, version, sha, path in new_entries:
+        deleted = "" if os.path.isfile(os.path.join(ROOT, path)) else "  [deleted file]"
+        print(f"  concept set {key} -> v{version} at {sha[:10]}{deleted}")
+
+    if dry_run:
+        print()
+        print("Dry run — concept_sets_versions.json was not modified.")
+        return
+
+    save_index(index)
+    print()
+    print("Don't forget to commit concept_sets_versions.json.")
+
+
 def main():
     index = load_index()
     sha = current_head_sha()
@@ -163,4 +322,38 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(
+        description="Record the commit sha of each concept set version in "
+                    "concept_sets_versions.json.",
+        epilog="Without --backfill, stamps versions currently on disk at HEAD "
+               "(the two-commit workflow). With it, walks the git history to recover "
+               "versions no run ever saw. Both modes only ever add to the index.",
+    )
+    parser.add_argument(
+        "--backfill",
+        action="store_true",
+        help="walk the git history and add every (id, version) pair missing from the "
+             "index, using the commit that introduced it",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="with --backfill, list what would be added without writing the index",
+    )
+    parser.add_argument(
+        "--show-divergences",
+        action="store_true",
+        help="with --backfill, list indexed pairs whose recorded sha differs from the "
+             "commit that introduced them (reported but never rewritten)",
+    )
+    args = parser.parse_args()
+
+    if args.dry_run and not args.backfill:
+        sys.exit("--dry-run only applies to --backfill.")
+    if args.show_divergences and not args.backfill:
+        sys.exit("--show-divergences only applies to --backfill.")
+
+    if args.backfill:
+        backfill(dry_run=args.dry_run, show_divergences=args.show_divergences)
+    else:
+        main()

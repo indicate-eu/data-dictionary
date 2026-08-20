@@ -227,6 +227,22 @@ python3 build.py
 
 After any change to `concept_sets/`, `projects/`, `units/`, `mapping_recommendations/`, or `concept_sets_resolved/`, regenerate `docs/data.json` and `docs/data_inline.js` and commit them.
 
+### Catch up on version snapshots
+
+`concept_sets_versions.json` maps each `(id, version)` pair to the commit holding it, so projects pinning a past version stay reproducible. It is **committed to your repo**, and CI does not write it back: the deploy job runs `build.py` and publishes, but never pushes. So when contributors merge version bumps — through *"Propose on GitHub"* or any ordinary PR — those versions land in the repo without ever being indexed.
+
+Nothing breaks immediately, and nothing is lost: the commits are in your history. But an unindexed version is unreachable for a project that pins it. Periodically, from your local clone:
+
+```bash
+python3 snapshot.py --backfill --dry-run   # list what is missing
+python3 snapshot.py --backfill             # add it
+git commit -am "Backfill concept set version snapshots"
+```
+
+It walks the Git history of every `concept_sets/*.json` (including deleted ones — a project may still pin those) and records the commit that introduced each version. It only ever **adds**: pairs already in the index keep their SHA, since the app resolves published SHAs at runtime and repointing one would change a version someone already cited. Where the two disagree it reports a divergence and leaves it alone (`--show-divergences` lists them).
+
+Run it after a batch of merged contributions, and before publishing a project that pins versions you did not snapshot yourself.
+
 ---
 
 ## 3. Updating from upstream
