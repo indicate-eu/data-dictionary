@@ -1689,7 +1689,9 @@ var DocumentationPage = (function() {
       + '<ul>'
       + '<li><strong>Download OHDSI JSON File</strong> \u2014 Downloads the concept set as a <code>.json</code> file to your computer</li>'
       + '<li><strong>Copy OHDSI JSON to Clipboard</strong> \u2014 Copies the JSON to your clipboard, ready to paste</li>'
-      + '<li><strong>Propose on GitHub</strong> \u2014 Copies to clipboard and opens the GitHub editor to submit a pull request '
+      + '<li><strong>Propose on GitHub</strong> \u2014 Explains what will happen, then opens GitHub to submit a pull request. '
+      + 'A concept set that is not in the repository yet is created with its JSON prefilled; an existing one is copied to your '
+      + 'clipboard and opened in the editor, where you select all (Ctrl+A) and paste to replace the file '
       + '(see ' + docLink('reviewing', 'Reviewing & GitHub') + ')</li>'
       + '<li><strong>Copy OMOP SQL Query</strong> \u2014 Generates and copies a SQL query to extract data from OMOP CDM tables '
       + '(see below)</li>'
@@ -2949,7 +2951,8 @@ var DocumentationPage = (function() {
       + '<ul>'
       + '<li><strong>Download File</strong> \u2014 downloads <code>mapping_recommendations.json</code>, which belongs in the <code>mapping_recommendations/</code> folder of the Git repository</li>'
       + '<li><strong>Copy to Clipboard</strong> \u2014 copies the JSON content to your clipboard</li>'
-      + '<li><strong>Propose on GitHub</strong> \u2014 copies to clipboard and opens the GitHub editor to propose changes via a pull request</li>'
+      + '<li><strong>Propose on GitHub</strong> \u2014 copies to clipboard and opens the GitHub editor to propose changes via a pull request. '
+      + 'Select all (Ctrl+A) in the editor and paste to replace the file before committing</li>'
       + '</ul>';
   }
 

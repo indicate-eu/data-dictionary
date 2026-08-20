@@ -2180,6 +2180,47 @@ Enter your review comments here using Markdown syntax.
   </div>
 </div>
 
+<!-- Propose Modal — explains the forge hand-off (create vs. update) before
+     opening the tab, since the two flows differ and neither is guessable. -->
+<div class="modal-overlay" id="propose-modal" style="display:none">
+  <div class="modal" style="max-width:620px">
+    <div class="modal-header">
+      <h3><i class="fab fa-github"></i> <span id="propose-modal-title">Propose on GitHub</span></h3>
+      <button class="modal-close" id="propose-modal-close">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p style="margin-top:0; margin-bottom:18px; font-size:13px; color:var(--text-muted)">
+        <span data-i18n="Target file:">Target file:</span> <code id="propose-modal-path"></code>
+      </p>
+      <p style="margin-bottom:6px" data-i18n="Here is what will happen:">Here is what will happen:</p>
+      <ol id="propose-modal-steps" style="margin:0; padding-left:22px; line-height:1.7"></ol>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" id="propose-modal-cancel" data-i18n="Cancel">Cancel</button>
+      <button class="btn-primary-custom" id="propose-modal-open"></button>
+    </div>
+  </div>
+</div>
+
+<!-- Manual Copy Modal — fallback when the clipboard API is unavailable
+     (non-secure context, e.g. a fork served over plain HTTP) or denied. -->
+<div class="modal-overlay" id="manual-copy-modal" style="display:none">
+  <div class="modal" style="max-width:700px">
+    <div class="modal-header">
+      <h3><i class="fas fa-clipboard"></i> <span data-i18n="Copy this content manually">Copy this content manually</span></h3>
+      <button class="modal-close" id="manual-copy-close">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p style="margin-top:0" data-i18n="Your browser blocked clipboard access (this happens on sites served over plain HTTP). Copy the content below, then paste it into the editor that just opened.">Your browser blocked clipboard access (this happens on sites served over plain HTTP). Copy the content below, then paste it into the editor that just opened.</p>
+      <p style="font-size:13px; color:var(--text-muted)"><span data-i18n="Target file:">Target file:</span> <code id="manual-copy-path"></code></p>
+      <textarea id="manual-copy-content" readonly spellcheck="false" style="width:100%; height:320px; font-family:monospace; font-size:12px"></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" id="manual-copy-cancel" data-i18n="Close">Close</button>
+    </div>
+  </div>
+</div>
+
 <!-- Add Conversion Modal -->
 <div class="modal-overlay" id="conv-add-modal" style="display:none">
   <div class="modal" style="width:700px">

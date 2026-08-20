@@ -823,6 +823,29 @@ var App = (function() {
     'Review comments are required.': { fr: 'Les commentaires de relecture sont requis.' },
     'Review submitted! Use "Propose on GitHub" to submit a pull request.': { fr: 'Relecture soumise ! Utilisez « Proposer sur GitHub » pour soumettre une pull request.' },
     'JSON copied to clipboard! Paste it in the GitHub editor.': { fr: 'JSON copié dans le presse-papiers ! Collez-le dans l\'éditeur GitHub.' },
+    'JSON copied! Select all (Ctrl+A) in the editor and paste to replace the file.': { fr: 'JSON copié ! Sélectionnez tout (Ctrl+A) dans l\'éditeur et collez pour remplacer le fichier.' },
+    'JSON copied! Paste it into the new file, then commit.': { fr: 'JSON copié ! Collez-le dans le nouveau fichier, puis validez.' },
+    'Opening {forge} with the file ready to commit.': { fr: 'Ouverture de {forge} avec le fichier prêt à valider.' },
+    'Your browser blocked the new tab. Allow popups for this site and try again.': { fr: 'Votre navigateur a bloqué le nouvel onglet. Autorisez les fenêtres pop-up pour ce site et réessayez.' },
+    'Here is what will happen:':     { fr: 'Voici ce qui va se passer :' },
+    'Create this file on {forge}':   { fr: 'Créer ce fichier sur {forge}' },
+    'Update this file on {forge}':   { fr: 'Mettre à jour ce fichier sur {forge}' },
+    'Open {forge}':                  { fr: 'Ouvrir {forge}' },
+    // The ** markers become <strong> in the propose modal (see boldMarkup); keep
+    // them around the equivalent words when translating.
+    'This concept set **does not exist in the repository yet**, so it will be **created**.': { fr: 'Ce jeu de concepts **n\'existe pas encore dans le dépôt** : il va donc être **créé**.' },
+    'This concept set **already exists in the repository**, so it will be **updated**.': { fr: 'Ce jeu de concepts **existe déjà dans le dépôt** : il va donc être **mis à jour**.' },
+    '{forge} opens a new-file page with the filename and the JSON **already filled in**.': { fr: '{forge} ouvre une page de création de fichier, avec le nom du fichier et le JSON **déjà remplis**.' },
+    '{forge} opens a new-file page with the filename filled in — **paste** the JSON into the editor.': { fr: '{forge} ouvre une page de création de fichier avec le nom du fichier rempli — **collez** le JSON dans l\'éditeur.' },
+    '{forge} opens the **existing file** in its editor.': { fr: '{forge} ouvre le **fichier existant** dans son éditeur.' },
+    'The JSON is too large to prefill, so it will be **copied to your clipboard** instead.': { fr: 'Le JSON est trop volumineux pour être prérempli : il sera **copié dans votre presse-papiers** à la place.' },
+    'The JSON will be **copied to your clipboard**.': { fr: 'Le JSON sera **copié dans votre presse-papiers**.' },
+    '**Select all (Ctrl+A / Cmd+A)** in the editor and paste to **replace the whole file** — do not append, or the JSON will be invalid.': { fr: '**Sélectionnez tout (Ctrl+A / Cmd+A)** dans l\'éditeur et collez pour **remplacer tout le fichier** — n\'ajoutez pas à la suite, sinon le JSON sera invalide.' },
+    'Scroll down, **commit to a new branch**, and open the pull request.': { fr: 'Descendez, **validez sur une nouvelle branche**, puis ouvrez la pull request.' },
+    'Then **commit to a new branch** and open the pull request.': { fr: 'Validez ensuite **sur une nouvelle branche** et ouvrez la pull request.' },
+    'Copy this content manually':    { fr: 'Copiez ce contenu manuellement' },
+    'Your browser blocked clipboard access (this happens on sites served over plain HTTP). Copy the content below, then paste it into the editor that just opened.': { fr: 'Votre navigateur a bloqué l\'accès au presse-papiers (cela arrive sur les sites servis en HTTP simple). Copiez le contenu ci-dessous, puis collez-le dans l\'éditeur qui vient de s\'ouvrir.' },
+    'Target file:':                  { fr: 'Fichier cible :' },
     'Please enter a version number': { fr: 'Veuillez saisir un numéro de version' },
     'Copied to clipboard!':          { fr: 'Copié dans le presse-papiers !' },
     'Could not copy to clipboard. Try downloading the file instead.': { fr: 'Impossible de copier. Essayez de télécharger le fichier.' },
@@ -1038,19 +1061,80 @@ var App = (function() {
       .replace(/fa-github\b/g, 'fa-gitlab');
   }
 
+  /**
+   * The `<owner>/<project>` path of this fork's repo, e.g. "my-team/data-dictionary".
+   * On GitLab this may carry subgroups ("my-org/sub/data-dictionary").
+   *
+   * `repository.repo` restates what `repository.url` already contains, and a fork
+   * that sets only the URL is a common (and previously silent) failure: the slug
+   * came out empty and every link became `https://gitlab.com//-/blob/...`. Derive
+   * it from the URL whenever the key is missing.
+   */
   function repoSlug() {
-    return repoConfig().repo || '';
+    var declared = repoConfig().repo;
+    if (declared) return String(declared).replace(/^\/+|\/+$/g, '');
+    // Strip scheme+host from the repo URL; what remains is the slug.
+    return getConfigRepoUrl().replace(/^https?:\/\/[^\/]+\/?/, '').replace(/\/+$/, '');
   }
 
   /**
-   * Build an /edit/ or /blob/ URL for `filePath` at `branch`. The two forges do
-   * NOT share the shape: GitLab namespaces repository routes under `/-/`
+   * Build an /edit/, /blob/ or /new/ URL for `filePath` at `branch`. The two forges
+   * do NOT share the shape: GitLab namespaces repository routes under `/-/`
    * (`/-/edit/main/x.json`), GitHub does not (`/edit/main/x.json`).
    */
   function forgePath(kind, branch, filePath) {
     var infix = forgeName() === 'GitLab' ? '/-/' : '/';
     return forgeOrigin() + '/' + repoSlug() + infix + kind + '/' + branch + '/' +
       String(filePath).replace(/^\//, '');
+  }
+
+  // A prefilled "create file" URL is a GET, so the whole JSON travels in the query
+  // string. Browsers and forge front-ends cap that (practically ~8 KB); past the
+  // cap the request is rejected or truncated, which would silently commit a broken
+  // file. Above this we open the create page unprefilled and fall back to the
+  // clipboard, exactly like the edit flow.
+  var FORGE_PREFILL_MAX = 6000;
+
+  /**
+   * URL to propose `filePath` on the forge, plus whether the content got prefilled.
+   * Returns { url, prefilled }.
+   *
+   * Two distinct routes, and picking the wrong one is a 404: `/edit/` only opens a
+   * file that ALREADY exists in the branch, so a concept set created in the SPA
+   * (which lives in localStorage and was never committed) must go to the "new file"
+   * route instead. That 404 is what made "Propose on GitHub" look intermittent —
+   * it worked on repo sets and failed on the user's own.
+   *
+   * Only the create route accepts content; both forges deliberately ignore any
+   * content parameter on `/edit/`, since the editor loads the committed version and
+   * prefilling it would blind-overwrite whatever was pushed meanwhile. Editing
+   * therefore stays a clipboard flow.
+   */
+  function forgeFileUrl(filePath, opts) {
+    opts = opts || {};
+    var branch = repoConfig().branch || 'main';
+    var path = String(filePath).replace(/^\//, '');
+    if (!opts.isNew) return { url: forgePath('edit', branch, path), prefilled: false };
+
+    var isGitLab = forgeName() === 'GitLab';
+    // GitLab hangs the target path off the URL and names the params file_name/content;
+    // GitHub takes the path in `filename` and the body in `value`. GitHub's variant is
+    // undocumented (though long-standing), which is another reason the clipboard copy
+    // stays in place on both branches.
+    var base = isGitLab
+      ? forgeOrigin() + '/' + repoSlug() + '/-/new/' + branch + '/'
+      : forgeOrigin() + '/' + repoSlug() + '/new/' + branch;
+    var params = isGitLab
+      ? 'file_name=' + encodeURIComponent(path)
+      : 'filename=' + encodeURIComponent(path);
+
+    var content = opts.content || '';
+    if (content) {
+      var withContent = base + '?' + params + '&' +
+        (isGitLab ? 'content=' : 'value=') + encodeURIComponent(content);
+      if (withContent.length <= FORGE_PREFILL_MAX) return { url: withContent, prefilled: true };
+    }
+    return { url: base + '?' + params, prefilled: false };
   }
 
   function formatDate(dateStr) {
@@ -1626,6 +1710,119 @@ var App = (function() {
     return cs;
   }
 
+  // ==================== SHARED PROPOSE (forge hand-off) ====================
+
+  /**
+   * Copy `text`, resolving to true on success. Never rejects.
+   *
+   * `navigator.clipboard` is undefined outside a secure context — a fork served
+   * over plain HTTP (self-hosted Pages, a LAN preview) has no clipboard at all, and
+   * reading `.writeText` off undefined threw before the forge tab ever opened. The
+   * permission can also be denied outright. Callers need to know, so the user is
+   * not sent to an editor with an empty clipboard.
+   */
+  function copyToClipboard(text) {
+    try {
+      if (!navigator.clipboard || !navigator.clipboard.writeText) return Promise.resolve(false);
+      return navigator.clipboard.writeText(text)
+        .then(function() { return true; })
+        .catch(function() { return false; });
+    } catch (e) {
+      return Promise.resolve(false);
+    }
+  }
+
+  var pendingPropose = null;
+
+  // Escape first, then turn **…** into <strong>. Doing it in that order means the
+  // only markup that can reach the DOM is the emphasis we put in the string
+  // ourselves — the text stays one translatable unit, with no HTML in the catalog.
+  function boldMarkup(s) {
+    return escapeHtml(s).replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  }
+
+  /**
+   * Explain the forge hand-off, then let the user trigger it.
+   *
+   * The two paths differ enough that landing on the forge unprepared is confusing:
+   * a create opens an editor already holding the JSON, while an update opens the
+   * *existing* file and expects the user to select-all and paste over it. Neither
+   * is guessable from a button labelled "Propose", so the modal spells out what
+   * will happen BEFORE the tab opens.
+   *
+   * Opening from the modal's button also keeps both privileged actions inside a
+   * fresh user gesture, which is what popup blockers and the clipboard API require.
+   */
+  function proposeOnForge(filePath, content, isNew) {
+    var target = forgeFileUrl(filePath, { isNew: isNew, content: content });
+    pendingPropose = { url: target.url, content: content, filePath: filePath,
+                       isNew: isNew, prefilled: target.prefilled };
+
+    var forge = forgeName();
+    var steps;
+    if (isNew) {
+      steps = target.prefilled
+        // Prefilled create: nothing to paste, so the whole flow is commit + PR.
+        ? [ i18n('This concept set **does not exist in the repository yet**, so it will be **created**.'),
+            i18n('{forge} opens a new-file page with the filename and the JSON **already filled in**.').replace('{forge}', forge),
+            i18n('Scroll down, **commit to a new branch**, and open the pull request.') ]
+        // Content too large for the URL: same route, but the JSON travels by clipboard.
+        : [ i18n('This concept set **does not exist in the repository yet**, so it will be **created**.'),
+            i18n('The JSON is too large to prefill, so it will be **copied to your clipboard** instead.'),
+            i18n('{forge} opens a new-file page with the filename filled in — **paste** the JSON into the editor.').replace('{forge}', forge),
+            i18n('Then **commit to a new branch** and open the pull request.') ];
+    } else {
+      // Update: neither forge accepts a content parameter on the edit route, so the
+      // clipboard is the only channel and the paste must REPLACE, not append.
+      steps = [ i18n('This concept set **already exists in the repository**, so it will be **updated**.'),
+                i18n('The JSON will be **copied to your clipboard**.'),
+                i18n('{forge} opens the **existing file** in its editor.').replace('{forge}', forge),
+                i18n('**Select all (Ctrl+A / Cmd+A)** in the editor and paste to **replace the whole file** — do not append, or the JSON will be invalid.'),
+                i18n('Then **commit to a new branch** and open the pull request.') ];
+    }
+
+    document.getElementById('propose-modal-title').textContent =
+      isNew ? i18n('Create this file on {forge}').replace('{forge}', forge)
+            : i18n('Update this file on {forge}').replace('{forge}', forge);
+    document.getElementById('propose-modal-path').textContent = filePath;
+    document.getElementById('propose-modal-steps').innerHTML =
+      steps.map(function(s) { return '<li>' + boldMarkup(s) + '</li>'; }).join('');
+    document.getElementById('propose-modal-open').innerHTML =
+      '<i class="fab fa-' + (forge === 'GitLab' ? 'gitlab' : 'github') + '"></i> ' +
+      escapeHtml(i18n('Open {forge}').replace('{forge}', forge));
+    document.getElementById('propose-modal').style.display = 'flex';
+  }
+
+  /** The modal's confirm button: copy when needed, then open the forge. */
+  function executePropose() {
+    if (!pendingPropose) return;
+    var p = pendingPropose;
+    pendingPropose = null;
+    document.getElementById('propose-modal').style.display = 'none';
+
+    var opened = window.open(p.url, '_blank');
+    if (!opened) showToast(i18n('Your browser blocked the new tab. Allow popups for this site and try again.'), 'warning', 6000);
+    // A prefilled create carries its content in the URL; nothing to copy.
+    if (p.prefilled) return;
+
+    copyToClipboard(p.content).then(function(ok) {
+      if (!ok) { openManualCopyModal(p.filePath, p.content); return; }
+      showToast(i18n(p.isNew
+        ? 'JSON copied! Paste it into the new file, then commit.'
+        : 'JSON copied! Select all (Ctrl+A) in the editor and paste to replace the file.'), 'success', 7000);
+    });
+  }
+
+  /** Last-resort: clipboard unavailable, so show the JSON for manual copying. */
+  function openManualCopyModal(filePath, content) {
+    document.getElementById('manual-copy-path').textContent = filePath;
+    var area = document.getElementById('manual-copy-content');
+    area.value = content;
+    document.getElementById('manual-copy-modal').style.display = 'flex';
+    // Preselect so a single Ctrl+C is enough.
+    setTimeout(function() { area.focus(); area.select(); }, 0);
+  }
+
   // ==================== SHARED EXPORT ====================
   var pendingExport = null;
 
@@ -1636,22 +1833,28 @@ var App = (function() {
     document.getElementById('settings-export-clipboard-desc').textContent = exportData.clipboardDesc || 'Copy content to clipboard';
     document.getElementById('settings-export-file-desc').textContent = exportData.fileDesc || ('Download as ' + exportData.filename);
     var githubOption = document.getElementById('settings-export-github-option');
-    githubOption.style.display = exportData.githubUrl ? '' : 'none';
+    githubOption.style.display = (exportData.githubPath || exportData.githubUrl) ? '' : 'none';
     document.getElementById('settings-export-modal').style.display = 'flex';
   }
 
   function executeExport(method) {
     if (!pendingExport) return;
     if (method === 'github') {
-      navigator.clipboard.writeText(pendingExport.content).then(function() {
-        showToast(i18n('JSON copied to clipboard! Paste it in the GitHub editor.'), 'success', 5000);
-      }).catch(function() {});
-      window.open(pendingExport.githubUrl, '_blank');
+      // `githubPath` + `githubIsNew` let the hand-off pick create-vs-edit; a caller
+      // that only supplies a prebuilt `githubUrl` keeps the old edit-only behaviour.
+      if (pendingExport.githubPath) {
+        proposeOnForge(pendingExport.githubPath, pendingExport.content, pendingExport.githubIsNew);
+      } else {
+        window.open(pendingExport.githubUrl, '_blank');
+        copyToClipboard(pendingExport.content).then(function(ok) {
+          if (ok) showToast(i18n('JSON copied! Select all (Ctrl+A) in the editor and paste to replace the file.'), 'success', 7000);
+          else openManualCopyModal(pendingExport.githubUrl, pendingExport.content);
+        });
+      }
     } else if (method === 'clipboard') {
-      navigator.clipboard.writeText(pendingExport.content).then(function() {
-        showToast(i18n('Copied to clipboard!'), 'success');
-      }).catch(function() {
-        showToast(i18n('Could not copy to clipboard.'), 'error');
+      copyToClipboard(pendingExport.content).then(function(ok) {
+        if (ok) showToast(i18n('Copied to clipboard!'), 'success');
+        else showToast(i18n('Could not copy to clipboard.'), 'error');
       });
     } else {
       var blob = new Blob([pendingExport.content], { type: pendingExport.type });
@@ -1862,6 +2065,29 @@ var App = (function() {
         opt.addEventListener('click', function() {
           executeExport(opt.dataset.method);
         });
+      });
+    }
+
+    // Propose (forge hand-off) modal
+    var proposeModal = document.getElementById('propose-modal');
+    if (proposeModal) {
+      var closePropose = function() { proposeModal.style.display = 'none'; pendingPropose = null; };
+      document.getElementById('propose-modal-close').addEventListener('click', closePropose);
+      document.getElementById('propose-modal-cancel').addEventListener('click', closePropose);
+      proposeModal.addEventListener('click', function(e) {
+        if (e.target === proposeModal) closePropose();
+      });
+      document.getElementById('propose-modal-open').addEventListener('click', executePropose);
+    }
+
+    // Manual-copy fallback modal
+    var manualCopyModal = document.getElementById('manual-copy-modal');
+    if (manualCopyModal) {
+      var closeManualCopy = function() { manualCopyModal.style.display = 'none'; };
+      document.getElementById('manual-copy-close').addEventListener('click', closeManualCopy);
+      document.getElementById('manual-copy-cancel').addEventListener('click', closeManualCopy);
+      manualCopyModal.addEventListener('click', function(e) {
+        if (e.target === manualCopyModal) closeManualCopy();
       });
     }
 
@@ -2104,13 +2330,19 @@ var App = (function() {
   // Base URL serving the repository tree at `sha`, or null for hosts we cannot
   // address, derived from the fork's own repository URL.
   function repoRawBase(sha) {
-    var gh = repoConfig();
-    var m = (gh.repo || '').match(/^([^\/]+)\/([^\/]+)$/);
-    if (!m) return null;
-    if ((gh.upstream || '').toLowerCase().indexOf('gitlab') >= 0) {
-      return 'https://gitlab.com/' + m[1] + '/' + m[2] + '/-/raw/' + sha + '/';
+    var slug = repoSlug();
+    if (!slug) return null;
+    // Read the forge from THIS repo, never from `upstream`: a GitLab fork keeps a
+    // github.com upstream (that is where it pulls code updates from), so trusting
+    // it sent every past-version fetch to raw.githubusercontent.com — a silent 404
+    // that made history unreachable on every GitLab fork.
+    if (forgeName() === 'GitLab') {
+      // Same origin as the repo, so self-hosted instances (framagit.org and the
+      // like) work; gitlab.com is not special.
+      return forgeOrigin() + '/' + slug + '/-/raw/' + sha + '/';
     }
-    return 'https://raw.githubusercontent.com/' + m[1] + '/' + m[2] + '/' + sha + '/';
+    // GitHub serves raw content from a separate host, which carries the slug only.
+    return 'https://raw.githubusercontent.com/' + slug + '/' + sha + '/';
   }
 
   /**
@@ -2560,6 +2792,18 @@ var App = (function() {
     githubBlob: function(filePath) {
       var branch = repoConfig().branch || 'main';
       return forgePath('blob', branch, filePath);
+    },
+    forgeFileUrl: forgeFileUrl,
+    proposeOnForge: proposeOnForge,
+    copyToClipboard: copyToClipboard,
+    // True when the object has never been committed, so "Propose" must target the
+    // forge's create-file route instead of /edit/ (which 404s on a missing file).
+    // DATA is the built catalog, i.e. exactly what the repository holds.
+    isNewConceptSet: function(id) {
+      return !(DATA.conceptSets || []).some(function(cs) { return cs.id === id; });
+    },
+    isNewProject: function(id) {
+      return !(DATA.projects || []).some(function(p) { return p.id === id; });
     },
     // State getters/setters
     get conceptSets() { return conceptSets; },

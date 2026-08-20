@@ -534,7 +534,9 @@ var MappingPage = (function() {
       type: 'application/json',
       clipboardDesc: App.i18n('Copy JSON to clipboard'),
       fileDesc: App.i18n('Download as mapping_recommendations.json'),
-      githubUrl: App.githubEdit('mapping_recommendations/mapping_recommendations.json')
+      // Always an edit: this file ships with the repo and reset.py only empties it.
+      githubPath: 'mapping_recommendations/mapping_recommendations.json',
+      githubIsNew: false
     });
   }
 

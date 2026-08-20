@@ -1676,7 +1676,10 @@ var ProjectsPage = (function() {
         type: 'application/json',
         clipboardDesc: App.i18n('Copy JSON to clipboard'),
         fileDesc: App.i18n('Download as {file}').replace('{file}', selectedProject.id + '.json'),
-        githubUrl: App.githubEdit('projects/' + selectedProject.id + '.json')
+        // Path + isNew rather than a prebuilt edit URL: a project created in the
+        // SPA is not in the repo, so it needs the forge's create-file route.
+        githubPath: 'projects/' + selectedProject.id + '.json',
+        githubIsNew: App.isNewProject(selectedProject.id)
       });
     });
 

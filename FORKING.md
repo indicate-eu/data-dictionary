@@ -66,7 +66,7 @@ This file at the repo root holds everything that identifies the dictionary as yo
 Key fields:
 - **`title`** — shown in the browser tab and the SPA header. This is the name of *your* dictionary.
 - **`repository.url`** — full URL of *your* repo, e.g. `https://gitlab.com/my-team/data-dictionary` or `https://framagit.org/my-team/data-dictionary`. **Set this if you are not on GitHub**: its host becomes the origin of every "Propose" link, and the app relabels its buttons "Propose on GitLab" accordingly. Defaults to github.com when absent.
-- **`repository.repo`** — the `<owner>/<project>` slug of your repo, used to build "Propose" links (`<url-host>/<repo>/edit/<branch>/...`). GitHub and GitLab share that URL shape.
+- **`repository.repo`** *(optional)* — the `<owner>/<project>` slug of your repo, used to build "Propose" links. **Derived from `repository.url` when absent**, so you normally do not need it; set it only if your slug cannot be read off the URL. GitLab subgroups (`my-org/sub/data-dictionary`) are supported. Note the two forges do *not* share the URL shape: GitLab namespaces repository routes under `/-/` (`/-/edit/main/...`), GitHub does not (`/edit/main/...`) — the app handles this for you.
 - **`repository.upstream`** — kept pointing at INDICATE's repo so `update_from_upstream.py` knows where to pull code updates from. This is a *different* repo from yours, which is why the forge is read from `repository.url` and not from here.
 - **`repository.forge`** *(optional)* — `"gitlab"` or `"github"`. Only needed for a self-hosted instance whose domain says nothing about which software it runs; anything that is not github.com is otherwise assumed to be GitLab.
 - **`organization`** — default `metadata.organization` written into new concept sets.
@@ -202,6 +202,13 @@ Then publish the static site (see §4 below).
 Either:
 - Use the SPA at `https://<your-org>.github.io/<your-repo>/` — create concept sets locally (stored in `localStorage`), then "Propose on GitHub" to commit them.
 - Or edit `concept_sets/<id>.json` directly, then `python3 build.py`.
+
+**How "Propose" works.** Clicking it opens a modal that spells out what will happen before any tab opens, because the two cases differ:
+
+- **The concept set is new** (created in the SPA, never committed) — the app opens your forge's *create file* page with the filename **and the JSON already filled in**; you just commit to a branch and open the PR. This is the case that used to 404: an edit URL only opens a file that already exists, so proposing a brand-new set failed while proposing a change to an existing one worked, which is why the button looked unreliable.
+- **The concept set already exists** — neither forge lets a URL prefill the editor of an existing file (it would blind-overwrite whatever was pushed meanwhile), so the JSON goes to your clipboard and the app opens the file in the forge editor. **Select all (Ctrl+A) and paste to replace the whole file** — pasting without selecting appends and produces invalid JSON.
+
+If your browser blocks clipboard access (which happens on sites served over plain HTTP), the app shows the JSON in a dialog so you can copy it by hand instead of landing on an editor with an empty clipboard.
 
 When creating a new concept set or project file by hand, increment the matching counter in `id_counters.json` (`build.py` validates this and bumps it automatically if too low).
 

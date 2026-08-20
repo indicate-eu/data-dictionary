@@ -3856,7 +3856,8 @@ var ConceptSetsPage = (function() {
   var hierarchyPinnedId = null;
 
   function copyToClipboard(text, btnEl) {
-    navigator.clipboard.writeText(text).then(function() {
+    App.copyToClipboard(text).then(function(ok) {
+      if (!ok) { App.showToast(App.i18n('Could not copy to clipboard.'), 'error'); return; }
       var icon = btnEl.querySelector('i');
       if (icon) { icon.className = 'fas fa-check'; icon.style.color = 'var(--success)'; setTimeout(function() { icon.className = 'far fa-clone'; icon.style.color = ''; }, 1200); }
     });
@@ -4770,12 +4771,10 @@ var ConceptSetsPage = (function() {
   // ==================== GITHUB PROPOSE ====================
   function proposeOnGitHub() {
     if (!selectedConceptSet) return;
-    var json = buildIndicateJSON();
-    navigator.clipboard.writeText(json).then(function() {
-      App.showToast(App.i18n('JSON copied to clipboard! Paste it in the GitHub editor.'), 'success', 5000);
-    }).catch(function() {});
-    var url = App.githubEdit('concept_sets/' + selectedConceptSet.id + '.json');
-    window.open(url, '_blank');
+    // A set created in the SPA has no file in the repo yet, so it must go to the
+    // forge's create-file route; /edit/ would 404 on it.
+    App.proposeOnForge('concept_sets/' + selectedConceptSet.id + '.json',
+      buildIndicateJSON(), App.isNewConceptSet(selectedConceptSet.id));
   }
 
   // ==================== VERSION MODAL ====================
@@ -5222,12 +5221,8 @@ var ConceptSetsPage = (function() {
     if (method === 'github') {
       // GitHub always uses INDICATE JSON — skip format step
       if (!selectedConceptSet) return;
-      var json = buildIndicateJSON();
-      navigator.clipboard.writeText(json).then(function() {
-        App.showToast(App.i18n('JSON copied to clipboard! Paste it in the GitHub editor.'), 'success', 5000);
-      }).catch(function() {});
-      var url = App.githubEdit('concept_sets/' + selectedConceptSet.id + '.json');
-      window.open(url, '_blank');
+      App.proposeOnForge('concept_sets/' + selectedConceptSet.id + '.json',
+        buildIndicateJSON(), App.isNewConceptSet(selectedConceptSet.id));
       closeExportModal();
       return;
     }
@@ -5735,11 +5730,10 @@ var ConceptSetsPage = (function() {
     var mimeType = 'application/json';
 
     if (exportMethod === 'clipboard') {
-      navigator.clipboard.writeText(content).then(function() {
+      App.copyToClipboard(content).then(function(ok) {
+        if (!ok) { App.showToast(App.i18n('Could not copy to clipboard. Try downloading the file instead.'), 'error'); return; }
         showExportPreview(content, 'json');
         markExportCopyBtnCopied();
-      }).catch(function() {
-        App.showToast(App.i18n('Could not copy to clipboard. Try downloading the file instead.'), 'error');
       });
       return;
     } else {
@@ -6951,7 +6945,8 @@ var ConceptSetsPage = (function() {
       if (!btn) return;
       var text = btn.getAttribute('data-copy');
       if (!text) return;
-      navigator.clipboard.writeText(text).then(function() {
+      App.copyToClipboard(text).then(function(ok) {
+        if (!ok) { App.showToast(App.i18n('Could not copy to clipboard.'), 'error'); return; }
         btn.classList.replace('far', 'fas');
         btn.classList.replace('fa-clone', 'fa-check');
         setTimeout(function() {
@@ -7537,10 +7532,9 @@ var ConceptSetsPage = (function() {
     document.getElementById('export-preview-copy-btn').addEventListener('click', function() {
       if (!exportPreviewEditor) return;
       var content = exportPreviewEditor.getValue();
-      navigator.clipboard.writeText(content).then(function() {
-        markExportCopyBtnCopied();
-      }).catch(function() {
-        App.showToast(App.i18n('Could not copy to clipboard.'), 'error');
+      App.copyToClipboard(content).then(function(ok) {
+        if (ok) markExportCopyBtnCopied();
+        else App.showToast(App.i18n('Could not copy to clipboard.'), 'error');
       });
     });
 

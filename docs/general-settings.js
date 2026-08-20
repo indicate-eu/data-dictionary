@@ -409,7 +409,8 @@ var GeneralSettingsPage = (function () {
     btn.addEventListener('click', function () {
       var code = btn.closest('.vocab-code-block').querySelector('code');
       if (!code) return;
-      navigator.clipboard.writeText(code.textContent).then(function () {
+      App.copyToClipboard(code.textContent).then(function (ok) {
+        if (!ok) { App.showToast(App.i18n('Could not copy to clipboard.'), 'error'); return; }
         var icon = btn.querySelector('i');
         icon.className = 'fas fa-check';
         setTimeout(function () { icon.className = 'fas fa-copy'; }, 1500);
