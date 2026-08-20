@@ -241,7 +241,22 @@
       "profession": "Medical Informatics and Intensive Care Physician",
       "orcid": "0009-0002-6055-6935"
     },
-    "reviews": [],
+    "reviews": [
+      {
+        "reviewId": 1,
+        "reviewer": {
+          "firstName": "Maxim",
+          "lastName": "Moinat",
+          "affiliation": "Erasmus MC",
+          "profession": "Data Engineer",
+          "orcid": "0000-0001-8473-2433"
+        },
+        "reviewTimestamp": "2026-08-20T13:22:00.000Z",
+        "status": "needs_revision",
+        "comments": "To add: 4150339 24 hour urine sample volume measurement (SNOMED 271068005).",
+        "version": "1.1.0"
+      }
+    ],
     "versions": [
       {
         "version": "1.1.0",

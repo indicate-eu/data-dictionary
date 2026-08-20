@@ -4493,7 +4493,7 @@ var ConceptSetsPage = (function() {
     }
     tbody.innerHTML = rows.map(function(r, idx) {
       return '<tr data-review-idx="' + idx + '" style="cursor:pointer" title="' + App.escapeHtml(App.i18n('Click to view the full review')) + '">' +
-        '<td>' + App.escapeHtml(reviewerName(r) || 'Unknown') + '</td>' +
+        '<td>' + personBadgeCell(r.reviewer, reviewerName(r) || 'Unknown') + '</td>' +
         '<td>' + App.escapeHtml(reviewDay(r)) + '</td>' +
         '<td class="td-center">' + App.statusBadge(r.status) + '</td>' +
         '<td>' + App.escapeHtml(r.version || '') + '</td>' +
@@ -4847,12 +4847,14 @@ var ConceptSetsPage = (function() {
     return '<span class="version-history-link">' + label + '</span>';
   }
 
-  // Author cell for a version row: a name badge with a hoverable black tooltip
-  // carrying the author's details (affiliation, profession, ORCID link). When no
-  // authorDetails are recorded, the tooltip says so.
-  function versionAuthorCell(v) {
-    var d = v.authorDetails || {};
-    var name = [d.firstName, d.lastName].filter(Boolean).join(' ') || v.author || '—';
+  // A name badge with a hoverable black tooltip carrying the person's details
+  // (affiliation, profession, ORCID link). Shared by the version history (author)
+  // and the review table (reviewer) — both store the same {firstName, lastName,
+  // affiliation, profession, orcid} shape. When no details are recorded, the
+  // tooltip says so rather than rendering empty.
+  function personBadgeCell(details, fallbackName) {
+    var d = details || {};
+    var name = [d.firstName, d.lastName].filter(Boolean).join(' ') || fallbackName || '—';
     var rows = [];
     if (d.affiliation) rows.push('<span class="author-tooltip-row">' + App.escapeHtml(d.affiliation) + '</span>');
     if (d.profession) rows.push('<span class="author-tooltip-row">' + App.escapeHtml(d.profession) + '</span>');
@@ -4866,6 +4868,11 @@ var ConceptSetsPage = (function() {
       '<span class="author-badge">' + App.escapeHtml(name) + '</span>' +
       '<span class="author-tooltip">' + rows.join('') + '</span>' +
     '</span>';
+  }
+
+  // Author cell for a version row.
+  function versionAuthorCell(v) {
+    return personBadgeCell(v.authorDetails, v.author);
   }
 
   // The modal opens on the version history; the creation form is behind a button,
@@ -7550,6 +7557,9 @@ var ConceptSetsPage = (function() {
 
     // Review table: click a row to view the full review (rendered Markdown)
     document.getElementById('cs-review-tbody').addEventListener('click', function(e) {
+      // The reviewer badge carries a hover tooltip with a clickable ORCID link:
+      // let that link open on its own instead of also opening the review modal.
+      if (e.target.closest('.author-tooltip')) return;
       var tr = e.target.closest('tr[data-review-idx]');
       if (tr) openReviewViewModal(parseInt(tr.dataset.reviewIdx, 10));
     });

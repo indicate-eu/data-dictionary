@@ -1449,16 +1449,25 @@ var App = (function() {
     if (el) el.textContent = name || i18n('Guest');
   }
 
+  // Everyone already recorded in the catalog, so a returning contributor can pick
+  // their own details instead of retyping them. Reviewers count too: someone may
+  // have reviewed concept sets without ever having authored one (their details
+  // then live only in metadata.reviews[].reviewer).
   function getKnownAuthors() {
     var seen = {};
     var authors = [];
-    conceptSets.forEach(function(cs) {
-      var d = cs.metadata && cs.metadata.createdByDetails;
+    function add(d) {
       if (!d || !d.firstName || !d.lastName) return;
       var key = (d.firstName + ' ' + d.lastName).toLowerCase();
       if (seen[key]) return;
       seen[key] = true;
       authors.push({ firstName: d.firstName, lastName: d.lastName, affiliation: d.affiliation || '', profession: d.profession || '', orcid: d.orcid || '' });
+    }
+    conceptSets.forEach(function(cs) {
+      var m = cs.metadata;
+      if (!m) return;
+      add(m.createdByDetails);
+      (m.reviews || []).forEach(function(r) { add(r.reviewer); });
     });
     authors.sort(function(a, b) { return (a.lastName + a.firstName).localeCompare(b.lastName + b.firstName); });
     return authors;
