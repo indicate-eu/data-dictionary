@@ -1342,6 +1342,9 @@ td .status-badge {
 .status-badge.approved { background: #28a745; color: white; }
 .status-badge.needs_revision { background: #fd7e14; color: white; }
 .status-badge.deprecated { background: #dc3545; color: white; }
+/* A review with no status: a contribution to the discussion, not a verdict.
+   Deliberately quiet, so it does not read as one of the workflow states. */
+.status-badge.comment { background: #e7ebf0; color: #46586b; }
 
 /* Column filter dropdowns */
 .column-filter {

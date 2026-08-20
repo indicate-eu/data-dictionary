@@ -923,6 +923,8 @@ var App = (function() {
     'Drop rows in other units':      { fr: 'Exclure les lignes dans d\'autres unités' },
     'Versions':                      { fr: 'Versions' },
     'Current version':               { fr: 'Version actuelle' },
+    'Comment':                       { fr: 'Commentaire' },
+    'Comment (no verdict)':          { fr: 'Commentaire (sans verdict)' },
     'Version shown':                 { fr: 'Version affichée' },
     'View this version':             { fr: 'Voir cette version' },
     '-- Select status --':           { fr: '-- Sélectionner un statut --' },

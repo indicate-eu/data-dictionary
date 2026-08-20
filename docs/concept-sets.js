@@ -4419,11 +4419,17 @@ var ConceptSetsPage = (function() {
     var statusSel = document.getElementById('review-filter-status');
     var cur = statusSel.value;
     var statuses = {};
-    reviews.forEach(function(r) { if (r.status) statuses[r.status] = true; });
+    var hasComment = false;
+    reviews.forEach(function(r) {
+      if (r.status) statuses[r.status] = true; else hasComment = true;
+    });
     statusSel.innerHTML = '<option value="">' + App.escapeHtml(App.i18n('All')) + '</option>' +
       Object.keys(statuses).sort().map(function(s) {
         return '<option value="' + App.escapeHtml(s) + '">' + App.escapeHtml(App.statusLabel(s)) + '</option>';
-      }).join('');
+      }).join('') +
+      // Statusless entries are filterable under the same 'comment' sentinel the
+      // Add Review select uses.
+      (hasComment ? '<option value="comment">' + App.escapeHtml(App.i18n('Comment')) + '</option>' : '');
     statusSel.value = cur;
 
     renderReviewTable();
@@ -4457,7 +4463,8 @@ var ConceptSetsPage = (function() {
     var rows = reviewSourceReviews.filter(function(r) {
       if (f.reviewer && reviewerName(r).toLowerCase().indexOf(f.reviewer) === -1) return false;
       if (f.date && reviewDay(r).toLowerCase().indexOf(f.date) === -1) return false;
-      if (f.status && (r.status || '') !== f.status) return false;
+      if (f.status === 'comment') { if (r.status) return false; }
+      else if (f.status && (r.status || '') !== f.status) return false;
       if (f.version && (r.version || '').toLowerCase().indexOf(f.version) === -1) return false;
       if (f.comments && (r.comments || '').toLowerCase().indexOf(f.comments) === -1) return false;
       return true;
@@ -4499,7 +4506,7 @@ var ConceptSetsPage = (function() {
       return '<tr data-review-idx="' + idx + '" style="cursor:pointer" title="' + App.escapeHtml(App.i18n('Click to view the full review')) + '">' +
         '<td>' + personBadgeCell(r.reviewer, reviewerName(r) || 'Unknown') + '</td>' +
         '<td class="td-center">' + App.escapeHtml(reviewDay(r)) + '</td>' +
-        '<td class="td-center">' + App.statusBadge(r.status) + '</td>' +
+        '<td class="td-center">' + reviewStatusCell(r) + '</td>' +
         '<td class="td-center">' + reviewVersionCell(r) + '</td>' +
         '<td class="desc-truncated">' + App.escapeHtml(App.truncate(r.comments || '', 150)) + '</td>' +
         '</tr>';
@@ -4719,7 +4726,9 @@ var ConceptSetsPage = (function() {
       return;
     }
     initReviewAceEditor();
-    document.getElementById('review-status').value = '';
+    // Default to a plain comment: contributing to the discussion is the common
+    // case, and passing a verdict should be a deliberate choice.
+    document.getElementById('review-status').value = 'comment';
     reviewAceEditor.setValue('# Review Comments\n\nEnter your review comments here using Markdown syntax.\n\n## Suggestions\n\n- Item 1\n- Item 2\n', -1);
     document.getElementById('review-modal').classList.add('visible');
     reviewAceEditor.resize();
@@ -4731,11 +4740,10 @@ var ConceptSetsPage = (function() {
   }
 
   function submitReview() {
+    // 'comment' is the UI sentinel for "no verdict": the entry is a contribution
+    // to the discussion (a reply, a question, a rationale), not a review verdict,
+    // and is stored with no `status` at all.
     var status = document.getElementById('review-status').value;
-    if (!status) {
-      App.showToast(App.i18n('Please select a review status.'), 'error');
-      return;
-    }
     var comments = reviewAceEditor ? reviewAceEditor.getValue().trim() : '';
     if (!comments) {
       App.showToast(App.i18n('Review comments are required.'), 'error');
@@ -4757,10 +4765,12 @@ var ConceptSetsPage = (function() {
       reviewId: maxId + 1,
       reviewer: reviewerInfo,
       reviewTimestamp: new Date().toISOString(),
-      status: status,
       comments: comments,
       version: selectedConceptSet.version || '1.0.0'
     };
+    // No `status` key at all for a plain comment, so nothing downstream reads it
+    // as a verdict.
+    if (status && status !== 'comment') review.status = status;
 
     if (!App.sessionReviews[selectedConceptSet.id]) App.sessionReviews[selectedConceptSet.id] = [];
     App.sessionReviews[selectedConceptSet.id].push(review);
@@ -4854,6 +4864,14 @@ var ConceptSetsPage = (function() {
     // the red "earlier version" badge, same as in the review table.
     return '<span class="version-old-badge version-history-link" title="' +
       App.escapeHtml(App.i18n('View this version')) + '">' + label + '</span>';
+  }
+
+  // Status cell for a review row. A review with no `status` is a comment: a
+  // contribution to the discussion rather than a verdict, so it gets a neutral
+  // badge instead of App.statusBadge, which would default it to "Draft".
+  function reviewStatusCell(r) {
+    if (r.status) return App.statusBadge(r.status);
+    return '<span class="status-badge comment">' + App.escapeHtml(App.i18n('Comment')) + '</span>';
   }
 
   // Version cell for a review row: a green badge when the review targets the
