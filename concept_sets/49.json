@@ -131,6 +131,20 @@
         "status": "approved",
         "comments": "Approved the addition of the RxNorm Extension ingredient Heparin Sodium (35884360) with its descendants. Validated orally; recorded by Boris Delange.",
         "version": "1.0.2"
+      },
+      {
+        "reviewId": 4,
+        "reviewer": {
+          "firstName": "Gregor",
+          "lastName": "Lichtner",
+          "affiliation": "Universitätsmedizin Greifswald",
+          "profession": "Medical Informatics",
+          "orcid": ""
+        },
+        "reviewTimestamp": "2026-10-12T14:06:33.000Z",
+        "status": "approved",
+        "comments": "## Summary\n**Approved (v1.0.2).** We agree with adding the RxNorm Extension ingredient [35884360](https://athena.ohdsi.org/search-terms/terms/35884360) Heparin Sodium with its descendants next to [1367571](https://athena.ohdsi.org/search-terms/terms/1367571) heparin.\n\n## Suggestions\n- None.\n",
+        "version": "1.0.2"
       }
     ],
     "versions": [
