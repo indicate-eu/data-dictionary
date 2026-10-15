@@ -5,9 +5,9 @@
   "version": "1.2.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
-  "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-06-11",
-  "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
+  "modifiedBy": "Alain Beuchée",
+  "modifiedDate": "2026-10-15",
+  "createdByTool": "INDICATE Data Dictionary v1.2.6 (https://github.com/indicate-eu/data-dictionary)",
   "expression": {
     "items": [
       {
@@ -83,6 +83,19 @@
         "reviewTimestamp": "2026-10-09T15:25:58.013Z",
         "status": "approved",
         "comments": "## Summary\n**Approved.** Reviewed by our clinician: Device domain only, insertion/removal/replacement procedures removed (issues [#14](https://github.com/indicate-eu/data-dictionary/issues/14)/[#15](https://github.com/indicate-eu/data-dictionary/issues/15), commit [39c07ba](https://github.com/indicate-eu/data-dictionary/commit/39c07bae1b4011d29c67dc403486d9155ee884e4)). Used in QI06.\n\n## Use in our quality indicators\n- Used in QI06 (Infection rate).\n- CQL: covered as a whole via the anchor concept 4179206 Central venous catheter with descendants (OMOP hierarchy codesystem) in [`IndicateQi06InfectionRate.cql`](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi06InfectionRate.cql?plain=1); the 7 resolved concepts were not reviewed one by one.\n\n## Suggestions\n- None.\n",
+        "version": "1.2.0"
+      },
+      {
+        "reviewId": 2,
+        "reviewer": {
+          "firstName": "Alain",
+          "lastName": "Beuchée",
+          "affiliation": "University of Rennes, CHU Rennes, Inserm, LTSI-UMR 1099, Rennes, France",
+          "profession": "Pediatrician - Neonatologist",
+          "orcid": "0000-0003-0064-7085"
+        },
+        "reviewTimestamp": "2026-10-15T12:40:55.409Z",
+        "comments": "# Review Comments\nClarification regarding umbilical venous catheters (UVCs): fewer than half achieve a central tip position. This distinction is similar to that between midlines and PICC lines, which may share the same peripheral insertion site but are classified differently according to the final position of the catheter tip.\n\n## Suggestions\n\n- Please add the following note under Comments / Mapping Notes / Neonatal lines included:  \n“Not all umbilical venous catheters are centrally positioned. Only those with a centrally positioned tip are included in this set.”",
         "version": "1.2.0"
       }
     ],
