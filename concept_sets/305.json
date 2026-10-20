@@ -184,7 +184,22 @@
       "profession": "Medical Informatics and Intensive Care Physician",
       "orcid": "0009-0002-6055-6935"
     },
-    "reviews": [],
+    "reviews": [
+      {
+        "reviewId": 1,
+        "reviewer": {
+          "firstName": "Gregor",
+          "lastName": "Lichtner",
+          "affiliation": "Universitätsmedizin Greifswald",
+          "profession": "Medical Informatics",
+          "orcid": ""
+        },
+        "reviewTimestamp": "2026-10-19T15:27:40.000Z",
+        "status": "needs_revision",
+        "comments": "# Review Comments\n\nFor concept set 305 (**Endotracheal intubation**), I suggest removing the two non-procedure concepts from the *Meas Value* and *Observation* domains and keeping this set to procedures only.\n\n## Suggestions\n\n- Remove **OMOP concept 36309319 — Unplanned intubation** (LOINC `LA20580-9`, domain: *Meas Value*).\n- Remove **OMOP concept 36660691 — Difficult intubation** (LOINC `95050-1`, domain: *Observation*).",
+        "version": "1.1.0"
+      }
+    ],
     "versions": [
       {
         "version": "1.1.0",
