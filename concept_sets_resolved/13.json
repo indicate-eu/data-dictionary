@@ -2,16 +2,16 @@
   "conceptSetId": 13,
   "vocabularyVersion": {
     "release": "v5.0 27-FEB-26",
-    "LOINC": "LOINC 2.80"
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
   },
   "resolvedConcepts": [
     {
-      "conceptId": 1091379,
-      "conceptName": "Ramsay sedation scale total score [Reported.RSS]",
-      "vocabularyId": "LOINC",
-      "domainId": "Observation",
-      "conceptClassId": "Survey",
-      "conceptCode": "105044-2",
+      "conceptId": 4105091,
+      "conceptName": "Ramsay sedation scale",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Staging / Scales",
+      "conceptCode": "281400004",
       "standardConcept": "S"
     }
   ]
