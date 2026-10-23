@@ -2,44 +2,25 @@
   "id": 318,
   "name": "Positive End-Expiratory Pressure (PEEP)",
   "description": "Positive end-expiratory pressure (PEEP) — airway pressure at end-expiration, in cmH2O (set, extrinsic, intrinsic/auto-PEEP, total).",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
-  "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-08-20",
+  "modifiedBy": "Gregor Lichtner",
+  "modifiedDate": "2026-10-23",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
       {
         "concept": {
-          "conceptId": 4353713,
-          "conceptName": "Positive end expiratory pressure",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Observable Entity",
+          "conceptId": 42527140,
+          "conceptName": "Total PEEP Respiratory system",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "250854009",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4216746,
-          "conceptName": "Positive end expiratory pressure setting",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Observable Entity",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "416595007",
-          "validStartDate": "2005-07-31",
+          "conceptCode": "76247-6",
+          "validStartDate": "2017-02-21",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
@@ -58,44 +39,6 @@
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
           "conceptCode": "20077-4",
-          "validStartDate": "1970-01-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4160171,
-          "conceptName": "Best positive end expiratory pressure",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Observable Entity",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "398269008",
-          "validStartDate": "2003-07-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 3035822,
-          "conceptName": "Intrinsic PEEP Respiratory system",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Clinical Observation",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "38199-6",
           "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
@@ -126,15 +69,15 @@
       },
       {
         "concept": {
-          "conceptId": 42527140,
-          "conceptName": "Total PEEP Respiratory system",
+          "conceptId": 3035822,
+          "conceptName": "Intrinsic PEEP Respiratory system",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
           "conceptClassId": "Clinical Observation",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "76247-6",
-          "validStartDate": "2017-02-21",
+          "conceptCode": "38199-6",
+          "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
@@ -244,6 +187,12 @@
         "date": "2026-08-20",
         "author": "Boris Delange",
         "message": "Mapping Notes: explain why the set PEEP and the measured PEEP live in one set rather than two, including the auto-PEEP caveat. Raised by Maxim Moinat, who asked whether they are the same thing. No change to the expression."
+      },
+      {
+        "version": "1.2.0",
+        "date": "2026-10-23",
+        "author": "Gregor Lichtner",
+        "message": "Keep the LOINC Measurement concepts only; drop the SNOMED concepts of the Observation domain."
       }
     ],
     "distributionStats": null
