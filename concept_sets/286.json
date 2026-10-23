@@ -2,11 +2,11 @@
   "id": 286,
   "name": "Energy intake",
   "description": "Energy (calorie) intake actually delivered, in kcal; holds a 24h-total concept and a point-in-time concept that must be summed per day to compare.",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
-  "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-06-11",
+  "modifiedBy": "Gregor Lichtner",
+  "modifiedDate": "2026-10-23",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -21,25 +21,6 @@
           "standardConceptCaption": "Standard",
           "conceptCode": "9057-1",
           "validStartDate": "1996-09-06",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 37206982,
-          "conceptName": "Energy intake",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Observable Entity",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "787787004",
-          "validStartDate": "2019-07-31",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
@@ -111,6 +92,12 @@
         "date": "2026-06-11",
         "author": "Boris Delange",
         "message": "Rebuilt on standard concepts: LOINC Calorie intake total 24 hour + SNOMED Energy intake. Added clinical description distinguishing intake (delivered) from requirement (target). Moved to pending review."
+      },
+      {
+        "version": "1.2.0",
+        "date": "2026-10-23",
+        "author": "Gregor Lichtner",
+        "message": "Restrict to the single concept 3026267 (Calorie intake total 24 hour)."
       }
     ],
     "distributionStats": null

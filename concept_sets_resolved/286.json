@@ -10,15 +10,6 @@
       "conceptClassId": "Clinical Observation",
       "conceptCode": "9057-1",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 37206982,
-      "conceptName": "Energy intake",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "787787004",
-      "standardConcept": "S"
     }
   ]
 }
