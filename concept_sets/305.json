@@ -2,11 +2,11 @@
   "id": 305,
   "name": "Endotracheal intubation",
   "description": "Endotracheal intubation by any route or technique (oral/nasal, fibreoptic, awake, emergency, double-lumen); surgical airways excluded.",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
-  "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-06-10",
+  "modifiedBy": "Gregor Lichtner",
+  "modifiedDate": "2026-10-23",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -104,44 +104,6 @@
         "isExcluded": true,
         "includeDescendants": false,
         "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 36309319,
-          "conceptName": "Unplanned intubation",
-          "domainId": "Meas Value",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Answer",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "LA20580-9",
-          "validStartDate": "1970-01-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 36660691,
-          "conceptName": "Difficult intubation",
-          "domainId": "Observation",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Clinical Observation",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "95050-1",
-          "validStartDate": "2020-06-17",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
       }
     ]
   },
@@ -206,6 +168,12 @@
         "date": "2026-06-10",
         "author": "Boris Delange",
         "message": "Re-anchor on Intubation of respiratory tract (40487536, descendants) and exclude the surgical-airway branch (tracheostomy 4337047, cricothyroidotomy 4337618 + minitrach, tracheal T-tube 4337048, scalpel bougie crico 37206251) — moved to new set 356 Surgical airway insertion. Keeps endotracheal/laryngeal/bronchial techniques incl. double-lumen. Kept the Unplanned/Difficult intubation qualifiers. Resolves to 23. Added clinical description."
+      },
+      {
+        "version": "1.2.0",
+        "date": "2026-10-23",
+        "author": "Gregor Lichtner",
+        "message": "Drop 36309319 and 36660691; the set keeps the procedure concepts only."
       }
     ],
     "distributionStats": null
