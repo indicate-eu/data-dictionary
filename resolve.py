@@ -78,6 +78,7 @@ def resolve_concept_set(con, items):
     1. Partition items into included and excluded
     2. For each partition, expand with descendants and mapped concepts
     3. Final = included - excluded
+    4. Drop classification concepts (standard_concept = 'C)
     4. Fetch concept details for final IDs
     """
     if not items:
@@ -131,6 +132,8 @@ def resolve_concept_set(con, items):
                 "standardConcept": r[6],
             }
             for r in rows
+            # classification concepts are anchors, not codes that occur in CDM data
+            if r[6] != "C"
         ]
 
     # Build custom concept details from expression items. Discard each id once
