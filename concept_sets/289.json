@@ -2,11 +2,11 @@
   "id": 289,
   "name": "Consultation with patient",
   "description": "Consultation with patient — a clinical encounter between a clinician and the patient (any setting); recorded as an event.",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
-  "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-06-11",
+  "modifiedBy": "Gregor Lichtner",
+  "modifiedDate": "2026-10-23",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -26,7 +26,45 @@
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37168078,
+          "conceptName": "Face to face consultation with patient",
+          "domainId": "Observation",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1269515004",
+          "validStartDate": "2023-04-30",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4089048,
+          "conceptName": "New patient consultation",
+          "domainId": "Observation",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Procedure",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "185387006",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
         "includeMapped": false
       }
     ]
@@ -92,6 +130,12 @@
         "date": "2026-06-11",
         "author": "Boris Delange",
         "message": "Anchored on SNOMED Consultation with patient with descendants instead of a hand-listed flat set (same resolved members, now maintainable). Added clinical description and mapping notes. Moved to pending review."
+      },
+      {
+        "version": "1.2.0",
+        "date": "2026-10-23",
+        "author": "Gregor Lichtner",
+        "message": "Restrict to 37164964, 37168078 and 4089048 (issue #22)."
       }
     ],
     "distributionStats": null
