@@ -35,3 +35,4 @@ apps/web/public/coi-serviceworker.js
 *.db
 *.sqlite
 .claude/worktrees/
+.claude/settings.local.json
