@@ -192,6 +192,20 @@
         "reviewTimestamp": "2026-10-09T19:01:44.314Z",
         "comments": "## Summary\n**No verdict (comment).** Why use multiple concepts that mean the same (SNOMED/LOINC)? Also, are all the LOINC codes necessary, with different levels of detail but still meaning more or less the same?\n\n## Use in our quality indicators\n- Used in QI01 (Lung-protective ventilation in ARDS).\n- CQL: 4 of 6 concepts are referenced in [`IndicateQi01Ventilation.cql`](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi01Ventilation.cql?plain=1): [3024882](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi01Ventilation.cql?plain=1#L48), [3025408](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi01Ventilation.cql?plain=1#L47), [3026238](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi01Ventilation.cql?plain=1#L46), [4353936](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi01Ventilation.cql?plain=1#L45) (each ID links to its code definition).\n- Not used by our indicators (2): 3020716 Inhaled oxygen concentration, 42869590 Oxygen/Gas total [Pure volume fraction] Inhaled gas.\n\n## Decision trail\n- 2026-05-19 · Jan Moringen (implementation): FiO2 (3 further concepts), Horowitz index (3029943, 3029268) and 21 tidal-volume concepts taken over from the dictionary. — [CQL commits 49eca02, b695304, 168243f](https://github.com/umg-minai/cql-indicate-qi/commit/168243f2ae254a2710043619b5a82bf755fbd7db)\n\n## Suggestions\n- Use just one concept for measured FiO2, one for set FiO2?\n",
         "version": "1.1.0"
+      },
+      {
+        "reviewId": 3,
+        "reviewer": {
+          "firstName": "Nicolas",
+          "lastName": "Terzi",
+          "affiliation": "",
+          "profession": "Intensive Care Physician",
+          "orcid": "0000-0003-4036-6245"
+        },
+        "reviewTimestamp": "2026-10-26T12:00:00.000Z",
+        "status": "needs_revision",
+        "comments": "In the definition: change \"0 to 1\" to \"0.21 to 1\".",
+        "version": "1.1.0"
       }
     ],
     "versions": [

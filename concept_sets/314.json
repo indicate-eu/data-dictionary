@@ -84,6 +84,20 @@
         "status": "approved",
         "comments": "## Summary\n**Approved.** Added to project 5 in [PR #4](https://github.com/indicate-eu/data-dictionary/pull/4). Used in QI01 as the fallback code for plateau pressure (4215838) in pressure-driven modes.\n\n## Use in our quality indicators\n- Used in QI01 (Lung-protective ventilation in ARDS).\n- CQL: all 1 concept(s) of the set are referenced in [`IndicateQi01Ventilation.cql`](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi01Ventilation.cql?plain=1) ([4215838](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi01Ventilation.cql?plain=1#L71); each ID links to its code definition).\n\n## Decision trail\n- 2026-01-12 · Sebastian Gibb (clinician): Priority information added to the QI01 mapping ([PEEP: 42527140 total measured > 4216746 setting > 4353713 generic](https://github.com/umg-minai/indicate-qi-definitions/blob/8014d1e86ebee84856c8163ac1f98e54061cd24b/qi01-ventilation.md?plain=1#L192); [Vt: 44782826 inspiratory > 4108448 spontaneous > 3012410 setting > 4029625 generic](https://github.com/umg-minai/indicate-qi-definitions/blob/8014d1e86ebee84856c8163ac1f98e54061cd24b/qi01-ventilation.md?plain=1#L198); [Pinsp 4215838 before PIP 4101694](https://github.com/umg-minai/indicate-qi-definitions/blob/8014d1e86ebee84856c8163ac1f98e54061cd24b/qi01-ventilation.md?plain=1#L196); rule in the [mapping notes](https://github.com/umg-minai/indicate-qi-definitions/blob/8014d1e86ebee84856c8163ac1f98e54061cd24b/qi01-ventilation.md?plain=1#L169)). — [QI commit 26ca861](https://github.com/umg-minai/indicate-qi-definitions/commit/26ca861af085ba7c1f0d7f30ca2302eb417de259)\n- 2026-02-11 · Jan Moringen (implementation): Inspiratory-pressure fallback implemented with the codes 4215838 (Pinsp) and 4101694 (PIP, mmHg→cmH2O). — [CQL commit 479c102](https://github.com/umg-minai/cql-indicate-qi/commit/479c102447d5851deaababa68ca1df55e955fbcc)\n- 2026-03-23 · Gregor Lichtner (interoperability): CS 299 (Endotracheal tube) and CS 314 (Inspiratory pressure setting) added to project 5; new sets 339/340 (PCV/VCV) created from the CS 306 procedure codes. — [DD PR #4 (merged by Boris Delange 2026-04-01)](https://github.com/indicate-eu/data-dictionary/pull/4)\n- 2026-03-23 · Jan Moringen (implementation) → Gregor Lichtner (interoperability): Ventilation mode read from the procedure codes of CS 306, classified as pressure- or volume-driven in [ventilation-modes.md](https://github.com/umg-minai/indicate-qi-definitions/blob/8014d1e86ebee84856c8163ac1f98e54061cd24b/ventilation-modes.md?plain=1) (4 codes \"unclear\"); the plateau-pressure fallback uses 4215838 ([QI01 § Plateau pressure](https://github.com/umg-minai/indicate-qi-definitions/blob/8014d1e86ebee84856c8163ac1f98e54061cd24b/qi01-ventilation.md?plain=1#L146)). — [QI issue #4 → PR #5 (commits e696f07, 0c3e0e2)](https://github.com/umg-minai/indicate-qi-definitions/issues/4#issuecomment-4119312833)\n\n## Suggestions\n- None.\n",
         "version": "1.0.1"
+      },
+      {
+        "reviewId": 2,
+        "reviewer": {
+          "firstName": "Nicolas",
+          "lastName": "Terzi",
+          "affiliation": "",
+          "profession": "Intensive Care Physician",
+          "orcid": "0000-0003-4036-6245"
+        },
+        "reviewTimestamp": "2026-10-26T12:00:00.000Z",
+        "status": "approved",
+        "comments": "",
+        "version": "1.0.1"
       }
     ],
     "versions": [

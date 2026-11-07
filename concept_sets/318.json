@@ -224,6 +224,20 @@
         "reviewTimestamp": "2026-10-09T19:06:30.343Z",
         "comments": "## Summary\n**No verdict (comment).** Why use LOINC and SNOMED CT codes that mean the same?\n\n## Use in our quality indicators\n- Used in QI01 (Lung-protective ventilation in ARDS).\n- CQL: 3 of 7 concepts are referenced in [`IndicateQi01Ventilation.cql`](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi01Ventilation.cql?plain=1): [4216746](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi01Ventilation.cql?plain=1#L58), [4353713](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi01Ventilation.cql?plain=1#L59), [42527140](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi01Ventilation.cql?plain=1#L57) (each ID links to its code definition).\n- Not used by our indicators and not reviewed individually (4): 3022875 Positive end expiratory pressure setting Ventilator, 3035822 Intrinsic PEEP Respiratory system, 4160171 Best positive end expiratory pressure, 42528515 Extrinsic PEEP Respiratory system.\n\n\n## Suggestions\n- Use just either the LOINC or the SNOMED CT codes, not both\n",
         "version": "1.1.2"
+      },
+      {
+        "reviewId": 4,
+        "reviewer": {
+          "firstName": "Nicolas",
+          "lastName": "Terzi",
+          "affiliation": "",
+          "profession": "Intensive Care Physician",
+          "orcid": "0000-0003-4036-6245"
+        },
+        "reviewTimestamp": "2026-10-26T12:00:00.000Z",
+        "status": "needs_revision",
+        "comments": "Total PEEP should be distinguished where possible.",
+        "version": "1.1.2"
       }
     ],
     "versions": [

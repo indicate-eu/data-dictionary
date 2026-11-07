@@ -141,6 +141,20 @@
         "status": "approved",
         "comments": "## Summary\n**Approved.** Reviewed by our clinician: the three tube-change concepts were removed ([issue #13](https://github.com/indicate-eu/data-dictionary/issues/13), commit [ae59b6f](https://github.com/indicate-eu/data-dictionary/commit/ae59b6fbc3b624ddeaea117fda21f3a3b67aa83e)). Used in QI02 (end of the ventilation episode, incl. inadvertent extubation).\n\n## Use in our quality indicators\n- Used in QI02 (Weaning).\n- CQL: 4 of 5 concepts are referenced in [`IndicateQi02Weaning.cql`](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi02Weaning.cql?plain=1): [4012607](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi02Weaning.cql?plain=1#L34), [4148972](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi02Weaning.cql?plain=1#L32), [4150627](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi02Weaning.cql?plain=1#L33), [4231838](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi02Weaning.cql?plain=1#L42) (each ID links to its code definition).\n- Not (yet) used by our indicators (1): 4195943 Ventilating tube removal by another physician.\n",
         "version": "1.1.0"
+      },
+      {
+        "reviewId": 2,
+        "reviewer": {
+          "firstName": "Nicolas",
+          "lastName": "Terzi",
+          "affiliation": "",
+          "profession": "Intensive Care Physician",
+          "orcid": "0000-0003-4036-6245"
+        },
+        "reviewTimestamp": "2026-10-26T12:00:00.000Z",
+        "status": "approved",
+        "comments": "",
+        "version": "1.1.0"
       }
     ],
     "versions": [

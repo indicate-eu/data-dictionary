@@ -129,6 +129,20 @@
         "reviewTimestamp": "2026-08-20T17:20:00.000Z",
         "comments": "Separately from the review above: 45759423 Oxygen administration transtracheal catheter is now excluded. SNOMED files it under Tracheostomy tube, but it is a catheter for long-term oxygen therapy through a stoma, not a tracheostomy tube, and it came in through the descendants branch. Resolves to 9.",
         "version": "1.2.0"
+      },
+      {
+        "reviewId": 4,
+        "reviewer": {
+          "firstName": "Nicolas",
+          "lastName": "Terzi",
+          "affiliation": "",
+          "profession": "Intensive Care Physician",
+          "orcid": "0000-0003-4036-6245"
+        },
+        "reviewTimestamp": "2026-10-26T12:00:00.000Z",
+        "status": "needs_revision",
+        "comments": "In the definition: \"inserted surgically or percutaneously\". I think it is important to be able to distinguish between these two situations. It would also be useful to know the type of tube used: cuffed yes/no, fenestrated yes/no, etc.",
+        "version": "1.2.0"
       }
     ],
     "versions": [

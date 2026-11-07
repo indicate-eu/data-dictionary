@@ -111,6 +111,20 @@
         "status": "approved",
         "comments": "## Summary\n**Approved.** Used in QI01/QI02 for intubation status (tube present). Works for us because we're using, like in the concept set, \"4097216\tEndotracheal tube\" and all its descendents.\n\n## Use in our quality indicators\n- Used in QI01 (Lung-protective ventilation in ARDS), QI02 (Weaning).\n- CQL: covered as a whole via the anchor concept 4097216 Endotracheal tube with descendants (OMOP hierarchy codesystem) in [`IndicateQiElements.cql`](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQiElements.cql?plain=1); the 19 resolved concepts were not reviewed one by one.\n\n## Decision trail\n- 2026-03-23 · Gregor Lichtner (interoperability): CS 299 (Endotracheal tube) and CS 314 (Inspiratory pressure setting) added to project 5; new sets 339/340 (PCV/VCV) created from the CS 306 procedure codes. — [DD PR #4 (merged by Boris Delange 2026-04-01)](https://github.com/indicate-eu/data-dictionary/pull/4)\n- 2026-05-11 · Jan Moringen (implementation): Intubation status via the OMOP hierarchy of 4097216 (Endotracheal tube), i.e. the whole set. — [CQL commit 29493fb](https://github.com/umg-minai/cql-indicate-qi/commit/29493fbb214dbcaaa352d28e494935896fda3f2d)\n\n## Suggestions\n- None.\n",
         "version": "1.1.0"
+      },
+      {
+        "reviewId": 4,
+        "reviewer": {
+          "firstName": "Nicolas",
+          "lastName": "Terzi",
+          "affiliation": "",
+          "profession": "Intensive Care Physician",
+          "orcid": "0000-0003-4036-6245"
+        },
+        "reviewTimestamp": "2026-10-26T12:00:00.000Z",
+        "status": "approved",
+        "comments": "",
+        "version": "1.1.0"
       }
     ],
     "versions": [

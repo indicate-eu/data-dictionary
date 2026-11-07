@@ -84,6 +84,20 @@
         "status": "approved",
         "comments": "## Summary\n**Approved.** Used in QI01/QI02/QI06. QI01 reads the ventilation mode from this set's procedure codes (classified in ventilation-modes.md) rather than from an explicit mode concept.\n\n## Use in our quality indicators\n- Used in QI01 (Lung-protective ventilation in ARDS), QI02 (Weaning), QI06 (Infection rate).\n- CQL: all 1 concept(s) of the set are referenced in [`IndicateQi02Weaning.cql`](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi02Weaning.cql?plain=1), [`IndicateQi06InfectionRate.cql`](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi06InfectionRate.cql?plain=1) ([37158404](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi06InfectionRate.cql?plain=1#L45); each ID links to its code definition).\n\n## Decision trail\n- 2026-03-23 · Jan Moringen (implementation) → Gregor Lichtner (interoperability): Ventilation mode read from the procedure codes of CS 306, classified as pressure- or volume-driven in [ventilation-modes.md](https://github.com/umg-minai/indicate-qi-definitions/blob/8014d1e86ebee84856c8163ac1f98e54061cd24b/ventilation-modes.md?plain=1) (4 codes \"unclear\"); the plateau-pressure fallback uses 4215838 ([QI01 § Plateau pressure](https://github.com/umg-minai/indicate-qi-definitions/blob/8014d1e86ebee84856c8163ac1f98e54061cd24b/qi01-ventilation.md?plain=1#L146)). — [QI issue #4 → PR #5 (commits e696f07, 0c3e0e2)](https://github.com/umg-minai/indicate-qi-definitions/issues/4#issuecomment-4119312833)\n- 2026-03-25 · Jan Moringen (implementation): VentilationProcedures library generated from ventilation-modes.md (18 pressure/volume-driven codes). — [CQL commit e93c7db](https://github.com/umg-minai/cql-indicate-qi/commit/e93c7db4f544df292d73649f7a014a58a5feac89)\n\n## Suggestions\n- None.\n",
         "version": "1.1.0"
+      },
+      {
+        "reviewId": 2,
+        "reviewer": {
+          "firstName": "Nicolas",
+          "lastName": "Terzi",
+          "affiliation": "",
+          "profession": "Intensive Care Physician",
+          "orcid": "0000-0003-4036-6245"
+        },
+        "reviewTimestamp": "2026-10-26T12:00:00.000Z",
+        "status": "approved",
+        "comments": "",
+        "version": "1.1.0"
       }
     ],
     "versions": [

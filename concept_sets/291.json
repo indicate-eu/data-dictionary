@@ -98,6 +98,20 @@
         "status": "needs_revision",
         "comments": "# Review Comments\nClarification regarding umbilical venous catheters (UVCs): fewer than half achieve a central tip position. This distinction is similar to that between midlines and PICC lines, which may share the same peripheral insertion site but are classified differently according to the final position of the catheter tip.\n\n## Suggestions\n\n- Please add the following note under Comments / Mapping Notes / Neonatal lines included:  \n“Not all umbilical venous catheters are centrally positioned. Only those with a centrally positioned tip are included in this set.”",
         "version": "1.2.0"
+      },
+      {
+        "reviewId": 3,
+        "reviewer": {
+          "firstName": "Nicolas",
+          "lastName": "Terzi",
+          "affiliation": "",
+          "profession": "Intensive Care Physician",
+          "orcid": "0000-0003-4036-6245"
+        },
+        "reviewTimestamp": "2026-10-26T12:00:00.000Z",
+        "status": "approved",
+        "comments": "",
+        "version": "1.2.0"
       }
     ],
     "versions": [

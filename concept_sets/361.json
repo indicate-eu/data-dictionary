@@ -116,6 +116,20 @@
         "reviewTimestamp": "2026-08-20T15:00:00.000Z",
         "comments": "Reply to Maxim Moinat's review. The concept quoted is 3035357 (3035367 is Acetaldehyde in Urine), and it is already in concept set 312, End tidal carbon dioxide (PetCO2). End-tidal CO2 is split in two non-inter-convertible sets: 361 for the volume fraction in %, 312 for the partial pressure in mmHg/kPa. The mmHg concepts found in the EMC data belong to 312, so nothing is missing here.",
         "version": "1.0.0"
+      },
+      {
+        "reviewId": 3,
+        "reviewer": {
+          "firstName": "Nicolas",
+          "lastName": "Terzi",
+          "affiliation": "",
+          "profession": "Intensive Care Physician",
+          "orcid": "0000-0003-4036-6245"
+        },
+        "reviewTimestamp": "2026-10-26T12:00:00.000Z",
+        "status": "approved",
+        "comments": "",
+        "version": "1.0.0"
       }
     ],
     "versions": [],

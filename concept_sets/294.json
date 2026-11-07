@@ -255,6 +255,20 @@
         "status": "approved",
         "comments": "## Summary\n**Approved.** Used in QI09 (early mobilisation).\n\n## Use in our quality indicators\n- Used in QI09 (Early mobilisation).\n- CQL: all 10 concept(s) of the set are referenced in [`MobilizationProcedures.cql`](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/MobilizationProcedures.cql?plain=1) ([1242274](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/MobilizationProcedures.cql?plain=1#L14), [4040262](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/MobilizationProcedures.cql?plain=1#L22), [4158838](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/MobilizationProcedures.cql?plain=1#L13), [4204159](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/MobilizationProcedures.cql?plain=1#L21), [37016972](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/MobilizationProcedures.cql?plain=1#L16), [46271857](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/MobilizationProcedures.cql?plain=1#L20), [46271859](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/MobilizationProcedures.cql?plain=1#L19), [46272439](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/MobilizationProcedures.cql?plain=1#L15), [46272440](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/MobilizationProcedures.cql?plain=1#L17), [46272565](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/MobilizationProcedures.cql?plain=1#L18); each ID links to its code definition).\n\n## Decision trail\n- 2026-03-23 · Gregor Lichtner (interoperability): QI09 mapping updated to the dictionary concepts for mobilisation and the order not to mobilise ([mapping rows](https://github.com/umg-minai/indicate-qi-definitions/blob/8014d1e86ebee84856c8163ac1f98e54061cd24b/qi09-mobilisation.md?plain=1#L68)). — [QI commit 224243d](https://github.com/umg-minai/indicate-qi-definitions/commit/224243dad438064965797dd21d31ca10a60a7bce)\n- 2026-06-29 · Jan Moringen (implementation): MobilizationProcedures library generated from CS 294 (all 10 concepts). — [CQL commit e07b436](https://github.com/umg-minai/cql-indicate-qi/commit/e07b43674af2a979d4e02b330aa068204067fbfe)\n\n## Suggestions\n- None.\n",
         "version": "1.1.0"
+      },
+      {
+        "reviewId": 2,
+        "reviewer": {
+          "firstName": "Nicolas",
+          "lastName": "Terzi",
+          "affiliation": "",
+          "profession": "Intensive Care Physician",
+          "orcid": "0000-0003-4036-6245"
+        },
+        "reviewTimestamp": "2026-10-26T12:00:00.000Z",
+        "status": "approved",
+        "comments": "Should we specify that prone positioning and lateral decubitus positioning do not count as mobilization?",
+        "version": "1.1.0"
       }
     ],
     "versions": [

@@ -122,6 +122,20 @@
         "status": "approved",
         "comments": "",
         "version": "1.1.0"
+      },
+      {
+        "reviewId": 2,
+        "reviewer": {
+          "firstName": "Nicolas",
+          "lastName": "Terzi",
+          "affiliation": "",
+          "profession": "Intensive Care Physician",
+          "orcid": "0000-0003-4036-6245"
+        },
+        "reviewTimestamp": "2026-10-26T12:00:00.000Z",
+        "status": "needs_revision",
+        "comments": "FiO2 can be estimated from the oxygen flow rate, using the formula published by Coudroy et al.: 0.03 × flow (L/min) + 0.21.",
+        "version": "1.1.0"
       }
     ],
     "versions": [

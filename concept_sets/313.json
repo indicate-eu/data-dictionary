@@ -254,6 +254,20 @@
         "reviewTimestamp": "2026-10-09T19:02:54.239Z",
         "comments": "## Summary\n**No verdict (comment).** Our indicators use only part of this set, so we cannot approve it as a whole. Used in QI01 (ARDS severity; 3029943 and 3029268).\n\n## Use in our quality indicators\n- Used in QI01 (Lung-protective ventilation in ARDS).\n- CQL: 2 of 10 concepts are referenced in [`IndicateQi01Ventilation.cql`](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi01Ventilation.cql?plain=1): [3029268](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi01Ventilation.cql?plain=1#L31), [3029943](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi01Ventilation.cql?plain=1#L30) (each ID links to its code definition).\n- Not used by our indicators and not reviewed individually (8): 3029316 Horowitz index in Venous blood, 3029523 Horowitz index adjusted to patients actual temperature in Mixed venous blood, 3029599 Horowitz index in Mixed venous blood, 3029880 Horowitz index in Blood, 3029906 Horowitz index adjusted to patients actual temperature in Blood, 3030774 Horowitz index in Capillary blood, 3032208 Horowitz index adjusted to patients actual temperature in Capillary blood, 3032443 Horowitz index adjusted to patients actual temperature in Venous blood.\n\n## Decision trail\n- 2026-05-19 · Jan Moringen (implementation): FiO2 (3 further concepts), Horowitz index (3029943, 3029268) and 21 tidal-volume concepts taken over from the dictionary. — [CQL commits 49eca02, b695304, 168243f](https://github.com/umg-minai/cql-indicate-qi/commit/168243f2ae254a2710043619b5a82bf755fbd7db)\n\n## Suggestions\n- None\n",
         "version": "1.0.1"
+      },
+      {
+        "reviewId": 2,
+        "reviewer": {
+          "firstName": "Nicolas",
+          "lastName": "Terzi",
+          "affiliation": "",
+          "profession": "Intensive Care Physician",
+          "orcid": "0000-0003-4036-6245"
+        },
+        "reviewTimestamp": "2026-10-26T12:00:00.000Z",
+        "status": "approved",
+        "comments": "",
+        "version": "1.0.1"
       }
     ],
     "versions": [

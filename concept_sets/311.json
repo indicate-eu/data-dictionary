@@ -98,6 +98,20 @@
         "status": "approved",
         "comments": "## Summary\n**Approved.** Used in QI03 (21490580) as optional input for the calorie target.\n\n## Use in our quality indicators\n- Used in QI03 (Feeding).\n- CQL: all 1 concept(s) of the set are referenced in [`IndicateQi03Feeding.cql`](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi03Feeding.cql?plain=1) ([21490580](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi03Feeding.cql?plain=1#L37); each ID links to its code definition).\n\n## Decision trail\n- 2026-01-11 / 2026-01-17 · Sebastian Gibb (clinician): VCO2 dropped because absent from the minimal dataset (11.1.), re-added as optional input (17.1.). — [OP #20144 / QI commits 7f7c67a, 3c5b692](https://github.com/umg-minai/indicate-qi-definitions/commit/3c5b692e5f7c395eef142f4bc87b7014200af82e)\n- 2026-08-20 · Maxim Moinat (Erasmus MC data engineer): Approved FiO2, PIP, Pplat (v1.1.0), Vt (v1.1.0), VCO2. — [DD review tab](https://indicate-eu.github.io/data-dictionary/#/concept-sets?id=301&tab=review)\n\n## Suggestions\n- None.\n",
         "version": "1.0.0"
+      },
+      {
+        "reviewId": 3,
+        "reviewer": {
+          "firstName": "Nicolas",
+          "lastName": "Terzi",
+          "affiliation": "",
+          "profession": "Intensive Care Physician",
+          "orcid": "0000-0003-4036-6245"
+        },
+        "reviewTimestamp": "2026-10-26T12:00:00.000Z",
+        "status": "approved",
+        "comments": "",
+        "version": "1.0.0"
       }
     ],
     "versions": [],

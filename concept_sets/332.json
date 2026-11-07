@@ -597,6 +597,20 @@
         "status": "approved",
         "comments": "",
         "version": "1.1.0"
+      },
+      {
+        "reviewId": 2,
+        "reviewer": {
+          "firstName": "Nicolas",
+          "lastName": "Terzi",
+          "affiliation": "",
+          "profession": "Intensive Care Physician",
+          "orcid": "0000-0003-4036-6245"
+        },
+        "reviewTimestamp": "2026-10-26T12:00:00.000Z",
+        "status": "needs_revision",
+        "comments": "When several measurement sources are available, should we specify that for ventilated patients (invasive or non-invasive), ventilator data should be preferred over impedance-based measurements?",
+        "version": "1.1.0"
       }
     ],
     "versions": [

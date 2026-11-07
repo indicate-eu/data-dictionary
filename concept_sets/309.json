@@ -84,6 +84,20 @@
         "status": "approved",
         "comments": "## Summary\n**Approved.** Used in QI02 as the single weaning data point (pressure support is not part of the minimal dataset).\n\n## Use in our quality indicators\n- Used in QI02 (Weaning).\n- CQL: all 1 concept(s) of the set are referenced in [`IndicateQi02Weaning.cql`](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi02Weaning.cql?plain=1) ([4308797](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi02Weaning.cql?plain=1#L26); each ID links to its code definition).\n\n## Decision trail\n- 2026-01-11 · Sebastian Gibb (clinician): Pressure support is not in the minimal dataset; the spontaneous breathing trial (4308797) is the single weaning data point ([mapping row](https://github.com/umg-minai/indicate-qi-definitions/blob/8014d1e86ebee84856c8163ac1f98e54061cd24b/qi02-weaning.md?plain=1#L61)). — [QI commit 20e6214](https://github.com/umg-minai/indicate-qi-definitions/commit/20e6214af862f5cdce6aa45f8475f1bc782fbe21)\n\n## Suggestions\n- None.\n",
         "version": "1.0.0"
+      },
+      {
+        "reviewId": 2,
+        "reviewer": {
+          "firstName": "Nicolas",
+          "lastName": "Terzi",
+          "affiliation": "",
+          "profession": "Intensive Care Physician",
+          "orcid": "0000-0003-4036-6245"
+        },
+        "reviewTimestamp": "2026-10-26T12:00:00.000Z",
+        "status": "needs_revision",
+        "comments": "Why not specify a duration of 30 min to 2 h?",
+        "version": "1.0.0"
       }
     ],
     "versions": [],
