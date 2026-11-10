@@ -10,42 +10,6 @@
       "conceptClassId": "Observable Entity",
       "conceptCode": "1003837001",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 604878,
-      "conceptName": "Estimated required quantity of energy per kilogram body weight in 24 hours",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "1003838006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4022415,
-      "conceptName": "Energy requirement",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "226244007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4027088,
-      "conceptName": "Non-protein energy requirement",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "226245008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 45771253,
-      "conceptName": "Pediatric energy requirement",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "702387006",
-      "standardConcept": "S"
     }
   ]
 }

@@ -2,33 +2,14 @@
   "id": 274,
   "name": "Body height",
   "description": "Body height (stature) — how tall the patient is, standing or recumbent; in centimetres (cm).",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
-  "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-06-11",
+  "modifiedBy": "Gregor Lichtner",
+  "modifiedDate": "2026-10-23",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
-      {
-        "concept": {
-          "conceptId": 607590,
-          "conceptName": "Body height",
-          "domainId": "Measurement",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Observable Entity",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "1153637007",
-          "validStartDate": "2021-07-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": true,
-        "includeMapped": false
-      },
       {
         "concept": {
           "conceptId": 3036277,
@@ -45,120 +26,6 @@
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 37160441,
-          "conceptName": "Estimated body height",
-          "domainId": "Measurement",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Observable Entity",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "1162418000",
-          "validStartDate": "2021-09-30",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": true,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 37160440,
-          "conceptName": "Pre-amputation estimated body height",
-          "domainId": "Measurement",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Observable Entity",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "1162417005",
-          "validStartDate": "2021-09-30",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": true,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 37160428,
-          "conceptName": "Pre-amputation measured body height",
-          "domainId": "Measurement",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Observable Entity",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "1162392001",
-          "validStartDate": "2021-09-30",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": true,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 37160442,
-          "conceptName": "Self reported body height",
-          "domainId": "Measurement",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Observable Entity",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "1162419008",
-          "validStartDate": "2021-09-30",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": true,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 37164398,
-          "conceptName": "Self reported peak adult body height",
-          "domainId": "Measurement",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Observable Entity",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "1230278008",
-          "validStartDate": "2022-07-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": true,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 4014465,
-          "conceptName": "Birth length",
-          "domainId": "Measurement",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Observable Entity",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "169886007",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": true,
         "includeDescendants": false,
         "includeMapped": false
       }
@@ -225,6 +92,12 @@
         "date": "2026-06-11",
         "author": "Boris Delange",
         "message": "Resolves issue #2: rebuilt symmetrically with Body weight — anchored on SNOMED Body height with descendants, plus generic LOINC, excluding self-reported/estimated/pre-amputation variants; birth length kept. Added clinical description and mapping notes. Birth length is excluded because it has its own Birth height set. Moved to pending review."
+      },
+      {
+        "version": "1.2.0",
+        "date": "2026-10-23",
+        "author": "Gregor Lichtner",
+        "message": "Restrict to the single concept 3036277 (LOINC Body height)."
       }
     ],
     "distributionStats": null

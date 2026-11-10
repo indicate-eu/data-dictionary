@@ -3,24 +3,6 @@
   "vocabularyVersion": null,
   "resolvedConcepts": [
     {
-      "conceptId": 1073500,
-      "conceptName": "Adjusted ideal body weight",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "1304200008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3032445,
-      "conceptName": "Ideal body weight",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "50064-5",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 4062985,
       "conceptName": "Ideal body weight",
       "vocabularyId": "SNOMED",

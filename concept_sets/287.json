@@ -2,31 +2,31 @@
   "id": 287,
   "name": "Energy requirement",
   "description": "Energy requirement — the target amount of energy a patient needs over 24 hours; in kilocalories (kcal).",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
-  "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-06-11",
+  "modifiedBy": "Gregor Lichtner",
+  "modifiedDate": "2026-10-23",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
       {
         "concept": {
-          "conceptId": 4022415,
-          "conceptName": "Energy requirement",
+          "conceptId": 604877,
+          "conceptName": "Estimated required quantity of energy in 24 hours",
           "domainId": "Observation",
           "vocabularyId": "SNOMED",
           "conceptClassId": "Observable Entity",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "226244007",
-          "validStartDate": "2002-01-31",
+          "conceptCode": "1003837001",
+          "validStartDate": "2021-01-31",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
-        "includeDescendants": true,
+        "includeDescendants": false,
         "includeMapped": false
       }
     ]
@@ -92,6 +92,12 @@
         "date": "2026-06-11",
         "author": "Boris Delange",
         "message": "Anchored on SNOMED Energy requirement with descendants (per-kg, paediatric, non-protein variants). Added clinical description distinguishing requirement (target) from intake. Moved to pending review."
+      },
+      {
+        "version": "1.2.0",
+        "date": "2026-10-23",
+        "author": "Gregor Lichtner",
+        "message": "Restrict to the single concept 604877."
       }
     ],
     "distributionStats": null

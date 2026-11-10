@@ -3,66 +3,12 @@
   "vocabularyVersion": null,
   "resolvedConcepts": [
     {
-      "conceptId": 3025315,
-      "conceptName": "Body weight",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "29463-7",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 4099154,
       "conceptName": "Body weight",
       "vocabularyId": "SNOMED",
       "domainId": "Measurement",
       "conceptClassId": "Observable Entity",
       "conceptCode": "27113001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4178502,
-      "conceptName": "Body weight measure",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "363808001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37160443,
-      "conceptName": "Post-dialysis body weight",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "1162420002",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37160447,
-      "conceptName": "Pre-dialysis body weight",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "1162421003",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40484200,
-      "conceptName": "Dry body weight",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "445541000",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42536495,
-      "conceptName": "Current body weight",
-      "vocabularyId": "SNOMED",
-      "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "735395000",
       "standardConcept": "S"
     }
   ]
