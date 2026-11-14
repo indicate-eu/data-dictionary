@@ -2,8 +2,7 @@
   "conceptSetId": 286,
   "vocabularyVersion": {
     "release": "v5.0 27-FEB-26",
-    "LOINC": "LOINC 2.80",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+    "LOINC": "LOINC 2.80"
   },
   "resolvedConcepts": [
     {
@@ -16,12 +15,30 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 37206982,
-      "conceptName": "Energy intake",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "787787004",
+      "conceptId": 21493096,
+      "conceptName": "Calorie intake 24 hour Measured",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "80494-8",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46234687,
+      "conceptName": "Calorie intake 24 hour",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "75302-0",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 46235231,
+      "conceptName": "Calorie intake 24 hour Estimated",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "75298-0",
       "standardConcept": "S"
     }
   ]

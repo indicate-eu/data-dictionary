@@ -1,12 +1,12 @@
 {
   "id": 286,
-  "name": "Energy intake",
-  "description": "Energy (calorie) intake actually delivered, in kcal; holds a 24h-total concept and a point-in-time concept that must be summed per day to compare.",
-  "version": "1.1.0",
+  "name": "Energy intake per 24 hours",
+  "description": "Energy intake per 24 hours — the energy actually delivered to the patient over 24 hours, by all routes; in kilocalories per 24 hours (kcal/24 h).",
+  "version": "1.2.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-06-11",
+  "modifiedDate": "2026-11-14",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -31,15 +31,53 @@
       },
       {
         "concept": {
-          "conceptId": 37206982,
-          "conceptName": "Energy intake",
-          "domainId": "Observation",
-          "vocabularyId": "SNOMED",
-          "conceptClassId": "Observable Entity",
+          "conceptId": 46234687,
+          "conceptName": "Calorie intake 24 hour",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
-          "conceptCode": "787787004",
-          "validStartDate": "2019-07-31",
+          "conceptCode": "75302-0",
+          "validStartDate": "2014-08-07",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 21493096,
+          "conceptName": "Calorie intake 24 hour Measured",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "80494-8",
+          "validStartDate": "2016-06-24",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 46235231,
+          "conceptName": "Calorie intake 24 hour Estimated",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "75298-0",
+          "validStartDate": "2015-06-29",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
@@ -68,18 +106,18 @@
     "origin": null,
     "translations": {
       "en": {
-        "name": "Energy intake",
+        "name": "Energy intake per 24 hours",
         "category": "Other",
         "subcategory": "Nutrition",
-        "shortDescription": "Energy (calorie) intake actually delivered, in kcal; holds a 24h-total concept and a point-in-time concept that must be summed per day to compare.",
-        "longDescription": "## Definition & Clinical Context\n\nEnergy intake is the total amount of food energy a patient has actually taken in — orally, enterally, or parenterally — over a defined period (typically 24 hours). It produces a numeric value used to track nutritional delivery against the patient's requirement. It is reported in kilocalories (kcal).\n\n## Included Concepts\n\nThis set deliberately holds two concepts with **different temporal semantics** — they are *not* directly interchangeable and must be interpreted differently when querying (see Mapping Notes).\n\n- *3026267 / 9057-1 — Calorie intake total 24 hour (LOINC)*: a **daily total** (one value already aggregated over 24 hours). Stored in the Measurement table; one row per patient per day.\n- *37206982 / 787787004 — Energy intake (SNOMED)*: a **point-in-time** energy-intake value at a given timestamp. Stored in the Observation table; there may be several rows per day, each a partial intake.\n\nBoth express energy actually consumed (delivered), in kcal.\n\n## Mapping Notes\n\n- Map a value that is already a 24-hour total to *3026267 / 9057-1 — Calorie intake total 24 hour* (LOINC); map a per-administration / point-in-time intake to *37206982 / 787787004 — Energy intake* (SNOMED).\n- **To compare the two, the point-in-time values must be summed per patient per day** to reconstruct a daily total equivalent to the LOINC concept. Because the two concepts also live in different CDM tables (Measurement vs Observation), a daily energy-intake query has to read both and union them, for example:\n\n```sql\n-- Daily energy intake (kcal) per patient, harmonising both concepts.\n-- LOINC 9057-1 is already a 24h total; SNOMED 787787004 is summed per day.\nWITH daily_total AS (   -- already a 24h total (Measurement table)\n    SELECT person_id,\n           CAST(measurement_datetime AS DATE) AS intake_day,\n           value_as_number AS kcal\n    FROM   measurement\n    WHERE  measurement_concept_id = 3026267        -- Calorie intake total 24 hour\n),\npointwise AS (          -- point-in-time intakes (Observation table), summed per day\n    SELECT person_id,\n           CAST(observation_datetime AS DATE) AS intake_day,\n           SUM(value_as_number) AS kcal\n    FROM   observation\n    WHERE  observation_concept_id = 37206982       -- Energy intake\n    GROUP  BY person_id, CAST(observation_datetime AS DATE)\n)\nSELECT person_id, intake_day, kcal, 'total_24h' AS source FROM daily_total\nUNION ALL\nSELECT person_id, intake_day, kcal, 'summed'    AS source FROM pointwise;\n```\n\n  Prefer the pre-aggregated 24-hour total when both are available for the same day, to avoid double-counting.\n- Do **not** map energy *requirement* (a target, not what was delivered) here — that is the *Energy requirement* set."
+        "shortDescription": "Energy intake per 24 hours — the energy actually delivered to the patient over 24 hours, by all routes; in kilocalories per 24 hours (kcal/24 h).",
+        "longDescription": "## Definition & Clinical Context\n\nEnergy intake is the total amount of energy a patient has actually received over 24 hours — orally, enterally and parenterally. It is used to track nutritional delivery against the patient's requirement (the *Energy requirement per 24 hours* set). It is reported in kilocalories per 24 hours (kcal/24 h); some systems use kilojoules per 24 hours (kJ/24 h), with a registered conversion (1 kcal = 4.184 kJ).\n\n## Included Concepts\n\nThe set lists the standard LOINC concepts for the 24-hour energy intake, all in the Measurement domain and in kcal/24 h.\n\n### 24-hour total (default)\n\n- *3026267 / 9057-1 — Calorie intake total 24 hour (LOINC)*: the 24-hour total intake; the default.\n- *46234687 / 75302-0 — Calorie intake 24 hour (LOINC)*: total energy intake from all sources (food, beverages, supplements, enteral and parenteral routes) over 24 hours.\n\n### By method\n\n- *21493096 / 80494-8 — Calorie intake 24 hour Measured (LOINC)*: the 24-hour intake, measured.\n- *46235231 / 75298-0 — Calorie intake 24 hour Estimated (LOINC)*: the 24-hour intake, estimated.\n\n## Mapping Notes\n\n- **Default concept**: *3026267 / 9057-1 — Calorie intake total 24 hour*. Map to the *Measured* or *Estimated* concept only when the source states how the value was obtained.\n- **A 24-hour amount**: a source recording intakes per administration or at a point in time must sum them per patient and per 24 hours before mapping here.\n- **SNOMED is not used**: *37206982 / 787787004 — Energy intake (SNOMED)* and its descendants belong to the Observation domain in OMOP. A concept set stays within one domain, and an intake is a quantity actually delivered to the patient, so the set keeps the LOINC concepts of the Measurement domain.\n- Do **not** map the energy *requirement* (a target, not what was delivered) here — that is the *Energy requirement per 24 hours* set."
       },
       "fr": {
-        "name": "Apport énergétique",
+        "name": "Apport énergétique par 24 heures",
         "category": "Autres",
         "subcategory": "Nutrition",
-        "shortDescription": "Apport énergétique (calorique) réellement délivré, en kcal ; contient un concept total 24 h et un concept ponctuel à sommer par jour pour comparer.",
-        "longDescription": "## Définition et contexte clinique\n\nL'apport énergétique est la quantité totale d'énergie alimentaire réellement ingérée par un patient — par voie orale, entérale ou parentérale — sur une période définie (typiquement 24 heures). Il produit une valeur numérique servant à suivre l'apport nutritionnel par rapport au besoin du patient. Il est exprimé en kilocalories (kcal).\n\n## Concepts inclus\n\nCe jeu contient délibérément deux concepts aux **sémantiques temporelles différentes** — ils ne sont *pas* directement interchangeables et doivent être interprétés différemment lors des requêtes (voir Notes de mapping).\n\n- *3026267 / 9057-1 — Calorie intake total 24 hour (LOINC)* : un **total journalier** (valeur déjà agrégée sur 24 heures). Stocké dans la table Measurement ; une ligne par patient et par jour.\n- *37206982 / 787787004 — Energy intake (SNOMED)* : une valeur d'apport **ponctuelle** à un horodatage donné. Stockée dans la table Observation ; il peut y avoir plusieurs lignes par jour, chacune un apport partiel.\n\nTous deux expriment l'énergie réellement consommée (délivrée), en kcal.\n\n## Notes de mapping\n\n- Mapper une valeur déjà totalisée sur 24 h vers *3026267 / 9057-1 — Calorie intake total 24 hour* (LOINC) ; mapper un apport par administration / ponctuel vers *37206982 / 787787004 — Energy intake* (SNOMED).\n- **Pour comparer les deux, les valeurs ponctuelles doivent être sommées par patient et par jour** afin de reconstituer un total journalier équivalent au concept LOINC. Comme les deux concepts vivent en outre dans des tables CDM différentes (Measurement vs Observation), une requête d'apport journalier doit lire les deux et les réunir, par exemple :\n\n```sql\n-- Apport énergétique journalier (kcal) par patient, harmonisant les deux concepts.\n-- LOINC 9057-1 est déjà un total 24 h ; SNOMED 787787004 est sommé par jour.\nWITH daily_total AS (   -- déjà un total 24 h (table Measurement)\n    SELECT person_id,\n           CAST(measurement_datetime AS DATE) AS intake_day,\n           value_as_number AS kcal\n    FROM   measurement\n    WHERE  measurement_concept_id = 3026267        -- Calorie intake total 24 hour\n),\npointwise AS (          -- apports ponctuels (table Observation), sommés par jour\n    SELECT person_id,\n           CAST(observation_datetime AS DATE) AS intake_day,\n           SUM(value_as_number) AS kcal\n    FROM   observation\n    WHERE  observation_concept_id = 37206982       -- Energy intake\n    GROUP  BY person_id, CAST(observation_datetime AS DATE)\n)\nSELECT person_id, intake_day, kcal, 'total_24h' AS source FROM daily_total\nUNION ALL\nSELECT person_id, intake_day, kcal, 'summed'    AS source FROM pointwise;\n```\n\n  Privilégier le total 24 h pré-agrégé quand les deux sont disponibles le même jour, pour éviter le double comptage.\n- Ne **pas** mapper ici le *besoin* énergétique (une cible, pas ce qui a été délivré) — c'est le jeu *Energy requirement*."
+        "shortDescription": "Apport énergétique par 24 heures — l’énergie réellement délivrée au patient sur 24 heures, toutes voies confondues ; en kilocalories par 24 heures (kcal/24 h).",
+        "longDescription": "## Définition et contexte clinique\n\nL’apport énergétique est la quantité totale d’énergie réellement reçue par un patient sur 24 heures — par voie orale, entérale et parentérale. Il sert à suivre l’apport nutritionnel par rapport au besoin du patient (set *Besoin énergétique par 24 heures*). Il s’exprime en kilocalories par 24 heures (kcal/24 h) ; certains systèmes utilisent des kilojoules par 24 heures (kJ/24 h), avec une conversion enregistrée (1 kcal = 4,184 kJ).\n\n## Concepts inclus\n\nLe set liste les concepts LOINC standard de l’apport énergétique sur 24 heures, tous du domaine Measurement et en kcal/24 h.\n\n### Total sur 24 heures (par défaut)\n\n- *3026267 / 9057-1 — Calorie intake total 24 hour (LOINC)* : l’apport total sur 24 heures, à utiliser par défaut.\n- *46234687 / 75302-0 — Calorie intake 24 hour (LOINC)* : l’apport énergétique total, toutes sources confondues (alimentation, boissons, compléments, voies entérale et parentérale), sur 24 heures.\n\n### Selon la méthode\n\n- *21493096 / 80494-8 — Calorie intake 24 hour Measured (LOINC)* : l’apport sur 24 heures, mesuré.\n- *46235231 / 75298-0 — Calorie intake 24 hour Estimated (LOINC)* : l’apport sur 24 heures, estimé.\n\n## Notes de mapping\n\n- **Concept par défaut** : *3026267 / 9057-1 — Calorie intake total 24 hour*. Ne mapper vers le concept *Measured* ou *Estimated* que si la source indique comment la valeur a été obtenue.\n- **Une quantité sur 24 heures** : une source qui enregistre les apports par administration ou de façon ponctuelle doit les sommer par patient et par 24 heures avant de les mapper ici.\n- **SNOMED n’est pas utilisé** : *37206982 / 787787004 — Energy intake (SNOMED)* et ses descendants appartiennent au domaine Observation dans OMOP. Un concept set reste dans un seul domaine, et un apport est une quantité réellement délivrée au patient : le set garde donc les concepts LOINC du domaine Measurement.\n- Ne **pas** mapper ici le *besoin* énergétique (une cible, pas ce qui a été délivré) — c’est le set *Besoin énergétique par 24 heures*."
       }
     },
     "createdByDetails": {
@@ -103,6 +141,19 @@
         "status": "needs_revision",
         "comments": "## Summary\n**Needs revision.** Our indicator (QI03) uses only 3026267 (Calorie intake total 24 hour, Measurement). Suggest to restrict the set to this concept and drop the unspecific SNOMED observation 37206982 (Energy intake).\n\n## Use in our quality indicators\n- Used in QI03 (Feeding).\n- CQL: 1 of 2 concepts are referenced in [`IndicateQi03Feeding.cql`](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi03Feeding.cql?plain=1): [3026267](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi03Feeding.cql?plain=1#L35) (each ID links to its code definition).\n\n## Suggestions\n- Restrict the expression to 3026267 (Calorie intake total 24 hour).\n",
         "version": "1.1.0"
+      },
+      {
+        "reviewId": 2,
+        "reviewer": {
+          "firstName": "Boris",
+          "lastName": "Delange",
+          "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+          "profession": "Medical Informatics and Intensive Care Physician",
+          "orcid": "0009-0002-6055-6935"
+        },
+        "reviewTimestamp": "2026-11-14T12:00:00.000Z",
+        "comments": "**Reply to the review of Gregor Lichtner**\n\nAgreed: v1.2.0 drops **37206982** *Energy intake* (SNOMED). It belongs to the Observation domain and records a point-in-time value, while the set stays in the Measurement domain. The set is renamed *Energy intake per 24 hours* to make its dimension explicit (kcal/24 h).\n\nWe also added the other LOINC concepts of the same variable (Measurement, kcal/24 h), so that data providers who mapped to them are captured: **46234687** *Calorie intake 24 hour*, **21493096** *Calorie intake 24 hour Measured* and **46235231** *Calorie intake 24 hour Estimated*. QI03 can keep using 3026267 alone by filtering it within the set.\n\nDoes this work for you?",
+        "version": "1.1.0"
       }
     ],
     "versions": [
@@ -111,6 +162,12 @@
         "date": "2026-06-11",
         "author": "Boris Delange",
         "message": "Rebuilt on standard concepts: LOINC Calorie intake total 24 hour + SNOMED Energy intake. Added clinical description distinguishing intake (delivered) from requirement (target). Moved to pending review."
+      },
+      {
+        "version": "1.2.0",
+        "date": "2026-11-14",
+        "author": "Boris Delange",
+        "message": "Renamed Energy intake per 24 hours to fix the dimension (kcal/24 h). Dropped SNOMED 37206982 Energy intake (Observation domain, point-in-time value), as proposed in Gregor Lichtner's review; the set stays in the Measurement domain. Added the other LOINC concepts of the same variable: 46234687 Calorie intake 24 hour, 21493096 Calorie intake 24 hour Measured, 46235231 Calorie intake 24 hour Estimated."
       }
     ],
     "distributionStats": null
