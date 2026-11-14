@@ -1041,7 +1041,8 @@ var App = (function() {
     'No hierarchy':                  { fr: 'Aucune hiérarchie' },
     'Numeric Summary':               { fr: 'Résumé numérique' },
     'Distribution':                  { fr: 'Distribution' },
-    'Categories':                    { fr: 'Catégories' }
+    'Categories':                    { fr: 'Catégories' },
+    'Overview':                      { fr: 'Vue d’ensemble' }
   };
 
   function i18n(key) {
@@ -1435,10 +1436,12 @@ var App = (function() {
     var style = entry ? ((bg ? 'background:' + bg + ';' : '') + (fg ? 'color:' + fg + ';' : '')) : '';
     var extra = '';
     if (attrs) Object.keys(attrs).forEach(function(k) { extra += ' ' + k + '="' + escapeHtml(attrs[k]) + '"'; });
+    // Definition as hover tooltip (the app's data-tooltip bubble), unless the
+    // caller supplies its own.
     var desc = statusDescription(status);
+    var tip = (desc && !(attrs && attrs['data-tooltip'])) ? ' data-tooltip="' + escapeHtml(desc) + '"' : '';
     return '<span class="status-badge' + (entry ? '' : ' status-unknown') + '"' +
-      (style ? ' style="' + style + '"' : '') +
-      (desc ? ' title="' + escapeHtml(desc) + '"' : '') + extra + '>' +
+      (style ? ' style="' + style + '"' : '') + tip + extra + '>' +
       escapeHtml(statusLabel(status)) + '</span>';
   }
 

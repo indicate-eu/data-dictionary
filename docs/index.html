@@ -51,6 +51,7 @@
         <i class="fas fa-cog"></i>
       </button>
       <div class="nav-dropdown-menu nav-dropdown-menu-right" id="nav-settings-menu" style="display:none">
+        <a href="#/overview" data-page="overview"><i class="fas fa-chart-pie"></i> <span data-i18n="Overview">Overview</span></a>
         <a href="#/settings" data-page="settings"><i class="fas fa-book-medical"></i> <span data-i18n="Dictionary Settings">Dictionary Settings</span></a>
         <a href="#/dev-tools" data-page="dev-tools"><i class="fas fa-code"></i> <span data-i18n="Dev Tools">Dev Tools</span></a>
         <div class="nav-dropdown-divider"></div>
@@ -1313,6 +1314,13 @@ for f in ['CONCEPT','CONCEPT_ANCESTOR','CONCEPT_RELATIONSHIP','CONCEPT_SYNONYM',
 <!-- ═══════════════════════════════════════════════════════════
      PAGE: Dev Tools (#/dev-tools)
      ═══════════════════════════════════════════════════════════ -->
+<!-- ═══════════════════════════════════════════════════════════
+     PAGE: Overview (#/overview) — validation status at a glance (overview.js)
+     ═══════════════════════════════════════════════════════════ -->
+<div class="main page-container" id="page-overview">
+  <div class="ov-scroll"><div class="ov-wrap" id="overview-content"></div></div>
+</div>
+
 <div class="main page-container" id="page-dev-tools">
   <!-- Tabs -->
   <div class="settings-tabs" id="devtools-tabs">
@@ -2496,6 +2504,7 @@ Enter your review comments here using Markdown syntax.
 <script src="general-settings.js"></script>
 <script src="dev-tools.js"></script>
 <script src="documentation.js"></script>
+<script src="overview.js"></script>
 <script src="spa-init.js"></script>
 </body>
 </html>

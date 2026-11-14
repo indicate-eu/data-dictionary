@@ -54,6 +54,7 @@ UPSTREAM_PATHS = [
     "docs/general-settings.js",
     "docs/dev-tools.js",
     "docs/documentation.js",
+    "docs/overview.js",
     "docs/duckdb-loader.js",
     "docs/projects.html",
     "docs/settings.html",

@@ -11,6 +11,7 @@
     '/projects':        { el: 'page-projects',        mod: ProjectsPage },
     '/settings':        { el: 'page-settings',        mod: SettingsPage },
     '/dev-tools':       { el: 'page-dev-tools',       mod: DevToolsPage },
+    '/overview':        { el: 'page-overview',        mod: OverviewPage },
     '/documentation':   { el: 'page-documentation',   mod: DocumentationPage }
   };
 
@@ -134,6 +135,7 @@
   if (ProjectsPage.onLanguageChange) App.onLanguageChange(ProjectsPage.onLanguageChange);
   if (MappingPage.onLanguageChange) App.onLanguageChange(MappingPage.onLanguageChange);
   if (DocumentationPage.onLanguageChange) App.onLanguageChange(DocumentationPage.onLanguageChange);
+  if (OverviewPage.onLanguageChange) App.onLanguageChange(OverviewPage.onLanguageChange);
 
   // Global tooltip for elements with [data-tooltip]
   (function () {

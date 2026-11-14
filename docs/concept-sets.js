@@ -7748,6 +7748,27 @@ var ConceptSetsPage = (function() {
     return true;
   }
 
+  // Seed the Status filter from ?status=a,b (review status slugs), as linked from
+  // the Overview page. Unknown slugs are ignored; an explicit selection replaces
+  // the default one (everything but deprecated). Returns true if it changed state.
+  function applyStatusFilterFromUrl(query) {
+    var raw = query && query.status;
+    if (raw == null) return false;
+    var valid = new Set(App.getCSData().map(function(d) { return d.reviewStatus; }));
+    var next = new Set(String(raw).split(',').map(function(s) { return s.trim(); })
+      .filter(function(s) { return s && valid.has(s); }));
+    if (!next.size) return false;
+    csFilterReviewStatusDefaulted = true;
+    var same = next.size === csFilterReviewStatus.size;
+    next.forEach(function(s) { if (!csFilterReviewStatus.has(s)) same = false; });
+    if (same) return false;
+    // Mutate in place: the filter dropdown holds a reference to this Set.
+    csFilterReviewStatus.clear();
+    next.forEach(function(st) { csFilterReviewStatus.add(st); });
+    csPage = 1;
+    return true;
+  }
+
   // Reflect the active category badges into the URL (?category=A,B), without
   // adding a history entry, so the current filter is shareable/bookmarkable.
   function syncCategoryFilterToUrl() {
@@ -7765,6 +7786,7 @@ var ConceptSetsPage = (function() {
     // category badges from the URL. Values are the (language-specific) category
     // labels, comma-separated. Only applied to the list view (not a detail id).
     var catChanged = applyCategoryFilterFromUrl(query);
+    if (applyStatusFilterFromUrl(query)) catChanged = true;
     var csId = query && (query.id || query.cs);
     if (csId) {
       showCSDetail(parseInt(csId), {

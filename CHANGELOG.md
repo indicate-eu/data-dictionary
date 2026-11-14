@@ -13,6 +13,14 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- **Overview page** (`#/overview`, gear menu → Overview). The validation status of
+  the dictionary at a glance: one tile per review status with its count, share and
+  definition, an overall 100% bar, and a table by category — expandable into
+  subcategories — with the count per status, the total and the number of sets
+  carrying at least one review. Deprecated sets are left out unless "Include
+  deprecated" is ticked. Each count links to the catalog filtered on that category
+  and status: the catalog now accepts `?status=a,b` next to `?category=`.
+
 - **Configurable review workflow.** The concept set statuses (`metadata.reviewStatus`)
   are no longer hard-coded: `config.json` may declare `reviewStatuses`, an ordered
   list of `{ id, color, background, translations: { <lang>: { label, description } } }`.
