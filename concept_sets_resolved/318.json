@@ -1,7 +1,19 @@
 {
   "conceptSetId": 318,
-  "vocabularyVersion": null,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80"
+  },
   "resolvedConcepts": [
+    {
+      "conceptId": 3016226,
+      "conceptName": "PEEP Respiratory system",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "20075-8",
+      "standardConcept": "S"
+    },
     {
       "conceptId": 3022875,
       "conceptName": "Positive end expiratory pressure setting Ventilator",
@@ -21,6 +33,24 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 21490855,
+      "conceptName": "PEEP Respiratory system --on ventilator",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "76248-4",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42527139,
+      "conceptName": "Intrinsic dynamic PEEP Respiratory system",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "76246-8",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 42527140,
       "conceptName": "Total PEEP Respiratory system",
       "vocabularyId": "LOINC",
@@ -36,6 +66,24 @@
       "domainId": "Measurement",
       "conceptClassId": "Clinical Observation",
       "conceptCode": "83386-3",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42528516,
+      "conceptName": "Extrinsic dynamic PEEP Respiratory system",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "83387-1",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42528517,
+      "conceptName": "Total dynamic PEEP Respiratory system",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "83388-9",
       "standardConcept": "S"
     }
   ]
