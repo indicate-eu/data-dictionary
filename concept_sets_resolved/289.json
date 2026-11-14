@@ -3,57 +3,12 @@
   "vocabularyVersion": null,
   "resolvedConcepts": [
     {
-      "conceptId": 764768,
-      "conceptName": "Pharmacokinetic consultation",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Procedure",
-      "conceptCode": "6051000124107",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 764769,
-      "conceptName": "Risk evaluation and mitigation strategy consultation",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Procedure",
-      "conceptCode": "6061000124109",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1450350,
-      "conceptName": "Group face to face consultation",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Procedure",
-      "conceptCode": "2365641000000100",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4027135,
-      "conceptName": "Subsequent hospital visit by physician",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Procedure",
-      "conceptCode": "12843005",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 4089048,
       "conceptName": "New patient consultation",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Procedure",
       "conceptCode": "185387006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4211804,
-      "conceptName": "Consultation for unaccompanied minor",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Procedure",
-      "conceptCode": "416520008",
       "standardConcept": "S"
     },
     {
@@ -72,24 +27,6 @@
       "domainId": "Observation",
       "conceptClassId": "Procedure",
       "conceptCode": "1269515004",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37208165,
-      "conceptName": "Consultation for suicide risk management",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Procedure",
-      "conceptCode": "461231000124109",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40489429,
-      "conceptName": "Telemedicine consultation with patient",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Procedure",
-      "conceptCode": "448337001",
       "standardConcept": "S"
     }
   ]
