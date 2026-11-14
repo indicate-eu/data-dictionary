@@ -13,24 +13,6 @@
       "conceptClassId": "Observable Entity",
       "conceptCode": "1003837001",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 4022415,
-      "conceptName": "Energy requirement",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "226244007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 45771253,
-      "conceptName": "Pediatric energy requirement",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "702387006",
-      "standardConcept": "S"
     }
   ]
 }
