@@ -25,5 +25,97 @@
   "tabs": {
     "showProjects": true,
     "showMappingRecommendations": true
-  }
+  },
+  "reviewStatuses": [
+    {
+      "id": "draft",
+      "color": "#ffffff",
+      "background": "#6c757d",
+      "translations": {
+        "en": {
+          "label": "Draft",
+          "description": "Being written by its author; not yet submitted for review."
+        },
+        "fr": {
+          "label": "Brouillon",
+          "description": "En cours de rédaction par son auteur ; pas encore soumis à relecture."
+        }
+      }
+    },
+    {
+      "id": "pending_review",
+      "color": "#000000",
+      "background": "#ffc107",
+      "translations": {
+        "en": {
+          "label": "Pending expert review",
+          "description": "Awaiting approval from the clinical and/or interoperability experts."
+        },
+        "fr": {
+          "label": "En attente de revue experte",
+          "description": "En attente de l'approbation des experts cliniques et/ou d'interopérabilité."
+        }
+      }
+    },
+    {
+      "id": "expert_approved",
+      "color": "#0f5132",
+      "background": "#d1e7dd",
+      "translations": {
+        "en": {
+          "label": "Expert-approved",
+          "description": "Approved by both a clinical expert and an interoperability expert, two distinct reviewers."
+        },
+        "fr": {
+          "label": "Approuvé par les experts",
+          "description": "Approuvé à la fois par un expert clinique et par un expert en interopérabilité, deux relecteurs distincts."
+        }
+      }
+    },
+    {
+      "id": "empirically_confirmed",
+      "color": "#ffffff",
+      "background": "#198754",
+      "translations": {
+        "en": {
+          "label": "Empirically confirmed",
+          "description": "Expert-approved, and the five data providers of the first mapping phase (vanguard hospitals) have aligned their data on the set."
+        },
+        "fr": {
+          "label": "Confirmé empiriquement",
+          "description": "Approuvé par les experts, et les cinq fournisseurs de données de la première phase d'alignement (hôpitaux pilotes) ont aligné leurs données sur le jeu."
+        }
+      }
+    },
+    {
+      "id": "needs_revision",
+      "color": "#ffffff",
+      "background": "#fd7e14",
+      "translations": {
+        "en": {
+          "label": "Needs revision",
+          "description": "A review or a provider's mapping revealed a problem; the author revises the set, which then returns to pending expert review."
+        },
+        "fr": {
+          "label": "À réviser",
+          "description": "Une relecture ou l'alignement d'un fournisseur a révélé un problème ; l'auteur révise le jeu, qui repasse ensuite en attente de revue experte."
+        }
+      }
+    },
+    {
+      "id": "deprecated",
+      "color": "#ffffff",
+      "background": "#dc3545",
+      "translations": {
+        "en": {
+          "label": "Deprecated",
+          "description": "Superseded by another set or withdrawn; kept so that projects pinning it stay reproducible."
+        },
+        "fr": {
+          "label": "Obsolète",
+          "description": "Remplacé par un autre jeu ou retiré ; conservé pour que les projets qui l'épinglent restent reproductibles."
+        }
+      }
+    }
+  ]
 }
