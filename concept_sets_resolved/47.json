@@ -43,24 +43,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36222650,
-      "conceptName": "fluindione Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1165046",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36222651,
-      "conceptName": "fluindione Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1165047",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 40057229,
       "conceptName": "fluindione Extended Release Oral Tablet",
       "vocabularyId": "RxNorm",

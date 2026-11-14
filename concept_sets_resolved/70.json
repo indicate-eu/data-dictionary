@@ -583,24 +583,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36216527,
-      "conceptName": "caspofungin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1151754",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36234499,
-      "conceptName": "Cancidas Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1172244",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36260876,
       "conceptName": "Caspofungin 70 MG Injection [Cancidas] by MSD",
       "vocabularyId": "RxNorm Extension",

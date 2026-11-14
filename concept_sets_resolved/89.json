@@ -7,15 +7,6 @@
   },
   "resolvedConcepts": [
     {
-      "conceptId": 1361537,
-      "conceptName": "cilastatin / imipenem / relebactam Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "2184139",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 1361538,
       "conceptName": "cilastatin / imipenem / relebactam Injection",
       "vocabularyId": "RxNorm",
@@ -50,15 +41,6 @@
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "2184145",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 1361543,
-      "conceptName": "Recarbrio Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2184146",
-      "standardConcept": "C"
     },
     {
       "conceptId": 1361544,
@@ -1391,33 +1373,6 @@
       "conceptClassId": "Clinical Drug Form",
       "conceptCode": "OMOP5034725",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 36214308,
-      "conceptName": "imipenem Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1156291",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36216550,
-      "conceptName": "cilastatin / imipenem Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1151777",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36231797,
-      "conceptName": "Primaxin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1178251",
-      "standardConcept": "C"
     },
     {
       "conceptId": 36258911,

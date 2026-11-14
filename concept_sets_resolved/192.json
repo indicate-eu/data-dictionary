@@ -31,15 +31,6 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "711-2",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 40653994,
-      "conceptName": "Eosinophils|Number Concentration (count/vol)|Moment in time|Blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Group",
-      "conceptCode": "LG32849-8",
-      "standardConcept": "C"
     }
   ]
 }

@@ -2356,42 +2356,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36227051,
-      "conceptName": "piperacillin / tazobactam Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1159278",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36241288,
-      "conceptName": "Zosyn Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1186325",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36248926,
-      "conceptName": "ceftolozane / tazobactam Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1597612",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36248927,
-      "conceptName": "Zerbaxa Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1597619",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36257515,
       "conceptName": "Piperacillin 4000 MG / tazobactam 500 MG Injection [PIPERACILLINE/TAZOBACTAM KABI]",
       "vocabularyId": "RxNorm Extension",

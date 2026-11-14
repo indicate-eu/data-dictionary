@@ -42,42 +42,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 37036806,
-      "conceptName": "Albumin | Blood | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP384476-0",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37048896,
-      "conceptName": "Albumin | Serum or Plasma | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP384485-1",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37063387,
-      "conceptName": "Albumin | Serum | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP384484-4",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37074175,
-      "conceptName": "Albumin | Serum, Plasma or Blood | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP384486-9",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 40757478,
       "conceptName": "Albumin [Moles/volume] in Serum or Plasma",
       "vocabularyId": "LOINC",

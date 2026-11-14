@@ -16,15 +16,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 793406,
-      "conceptName": "insulin aspart, human / insulin degludec Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1994308",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 793407,
       "conceptName": "insulin aspart, human / insulin degludec Pen Injector",
       "vocabularyId": "RxNorm",
@@ -59,15 +50,6 @@
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "1994314",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 793412,
-      "conceptName": "Ryzodeg Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1994315",
-      "standardConcept": "C"
     },
     {
       "conceptId": 793413,
@@ -133,15 +115,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 1718704,
-      "conceptName": "insulin degludec / liraglutide Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1860165",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 1718705,
       "conceptName": "insulin degludec / liraglutide Pen Injector",
       "vocabularyId": "RxNorm",
@@ -176,15 +149,6 @@
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "1860170",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 1718710,
-      "conceptName": "Xultophy Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1860171",
-      "standardConcept": "C"
     },
     {
       "conceptId": 1718711,
@@ -1193,24 +1157,6 @@
       "conceptClassId": "Marketed Product",
       "conceptCode": "OMOP4981237",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 36248195,
-      "conceptName": "insulin degludec Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1670009",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36248196,
-      "conceptName": "Tresiba Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1670015",
-      "standardConcept": "C"
     },
     {
       "conceptId": 36403504,

@@ -727,24 +727,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36214704,
-      "conceptName": "insulin glulisine, human Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1157464",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36233154,
-      "conceptName": "Apidra Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1168563",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36879529,
       "conceptName": "Insulin, Glulisine, Human 400 UNT/ML",
       "vocabularyId": "RxNorm Extension",

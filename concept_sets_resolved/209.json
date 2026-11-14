@@ -42,24 +42,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 37062081,
-      "conceptName": "Magnesium | Serum or Plasma | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP386028-7",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37064897,
-      "conceptName": "Magnesium | Blood | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP386017-0",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 40759058,
       "conceptName": "Magnesium [Moles/volume] in Serum or Plasma --post dialysis",
       "vocabularyId": "LOINC",

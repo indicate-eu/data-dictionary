@@ -313,15 +313,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 1146284,
-      "conceptName": "Semglee Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2377133",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 1146285,
       "conceptName": "insulin glargine 100 UNT/ML Injectable Solution [Semglee]",
       "vocabularyId": "RxNorm",
@@ -385,15 +376,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 1718597,
-      "conceptName": "insulin glargine / lixisenatide Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1858992",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 1718598,
       "conceptName": "insulin glargine / lixisenatide Pen Injector",
       "vocabularyId": "RxNorm",
@@ -428,15 +410,6 @@
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "1858998",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 1718603,
-      "conceptName": "Soliqua Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1858999",
-      "standardConcept": "C"
     },
     {
       "conceptId": 1718604,
@@ -491,15 +464,6 @@
       "conceptClassId": "Branded Drug Comp",
       "conceptCode": "2589011",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 1758676,
-      "conceptName": "Rezvoglar Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2589012",
-      "standardConcept": "C"
     },
     {
       "conceptId": 1758677,
@@ -2516,42 +2480,6 @@
       "conceptClassId": "Marketed Product",
       "conceptCode": "OMOP5050078",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 36214699,
-      "conceptName": "insulin glargine Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1157459",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36229086,
-      "conceptName": "Lantus Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1175624",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36248425,
-      "conceptName": "Basaglar Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1736862",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36248870,
-      "conceptName": "Toujeo Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1604543",
-      "standardConcept": "C"
     },
     {
       "conceptId": 36257781,

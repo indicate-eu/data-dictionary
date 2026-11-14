@@ -160,24 +160,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 964090,
-      "conceptName": "Firvanq Oral Liquid Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2000131",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 964091,
-      "conceptName": "Firvanq Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2000132",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 964092,
       "conceptName": "vancomycin 25 MG/ML Oral Solution [Firvanq]",
       "vocabularyId": "RxNorm",
@@ -3832,78 +3814,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36223610,
-      "conceptName": "vancomycin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1160499",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36223611,
-      "conceptName": "vancomycin Oral Liquid Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1160500",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36223612,
-      "conceptName": "vancomycin Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1160501",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36223613,
-      "conceptName": "vancomycin Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1160502",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36239287,
-      "conceptName": "Vancocin Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1187337",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36239327,
-      "conceptName": "Vancocin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1187387",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36239328,
-      "conceptName": "Vancocin Oral Liquid Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1187388",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36239329,
-      "conceptName": "Vancocin Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1187389",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36259280,
       "conceptName": "Vancomycin Oral Solution [VANCOMYCINE MYLAN]",
       "vocabularyId": "RxNorm Extension",
@@ -4955,15 +4865,6 @@
       "conceptClassId": "Branded Drug Comp",
       "conceptCode": "2725132",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 37354388,
-      "conceptName": "Tyzavan Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2725133",
-      "standardConcept": "C"
     },
     {
       "conceptId": 37354389,

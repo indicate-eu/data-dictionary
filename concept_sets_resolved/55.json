@@ -115,24 +115,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36213327,
-      "conceptName": "phenprocoumon Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1157566",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36213328,
-      "conceptName": "phenprocoumon Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1157567",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36273205,
       "conceptName": "Phenprocoumon 3 MG Oral Tablet [Marcoumar] Box of 25",
       "vocabularyId": "RxNorm Extension",

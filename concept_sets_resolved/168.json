@@ -6,15 +6,6 @@
   },
   "resolvedConcepts": [
     {
-      "conceptId": 1470777,
-      "conceptName": "Fibrin D-dimer | Blood | Coagulation",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP443381-1",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 3048530,
       "conceptName": "Fibrin D-dimer DDU [Mass/volume] in Platelet poor plasma",
       "vocabularyId": "LOINC",
@@ -58,15 +49,6 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "91556-1",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 37072890,
-      "conceptName": "Fibrin D-dimer | Platelet poor plasma | Coagulation",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP394010-5",
-      "standardConcept": "C"
     },
     {
       "conceptId": 42870366,

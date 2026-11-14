@@ -4993,24 +4993,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36217281,
-      "conceptName": "ceftriaxone Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1152108",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36232272,
-      "conceptName": "Rocephin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1181373",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36258099,
       "conceptName": "Ceftriaxone 286 MG/ML Intramuscular Solution [Rocephin]",
       "vocabularyId": "RxNorm Extension",

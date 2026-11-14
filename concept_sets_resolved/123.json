@@ -196,15 +196,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 792694,
-      "conceptName": "Fiasp Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1986353",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 792695,
       "conceptName": "insulin aspart, human 100 UNT/ML Injectable Solution [Fiasp]",
       "vocabularyId": "RxNorm",
@@ -241,15 +232,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 793406,
-      "conceptName": "insulin aspart, human / insulin degludec Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1994308",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 793407,
       "conceptName": "insulin aspart, human / insulin degludec Pen Injector",
       "vocabularyId": "RxNorm",
@@ -284,15 +266,6 @@
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "1994314",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 793412,
-      "conceptName": "Ryzodeg Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1994315",
-      "standardConcept": "C"
     },
     {
       "conceptId": 793413,
@@ -347,15 +320,6 @@
       "conceptClassId": "Branded Drug Comp",
       "conceptCode": "2705735",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 1465545,
-      "conceptName": "Merilog Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2705736",
-      "standardConcept": "C"
     },
     {
       "conceptId": 1465546,
@@ -3103,42 +3067,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36214702,
-      "conceptName": "insulin aspart protamine, human / insulin aspart, human Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1157462",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36214703,
-      "conceptName": "insulin aspart, human Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1157463",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36231450,
-      "conceptName": "NovoLog Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1178119",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36231451,
-      "conceptName": "NovoLog Mix Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1178120",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36257782,
       "conceptName": "Insulin, Aspart Protamine, Human 30 UNT/ML / Insulin, Aspart, Human 70 UNT/ML Pen Injector [Novomix]",
       "vocabularyId": "RxNorm Extension",
@@ -3587,15 +3515,6 @@
       "conceptClassId": "Branded Drug Comp",
       "conceptCode": "2720525",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 37353867,
-      "conceptName": "Kirsty Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2720526",
-      "standardConcept": "C"
     },
     {
       "conceptId": 37353868,

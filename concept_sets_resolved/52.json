@@ -1123,15 +1123,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36214616,
-      "conceptName": "nadroparin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1156401",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36267877,
       "conceptName": "Nadroparin 19000 UNT/ML Injectable Solution [FRAXODI] Box of 10",
       "vocabularyId": "RxNorm Extension",

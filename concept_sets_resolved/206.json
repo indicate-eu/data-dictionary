@@ -96,51 +96,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 3967510,
-      "conceptName": "Creatinine | Blood venous | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP434752-4",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37029387,
-      "conceptName": "Creatinine | Serum or Plasma | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP385359-7",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37056619,
-      "conceptName": "Creatinine | Serum, Plasma or Blood | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP385360-5",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37074896,
-      "conceptName": "Creatinine | Blood | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP385350-6",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37076562,
-      "conceptName": "Creatinine | Blood arterial | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP385351-4",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 40762887,
       "conceptName": "Creatinine [Moles/volume] in Blood",
       "vocabularyId": "LOINC",

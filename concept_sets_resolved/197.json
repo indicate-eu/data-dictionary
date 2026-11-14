@@ -40,15 +40,6 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "743-5",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 40654069,
-      "conceptName": "Monocytes|Number Concentration (count/vol)|Moment in time|Blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Group",
-      "conceptCode": "LG32885-2",
-      "standardConcept": "C"
     }
   ]
 }

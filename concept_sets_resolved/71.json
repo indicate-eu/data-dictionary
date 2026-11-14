@@ -1087,15 +1087,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36217132,
-      "conceptName": "cefazolin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1152094",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36256994,
       "conceptName": "Cefazolin 1000 MG Injectable Solution Box of 5",
       "vocabularyId": "RxNorm Extension",

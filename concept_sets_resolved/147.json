@@ -655,42 +655,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36214231,
-      "conceptName": "argipressin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1154328",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36223616,
-      "conceptName": "vasopressin (USP) Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1160506",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36231288,
-      "conceptName": "Pitressin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1181259",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36248686,
-      "conceptName": "Vasostrict Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1593737",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36883719,
       "conceptName": "Argipressin Injection",
       "vocabularyId": "RxNorm Extension",

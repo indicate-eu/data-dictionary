@@ -682,51 +682,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36220008,
-      "conceptName": "thiopental Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1165528",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36220009,
-      "conceptName": "thiopental Rectal Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1165529",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36233249,
-      "conceptName": "Intraval Sodium Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1173441",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36242159,
-      "conceptName": "Pentothal Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1185192",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36242160,
-      "conceptName": "Pentothal Rectal Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1185193",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36404077,
       "conceptName": "Thiopental 500 MG Injectable Solution Box of 25 by ProStrakan",
       "vocabularyId": "RxNorm Extension",

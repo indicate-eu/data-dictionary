@@ -15,15 +15,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 1093101,
-      "conceptName": "Calcium | Blood arterial | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP441252-6",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 3005162,
       "conceptName": "Calcium [Moles/volume] in Blood",
       "vocabularyId": "LOINC",
@@ -85,42 +76,6 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "51950-4",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 37035164,
-      "conceptName": "Calcium | Serum or Plasma | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP385966-9",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37057542,
-      "conceptName": "Calcium | Blood | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP385949-5",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37066531,
-      "conceptName": "Calcium | Blood venous | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP385952-9",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37068005,
-      "conceptName": "Calcium | Blood capillary | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP385950-3",
-      "standardConcept": "C"
     },
     {
       "conceptId": 40762241,

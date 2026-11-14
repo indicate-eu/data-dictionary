@@ -31,24 +31,6 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "52123-7",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 37037324,
-      "conceptName": "aPTT | Blood | Coagulation",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP393943-8",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37041593,
-      "conceptName": "aPTT | Platelet poor plasma | Coagulation",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP393946-1",
-      "standardConcept": "C"
     }
   ]
 }

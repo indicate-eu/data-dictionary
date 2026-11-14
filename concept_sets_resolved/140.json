@@ -1852,15 +1852,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36224130,
-      "conceptName": "dobutamine Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1159604",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36261962,
       "conceptName": "Dobutamine Injection [Dobutamine EG]",
       "vocabularyId": "RxNorm Extension",
@@ -2264,15 +2255,6 @@
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "2283532",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 37499148,
-      "conceptName": "Dobutrex Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2283533",
-      "standardConcept": "C"
     },
     {
       "conceptId": 37499149,

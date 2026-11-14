@@ -268,24 +268,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36215430,
-      "conceptName": "danaparoid Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1156651",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36242678,
-      "conceptName": "Orgaran Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1183993",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36881780,
       "conceptName": "danaparoid Injection",
       "vocabularyId": "RxNorm Extension",

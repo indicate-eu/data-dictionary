@@ -457,15 +457,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36214666,
-      "conceptName": "reviparin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1157426",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36405927,
       "conceptName": "reviparin 5730 UNT/ML Injectable Solution Box of 5",
       "vocabularyId": "RxNorm Extension",

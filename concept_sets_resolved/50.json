@@ -187,24 +187,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36219867,
-      "conceptName": "lepirudin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1163190",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36230875,
-      "conceptName": "Refludan Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1179586",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36404011,
       "conceptName": "lepirudin 50 MG Injectable Solution [Refludan] by Celgene",
       "vocabularyId": "RxNorm Extension",

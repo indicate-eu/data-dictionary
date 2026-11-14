@@ -151,15 +151,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 37498012,
-      "conceptName": "cefiderocol Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "2265704",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 37498013,
       "conceptName": "cefiderocol Injection",
       "vocabularyId": "RxNorm",
@@ -194,15 +185,6 @@
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "2265709",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 37498018,
-      "conceptName": "Fetroja Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2265710",
-      "standardConcept": "C"
     },
     {
       "conceptId": 37498019,

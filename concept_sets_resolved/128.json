@@ -1411,42 +1411,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36215540,
-      "conceptName": "alfentanil Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1154625",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36228765,
-      "conceptName": "Alfenta Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1175508",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36230160,
-      "conceptName": "Rapifen Concentrate Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1177709",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36231816,
-      "conceptName": "Rapifen Intensive Care Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1178279",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36264968,
       "conceptName": "Alfentanil 0.5 MG/ML Injectable Solution Box of 30",
       "vocabularyId": "RxNorm Extension",

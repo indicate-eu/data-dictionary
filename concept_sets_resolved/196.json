@@ -31,15 +31,6 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "26474-7",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 40654045,
-      "conceptName": "Lymphocytes|Number Concentration (count/vol)|Moment in time|Blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Group",
-      "conceptCode": "LG32863-9",
-      "standardConcept": "C"
     }
   ]
 }

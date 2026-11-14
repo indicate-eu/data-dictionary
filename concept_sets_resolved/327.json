@@ -1,151 +1,11 @@
 {
   "conceptSetId": 327,
-  "vocabularyVersion": null,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
-    {
-      "conceptId": 1002621,
-      "conceptName": "Heart rate | XXX | General heart rate",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP415756-8",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 1002782,
-      "conceptName": "Heart rate | XXX | Specific heart rate",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP415786-5",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 1002979,
-      "conceptName": "Heart rate taken in specific position",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP135721-1",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 1003097,
-      "conceptName": "Heart rate | Cardiac apex | Specific heart rate",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP415782-4",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 1003106,
-      "conceptName": "General heart rate",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP7807-3",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 1003181,
-      "conceptName": "Heart rate | Peripheral artery | Specific heart rate",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP415785-7",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 1003302,
-      "conceptName": "Specific heart rate",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP7808-1",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 1003329,
-      "conceptName": "Heart rate | Heart | Specific heart rate",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP415783-2",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 1003485,
-      "conceptName": "Heart rate | Capillary bed | Specific heart rate",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP415781-6",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 1003543,
-      "conceptName": "Orthostatic heart rate | Arterial system | Heart rate taken in specific position",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP415804-6",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 1003574,
-      "conceptName": "Heart rate | Intra arterial line | Specific heart rate",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP415784-0",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 1003869,
-      "conceptName": "Heart rate | Arterial system | General heart rate",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP415755-0",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 1004003,
-      "conceptName": "Heart rate | Arterial system | Heart rate taken in specific position",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP416415-0",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 1004025,
-      "conceptName": "Heart rate",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP29713-2",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 1004124,
-      "conceptName": "Heart rate | XXX | Heart rate taken in specific position",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP416416-8",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 1004140,
-      "conceptName": "Timed specific heart rate",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP7809-9",
-      "standardConcept": "C"
-    },
     {
       "conceptId": 3000276,
       "conceptName": "Heart rate Peripheral artery by US.doppler",
@@ -282,33 +142,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 37039371,
-      "conceptName": "Heart rate | Blood Postductal | Cardiopulmonary",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP408317-8",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37039497,
-      "conceptName": "Heart rate | Blood Preductal | Cardiopulmonary",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP408318-6",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37045490,
-      "conceptName": "Heart rate.beat-to-beat | Heart | EKG measurements",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP406897-1",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 40481601,
       "conceptName": "Resting heart rate",
       "vocabularyId": "SNOMED",
@@ -316,15 +149,6 @@
       "conceptClassId": "Observable Entity",
       "conceptCode": "444981005",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 40654164,
-      "conceptName": "Heart rate|Number=Count/Time|Moment in time|Without specimen",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Group",
-      "conceptCode": "LG33055-1",
-      "standardConcept": "C"
     },
     {
       "conceptId": 40769763,

@@ -2122,69 +2122,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36219811,
-      "conceptName": "Chibroxin Ophthalmic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1168101",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36225035,
-      "conceptName": "norfloxacin Ophthalmic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1159851",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36225036,
-      "conceptName": "norfloxacin Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1159852",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36225037,
-      "conceptName": "norfloxacin Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1159853",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36239559,
-      "conceptName": "Noroxin Ophthalmic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1185714",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36239560,
-      "conceptName": "Noroxin Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1185715",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36239561,
-      "conceptName": "Noroxin Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1185716",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36258433,
       "conceptName": "Norfloxacin 400 MG Delayed Release Oral Tablet [NORFLOXACINE EG] Box of 6 by Eurogenerics",
       "vocabularyId": "RxNorm Extension",

@@ -34,24 +34,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36215231,
-      "conceptName": "desirudin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1157753",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36232669,
-      "conceptName": "Iprivask Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1176754",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 40220365,
       "conceptName": "desirudin 15 MG",
       "vocabularyId": "RxNorm",

@@ -322,24 +322,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36224019,
-      "conceptName": "bivalirudin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1161844",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36231022,
-      "conceptName": "Angiomax Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1176229",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36258140,
       "conceptName": "bivalirudin 250 MG Injection [Bivalirudin Accord Healthcare]",
       "vocabularyId": "RxNorm Extension",

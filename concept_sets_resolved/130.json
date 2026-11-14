@@ -43,15 +43,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 740190,
-      "conceptName": "Sedexodine Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2532531",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 740191,
       "conceptName": "dexmedetomidine hydrochloride 0.5 MG/ML Injectable Solution [Sedexodine]",
       "vocabularyId": "RxNorm",
@@ -68,15 +59,6 @@
       "conceptClassId": "Branded Drug Comp",
       "conceptCode": "2665894",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 746706,
-      "conceptName": "Dexmedvet Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2665895",
-      "standardConcept": "C"
     },
     {
       "conceptId": 746707,
@@ -106,24 +88,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 779647,
-      "conceptName": "dexmedetomidine Sublingual Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "2601116",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 779648,
-      "conceptName": "dexmedetomidine Oral Film Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "2601117",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 779649,
       "conceptName": "dexmedetomidine Sublingual Film",
       "vocabularyId": "RxNorm",
@@ -149,33 +113,6 @@
       "conceptClassId": "Branded Drug Comp",
       "conceptCode": "2601121",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 779653,
-      "conceptName": "Igalmi Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2601122",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 779654,
-      "conceptName": "Igalmi Sublingual Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2601123",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 779655,
-      "conceptName": "Igalmi Oral Film Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2601124",
-      "standardConcept": "C"
     },
     {
       "conceptId": 779656,
@@ -1897,15 +1834,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36026831,
-      "conceptName": "Dexased Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2535255",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36026832,
       "conceptName": "dexmedetomidine hydrochloride 0.5 MG/ML Injectable Solution [Dexased]",
       "vocabularyId": "RxNorm",
@@ -2057,69 +1985,6 @@
       "conceptClassId": "Marketed Product",
       "conceptCode": "OMOP5050931",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 36215272,
-      "conceptName": "dexmedetomidine Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1154546",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36228091,
-      "conceptName": "Dexdomitor Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1175262",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36242194,
-      "conceptName": "Precedex Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1185233",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36248209,
-      "conceptName": "dexmedetomidine Oral Gel Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1732665",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36248210,
-      "conceptName": "dexmedetomidine Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1732666",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36248211,
-      "conceptName": "Sileo Oral Gel Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1732672",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36248212,
-      "conceptName": "Sileo Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1732673",
-      "standardConcept": "C"
     },
     {
       "conceptId": 36780182,
@@ -2534,15 +2399,6 @@
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "2268608",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 37498278,
-      "conceptName": "Dexmedesed Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2268609",
-      "standardConcept": "C"
     },
     {
       "conceptId": 37498279,

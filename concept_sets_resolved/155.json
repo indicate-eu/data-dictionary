@@ -159,60 +159,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 37036351,
-      "conceptName": "Calcium.ionized | Blood arterial | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP385974-3",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37058150,
-      "conceptName": "Calcium.ionized | Serum or Plasma | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP385983-4",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37066721,
-      "conceptName": "Calcium.ionized | Blood mixed venous | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP385978-4",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37068391,
-      "conceptName": "Calcium.ionized | Blood venous | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP385979-2",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37073217,
-      "conceptName": "Calcium.ionized | Blood | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP385973-5",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37073269,
-      "conceptName": "Calcium.ionized | Blood capillary | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP385975-0",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 40760451,
       "conceptName": "Calcium.ionized [Mass/volume] adjusted to pH 7.4 in Serum or Plasma by Ion-selective membrane electrode (ISE)",
       "vocabularyId": "LOINC",

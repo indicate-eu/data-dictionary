@@ -1,6 +1,9 @@
 {
   "conceptSetId": 185,
-  "vocabularyVersion": null,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80"
+  },
   "resolvedConcepts": [
     {
       "conceptId": 3023091,
@@ -10,15 +13,6 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "26881-3",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 37040858,
-      "conceptName": "Interleukin 6 | Serum or Plasma | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP385040-3",
-      "standardConcept": "C"
     }
   ]
 }

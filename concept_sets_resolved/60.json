@@ -33,24 +33,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36224269,
-      "conceptName": "tioclomarol Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1162100",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36224270,
-      "conceptName": "tioclomarol Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1162101",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 40098512,
       "conceptName": "tioclomarol Oral Tablet",
       "vocabularyId": "RxNorm",

@@ -40,33 +40,6 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "46417-2",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 37041470,
-      "conceptName": "Prothrombin time (PT) | Platelet poor plasma | Coagulation",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP394044-4",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37044890,
-      "conceptName": "Prothrombin time (PT) | Blood | Coagulation",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP394042-8",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37070720,
-      "conceptName": "Prothrombin time (PT) | Blood capillary | Coagulation",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP394043-6",
-      "standardConcept": "C"
     }
   ]
 }

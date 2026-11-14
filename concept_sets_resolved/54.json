@@ -367,24 +367,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36214647,
-      "conceptName": "phenindione Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1156438",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36214648,
-      "conceptName": "phenindione Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1156439",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 40069911,
       "conceptName": "phenindione Oral Tablet",
       "vocabularyId": "RxNorm",

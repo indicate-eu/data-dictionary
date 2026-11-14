@@ -40,24 +40,6 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "14629-0",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 40654435,
-      "conceptName": "Bilirubin.glucuronidated|Moment in time|Serum or Plasma",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Group",
-      "conceptCode": "LG42870-2",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 40654437,
-      "conceptName": "Bilirubin.glucuronidated+Bilirubin.albumin bound|Moment in time|Serum or Plasma",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Group",
-      "conceptCode": "LG43215-9",
-      "standardConcept": "C"
     }
   ]
 }

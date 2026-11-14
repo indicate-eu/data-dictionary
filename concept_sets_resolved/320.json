@@ -1,6 +1,10 @@
 {
   "conceptSetId": 320,
-  "vocabularyVersion": null,
+  "vocabularyVersion": {
+    "release": "v5.0 27-FEB-26",
+    "LOINC": "LOINC 2.80",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+  },
   "resolvedConcepts": [
     {
       "conceptId": 3006369,
@@ -46,15 +50,6 @@
       "conceptClassId": "Clinical Observation",
       "conceptCode": "60829-9",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 37040392,
-      "conceptName": "Pressure.plateau | Respiratory system airway | Respiratory measures and Ventilator management",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP409162-7",
-      "standardConcept": "C"
     },
     {
       "conceptId": 44782825,

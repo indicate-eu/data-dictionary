@@ -142,15 +142,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 793720,
-      "conceptName": "Impoyz Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1995459",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 793721,
       "conceptName": "clobetasol propionate 0.25 MG/ML Topical Cream [Impoyz]",
       "vocabularyId": "RxNorm",
@@ -277,15 +268,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 1361308,
-      "conceptName": "Tovet Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2180344",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 1361309,
       "conceptName": "Emollient clobetasol propionate 0.5 MG/ML Topical Foam [Tovet]",
       "vocabularyId": "RxNorm",
@@ -293,15 +275,6 @@
       "conceptClassId": "Branded Drug",
       "conceptCode": "2180345",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 1734477,
-      "conceptName": "clobetasol Ophthalmic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "2683736",
-      "standardConcept": "C"
     },
     {
       "conceptId": 1734478,
@@ -5659,123 +5632,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36216773,
-      "conceptName": "clobetasol Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1153083",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36221889,
-      "conceptName": "Isovate Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1167171",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36228119,
-      "conceptName": "Embeline Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1175294",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36231593,
-      "conceptName": "Olux Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1179893",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36232309,
-      "conceptName": "Temovate Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1181416",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36237099,
-      "conceptName": "Clobevate Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1173013",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36237100,
-      "conceptName": "Clobex Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1173015",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36237328,
-      "conceptName": "Cormax Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1170262",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36237589,
-      "conceptName": "Dermovate Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1174501",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36242816,
-      "conceptName": "embelin Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1186877",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36244858,
-      "conceptName": "clobetasol Shampoo Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1295100",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36244891,
-      "conceptName": "Clobex Shampoo Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1296966",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36247069,
-      "conceptName": "Clodan Shampoo Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1541098",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36261697,
       "conceptName": "Clobetasol 0.0005 MG/MG [Clobex]",
       "vocabularyId": "RxNorm Extension",
@@ -6890,15 +6746,6 @@
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "2462147",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 37003156,
-      "conceptName": "Impeklo Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2462148",
-      "standardConcept": "C"
     },
     {
       "conceptId": 37003157,

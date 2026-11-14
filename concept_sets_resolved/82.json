@@ -124,15 +124,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 1759040,
-      "conceptName": "Dapzura Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2591791",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 1759041,
       "conceptName": "daptomycin Injection [Dapzura]",
       "vocabularyId": "RxNorm",
@@ -482,24 +473,6 @@
       "conceptClassId": "Marketed Product",
       "conceptCode": "OMOP5046209",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 36217315,
-      "conceptName": "daptomycin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1152143",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36237158,
-      "conceptName": "Cubicin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1173079",
-      "standardConcept": "C"
     },
     {
       "conceptId": 36811034,

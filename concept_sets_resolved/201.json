@@ -31,15 +31,6 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "14804-9",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 37056637,
-      "conceptName": "Lactate dehydrogenase | Serum or Plasma | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP383084-3",
-      "standardConcept": "C"
     }
   ]
 }

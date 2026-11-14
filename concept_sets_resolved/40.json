@@ -7,15 +7,6 @@
   },
   "resolvedConcepts": [
     {
-      "conceptId": 1758802,
-      "conceptName": "dabigatran etexilate Pellet Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "2590614",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 1758803,
       "conceptName": "dabigatran etexilate Oral Pellet",
       "vocabularyId": "RxNorm",
@@ -32,15 +23,6 @@
       "conceptClassId": "Clinical Drug",
       "conceptCode": "2590616",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 1758805,
-      "conceptName": "Pradaxa Pellet Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2590617",
-      "standardConcept": "C"
     },
     {
       "conceptId": 1758806,
@@ -743,42 +725,6 @@
       "conceptClassId": "Marketed Product",
       "conceptCode": "OMOP4982844",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 36215425,
-      "conceptName": "dabigatran etexilate Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1156646",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36215426,
-      "conceptName": "dabigatran etexilate Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1156647",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36240420,
-      "conceptName": "Pradaxa Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1184616",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36240421,
-      "conceptName": "Pradaxa Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1184617",
-      "standardConcept": "C"
     },
     {
       "conceptId": 36503607,

@@ -250,42 +250,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36212687,
-      "conceptName": "acenocoumarol Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1153963",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36212688,
-      "conceptName": "acenocoumarol Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1153964",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36241758,
-      "conceptName": "Sinthrome Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1183697",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36241759,
-      "conceptName": "Sinthrome Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1183698",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36260830,
       "conceptName": "Acenocoumarol 1 MG Oral Tablet [Sintrom] Box of 100",
       "vocabularyId": "RxNorm Extension",

@@ -34,15 +34,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 747010,
-      "conceptName": "Clavacillin Oral Liquid Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2668474",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 747011,
       "conceptName": "amoxicillin / clavulanate Oral Suspension [Clavacillin]",
       "vocabularyId": "RxNorm",
@@ -68,24 +59,6 @@
       "conceptClassId": "Branded Drug Comp",
       "conceptCode": "2598542",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 779383,
-      "conceptName": "Umbrellin Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2598543",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 779384,
-      "conceptName": "Umbrellin Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2598544",
-      "standardConcept": "C"
     },
     {
       "conceptId": 779385,
@@ -167,15 +140,6 @@
       "conceptClassId": "Branded Drug Comp",
       "conceptCode": "2598553",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 779394,
-      "conceptName": "Umbrellin Oral Liquid Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2598554",
-      "standardConcept": "C"
     },
     {
       "conceptId": 779395,
@@ -358,24 +322,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 1355753,
-      "conceptName": "Clavamox Chewable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2105789",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 1355754,
-      "conceptName": "Clavamox Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2105790",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 1355755,
       "conceptName": "amoxicillin 100 MG / clavulanate 25 MG Chewable Tablet [Clavamox]",
       "vocabularyId": "RxNorm",
@@ -529,24 +475,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 1356280,
-      "conceptName": "Clavacillin Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2108826",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 1356281,
-      "conceptName": "Clavacillin Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2108827",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 1356282,
       "conceptName": "amoxicillin 100 MG / clavulanate 25 MG Oral Tablet [Clavacillin]",
       "vocabularyId": "RxNorm",
@@ -682,24 +610,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 1735229,
-      "conceptName": "Betacilin Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2692881",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 1735230,
-      "conceptName": "Betacilin Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2692882",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 1735231,
       "conceptName": "amoxicillin / clavulanate Oral Tablet [Betacilin]",
       "vocabularyId": "RxNorm",
@@ -781,15 +691,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 1735240,
-      "conceptName": "Betacilin Oral Liquid Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2692892",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 1735241,
       "conceptName": "amoxicillin / clavulanate Oral Suspension [Betacilin]",
       "vocabularyId": "RxNorm",
@@ -815,33 +716,6 @@
       "conceptClassId": "Branded Drug Comp",
       "conceptCode": "2697441",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 1735640,
-      "conceptName": "Kesium Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2697442",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 1735641,
-      "conceptName": "Kesium Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2697443",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 1735642,
-      "conceptName": "Kesium Chewable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2697444",
-      "standardConcept": "C"
     },
     {
       "conceptId": 1735643,
@@ -19652,177 +19526,6 @@
       "conceptClassId": "Branded Drug",
       "conceptCode": "OMOP4988110",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 36216341,
-      "conceptName": "clavulanate / ticarcillin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1152764",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36216342,
-      "conceptName": "clavulanate Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1152766",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36217027,
-      "conceptName": "amoxicillin / clavulanate Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1152872",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36217028,
-      "conceptName": "amoxicillin / clavulanate Oral Liquid Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1152873",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36217029,
-      "conceptName": "amoxicillin / clavulanate Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1152874",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36217030,
-      "conceptName": "amoxicillin / clavulanate Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1152875",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36232482,
-      "conceptName": "Timentin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1178525",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36233301,
-      "conceptName": "Amoclan Oral Liquid Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1173511",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36233302,
-      "conceptName": "Amoclan Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1173512",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36233308,
-      "conceptName": "Amoxicillinan Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1173522",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36233309,
-      "conceptName": "Amoxicillinan Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1173523",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36236527,
-      "conceptName": "Augmentin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1174303",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36236528,
-      "conceptName": "Augmentin Oral Liquid Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1174306",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36236529,
-      "conceptName": "Augmentin Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1174307",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36236530,
-      "conceptName": "Augmentin Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1174308",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36236743,
-      "conceptName": "Clavamox Oral Liquid Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1171572",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36236744,
-      "conceptName": "Clavamox Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1171573",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36244287,
-      "conceptName": "Augmentin Chewable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1296040",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36244850,
-      "conceptName": "amoxicillin / clavulanate Chewable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1295092",
-      "standardConcept": "C"
     },
     {
       "conceptId": 36256952,

@@ -394,24 +394,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 1396586,
-      "conceptName": "midazolam Inhalant Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "2173491",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 1396587,
-      "conceptName": "midazolam Nasal Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "2173492",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 1396588,
       "conceptName": "midazolam Nasal Spray",
       "vocabularyId": "RxNorm",
@@ -446,24 +428,6 @@
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "2173497",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 1396593,
-      "conceptName": "Nayzilam Inhalant Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2173498",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 1396594,
-      "conceptName": "Nayzilam Nasal Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2173499",
-      "standardConcept": "C"
     },
     {
       "conceptId": 1396595,
@@ -4552,15 +4516,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 35200709,
-      "conceptName": "Seizalam Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2057963",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 35200710,
       "conceptName": "midazolam 5 MG/ML Injectable Solution [Seizalam]",
       "vocabularyId": "RxNorm",
@@ -7043,87 +6998,6 @@
       "conceptClassId": "Quant Clinical Drug",
       "conceptCode": "OMOP5050888",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 36221147,
-      "conceptName": "midazolam Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1164715",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36221148,
-      "conceptName": "midazolam Oral Liquid Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1164716",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36221149,
-      "conceptName": "midazolam Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1164717",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36221150,
-      "conceptName": "midazolam Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1164718",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36231178,
-      "conceptName": "Midazolan Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1178093",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36232386,
-      "conceptName": "Hypnovel Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1176718",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36243207,
-      "conceptName": "Versed Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1187901",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36243208,
-      "conceptName": "Versed Oral Liquid Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1187902",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36243209,
-      "conceptName": "Versed Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1187903",
-      "standardConcept": "C"
     },
     {
       "conceptId": 36257673,

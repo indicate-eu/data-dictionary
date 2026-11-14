@@ -42,15 +42,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 1762037,
-      "conceptName": "Glucose | Blood mixed venous | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP433115-5",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 3000483,
       "conceptName": "Glucose [Mass/volume] in Blood",
       "vocabularyId": "LOINC",
@@ -175,60 +166,6 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "39481-7",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 37023397,
-      "conceptName": "Glucose | Blood capillary | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP385528-7",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37030222,
-      "conceptName": "Glucose | Blood venous | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP385530-3",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37034437,
-      "conceptName": "Glucose | Blood | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP385526-1",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37035201,
-      "conceptName": "Glucose | Blood arterial | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP385527-9",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37060543,
-      "conceptName": "Glucose | Serum, Plasma or Blood | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP385541-0",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37065054,
-      "conceptName": "Glucose | Serum or Plasma | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP385540-2",
-      "standardConcept": "C"
     },
     {
       "conceptId": 40757626,

@@ -15,15 +15,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 1470767,
-      "conceptName": "Natriuretic peptide.B prohormone N-Terminal | Serum, Plasma or Blood | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP444069-1",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 3029187,
       "conceptName": "Natriuretic peptide.B prohormone N-Terminal [Mass/volume] in Serum or Plasma",
       "vocabularyId": "LOINC",
@@ -40,24 +31,6 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "33763-4",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 37059079,
-      "conceptName": "Natriuretic peptide.B prohormone N-Terminal | Serum or Plasma | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP385939-6",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37072564,
-      "conceptName": "Natriuretic peptide.B prohormone N-Terminal | Blood | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP385936-2",
-      "standardConcept": "C"
     },
     {
       "conceptId": 42529224,

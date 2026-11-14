@@ -25,15 +25,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 792533,
-      "conceptName": "meropenem / vaborbactam Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1945215",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 792534,
       "conceptName": "meropenem / vaborbactam Injection",
       "vocabularyId": "RxNorm",
@@ -68,15 +59,6 @@
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "1946649",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 792597,
-      "conceptName": "Vabomere Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1946650",
-      "standardConcept": "C"
     },
     {
       "conceptId": 792598,
@@ -3308,24 +3290,6 @@
       "conceptClassId": "Clinical Drug Form",
       "conceptCode": "OMOP4988199",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 36220870,
-      "conceptName": "meropenem Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1165713",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36241611,
-      "conceptName": "Merrem Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1185029",
-      "standardConcept": "C"
     },
     {
       "conceptId": 36260226,

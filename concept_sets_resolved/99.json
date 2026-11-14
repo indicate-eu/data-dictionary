@@ -2797,42 +2797,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36227051,
-      "conceptName": "piperacillin / tazobactam Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1159278",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36227052,
-      "conceptName": "piperacillin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1159279",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36231280,
-      "conceptName": "Pipracil Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1181249",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36241288,
-      "conceptName": "Zosyn Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1186325",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36257515,
       "conceptName": "Piperacillin 4000 MG / tazobactam 500 MG Injection [PIPERACILLINE/TAZOBACTAM KABI]",
       "vocabularyId": "RxNorm Extension",

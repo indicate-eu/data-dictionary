@@ -61,15 +61,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 1735682,
-      "conceptName": "fosfomycin Granule Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "2697783",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 1735683,
       "conceptName": "fosfomycin Granules for Oral Solution",
       "vocabularyId": "RxNorm",
@@ -77,15 +68,6 @@
       "conceptClassId": "Clinical Drug Form",
       "conceptCode": "2697784",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 1735684,
-      "conceptName": "Monurol Granule Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2697786",
-      "standardConcept": "C"
     },
     {
       "conceptId": 1735685,
@@ -2320,69 +2302,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36224598,
-      "conceptName": "fosfomycin Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1162672",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36224599,
-      "conceptName": "fosfomycin Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1162673",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36227557,
-      "conceptName": "fosfomycin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1162074",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36227558,
-      "conceptName": "fosfomycin Oral Liquid Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1162075",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36239418,
-      "conceptName": "Monuril Paediatric Oral Liquid Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1182787",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36239419,
-      "conceptName": "Monuril Paediatric Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1182788",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36239421,
-      "conceptName": "Monurol Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1182790",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36276537,
       "conceptName": "Fosfomycin 3000 MG Granules for Oral Solution [Monuril] by Zambon",
       "vocabularyId": "RxNorm Extension",
@@ -2912,15 +2831,6 @@
       "conceptClassId": "Branded Drug Comp",
       "conceptCode": "2725579",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 37354505,
-      "conceptName": "Contepo Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2725580",
-      "standardConcept": "C"
     },
     {
       "conceptId": 37354506,

@@ -24,15 +24,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 1618167,
-      "conceptName": "Base excess | Blood central venous | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP426940-5",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 3002032,
       "conceptName": "Base excess in Venous blood by calculation",
       "vocabularyId": "LOINC",
@@ -112,51 +103,6 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "19237-7",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 37043543,
-      "conceptName": "Base excess | Blood capillary | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP383306-0",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37044495,
-      "conceptName": "Base excess | Blood | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP383304-5",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37047002,
-      "conceptName": "Base excess | Blood mixed venous | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP383310-2",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37068055,
-      "conceptName": "Base excess | Blood arterial | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP383305-2",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37072545,
-      "conceptName": "Base excess | Blood venous | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP383311-0",
-      "standardConcept": "C"
     }
   ]
 }

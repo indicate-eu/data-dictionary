@@ -1915,42 +1915,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36246293,
-      "conceptName": "apixaban Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1364432",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36246294,
-      "conceptName": "apixaban Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1364433",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36246295,
-      "conceptName": "Eliquis Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1364439",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36246296,
-      "conceptName": "Eliquis Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1364440",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36257285,
       "conceptName": "apixaban 2.5 MG Oral Tablet Box of 168",
       "vocabularyId": "RxNorm Extension",

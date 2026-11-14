@@ -2599,24 +2599,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36224268,
-      "conceptName": "tinzaparin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1162099",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36236155,
-      "conceptName": "Innohep Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1172769",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36418756,
       "conceptName": "2 ML tinzaparin 241 MG/ML Injectable Solution [Innohep] Box of 1",
       "vocabularyId": "RxNorm Extension",

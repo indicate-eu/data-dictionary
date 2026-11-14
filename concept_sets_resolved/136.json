@@ -205,15 +205,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 1718828,
-      "conceptName": "Propovan Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1862109",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 1718829,
       "conceptName": "propofol 10 MG/ML Injectable Suspension [Propovan]",
       "vocabularyId": "RxNorm",
@@ -2212,15 +2203,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 35200014,
-      "conceptName": "PropoThesia Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2050124",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 35200015,
       "conceptName": "propofol 10 MG/ML Injectable Suspension [PropoThesia]",
       "vocabularyId": "RxNorm",
@@ -2885,51 +2867,6 @@
       "conceptClassId": "Quant Branded Drug",
       "conceptCode": "OMOP4980253",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 36227221,
-      "conceptName": "propofol Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1162323",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36230284,
-      "conceptName": "Propoven Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1181834",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36235171,
-      "conceptName": "Diprivan Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1172476",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36242898,
-      "conceptName": "Propoflo Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1188477",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36248988,
-      "conceptName": "Rapinovet Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1598998",
-      "standardConcept": "C"
     },
     {
       "conceptId": 36257493,

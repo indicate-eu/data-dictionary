@@ -13912,69 +13912,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36216337,
-      "conceptName": "clarithromycin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1152760",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36216338,
-      "conceptName": "clarithromycin Oral Liquid Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1152761",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36216339,
-      "conceptName": "clarithromycin Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1152762",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36216340,
-      "conceptName": "clarithromycin Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1152763",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36233636,
-      "conceptName": "Biaxin Oral Liquid Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1173623",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36233637,
-      "conceptName": "Biaxin Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1173624",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36233638,
-      "conceptName": "Biaxin Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1173625",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36257134,
       "conceptName": "Clarithromycin 250 MG Delayed Release Oral Tablet [CLARITHROMYCINE SANDOZ] Box of 14",
       "vocabularyId": "RxNorm Extension",

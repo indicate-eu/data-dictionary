@@ -394,24 +394,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36227566,
-      "conceptName": "etomidate Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1157926",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36236092,
-      "conceptName": "Amidate Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1171391",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36260453,
       "conceptName": "Etomidate 2 MG/ML Injection [Hypnomidate]",
       "vocabularyId": "RxNorm Extension",

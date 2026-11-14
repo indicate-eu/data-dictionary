@@ -610,15 +610,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36221162,
-      "conceptName": "milrinone Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1164730",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36262752,
       "conceptName": "Milrinone 1 MG/ML Injection [COROTROPE]",
       "vocabularyId": "RxNorm Extension",

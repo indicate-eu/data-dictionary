@@ -385,24 +385,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36217278,
-      "conceptName": "cefoxitin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1152105",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36242091,
-      "conceptName": "Mefoxin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1183803",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36882997,
       "conceptName": "Cefoxitin 1000 MG Prefilled Syringe Box of 10",
       "vocabularyId": "RxNorm Extension",

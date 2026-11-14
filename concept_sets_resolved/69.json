@@ -295,15 +295,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 1465399,
-      "conceptName": "avibactam / aztreonam Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "2705353",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 1465400,
       "conceptName": "avibactam / aztreonam Injection",
       "vocabularyId": "RxNorm",
@@ -329,15 +320,6 @@
       "conceptClassId": "Branded Drug Comp",
       "conceptCode": "2705357",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 1465404,
-      "conceptName": "Emblaveo Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2705358",
-      "standardConcept": "C"
     },
     {
       "conceptId": 1465405,
@@ -761,42 +743,6 @@
       "conceptClassId": "Clinical Drug Box",
       "conceptCode": "OMOP2751285",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 36212965,
-      "conceptName": "aztreonam Inhalant Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1155014",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36212966,
-      "conceptName": "aztreonam Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1155015",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36231089,
-      "conceptName": "Azactam Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1176315",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36231410,
-      "conceptName": "Cayston Inhalant Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1176404",
-      "standardConcept": "C"
     },
     {
       "conceptId": 36258170,

@@ -2293,15 +2293,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36224502,
-      "conceptName": "dopamine Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1160755",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36404300,
       "conceptName": "Dopamine 1.6 MG/ML Injectable Solution",
       "vocabularyId": "RxNorm Extension",

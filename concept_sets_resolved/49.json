@@ -304,15 +304,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 747310,
-      "conceptName": "heparin / taurolidine Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "2670457",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 747311,
       "conceptName": "heparin / taurolidine Injection",
       "vocabularyId": "RxNorm",
@@ -338,15 +329,6 @@
       "conceptClassId": "Branded Drug Comp",
       "conceptCode": "2670464",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 747315,
-      "conceptName": "Defencath Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2670465",
-      "standardConcept": "C"
     },
     {
       "conceptId": 747316,
@@ -473,15 +455,6 @@
       "conceptClassId": "Quant Clinical Drug",
       "conceptCode": "2121591",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 1718369,
-      "conceptName": "heparin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1856274",
-      "standardConcept": "C"
     },
     {
       "conceptId": 1718370,
@@ -7808,15 +7781,6 @@
       "conceptClassId": "Quant Clinical Box",
       "conceptCode": "OMOP4980270",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 36232752,
-      "conceptName": "Hep-Pak Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1168384",
-      "standardConcept": "C"
     },
     {
       "conceptId": 36249117,

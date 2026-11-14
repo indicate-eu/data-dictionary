@@ -1528,15 +1528,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 35200932,
-      "conceptName": "Arikayce Inhalant Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2059188",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 35200933,
       "conceptName": "amikacin liposomal 70.3 MG/ML Inhalation Suspension [Arikayce]",
       "vocabularyId": "RxNorm",
@@ -2084,33 +2075,6 @@
       "conceptClassId": "Marketed Product",
       "conceptCode": "OMOP5050130",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 36216159,
-      "conceptName": "amikacin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1151588",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36236099,
-      "conceptName": "Amikin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1171398",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36248775,
-      "conceptName": "Amimax Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1595466",
-      "standardConcept": "C"
     },
     {
       "conceptId": 36258242,
@@ -2804,15 +2768,6 @@
       "conceptClassId": "Clinical Drug Form",
       "conceptCode": "2285804",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 37499296,
-      "conceptName": "amikacin Inhalant Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "2285812",
-      "standardConcept": "C"
     },
     {
       "conceptId": 40008548,

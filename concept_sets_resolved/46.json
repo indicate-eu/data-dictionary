@@ -4453,24 +4453,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36224590,
-      "conceptName": "enoxaparin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1162664",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36231614,
-      "conceptName": "Lovenox Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1180930",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36257055,
       "conceptName": "Enoxaparin 15000 UNT/ML Injectable Solution [Clexane] Box of 10",
       "vocabularyId": "RxNorm Extension",

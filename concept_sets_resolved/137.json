@@ -2113,24 +2113,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36213642,
-      "conceptName": "remifentanil Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1157406",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36241427,
-      "conceptName": "Ultiva Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1187691",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36260920,
       "conceptName": "remifentanil 2 MG Injection [Ultiva] Box of 5 by GSK",
       "vocabularyId": "RxNorm Extension",

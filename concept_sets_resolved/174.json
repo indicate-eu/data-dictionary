@@ -33,15 +33,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 40652525,
-      "conceptName": "Alanine aminotransferase|Catalytic Concentration|Moment in time|Blood, Serum or Plasma",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Group",
-      "conceptCode": "LG5272-2",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 46235106,
       "conceptName": "Alanine aminotransferase [Enzymatic activity/volume] in Blood",
       "vocabularyId": "LOINC",

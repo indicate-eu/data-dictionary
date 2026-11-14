@@ -24,15 +24,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 40652549,
-      "conceptName": "Alkaline phosphatase|Catalytic Concentration|Moment in time|Blood, Serum or Plasma",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Group",
-      "conceptCode": "LG5665-7",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 46235077,
       "conceptName": "Alkaline phosphatase [Enzymatic activity/volume] in Serum, Plasma or Blood",
       "vocabularyId": "LOINC",

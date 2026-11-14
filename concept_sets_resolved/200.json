@@ -33,15 +33,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 40654117,
-      "conceptName": "Reticulocytes|Number Concentration (count/vol)|Moment in time|Blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Group",
-      "conceptCode": "LG32882-9",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 40763528,
       "conceptName": "Reticulocytes [#/volume] in Blood by Automated count",
       "vocabularyId": "LOINC",

@@ -763,15 +763,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36223198,
-      "conceptName": "argatroban Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1158258",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 40220924,
       "conceptName": "argatroban Injection",
       "vocabularyId": "RxNorm",

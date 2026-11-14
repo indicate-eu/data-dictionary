@@ -349,24 +349,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36224264,
-      "conceptName": "tigecycline Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1162095",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36242842,
-      "conceptName": "Tygacil Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1186913",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36406651,
       "conceptName": "tigecycline 50 MG Injectable Solution Box of 10",
       "vocabularyId": "RxNorm Extension",

@@ -1663,24 +1663,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36219291,
-      "conceptName": "teicoplanin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1164226",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36229218,
-      "conceptName": "Targocid Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1179042",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36282829,
       "conceptName": "3.12 ML Teicoplanin 133 MG/ML Oral Solution [Targocid]",
       "vocabularyId": "RxNorm Extension",

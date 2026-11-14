@@ -2365,42 +2365,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36218434,
-      "conceptName": "lidocaine / norepinephrine Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1164050",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36222203,
-      "conceptName": "Levophed Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1167947",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36225029,
-      "conceptName": "norepinephrine Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1159845",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36227121,
-      "conceptName": "mepivacaine / norepinephrine Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1160403",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36259043,
       "conceptName": "Norepinephrine 1 MG/ML [Noradrenaline Aguettant]",
       "vocabularyId": "RxNorm Extension",

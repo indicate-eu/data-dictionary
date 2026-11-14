@@ -223,15 +223,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36218422,
-      "conceptName": "levosimendan Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1164037",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36780484,
       "conceptName": "5 ML Levosimendan 2.5 MG/ML Intravenous Solution [Simdax] Box of 1 by Orion",
       "vocabularyId": "RxNorm Extension",

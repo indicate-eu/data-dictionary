@@ -2329,69 +2329,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36214602,
-      "conceptName": "mupirocin Nasal Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1156382",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36214603,
-      "conceptName": "mupirocin Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1156383",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36222213,
-      "conceptName": "Bactroban Nasal Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1167960",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36222214,
-      "conceptName": "Bactroban Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1167961",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36222453,
-      "conceptName": "Centany Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1166237",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36242403,
-      "conceptName": "Muprocin Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1183879",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36246627,
-      "conceptName": "Muricin Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1367115",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36282826,
       "conceptName": "2990 MG Mupirocin 0.02 MG/MG Nasal Ointment [Bactroban] by GSK",
       "vocabularyId": "RxNorm Extension",
@@ -2840,15 +2777,6 @@
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "2286612",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 37499366,
-      "conceptName": "Pirnuo Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2286613",
-      "standardConcept": "C"
     },
     {
       "conceptId": 37499367,

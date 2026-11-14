@@ -31,15 +31,6 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "88112-8",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 40652640,
-      "conceptName": "Aspartate aminotransferase|Catalytic Concentration|Moment in time|Blood, Serum or Plasma",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Group",
-      "conceptCode": "LG6033-7",
-      "standardConcept": "C"
     }
   ]
 }

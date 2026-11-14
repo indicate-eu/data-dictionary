@@ -1303,24 +1303,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36220571,
-      "conceptName": "fondaparinux Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1165637",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36234406,
-      "conceptName": "Arixtra Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1170763",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36504829,
       "conceptName": "0.3 ML fondaparinux 5 MG/ML Prefilled Syringe [Arixtra] by Kohlpharma",
       "vocabularyId": "RxNorm Extension",

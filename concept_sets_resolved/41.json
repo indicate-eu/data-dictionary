@@ -2860,33 +2860,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36216679,
-      "conceptName": "dalteparin / dihydroergotamine Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1151836",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36216680,
-      "conceptName": "dalteparin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1151837",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36237823,
-      "conceptName": "Fragmin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1173301",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36505939,
       "conceptName": "0.4 ML Dalteparin 25000 UNT/ML Prefilled Syringe [Fragmin] by Axicorp",
       "vocabularyId": "RxNorm Extension",

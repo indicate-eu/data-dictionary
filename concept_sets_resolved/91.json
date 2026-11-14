@@ -25,24 +25,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 740184,
-      "conceptName": "Mal-A-Ket Wipes Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2532525",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 740185,
-      "conceptName": "Mal-A-Ket Wipes Medicated Pad or Tape",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2532526",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 740186,
       "conceptName": "chlorhexidine gluconate 20 MG/ML / ketoconazole 10 MG/ML Medicated Pad [Mal-A-Ket Wipes]",
       "vocabularyId": "RxNorm",
@@ -50,15 +32,6 @@
       "conceptClassId": "Branded Drug",
       "conceptCode": "2532527",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 746467,
-      "conceptName": "chlorhexidine / hydrocortisone / ketoconazole Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "2663925",
-      "standardConcept": "C"
     },
     {
       "conceptId": 746468,
@@ -77,15 +50,6 @@
       "conceptClassId": "Clinical Drug",
       "conceptCode": "2663929",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 747107,
-      "conceptName": "ketoconazole / salicylic acid Otic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "2669488",
-      "standardConcept": "C"
     },
     {
       "conceptId": 747108,
@@ -140,15 +104,6 @@
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "1994335",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 793513,
-      "conceptName": "Keto-C Medicated Pad or Tape",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1994336",
-      "standardConcept": "C"
     },
     {
       "conceptId": 793514,
@@ -257,15 +212,6 @@
       "conceptClassId": "Clinical Drug",
       "conceptCode": "2639745",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 1201492,
-      "conceptName": "Malacetic Otic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2639746",
-      "standardConcept": "C"
     },
     {
       "conceptId": 1201493,
@@ -439,15 +385,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 1525476,
-      "conceptName": "ketoconazole Otic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "2609845",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 1525477,
       "conceptName": "ketoconazole Otic Solution",
       "vocabularyId": "RxNorm",
@@ -509,24 +446,6 @@
       "conceptClassId": "Branded Drug Comp",
       "conceptCode": "2588850",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 1758647,
-      "conceptName": "Recorlev Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2588851",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 1758648,
-      "conceptName": "Recorlev Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2588852",
-      "standardConcept": "C"
     },
     {
       "conceptId": 1758649,
@@ -5083,384 +5002,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36218281,
-      "conceptName": "Feoris Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1166506",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36218282,
-      "conceptName": "Feoris Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1166507",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36220743,
-      "conceptName": "hydrocortisone / ketoconazole Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1163411",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36225350,
-      "conceptName": "ketoconazole / secnidazole Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1160950",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36225351,
-      "conceptName": "ketoconazole / secnidazole Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1160951",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36225353,
-      "conceptName": "ketoconazole Oral Liquid Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1160953",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36225354,
-      "conceptName": "ketoconazole Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1160954",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36225355,
-      "conceptName": "ketoconazole Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1160955",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36225356,
-      "conceptName": "ketoconazole Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1160957",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36226028,
-      "conceptName": "chloroxylenol / ketoconazole Medicated Pad or Tape",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1162465",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36226029,
-      "conceptName": "chloroxylenol / ketoconazole Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1162467",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36228606,
-      "conceptName": "Pharmaseb Medicated Pad or Tape",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1178871",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36228607,
-      "conceptName": "Pharmaseb Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1178873",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36235271,
-      "conceptName": "Kuric Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1174266",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36235927,
-      "conceptName": "Extina Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1173930",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36240122,
-      "conceptName": "Nizoral Oral Liquid Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1184472",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36240123,
-      "conceptName": "Nizoral Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1184473",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36240124,
-      "conceptName": "Nizoral Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1184474",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36240125,
-      "conceptName": "Nizoral Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1184476",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36241360,
-      "conceptName": "Xolegel Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1186441",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36243395,
-      "conceptName": "Ketodan Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1300271",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36243493,
-      "conceptName": "T8 Keto Flush Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1297964",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36243930,
-      "conceptName": "Pharmaseb Shampoo Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1295788",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36245333,
-      "conceptName": "chloroxylenol / ketoconazole Shampoo Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1295327",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36245407,
-      "conceptName": "Ketaconole Shampoo 2 Shampoo Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1296488",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36245479,
-      "conceptName": "ketoconazole Shampoo Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1295391",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36245701,
-      "conceptName": "Nizoral Shampoo Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1296820",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36246107,
-      "conceptName": "ketoconazole / lactate / salicylic acid Otic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1371358",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36246108,
-      "conceptName": "chlorhexidine / ketoconazole Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1371362",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36246289,
-      "conceptName": "chlorhexidine / ketoconazole Shampoo Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1424014",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36246290,
-      "conceptName": "Vital-Ketodine Shampoo Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1424020",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36246936,
-      "conceptName": "ketoconazole / phytosphingosine Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1534843",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36247350,
-      "conceptName": "chlorhexidine / ketoconazole / salicyloyl phytosphingosine Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1495163",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36247351,
-      "conceptName": "Ketoseb PS Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1495168",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36247544,
-      "conceptName": "chlorhexidine / ketoconazole / salicyloyl phytosphingosine Shampoo Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1484767",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36247545,
-      "conceptName": "Ketoseb PS Shampoo Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1484774",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36247575,
-      "conceptName": "acetic acid / chlorhexidine / ketoconazole Shampoo Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1439945",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36247576,
-      "conceptName": "Mal-A-Ket Shampoo Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1439952",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36248012,
-      "conceptName": "Resi Ketochlor Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1482655",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36248048,
-      "conceptName": "Ketochlor Shampoo Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1482690",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36248632,
-      "conceptName": "chlorhexidine / hydrocortisone / ketoconazole Shampoo Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1648129",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36248960,
-      "conceptName": "hydrocortisone / ketoconazole Otic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1606351",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36249092,
       "conceptName": "chlorhexidine gluconate 20 MG/ML / ketoconazole 10 MG/ML Medicated Pad",
       "vocabularyId": "RxNorm",
@@ -5477,15 +5018,6 @@
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "1798544",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 36249137,
-      "conceptName": "Keto-C Shampoo Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1798545",
-      "standardConcept": "C"
     },
     {
       "conceptId": 36249138,
@@ -5524,15 +5056,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36250034,
-      "conceptName": "Keto-C Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1797510",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36250035,
       "conceptName": "chlorhexidine gluconate 2 MG/ML / ketoconazole 2 MG/ML Topical Solution [Keto-C]",
       "vocabularyId": "RxNorm",
@@ -5569,15 +5092,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36250190,
-      "conceptName": "chlorhexidine / ketoconazole Medicated Pad or Tape",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1798295",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36250191,
       "conceptName": "chlorhexidine / ketoconazole Medicated Pad",
       "vocabularyId": "RxNorm",
@@ -5585,24 +5099,6 @@
       "conceptClassId": "Clinical Drug Form",
       "conceptCode": "1798296",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 36250198,
-      "conceptName": "chlorhexidine / ketoconazole / salicyloyl phytosphingosine Medicated Pad or Tape",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1739986",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36250199,
-      "conceptName": "Ketoseb PS Medicated Pad or Tape",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1739991",
-      "standardConcept": "C"
     },
     {
       "conceptId": 36283303,
@@ -6010,15 +5506,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 37003103,
-      "conceptName": "chlorhexidine / ketoconazole Otic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "2458969",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 37003104,
       "conceptName": "chlorhexidine / ketoconazole Otic Solution",
       "vocabularyId": "RxNorm",
@@ -6035,15 +5522,6 @@
       "conceptClassId": "Clinical Drug",
       "conceptCode": "2458971",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 37354005,
-      "conceptName": "ketoconazole Soap Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "2721934",
-      "standardConcept": "C"
     },
     {
       "conceptId": 37354006,
@@ -9223,15 +8701,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 42543955,
-      "conceptName": "hydrocortisone / ketoconazole Shampoo Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "2003643",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 42543956,
       "conceptName": "hydrocortisone / ketoconazole Medicated Shampoo",
       "vocabularyId": "RxNorm",
@@ -9266,15 +8735,6 @@
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "2003648",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 42543961,
-      "conceptName": "Malacetic Shampoo Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2003649",
-      "standardConcept": "C"
     },
     {
       "conceptId": 42543962,

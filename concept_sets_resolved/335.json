@@ -70,15 +70,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 746585,
-      "conceptName": "durlobactam / sulbactam Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "2665010",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 746586,
       "conceptName": "durlobactam / sulbactam Injection",
       "vocabularyId": "RxNorm",
@@ -104,15 +95,6 @@
       "conceptClassId": "Branded Drug Comp",
       "conceptCode": "2665014",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 746590,
-      "conceptName": "Xacduro Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2665015",
-      "standardConcept": "C"
     },
     {
       "conceptId": 746591,
@@ -4172,51 +4154,6 @@
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "OMOP5017097",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 36217045,
-      "conceptName": "amoxicillin / sulbactam Oral Liquid Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1152890",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36217046,
-      "conceptName": "amoxicillin / sulbactam Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1152891",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36217047,
-      "conceptName": "amoxicillin / sulbactam Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1152892",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36217369,
-      "conceptName": "ampicillin / sulbactam Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1153190",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36242377,
-      "conceptName": "Unasyn Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1187828",
-      "standardConcept": "C"
     },
     {
       "conceptId": 36884847,

@@ -358,33 +358,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 35201754,
-      "conceptName": "sufentanil Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "2103188",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 35201755,
-      "conceptName": "sufentanil Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "2103189",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 35201756,
-      "conceptName": "sufentanil Sublingual Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "2103190",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 35201757,
       "conceptName": "sufentanil Sublingual Tablet",
       "vocabularyId": "RxNorm",
@@ -419,33 +392,6 @@
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "2103195",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 35201762,
-      "conceptName": "Dsuvia Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2103196",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 35201763,
-      "conceptName": "Dsuvia Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2103197",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 35201764,
-      "conceptName": "Dsuvia Sublingual Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2103198",
-      "standardConcept": "C"
     },
     {
       "conceptId": 35201765,
@@ -527,24 +473,6 @@
       "conceptClassId": "Branded Drug Box",
       "conceptCode": "OMOP1145969",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 36227227,
-      "conceptName": "sufentanil Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1162329",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36242053,
-      "conceptName": "Sufenta Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1183757",
-      "standardConcept": "C"
     },
     {
       "conceptId": 36262504,

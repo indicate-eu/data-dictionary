@@ -646,15 +646,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36225634,
-      "conceptName": "bemiparin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1160004",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36403541,
       "conceptName": "bemiparin 12500 UNT/ML Injectable Solution Box of 2",
       "vocabularyId": "RxNorm Extension",

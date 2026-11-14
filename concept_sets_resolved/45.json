@@ -376,42 +376,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36248613,
-      "conceptName": "edoxaban Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1599541",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36248614,
-      "conceptName": "Savaysa Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1599547",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36248615,
-      "conceptName": "Savaysa Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1599548",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36249022,
-      "conceptName": "edoxaban Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1599540",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36504962,
       "conceptName": "edoxaban 30 MG Delayed Release Oral Tablet [Lixiana] by Daiichi Sankyo",
       "vocabularyId": "RxNorm Extension",

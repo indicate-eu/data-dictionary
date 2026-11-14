@@ -250,24 +250,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36222190,
-      "conceptName": "Levemir Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1167934",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36224228,
-      "conceptName": "insulin detemir Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1160696",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36257784,
       "conceptName": "insulin detemir 100 UNT/ML Injectable Solution [Actrapid]",
       "vocabularyId": "RxNorm Extension",

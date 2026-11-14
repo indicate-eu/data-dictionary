@@ -25,15 +25,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 1355731,
-      "conceptName": "mometasone / orbifloxacin / posaconazole Otic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "2105734",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 1355732,
       "conceptName": "mometasone / orbifloxacin / posaconazole Otic Suspension",
       "vocabularyId": "RxNorm",
@@ -70,15 +61,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 1355737,
-      "conceptName": "Posatex Otic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2105741",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 1355738,
       "conceptName": "mometasone furoate 1 MG/ML / orbifloxacin 10 MG/ML / posaconazole 1 MG/ML Otic Suspension [Posatex]",
       "vocabularyId": "RxNorm",
@@ -95,15 +77,6 @@
       "conceptClassId": "Clinical Drug Comp",
       "conceptCode": "2713298",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 1466221,
-      "conceptName": "gentamicin / mometasone / posaconazole Otic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "2713301",
-      "standardConcept": "C"
     },
     {
       "conceptId": 1466222,
@@ -133,15 +106,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 1466226,
-      "conceptName": "Mometamax Single Otic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2713308",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 1466227,
       "conceptName": "gentamicin / mometasone / posaconazole Otic Suspension [Mometamax Single]",
       "vocabularyId": "RxNorm",
@@ -167,15 +131,6 @@
       "conceptClassId": "Clinical Drug Comp",
       "conceptCode": "2558600",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 1537172,
-      "conceptName": "posaconazole Oral Powder Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "2558601",
-      "standardConcept": "C"
     },
     {
       "conceptId": 1537173,
@@ -212,15 +167,6 @@
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "2558605",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 1537177,
-      "conceptName": "Noxafil Oral Powder Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2558606",
-      "standardConcept": "C"
     },
     {
       "conceptId": 1537178,
@@ -1373,78 +1319,6 @@
       "conceptClassId": "Marketed Product",
       "conceptCode": "OMOP5050967",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 36222711,
-      "conceptName": "posaconazole Oral Liquid Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1165108",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36222712,
-      "conceptName": "posaconazole Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1165109",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36231464,
-      "conceptName": "Noxafil Oral Liquid Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1178133",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36231465,
-      "conceptName": "Noxafil Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1178134",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36247129,
-      "conceptName": "posaconazole Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1492041",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36247130,
-      "conceptName": "Noxafil Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1492046",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36248053,
-      "conceptName": "posaconazole Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1482906",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36248054,
-      "conceptName": "Noxafil Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1482911",
-      "standardConcept": "C"
     },
     {
       "conceptId": 36257506,

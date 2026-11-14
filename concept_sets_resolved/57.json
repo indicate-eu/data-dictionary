@@ -43,15 +43,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 1758727,
-      "conceptName": "rivaroxaban Oral Liquid Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "2589625",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 1758728,
       "conceptName": "rivaroxaban Oral Suspension",
       "vocabularyId": "RxNorm",
@@ -68,15 +59,6 @@
       "conceptClassId": "Branded Drug Comp",
       "conceptCode": "2589628",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 1758730,
-      "conceptName": "Xarelto Oral Liquid Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2589629",
-      "standardConcept": "C"
     },
     {
       "conceptId": 1758731,
@@ -1193,42 +1175,6 @@
       "conceptClassId": "Marketed Product",
       "conceptCode": "OMOP5051103",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 36227606,
-      "conceptName": "rivaroxaban Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1157968",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36227607,
-      "conceptName": "rivaroxaban Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1157969",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36241103,
-      "conceptName": "Xarelto Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1186304",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36241104,
-      "conceptName": "Xarelto Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1186305",
-      "standardConcept": "C"
     },
     {
       "conceptId": 36419360,

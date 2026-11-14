@@ -5344,69 +5344,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36217279,
-      "conceptName": "ceftazidime Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1152106",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36219151,
-      "conceptName": "Ceptaz Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1166823",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36227649,
-      "conceptName": "Tazicef Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1180260",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36227650,
-      "conceptName": "Tazidime Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1180261",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36235789,
-      "conceptName": "Fortaz Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1172631",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36248849,
-      "conceptName": "avibactam / ceftazidime Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1603837",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36248850,
-      "conceptName": "Avycaz Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1603844",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36258100,
       "conceptName": "Ceftazidime 2000 MG Injectable Solution [CEFTAZIDIME MYLAN] Box of 5",
       "vocabularyId": "RxNorm Extension",

@@ -67,24 +67,6 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "49497-1",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 40654106,
-      "conceptName": "Platelets|Number Concentration (count/vol)|Moment in time|Blood",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Group",
-      "conceptCode": "LG32892-8",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 40654108,
-      "conceptName": "Platelets|Number Concentration (count/vol)|Moment in time|Plasma",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Group",
-      "conceptCode": "LG32776-3",
-      "standardConcept": "C"
     }
   ]
 }

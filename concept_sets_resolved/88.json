@@ -286,15 +286,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 1201019,
-      "conceptName": "Mometazole Otic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2636527",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 1201020,
       "conceptName": "clotrimazole / gentamicin / mometasone Otic Suspension [Mometazole]",
       "vocabularyId": "RxNorm",
@@ -421,15 +412,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 1466221,
-      "conceptName": "gentamicin / mometasone / posaconazole Otic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "2713301",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 1466222,
       "conceptName": "gentamicin / mometasone / posaconazole Otic Suspension",
       "vocabularyId": "RxNorm",
@@ -455,15 +437,6 @@
       "conceptClassId": "Branded Drug Comp",
       "conceptCode": "2713307",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 1466226,
-      "conceptName": "Mometamax Single Otic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2713308",
-      "standardConcept": "C"
     },
     {
       "conceptId": 1466227,
@@ -502,15 +475,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 1511380,
-      "conceptName": "Maxi-Otic Otic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2166111",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 1511381,
       "conceptName": "clotrimazole 10 MG/ML / gentamicin 3 MG/ML / mometasone 1 MG/ML Otic Suspension [Maxi-Otic]",
       "vocabularyId": "RxNorm",
@@ -538,15 +502,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 1560009,
-      "conceptName": "Vetaderm Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2049387",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 1560010,
       "conceptName": "betamethasone 0.284 MG/ML / gentamicin 0.57 MG/ML Topical Spray [Vetaderm]",
       "vocabularyId": "RxNorm",
@@ -572,15 +527,6 @@
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "2049503",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 1560034,
-      "conceptName": "Vetaderm Otic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2049504",
-      "standardConcept": "C"
     },
     {
       "conceptId": 1560035,
@@ -626,15 +572,6 @@
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "2049511",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 1560042,
-      "conceptName": "Vetaderm Plus Otic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2049512",
-      "standardConcept": "C"
     },
     {
       "conceptId": 1560043,
@@ -763,15 +700,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 1592219,
-      "conceptName": "gentamicin / hydrocortisone / miconazole Otic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1870697",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 1592220,
       "conceptName": "gentamicin / hydrocortisone / miconazole Otic Suspension",
       "vocabularyId": "RxNorm",
@@ -826,15 +754,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 1592226,
-      "conceptName": "gentamicin / hydrocortisone Otic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1870712",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 1592227,
       "conceptName": "gentamicin / hydrocortisone Otic Suspension",
       "vocabularyId": "RxNorm",
@@ -869,15 +788,6 @@
       "conceptClassId": "Clinical Drug Comp",
       "conceptCode": "1870194",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 1594363,
-      "conceptName": "betamethasone / gentamicin Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1870195",
-      "standardConcept": "C"
     },
     {
       "conceptId": 1594364,
@@ -934,15 +844,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 1594372,
-      "conceptName": "gentamicin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1870215",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 1594373,
       "conceptName": "gentamicin Injectable Solution",
       "vocabularyId": "RxNorm",
@@ -959,15 +860,6 @@
       "conceptClassId": "Clinical Drug Comp",
       "conceptCode": "1870217",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 1594375,
-      "conceptName": "gentamicin Ophthalmic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1870219",
-      "standardConcept": "C"
     },
     {
       "conceptId": 1594376,
@@ -1096,15 +988,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 1594393,
-      "conceptName": "gentamicin Otic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1870247",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 1594394,
       "conceptName": "gentamicin Otic Solution",
       "vocabularyId": "RxNorm",
@@ -1175,15 +1058,6 @@
       "conceptClassId": "Clinical Drug Comp",
       "conceptCode": "1870262",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 1594402,
-      "conceptName": "gentamicin Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1870263",
-      "standardConcept": "C"
     },
     {
       "conceptId": 1594403,
@@ -1375,15 +1249,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 1594426,
-      "conceptName": "betamethasone / gentamicin Otic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1870305",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 1594495,
       "conceptName": "betamethasone / gentamicin Otic Solution",
       "vocabularyId": "RxNorm",
@@ -1436,15 +1301,6 @@
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "1870316",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 1594501,
-      "conceptName": "gentamicin Irrigation Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1870318",
-      "standardConcept": "C"
     },
     {
       "conceptId": 1594502,
@@ -1724,15 +1580,6 @@
       "conceptClassId": "Clinical Drug",
       "conceptCode": "1870651",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 1594689,
-      "conceptName": "gentamicin / prednisolone Ophthalmic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1870655",
-      "standardConcept": "C"
     },
     {
       "conceptId": 1594690,
@@ -8656,303 +8503,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36222085,
-      "conceptName": "Legacy Irrigation Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1166046",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36228357,
-      "conceptName": "Ocu-Mycin Ophthalmic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1180541",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36230389,
-      "conceptName": "Garamycin Ophthalmic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1176023",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36230391,
-      "conceptName": "Garamycin Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1176025",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36236011,
-      "conceptName": "Genoptic Ophthalmic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1169831",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36236020,
-      "conceptName": "GentaVed Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1169841",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36236021,
-      "conceptName": "Gentacidin Ophthalmic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1169842",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36236022,
-      "conceptName": "Gentafair Ophthalmic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1169843",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36236023,
-      "conceptName": "Gentak Ophthalmic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1169844",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36236024,
-      "conceptName": "Gentasol Ophthalmic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1169845",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36237187,
-      "conceptName": "G-Myticin Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1174718",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36237488,
-      "conceptName": "Ed-Mycin Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1173186",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36238091,
-      "conceptName": "Easotic Otic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1245249",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36242202,
-      "conceptName": "Pred-G Ophthalmic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1185241",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36246097,
-      "conceptName": "Gentaved 100 Irrigation Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1363422",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36246161,
-      "conceptName": "Gentacalm Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1367486",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36246165,
-      "conceptName": "Vetromax Otic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1367701",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36247270,
-      "conceptName": "GentaVed Otic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1549538",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36247768,
-      "conceptName": "Betagen brand of Betamethasone and Gentamicin Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1435266",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36247923,
-      "conceptName": "Tri-Otic for Canines Otic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1430114",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36248085,
-      "conceptName": "Gentaspray Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1438527",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36248145,
-      "conceptName": "Garasol Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1667691",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36248369,
-      "conceptName": "Pattotic Otic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1734664",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36248515,
-      "conceptName": "Otomax Otic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1666757",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36248518,
-      "conceptName": "Mometamax Otic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1666828",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36248540,
-      "conceptName": "Malotic Otic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1552572",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36248800,
-      "conceptName": "Relifor Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1595996",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36248836,
-      "conceptName": "betamethasone / clotrimazole / gentamicin Otic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1596452",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36248837,
-      "conceptName": "Remicin Otic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1596459",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36248933,
-      "conceptName": "clotrimazole / gentamicin / mometasone Otic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1606018",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36248934,
-      "conceptName": "Motazol Otic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1606025",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36249053,
-      "conceptName": "Genone Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1551492",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36249054,
-      "conceptName": "Gentaotic Otic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1551497",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36257862,
       "conceptName": "Gentamicin 1 MG/ML Injection [Gentamicin B. Braun]",
       "vocabularyId": "RxNorm Extension",
@@ -10085,15 +9635,6 @@
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "2201556",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 37496921,
-      "conceptName": "LoZatom Otic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2201557",
-      "standardConcept": "C"
     },
     {
       "conceptId": 37496922,
@@ -33494,15 +33035,6 @@
       "conceptClassId": "Branded Drug Comp",
       "conceptCode": "2675486",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 42609171,
-      "conceptName": "Mometavet Otic Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "2675487",
-      "standardConcept": "C"
     },
     {
       "conceptId": 42609172,

@@ -475,69 +475,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36212502,
-      "conceptName": "cortisone Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1155815",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36212503,
-      "conceptName": "cortisone Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1155816",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36215076,
-      "conceptName": "cortisone Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1155527",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36215077,
-      "conceptName": "cortisone Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1155528",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36235055,
-      "conceptName": "Cortone Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1170968",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36235060,
-      "conceptName": "Cortone Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1170975",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36235062,
-      "conceptName": "Cortone acetate Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1170977",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 40026665,
       "conceptName": "cortisone Injectable Solution",
       "vocabularyId": "RxNorm",

@@ -87,24 +87,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36217243,
-      "conceptName": "dicumarol Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1151160",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36217244,
-      "conceptName": "dicumarol Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1151161",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 40032482,
       "conceptName": "dicumarol Oral Capsule",
       "vocabularyId": "RxNorm",

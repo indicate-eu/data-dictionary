@@ -60,24 +60,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 37062662,
-      "conceptName": "Phosphate | Serum or Plasma | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP386057-6",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 37064066,
-      "conceptName": "Phosphate | Blood | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP386044-4",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 40759093,
       "conceptName": "Phosphate [Moles/volume] in Serum or Plasma --post dialysis",
       "vocabularyId": "LOINC",

@@ -277,24 +277,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36226286,
-      "conceptName": "certoparin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1161227",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36234051,
-      "conceptName": "Alphaparin Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1169206",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36505930,
       "conceptName": "0.8 ML certoparin 10000 UNT/ML Prefilled Syringe [Mono Embolex] by Aspen",
       "vocabularyId": "RxNorm Extension",

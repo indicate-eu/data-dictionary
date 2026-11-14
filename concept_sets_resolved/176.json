@@ -49,24 +49,6 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "22763-7",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 40652595,
-      "conceptName": "Ammonia|Mass Concentration|Moment in time|Blood, Serum or Plasma",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Group",
-      "conceptCode": "LG6365-3",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 40652596,
-      "conceptName": "Ammonia|Substance Concentration|Moment in time|Blood, Serum or Plasma",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Group",
-      "conceptCode": "LG4629-4",
-      "standardConcept": "C"
     }
   ]
 }

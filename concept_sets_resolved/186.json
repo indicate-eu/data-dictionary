@@ -13,15 +13,6 @@
       "conceptClassId": "Lab Test",
       "conceptCode": "3040-3",
       "standardConcept": "S"
-    },
-    {
-      "conceptId": 37021730,
-      "conceptName": "Triacylglycerol lipase | Serum or Plasma | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP383262-5",
-      "standardConcept": "C"
     }
   ]
 }

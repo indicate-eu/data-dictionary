@@ -1186,51 +1186,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36226523,
-      "conceptName": "fludrocortisone / hexamidine / selenium sulfide Topical Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1160241",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36226524,
-      "conceptName": "fludrocortisone Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1160242",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36226525,
-      "conceptName": "fludrocortisone Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1160243",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36235980,
-      "conceptName": "Florinef Oral Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1169789",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36235981,
-      "conceptName": "Florinef Pill",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1169790",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36262236,
       "conceptName": "Fludrocortisone 0.9 MG/ML / Lidocaine 40 MG/ML / Neomycin 7500 UNT/ML / Polymyxin B 10000 UNT/ML Otic Solution",
       "vocabularyId": "RxNorm Extension",

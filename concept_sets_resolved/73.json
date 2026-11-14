@@ -2131,24 +2131,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36217274,
-      "conceptName": "cefotaxime Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Clinical Dose Group",
-      "conceptCode": "1152101",
-      "standardConcept": "C"
-    },
-    {
-      "conceptId": 36234790,
-      "conceptName": "Claforan Injectable Product",
-      "vocabularyId": "RxNorm",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Dose Group",
-      "conceptCode": "1170944",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 36258102,
       "conceptName": "Cefotaxime 2000 MG Injectable Solution [Cefotaxim Sandoz] Box of 10",
       "vocabularyId": "RxNorm Extension",

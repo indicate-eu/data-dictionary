@@ -24,15 +24,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 37036001,
-      "conceptName": "Procalcitonin | Serum or Plasma | Chemistry - non-challenge",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "LOINC Hierarchy",
-      "conceptCode": "LP381196-7",
-      "standardConcept": "C"
-    },
-    {
       "conceptId": 44817130,
       "conceptName": "Procalcitonin [Mass/volume] in Serum or Plasma by Immunoassay",
       "vocabularyId": "LOINC",
