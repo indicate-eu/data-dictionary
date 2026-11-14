@@ -1,12 +1,12 @@
 {
   "id": 342,
   "name": "[Deprecated] Decision authority documented",
-  "description": "[Deprecated] Replaced by the Surrogate decision maker documented concept set (290).",
+  "description": "Deprecated — replaced by the Surrogate decision maker documented concept set (290); use that set instead.",
   "version": "1.1.0",
   "createdBy": "Gregor Lichtner",
   "createdDate": "2026-03-23",
-  "modifiedBy": "Gregor Lichtner",
-  "modifiedDate": "2026-10-23",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2026-11-14",
   "createdByTool": null,
   "expression": {
     "items": [
@@ -52,15 +52,15 @@
         "name": "[Deprecated] Decision authority documented",
         "category": "Clinical observations",
         "subcategory": "Care planning",
-        "shortDescription": "**Deprecated.** Use the **Surrogate decision maker documented** concept set (290) instead; kept for history.",
+        "shortDescription": "Deprecated — replaced by the Surrogate decision maker documented concept set (290); use that set instead.",
         "longDescription": "**Deprecated.** Use the **Surrogate decision maker documented** concept set (290) instead; kept for history.\n\nThe only member, `1032192` — Decision authority documented (`LP74704-5`), is a non-standard LOINC Part, and the LOINC answer `45877806` — *The patient has designated a decision-maker …* (`LA11786-3`) discussed in issue #21 is a Meas Value concept that belongs in `value_as_concept_id`, not in a concept set. The same variable is covered by the standard SNOMED observation `762209` — Active healthcare surrogate (`3021000175108`) in set 290; a site recording the CARE item maps it to `762209` as `observation_concept_id` and may keep `45877806` as `value_as_concept_id`."
       },
       "fr": {
+        "name": "[Obsolète] Autorité décisionnelle documentée",
         "category": "Observations cliniques",
         "subcategory": "Planification des soins",
-        "name": "[Obsolète] Decision authority documented",
-        "shortDescription": "**Obsolète.** Utiliser le concept set **Personne de confiance documentée** (290) ; conservé pour l'historique.",
-        "longDescription": null
+        "shortDescription": "Obsolète — remplacé par le concept set Personne de confiance documentée (290) ; utiliser ce dernier.",
+        "longDescription": "**Obsolète.** Utiliser le concept set **Personne de confiance documentée** (290) ; conservé pour l'historique.\n\nSon unique concept, `1032192` — Decision authority documented (`LP74704-5`), est une LOINC Part non standard, et la réponse LOINC `45877806` — *The patient has designated a decision-maker …* (`LA11786-3`) discutée dans l'issue #21 est un concept Meas Value, qui a sa place dans `value_as_concept_id` et non dans un concept set. La même variable est couverte par l'observation SNOMED standard `762209` — Active healthcare surrogate (`3021000175108`) du set 290 ; un site qui recueille l'item CARE le mappe sur `762209` en `observation_concept_id` et peut conserver `45877806` en `value_as_concept_id`."
       }
     },
     "createdByDetails": {
