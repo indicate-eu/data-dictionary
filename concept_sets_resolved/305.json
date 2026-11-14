@@ -174,24 +174,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36309319,
-      "conceptName": "Unplanned intubation",
-      "vocabularyId": "LOINC",
-      "domainId": "Meas Value",
-      "conceptClassId": "Answer",
-      "conceptCode": "LA20580-9",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36660691,
-      "conceptName": "Difficult intubation",
-      "vocabularyId": "LOINC",
-      "domainId": "Observation",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "95050-1",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 37116698,
       "conceptName": "Insertion of double lumen tracheobronchial tube",
       "vocabularyId": "SNOMED",
