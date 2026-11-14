@@ -1,12 +1,12 @@
 {
   "id": 342,
-  "name": "Decision authority documented",
-  "description": null,
-  "version": "1.0.0",
+  "name": "[Deprecated] Decision authority documented",
+  "description": "[Deprecated] Replaced by the Surrogate decision maker documented concept set (290).",
+  "version": "1.1.0",
   "createdBy": "Gregor Lichtner",
   "createdDate": "2026-03-23",
   "modifiedBy": "Gregor Lichtner",
-  "modifiedDate": "2026-03-23",
+  "modifiedDate": "2026-10-23",
   "createdByTool": null,
   "expression": {
     "items": [
@@ -45,19 +45,22 @@
       }
     },
     "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
-    "reviewStatus": "draft",
+    "reviewStatus": "deprecated",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Decision authority documented",
+        "name": "[Deprecated] Decision authority documented",
         "category": "Clinical observations",
         "subcategory": "Care planning",
-        "shortDescription": null,
-        "longDescription": null
+        "shortDescription": "**Deprecated.** Use the **Surrogate decision maker documented** concept set (290) instead; kept for history.",
+        "longDescription": "**Deprecated.** Use the **Surrogate decision maker documented** concept set (290) instead; kept for history.\n\nThe only member, `1032192` — Decision authority documented (`LP74704-5`), is a non-standard LOINC Part, and the LOINC answer `45877806` — *The patient has designated a decision-maker …* (`LA11786-3`) discussed in issue #21 is a Meas Value concept that belongs in `value_as_concept_id`, not in a concept set. The same variable is covered by the standard SNOMED observation `762209` — Active healthcare surrogate (`3021000175108`) in set 290; a site recording the CARE item maps it to `762209` as `observation_concept_id` and may keep `45877806` as `value_as_concept_id`."
       },
       "fr": {
         "category": "Observations cliniques",
-        "subcategory": "Planification des soins"
+        "subcategory": "Planification des soins",
+        "name": "[Obsolète] Decision authority documented",
+        "shortDescription": "**Obsolète.** Utiliser le concept set **Personne de confiance documentée** (290) ; conservé pour l'historique.",
+        "longDescription": null
       }
     },
     "createdByDetails": {
@@ -83,7 +86,14 @@
         "version": "1.0.0"
       }
     ],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.1.0",
+        "date": "2026-10-23",
+        "author": "Gregor Lichtner",
+        "message": "Deprecated: replaced by Surrogate decision maker documented (290). 1032192 is a non-standard LOINC Part and the LOINC answer 45877806 belongs in value_as_concept_id (issue #21)."
+      }
+    ],
     "distributionStats": null
   }
 }
