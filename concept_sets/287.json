@@ -2,11 +2,11 @@
   "id": 287,
   "name": "Energy requirement",
   "description": "Energy requirement — the target amount of energy a patient needs over 24 hours; in kilocalories (kcal).",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-06-11",
+  "modifiedDate": "2026-11-14",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -27,6 +27,44 @@
         },
         "isExcluded": false,
         "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 604878,
+          "conceptName": "Estimated required quantity of energy per kilogram body weight in 24 hours",
+          "domainId": "Observation",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1003838006",
+          "validStartDate": "2021-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4027088,
+          "conceptName": "Non-protein energy requirement",
+          "domainId": "Observation",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "226245008",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": true,
+        "includeDescendants": false,
         "includeMapped": false
       }
     ]
@@ -53,14 +91,14 @@
         "category": "Other",
         "subcategory": "Nutrition",
         "shortDescription": "Energy requirement — the target amount of energy a patient needs over 24 hours; in kilocalories (kcal).",
-        "longDescription": "## Definition & Clinical Context\n\nEnergy requirement is the *target* amount of energy a patient needs (estimated or prescribed), against which actual intake is compared. It produces a numeric value, typically per 24 hours, used to set nutritional goals. It is reported in kilocalories (kcal). It is a goal/estimate — not a measurement of what was delivered (that is *Energy intake*).\n\n## Included Concepts\n\nThe set is anchored on the SNOMED *Energy requirement* concept with its descendants, grouped below for readability — all are the same `energy_requirement` target variable.\n\n### Generic energy requirement (default)\n\n- *4022415 / 226244007 — Energy requirement (SNOMED)*: the default target.\n- *604877 / 1003837001 — Estimated required quantity of energy in 24 hours (SNOMED)*: the estimated 24-hour requirement.\n\n### Weight-indexed and population-specific\n\n- *604878 / 1003838006 — Estimated required quantity of energy per kilogram body weight in 24 hours (SNOMED)*: requirement expressed **per kilogram of body weight** (kcal/kg/24 h) — a *different unit* from the absolute concepts above (kcal/24 h), see Mapping Notes.\n- *45771253 / 702387006 — Pediatric energy requirement (SNOMED)*: paediatric target.\n\n### Composition-specific\n\n- *4027088 / 226245008 — Non-protein energy requirement (SNOMED)*: the energy target excluding protein-derived energy.\n\n## Mapping Notes\n\n- Map a nutritional energy *target/goal* here, using *4022415 / 226244007 — Energy requirement* (SNOMED) by default.\n- **Per-kg, paediatric, and non-protein variants are attributes**: map to them only when the source explicitly records that form; otherwise use the generic concept.\n- **Units are not comparable across the per-kg and absolute concepts**: *604878 / 1003838006 — Estimated required quantity of energy per kilogram body weight in 24 hours* is in **kcal/kg/24 h**, while *4022415 / 226244007 — Energy requirement* and *604877 / 1003837001 — Estimated required quantity of energy in 24 hours* are in **kcal/24 h**. To compare them you must multiply the per-kg value by the patient's body weight: `absolute_kcal_per_24h = per_kg_value × body_weight_kg` (body weight from the *Body weight* set). Do not pool the two units without this conversion.\n- Do **not** map energy actually delivered/consumed here — that is the *Energy intake* set."
+        "longDescription": "## Definition & Clinical Context\n\nEnergy requirement is the *target* amount of energy a patient needs (estimated or prescribed), against which actual intake is compared. It produces a numeric value, typically per 24 hours, used to set nutritional goals. It is reported in kilocalories (kcal). It is a goal/estimate — not a measurement of what was delivered (that is *Energy intake*).\n\n## Included Concepts\n\nThe set is anchored on the SNOMED *Energy requirement* concept with its descendants, grouped below for readability — all are the same `energy_requirement` target variable, in kcal.\n\n### Generic energy requirement (default)\n\n- *4022415 / 226244007 — Energy requirement (SNOMED)*: the default target.\n- *604877 / 1003837001 — Estimated required quantity of energy in 24 hours (SNOMED)*: the estimated 24-hour requirement.\n\n### Population-specific\n\n- *45771253 / 702387006 — Pediatric energy requirement (SNOMED)*: paediatric target.\n\n## Excluded Concepts\n\nTwo descendants of the anchor are excluded because they are a different variable:\n\n- *604878 / 1003838006 — Estimated required quantity of energy per kilogram body weight in 24 hours (SNOMED)*: expressed in kcal/kg/24 h, a different unit.\n- *4027088 / 226245008 — Non-protein energy requirement (SNOMED)*: the share of the requirement not covered by protein, a quantity of its own.\n\n## Mapping Notes\n\n- Map a nutritional energy *target/goal* here, using *4022415 / 226244007 — Energy requirement* (SNOMED) by default.\n- **The 24-hour estimate and the paediatric requirement are more specific forms**: map to them only when the source explicitly records that form; otherwise use the generic concept.\n- Do **not** map energy actually delivered/consumed here — that is the *Energy intake* set."
       },
       "fr": {
         "name": "Besoin énergétique",
         "category": "Autres",
         "subcategory": "Nutrition",
         "shortDescription": "Besoin énergétique — quantité d'énergie cible nécessaire au patient sur 24 heures ; en kilocalories (kcal).",
-        "longDescription": "## Définition et contexte clinique\n\nLe besoin énergétique est la quantité *cible* d'énergie dont un patient a besoin (estimée ou prescrite), à laquelle l'apport réel est comparé. Il produit une valeur numérique, typiquement par 24 heures, servant à fixer les objectifs nutritionnels. Il est exprimé en kilocalories (kcal). C'est un objectif/une estimation — pas une mesure de ce qui a été délivré (cela relève d'*Energy intake*).\n\n## Concepts inclus\n\nLe jeu est ancré sur le concept SNOMED *Energy requirement* et ses descendants, regroupés ci-dessous pour la lisibilité — tous constituent la même variable cible `energy_requirement`.\n\n### Besoin énergétique générique (par défaut)\n\n- *4022415 / 226244007 — Energy requirement (SNOMED)* : la cible par défaut.\n- *604877 / 1003837001 — Estimated required quantity of energy in 24 hours (SNOMED)* : le besoin estimé sur 24 heures.\n\n### Indexé sur le poids et spécifique à une population\n\n- *604878 / 1003838006 — Estimated required quantity of energy per kilogram body weight in 24 hours (SNOMED)* : besoin exprimé **par kilogramme de poids corporel** (kcal/kg/24 h) — une *unité différente* des concepts absolus ci-dessus (kcal/24 h), voir Notes de mapping.\n- *45771253 / 702387006 — Pediatric energy requirement (SNOMED)* : cible pédiatrique.\n\n### Spécifique à la composition\n\n- *4027088 / 226245008 — Non-protein energy requirement (SNOMED)* : la cible énergétique hors énergie d'origine protéique.\n\n## Notes de mapping\n\n- Mapper ici une *cible/objectif* énergétique nutritionnel, via *4022415 / 226244007 — Energy requirement* (SNOMED) par défaut.\n- **Les variantes par kg, pédiatrique et non protéique sont des attributs** : ne mapper vers elles que si la source enregistre explicitement cette forme ; sinon utiliser le concept générique.\n- **Les unités ne sont pas comparables entre le concept par kg et les concepts absolus** : *604878 / 1003838006 — Estimated required quantity of energy per kilogram body weight in 24 hours* est en **kcal/kg/24 h**, alors que *4022415 / 226244007 — Energy requirement* et *604877 / 1003837001 — Estimated required quantity of energy in 24 hours* sont en **kcal/24 h**. Pour les comparer, il faut multiplier la valeur par kg par le poids du patient : `kcal_absolu_par_24h = valeur_par_kg × poids_corporel_kg` (poids issu du jeu *Body weight*). Ne pas regrouper les deux unités sans cette conversion.\n- Ne **pas** mapper ici l'énergie réellement délivrée/consommée — c'est le jeu *Energy intake*."
+        "longDescription": "## Définition et contexte clinique\n\nLe besoin énergétique est la quantité *cible* d'énergie dont un patient a besoin (estimée ou prescrite), à laquelle l'apport réel est comparé. Il produit une valeur numérique, typiquement par 24 heures, servant à fixer les objectifs nutritionnels. Il est exprimé en kilocalories (kcal). C'est un objectif/une estimation — pas une mesure de ce qui a été délivré (cela relève d'*Energy intake*).\n\n## Concepts inclus\n\nLe jeu est ancré sur le concept SNOMED *Energy requirement* et ses descendants, regroupés ci-dessous pour la lisibilité — tous constituent la même variable cible `energy_requirement`, en kcal.\n\n### Besoin énergétique générique (par défaut)\n\n- *4022415 / 226244007 — Energy requirement (SNOMED)* : la cible par défaut.\n- *604877 / 1003837001 — Estimated required quantity of energy in 24 hours (SNOMED)* : le besoin estimé sur 24 heures.\n\n### Spécifique à une population\n\n- *45771253 / 702387006 — Pediatric energy requirement (SNOMED)* : cible pédiatrique.\n\n## Concepts exclus\n\nDeux descendants de l'ancre sont exclus car ils correspondent à une autre variable :\n\n- *604878 / 1003838006 — Estimated required quantity of energy per kilogram body weight in 24 hours (SNOMED)* : exprimé en kcal/kg/24 h, une unité différente.\n- *4027088 / 226245008 — Non-protein energy requirement (SNOMED)* : la part du besoin non couverte par les protéines, une grandeur à part entière.\n\n## Notes de mapping\n\n- Mapper ici une *cible/objectif* énergétique nutritionnel, via *4022415 / 226244007 — Energy requirement* (SNOMED) par défaut.\n- **Le besoin estimé sur 24 heures et le besoin pédiatrique sont des formes plus spécifiques** : ne mapper vers elles que si la source enregistre explicitement cette forme ; sinon utiliser le concept générique.\n- Ne **pas** mapper ici l'énergie réellement délivrée/consommée — c'est le jeu *Energy intake*."
       }
     },
     "createdByDetails": {
@@ -84,6 +122,19 @@
         "status": "needs_revision",
         "comments": "## Summary\n**Needs revision.** Our indicator (QI03) uses only 604877 (Estimated required quantity of energy in 24 hours). Suggest to restrict the set to this concept: 604878 (per kg body weight), 4027088 (non-protein) and 45771253 (paediatric) denote different quantities, and the parent 4022415 (Energy requirement) is unspecific.\n\n## Use in our quality indicators\n- Used in QI03 (Feeding).\n- CQL: 1 of 5 concepts are referenced in [`IndicateQi03Feeding.cql`](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi03Feeding.cql?plain=1): [604877](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi03Feeding.cql?plain=1#L28) (each ID links to its code definition).\n\n## Suggestions\n- Restrict the expression to 604877 (Estimated required quantity of energy in 24 hours).\n",
         "version": "1.1.0"
+      },
+      {
+        "reviewId": 2,
+        "reviewer": {
+          "firstName": "Boris",
+          "lastName": "Delange",
+          "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+          "profession": "Medical Informatics and Intensive Care Physician",
+          "orcid": "0009-0002-6055-6935"
+        },
+        "reviewTimestamp": "2026-11-14T12:00:00.000Z",
+        "comments": "**Reply to the review of Gregor Lichtner**\n\nAgreed:\n- Remove **604878** *Estimated required quantity of energy per kilogram body weight in 24 hours*: different unit (kcal/kg/24 h).\n- Remove **4027088** *Non-protein energy requirement*: a subset of the energy requirement, which would need its own concept set.\n\nNeeds discussion:\n- **Keep 4022415** *Energy requirement*? A concept set gathers one clinical concept at every level of granularity: if a data provider mapped to the generic concept, its data should still be captured. Dropping it would mean renaming the set to target *Estimated required quantity of energy in 24 hours* only. A project that needs only the 24-hour estimate can filter that concept within the set.\n- **Keep 45771253** *Pediatric energy requirement*? Same clinical concept, same dimension (kcal). Age groups are not split into separate sets: heart rate, for instance, is one set for newborns, children and adults, even though the values differ.\n\nA concept set = one clinical concept, at the granularity used in research protocols, with one dimension (unit).\n\nWhat do you think?",
+        "version": "1.1.0"
       }
     ],
     "versions": [
@@ -92,6 +143,12 @@
         "date": "2026-06-11",
         "author": "Boris Delange",
         "message": "Anchored on SNOMED Energy requirement with descendants (per-kg, paediatric, non-protein variants). Added clinical description distinguishing requirement (target) from intake. Moved to pending review."
+      },
+      {
+        "version": "1.2.0",
+        "date": "2026-11-14",
+        "author": "Boris Delange",
+        "message": "Exclude 604878 (per kg body weight: different unit, kcal/kg/24 h) and 4027088 (Non-protein energy requirement: a subset that would need its own set), following Gregor Lichtner's review. Keeps the generic Energy requirement, the 24-hour estimate and the paediatric requirement."
       }
     ],
     "distributionStats": null
