@@ -1027,7 +1027,9 @@ var DocumentationPage = (function() {
         + 'logic. For example, an expression with one LOINC classification concept + Descendants might resolve '
         + 'to dozens of specific measurement codes. Classification concepts themselves (LOINC hierarchy nodes, '
         + 'RxNorm dose groups) only anchor the expansion: they never occur in patient data, so they are left '
-        + 'out of the resolved set.')
+        + 'out of the resolved set. So are concepts from vocabularies the dictionary does not use (listed in '
+        + '<code>allowedVocabularies</code> in <code>config.json</code>): the OMOP hierarchy crosses vocabularies, '
+        + 'and a SNOMED or RxNorm concept can have descendants in ICDO3, HemOnc or SNOMED Veterinary.')
 
       + '<h2>Extended Metadata</h2>'
       + '<p>Beyond the standard OHDSI specification, each concept set in the INDICATE library includes '
@@ -3418,7 +3420,10 @@ var DocumentationPage = (function() {
         + 'avec un seul concept de classification LOINC + Descendants peut se r\u00e9soudre en des dizaines '
         + 'de codes de mesure sp\u00e9cifiques. Les concepts de classification eux-m\u00eames (n\u0153uds de la '
         + 'hi\u00e9rarchie LOINC, groupes de doses RxNorm) servent seulement d\u2019ancre\u00a0: ils n\u2019apparaissent '
-        + 'jamais dans les donn\u00e9es patients et sont donc exclus du jeu r\u00e9solu.')
+        + 'jamais dans les donn\u00e9es patients et sont donc exclus du jeu r\u00e9solu. Il en va de m\u00eame des concepts '
+        + 'issus de vocabulaires que le dictionnaire n\u2019utilise pas (liste <code>allowedVocabularies</code> de '
+        + '<code>config.json</code>)\u00a0: la hi\u00e9rarchie OMOP traverse les vocabulaires, et un concept SNOMED ou RxNorm '
+        + 'peut avoir des descendants dans ICDO3, HemOnc ou SNOMED Veterinary.')
 
       + '<h2>M\u00e9tadonn\u00e9es \u00e9tendues</h2>'
       + '<p>Au-del\u00e0 de la sp\u00e9cification OHDSI standard, chaque jeu de concepts de la biblioth\u00e8que '

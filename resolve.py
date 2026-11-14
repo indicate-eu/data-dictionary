@@ -10,6 +10,12 @@ Vocabulary source can be:
 The source is detected automatically from the path. If no `--vocab` flag is provided,
 falls back to the `ohdsiVocab` key in config.local.json.
 
+Descendants and mapped concepts are kept only when their vocabulary_id is listed in
+`allowedVocabularies` in config.json (custom concepts are always kept). OMOP's
+concept_ancestor crosses vocabularies, so without this filter a SNOMED anchor pulls in
+ICDO3, Nebraska Lexicon or SNOMED Veterinary descendants, and an RxNorm ingredient
+pulls in HemOnc regimens. When the key is absent, every vocabulary is kept.
+
 Usage:
     python3 resolve.py --vocab /path/to/ohdsi_vocabularies.duckdb
     python3 resolve.py --vocab /path/to/athena_csv_folder
@@ -71,7 +77,20 @@ def get_mapped(con, concept_ids):
     return {r[0] for r in rows}
 
 
-def resolve_concept_set(con, items):
+def load_allowed_vocabularies():
+    """Return the set of vocabulary_ids allowed in resolved lists, or None (no filter).
+
+    Read from the `allowedVocabularies` key of config.json.
+    """
+    path = os.path.join(ROOT, "config.json")
+    if not os.path.isfile(path):
+        return None
+    with open(path, "r", encoding="utf-8") as f:
+        allowed = json.load(f).get("allowedVocabularies")
+    return set(allowed) if allowed else None
+
+
+def resolve_concept_set(con, items, allowed_vocabularies=None):
     """Resolve a concept set expression into a list of concept details.
 
     Algorithm (matches R function in data-dictionary/R/fct_duckdb.R):
@@ -81,6 +100,8 @@ def resolve_concept_set(con, items):
     4. Fetch concept details for final IDs, dropping classification concepts
        (standard_concept = 'C'): they anchor descendant expansion but never
        occur as a *_concept_id in CDM data
+    5. Keep only concepts whose vocabulary is in `allowed_vocabularies`
+       (None = no filter); custom concepts are always kept
     """
     if not items:
         return []
@@ -135,6 +156,7 @@ def resolve_concept_set(con, items):
             for r in rows
             # classification concepts are anchors, not codes that occur in CDM data
             if r[6] != "C"
+            and (allowed_vocabularies is None or r[2] in allowed_vocabularies)
         ]
 
     # Build custom concept details from expression items. Discard each id once
@@ -196,7 +218,7 @@ def read_vocabulary_version(con):
     return version
 
 
-def resolve_one(con, cs_id, vocab_version=None):
+def resolve_one(con, cs_id, vocab_version=None, allowed_vocabularies=None):
     """Resolve a single concept set by ID.
 
     Returns (name, count) on success, or None if the file doesn't exist.
@@ -213,7 +235,16 @@ def resolve_one(con, cs_id, vocab_version=None):
     name = cs.get("name", "")
     items = (cs.get("expression") or {}).get("items", [])
 
-    concepts = resolve_concept_set(con, items)
+    if allowed_vocabularies is not None:
+        for item in items:
+            c = item.get("concept") or {}
+            cid = c.get("conceptId") or 0
+            if cid < 2_100_000_000 and c.get("vocabularyId") not in allowed_vocabularies:
+                print(f"  WARNING: concept set {cs_id}: expression item {cid} is in vocabulary "
+                      f"'{c.get('vocabularyId')}', not in allowedVocabularies (config.json) — "
+                      f"left out of the resolved list", file=sys.stderr)
+
+    concepts = resolve_concept_set(con, items, allowed_vocabularies)
 
     # Stamp only the release plus the versions of vocabularies actually present
     # in this set's resolved concepts — the full VOCABULARY table lists ~50
@@ -348,8 +379,14 @@ def main():
     else:
         print("Vocabulary release: unknown (no VOCABULARY table in source) — recording null")
 
+    allowed = load_allowed_vocabularies()
+    if allowed is None:
+        print("Allowed vocabularies: all (no allowedVocabularies in config.json)")
+    else:
+        print(f"Allowed vocabularies: {', '.join(sorted(allowed))}")
+
     if args.id is not None:
-        result = resolve_one(con, args.id, vocab_version)
+        result = resolve_one(con, args.id, vocab_version, allowed)
         con.close()
         if result is None:
             sys.exit(1)
@@ -370,7 +407,7 @@ def main():
     total_concepts = 0
 
     for idx, cs_id in enumerate(ids, 1):
-        result = resolve_one(con, cs_id, vocab_version)
+        result = resolve_one(con, cs_id, vocab_version, allowed)
         if result is not None:
             name, count = result
             total_concepts += count

@@ -17,6 +17,7 @@
     "id": "INDICATE",
     "codePrefix": "INDICATE-"
   },
+  "allowedVocabularies": ["SNOMED", "LOINC", "RxNorm", "RxNorm Extension", "ICD10"],
   "branding": {
     "logo": "logo.png",
     "favicon": "favicon.png",

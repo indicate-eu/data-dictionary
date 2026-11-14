@@ -162,6 +162,27 @@ def check_review_statuses(config, concept_sets):
               f"({len(ids)} set(s): {', '.join(str(i) for i in sorted(ids, key=lambda x: (x is None, x)))})")
 
 
+def check_resolved_vocabularies(config, resolved):
+    """Warn about resolved lists holding concepts outside config.json allowedVocabularies.
+
+    resolve.py drops them, so a hit means the file was produced another way (an older
+    resolve.py, a hand edit) and should be re-resolved. Custom concepts are exempt.
+    """
+    allowed = config.get("allowedVocabularies")
+    if not allowed:
+        return
+    allowed = set(allowed) | {(config.get("customVocabulary") or {}).get("id") or "CUSTOM"}
+    offending = {}
+    for r in resolved:
+        for c in r.get("resolvedConcepts", []):
+            if c.get("vocabularyId") not in allowed and (c.get("conceptId") or 0) < 2_100_000_000:
+                offending.setdefault(c.get("vocabularyId"), set()).add(r.get("conceptSetId"))
+    for vocab, ids in sorted(offending.items(), key=lambda x: str(x[0])):
+        print(f"  WARNING: vocabulary '{vocab}' is not in config.json allowedVocabularies but appears in "
+              f"the resolved list of {len(ids)} set(s): {', '.join(str(i) for i in sorted(ids))} "
+              f"(re-run resolve.py)")
+
+
 def main():
     config_path = os.path.join(ROOT, "config.json")
     if not os.path.isfile(config_path):
@@ -179,6 +200,7 @@ def main():
 
     resolved_dir = os.path.join(ROOT, "concept_sets_resolved")
     resolved = load_json_dir(resolved_dir, sort_key="conceptSetId") if os.path.isdir(resolved_dir) else []
+    check_resolved_vocabularies(config, resolved)
 
     unit_conversions = load_json_file(os.path.join(ROOT, "units", "unit_conversions.json"))
     recommended_units = load_json_file(os.path.join(ROOT, "units", "recommended_units.json"))

@@ -51,6 +51,7 @@ This file at the repo root holds everything that identifies the dictionary as yo
     "id": "MYTEAM",
     "codePrefix": "MYTEAM-"
   },
+  "allowedVocabularies": ["SNOMED", "LOINC", "RxNorm", "RxNorm Extension", "ICD10"],
   "branding": {
     "logo": "logo.png",
     "favicon": "favicon.png",
@@ -71,6 +72,7 @@ Key fields:
 - **`repository.forge`** *(optional)* — `"gitlab"` or `"github"`. Only needed for a self-hosted instance whose domain says nothing about which software it runs; anything that is not github.com is otherwise assumed to be GitLab.
 - **`organization`** — default `metadata.organization` written into new concept sets.
 - **`customVocabulary`** — vocabulary id and code prefix used when a user adds a *custom* concept (not from OMOP) inside the SPA.
+- **`allowedVocabularies`** *(optional)* — the OMOP vocabularies (`vocabulary_id`) a resolved concept set may contain. OMOP's `concept_ancestor` crosses vocabularies: without this list, a SNOMED anchor with *Descendants* also pulls in ICDO3, Nebraska Lexicon or SNOMED Veterinary concepts, and an RxNorm ingredient pulls in HemOnc chemotherapy regimens. `resolve.py` and the SPA's live resolution keep only the listed vocabularies (custom concepts always stay), and `build.py` warns about resolved files that hold any other. Without the key, every vocabulary is kept.
 - **`tabs`** — set `false` to hide the Projects or Mapping Recommendations tabs if you don't need them.
 - **`reviewStatuses`** *(optional)* — your validation workflow, i.e. the values of each concept set's `metadata.reviewStatus` (see below).
 

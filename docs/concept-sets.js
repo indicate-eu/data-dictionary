@@ -3212,10 +3212,15 @@ var ConceptSetsPage = (function() {
       // Lookup DB concepts
       if (dbIds.length === 0) return customConcepts;
       return VocabDB.lookupConcepts(dbIds).then(function(rows) {
-        // Classification concepts (standard_concept = 'C') anchor descendant expansion
-        // but never occur as a *_concept_id in CDM data: same rule as resolve.py.
+        // Same rules as resolve.py: classification concepts (standard_concept = 'C')
+        // anchor descendant expansion but never occur as a *_concept_id in CDM data,
+        // and concept_ancestor crosses vocabularies, so descendants are kept only
+        // from the vocabularies listed in config.json allowedVocabularies.
+        var allowed = App.config.allowedVocabularies;
+        var allowedSet = (allowed && allowed.length) ? new Set(allowed) : null;
         var dbConcepts = rows.filter(function(r) {
-          return r.standard_concept !== 'C';
+          return r.standard_concept !== 'C'
+            && (!allowedSet || allowedSet.has(r.vocabulary_id));
         }).map(function(r) {
           return {
             conceptId: Number(r.concept_id),

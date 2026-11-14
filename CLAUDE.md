@@ -26,7 +26,7 @@ Pushing to `main` triggers `.github/workflows/build-and-deploy.yml`, which runs 
 
 Three independent scripts; `build.py` does **not** re-resolve, it reads existing resolved files as-is.
 
-- **`resolve.py`** — expands `expression.items` (descendants via `concept_ancestor`, mapped via `concept_relationship`; resolved = included − excluded, minus classification `C` concepts, which only anchor expansion) using the OMOP vocab, writing `concept_sets_resolved/{id}.json`. Run only after editing a set's `expression`. Algorithm mirrors `R/fct_duckdb.R`.
+- **`resolve.py`** — expands `expression.items` (descendants via `concept_ancestor`, mapped via `concept_relationship`; resolved = included − excluded, minus classification `C` concepts, which only anchor expansion, and minus vocabularies not listed in `config.json` `allowedVocabularies` — `concept_ancestor` crosses vocabularies) using the OMOP vocab, writing `concept_sets_resolved/{id}.json`. Run only after editing a set's `expression`. Algorithm mirrors `R/fct_duckdb.R`.
 - **`snapshot.py`** — records `(id, version) → HEAD commit SHA` in `concept_sets_versions.json` for any version not yet indexed. Auto-called by `build.py`.
 - **`build.py`** — calls `snapshot.py`, then bundles all source JSON into `docs/data.json` + `docs/data_inline.js`. Resolved sets ≤100 concepts are inlined; larger ones are deferred to `docs/concept_sets_resolved/{id}.json` (lazy-loaded). It also copies `concept_sets_versions.json` into the payload as `conceptSetVersionsIndex` — the SPA needs those SHAs at runtime (see below). See the script docstrings for output shape details.
 
