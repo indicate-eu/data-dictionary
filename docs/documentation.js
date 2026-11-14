@@ -1025,7 +1025,9 @@ var DocumentationPage = (function() {
         'The <strong>expression</strong> is what you author \u2014 a compact list of selected concepts with flags. '
         + 'The <strong>resolved set</strong> is the expanded result after applying descendants, mapped, and exclusion '
         + 'logic. For example, an expression with one LOINC classification concept + Descendants might resolve '
-        + 'to dozens of specific measurement codes.')
+        + 'to dozens of specific measurement codes. Classification concepts themselves (LOINC hierarchy nodes, '
+        + 'RxNorm dose groups) only anchor the expansion: they never occur in patient data, so they are left '
+        + 'out of the resolved set.')
 
       + '<h2>Extended Metadata</h2>'
       + '<p>Beyond the standard OHDSI specification, each concept set in the INDICATE library includes '
@@ -3414,7 +3416,9 @@ var DocumentationPage = (function() {
         + 's\u00e9lectionn\u00e9s avec leurs options. Le <strong>jeu r\u00e9solu</strong> est le r\u00e9sultat '
         + '\u00e9tendu apr\u00e8s application des descendants, mapp\u00e9s et exclusions. Par exemple, une expression '
         + 'avec un seul concept de classification LOINC + Descendants peut se r\u00e9soudre en des dizaines '
-        + 'de codes de mesure sp\u00e9cifiques.')
+        + 'de codes de mesure sp\u00e9cifiques. Les concepts de classification eux-m\u00eames (n\u0153uds de la '
+        + 'hi\u00e9rarchie LOINC, groupes de doses RxNorm) servent seulement d\u2019ancre\u00a0: ils n\u2019apparaissent '
+        + 'jamais dans les donn\u00e9es patients et sont donc exclus du jeu r\u00e9solu.')
 
       + '<h2>M\u00e9tadonn\u00e9es \u00e9tendues</h2>'
       + '<p>Au-del\u00e0 de la sp\u00e9cification OHDSI standard, chaque jeu de concepts de la biblioth\u00e8que '

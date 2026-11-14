@@ -78,8 +78,9 @@ def resolve_concept_set(con, items):
     1. Partition items into included and excluded
     2. For each partition, expand with descendants and mapped concepts
     3. Final = included - excluded
-    4. Drop classification concepts (standard_concept = 'C)
-    4. Fetch concept details for final IDs
+    4. Fetch concept details for final IDs, dropping classification concepts
+       (standard_concept = 'C'): they anchor descendant expansion but never
+       occur as a *_concept_id in CDM data
     """
     if not items:
         return []

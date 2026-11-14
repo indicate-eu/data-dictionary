@@ -3212,7 +3212,11 @@ var ConceptSetsPage = (function() {
       // Lookup DB concepts
       if (dbIds.length === 0) return customConcepts;
       return VocabDB.lookupConcepts(dbIds).then(function(rows) {
-        var dbConcepts = rows.map(function(r) {
+        // Classification concepts (standard_concept = 'C') anchor descendant expansion
+        // but never occur as a *_concept_id in CDM data: same rule as resolve.py.
+        var dbConcepts = rows.filter(function(r) {
+          return r.standard_concept !== 'C';
+        }).map(function(r) {
           return {
             conceptId: Number(r.concept_id),
             conceptName: r.concept_name || '',
