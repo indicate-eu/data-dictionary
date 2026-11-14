@@ -33869,6 +33869,50 @@
     "recommendedUnitVocabularyId": "UCUM"
   },
   {
+    "conceptId": 46234687,
+    "conceptName": "Calorie intake 24 hour",
+    "conceptCode": "75302-0",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 710212,
+    "recommendedUnitName": "kilocalorie per 24 hours",
+    "recommendedUnitCode": "kcal/(24.h)",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 21493096,
+    "conceptName": "Calorie intake 24 hour Measured",
+    "conceptCode": "80494-8",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 710212,
+    "recommendedUnitName": "kilocalorie per 24 hours",
+    "recommendedUnitCode": "kcal/(24.h)",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 46235231,
+    "conceptName": "Calorie intake 24 hour Estimated",
+    "conceptCode": "75298-0",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 710212,
+    "recommendedUnitName": "kilocalorie per 24 hours",
+    "recommendedUnitCode": "kcal/(24.h)",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 604877,
+    "conceptName": "Estimated required quantity of energy in 24 hours",
+    "conceptCode": "1003837001",
+    "vocabularyId": "SNOMED",
+    "domainId": "Observation",
+    "recommendedUnitConceptId": 710212,
+    "recommendedUnitName": "kilocalorie per 24 hours",
+    "recommendedUnitCode": "kcal/(24.h)",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
     "conceptId": 1001644,
     "conceptName": "Left ventricular Cardiac output by US.2D.A4C+Calc by single plane area-length method",
     "conceptCode": "93648-4",

@@ -10764,5 +10764,60 @@
     "targetUnitConceptId": 44777590,
     "targetUnitCode": "cm[H2O]",
     "targetUnitName": "centimeter watercolumn"
+  },
+  {
+    "conceptId": 3026267,
+    "conceptName": "Calorie intake total 24 hour",
+    "sourceUnitConceptId": 710214,
+    "sourceUnitCode": "kJ/(24.h)",
+    "sourceUnitName": "kilojoule per 24 hours",
+    "conversionFactor": 0.239006,
+    "targetUnitConceptId": 710212,
+    "targetUnitCode": "kcal/(24.h)",
+    "targetUnitName": "kilocalorie per 24 hours"
+  },
+  {
+    "conceptId": 46234687,
+    "conceptName": "Calorie intake 24 hour",
+    "sourceUnitConceptId": 710214,
+    "sourceUnitCode": "kJ/(24.h)",
+    "sourceUnitName": "kilojoule per 24 hours",
+    "conversionFactor": 0.239006,
+    "targetUnitConceptId": 710212,
+    "targetUnitCode": "kcal/(24.h)",
+    "targetUnitName": "kilocalorie per 24 hours"
+  },
+  {
+    "conceptId": 21493096,
+    "conceptName": "Calorie intake 24 hour Measured",
+    "sourceUnitConceptId": 710214,
+    "sourceUnitCode": "kJ/(24.h)",
+    "sourceUnitName": "kilojoule per 24 hours",
+    "conversionFactor": 0.239006,
+    "targetUnitConceptId": 710212,
+    "targetUnitCode": "kcal/(24.h)",
+    "targetUnitName": "kilocalorie per 24 hours"
+  },
+  {
+    "conceptId": 46235231,
+    "conceptName": "Calorie intake 24 hour Estimated",
+    "sourceUnitConceptId": 710214,
+    "sourceUnitCode": "kJ/(24.h)",
+    "sourceUnitName": "kilojoule per 24 hours",
+    "conversionFactor": 0.239006,
+    "targetUnitConceptId": 710212,
+    "targetUnitCode": "kcal/(24.h)",
+    "targetUnitName": "kilocalorie per 24 hours"
+  },
+  {
+    "conceptId": 604877,
+    "conceptName": "Estimated required quantity of energy in 24 hours",
+    "sourceUnitConceptId": 710214,
+    "sourceUnitCode": "kJ/(24.h)",
+    "sourceUnitName": "kilojoule per 24 hours",
+    "conversionFactor": 0.239006,
+    "targetUnitConceptId": 710212,
+    "targetUnitCode": "kcal/(24.h)",
+    "targetUnitName": "kilocalorie per 24 hours"
   }
 ]
