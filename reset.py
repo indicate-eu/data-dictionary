@@ -3,9 +3,10 @@
 
 Wipes team-specific content (concept sets, projects, resolved sets, mapping
 recommendations text), resets ID counters and the concept_sets_versions.json
-index. Keeps reusable reference data (UCUM unit conversions, OMOP recommended
-units) and configuration files (config.json, config.local.json, branding
-assets).
+index, and removes the upstream team's review workflow (`reviewStatuses`) from
+config.json so the fork starts on the built-in one. Keeps reusable reference data
+(UCUM unit conversions, OMOP recommended units) and the rest of the configuration
+(config.json, config.local.json, branding assets).
 
 Run from the repository root:
 
@@ -76,6 +77,18 @@ def plan_actions():
         actions.append(("Reset concept_sets_versions.json to {} (upstream version index)",
                         lambda: _write_json(versions, {})))
 
+    # The review workflow (config.json `reviewStatuses`) encodes the upstream
+    # team's validation criteria. Dropping the key puts the fork on the built-in
+    # workflow (draft → pending review → approved …); it can declare its own later.
+    config_path = os.path.join(ROOT, "config.json")
+    if os.path.isfile(config_path) and "reviewStatuses" in _read_json(config_path):
+        def drop_review_statuses():
+            cfg = _read_json(config_path)
+            cfg.pop("reviewStatuses", None)
+            _write_json(config_path, cfg)
+        actions.append(("Remove reviewStatuses from config.json (back to the built-in review workflow)",
+                        drop_review_statuses))
+
     return actions
 
 
@@ -120,7 +133,7 @@ def main():
     for label, _ in actions:
         print(f"  - {label}")
     print()
-    print("Kept as-is: config.json, config.local.json, units/unit_conversions.json,")
+    print("Kept as-is: config.json (apart from reviewStatuses), config.local.json, units/unit_conversions.json,")
     print("  units/recommended_units.json, docs/ (branding assets and generated files).")
     print()
 

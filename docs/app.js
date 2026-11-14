@@ -1326,15 +1326,134 @@ var App = (function() {
     return results.map(function(r) { return r.item; });
   }
 
-  var statusLabelsMap = { draft: 'Draft', pending_review: 'Pending Review', approved: 'Approved', needs_revision: 'Needs Revision', deprecated: 'Deprecated' };
+  // ---------------------------------------------------------------------------
+  // Review statuses (concept set `metadata.reviewStatus`)
+  //
+  // The validation workflow belongs to each dictionary, not to the app: what it
+  // takes for a set to count as approved differs between teams. config.json may
+  // declare `reviewStatuses`, an ordered array of
+  //   { id, color, background, translations: { <lang>: { label, description } } }
+  // whose order is the workflow order (filters, sorting, the Change Status menu).
+  // Without it — a fresh fork, or an older fork whose config.json predates the
+  // key, which update_from_upstream.py never touches — the built-in workflow
+  // below applies.
+  //
+  // `draft` (status of a newly created set) and `deprecated` (hidden by default
+  // in the catalog filter) are relied on by the code, so they always exist: a
+  // config that omits them gets the built-in definitions.
+  //
+  // These are SET statuses. The verdict of an individual review (approved /
+  // needs_revision / no verdict) is a separate, fixed vocabulary — see
+  // reviewVerdictBadge — so a dictionary can drop `approved` as a set status
+  // without breaking the review history.
+  // ---------------------------------------------------------------------------
+  var DEFAULT_REVIEW_STATUSES = [
+    { id: 'draft', color: '#ffffff', background: '#6c757d', translations: {
+      en: { label: 'Draft', description: 'Being written by its author; not yet submitted for review.' },
+      fr: { label: 'Brouillon', description: 'En cours de rédaction par son auteur ; pas encore soumis à relecture.' } } },
+    { id: 'pending_review', color: '#000000', background: '#ffc107', translations: {
+      en: { label: 'Pending Review', description: 'Submitted for review; awaiting the reviewers’ verdicts.' },
+      fr: { label: 'En attente de relecture', description: 'Soumis à relecture ; en attente de l’avis des relecteurs.' } } },
+    { id: 'approved', color: '#ffffff', background: '#28a745', translations: {
+      en: { label: 'Approved', description: 'Approved by the reviewers.' },
+      fr: { label: 'Approuvé', description: 'Approuvé par les relecteurs.' } } },
+    { id: 'needs_revision', color: '#ffffff', background: '#fd7e14', translations: {
+      en: { label: 'Needs Revision', description: 'Changes were requested; the author revises the set, which then returns to review.' },
+      fr: { label: 'À réviser', description: 'Des modifications ont été demandées ; l’auteur révise le jeu, qui repasse ensuite en relecture.' } } },
+    { id: 'deprecated', color: '#ffffff', background: '#dc3545', translations: {
+      en: { label: 'Deprecated', description: 'Superseded by another set or withdrawn; kept so that projects pinning it stay reproducible.' },
+      fr: { label: 'Obsolète', description: 'Remplacé par un autre jeu ou retiré ; conservé pour que les projets qui l’épinglent restent reproductibles.' } } }
+  ];
+  var REQUIRED_REVIEW_STATUS_IDS = ['draft', 'deprecated'];
 
-  function statusLabel(status) {
-    return i18n(statusLabelsMap[status] || status);
+  var reviewStatuses = (function() {
+    var configured = Array.isArray(config.reviewStatuses) ? config.reviewStatuses.filter(function(s) {
+      return s && typeof s.id === 'string' && s.id;
+    }) : [];
+    if (!configured.length) return DEFAULT_REVIEW_STATUSES;
+    var ids = configured.map(function(s) { return s.id; });
+    var list = configured.slice();
+    REQUIRED_REVIEW_STATUS_IDS.forEach(function(id) {
+      if (ids.indexOf(id) !== -1) return;
+      var def = DEFAULT_REVIEW_STATUSES.filter(function(s) { return s.id === id; })[0];
+      if (id === 'draft') list.unshift(def); else list.push(def);
+    });
+    return list;
+  })();
+
+  var reviewStatusById = {};
+  reviewStatuses.forEach(function(s, i) { reviewStatusById[s.id] = { def: s, order: i }; });
+
+  // Colors come from config.json (trusted, but still kept to plain color values so
+  // a typo cannot inject arbitrary CSS into the style attribute).
+  function safeColor(c) {
+    return (typeof c === 'string' && /^(#[0-9a-fA-F]{3,8}|[a-zA-Z]+|rgba?\([\d\s.,%]+\))$/.test(c)) ? c : null;
   }
 
-  function statusBadge(status) {
+  // A status's translated field: current language, then the dictionary's default
+  // language, then English. Unlike content (no cross-language fallback, by
+  // design), a UI label must never render empty.
+  function reviewStatusText(status, field) {
+    var entry = reviewStatusById[status];
+    var tr = (entry && entry.def.translations) || {};
+    var langs = [lang, config.defaultLanguage, 'en'];
+    for (var i = 0; i < langs.length; i++) {
+      var t = langs[i] && tr[langs[i]];
+      if (t && t[field]) return t[field];
+    }
+    return null;
+  }
+
+  function statusLabel(status) {
+    // An unknown slug (e.g. a set imported from a dictionary with another
+    // workflow) is shown as-is rather than dropped.
+    return reviewStatusText(status, 'label') || status || '';
+  }
+
+  function statusDescription(status) {
+    return reviewStatusText(status, 'description') || '';
+  }
+
+  function isKnownReviewStatus(status) {
+    return Object.prototype.hasOwnProperty.call(reviewStatusById, status);
+  }
+
+  // Sort comparator following the configured workflow order; unknown slugs last.
+  function compareReviewStatuses(a, b) {
+    var oa = isKnownReviewStatus(a) ? reviewStatusById[a].order : Infinity;
+    var ob = isKnownReviewStatus(b) ? reviewStatusById[b].order : Infinity;
+    if (oa !== ob) return oa < ob ? -1 : 1;
+    return String(a || '').localeCompare(String(b || ''));
+  }
+
+  // `attrs` (optional): extra attributes, e.g. { id: 'cs-badge-status' }.
+  function statusBadge(status, attrs) {
     if (!status) status = 'draft';
-    return '<span class="status-badge ' + escapeHtml(status) + '">' + escapeHtml(statusLabel(status)) + '</span>';
+    var entry = reviewStatusById[status];
+    var bg = entry && safeColor(entry.def.background);
+    var fg = entry && safeColor(entry.def.color);
+    var style = entry ? ((bg ? 'background:' + bg + ';' : '') + (fg ? 'color:' + fg + ';' : '')) : '';
+    var extra = '';
+    if (attrs) Object.keys(attrs).forEach(function(k) { extra += ' ' + k + '="' + escapeHtml(attrs[k]) + '"'; });
+    var desc = statusDescription(status);
+    return '<span class="status-badge' + (entry ? '' : ' status-unknown') + '"' +
+      (style ? ' style="' + style + '"' : '') +
+      (desc ? ' title="' + escapeHtml(desc) + '"' : '') + extra + '>' +
+      escapeHtml(statusLabel(status)) + '</span>';
+  }
+
+  // Verdict of a single review: a fixed vocabulary, independent of the set
+  // statuses configured above. Empty/absent = a comment without verdict.
+  var REVIEW_VERDICT_LABELS = { approved: 'Approved', needs_revision: 'Needs Revision', comment: 'Comment' };
+
+  function reviewVerdictLabel(verdict) {
+    return i18n(REVIEW_VERDICT_LABELS[verdict || 'comment'] || verdict);
+  }
+
+  function reviewVerdictBadge(verdict) {
+    var v = verdict || 'comment';
+    var cls = REVIEW_VERDICT_LABELS[v] ? 'verdict-' + v : 'status-unknown';
+    return '<span class="status-badge ' + cls + '">' + escapeHtml(reviewVerdictLabel(v)) + '</span>';
   }
 
   function truncate(s, n) {
@@ -1411,6 +1530,13 @@ var App = (function() {
         dropdown.style.maxHeight = '';
       }
       dropdown.style.display = wasHidden ? '' : 'none';
+      // A filter in the last column opens flush left on its toggle and can run
+      // past the right edge (long labels, e.g. configured review statuses):
+      // shift it left so it stays on screen. Measured once it is displayed.
+      if (wasHidden && isInFilterRow) {
+        var overflow = dropdown.getBoundingClientRect().right - (window.innerWidth - 8);
+        if (overflow > 0) dropdown.style.left = Math.max(8, parseFloat(dropdown.style.left) - overflow) + 'px';
+      }
       if (wasHidden && searchInput) { searchInput.value = ''; searchInput.dispatchEvent(new Event('input')); searchInput.focus(); }
     });
     if (searchInput) {
@@ -2912,7 +3038,8 @@ var App = (function() {
     get sessionReviews() { return sessionReviews; },
     set sessionReviews(v) { sessionReviews = v; safeSet('indicate_reviews', JSON.stringify(v)); },
     saveSessionReviews: function() { safeSet('indicate_reviews', JSON.stringify(sessionReviews)); },
-    get statusLabelsMap() { return statusLabelsMap; },
+    // Ordered set-status definitions (config.json `reviewStatuses`, or built-in).
+    get reviewStatuses() { return reviewStatuses; },
 
     // Functions
     loadData: loadData,
@@ -2930,6 +3057,11 @@ var App = (function() {
     projectCard: projectCard,
     conceptListLine: conceptListLine,
     statusBadge: statusBadge,
+    statusDescription: statusDescription,
+    isKnownReviewStatus: isKnownReviewStatus,
+    compareReviewStatuses: compareReviewStatuses,
+    reviewVerdictLabel: reviewVerdictLabel,
+    reviewVerdictBadge: reviewVerdictBadge,
     truncate: truncate,
     standardBadge: standardBadge,
     standardLabel: standardLabel,

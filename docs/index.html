@@ -1752,13 +1752,9 @@ Enter your review comments here using Markdown syntax.
     </div>
     <div class="modal-body">
       <label style="font-size:12px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px; display:block" data-i18n="Status">Status</label>
-      <select id="cs-status-select" class="form-input">
-        <option value="draft" data-i18n="Draft">Draft</option>
-        <option value="pending_review" data-i18n="Pending Review">Pending Review</option>
-        <option value="approved" data-i18n="Approved">Approved</option>
-        <option value="needs_revision" data-i18n="Needs Revision">Needs Revision</option>
-        <option value="deprecated" data-i18n="Deprecated">Deprecated</option>
-      </select>
+      <!-- Options are filled from the configured workflow (config.json reviewStatuses) on open. -->
+      <select id="cs-status-select" class="form-input"></select>
+      <p id="cs-status-description" style="font-size:12px; color:var(--text-muted); margin:8px 0 0; line-height:1.4"></p>
     </div>
     <div class="modal-footer">
       <button class="btn-cancel" id="cs-status-cancel" data-i18n="Cancel">Cancel</button>

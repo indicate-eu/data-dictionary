@@ -193,14 +193,55 @@ var DocumentationPage = (function() {
       + '</div>';
   }
 
+  // ---- Review statuses ------------------------------------------------------
+  // Each dictionary configures its own workflow (config.json reviewStatuses), so
+  // the pages below describe whatever statuses this instance defines instead of
+  // a fixed list.
+
+  // The most advanced validation status: the last one before `deprecated` that
+  // is not `needs_revision`. Used by the mock tables in place of a fixed slug.
+  function finalStatusId() {
+    var list = App.reviewStatuses;
+    for (var i = list.length - 1; i >= 0; i--) {
+      if (list[i].id !== 'deprecated' && list[i].id !== 'needs_revision') return list[i].id;
+    }
+    return 'draft';
+  }
+
+  function mockStatusBadge(id) {
+    return App.statusBadge(id === 'final' ? finalStatusId() : id);
+  }
+
+  // "Draft, Pending Review, Approved, …" in the current language.
+  function statusListText() {
+    return App.reviewStatuses.map(function(s) { return App.escapeHtml(App.statusLabel(s.id)); }).join(', ');
+  }
+
+  function statusIdListHtml() {
+    return App.reviewStatuses.map(function(s) { return '<code>' + App.escapeHtml(s.id) + '</code>'; }).join(', ');
+  }
+
+  // One row per configured status: badge + definition.
+  function statusDefinitionTable(en) {
+    var html = '<div class="doc-mock-table"><table><thead><tr>'
+      + '<th style="width:30%">' + (en ? 'Status' : 'Statut') + '</th>'
+      + '<th>' + (en ? 'Meaning' : 'Signification') + '</th>'
+      + '</tr></thead><tbody>';
+    App.reviewStatuses.forEach(function(s) {
+      html += '<tr><td style="white-space:nowrap">' + App.statusBadge(s.id) + ' <code style="font-size:11px">' + App.escapeHtml(s.id) + '</code></td>'
+        + '<td>' + App.escapeHtml(App.statusDescription(s.id)) + '</td></tr>';
+    });
+    return html + '</tbody></table></div>';
+  }
+
   function mockConceptSetTable(lang) {
     var en = lang === 'en';
     var rows = [
-      { cat: en ? 'Vital Signs' : 'Signes vitaux', sub: en ? 'Haemodynamics' : 'H\u00e9modynamique', name: en ? 'Heart rate' : 'Fr\u00e9quence cardiaque', ver: '1.0.1', status: 'approved', statusLabel: en ? 'Approved' : 'Approuv\u00e9' },
-      { cat: en ? 'Vital Signs' : 'Signes vitaux', sub: en ? 'Haemodynamics' : 'H\u00e9modynamique', name: en ? 'Systolic blood pressure' : 'Pression art\u00e9rielle systolique', ver: '1.0.0', status: 'pending_review', statusLabel: en ? 'Pending Review' : 'En attente' },
-      { cat: en ? 'Laboratory' : 'Biologie', sub: en ? 'Chemistry' : 'Biochimie', name: en ? 'Serum Creatinine' : 'Cr\u00e9atinine s\u00e9rique', ver: '1.1.0', status: 'approved', statusLabel: en ? 'Approved' : 'Approuv\u00e9' },
-      { cat: en ? 'Laboratory' : 'Biologie', sub: en ? 'Haematology' : 'H\u00e9matologie', name: en ? 'Haemoglobin' : 'H\u00e9moglobine', ver: '1.0.0', status: 'draft', statusLabel: en ? 'Draft' : 'Brouillon' },
-      { cat: en ? 'Drugs' : 'M\u00e9dicaments', sub: en ? 'Vasopressors' : 'Vasopresseurs', name: en ? 'Norepinephrine' : 'Nor\u00e9pin\u00e9phrine', ver: '1.0.0', status: 'approved', statusLabel: en ? 'Approved' : 'Approuv\u00e9' }
+      { cat: en ? 'Vital Signs' : 'Signes vitaux', sub: en ? 'Haemodynamics' : 'H\u00e9modynamique', name: en ? 'Heart rate' : 'Fr\u00e9quence cardiaque', ver: '1.0.1', status: 'final' },
+      { cat: en ? 'Vital Signs' : 'Signes vitaux', sub: en ? 'Haemodynamics' : 'H\u00e9modynamique', name: en ? 'Systolic blood pressure' : 'Pression art\u00e9rielle systolique', ver: '1.0.0', status: 'pending_review' },
+      { cat: en ? 'Laboratory' : 'Biologie', sub: en ? 'Chemistry' : 'Biochimie', name: en ? 'Serum Creatinine' : 'Cr\u00e9atinine s\u00e9rique', ver: '1.1.0', status: 'final' },
+      { cat: en ? 'Laboratory' : 'Biologie', sub: en ? 'Haematology' : 'H\u00e9matologie', name: en ? 'Haemoglobin' : 'H\u00e9moglobine', ver: '1.0.0', status: 'draft' },
+      { cat: en ? 'Drugs' : 'M\u00e9dicaments', sub: en ? 'Vasopressors' : 'Vasopresseurs', name: en ? 'Norepinephrine' : 'Nor\u00e9pin\u00e9phrine', ver: '1.0.0', status: 'final' }
     ];
     var fl = en ? 'Filter...' : 'Filtrer...';
     var html = '<div class="doc-mock-table"><table><thead><tr>'
@@ -223,7 +264,7 @@ var DocumentationPage = (function() {
         + '<td><span class="badge badge-subcategory">' + r.sub + '</span></td>'
         + '<td><strong>' + r.name + '</strong></td>'
         + '<td style="text-align:right">' + r.ver + '</td>'
-        + '<td><span class="status-badge ' + r.status + '" style="cursor:default; font-size:11px; padding:2px 8px">' + r.statusLabel + '</span></td>'
+        + '<td>' + mockStatusBadge(r.status) + '</td>'
         + '</tr>';
     }
     html += '</tbody></table></div>';
@@ -658,9 +699,9 @@ var DocumentationPage = (function() {
   function mockEditModeTable(lang) {
     var en = lang === 'en';
     var rows = [
-      { name: en ? 'Heart rate' : 'Fr\u00e9quence cardiaque', cat: en ? 'Vital Signs' : 'Signes vitaux', sub: en ? 'Haemodynamics' : 'H\u00e9modynamique', ver: '1.0.1', status: 'approved', statusLabel: en ? 'Approved' : 'Approuv\u00e9' },
-      { name: en ? 'Systolic blood pressure' : 'Pression art\u00e9rielle systolique', cat: en ? 'Vital Signs' : 'Signes vitaux', sub: en ? 'Haemodynamics' : 'H\u00e9modynamique', ver: '1.0.0', status: 'approved', statusLabel: en ? 'Approved' : 'Approuv\u00e9' },
-      { name: en ? 'Mean arterial pressure' : 'Pression art\u00e9rielle moyenne', cat: en ? 'Vital Signs' : 'Signes vitaux', sub: en ? 'Haemodynamics' : 'H\u00e9modynamique', ver: '1.0.0', status: 'draft', statusLabel: en ? 'Draft' : 'Brouillon' }
+      { name: en ? 'Heart rate' : 'Fr\u00e9quence cardiaque', cat: en ? 'Vital Signs' : 'Signes vitaux', sub: en ? 'Haemodynamics' : 'H\u00e9modynamique', ver: '1.0.1', status: 'final' },
+      { name: en ? 'Systolic blood pressure' : 'Pression art\u00e9rielle systolique', cat: en ? 'Vital Signs' : 'Signes vitaux', sub: en ? 'Haemodynamics' : 'H\u00e9modynamique', ver: '1.0.0', status: 'final' },
+      { name: en ? 'Mean arterial pressure' : 'Pression art\u00e9rielle moyenne', cat: en ? 'Vital Signs' : 'Signes vitaux', sub: en ? 'Haemodynamics' : 'H\u00e9modynamique', ver: '1.0.0', status: 'draft' }
     ];
     var html = '<div class="doc-mock-table"><table><thead><tr>'
       + '<th style="width:36px"></th>'
@@ -682,7 +723,7 @@ var DocumentationPage = (function() {
         + '<td><span class="badge badge-subcategory">' + r.sub + '</span></td>'
         + '<td><strong>' + r.name + '</strong></td>'
         + '<td style="text-align:center">' + r.ver + '</td>'
-        + '<td class="td-center"><span class="status-badge ' + r.status + '" style="cursor:default; font-size:11px; padding:2px 8px">' + r.statusLabel + '</span></td>'
+        + '<td class="td-center">' + mockStatusBadge(r.status) + '</td>'
         + '</tr>';
     }
     html += '</tbody></table></div>';
@@ -802,7 +843,6 @@ var DocumentationPage = (function() {
         name: 'Jane Smith',
         date: '2026-03-15',
         status: 'approved',
-        statusLabel: en ? 'Approved' : 'Approuv\u00e9',
         version: '1.0.1',
         comment: en
           ? 'Concept set is comprehensive. Good coverage of the LOINC hierarchy. The exclusion of fetal heart rate with a dedicated concept set makes sense, as fetal HR is recorded at the maternal level and could be confused with the mother\'s own heart rate during data alignment.'
@@ -812,7 +852,6 @@ var DocumentationPage = (function() {
         name: 'John Doe',
         date: '2026-01-10',
         status: 'needs_revision',
-        statusLabel: en ? 'Needs Revision' : '\u00c0 r\u00e9viser',
         version: '1.0.0',
         comment: en
           ? 'Fetal heart rate should be excluded from this set. It is recorded at the maternal level (in the mother\'s obstetric record), creating a risk of confusion with the mother\'s own heart rate. I suggest moving it to a dedicated concept set to prevent mixing fetal and maternal values during data alignment.'
@@ -846,7 +885,7 @@ var DocumentationPage = (function() {
       html += '<tr style="cursor:default">'
         + '<td>' + r.name + '</td>'
         + '<td>' + r.date + '</td>'
-        + '<td class="td-center"><span class="status-badge ' + r.status + '" style="cursor:default; font-size:11px; padding:2px 8px">' + r.statusLabel + '</span></td>'
+        + '<td class="td-center">' + App.reviewVerdictBadge(r.status) + '</td>'
         + '<td>' + r.version + '</td>'
         + '<td style="font-size:12px">' + r.comment + '</td>'
         + '</tr>';
@@ -991,7 +1030,7 @@ var DocumentationPage = (function() {
       + 'additional metadata:</p>'
       + '<ul>'
       + '<li><strong>Version</strong> \u2014 Semantic versioning (e.g. 1.0.0) with a version history log</li>'
-      + '<li><strong>Review status</strong> \u2014 Draft, Pending Review, Approved, Needs Revision, or Deprecated</li>'
+      + '<li><strong>Review status</strong> \u2014 ' + statusListText() + ' (' + docLink('reviewing', 'see their definitions') + ')</li>'
       + '<li><strong>Author info</strong> \u2014 Creator name, affiliation, profession, ORCID</li>'
       + '<li><strong>Translations</strong> \u2014 Multilingual name, category, and subcategory (currently English and French, extensible to other languages)</li>'
       + '<li><strong>Expert comments</strong> \u2014 Markdown field for clinical guidance and ETL recommendations</li>'
@@ -1045,7 +1084,7 @@ var DocumentationPage = (function() {
       + '<ul>'
       + '<li><strong>Category</strong> \u2014 Same as clicking badges, with item counts</li>'
       + '<li><strong>Subcategory</strong> \u2014 Dynamically populated based on selected categories</li>'
-      + '<li><strong>Review Status</strong> \u2014 Filter by Draft, Approved, Pending Review, etc.</li>'
+      + '<li><strong>Review Status</strong> \u2014 Filter by validation status (' + statusListText() + '). Deprecated sets are hidden by default.</li>'
       + '</ul>'
 
       + '<h2>Table</h2>'
@@ -1458,6 +1497,14 @@ var DocumentationPage = (function() {
       + 'All content is stored as JSON files in the '
       + '<a href="https://github.com/indicate-eu/data-dictionary" target="_blank">'
       + 'indicate-eu/data-dictionary</a> repository.</p>'
+
+      // ===== REVIEW STATUSES =====
+      + '<h2>Review statuses</h2>'
+      + '<p>Each concept set carries a status stating how far its validation has gone. Every set is openly '
+      + 'available whatever its status. A status is distinct from the verdict of an individual review '
+      + '(Approved, Needs Revision or a comment without verdict): reviews accumulate, and the set\u2019s status '
+      + 'is changed by its maintainers when the reviews gathered meet the criteria below.</p>'
+      + statusDefinitionTable(true)
 
       // ===== SUBMITTING A REVIEW =====
       + '<h2>Submitting a Review</h2>'
@@ -2259,7 +2306,7 @@ var DocumentationPage = (function() {
       + '      "name": "...",\n'
       + '      "url": "..."\n'
       + '    },\n'
-      + '    "reviewStatus": "draft",   // draft | pending_review | approved | needs_revision | deprecated\n'
+      + '    "reviewStatus": "draft",   // ' + App.reviewStatuses.map(function(s) { return s.id; }).join(' | ') + '\n'
       + '    "origin": null,\n'
       + '    "translations": {\n'
       + '      "en": {\n'
@@ -2319,8 +2366,8 @@ var DocumentationPage = (function() {
       + '<li><code>metadata.translations</code> : language-first (<code>en</code>, <code>fr</code>), each with '
       + '<code>name</code>, <code>category</code>, <code>subcategory</code>, <code>shortDescription</code>, <code>longDescription</code>. '
       + 'There is no cross-language fallback.</li>'
-      + '<li><code>metadata.reviewStatus</code> : one of <code>draft</code>, <code>pending_review</code>, <code>approved</code>, '
-      + '<code>needs_revision</code>, <code>deprecated</code>.</li>'
+      + '<li><code>metadata.reviewStatus</code> : one of ' + statusIdListHtml() + '. '
+      + 'The list is defined per dictionary by <code>reviewStatuses</code> in <code>config.json</code>.</li>'
       + '<li><code>metadata.versions[]</code> : a changelog. Each entry is '
       + '<code>{ version, date, author, message }</code>. This is an INDICATE extension &mdash; the OHDSI specification defines the '
       + 'top-level <code>version</code> field but no changelog structure.</li>'
@@ -2348,8 +2395,8 @@ var DocumentationPage = (function() {
       + '<li><code>metadata.translations</code>\u00a0: organis\u00e9 par langue (<code>en</code>, <code>fr</code>), chacune avec '
       + '<code>name</code>, <code>category</code>, <code>subcategory</code>, <code>shortDescription</code>, <code>longDescription</code>. '
       + 'Il n\u2019y a aucun repli d\u2019une langue \u00e0 l\u2019autre.</li>'
-      + '<li><code>metadata.reviewStatus</code>\u00a0: l\u2019une des valeurs <code>draft</code>, <code>pending_review</code>, <code>approved</code>, '
-      + '<code>needs_revision</code>, <code>deprecated</code>.</li>'
+      + '<li><code>metadata.reviewStatus</code>\u00a0: l\u2019une des valeurs ' + statusIdListHtml() + '. '
+      + 'La liste est d\u00e9finie par chaque dictionnaire, via <code>reviewStatuses</code> dans <code>config.json</code>.</li>'
       + '<li><code>metadata.versions[]</code>\u00a0: un journal des modifications. Chaque entr\u00e9e est '
       + '<code>{ version, date, author, message }</code>. C\u2019est une extension INDICATE &mdash; la sp\u00e9cification OHDSI d\u00e9finit le '
       + 'champ <code>version</code> racine mais aucune structure de journal.</li>'
@@ -3371,7 +3418,7 @@ var DocumentationPage = (function() {
       + 'INDICATE inclut des m\u00e9tadonn\u00e9es suppl\u00e9mentaires\u00a0:</p>'
       + '<ul>'
       + '<li><strong>Version</strong> \u2014 Versioning s\u00e9mantique (ex. 1.0.0) avec un historique des versions</li>'
-      + '<li><strong>Statut de relecture</strong> \u2014 Brouillon, En attente de relecture, Approuv\u00e9, \u00c0 r\u00e9viser ou Obsol\u00e8te</li>'
+      + '<li><strong>Statut de relecture</strong> \u2014 ' + statusListText() + ' (' + docLink('reviewing', 'voir leurs d\u00e9finitions') + ')</li>'
       + '<li><strong>Informations auteur</strong> \u2014 Nom, affiliation, profession, ORCID</li>'
       + '<li><strong>Traductions</strong> \u2014 Nom, cat\u00e9gorie et sous-cat\u00e9gorie multilingues (actuellement anglais et fran\u00e7ais, extensible \u00e0 d\u2019autres langues)</li>'
       + '<li><strong>Commentaires d\u2019experts</strong> \u2014 Champ Markdown pour les recommandations cliniques et ETL</li>'
@@ -3425,7 +3472,7 @@ var DocumentationPage = (function() {
       + '<ul>'
       + '<li><strong>Cat\u00e9gorie</strong> \u2014 Comme les badges, avec compteurs</li>'
       + '<li><strong>Sous-cat\u00e9gorie</strong> \u2014 Adapt\u00e9e aux cat\u00e9gories s\u00e9lectionn\u00e9es</li>'
-      + '<li><strong>Statut de relecture</strong> \u2014 Brouillon, Approuv\u00e9, etc.</li>'
+      + '<li><strong>Statut de relecture</strong> \u2014 Filtre par statut de validation (' + statusListText() + '). Les jeux obsol\u00e8tes sont masqu\u00e9s par d\u00e9faut.</li>'
       + '</ul>'
 
       + '<h2>Tableau</h2>'
@@ -3741,6 +3788,14 @@ var DocumentationPage = (function() {
       + 'Tout le contenu est stock\u00e9 en fichiers JSON dans le d\u00e9p\u00f4t '
       + '<a href="https://github.com/indicate-eu/data-dictionary" target="_blank">'
       + 'indicate-eu/data-dictionary</a>.</p>'
+
+      // ===== STATUTS DE RELECTURE =====
+      + '<h2>Statuts de relecture</h2>'
+      + '<p>Chaque jeu de concepts porte un statut qui indique o\u00f9 en est sa validation. Tous les jeux sont '
+      + 'librement accessibles, quel que soit leur statut. Le statut est distinct du verdict d\u2019une relecture '
+      + 'individuelle (Approuv\u00e9, \u00c0 r\u00e9viser ou commentaire sans verdict)\u00a0: les relectures '
+      + 's\u2019accumulent, et les mainteneurs changent le statut du jeu quand elles r\u00e9unissent les crit\u00e8res ci-dessous.</p>'
+      + statusDefinitionTable(false)
 
       // ===== SOUMETTRE UNE RELECTURE =====
       + '<h2>Soumettre une relecture</h2>'

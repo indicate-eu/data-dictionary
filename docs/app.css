@@ -1337,14 +1337,17 @@ td .status-badge {
   padding: 2px 8px;
   font-size: 11px;
 }
-.status-badge.draft { background: #6c757d; color: white; }
-.status-badge.pending_review { background: #ffc107; color: #000; }
-.status-badge.approved { background: #28a745; color: white; }
-.status-badge.needs_revision { background: #fd7e14; color: white; }
-.status-badge.deprecated { background: #dc3545; color: white; }
+/* Concept set statuses take their colors inline from the configured workflow
+   (config.json reviewStatuses, see App.statusBadge). A status the dictionary does
+   not define — e.g. on a set imported from another dictionary — stays neutral. */
+.status-badge.status-unknown { background: #e9ecef; color: #495057; border: 1px dashed #adb5bd; }
+/* Verdicts of individual reviews: a fixed vocabulary, independent of the
+   configured set statuses (App.reviewVerdictBadge). */
+.status-badge.verdict-approved { background: #28a745; color: white; }
+.status-badge.verdict-needs_revision { background: #fd7e14; color: white; }
 /* A review with no status: a contribution to the discussion, not a verdict.
    Deliberately quiet, so it does not read as one of the workflow states. */
-.status-badge.comment { background: #e7ebf0; color: #46586b; }
+.status-badge.verdict-comment { background: #e7ebf0; color: #46586b; }
 
 /* Column filter dropdowns */
 .column-filter {

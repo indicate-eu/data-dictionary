@@ -592,9 +592,9 @@ var ProjectsPage = (function() {
       App.updateMsToggleLabel('proj-avail-filter-subcategory', availFilterSubcategories);
     }
 
-    var availStatuses = [...new Set(availData.map(function(d) { return d.reviewStatus; }))].filter(Boolean).sort();
+    var availStatuses = [...new Set(availData.map(function(d) { return d.reviewStatus; }))].filter(Boolean).sort(App.compareReviewStatuses);
     var availStatusLabelMap = {};
-    availStatuses.forEach(function(s) { availStatusLabelMap[s] = App.statusLabelsMap[s] || s; });
+    availStatuses.forEach(function(s) { availStatusLabelMap[s] = App.statusLabel(s); });
     availFilterReviewStatuses.forEach(function(s) { if (!availStatuses.includes(s)) availFilterReviewStatuses.delete(s); });
     if (skipId !== 'proj-avail-filter-reviewStatus') {
       App.buildMultiSelectDropdown('proj-avail-filter-reviewStatus', availStatuses, availFilterReviewStatuses, function() {
@@ -626,9 +626,9 @@ var ProjectsPage = (function() {
       App.updateMsToggleLabel('proj-proj-filter-subcategory', projEditFilterSubcategories);
     }
 
-    var projStatuses = [...new Set(projData.map(function(d) { return d.reviewStatus; }))].filter(Boolean).sort();
+    var projStatuses = [...new Set(projData.map(function(d) { return d.reviewStatus; }))].filter(Boolean).sort(App.compareReviewStatuses);
     var projStatusLabelMap = {};
-    projStatuses.forEach(function(s) { projStatusLabelMap[s] = App.statusLabelsMap[s] || s; });
+    projStatuses.forEach(function(s) { projStatusLabelMap[s] = App.statusLabel(s); });
     projEditFilterReviewStatuses.forEach(function(s) { if (!projStatuses.includes(s)) projEditFilterReviewStatuses.delete(s); });
     if (skipId !== 'proj-proj-filter-reviewStatus') {
       App.buildMultiSelectDropdown('proj-proj-filter-reviewStatus', projStatuses, projEditFilterReviewStatuses, function() {
@@ -1199,9 +1199,9 @@ var ProjectsPage = (function() {
       App.updateMsToggleLabel('proj-filter-subcategory', projCsSubcategories);
     }
 
-    var statuses = [...new Set(data.map(function(d) { return d.reviewStatus; }))].filter(Boolean).sort();
+    var statuses = [...new Set(data.map(function(d) { return d.reviewStatus; }))].filter(Boolean).sort(App.compareReviewStatuses);
     var statusLabelMap = {};
-    statuses.forEach(function(s) { statusLabelMap[s] = App.statusLabelsMap[s] || s; });
+    statuses.forEach(function(s) { statusLabelMap[s] = App.statusLabel(s); });
     if (skipId !== 'proj-filter-reviewStatus') {
       App.buildMultiSelectDropdown('proj-filter-reviewStatus', statuses, projCsReviewStatuses, function() {
         renderProjectCSTable();

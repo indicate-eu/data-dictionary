@@ -136,6 +136,32 @@ def load_text_file(path):
         return f.read()
 
 
+# Built-in review workflow, used when config.json declares no `reviewStatuses`.
+# Must match DEFAULT_REVIEW_STATUSES in docs/app.js. `draft` and `deprecated` are
+# always valid: the SPA relies on them (new sets, default catalog filter).
+DEFAULT_REVIEW_STATUS_IDS = ["draft", "pending_review", "approved", "needs_revision", "deprecated"]
+REQUIRED_REVIEW_STATUS_IDS = {"draft", "deprecated"}
+
+
+def check_review_statuses(config, concept_sets):
+    """Warn about concept sets whose reviewStatus is not in the configured workflow.
+
+    Not fatal: the SPA still shows an unknown status (as a neutral badge), and a set
+    imported from a dictionary with another workflow legitimately carries one. But
+    after changing `reviewStatuses` it flags the sets left on a removed status.
+    """
+    configured = [s.get("id") for s in (config.get("reviewStatuses") or []) if isinstance(s, dict) and s.get("id")]
+    allowed = set(configured) | REQUIRED_REVIEW_STATUS_IDS if configured else set(DEFAULT_REVIEW_STATUS_IDS)
+    unknown = {}
+    for cs in concept_sets:
+        status = (cs.get("metadata") or {}).get("reviewStatus") or "draft"
+        if status not in allowed:
+            unknown.setdefault(status, []).append(cs.get("id"))
+    for status, ids in sorted(unknown.items()):
+        print(f"  WARNING: reviewStatus '{status}' is not defined in config.json reviewStatuses "
+              f"({len(ids)} set(s): {', '.join(str(i) for i in sorted(ids, key=lambda x: (x is None, x)))})")
+
+
 def main():
     config_path = os.path.join(ROOT, "config.json")
     if not os.path.isfile(config_path):
@@ -147,6 +173,7 @@ def main():
     snapshot.main()
 
     concept_sets = load_json_dir(os.path.join(ROOT, "concept_sets"))
+    check_review_statuses(config, concept_sets)
     projects = load_json_dir(os.path.join(ROOT, "projects"))
     versions_index = load_json_file(os.path.join(ROOT, "concept_sets_versions.json")) or {}
 

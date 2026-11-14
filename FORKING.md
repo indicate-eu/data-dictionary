@@ -72,6 +72,33 @@ Key fields:
 - **`organization`** — default `metadata.organization` written into new concept sets.
 - **`customVocabulary`** — vocabulary id and code prefix used when a user adds a *custom* concept (not from OMOP) inside the SPA.
 - **`tabs`** — set `false` to hide the Projects or Mapping Recommendations tabs if you don't need them.
+- **`reviewStatuses`** *(optional)* — your validation workflow, i.e. the values of each concept set's `metadata.reviewStatus` (see below).
+
+#### Review workflow (`reviewStatuses`)
+
+What it takes for a concept set to count as validated is your team's decision, so the statuses are configurable. Without `reviewStatuses` (the state `reset.py` leaves you in), the built-in workflow applies: `draft`, `pending_review`, `approved`, `needs_revision`, `deprecated`. To define your own, list the statuses in workflow order — the order drives the status filters, the Status column sort and the *Change Status* menu:
+
+```json
+"reviewStatuses": [
+  { "id": "draft", "color": "#ffffff", "background": "#6c757d",
+    "translations": {
+      "en": { "label": "Draft", "description": "Being written; not yet submitted for review." },
+      "fr": { "label": "Brouillon", "description": "En cours de rédaction ; pas encore soumis à relecture." } } },
+  { "id": "pending_review", "color": "#000000", "background": "#ffc107",
+    "translations": { "en": { "label": "Pending review", "description": "…" }, "fr": { "…": "…" } } },
+  { "id": "approved", "color": "#ffffff", "background": "#198754",
+    "translations": { "en": { "label": "Approved", "description": "Approved by a domain expert and an interoperability specialist." }, "fr": { "…": "…" } } },
+  { "id": "deprecated", "color": "#ffffff", "background": "#dc3545",
+    "translations": { "en": { "label": "Deprecated", "description": "…" }, "fr": { "…": "…" } } }
+]
+```
+
+- **`id`** — the snake_case slug written in `metadata.reviewStatus`. Choose it once: renaming it later means rewriting every concept set that carries it.
+- **`color`** / **`background`** — text and background of the status badge (hex, `rgb()` or a CSS color name). Keep the contrast readable.
+- **`translations`** — per language, a short **`label`** (the badge) and a one-sentence **`description`** (the badge tooltip, the *Change Status* menu, and the "Review statuses" section of the documentation). This is where your validation criteria belong. A missing language falls back to `defaultLanguage`, then English.
+- **`draft`** and **`deprecated`** always exist — the app relies on them (status of a new set; sets hidden by default in the catalog). Declare them to set their label and colors, otherwise the built-in definitions are used.
+
+A status is not the same thing as the verdict of an individual review (*Approved*, *Needs Revision*, or a comment): those verdicts are fixed, accumulate in `metadata.reviews`, and your maintainers change the set's status when they meet your criteria. `build.py` warns about concept sets whose status your workflow does not define — e.g. after you remove one, or on a set imported from a dictionary with a different workflow (the app shows it as a neutral badge).
 
 This block was called `github` before v1.2.6, back when the project only targeted GitHub. That name is still read, so an older fork keeps working; rename it to `repository` when convenient.
 
@@ -96,9 +123,9 @@ The Documentation page (`#/documentation`, served from `docs/documentation.js`) 
 python3 reset.py
 ```
 
-This wipes `concept_sets/`, `projects/` and `concept_sets_resolved/`, empties the content of `mapping_recommendations/mapping_recommendations.json` (its structure is preserved), and resets `id_counters.json` to `{1, 1}` and `concept_sets_versions.json` to `{}`.
+This wipes `concept_sets/`, `projects/` and `concept_sets_resolved/`, empties the content of `mapping_recommendations/mapping_recommendations.json` (its structure is preserved), resets `id_counters.json` to `{1, 1}` and `concept_sets_versions.json` to `{}`, and removes INDICATE's review workflow (`reviewStatuses`) from `config.json`, so your fork starts on the built-in one (§1.2).
 
-Kept as-is: `config.json`, `config.local.json`, `units/unit_conversions.json`, `units/recommended_units.json` (the unit tables are generic, so your fork starts with them) and `docs/`. After confirming, the script also runs `build.py`.
+Kept as-is: the rest of `config.json`, `config.local.json`, `units/unit_conversions.json`, `units/recommended_units.json` (the unit tables are generic, so your fork starts with them) and `docs/`. After confirming, the script also runs `build.py`.
 
 Flags:
 - `--yes` — skip the confirmation prompt

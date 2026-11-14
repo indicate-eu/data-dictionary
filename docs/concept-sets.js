@@ -141,6 +141,9 @@ var ConceptSetsPage = (function() {
         cmp = App.compareVersions(a.version, b.version);
       } else if (csSort.key === 'reviewers') {
         cmp = a.reviewers - b.reviewers;
+      } else if (csSort.key === 'reviewStatus') {
+        // Workflow order (config.json reviewStatuses), not alphabetical slugs.
+        cmp = App.compareReviewStatuses(a.reviewStatus, b.reviewStatus);
       } else {
         var va = (a[csSort.key] || '').toString().toLowerCase();
         var vb = (b[csSort.key] || '').toString().toLowerCase();
@@ -194,7 +197,7 @@ var ConceptSetsPage = (function() {
     var subcategories = [...new Set(subData.map(function(d) { return d.subcategory; }))].filter(Boolean).sort();
     csSubcategories.forEach(function(s) { if (!subcategories.includes(s)) csSubcategories.delete(s); });
 
-    var statuses = [...new Set(data.map(function(d) { return d.reviewStatus; }))].filter(Boolean).sort();
+    var statuses = [...new Set(data.map(function(d) { return d.reviewStatus; }))].filter(Boolean).sort(App.compareReviewStatuses);
 
     // Default selection on first populate: all statuses checked except 'deprecated'.
     if (!csFilterReviewStatusDefaulted && statuses.length > 0) {
@@ -224,7 +227,7 @@ var ConceptSetsPage = (function() {
     }
 
     var statusLabelMap = {};
-    statuses.forEach(function(s) { statusLabelMap[s] = App.statusLabelsMap[s] || s; });
+    statuses.forEach(function(s) { statusLabelMap[s] = App.statusLabel(s); });
     if (skipId !== 'filter-reviewStatus') {
       App.buildMultiSelectDropdown('filter-reviewStatus', statuses, csFilterReviewStatus, function() {
         csPage = 1;
@@ -258,7 +261,7 @@ var ConceptSetsPage = (function() {
         '<td class="cell-truncate"' + (d.description ? ' data-tooltip="' + App.escapeHtml(d.description) + '"' : '') + '>' + App.escapeHtml(d.description || '') + '</td>' +
         '<td class="td-center">' + App.escapeHtml(d.version) + '</td>' +
         '<td class="td-center">' + d.reviewers + '</td>' +
-        '<td class="td-center" data-tooltip="' + App.escapeHtml(App.statusLabel(d.reviewStatus)) + '">' + App.statusBadge(d.reviewStatus) + '</td>' +
+        '<td class="td-center" data-tooltip="' + App.escapeHtml(App.statusDescription(d.reviewStatus) || App.statusLabel(d.reviewStatus)) + '">' + App.statusBadge(d.reviewStatus) + '</td>' +
         '</tr>';
     }).join('');
 
@@ -4429,7 +4432,7 @@ var ConceptSetsPage = (function() {
     });
     statusSel.innerHTML = '<option value="">' + App.escapeHtml(App.i18n('All')) + '</option>' +
       Object.keys(statuses).sort().map(function(s) {
-        return '<option value="' + App.escapeHtml(s) + '">' + App.escapeHtml(App.statusLabel(s)) + '</option>';
+        return '<option value="' + App.escapeHtml(s) + '">' + App.escapeHtml(App.reviewVerdictLabel(s)) + '</option>';
       }).join('') +
       // Statusless entries are filterable under the same 'comment' sentinel the
       // Add Review select uses.
@@ -4872,10 +4875,10 @@ var ConceptSetsPage = (function() {
 
   // Status cell for a review row. A review with no `status` is a comment: a
   // contribution to the discussion rather than a verdict, so it gets a neutral
-  // badge instead of App.statusBadge, which would default it to "Draft".
+  // badge. Review verdicts are a fixed vocabulary, distinct from the set
+  // statuses (which each dictionary configures), hence reviewVerdictBadge.
   function reviewStatusCell(r) {
-    if (r.status) return App.statusBadge(r.status);
-    return '<span class="status-badge comment">' + App.escapeHtml(App.i18n('Comment')) + '</span>';
+    return App.reviewVerdictBadge(r.status);
   }
 
   // Version cell for a review row: a green badge when the review targets the
@@ -5002,8 +5005,25 @@ var ConceptSetsPage = (function() {
   function openStatusModal() {
     if (!selectedConceptSet || selectedSnapshotVersion) return;
     var meta = selectedConceptSet.metadata || {};
-    document.getElementById('cs-status-select').value = meta.reviewStatus || 'draft';
+    var current = meta.reviewStatus || 'draft';
+    // Options follow the configured workflow. A status this dictionary does not
+    // define (e.g. carried by an imported set) is kept as an option so opening
+    // and saving the modal does not silently change it.
+    var ids = App.reviewStatuses.map(function(s) { return s.id; });
+    if (ids.indexOf(current) === -1) ids.push(current);
+    var select = document.getElementById('cs-status-select');
+    select.innerHTML = ids.map(function(id) {
+      return '<option value="' + App.escapeHtml(id) + '">' + App.escapeHtml(App.statusLabel(id)) + '</option>';
+    }).join('');
+    select.value = current;
+    updateStatusDescription();
     document.getElementById('cs-status-modal').style.display = 'flex';
+  }
+
+  // Definition of the status selected in the Change Status modal.
+  function updateStatusDescription() {
+    var el = document.getElementById('cs-status-description');
+    if (el) el.textContent = App.statusDescription(document.getElementById('cs-status-select').value);
   }
 
   function closeStatusModal() {
@@ -5027,12 +5047,10 @@ var ConceptSetsPage = (function() {
     var cs = selectedConceptSet;
     var meta = cs.metadata || {};
     var status = meta.reviewStatus || 'draft';
-    var statusClass = status.replace(/\s+/g, '_').toLowerCase();
-    var statusLabel = App.statusLabel(status);
 
     document.getElementById('cs-detail-badges').innerHTML =
       '<span class="version-badge" id="cs-badge-version">' + App.escapeHtml(cs.version || '1.0.0') + '</span>' +
-      '<span class="status-badge ' + statusClass + '" id="cs-badge-status">' + App.escapeHtml(statusLabel) + '</span>';
+      App.statusBadge(status, { id: 'cs-badge-status' });
     document.getElementById('cs-badge-version').addEventListener('click', openVersionModal);
     document.getElementById('cs-badge-status').addEventListener('click', openStatusModal);
     // Also refresh the table row if visible
@@ -7591,6 +7609,7 @@ var ConceptSetsPage = (function() {
     document.getElementById('cs-status-close').addEventListener('click', closeStatusModal);
     document.getElementById('cs-status-cancel').addEventListener('click', closeStatusModal);
     document.getElementById('cs-status-save').addEventListener('click', saveStatus);
+    document.getElementById('cs-status-select').addEventListener('change', updateStatusDescription);
     document.getElementById('cs-status-modal').addEventListener('click', function(e) {
       if (e.target === document.getElementById('cs-status-modal')) closeStatusModal();
     });

@@ -9,6 +9,35 @@ affect data providers.
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Added
+
+- **Configurable review workflow.** The concept set statuses (`metadata.reviewStatus`)
+  are no longer hard-coded: `config.json` may declare `reviewStatuses`, an ordered
+  list of `{ id, color, background, translations: { <lang>: { label, description } } }`.
+  The order drives the status filters, the Status column sort and the Change Status
+  menu; the description shows as the badge tooltip, under the Change Status menu
+  and in a new "Review statuses" section of the documentation. Without the key, the
+  previous workflow applies (`draft`, `pending_review`, `approved`,
+  `needs_revision`, `deprecated`), so existing forks need no change. `draft` and
+  `deprecated` always exist. `reset.py` removes the key, so a fresh fork starts
+  from the default workflow. `build.py` warns about sets left on a status the
+  workflow does not define; the SPA shows such a status as a neutral badge.
+- **INDICATE workflow.** INDICATE now separates expert approval from empirical
+  confirmation: *Pending expert review* → *Expert-approved* (a clinical and an
+  interoperability expert, two distinct reviewers) → *Empirically confirmed* (the
+  five first-phase data providers aligned their data on the set). The 51 sets
+  carrying both expert approvals moved to `expert_approved`, Heparin (49), which
+  also has the empirical confirmation, to `empirically_confirmed`.
+
+### Changed
+
+- **Review verdicts are separate from set statuses.** The verdict of an individual
+  review (Approved, Needs Revision, comment) keeps its fixed vocabulary and its own
+  badge (`App.reviewVerdictBadge`), so a dictionary can drop `approved` as a set
+  status without affecting its review history.
+
 ## [1.2.6] — 2026-08-14
 
 ### Added
