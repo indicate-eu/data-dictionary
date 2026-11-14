@@ -41,14 +41,15 @@ The INDICATE Data Dictionary fills that gap with an **extension of the OHDSI Con
 
 <p align="center"><img src="docs/screenshots/review.png" alt="Review workflow with status tracking" width="720"></p>
 
-*Review tab of a concept set. Each review captures the reviewer's identity, date, version, status (Approved, Needs Revision, Pending Review…) and free-text comments — giving each concept set an auditable peer-review history, similar to what the Phenotype Library provides for phenotypes.*
+*Review tab of a concept set. Each review captures the reviewer's identity, date, version, verdict (Approved, Needs Revision, or a comment without verdict) and free-text comments — giving each concept set an auditable peer-review history, similar to what the Phenotype Library provides for phenotypes.*
 
 
 ### For data scientists & OMOP engineers
 
 - **ATLAS interoperability** — concept sets are stored as standard OHDSI JSON. Drop them into ATLAS, round-trip through our editor, export back. No lock-in.
 - **Semantic versioning** — every concept set carries an explicit version (`v1.2.0`). The convention is to bump the version whenever a concept is added, removed, or remapped, so a study can cite the exact set it used. Version bumps are the author's responsibility, not automatic — but the app makes the current version visible everywhere it matters.
-- **Review workflow** — `draft → pending review → approved → needs revision → deprecated`, with reviewer identity (ORCID), timestamps, and comments. Reviews are serialized back into the JSON and can be proposed as a GitHub PR straight from the browser.
+- **Review workflow** — each concept set carries a status, and each review a reviewer identity (ORCID), timestamp, verdict and comments. Reviews are serialized back into the JSON and can be proposed as a GitHub PR straight from the browser. The statuses are configurable per dictionary in `config.json`; INDICATE separates expert judgment from empirical evidence: `draft → pending expert review → expert-approved` (a clinical and an interoperability expert) `→ empirically confirmed` (the first-phase data providers aligned their data on the set), plus `needs revision` and `deprecated`.
+- **Overview page** — the validation status of the whole dictionary at a glance: counts per status, overall and per category, each linking to the filtered catalog.
 - **Auto-generated SQL** — pick a concept set, pick your reference unit, get a ready-to-run OMOP query targeting the right CDM table for the concept set's domain (Measurement, Observation, Drug Exposure, etc.), with per-concept unit conversion baked in (`CASE WHEN unit_concept_id = ... THEN value_as_number * factor`).
 - **Unit harmonization** — for laboratory concepts, the recommended unit follows a [defined methodology](https://indicate-eu.github.io/data-dictionary/#/documentation?section=sources) (NPU as primary source, LOINC `EXAMPLE_UCUM_UNITS` as fallback), with an explicit conversion table for every non-canonical unit encountered in source data.
 - **Projects** — group concept sets by study / use case, export the list as CSV, or use them to scope ETL mapping priorities.
@@ -167,7 +168,7 @@ resolve.py                   # Expands expressions via OMOP vocab (DuckDB)
 snapshot.py                  # Records commit SHAs in concept_sets_versions.json on version bumps (--backfill recovers missed ones)
 reset.py                     # Wipes content for a fresh fork (see FORKING.md)
 update_from_upstream.py      # Pulls code updates from this repo into a fork
-config.json                  # Per-fork branding, GitHub repo, organization
+config.json                  # Per-fork branding, repository, organization, review workflow
 .github/workflows/           # GitHub Actions: rebuilds docs/ and deploys to GitHub Pages on every push to main
 .gitlab-ci.yml               # GitLab Pages deployment (no-op on GitHub)
 CLAUDE.md                    # Project conventions, schemas, build pipeline
@@ -180,7 +181,7 @@ See [CLAUDE.md](CLAUDE.md) for full schemas, build pipeline, and conventions.
 
 → [Full documentation](https://indicate-eu.github.io/data-dictionary/#/documentation) (bilingual EN/FR)
 
-Covers: concept set structure, browsing & filtering, the editor, review workflow, SQL export, projects, unit conversions, dev tools, and local data.
+Covers: concept set structure, browsing & filtering, the editor, review workflow and statuses, the overview page, SQL export, projects, unit conversions, dev tools, and local data.
 
 ## License
 

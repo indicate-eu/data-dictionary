@@ -44,6 +44,7 @@ var DocumentationPage = (function() {
           { id: 'concept-set-details', label: en ? 'Concept Set Details' : 'D\u00e9tails d\u2019un jeu de concepts' },
           { id: 'editing-concept-sets', label: en ? 'Editing Concept Sets' : 'Modifier un jeu de concepts' },
           { id: 'reviewing', label: en ? 'Reviewing & GitHub' : 'Relecture & GitHub' },
+          { id: 'overview', label: en ? 'Dictionary Overview' : 'Vue d\u2019ensemble' },
           { id: 'exporting', label: en ? 'Exporting' : 'Exporter' },
           { id: 'json-schema', label: en ? 'JSON Schema' : 'Sch\u00e9ma JSON' },
           { id: 'sources', label: 'Sources' }
@@ -92,6 +93,7 @@ var DocumentationPage = (function() {
       'concept-set-details':  en ? conceptSetDetailsEN()     : conceptSetDetailsFR(),
       'editing-concept-sets': en ? editingConceptSetsEN()    : editingConceptSetsFR(),
       'reviewing':            en ? reviewingEN()             : reviewingFR(),
+      'overview':             en ? overviewEN()              : overviewFR(),
       'exporting':            en ? exportingEN()             : exportingFR(),
       'sources':              en ? sourcesEN()               : sourcesFR(),
       'json-schema':          en ? jsonSchemaEN()            : jsonSchemaFR(),
@@ -1505,6 +1507,7 @@ var DocumentationPage = (function() {
       + '(Approved, Needs Revision or a comment without verdict): reviews accumulate, and the set\u2019s status '
       + 'is changed by its maintainers when the reviews gathered meet the criteria below.</p>'
       + statusDefinitionTable(true)
+      + '<p>The ' + docLink('overview', 'Overview page') + ' counts the concept sets per status and per category.</p>'
 
       // ===== SUBMITTING A REVIEW =====
       + '<h2>Submitting a Review</h2>'
@@ -3782,6 +3785,47 @@ var DocumentationPage = (function() {
       + 'peut \u00eatre modifi\u00e9 via le badge de statut dans l\u2019en-t\u00eate.</p>';
   }
 
+  // ==================== OVERVIEW PAGE ====================
+  function overviewEN() {
+    return '<h1>Dictionary Overview</h1>'
+      + '<p>The <a href="#/overview">Overview</a> page (gear menu <i class="fas fa-cog"></i> \u2192 <strong>Overview</strong>) '
+      + 'shows how far the validation of the dictionary has gone, at a glance:</p>'
+      + '<ul>'
+      + '<li><strong>One tile per review status</strong> \u2014 the number of concept sets, their share, and the definition of the status. '
+      + 'Clicking a tile opens the catalog filtered on that status.</li>'
+      + '<li><strong>An overall bar</strong> \u2014 the share of each status across the whole dictionary.</li>'
+      + '<li><strong>A table by category</strong> \u2014 for each category, the number of sets per status, the total, and the number of sets '
+      + 'with at least one recorded review, whatever its verdict. Click the arrow to expand a category into its subcategories. '
+      + 'Every count links to the catalog filtered on that category and status.</li>'
+      + '</ul>'
+      + '<p>Deprecated sets are left out by default, since they are no longer part of the dictionary; tick <strong>Include deprecated</strong> '
+      + 'to count them. The statuses are those this dictionary defines (see ' + docLink('reviewing', 'Review statuses') + '); '
+      + 'hover a status badge to read its definition.</p>'
+      + '<p>The catalog links use URL parameters you can also share directly, e.g. '
+      + '<code>#/concept-sets?category=Medications&amp;status=pending_review</code> (category labels are those of the current language, '
+      + 'statuses are their identifiers).</p>';
+  }
+
+  function overviewFR() {
+    return '<h1>Vue d\u2019ensemble du dictionnaire</h1>'
+      + '<p>La page <a href="#/overview">Vue d\u2019ensemble</a> (menu <i class="fas fa-cog"></i> \u2192 <strong>Vue d\u2019ensemble</strong>) '
+      + 'montre d\u2019un coup d\u2019\u0153il o\u00f9 en est la validation du dictionnaire\u00a0:</p>'
+      + '<ul>'
+      + '<li><strong>Une tuile par statut de relecture</strong> \u2014 le nombre de jeux de concepts, leur part et la d\u00e9finition du statut. '
+      + 'Un clic sur une tuile ouvre le catalogue filtr\u00e9 sur ce statut.</li>'
+      + '<li><strong>Une barre globale</strong> \u2014 la part de chaque statut sur l\u2019ensemble du dictionnaire.</li>'
+      + '<li><strong>Un tableau par cat\u00e9gorie</strong> \u2014 pour chaque cat\u00e9gorie, le nombre de jeux par statut, le total et le nombre de jeux '
+      + 'ayant au moins une relecture enregistr\u00e9e, quel que soit son verdict. La fl\u00e8che d\u00e9plie une cat\u00e9gorie en sous-cat\u00e9gories. '
+      + 'Chaque nombre m\u00e8ne au catalogue filtr\u00e9 sur cette cat\u00e9gorie et ce statut.</li>'
+      + '</ul>'
+      + '<p>Les jeux obsol\u00e8tes sont exclus par d\u00e9faut, puisqu\u2019ils ne font plus partie du dictionnaire\u00a0; cochez '
+      + '<strong>Inclure les obsol\u00e8tes</strong> pour les compter. Les statuts sont ceux que d\u00e9finit ce dictionnaire (voir '
+      + docLink('reviewing', 'Statuts de relecture') + ')\u00a0; survolez un badge pour lire sa d\u00e9finition.</p>'
+      + '<p>Les liens vers le catalogue utilisent des param\u00e8tres d\u2019URL que vous pouvez aussi partager directement, par exemple '
+      + '<code>#/concept-sets?category=M\u00e9dicaments&amp;status=pending_review</code> (les cat\u00e9gories sont celles de la langue courante, '
+      + 'les statuts leurs identifiants).</p>';
+  }
+
   function reviewingFR() {
     return '<h1>Relecture & Proposition sur GitHub</h1>'
       + '<p>Le Dictionnaire de Donn\u00e9es INDICATE utilise un workflow GitHub pour contribuer des modifications. '
@@ -3796,6 +3840,7 @@ var DocumentationPage = (function() {
       + 'individuelle (Approuv\u00e9, \u00c0 r\u00e9viser ou commentaire sans verdict)\u00a0: les relectures '
       + 's\u2019accumulent, et les mainteneurs changent le statut du jeu quand elles r\u00e9unissent les crit\u00e8res ci-dessous.</p>'
       + statusDefinitionTable(false)
+      + '<p>La page ' + docLink('overview', 'Vue d\u2019ensemble') + ' compte les jeux de concepts par statut et par cat\u00e9gorie.</p>'
 
       // ===== SOUMETTRE UNE RELECTURE =====
       + '<h2>Soumettre une relecture</h2>'
@@ -4596,12 +4641,17 @@ var DocumentationPage = (function() {
       + '}</code></pre>'
       + '<p><code>repository.upstream</code> stays pointed at INDICATE so you can pull code updates later. '
       + '<code>organization</code> becomes the default author of new concept sets.</p>'
+      + '<p>Your <strong>validation workflow</strong> is yours too: the optional <code>reviewStatuses</code> key lists the statuses a concept set '
+      + 'goes through, each with its colors and a label and definition per language. Without it, the built-in workflow applies '
+      + '(<code>draft</code>, <code>pending_review</code>, <code>approved</code>, <code>needs_revision</code>, <code>deprecated</code>). '
+      + 'See <em>Review workflow</em> in FORKING.md \u00a71.2.</p>'
 
       + '<h2>3. Wipe the INDICATE content</h2>'
       + '<p>Replace the branding assets in <code>docs/</code> (<code>logo.png</code>, <code>favicon.png</code>), then clear the example content:</p>'
       + '<pre><code>python3 reset.py</code></pre>'
       + '<p>This empties <code>concept_sets/</code>, <code>projects/</code> and resets the id counters, while keeping generic content '
-      + '(unit conversions, mapping recommendations) and your configuration. It then rebuilds <code>docs/data.json</code>.</p>'
+      + '(unit conversions, mapping recommendations) and your configuration \u2014 apart from INDICATE\u2019s <code>reviewStatuses</code>, '
+      + 'which it removes so you start on the built-in workflow. It then rebuilds <code>docs/data.json</code>.</p>'
 
       + '<h2>4. Add your content &amp; deploy</h2>'
       + '<p>Create concept sets in the SPA (then <em>Propose on GitHub</em>), or edit <code>concept_sets/&lt;id&gt;.json</code> directly and run '
@@ -4646,12 +4696,17 @@ var DocumentationPage = (function() {
       + '}</code></pre>'
       + '<p><code>repository.upstream</code> reste point\u00e9 vers INDICATE pour pouvoir r\u00e9cup\u00e9rer les mises \u00e0 jour de code. '
       + '<code>organization</code> devient l\u2019auteur par d\u00e9faut des nouveaux jeux de concepts.</p>'
+      + '<p>Votre <strong>workflow de validation</strong> vous appartient aussi\u00a0: la cl\u00e9 optionnelle <code>reviewStatuses</code> liste les statuts '
+      + 'par lesquels passe un jeu de concepts, chacun avec ses couleurs, un libell\u00e9 et une d\u00e9finition par langue. Sans elle, le workflow par d\u00e9faut '
+      + 's\u2019applique (<code>draft</code>, <code>pending_review</code>, <code>approved</code>, <code>needs_revision</code>, <code>deprecated</code>). '
+      + 'Voir <em>Review workflow</em> dans FORKING.md \u00a71.2.</p>'
 
       + '<h2>3. Effacer le contenu INDICATE</h2>'
       + '<p>Remplacez les \u00e9l\u00e9ments de marque dans <code>docs/</code> (<code>logo.png</code>, <code>favicon.png</code>), puis videz le contenu d\u2019exemple\u00a0:</p>'
       + '<pre><code>python3 reset.py</code></pre>'
       + '<p>Cela vide <code>concept_sets/</code>, <code>projects/</code> et r\u00e9initialise les compteurs d\u2019id, tout en conservant le contenu g\u00e9n\u00e9rique '
-      + '(conversions d\u2019unit\u00e9s, recommandations de mapping) et votre configuration. Puis reconstruit <code>docs/data.json</code>.</p>'
+      + '(conversions d\u2019unit\u00e9s, recommandations de mapping) et votre configuration \u2014 sauf les <code>reviewStatuses</code> d\u2019INDICATE, '
+      + 'retir\u00e9s pour que vous partiez du workflow par d\u00e9faut. Puis reconstruit <code>docs/data.json</code>.</p>'
 
       + '<h2>4. Ajouter votre contenu &amp; d\u00e9ployer</h2>'
       + '<p>Cr\u00e9ez des jeux de concepts dans la SPA (puis <em>Proposer sur GitHub</em>), ou modifiez <code>concept_sets/&lt;id&gt;.json</code> directement et lancez '
