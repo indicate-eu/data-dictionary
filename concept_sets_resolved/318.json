@@ -21,33 +21,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4160171,
-      "conceptName": "Best positive end expiratory pressure",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "398269008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4216746,
-      "conceptName": "Positive end expiratory pressure setting",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "416595007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4353713,
-      "conceptName": "Positive end expiratory pressure",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "250854009",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 42527140,
       "conceptName": "Total PEEP Respiratory system",
       "vocabularyId": "LOINC",
