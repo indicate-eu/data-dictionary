@@ -1625,10 +1625,12 @@
   },
   "384": {
     "1.0.0": "f2f3eeed5e209e0f6dbdee7e83c46ca9c2d090f1",
-    "1.0.1": "ca241aecf8a571936d21dd60c4d1585ed174ace8"
+    "1.0.1": "ca241aecf8a571936d21dd60c4d1585ed174ace8",
+    "1.0.2": "1ae75e28e131f2dd1e4e13627aeebc0b966b4250"
   },
   "385": {
     "1.0.0": "f2f3eeed5e209e0f6dbdee7e83c46ca9c2d090f1",
-    "1.0.1": "ca241aecf8a571936d21dd60c4d1585ed174ace8"
+    "1.0.1": "ca241aecf8a571936d21dd60c4d1585ed174ace8",
+    "1.0.2": "1ae75e28e131f2dd1e4e13627aeebc0b966b4250"
   }
 }
