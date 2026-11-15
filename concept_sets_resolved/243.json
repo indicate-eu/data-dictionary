@@ -1,8 +1,8 @@
 {
   "conceptSetId": 243,
   "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+    "release": "v5.0 29-AUG-26",
+    "SNOMED": "2026-02-01 SNOMED CT International Edition; 2026-03-01 SNOMED CT US Edition; 2026-04-08 SNOMED CT UK Edition"
   },
   "resolvedConcepts": [
     {
@@ -97,7 +97,7 @@
     },
     {
       "conceptId": 37017620,
-      "conceptName": "Multiple drug-resistant Klebsiella pneumoniae subsp. ozaenae",
+      "conceptName": "Multidrug-resistant Klebsiella pneumoniae subsp. ozaenae",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -106,11 +106,29 @@
     },
     {
       "conceptId": 37017940,
-      "conceptName": "Multiple drug-resistant Klebsiella pneumoniae",
+      "conceptName": "Multidrug-resistant Klebsiella pneumoniae",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "714315002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37464355,
+      "conceptName": "Extended spectrum beta-lactamase producing Klebsiella pneumoniae subspecies ozaenae",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "1097601000112106",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37464356,
+      "conceptName": "Carbapenemase-producing Klebsiella pneumoniae subsp. ozaenae",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "1097701000112102",
       "standardConcept": "S"
     },
     {

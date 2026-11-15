@@ -1,8 +1,8 @@
 {
   "conceptSetId": 226,
   "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+    "release": "v5.0 29-AUG-26",
+    "SNOMED": "2026-02-01 SNOMED CT International Edition; 2026-03-01 SNOMED CT US Edition; 2026-04-08 SNOMED CT UK Edition"
   },
   "resolvedConcepts": [
     {
@@ -142,11 +142,101 @@
     },
     {
       "conceptId": 37395686,
-      "conceptName": "Multiple drug-resistant Citrobacter freundii",
+      "conceptName": "Multidrug-resistant Citrobacter freundii",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "715206000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37464334,
+      "conceptName": "Extended spectrum beta-lactamase producing Citrobacter freundii complex",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "1090101000112104",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37464335,
+      "conceptName": "Carbapenemase-producing Citrobacter gillenii",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "1090201000112105",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37464336,
+      "conceptName": "Extended spectrum beta-lactamase producing Citrobacter gillenii",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "1090301000112102",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37464337,
+      "conceptName": "Carbapenemase-producing Citrobacter murliniae",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "1090601000112107",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37464338,
+      "conceptName": "Extended spectrum beta-lactamase producing Citrobacter murliniae",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "1090701000112103",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37464340,
+      "conceptName": "Carbapenemase-producing Citrobacter sedlakii",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "1091001000112109",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37464341,
+      "conceptName": "Extended spectrum beta-lactamase producing Citrobacter sedlakii",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "1091101000112105",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37464342,
+      "conceptName": "Extended spectrum beta-lactamase producing Citrobacter werkmanii",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "1091301000112107",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37464343,
+      "conceptName": "Extended spectrum beta-lactamase producing Citrobacter youngae",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "1091501000112101",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37468332,
+      "conceptName": "AmpC beta-lactamase producing Citrobacter sedlakii",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "338001000112107",
       "standardConcept": "S"
     }
   ]

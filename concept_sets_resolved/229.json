@@ -1,8 +1,8 @@
 {
   "conceptSetId": 229,
   "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+    "release": "v5.0 29-AUG-26",
+    "SNOMED": "2026-02-01 SNOMED CT International Edition; 2026-03-01 SNOMED CT US Edition; 2026-04-08 SNOMED CT UK Edition"
   },
   "resolvedConcepts": [
     {
@@ -268,7 +268,7 @@
     },
     {
       "conceptId": 4028997,
-      "conceptName": "Corynebacterium diphtheriae type mitis",
+      "conceptName": "Corynebacterium diphtheriae biotype mitis",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -682,7 +682,7 @@
     },
     {
       "conceptId": 4306916,
-      "conceptName": "Corynebacterium diphtheriae type gravis",
+      "conceptName": "Corynebacterium diphtheriae biotype gravis",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -853,7 +853,7 @@
     },
     {
       "conceptId": 4321988,
-      "conceptName": "Corynebacterium diphtheriae type intermedius",
+      "conceptName": "Corynebacterium diphtheriae biotype intermedius",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -969,15 +969,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4348157,
-      "conceptName": "Corynebacterium mediolanum",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "243262003",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 4348158,
       "conceptName": "Corynebacterium viscosum",
       "vocabularyId": "SNOMED",
@@ -1042,7 +1033,7 @@
     },
     {
       "conceptId": 4352617,
-      "conceptName": "Corynebacterium diphtheriae var belfanti",
+      "conceptName": "Corynebacterium diphtheriae biotype belfanti",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",

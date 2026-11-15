@@ -2,11 +2,11 @@
   "id": 22,
   "name": "Leukemia",
   "description": "Leukemia — malignancy of blood-forming cells; one of the APACHE IV chronic health conditions.",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-06-11",
+  "modifiedDate": "2026-11-15",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -20,8 +20,8 @@
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
           "conceptCode": "93143009",
-          "validStartDate": "20020131",
-          "validEndDate": "20991231",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
@@ -77,6 +77,12 @@
         "date": "2026-06-11",
         "author": "Boris Delange",
         "message": "Fill the expression: anchor on SNOMED Leukemia (93143009) with descendants; subcategory Haematologic / oncologic; added clinical description."
+      },
+      {
+        "version": "1.2.0",
+        "date": "2026-11-15",
+        "author": "Boris Delange",
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 165 -> 92 concepts. Added 3 (new or reclassified descendants in the new release): Small lymphocytic B-cell lymphoma of lymph nodes of pelvis (37474337); Small lymphocytic B-cell lymphoma of spleen (37474338); Small lymphocytic B-cell lymphoma of lymph nodes of upper limb (37475327). Removed 71 compound oncology concepts made non-standard by the OHDSI oncology remodelling: the diagnosis now maps to a standard concept already in the set, and the qualifier (stage, subtype, remission/relapse, genetic finding) to Cancer Modifier, Episode or OMOP Genomic. E.g. Chronic myeloid leukemia in remission (132572); Myeloid leukemia in remission (132850); Plasma cell leukemia in remission (133158); and 68 more. Removed 4 concepts made non-standard, mapping to a standard concept already in the set: Acute panmyelosis with myelofibrosis (4003184); Disorder of central nervous system co-occurrent and due to acute lymphoid leukemia (37018869); Myeloid leukemia associated with Down syndrome (37119145); Periodontitis co-occurrent with leukemia (46271363). Removed 1 concept made non-standard, mapping outside the set (Malignant lymphoma - small lymphocytic (4119130)): Small lymphocytic B-cell lymphoma of lymph nodes of multiple sites (36684812)."
       }
     ],
     "distributionStats": null

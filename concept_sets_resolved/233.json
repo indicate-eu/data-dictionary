@@ -1,8 +1,8 @@
 {
   "conceptSetId": 233,
   "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+    "release": "v5.0 29-AUG-26",
+    "SNOMED": "2026-02-01 SNOMED CT International Edition; 2026-03-01 SNOMED CT US Edition; 2026-04-08 SNOMED CT UK Edition"
   },
   "resolvedConcepts": [
     {
@@ -52,11 +52,20 @@
     },
     {
       "conceptId": 37017942,
-      "conceptName": "Multiple drug-resistant Enterobacter cloacae",
+      "conceptName": "Multidrug-resistant Enterobacter cloacae",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "714317005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37464348,
+      "conceptName": "Extended spectrum beta-lactamase producing Enterobacter cloacae subspecies dissolvens",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "1094201000112102",
       "standardConcept": "S"
     },
     {

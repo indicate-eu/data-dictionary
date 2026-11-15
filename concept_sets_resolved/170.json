@@ -1,8 +1,8 @@
 {
   "conceptSetId": 170,
   "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "LOINC": "LOINC 2.80"
+    "release": "v5.0 29-AUG-26",
+    "LOINC": "LOINC 2.82"
   },
   "resolvedConcepts": [
     {
@@ -25,7 +25,7 @@
     },
     {
       "conceptId": 3039326,
-      "conceptName": "INR in Platelet poor plasma by Coagulation assay --post heparin neutralization",
+      "conceptName": "INR post heparin neutralization in Platelet poor plasma by Coagulation assay",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",

@@ -1,9 +1,9 @@
 {
   "conceptSetId": 64,
   "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "RxNorm": "RxNorm 20260105",
-    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+    "release": "v5.0 29-AUG-26",
+    "RxNorm": "RxNorm 20260601",
+    "RxNorm Extension": "RxNorm Extension 2026-06-05"
   },
   "resolvedConcepts": [
     {
@@ -12922,15 +12922,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 2052568,
-      "conceptName": "amoxicillin / clavulanate Oral Suspension [AMOXA DUO]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4953070",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 2052569,
       "conceptName": "amoxicillin / clavulanate Oral Suspension [AMOXAN DUO]",
       "vocabularyId": "RxNorm Extension",
@@ -13093,15 +13084,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 2052587,
-      "conceptName": "amoxicillin / clavulanate Oral Suspension [CLACILLIN DUO]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4953089",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 2052588,
       "conceptName": "amoxicillin / clavulanate Oral Suspension [CLACILLIN NEO]",
       "vocabularyId": "RxNorm Extension",
@@ -13180,15 +13162,6 @@
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "OMOP4953098",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2052598,
-      "conceptName": "amoxicillin / clavulanate Oral Suspension [CROANAN DUO]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4953099",
       "standardConcept": "S"
     },
     {
@@ -32290,96 +32263,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36055818,
-      "conceptName": "35 ML amoxicillin 80 MG/ML / clavulanate 11.4 MG/ML Oral Suspension [AUGMENTIN DUO] by Glaxosmithkline",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4981207",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36055819,
-      "conceptName": "35 ML amoxicillin 80 MG/ML / clavulanate 11.4 MG/ML Oral Suspension [AUGMENTIN DUO]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP4981208",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36056813,
-      "conceptName": "70 ML amoxicillin 80 MG/ML / clavulanate 11.4 MG/ML Oral Suspension [AUGMENTIN DUO] by Glaxosmithkline",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4982265",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36056814,
-      "conceptName": "70 ML amoxicillin 80 MG/ML / clavulanate 11.4 MG/ML Oral Suspension [AUGMENTIN DUO] by Sigma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4982266",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36056815,
-      "conceptName": "70 ML amoxicillin 80 MG/ML / clavulanate 11.4 MG/ML Oral Suspension [AUGMENTIN DUO] by Mawdsley-Brooks",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4982267",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36056816,
-      "conceptName": "70 ML amoxicillin 80 MG/ML / clavulanate 11.4 MG/ML Oral Suspension [AUGMENTIN DUO] by Waymade",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4982268",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36056817,
-      "conceptName": "70 ML amoxicillin 80 MG/ML / clavulanate 11.4 MG/ML Oral Suspension [AUGMENTIN DUO] by Lexon",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4982269",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36056818,
-      "conceptName": "70 ML amoxicillin 80 MG/ML / clavulanate 11.4 MG/ML Oral Suspension [AUGMENTIN DUO] by Dowelhurst",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4982270",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36056819,
-      "conceptName": "70 ML amoxicillin 80 MG/ML / clavulanate 11.4 MG/ML Oral Suspension [AUGMENTIN DUO] by DE",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4982271",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36056820,
-      "conceptName": "70 ML amoxicillin 80 MG/ML / clavulanate 11.4 MG/ML Oral Suspension [AUGMENTIN DUO]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP4982272",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 36062106,
       "conceptName": "amoxicillin 1000 MG / clavulanate 200 MG Injectable Solution [Co-amoxiclav] Box of 10 by Sandoz",
       "vocabularyId": "RxNorm Extension",
@@ -32485,51 +32368,6 @@
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
       "conceptCode": "OMOP4988102",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36062118,
-      "conceptName": "amoxicillin 80 MG/ML / clavulanate 11.4 MG/ML Oral Suspension [AUGMENTIN DUO] by Glaxosmithkline",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4988103",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36062119,
-      "conceptName": "amoxicillin 80 MG/ML / clavulanate 11.4 MG/ML Oral Suspension [AUGMENTIN DUO] by Sigma",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4988104",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36062120,
-      "conceptName": "amoxicillin 80 MG/ML / clavulanate 11.4 MG/ML Oral Suspension [AUGMENTIN DUO] by Mawdsley-Brooks",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4988105",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36062121,
-      "conceptName": "amoxicillin 80 MG/ML / clavulanate 11.4 MG/ML Oral Suspension [AUGMENTIN DUO] by Waymade",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4988106",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36062122,
-      "conceptName": "amoxicillin 80 MG/ML / clavulanate 11.4 MG/ML Oral Suspension [AUGMENTIN DUO] by Lexon",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4988107",
       "standardConcept": "S"
     },
     {
@@ -32683,33 +32521,6 @@
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
       "conceptCode": "OMOP4988129",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36074471,
-      "conceptName": "amoxicillin 80 MG/ML / clavulanate 11.4 MG/ML Oral Suspension [AUGMENTIN DUO] by Dowelhurst",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4988108",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36074472,
-      "conceptName": "amoxicillin 80 MG/ML / clavulanate 11.4 MG/ML Oral Suspension [AUGMENTIN DUO] by DE",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP4988109",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36074473,
-      "conceptName": "amoxicillin 80 MG/ML / clavulanate 11.4 MG/ML Oral Suspension [AUGMENTIN DUO]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4988110",
       "standardConcept": "S"
     },
     {
@@ -40783,15 +40594,6 @@
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
       "conceptCode": "OMOP4716722",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40740967,
-      "conceptName": "Amoxicillin 80 MG/ML / Clavulanate 11.4 MG/ML [Augmentin-Duo]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4716721",
       "standardConcept": "S"
     },
     {
@@ -81778,15 +81580,6 @@
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "OMOP4678638",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42952078,
-      "conceptName": "Amoxicillin / Clavulanate Oral Suspension [Augmentin Duo]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4678639",
       "standardConcept": "S"
     },
     {

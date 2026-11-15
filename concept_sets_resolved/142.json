@@ -1,9 +1,9 @@
 {
   "conceptSetId": 142,
   "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "RxNorm": "RxNorm 20260105",
-    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+    "release": "v5.0 29-AUG-26",
+    "RxNorm": "RxNorm 20260601",
+    "RxNorm Extension": "RxNorm Extension 2026-06-05"
   },
   "resolvedConcepts": [
     {
@@ -292,6 +292,42 @@
       "domainId": "Drug",
       "conceptClassId": "Quant Clinical Drug",
       "conceptCode": "OMOP5216948",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1317031,
+      "conceptName": "epinephrine 0.01 MG/ML / lidocaine hydrochloride 20 MG/ML [Flavalta]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "2739497",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1317033,
+      "conceptName": "epinephrine / lidocaine Cartridge [Flavalta]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "2739499",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1317034,
+      "conceptName": "epinephrine 0.01 MG/ML / lidocaine hydrochloride 20 MG/ML Cartridge [Flavalta]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "2739502",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1317554,
+      "conceptName": "1.7 ML epinephrine 0.01 MG/ML / lidocaine hydrochloride 20 MG/ML Cartridge [Flavalta]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Quant Branded Drug",
+      "conceptCode": "2739501",
       "standardConcept": "S"
     },
     {

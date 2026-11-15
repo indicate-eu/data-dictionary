@@ -2,11 +2,11 @@
   "id": 98,
   "name": "Penicillin",
   "description": null,
-  "version": "1.0.1",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-04-09",
+  "modifiedDate": "2026-11-15",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -111,6 +111,12 @@
         "date": "2026-04-09",
         "author": "Boris Delange",
         "message": "Changed concept set definition from specific Clinical Drug concepts to the RxNorm Ingredient with all descendants included."
+      },
+      {
+        "version": "1.1.0",
+        "date": "2026-11-15",
+        "author": "Boris Delange",
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 5934 -> 5930 concepts. Removed 4 concepts deprecated in the new release, whose replacement is already in the set: Penicillin G 1200000 UNT [Extencilline] (21027486); Penicillin G 1200000 UNT Injection [Extencilline] (21096154); Penicillin G 2400000 UNT [Extencilline] (21174742); Penicillin V Oral Tablet [V Cillin K] (44082523)."
       }
     ],
     "distributionStats": null

@@ -1,8 +1,8 @@
 {
   "conceptSetId": 380,
   "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+    "release": "v5.0 29-AUG-26",
+    "SNOMED": "2026-02-01 SNOMED CT International Edition; 2026-03-01 SNOMED CT US Edition; 2026-04-08 SNOMED CT UK Edition"
   },
   "resolvedConcepts": [
     {
@@ -124,7 +124,7 @@
     },
     {
       "conceptId": 4037906,
-      "conceptName": "Legionella pneumophilia serogroup 10",
+      "conceptName": "Legionella pneumophila serogroup 10",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -133,7 +133,7 @@
     },
     {
       "conceptId": 4037907,
-      "conceptName": "Legionella pneumophilia serogroup 14",
+      "conceptName": "Legionella pneumophila serogroup 14",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -142,7 +142,7 @@
     },
     {
       "conceptId": 4038275,
-      "conceptName": "Legionella pneumophilia serogroup 11",
+      "conceptName": "Legionella pneumophila serogroup 11",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -151,7 +151,7 @@
     },
     {
       "conceptId": 4038276,
-      "conceptName": "Legionella pneumophilia serogroup 12",
+      "conceptName": "Legionella pneumophila serogroup 12",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -160,7 +160,7 @@
     },
     {
       "conceptId": 4040167,
-      "conceptName": "Legionella pneumophilia serogroup 13",
+      "conceptName": "Legionella pneumophila serogroup 13",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",

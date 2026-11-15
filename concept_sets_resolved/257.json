@@ -1,8 +1,8 @@
 {
   "conceptSetId": 257,
   "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+    "release": "v5.0 29-AUG-26",
+    "SNOMED": "2026-02-01 SNOMED CT International Edition; 2026-03-01 SNOMED CT US Edition; 2026-04-08 SNOMED CT UK Edition"
   },
   "resolvedConcepts": [
     {
@@ -115,7 +115,7 @@
     },
     {
       "conceptId": 37396649,
-      "conceptName": "Non-multiple drug resistant methicillin resistant Staphylococcus aureus",
+      "conceptName": "Non-multidrug-resistant methicillin-resistant Staphylococcus aureus",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -124,7 +124,7 @@
     },
     {
       "conceptId": 37396650,
-      "conceptName": "Multiple drug resistant methicillin resistant Staphylococcus aureus",
+      "conceptName": "Multidrug-resistant methicillin-resistant Staphylococcus aureus",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",

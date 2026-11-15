@@ -1,9 +1,9 @@
 {
   "conceptSetId": 120,
   "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "RxNorm": "RxNorm 20260105",
-    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+    "release": "v5.0 29-AUG-26",
+    "RxNorm": "RxNorm 20260601",
+    "RxNorm Extension": "RxNorm Extension 2026-06-05"
   },
   "resolvedConcepts": [
     {
@@ -65617,33 +65617,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 42920775,
-      "conceptName": "10 ML prednisolone 10 MG/ML Ophthalmic Solution [PRED-FORTE]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP4647616",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42921519,
-      "conceptName": "5 ML prednisolone 10 MG/ML Ophthalmic Solution [PRED-FORTE]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP4648347",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42970562,
-      "conceptName": "prednisolone 10 MG/ML Ophthalmic Solution [PRED-FORTE]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4696988",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 42970563,
       "conceptName": "prednisolone 10 MG/ML [PRED-FORTE]",
       "vocabularyId": "RxNorm Extension",
@@ -65875,15 +65848,6 @@
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "OMOP4697014",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42970589,
-      "conceptName": "prednisolone Ophthalmic Solution [PRED-FORTE]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4697015",
       "standardConcept": "S"
     },
     {

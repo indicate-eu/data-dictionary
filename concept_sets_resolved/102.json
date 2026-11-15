@@ -1,9 +1,9 @@
 {
   "conceptSetId": 102,
   "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "RxNorm": "RxNorm 20260105",
-    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+    "release": "v5.0 29-AUG-26",
+    "RxNorm": "RxNorm 20260601",
+    "RxNorm Extension": "RxNorm Extension 2026-06-05"
   },
   "resolvedConcepts": [
     {
@@ -8125,30 +8125,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 44160829,
-      "conceptName": "isoniazid / Rifampin Oral Tablet [Iso Eremfat]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP3037552",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 44163703,
       "conceptName": "isoniazid 100 MG / Rifampin 150 MG Oral Tablet [Iso Eremfat] Box of 100 by Riemser",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
       "conceptCode": "OMOP3040426",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44164409,
-      "conceptName": "isoniazid 150 MG / Rifampin 300 MG [Iso Eremfat]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP3041132",
       "standardConcept": "S"
     },
     {
@@ -8197,15 +8179,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 44175673,
-      "conceptName": "isoniazid 100 MG / Rifampin 150 MG [Iso Eremfat]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP3052396",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 44177268,
       "conceptName": "isoniazid 100 MG / Rifampin 150 MG Oral Tablet [Iso Eremfat] Box of 100",
       "vocabularyId": "RxNorm Extension",
@@ -8251,30 +8224,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 44184673,
-      "conceptName": "isoniazid 100 MG / Rifampin 150 MG Oral Tablet [Iso Eremfat]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP3061396",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 44187483,
       "conceptName": "isoniazid 50 MG / Pyrazinamide 300 MG / Rifampin 120 MG Delayed Release Oral Tablet Box of 50",
       "vocabularyId": "RxNorm Extension",
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Box",
       "conceptCode": "OMOP3064206",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44188527,
-      "conceptName": "isoniazid 150 MG / Rifampin 300 MG Oral Tablet [Iso Eremfat]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP3065250",
       "standardConcept": "S"
     }
   ]

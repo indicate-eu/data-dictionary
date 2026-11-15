@@ -1,9 +1,9 @@
 {
   "conceptSetId": 98,
   "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "RxNorm": "RxNorm 20260105",
-    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+    "release": "v5.0 29-AUG-26",
+    "RxNorm": "RxNorm 20260601",
+    "RxNorm Extension": "RxNorm Extension 2026-06-05"
   },
   "resolvedConcepts": [
     {
@@ -3967,15 +3967,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 21027486,
-      "conceptName": "Penicillin G 1200000 UNT [Extencilline]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP278301",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 21029880,
       "conceptName": "100 ML Penicillin V 50 MG/ML Oral Solution by Ennogen",
       "vocabularyId": "RxNorm Extension",
@@ -4909,15 +4900,6 @@
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Form",
       "conceptCode": "OMOP278268",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21096154,
-      "conceptName": "Penicillin G 1200000 UNT Injection [Extencilline]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP278305",
       "standardConcept": "S"
     },
     {
@@ -5962,15 +5944,6 @@
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
       "conceptCode": "OMOP278279",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21174742,
-      "conceptName": "Penicillin G 2400000 UNT [Extencilline]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP278323",
       "standardConcept": "S"
     },
     {
@@ -48613,15 +48586,6 @@
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Comp",
       "conceptCode": "OMOP1074456",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 44082523,
-      "conceptName": "Penicillin V Oral Tablet [V Cillin K]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP1077154",
       "standardConcept": "S"
     },
     {

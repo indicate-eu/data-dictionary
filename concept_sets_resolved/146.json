@@ -1,9 +1,9 @@
 {
   "conceptSetId": 146,
   "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "RxNorm": "RxNorm 20260105",
-    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+    "release": "v5.0 29-AUG-26",
+    "RxNorm": "RxNorm 20260601",
+    "RxNorm Extension": "RxNorm Extension 2026-06-05"
   },
   "resolvedConcepts": [
     {
@@ -2398,6 +2398,24 @@
       "domainId": "Drug",
       "conceptClassId": "Quant Branded Drug",
       "conceptCode": "2634235",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1316660,
+      "conceptName": "acetaminophen 43.3 MG/ML / dextromethorphan hydrobromide 1.33 MG/ML / doxylamine succinate 0.833 MG/ML / phenylephrine hydrochloride 0.667 MG/ML Oral Solution",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "2733907",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1316699,
+      "conceptName": "acetaminophen 325 MG / dextromethorphan hydrobromide 15 MG / doxylamine succinate 6.25 MG / phenylephrine hydrochloride 5 MG Oral Capsule",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "2734621",
       "standardConcept": "S"
     },
     {
@@ -16375,15 +16393,6 @@
       "domainId": "Drug",
       "conceptClassId": "Quant Clinical Drug",
       "conceptCode": "OMOP5212013",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36930775,
-      "conceptName": "phenylephrine 1.2 MG/ML Ophthalmic Solution [Isopto Frin]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5187637",
       "standardConcept": "S"
     },
     {

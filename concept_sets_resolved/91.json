@@ -1,9 +1,9 @@
 {
   "conceptSetId": 91,
   "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "RxNorm": "RxNorm 20260105",
-    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+    "release": "v5.0 29-AUG-26",
+    "RxNorm": "RxNorm 20260601",
+    "RxNorm Extension": "RxNorm Extension 2026-06-05"
   },
   "resolvedConcepts": [
     {
@@ -373,6 +373,96 @@
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug",
       "conceptCode": "OMOP5215203",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1316835,
+      "conceptName": "chlorhexidine 20 MG/ML / ketoconazole 10 MG/ML Topical Foam",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "2737509",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1316836,
+      "conceptName": "chlorhexidine 20 MG/ML / ketoconazole 10 MG/ML [Suffusion]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "2737511",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1316838,
+      "conceptName": "chlorhexidine / ketoconazole Topical Foam [Suffusion]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "2737513",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1316839,
+      "conceptName": "chlorhexidine 20 MG/ML / ketoconazole 10 MG/ML Topical Foam [Suffusion]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "2737514",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1316840,
+      "conceptName": "chlorhexidine 0.02 MG/MG / ketoconazole 0.01 MG/MG [Suffusion]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "2737515",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1316842,
+      "conceptName": "chlorhexidine / ketoconazole Medicated Pad [Suffusion]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "2737517",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1316843,
+      "conceptName": "chlorhexidine 0.02 MG/MG / ketoconazole 0.01 MG/MG Medicated Pad [Suffusion]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "2737518",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1316844,
+      "conceptName": "chlorhexidine 20 MG/ML / ketoconazole 10 MG/ML Topical Spray",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "2737519",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1316845,
+      "conceptName": "chlorhexidine / ketoconazole Topical Spray [Suffusion]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "2737520",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1316846,
+      "conceptName": "chlorhexidine 20 MG/ML / ketoconazole 10 MG/ML Topical Spray [Suffusion]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "2737521",
       "standardConcept": "S"
     },
     {

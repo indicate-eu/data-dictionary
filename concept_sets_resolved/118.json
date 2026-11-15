@@ -1,9 +1,9 @@
 {
   "conceptSetId": 118,
   "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "RxNorm": "RxNorm 20260105",
-    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+    "release": "v5.0 29-AUG-26",
+    "RxNorm": "RxNorm 20260601",
+    "RxNorm Extension": "RxNorm Extension 2026-06-05"
   },
   "resolvedConcepts": [
     {
@@ -2128,6 +2128,33 @@
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug",
       "conceptCode": "2631096",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1317336,
+      "conceptName": "hydrocortisone butyrate 1 MG/ML [Evesse]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Comp",
+      "conceptCode": "2742557",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1317338,
+      "conceptName": "hydrocortisone Topical Lotion [Evesse]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug Form",
+      "conceptCode": "2742559",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1317339,
+      "conceptName": "hydrocortisone butyrate 1 MG/ML Topical Lotion [Evesse]",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Branded Drug",
+      "conceptCode": "2742561",
       "standardConcept": "S"
     },
     {
@@ -30913,15 +30940,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36943323,
-      "conceptName": "hydrocortisone 1 MG/ML Topical Solution [Locoid]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5185061",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 36943677,
       "conceptName": "hydrocortisone 15 MG Oral Tablet Box of 30 by Genesis",
       "vocabularyId": "RxNorm Extension",
@@ -31144,15 +31162,6 @@
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
       "conceptCode": "OMOP5185086",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36956222,
-      "conceptName": "hydrocortisone 0.001 MG/MG Topical Ointment [Locoid]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5185052",
       "standardConcept": "S"
     },
     {

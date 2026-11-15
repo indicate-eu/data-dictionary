@@ -1,9 +1,9 @@
 {
   "conceptSetId": 111,
   "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "RxNorm": "RxNorm 20260105",
-    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+    "release": "v5.0 29-AUG-26",
+    "RxNorm": "RxNorm 20260601",
+    "RxNorm Extension": "RxNorm Extension 2026-06-05"
   },
   "resolvedConcepts": [
     {
@@ -466,24 +466,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 2011857,
-      "conceptName": "vancomycin 1000 MG Injection [VANCOCIN-CP]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4953496",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2011858,
-      "conceptName": "vancomycin 1000 MG [VANCOCIN-CP]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4953497",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 2011859,
       "conceptName": "vancomycin 500 MG Injection by Dong-a",
       "vocabularyId": "RxNorm Extension",
@@ -499,33 +481,6 @@
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
       "conceptCode": "OMOP4953513",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2011861,
-      "conceptName": "vancomycin 500 MG Injection [VANCOCIN-CP]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP4953514",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2011862,
-      "conceptName": "vancomycin 500 MG [VANCOCIN-CP]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4953515",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2011863,
-      "conceptName": "vancomycin Injection [VANCOCIN-CP]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP4953530",
       "standardConcept": "S"
     },
     {

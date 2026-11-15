@@ -2,11 +2,11 @@
   "id": 71,
   "name": "Cefazolin",
   "description": null,
-  "version": "1.0.1",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-04-09",
+  "modifiedDate": "2026-11-15",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -92,6 +92,12 @@
         "date": "2026-04-09",
         "author": "Boris Delange",
         "message": "Changed concept set definition from specific Clinical Drug concepts to the RxNorm Ingredient with all descendants included."
+      },
+      {
+        "version": "1.1.0",
+        "date": "2026-11-15",
+        "author": "Boris Delange",
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 996 -> 991 concepts. Removed 5 concepts deprecated in the new release, whose replacement is already in the set: Cefazolin 1 MG/MG [Cefazolin Mip] (43693194); 2100 MG Cefazolin 1 MG/MG Injectable Solution [Cefazolin-Mip] (43706571); 2100 MG Cefazolin 1 MG/MG Injectable Solution [Cefazolin-Mip] by MIP (43814500); Cefazolin Injectable Solution [Cefazolin-Mip] (43819123); Cefazolin 1 MG/MG Injectable Solution [Cefazolin Mip] (43855229)."
       }
     ],
     "distributionStats": null

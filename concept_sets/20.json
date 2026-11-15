@@ -2,11 +2,11 @@
   "id": 20,
   "name": "Hepatic failure",
   "description": "Hepatic failure — loss of the liver's synthetic and detoxifying function; one of the APACHE IV chronic health conditions.",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-06-11",
+  "modifiedDate": "2026-11-15",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -20,8 +20,8 @@
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
           "conceptCode": "59927004",
-          "validStartDate": "20020131",
-          "validEndDate": "20991231",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
@@ -77,6 +77,12 @@
         "date": "2026-06-11",
         "author": "Boris Delange",
         "message": "Fill the expression: anchor on SNOMED Hepatic failure (59927004) with descendants; rename to 'Hepatic failure'; subcategory Chronic organ failure; added clinical description."
+      },
+      {
+        "version": "1.2.0",
+        "date": "2026-11-15",
+        "author": "Boris Delange",
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 28 -> 26 concepts. Removed 2 concepts deprecated in the new release, whose replacement is already in the set: Hepatorenal syndrome as a complication of care (4308408); Hepatic failure as a complication of care (4309163)."
       }
     ],
     "distributionStats": null

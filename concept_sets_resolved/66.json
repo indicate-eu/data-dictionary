@@ -1,9 +1,9 @@
 {
   "conceptSetId": 66,
   "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "RxNorm": "RxNorm 20260105",
-    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+    "release": "v5.0 29-AUG-26",
+    "RxNorm": "RxNorm 20260601",
+    "RxNorm Extension": "RxNorm Extension 2026-06-05"
   },
   "resolvedConcepts": [
     {
@@ -1114,15 +1114,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 21106016,
-      "conceptName": "Amphotericin B 50 MG Injection [AmBisome]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP278164",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 21115798,
       "conceptName": "Amphotericin B 5 MG/ML Injectable Suspension Box of 10",
       "vocabularyId": "RxNorm Extension",
@@ -1321,15 +1312,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 21135356,
-      "conceptName": "Amphotericin B 50 MG [AmBisome]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP278147",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 21135357,
       "conceptName": "Amphotericin B 50 MG Injection [AmBisome] Box of 1",
       "vocabularyId": "RxNorm Extension",
@@ -1417,15 +1399,6 @@
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
       "conceptCode": "OMOP278114",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21155166,
-      "conceptName": "Amphotericin B 5 MG/ML [Abelcet]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP278122",
       "standardConcept": "S"
     },
     {
@@ -2734,15 +2707,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36889950,
-      "conceptName": "Amphotericin B 5 MG/ML Injection [Abelcet]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP997456",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 36890128,
       "conceptName": "Amphotericin B 0.0384 MG/MG",
       "vocabularyId": "RxNorm Extension",
@@ -2803,15 +2767,6 @@
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "OMOP1003786",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36895730,
-      "conceptName": "20 ML Amphotericin B 5 MG/ML Injection [Abelcet]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP991729",
       "standardConcept": "S"
     },
     {

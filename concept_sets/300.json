@@ -2,11 +2,11 @@
   "id": 300,
   "name": "Tracheostomy tube",
   "description": "Any type of tracheostomy tube device, including fenestrated, cannula components and laryngectomy tubes.",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-08-20",
+  "modifiedDate": "2026-11-15",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -157,6 +157,12 @@
         "date": "2026-08-20",
         "author": "Boris Delange",
         "message": "Exclude 45759423 Oxygen administration transtracheal catheter. SNOMED files it under Tracheostomy tube, but its other parents are Pulmonological catheter and Catheter: it is a thin catheter delivering oxygen through a stoma for long-term home oxygen therapy, not a tracheostomy tube. It arrived through the descendants branch. Resolves to 9."
+      },
+      {
+        "version": "1.3.0",
+        "date": "2026-11-15",
+        "author": "Boris Delange",
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 9 -> 10 concepts. Added 1 (new or reclassified descendants in the new release): Tracheostomy tube outer cannula (37470851)."
       }
     ],
     "distributionStats": null

@@ -1,9 +1,9 @@
 {
   "conceptSetId": 136,
   "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "RxNorm": "RxNorm 20260105",
-    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+    "release": "v5.0 29-AUG-26",
+    "RxNorm": "RxNorm 20260601",
+    "RxNorm Extension": "RxNorm Extension 2026-06-05"
   },
   "resolvedConcepts": [
     {
@@ -3865,15 +3865,6 @@
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
       "conceptCode": "OMOP5212329",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36928276,
-      "conceptName": "propofol 10 MG/ML Injectable Suspension [Propoven]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5205417",
       "standardConcept": "S"
     },
     {

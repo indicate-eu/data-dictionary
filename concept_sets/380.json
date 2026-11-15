@@ -2,11 +2,11 @@
   "id": 380,
   "name": "Legionella pneumophila",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "createdBy": "Boris Delange",
   "createdDate": "2026-06-11",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-06-11",
+  "modifiedDate": "2026-11-15",
   "createdByTool": "INDICATE Data Dictionary v1.2.3 (https://github.com/indicate-eu/data-dictionary)",
   "expression": {
     "items": [
@@ -20,8 +20,8 @@
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
           "conceptCode": "80897008",
-          "validStartDate": "20020131",
-          "validEndDate": "20991231",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
@@ -71,7 +71,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.0.1",
+        "date": "2026-11-15",
+        "author": "Boris Delange",
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 5 concept names updated by the vocabulary (e.g. 'Legionella pneumophilia serogroup 11' -> 'Legionella pneumophila serogroup 11')."
+      }
+    ],
     "distributionStats": null
   }
 }

@@ -1,12 +1,12 @@
 {
   "id": 239,
-  "name": "Gram-positive bacteria",
-  "description": null,
-  "version": "1.1.0",
+  "name": "[Deprecated] Gram-positive bacteria",
+  "description": "Deprecated — redundant: cultures identify the organism at species level (use the species-specific sets), and the Gram stain result on direct examination is covered by set 240 Gram stain morphology.",
+  "version": "1.2.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-06-11",
+  "modifiedDate": "2026-11-15",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -45,21 +45,21 @@
       }
     },
     "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
-    "reviewStatus": "pending_review",
+    "reviewStatus": "deprecated",
     "origin": null,
     "translations": {
       "en": {
-        "name": "Gram-positive bacteria",
+        "name": "[Deprecated] Gram-positive bacteria",
         "category": "Microbiology",
         "subcategory": "Bacteria",
-        "shortDescription": null,
+        "shortDescription": "Deprecated — redundant: cultures identify the organism at species level (use the species-specific sets), and the Gram stain result on direct examination is covered by set 240 Gram stain morphology.",
         "longDescription": null
       },
       "fr": {
-        "name": "Gram-positive bacteria",
+        "name": "[Obsolète] Gram-positive bacteria",
         "category": "Microbiologie",
         "subcategory": "Bactéries",
-        "shortDescription": null,
+        "shortDescription": "Obsolète — redondant : les cultures identifient l'espèce (utiliser les sets par espèce), et le résultat de la coloration de Gram à l'examen direct est couvert par le set 240 Gram stain morphology.",
         "longDescription": null
       }
     },
@@ -77,6 +77,12 @@
         "date": "2026-06-11",
         "author": "Boris Delange",
         "message": "Anchor the expression on the SNOMED concept with descendants (replacing the flat list); rename subcategory to Bacteria; moved to pending review."
+      },
+      {
+        "version": "1.2.0",
+        "date": "2026-11-15",
+        "author": "Boris Delange",
+        "message": "Deprecated: the 'any Gram-positive bacterium' set (SNOMED organism hierarchy, ~2700 organisms) duplicates the species-specific sets and is not a protocol variable; Gram stain results are covered by set 240. Resolved list refreshed against OMOP vocabulary v5.0 29-AUG-26."
       }
     ],
     "distributionStats": null

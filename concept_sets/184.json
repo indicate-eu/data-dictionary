@@ -2,11 +2,11 @@
   "id": 184,
   "name": "Glycated hemoglobin (HbA1c) in blood",
   "description": null,
-  "version": "1.1.1",
+  "version": "1.1.2",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-08-13",
+  "modifiedDate": "2026-11-15",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -89,7 +89,7 @@
       {
         "concept": {
           "conceptId": 40762352,
-          "conceptName": "Hemoglobin A1c/Hemoglobin.total in Blood by IFCC protocol",
+          "conceptName": "Hemoglobin A1c/Hemoglobin.total standardized per IFCC-RMP for CDT in Blood",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
           "conceptClassId": "Lab Test",
@@ -153,7 +153,7 @@
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
           "conceptCode": "41995-2",
-          "validStartDate": "1970-01-01",
+          "validStartDate": "2005-07-29",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
@@ -210,6 +210,12 @@
         "date": "2026-08-13",
         "author": "Boris Delange",
         "message": "Add the recommended unit % (NGSP scale) to the five ratio concepts that had none; the NGSP/IFCC affine conversion was already documented and stored."
+      },
+      {
+        "version": "1.1.2",
+        "date": "2026-11-15",
+        "author": "Boris Delange",
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 1 concept name updated by the vocabulary (e.g. 'Hemoglobin A1c/Hemoglobin.total in Blood by IFCC protocol' -> 'Hemoglobin A1c/Hemoglobin.total standardized per IFCC-RMP for CDT in Blood'). Expression concept metadata refreshed from the vocabulary (1 renamed, e.g. 'Hemoglobin A1c/Hemoglobin.total in Blood by IFCC protocol' -> 'Hemoglobin A1c/Hemoglobin.total standardized per IFCC-RMP for CDT in Blood')."
       }
     ],
     "distributionStats": null

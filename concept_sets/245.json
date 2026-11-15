@@ -2,11 +2,11 @@
   "id": 245,
   "name": "[Deprecated] Lysinibacillus",
   "description": "Deprecated — genus-level set. Replaced by the two clinically relevant species sets: Lysinibacillus sphaericus and Lysinibacillus fusiformis (the only species reported in human infection).",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-06-11",
+  "modifiedDate": "2026-11-15",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -20,8 +20,8 @@
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
           "conceptCode": "444611003",
-          "validStartDate": "20100731",
-          "validEndDate": "20991231",
+          "validStartDate": "2010-07-31",
+          "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
@@ -77,6 +77,12 @@
         "date": "2026-06-11",
         "author": "Boris Delange",
         "message": "Deprecated: genus-level Lysinibacillus set replaced by the two clinically relevant species sets (Lysinibacillus sphaericus, Lysinibacillus fusiformis)."
+      },
+      {
+        "version": "1.2.0",
+        "date": "2026-11-15",
+        "author": "Boris Delange",
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 18 -> 16 concepts. Removed 1 concept made non-standard, mapping outside the set (Ureibacillus manganicus (1448429)): Lysinibacillus manganicus (36712900). Removed 1 concept still standard but no longer descendants of the set's anchor (reclassified in the vocabulary): Lysinibacillus chungkukjangi (42535803)."
       }
     ],
     "distributionStats": null

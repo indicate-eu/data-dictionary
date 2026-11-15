@@ -1,8 +1,8 @@
 {
   "conceptSetId": 31,
   "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+    "release": "v5.0 29-AUG-26",
+    "SNOMED": "2026-02-01 SNOMED CT International Edition; 2026-03-01 SNOMED CT US Edition; 2026-04-08 SNOMED CT UK Edition"
   },
   "resolvedConcepts": [
     {
@@ -84,6 +84,24 @@
       "domainId": "Condition",
       "conceptClassId": "Disorder",
       "conceptCode": "715272002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37472245,
+      "conceptName": "Infection associated with intra-aortic balloon catheter",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1373832001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37472290,
+      "conceptName": "Postoperative infection of bloodstream associated with vascular catheter",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1375990009",
       "standardConcept": "S"
     },
     {

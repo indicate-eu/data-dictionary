@@ -2,11 +2,11 @@
   "id": 187,
   "name": "N-terminal pro-B-type natriuretic peptide (NT-proBNP) in blood",
   "description": "Biologically inactive N-terminal fragment of proBNP ; not numerically interchangeable with BNP",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-08-13",
+  "modifiedDate": "2026-11-15",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -58,7 +58,7 @@
           "standardConcept": "C",
           "standardConceptCaption": "Classification",
           "conceptCode": "LP444069-1",
-          "validStartDate": "2022-08-29",
+          "validStartDate": "2025-02-26",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
@@ -115,6 +115,12 @@
         "date": "2026-08-13",
         "author": "Boris Delange",
         "message": "Document the NT-proBNP mass-to-molar conversion (8 457 g/mol, 1 ng/L = 0.118 pmol/L) and warn that BNP and NT-proBNP factors are not interchangeable. No change to the expression."
+      },
+      {
+        "version": "1.2.0",
+        "date": "2026-11-15",
+        "author": "Boris Delange",
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 6 -> 7 concepts. Added 1 (new or reclassified descendants in the new release): Natriuretic peptide.B prohormone N-Terminal [Mass/volume] in Serum, Plasma or Blood by Immunoassay (648637)."
       }
     ],
     "distributionStats": null

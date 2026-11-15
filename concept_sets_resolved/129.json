@@ -1,9 +1,9 @@
 {
   "conceptSetId": 129,
   "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "RxNorm": "RxNorm 20260105",
-    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+    "release": "v5.0 29-AUG-26",
+    "RxNorm": "RxNorm 20260601",
+    "RxNorm Extension": "RxNorm Extension 2026-06-05"
   },
   "resolvedConcepts": [
     {
@@ -49,6 +49,24 @@
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Comp",
       "conceptCode": "2599285",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1317227,
+      "conceptName": "clonidine hydrochloride 0.05 MG",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug Comp",
+      "conceptCode": "2740802",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1317228,
+      "conceptName": "clonidine hydrochloride 0.05 MG Oral Tablet",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "2740803",
       "standardConcept": "S"
     },
     {
@@ -2905,15 +2923,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36945275,
-      "conceptName": "clonidine 0.3 MG Oral Tablet [Catapres]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5193973",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 36947688,
       "conceptName": "clonidine 0.04 MG/ML Injectable Solution",
       "vocabularyId": "RxNorm Extension",
@@ -2938,15 +2947,6 @@
       "domainId": "Drug",
       "conceptClassId": "Quant Clinical Drug",
       "conceptCode": "OMOP5211714",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36968245,
-      "conceptName": "clonidine 0.025 MG Oral Tablet [Dixarit]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5193954",
       "standardConcept": "S"
     },
     {

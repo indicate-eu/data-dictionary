@@ -1,9 +1,9 @@
 {
   "conceptSetId": 109,
   "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "RxNorm": "RxNorm 20260105",
-    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+    "release": "v5.0 29-AUG-26",
+    "RxNorm": "RxNorm 20260601",
+    "RxNorm Extension": "RxNorm Extension 2026-06-05"
   },
   "resolvedConcepts": [
     {
@@ -472,15 +472,6 @@
       "domainId": "Drug",
       "conceptClassId": "Branded Drug",
       "conceptCode": "OMOP4956719",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2012201,
-      "conceptName": "dexamethasone 1 MG/ML / tobramycin 3 MG/ML [TOBACIN-D]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4956724",
       "standardConcept": "S"
     },
     {

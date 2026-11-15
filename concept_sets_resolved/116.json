@@ -1,9 +1,9 @@
 {
   "conceptSetId": 116,
   "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "RxNorm": "RxNorm 20260105",
-    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+    "release": "v5.0 29-AUG-26",
+    "RxNorm": "RxNorm 20260601",
+    "RxNorm Extension": "RxNorm Extension 2026-06-05"
   },
   "resolvedConcepts": [
     {
@@ -1465,33 +1465,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 1830975,
-      "conceptName": "dexamethasone / tramazoline Nasal Spray [Dexa-Rhinospray]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP5156225",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1830976,
-      "conceptName": "dexamethasone 0.02 MG/ACTUAT / tramazoline 0.12 MG/ACTUAT [Dexa-Rhinospray]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP5156226",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1830977,
-      "conceptName": "dexamethasone 0.02 MG/ACTUAT / tramazoline 0.12 MG/ACTUAT Nasal Spray [Dexa-Rhinospray]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5156227",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 1832021,
       "conceptName": "0.4 ML dexamethasone 1 MG/ML Ophthalmic Solution Box of 20 by Thea",
       "vocabularyId": "RxNorm Extension",
@@ -1525,15 +1498,6 @@
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
       "conceptCode": "OMOP5157976",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1832743,
-      "conceptName": "125 ACTUAT dexamethasone 0.02 MG/ACTUAT / tramazoline 0.12 MG/ACTUAT Nasal Spray [Dexa-Rhinospray]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP5157977",
       "standardConcept": "S"
     },
     {
@@ -1615,15 +1579,6 @@
       "domainId": "Drug",
       "conceptClassId": "Branded Drug",
       "conceptCode": "OMOP4956719",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 2012201,
-      "conceptName": "dexamethasone 1 MG/ML / tobramycin 3 MG/ML [TOBACIN-D]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP4956724",
       "standardConcept": "S"
     },
     {
@@ -78880,15 +78835,6 @@
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Form",
       "conceptCode": "OMOP902738",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43727412,
-      "conceptName": "Dexamethasone Nasal Solution [Dexa-Rhinospray]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP917465",
       "standardConcept": "S"
     },
     {

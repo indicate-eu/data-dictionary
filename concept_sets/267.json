@@ -2,11 +2,11 @@
   "id": 267,
   "name": "Streptococcus mitis group",
   "description": null,
-  "version": "1.1.0",
+  "version": "1.2.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-06-11",
+  "modifiedDate": "2026-11-15",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -20,8 +20,8 @@
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
           "conceptCode": "127539005",
-          "validStartDate": "20020131",
-          "validEndDate": "20991231",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
@@ -77,6 +77,12 @@
         "date": "2026-06-11",
         "author": "Boris Delange",
         "message": "Anchor the expression on the SNOMED concept with descendants (replacing the flat list); rename subcategory to Bacteria; moved to pending review."
+      },
+      {
+        "version": "1.2.0",
+        "date": "2026-11-15",
+        "author": "Boris Delange",
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 15 -> 11 concepts. Removed 4 concepts still standard but no longer descendants of the set's anchor (reclassified in the vocabulary): Streptococcus gordonii (4015115); Streptococcus cristatus (4015546); Streptococcus sanguinis group (4019756); Streptococcus sanguis II (4179971)."
       }
     ],
     "distributionStats": null

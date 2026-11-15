@@ -2,11 +2,11 @@
   "id": 66,
   "name": "Amphotericin B",
   "description": null,
-  "version": "1.0.1",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-04-09",
+  "modifiedDate": "2026-11-15",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -92,6 +92,12 @@
         "date": "2026-04-09",
         "author": "Boris Delange",
         "message": "Changed concept set definition from specific Clinical Drug concepts to the RxNorm Ingredient with all descendants included."
+      },
+      {
+        "version": "1.1.0",
+        "date": "2026-11-15",
+        "author": "Boris Delange",
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 1033 -> 1028 concepts. Removed 5 concepts deprecated in the new release, whose replacement is already in the set: Amphotericin B 50 MG Injection [AmBisome] (21106016); Amphotericin B 50 MG [AmBisome] (21135356); Amphotericin B 5 MG/ML [Abelcet] (21155166); Amphotericin B 5 MG/ML Injection [Abelcet] (36889950); 20 ML Amphotericin B 5 MG/ML Injection [Abelcet] (36895730)."
       }
     ],
     "distributionStats": null

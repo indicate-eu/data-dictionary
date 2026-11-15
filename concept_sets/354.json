@@ -2,11 +2,11 @@
   "id": 354,
   "name": "Oxygen saturation in venous blood",
   "description": null,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "createdBy": "Boris Delange",
   "createdDate": "2026-05-27",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-05-27",
+  "modifiedDate": "2026-11-15",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -16,7 +16,7 @@
           "conceptName": "Oxygen saturation in Venous blood",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
+          "conceptClassId": "Clinical Observation",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
           "conceptCode": "2711-0",
@@ -39,7 +39,7 @@
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
           "conceptCode": "51731-8",
-          "validStartDate": "2007-08-09",
+          "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
@@ -92,11 +92,11 @@
           "conceptName": "Oxygen saturation in Mixed venous blood",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
+          "conceptClassId": "Clinical Observation",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
           "conceptCode": "19224-5",
-          "validStartDate": "1998-11-16",
+          "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
@@ -115,7 +115,7 @@
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
           "conceptCode": "74105-8",
-          "validStartDate": "2015-12-09",
+          "validStartDate": "2013-08-29",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
@@ -153,7 +153,7 @@
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
           "conceptCode": "97549-0",
-          "validStartDate": "2022-02-04",
+          "validStartDate": "2021-08-23",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
@@ -168,7 +168,7 @@
           "conceptName": "Oxygen saturation in Capillary blood",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
-          "conceptClassId": "Lab Test",
+          "conceptClassId": "Clinical Observation",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
           "conceptCode": "2709-4",
@@ -191,7 +191,7 @@
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
           "conceptCode": "51732-6",
-          "validStartDate": "2007-08-09",
+          "validStartDate": "1970-01-01",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
@@ -280,7 +280,14 @@
       "orcid": "0009-0002-6055-6935"
     },
     "reviews": [],
-    "versions": [],
+    "versions": [
+      {
+        "version": "1.0.1",
+        "date": "2026-11-15",
+        "author": "Boris Delange",
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). Expression concept metadata refreshed from the vocabulary."
+      }
+    ],
     "distributionStats": null
   }
 }

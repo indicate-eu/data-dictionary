@@ -2,11 +2,11 @@
   "id": 19,
   "name": "Cirrhosis of liver",
   "description": "Cirrhosis of liver — advanced scarring of the liver, all causes; one of the APACHE IV chronic health conditions.",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-06-11",
+  "modifiedDate": "2026-11-15",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -20,8 +20,8 @@
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
           "conceptCode": "19943007",
-          "validStartDate": "20020131",
-          "validEndDate": "20991231",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
@@ -77,6 +77,12 @@
         "date": "2026-06-11",
         "author": "Boris Delange",
         "message": "Fill the expression: anchor on SNOMED Cirrhosis of liver (19943007) with descendants; subcategory Chronic organ failure; added clinical description."
+      },
+      {
+        "version": "1.2.0",
+        "date": "2026-11-15",
+        "author": "Boris Delange",
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 60 -> 61 concepts. Added 1 (new or reclassified descendants in the new release): Upper gastrointestinal hemorrhage due to cirrhosis of liver (37471653). 1 concept name updated by the vocabulary (e.g. 'Cirrhosis of liver with primary sclerosing cholangitis' -> 'Cirrhosis of liver due to primary sclerosing cholangitis')."
       }
     ],
     "distributionStats": null

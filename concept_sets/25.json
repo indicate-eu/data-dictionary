@@ -2,11 +2,11 @@
   "id": 25,
   "name": "Multiple myeloma",
   "description": "Multiple myeloma — malignancy of plasma cells; one of the APACHE IV chronic health conditions.",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-06-11",
+  "modifiedDate": "2026-11-15",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -20,8 +20,8 @@
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
           "conceptCode": "109989006",
-          "validStartDate": "20020131",
-          "validEndDate": "20991231",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
@@ -77,6 +77,12 @@
         "date": "2026-06-11",
         "author": "Boris Delange",
         "message": "Fill the expression: anchor on SNOMED Multiple myeloma (109989006) with descendants; subcategory Haematologic / oncologic; added clinical description."
+      },
+      {
+        "version": "1.2.0",
+        "date": "2026-11-15",
+        "author": "Boris Delange",
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 19 -> 14 concepts. Removed 4 compound oncology concepts made non-standard by the OHDSI oncology remodelling: the diagnosis now maps to a standard concept already in the set, and the qualifier (stage, subtype, remission/relapse, genetic finding) to Cancer Modifier, Episode or OMOP Genomic. E.g. Plasma cell leukemia in remission (133158); Multiple myeloma in remission (436059); Plasma cell leukemia in relapse (760936); and 1 more. Removed 1 concept made non-standard, mapping to a standard concept already in the set: Osteoporosis co-occurrent and due to multiple myeloma (42538151)."
       }
     ],
     "distributionStats": null

@@ -1,8 +1,8 @@
 {
   "conceptSetId": 18,
   "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+    "release": "v5.0 29-AUG-26",
+    "SNOMED": "2026-02-01 SNOMED CT International Edition; 2026-03-01 SNOMED CT US Edition; 2026-04-08 SNOMED CT UK Edition"
   },
   "resolvedConcepts": [
     {
@@ -348,12 +348,39 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 4029793,
+      "conceptName": "Methyl CCNU nephropathy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "13889008",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4030520,
       "conceptName": "End stage renal failure on dialysis",
       "vocabularyId": "SNOMED",
       "domainId": "Condition",
       "conceptClassId": "Disorder",
       "conceptCode": "236435004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4030669,
+      "conceptName": "Penicillamine nephropathy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "236521003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4030670,
+      "conceptName": "Chronic cyclosporin A nephrotoxicity",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "236522005",
       "standardConcept": "S"
     },
     {
@@ -385,11 +412,29 @@
     },
     {
       "conceptId": 4128200,
-      "conceptName": "End stage renal failure untreated by renal replacement therapy",
+      "conceptName": "End stage renal failure without renal replacement therapy",
       "vocabularyId": "SNOMED",
       "domainId": "Condition",
       "conceptClassId": "Disorder",
       "conceptCode": "236434000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4128206,
+      "conceptName": "Chronic drug-induced tubulointerstitial nephritis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "236452000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4128228,
+      "conceptName": "Chronic drug-induced renal disease",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "236519008",
       "standardConcept": "S"
     },
     {
@@ -399,6 +444,15 @@
       "domainId": "Condition",
       "conceptClassId": "Disorder",
       "conceptCode": "57557005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4244418,
+      "conceptName": "Analgesic nephropathy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "59400006",
       "standardConcept": "S"
     },
     {
@@ -426,6 +480,24 @@
       "domainId": "Condition",
       "conceptClassId": "Disorder",
       "conceptCode": "722098007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36716200,
+      "conceptName": "Drug-induced membranous nephropathy",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "722120008",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36716214,
+      "conceptName": "Focal segmental glomerulosclerosis caused by lithium",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "722139003",
       "standardConcept": "S"
     },
     {
@@ -525,6 +597,33 @@
       "domainId": "Condition",
       "conceptClassId": "Disorder",
       "conceptCode": "1217070004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37471595,
+      "conceptName": "Chronic lithium nephrotoxicity",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1367961003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37472201,
+      "conceptName": "Chronic cardiorenal syndrome",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1373674009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37472202,
+      "conceptName": "Chronic renocardiac syndrome",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1373675005",
       "standardConcept": "S"
     },
     {

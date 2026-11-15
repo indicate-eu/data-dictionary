@@ -1,9 +1,9 @@
 {
   "conceptSetId": 123,
   "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "RxNorm": "RxNorm 20260105",
-    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+    "release": "v5.0 29-AUG-26",
+    "RxNorm": "RxNorm 20260601",
+    "RxNorm Extension": "RxNorm Extension 2026-06-05"
   },
   "resolvedConcepts": [
     {
@@ -197,7 +197,7 @@
     },
     {
       "conceptId": 792695,
-      "conceptName": "insulin aspart, human 100 UNT/ML Injectable Solution [Fiasp]",
+      "conceptName": "Niacinamide insulin aspart, human 100 UNT/ML Injectable Solution [Fiasp]",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
       "conceptClassId": "Branded Drug",
@@ -215,10 +215,10 @@
     },
     {
       "conceptId": 792697,
-      "conceptName": "3 ML insulin aspart, human 100 UNT/ML Pen Injector [Fiasp]",
+      "conceptName": "Niacinamide 3 ML insulin aspart, human 100 UNT/ML Pen Injector [Fiasp]",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
+      "conceptClassId": "Branded Drug",
       "conceptCode": "1986356",
       "standardConcept": "S"
     },
@@ -292,6 +292,33 @@
       "domainId": "Drug",
       "conceptClassId": "Branded Drug",
       "conceptCode": "1994318",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1316467,
+      "conceptName": "Niacinamide 3 ML insulin aspart, human 100 UNT/ML Cartridge",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "2730170",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1316468,
+      "conceptName": "Niacinamide 3 ML insulin aspart, human 100 UNT/ML Pen Injector",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "2730172",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1316469,
+      "conceptName": "Niacinamide insulin aspart, human 100 UNT/ML Injectable Solution",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "2730174",
       "standardConcept": "S"
     },
     {
@@ -3599,10 +3626,10 @@
     },
     {
       "conceptId": 37499740,
-      "conceptName": "3 ML insulin aspart, human 100 UNT/ML Cartridge [Fiasp]",
+      "conceptName": "Niacinamide 3 ML insulin aspart, human 100 UNT/ML Cartridge [Fiasp]",
       "vocabularyId": "RxNorm",
       "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
+      "conceptClassId": "Branded Drug",
       "conceptCode": "2205454",
       "standardConcept": "S"
     },

@@ -2,11 +2,11 @@
   "id": 23,
   "name": "Malignant lymphoma",
   "description": "Malignant lymphoma — malignancy of the lymphatic system (Hodgkin and non-Hodgkin); one of the APACHE IV chronic health conditions.",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-06-11",
+  "modifiedDate": "2026-11-15",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -20,8 +20,8 @@
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
           "conceptCode": "118600007",
-          "validStartDate": "20020131",
-          "validEndDate": "20991231",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
@@ -77,6 +77,12 @@
         "date": "2026-06-11",
         "author": "Boris Delange",
         "message": "Fill the expression: anchor on SNOMED Malignant lymphoma (118600007) with descendants; rename to 'Malignant lymphoma'; subcategory Haematologic / oncologic; added clinical description."
+      },
+      {
+        "version": "1.2.0",
+        "date": "2026-11-15",
+        "author": "Boris Delange",
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 459 -> 481 concepts. Added 60 (new or reclassified descendants in the new release): Marginal zone lymphoma of lymph nodes of pelvis (37469974); Marginal zone lymphoma of lymph nodes of upper limb (37469975); Mantle cell lymphoma of lymph nodes of pelvis (37469976); Mantle cell lymphoma of lymph nodes of lower limb (37469977); Mantle cell lymphoma of lymph nodes of upper limb (37469978); and 55 more. Removed 26 compound oncology concepts made non-standard by the OHDSI oncology remodelling: the diagnosis now maps to a standard concept already in the set, and the qualifier (stage, subtype, remission/relapse, genetic finding) to Cancer Modifier, Episode or OMOP Genomic. E.g. Non-Hodgkin's lymphoma in remission (603291); Adult T-cell leukemia/lymphoma in remission (604486); Follicular lymphoma grade 3b (606914); and 23 more. Removed 11 concepts made non-standard, mapping to a standard concept already in the set: Malignant lymphoma of lymph nodes of multiple sites (132841); Primary effusion lymphoma due to human immune deficiency virus infection (607384); Reticulosarcoma with AIDS (acquired immunodeficiency syndrome) (4226388); Primary lymphoma of brain with AIDS (acquired immunodeficiency syndrome) (4227969); Small lymphocytic B-cell lymphoma of lymph nodes of multiple sites (36684812); and 6 more. Removed 1 concept deprecated or made non-standard without any mapping: Tumor stage mycosis fungoides (4301662). 1 concept name updated by the vocabulary (e.g. 'Lymphoma of kidney' -> 'Malignant lymphoma of kidney')."
       }
     ],
     "distributionStats": null

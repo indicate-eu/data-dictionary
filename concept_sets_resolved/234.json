@@ -1,8 +1,8 @@
 {
   "conceptSetId": 234,
   "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+    "release": "v5.0 29-AUG-26",
+    "SNOMED": "2026-02-01 SNOMED CT International Edition; 2026-03-01 SNOMED CT US Edition; 2026-04-08 SNOMED CT UK Edition"
   },
   "resolvedConcepts": [
     {
@@ -124,7 +124,7 @@
     },
     {
       "conceptId": 37017941,
-      "conceptName": "Multiple drug-resistant Enterobacter asburiae",
+      "conceptName": "Multidrug-resistant Enterobacter asburiae",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -133,7 +133,7 @@
     },
     {
       "conceptId": 37017942,
-      "conceptName": "Multiple drug-resistant Enterobacter cloacae",
+      "conceptName": "Multidrug-resistant Enterobacter cloacae",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -183,6 +183,42 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "816085003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37464346,
+      "conceptName": "Extended spectrum beta-lactamase producing Enterobacter asburiae",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "1093701000112107",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37464347,
+      "conceptName": "Extended spectrum beta-lactamase producing Enterobacter cancerogenus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "1093901000112109",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37464348,
+      "conceptName": "Extended spectrum beta-lactamase producing Enterobacter cloacae subspecies dissolvens",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "1094201000112102",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37465634,
+      "conceptName": "Enterobacter hormaechei subsp. hoffmannii",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "1371227000",
       "standardConcept": "S"
     },
     {

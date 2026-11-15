@@ -2,11 +2,11 @@
   "id": 30,
   "name": "Diabetes mellitus",
   "description": "Diabetes mellitus — chronic disorder of high blood glucose; all types.",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-06-11",
+  "modifiedDate": "2026-11-15",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -20,8 +20,8 @@
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
           "conceptCode": "73211009",
-          "validStartDate": "20020131",
-          "validEndDate": "20991231",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
@@ -77,6 +77,12 @@
         "date": "2026-06-11",
         "author": "Boris Delange",
         "message": "Fill the expression: anchor on SNOMED Diabetes mellitus (73211009) with descendants; subcategory Metabolic; added clinical description."
+      },
+      {
+        "version": "1.2.0",
+        "date": "2026-11-15",
+        "author": "Boris Delange",
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 127 -> 128 concepts. Added 6 (new or reclassified descendants in the new release): Brittle type 1 diabetes mellitus (4128019); Diabetes mellitus due to chronic pancreatitis (37471539); Uncontrolled type 2 diabetes mellitus (40482801); Brittle type 2 diabetes mellitus (40483315); Uncontrolled type 1 diabetes mellitus (40484648); and 1 more. Removed 1 concept deprecated in the new release, whose replacement is already in the set: Diabetes mellitus associated with cystic fibrosis (4143529). Removed 4 concepts still standard but no longer descendants of the set's anchor (reclassified in the vocabulary): Presymptomatic type 1 diabetes mellitus (1244603); Diabetes mellitus type 1 stage 1 (37174264); Diabetes mellitus type 1 stage 2 (37174265); Disorder due to well controlled type 2 diabetes mellitus (43531597). 4 concept names updated by the vocabulary (e.g. 'Diabetes mellitus caused by drug without complication' -> 'Drug-induced diabetes mellitus without complication')."
       }
     ],
     "distributionStats": null

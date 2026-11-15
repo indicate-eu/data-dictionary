@@ -1,9 +1,9 @@
 {
   "conceptSetId": 84,
   "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "RxNorm": "RxNorm 20260105",
-    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+    "release": "v5.0 29-AUG-26",
+    "RxNorm": "RxNorm 20260601",
+    "RxNorm Extension": "RxNorm Extension 2026-06-05"
   },
   "resolvedConcepts": [
     {
@@ -12778,15 +12778,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36945791,
-      "conceptName": "erythromycin 50 MG/ML Oral Suspension [Erythroped]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5200735",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 36947805,
       "conceptName": "erythromycin 500 MG Oral Tablet Box of 100 by Ennogen",
       "vocabularyId": "RxNorm Extension",
@@ -12811,15 +12802,6 @@
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Form",
       "conceptCode": "OMOP5200731",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36959809,
-      "conceptName": "erythromycin 250 MG Oral Tablet [Erythrolar]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5200754",
       "standardConcept": "S"
     },
     {

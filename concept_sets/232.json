@@ -2,11 +2,11 @@
   "id": 232,
   "name": "Klebsiella aerogenes (ex Enterobacter aerogenes)",
   "description": "Klebsiella aerogenes (formerly Enterobacter aerogenes) — Gram-negative bacterium reclassified from Enterobacter to Klebsiella in 2017.",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-06-11",
+  "modifiedDate": "2026-11-15",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -20,8 +20,8 @@
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
           "conceptCode": "62592009",
-          "validStartDate": "20020131",
-          "validEndDate": "20991231",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
@@ -77,6 +77,12 @@
         "date": "2026-06-11",
         "author": "Boris Delange",
         "message": "Anchor the expression on the SNOMED concept with descendants (replacing the flat list); rename subcategory to Bacteria; moved to pending review."
+      },
+      {
+        "version": "1.1.1",
+        "date": "2026-11-15",
+        "author": "Boris Delange",
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 1 concept name updated by the vocabulary (e.g. 'Multiple drug-resistant Klebsiella aerogenes' -> 'Multidrug-resistant Klebsiella aerogenes')."
       }
     ],
     "distributionStats": null

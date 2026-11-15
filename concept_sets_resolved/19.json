@@ -1,8 +1,8 @@
 {
   "conceptSetId": 19,
   "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+    "release": "v5.0 29-AUG-26",
+    "SNOMED": "2026-02-01 SNOMED CT International Edition; 2026-03-01 SNOMED CT US Edition; 2026-04-08 SNOMED CT UK Edition"
   },
   "resolvedConcepts": [
     {
@@ -501,8 +501,17 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 37471653,
+      "conceptName": "Upper gastrointestinal hemorrhage due to cirrhosis of liver",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1370994002",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 42539566,
-      "conceptName": "Cirrhosis of liver with primary sclerosing cholangitis",
+      "conceptName": "Cirrhosis of liver due to primary sclerosing cholangitis",
       "vocabularyId": "SNOMED",
       "domainId": "Condition",
       "conceptClassId": "Disorder",

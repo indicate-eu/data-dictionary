@@ -1,9 +1,9 @@
 {
   "conceptSetId": 71,
   "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "RxNorm": "RxNorm 20260105",
-    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+    "release": "v5.0 29-AUG-26",
+    "RxNorm": "RxNorm 20260601",
+    "RxNorm Extension": "RxNorm Extension 2026-06-05"
   },
   "resolvedConcepts": [
     {
@@ -7549,15 +7549,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 43693194,
-      "conceptName": "Cefazolin 1 MG/MG [Cefazolin Mip]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP947529",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 43693195,
       "conceptName": "Cefazolin 1 MG/MG Injectable Solution [Cefazolin Hospira] Box of 10",
       "vocabularyId": "RxNorm Extension",
@@ -7618,15 +7609,6 @@
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
       "conceptCode": "OMOP741592",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43706571,
-      "conceptName": "2100 MG Cefazolin 1 MG/MG Injectable Solution [Cefazolin-Mip]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP879194",
       "standardConcept": "S"
     },
     {
@@ -8107,24 +8089,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 43814500,
-      "conceptName": "2100 MG Cefazolin 1 MG/MG Injectable Solution [Cefazolin-Mip] by MIP",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Marketed Product",
-      "conceptCode": "OMOP879195",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43819123,
-      "conceptName": "Cefazolin Injectable Solution [Cefazolin-Mip]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Form",
-      "conceptCode": "OMOP947488",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 43819124,
       "conceptName": "Cefazolin 200 MG/ML [Cefodinin]",
       "vocabularyId": "RxNorm Extension",
@@ -8275,15 +8239,6 @@
       "domainId": "Drug",
       "conceptClassId": "Branded Drug Comp",
       "conceptCode": "OMOP947526",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43855229,
-      "conceptName": "Cefazolin 1 MG/MG Injectable Solution [Cefazolin Mip]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP947546",
       "standardConcept": "S"
     },
     {

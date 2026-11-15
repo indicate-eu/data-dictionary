@@ -1,8 +1,8 @@
 {
   "conceptSetId": 25,
   "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+    "release": "v5.0 29-AUG-26",
+    "SNOMED": "2026-02-01 SNOMED CT International Edition; 2026-03-01 SNOMED CT US Edition; 2026-04-08 SNOMED CT UK Edition"
   },
   "resolvedConcepts": [
     {
@@ -15,48 +15,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 133158,
-      "conceptName": "Plasma cell leukemia in remission",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "95209008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 436059,
-      "conceptName": "Multiple myeloma in remission",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "94704006",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 437233,
       "conceptName": "Multiple myeloma",
       "vocabularyId": "SNOMED",
       "domainId": "Condition",
       "conceptClassId": "Disorder",
       "conceptCode": "109989006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 760936,
-      "conceptName": "Plasma cell leukemia in relapse",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "122981000119101",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 764229,
-      "conceptName": "Relapse multiple myeloma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "452291000124109",
       "standardConcept": "S"
     },
     {
@@ -165,15 +129,6 @@
       "domainId": "Condition",
       "conceptClassId": "Disorder",
       "conceptCode": "441313008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42538151,
-      "conceptName": "Osteoporosis co-occurrent and due to multiple myeloma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "739301006",
       "standardConcept": "S"
     }
   ]

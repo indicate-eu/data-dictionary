@@ -1,9 +1,9 @@
 {
   "conceptSetId": 83,
   "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "RxNorm": "RxNorm 20260105",
-    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+    "release": "v5.0 29-AUG-26",
+    "RxNorm": "RxNorm 20260601",
+    "RxNorm Extension": "RxNorm Extension 2026-06-05"
   },
   "resolvedConcepts": [
     {
@@ -5479,15 +5479,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36922848,
-      "conceptName": "doxycycline 100 MG Oral Capsule [Vibramycin]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5200617",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 36926065,
       "conceptName": "betamethasone 0.0005 MG/MG / doxycycline 0.1 MG/MG / nystatin 0.02 MG/MG Mouthwash",
       "vocabularyId": "RxNorm Extension",
@@ -5548,15 +5539,6 @@
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
       "conceptCode": "OMOP5200614",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36942995,
-      "conceptName": "doxycycline 20 MG Oral Tablet [Periostat]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5200578",
       "standardConcept": "S"
     },
     {
@@ -5692,15 +5674,6 @@
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
       "conceptCode": "OMOP5200584",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36959043,
-      "conceptName": "doxycycline 50 MG Oral Capsule [Vibramycin]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5200590",
       "standardConcept": "S"
     },
     {

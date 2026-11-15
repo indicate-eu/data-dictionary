@@ -1,8 +1,8 @@
 {
   "conceptSetId": 382,
   "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+    "release": "v5.0 29-AUG-26",
+    "SNOMED": "2026-02-01 SNOMED CT International Edition; 2026-03-01 SNOMED CT US Edition; 2026-04-08 SNOMED CT UK Edition"
   },
   "resolvedConcepts": [
     {
@@ -30,15 +30,6 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "840684000",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 3655075,
-      "conceptName": "Multidrug-resistant Salmonella paratyphi",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "840687007",
       "standardConcept": "S"
     },
     {
@@ -23853,6 +23844,69 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "787906003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37465521,
+      "conceptName": "Multidrug-resistant Salmonella Paratyphi A",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "1367983004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37465522,
+      "conceptName": "Multidrug-resistant Salmonella Paratyphi B",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "1367984005",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37465523,
+      "conceptName": "Multidrug-resistant Salmonella Paratyphi C",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "1367985006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37468085,
+      "conceptName": "Salmonella Tirat-Zvi",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "235941000112109",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37468144,
+      "conceptName": "Salmonella group O:9, not Salmonella Typhi",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "261000112102",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37468286,
+      "conceptName": "Salmonella Epalinges",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "317701000112100",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37468348,
+      "conceptName": "Salmonella enterica subspecies enterica serovar O rough:r:e,n,x",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "358481000112106",
       "standardConcept": "S"
     },
     {

@@ -2,11 +2,11 @@
   "id": 123,
   "name": "Insulin Aspart, Human",
   "description": null,
-  "version": "1.0.1",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-11-14",
+  "modifiedDate": "2026-11-15",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -106,6 +106,12 @@
         "date": "2026-04-09",
         "author": "Boris Delange",
         "message": "Changed concept set definition from specific Clinical Drug concepts to the RxNorm Ingredient with all descendants included."
+      },
+      {
+        "version": "1.1.0",
+        "date": "2026-11-15",
+        "author": "Boris Delange",
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 794 -> 797 concepts. Added 3 (new or reclassified descendants in the new release): Niacinamide 3 ML insulin aspart, human 100 UNT/ML Cartridge (1316467); Niacinamide 3 ML insulin aspart, human 100 UNT/ML Pen Injector (1316468); Niacinamide insulin aspart, human 100 UNT/ML Injectable Solution (1316469). 3 concept names updated by the vocabulary (e.g. 'insulin aspart, human 100 UNT/ML Injectable Solution [Fiasp]' -> 'Niacinamide insulin aspart, human 100 UNT/ML Injectable Solution [Fiasp]')."
       }
     ],
     "distributionStats": null

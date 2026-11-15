@@ -2,11 +2,11 @@
   "id": 243,
   "name": "Klebsiella pneumoniae",
   "description": null,
-  "version": "1.1.0",
+  "version": "1.2.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-06-11",
+  "modifiedDate": "2026-11-15",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -20,8 +20,8 @@
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
           "conceptCode": "56415008",
-          "validStartDate": "20020131",
-          "validEndDate": "20991231",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
@@ -77,6 +77,12 @@
         "date": "2026-06-11",
         "author": "Boris Delange",
         "message": "Anchor the expression on the SNOMED concept with descendants (replacing the flat list); rename subcategory to Bacteria; moved to pending review."
+      },
+      {
+        "version": "1.2.0",
+        "date": "2026-11-15",
+        "author": "Boris Delange",
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 13 -> 15 concepts. Added 2 (new or reclassified descendants in the new release): Extended spectrum beta-lactamase producing Klebsiella pneumoniae subspecies ozaenae (37464355); Carbapenemase-producing Klebsiella pneumoniae subsp. ozaenae (37464356). 2 concept names updated by the vocabulary (e.g. 'Multiple drug-resistant Klebsiella pneumoniae subsp. ozaenae' -> 'Multidrug-resistant Klebsiella pneumoniae subsp. ozaenae')."
       }
     ],
     "distributionStats": null

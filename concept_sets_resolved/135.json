@@ -1,9 +1,9 @@
 {
   "conceptSetId": 135,
   "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "RxNorm": "RxNorm 20260105",
-    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+    "release": "v5.0 29-AUG-26",
+    "RxNorm": "RxNorm 20260601",
+    "RxNorm Extension": "RxNorm Extension 2026-06-05"
   },
   "resolvedConcepts": [
     {
@@ -6196,15 +6196,6 @@
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug",
       "conceptCode": "OMOP277115",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 21115747,
-      "conceptName": "Morphine 10 MG/ML [Depodur]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug Comp",
-      "conceptCode": "OMOP277176",
       "standardConcept": "S"
     },
     {
@@ -16954,15 +16945,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36921056,
-      "conceptName": "morphine 100 MG Extended Release Oral Tablet [MST Continus]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5186417",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 36921624,
       "conceptName": "morphine 20 MG Oral Tablet [Actimorph] by Ethypharm",
       "vocabularyId": "RxNorm Extension",
@@ -17026,15 +17008,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36926604,
-      "conceptName": "morphine 15 MG Extended Release Oral Tablet [MST Continus]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5186362",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 36929244,
       "conceptName": "morphine 1 MG Disintegrating Oral Tablet Box of 56",
       "vocabularyId": "RxNorm Extension",
@@ -17095,15 +17068,6 @@
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Box",
       "conceptCode": "OMOP5186400",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36932008,
-      "conceptName": "morphine 60 MG Extended Release Oral Tablet [MST Continus]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5186409",
       "standardConcept": "S"
     },
     {
@@ -17197,15 +17161,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36935349,
-      "conceptName": "morphine 200 MG Extended Release Oral Capsule [Zomorph]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5186421",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 36936040,
       "conceptName": "1 ML morphine 10 MG/ML Injectable Solution by Kent",
       "vocabularyId": "RxNorm Extension",
@@ -17275,15 +17230,6 @@
       "domainId": "Drug",
       "conceptClassId": "Branded Drug",
       "conceptCode": "OMOP5186367",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36940815,
-      "conceptName": "morphine 50 MG Oral Tablet [Sevredol]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5186401",
       "standardConcept": "S"
     },
     {
@@ -17374,15 +17320,6 @@
       "domainId": "Drug",
       "conceptClassId": "Marketed Product",
       "conceptCode": "OMOP5186312",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36948939,
-      "conceptName": "morphine 10 MG Extended Release Oral Tablet [MST Continus]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5186352",
       "standardConcept": "S"
     },
     {
@@ -17494,15 +17431,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36956051,
-      "conceptName": "morphine 200 MG Extended Release Oral Tablet [MST Continus]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5186425",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 36956145,
       "conceptName": "morphine 5 MG Oral Tablet [Actimorph] Box of 56 by Ethypharm",
       "vocabularyId": "RxNorm Extension",
@@ -17602,15 +17530,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36962117,
-      "conceptName": "morphine 5 MG Extended Release Oral Tablet [MST Continus]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5186333",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 36964475,
       "conceptName": "morphine 1 MG",
       "vocabularyId": "RxNorm Extension",
@@ -17674,15 +17593,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36967680,
-      "conceptName": "morphine 30 MG Extended Release Oral Tablet [MST Continus]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5186392",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 36968040,
       "conceptName": "morphine 20 MG Oral Tablet [Actimorph] Box of 56 by Ethypharm",
       "vocabularyId": "RxNorm Extension",
@@ -17698,24 +17608,6 @@
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug",
       "conceptCode": "OMOP5186371",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36968385,
-      "conceptName": "morphine 20 MG Oral Tablet [Sevredol]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5186377",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36968474,
-      "conceptName": "morphine 10 MG Extended Release Oral Capsule [Zomorph]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5186348",
       "standardConcept": "S"
     },
     {
@@ -48715,15 +48607,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 43264157,
-      "conceptName": "1 ML Morphine 10 MG/ML Injection [Depodur]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Quant Branded Drug",
-      "conceptCode": "OMOP560457",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 43264323,
       "conceptName": "5 ML Morphine 10 MG/ML Injection by Juno",
       "vocabularyId": "RxNorm Extension",
@@ -50485,15 +50368,6 @@
       "domainId": "Drug",
       "conceptClassId": "Clinical Drug Box",
       "conceptCode": "OMOP539641",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43289150,
-      "conceptName": "Morphine 10 MG/ML Injection [Depodur]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP539663",
       "standardConcept": "S"
     },
     {

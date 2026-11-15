@@ -2,11 +2,11 @@
   "id": 167,
   "name": "Coagulation factor V activity",
   "description": "Functional clotting activity of factor V ; distinct from factor V antigen (immunological quantity)",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-08-13",
+  "modifiedDate": "2026-11-15",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -32,15 +32,15 @@
       {
         "concept": {
           "conceptId": 3006924,
-          "conceptName": "Coagulation factor V activated [Units/volume] in Platelet poor plasma by Coagulation assay",
+          "conceptName": "Coagulation factor V activity [Units/volume] in Platelet poor plasma by Coagulation assay",
           "domainId": "Measurement",
           "vocabularyId": "LOINC",
           "conceptClassId": "Lab Test",
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
           "conceptCode": "3192-2",
-          "validStartDate": "19700101",
-          "validEndDate": "20991231",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
@@ -96,6 +96,12 @@
         "date": "2026-08-13",
         "author": "Boris Delange",
         "message": "Exclude concept 3006924 / 3192-2 — Coagulation factor V activated [Units/volume] in Platelet poor plasma by Coagulation assay. It reports an activity concentration in arbitrary units, which UCUM defines as non-convertible and IUPAC/IFCC as a procedure-defined unit, so no reliable equivalence to the actual/normal ratio kept in this set can be stated. Laboratories report factor V as a percentage of normal and no source documents reference values in [arb'U]/mL; if a provider does report this concept, it warrants its own concept set."
+      },
+      {
+        "version": "1.2.1",
+        "date": "2026-11-15",
+        "author": "Boris Delange",
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). Expression concept metadata refreshed from the vocabulary (1 renamed, e.g. 'Coagulation factor V activated [Units/volume] in Platelet poor plasma by Coagulation assay' -> 'Coagulation factor V activity [Units/volume] in Platelet poor plasma by Coagulation assay')."
       }
     ],
     "distributionStats": null

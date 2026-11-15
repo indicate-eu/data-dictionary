@@ -1,9 +1,9 @@
 {
   "conceptSetId": 107,
   "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "RxNorm": "RxNorm 20260105",
-    "RxNorm Extension": "RxNorm Extension 2026-01-14"
+    "release": "v5.0 29-AUG-26",
+    "RxNorm": "RxNorm 20260601",
+    "RxNorm Extension": "RxNorm Extension 2026-06-05"
   },
   "resolvedConcepts": [
     {
@@ -148,6 +148,15 @@
       "domainId": "Drug",
       "conceptClassId": "Quant Clinical Drug",
       "conceptCode": "OMOP5216913",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 1316554,
+      "conceptName": "tetracycline hydrochloride 30 MG/ML Topical Solution",
+      "vocabularyId": "RxNorm",
+      "domainId": "Drug",
+      "conceptClassId": "Clinical Drug",
+      "conceptCode": "2732213",
       "standardConcept": "S"
     },
     {
@@ -1939,15 +1948,6 @@
       "domainId": "Drug",
       "conceptClassId": "Branded Pack",
       "conceptCode": "OMOP996721",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 36920909,
-      "conceptName": "tetracycline 2.2 MG/ML Topical Solution [Topicycline]",
-      "vocabularyId": "RxNorm Extension",
-      "domainId": "Drug",
-      "conceptClassId": "Branded Drug",
-      "conceptCode": "OMOP5201813",
       "standardConcept": "S"
     },
     {

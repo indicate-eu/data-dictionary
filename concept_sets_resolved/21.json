@@ -1,8 +1,8 @@
 {
   "conceptSetId": 21,
   "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+    "release": "v5.0 29-AUG-26",
+    "SNOMED": "2026-02-01 SNOMED CT International Edition; 2026-03-01 SNOMED CT US Edition; 2026-04-08 SNOMED CT UK Edition"
   },
   "resolvedConcepts": [
     {
@@ -294,15 +294,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4224096,
-      "conceptName": "Kaposi's sarcoma with AIDS (acquired immunodeficiency syndrome)",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "420524008",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 4224240,
       "conceptName": "Presenile dementia with AIDS (acquired immunodeficiency syndrome)",
       "vocabularyId": "SNOMED",
@@ -435,24 +426,6 @@
       "domainId": "Condition",
       "conceptClassId": "Disorder",
       "conceptCode": "421998001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4226357,
-      "conceptName": "Malignant neoplasm with AIDS (acquired immunodeficiency syndrome)",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "422282000",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4226388,
-      "conceptName": "Reticulosarcoma with AIDS (acquired immunodeficiency syndrome)",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "420302007",
       "standardConcept": "S"
     },
     {
@@ -606,15 +579,6 @@
       "domainId": "Condition",
       "conceptClassId": "Disorder",
       "conceptCode": "422127002",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4227969,
-      "conceptName": "Primary lymphoma of brain with AIDS (acquired immunodeficiency syndrome)",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "421283008",
       "standardConcept": "S"
     },
     {

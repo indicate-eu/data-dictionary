@@ -2,11 +2,11 @@
   "id": 229,
   "name": "[Deprecated] Corynebacterium species",
   "description": "Deprecated — genus-level set too broad; overlaps the species sets. Use the species-specific Corynebacterium sets (e.g. Corynebacterium amycolatum, Corynebacterium striatum) instead.",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-06-11",
+  "modifiedDate": "2026-11-15",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -20,8 +20,8 @@
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
           "conceptCode": "77086004",
-          "validStartDate": "20020131",
-          "validEndDate": "20991231",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
@@ -77,6 +77,12 @@
         "date": "2026-06-11",
         "author": "Boris Delange",
         "message": "Deprecated: genus-level Corynebacterium set is too broad and overlaps the per-species Corynebacterium sets."
+      },
+      {
+        "version": "1.2.0",
+        "date": "2026-11-15",
+        "author": "Boris Delange",
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 160 -> 159 concepts. Removed 1 concept made non-standard, mapping outside the set (Agromyces mediolanus (4138166)): Corynebacterium mediolanum (4348157). 4 concept names updated by the vocabulary (e.g. 'Corynebacterium diphtheriae type mitis' -> 'Corynebacterium diphtheriae biotype mitis')."
       }
     ],
     "distributionStats": null

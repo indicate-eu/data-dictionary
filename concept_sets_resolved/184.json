@@ -1,8 +1,8 @@
 {
   "conceptSetId": 184,
   "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "LOINC": "LOINC 2.80"
+    "release": "v5.0 29-AUG-26",
+    "LOINC": "LOINC 2.82"
   },
   "resolvedConcepts": [
     {
@@ -52,7 +52,7 @@
     },
     {
       "conceptId": 40762352,
-      "conceptName": "Hemoglobin A1c/Hemoglobin.total in Blood by IFCC protocol",
+      "conceptName": "Hemoglobin A1c/Hemoglobin.total standardized per IFCC-RMP for CDT in Blood",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Lab Test",

@@ -2,11 +2,11 @@
   "id": 254,
   "name": "[Deprecated] Serratia (genus)",
   "description": "Deprecated — genus-level set too broad; overlaps the species sets. Use the species-specific Serratia sets (e.g. Serratia marcescens, Serratia liquefaciens) instead.",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-06-11",
+  "modifiedDate": "2026-11-15",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -602,7 +602,7 @@
       {
         "concept": {
           "conceptId": 37395793,
-          "conceptName": "Multiple drug-resistant Serratia marcescens",
+          "conceptName": "Multidrug-resistant Serratia marcescens",
           "domainId": "Observation",
           "vocabularyId": "SNOMED",
           "conceptClassId": "Organism",
@@ -704,6 +704,12 @@
         "date": "2026-06-11",
         "author": "Boris Delange",
         "message": "Deprecated: genus-level Serratia set is too broad and overlaps the per-species Serratia sets. Use the species-specific sets instead."
+      },
+      {
+        "version": "1.1.1",
+        "date": "2026-11-15",
+        "author": "Boris Delange",
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 1 concept name updated by the vocabulary (e.g. 'Multiple drug-resistant Serratia marcescens' -> 'Multidrug-resistant Serratia marcescens'). Expression concept metadata refreshed from the vocabulary (1 renamed, e.g. 'Multiple drug-resistant Serratia marcescens' -> 'Multidrug-resistant Serratia marcescens')."
       }
     ],
     "distributionStats": null

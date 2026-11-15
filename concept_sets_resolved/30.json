@@ -1,8 +1,8 @@
 {
   "conceptSetId": 30,
   "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+    "release": "v5.0 29-AUG-26",
+    "SNOMED": "2026-02-01 SNOMED CT International Edition; 2026-03-01 SNOMED CT US Edition; 2026-04-08 SNOMED CT UK Edition"
   },
   "resolvedConcepts": [
     {
@@ -79,7 +79,7 @@
     },
     {
       "conceptId": 765478,
-      "conceptName": "Diabetes mellitus caused by drug without complication",
+      "conceptName": "Drug-induced diabetes mellitus without complication",
       "vocabularyId": "SNOMED",
       "domainId": "Condition",
       "conceptClassId": "Disorder",
@@ -93,15 +93,6 @@
       "domainId": "Condition",
       "conceptClassId": "Disorder",
       "conceptCode": "1303868000",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 1244603,
-      "conceptName": "Presymptomatic type 1 diabetes mellitus",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1290118005",
       "standardConcept": "S"
     },
     {
@@ -303,6 +294,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 4128019,
+      "conceptName": "Brittle type 1 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "290002008",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4129378,
       "conceptName": "Transient neonatal diabetes mellitus",
       "vocabularyId": "SNOMED",
@@ -381,15 +381,6 @@
       "domainId": "Condition",
       "conceptClassId": "Disorder",
       "conceptCode": "33559001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4143529,
-      "conceptName": "Diabetes mellitus associated with cystic fibrosis",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "426705001",
       "standardConcept": "S"
     },
     {
@@ -673,7 +664,7 @@
     },
     {
       "conceptId": 37165632,
-      "conceptName": "Juvenile-onset diabetes mellitus, central and peripheral neurodegeneration syndrome",
+      "conceptName": "Type 1 diabetes mellitus, central and peripheral neurodegeneration syndrome",
       "vocabularyId": "SNOMED",
       "domainId": "Condition",
       "conceptClassId": "Disorder",
@@ -696,24 +687,6 @@
       "domainId": "Condition",
       "conceptClassId": "Disorder",
       "conceptCode": "1285519007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37174264,
-      "conceptName": "Diabetes mellitus type 1 stage 1",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "721111000124107",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37174265,
-      "conceptName": "Diabetes mellitus type 1 stage 2",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "721121000124104",
       "standardConcept": "S"
     },
     {
@@ -771,12 +744,48 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 37471539,
+      "conceptName": "Diabetes mellitus due to chronic pancreatitis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "1367802006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40482801,
+      "conceptName": "Uncontrolled type 2 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "443694000",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 40482883,
       "conceptName": "Posttransplant diabetes mellitus",
       "vocabularyId": "SNOMED",
       "domainId": "Condition",
       "conceptClassId": "Disorder",
       "conceptCode": "445260006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40483315,
+      "conceptName": "Brittle type 2 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "445353002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 40484648,
+      "conceptName": "Uncontrolled type 1 diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "444073006",
       "standardConcept": "S"
     },
     {
@@ -804,6 +813,15 @@
       "domainId": "Condition",
       "conceptClassId": "Disorder",
       "conceptCode": "737212004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 43020791,
+      "conceptName": "Uncontrolled gestational diabetes mellitus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Condition",
+      "conceptClassId": "Disorder",
+      "conceptCode": "472699005",
       "standardConcept": "S"
     },
     {
@@ -939,15 +957,6 @@
       "domainId": "Condition",
       "conceptClassId": "Disorder",
       "conceptCode": "609581006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 43531597,
-      "conceptName": "Disorder due to well controlled type 2 diabetes mellitus",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "201000119106",
       "standardConcept": "S"
     },
     {
@@ -1123,7 +1132,7 @@
     },
     {
       "conceptId": 45766051,
-      "conceptName": "Type I diabetes mellitus in remission",
+      "conceptName": "Type 1 diabetes mellitus in remission",
       "vocabularyId": "SNOMED",
       "domainId": "Condition",
       "conceptClassId": "Disorder",
@@ -1132,7 +1141,7 @@
     },
     {
       "conceptId": 45766052,
-      "conceptName": "Type II diabetes mellitus in remission",
+      "conceptName": "Type 2 diabetes mellitus in remission",
       "vocabularyId": "SNOMED",
       "domainId": "Condition",
       "conceptClassId": "Disorder",

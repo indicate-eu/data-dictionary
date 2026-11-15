@@ -1,8 +1,8 @@
 {
   "conceptSetId": 37,
   "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "RxNorm": "RxNorm 20260105"
+    "release": "v5.0 29-AUG-26",
+    "RxNorm": "RxNorm 20260601"
   },
   "resolvedConcepts": [
     {
