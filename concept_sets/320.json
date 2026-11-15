@@ -188,6 +188,19 @@
         "status": "needs_revision",
         "comments": "A measurement quality criterion is needed: a plateau lasting at least 0.3–0.5 s. Driving pressure is missing.",
         "version": "1.2.0"
+      },
+      {
+        "reviewId": 4,
+        "reviewer": {
+          "firstName": "Boris",
+          "lastName": "Delange",
+          "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+          "profession": "Medical Informatics and Intensive Care Physician",
+          "orcid": "0009-0002-6055-6935"
+        },
+        "reviewTimestamp": "2026-11-15T12:00:00.000Z",
+        "comments": "**Reply to the review of Gregor Lichtner**\n\n**37040392** is a LOINC classification concept (LOINC hierarchy node LP409162-7): it only anchors the expansion to its two descendants, **36304439** / 60829-9 *Pressure.plateau Respiratory system airway* and **36303946** / 76259-1 *Pressure.plateau Respiratory system airway --on ventilator*, added following issue #23. Since PR #34, `resolve.py` leaves classification concepts out of the resolved lists, so 37040392 no longer appears among the resolved concepts: the set resolves to 6 standard Measurement concepts.\n\nCould you check and update your verdict?",
+        "version": "1.2.0"
       }
     ],
     "versions": [

@@ -554,6 +554,19 @@
         "status": "approved",
         "comments": "",
         "version": "1.0.1"
+      },
+      {
+        "reviewId": 3,
+        "reviewer": {
+          "firstName": "Boris",
+          "lastName": "Delange",
+          "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+          "profession": "Medical Informatics and Intensive Care Physician",
+          "orcid": "0009-0002-6055-6935"
+        },
+        "reviewTimestamp": "2026-11-15T12:00:00.000Z",
+        "comments": "**Reply to the review of Maxim Moinat**\n\nCould you share the blood pressure concepts you found in the Erasmus MC data that this set does not cover? We will add those that are standard systolic arterial pressure concepts.\n\nOn **4298391** *Arterial blood pressure* (SNOMED 386534000), raised for set 328: it is the parent of **4217013** *Systolic arterial pressure*, already in this set, but it is not a systolic value itself. A value mapped to it can be systolic, diastolic or mean, so it belongs in neither the systolic nor the mean arterial pressure set.",
+        "version": "1.0.0"
       }
     ],
     "versions": [

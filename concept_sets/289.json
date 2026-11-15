@@ -122,6 +122,19 @@
         "status": "needs_revision",
         "comments": "## Summary\n**Needs revision.** Please restrict the set to 37164964, 37168078 and 4089048 as decided by our clinician ([issue #22](https://github.com/indicate-eu/data-dictionary/issues/22)): the other seven descendants are outpatient or unrelated consultations. Our CQL (QI08) uses exactly these three concepts.\n\n## Use in our quality indicators\n- Used in QI08 (Advance care plan).\n- CQL: 3 of 10 concepts are referenced in [`IndicateQi08AdvanceCarePlan.cql`](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi08AdvanceCarePlan.cql?plain=1): [4089048](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi08AdvanceCarePlan.cql?plain=1#L21), [37164964](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi08AdvanceCarePlan.cql?plain=1#L19), [37168078](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi08AdvanceCarePlan.cql?plain=1#L20) (each ID links to its code definition).\n- Not used by our indicators and not reviewed individually (7): 764768 Pharmacokinetic consultation, 764769 Risk evaluation and mitigation strategy consultation, 1450350 Group face to face consultation, 4027135 Subsequent hospital visit by physician, 4211804 Consultation for unaccompanied minor, 37208165 Consultation for suicide risk management, 40489429 Telemedicine consultation with patient.\n\n## Suggestions\n- Restrict the expression to 37164964, 37168078 and 4089048 (no descendants).\n",
         "version": "1.1.0"
+      },
+      {
+        "reviewId": 2,
+        "reviewer": {
+          "firstName": "Boris",
+          "lastName": "Delange",
+          "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+          "profession": "Medical Informatics and Intensive Care Physician",
+          "orcid": "0009-0002-6055-6935"
+        },
+        "reviewTimestamp": "2026-11-15T12:00:00.000Z",
+        "comments": "**Reply to the review of Gregor Lichtner**\n\nDone in v1.2.0: the set is restricted to **37164964** *Consultation with patient*, **37168078** *Face to face consultation with patient* and **4089048** *New patient consultation*, without descendants, as decided in issue #22. These are exactly the three concepts QI08 uses; the seven outpatient or unrelated descendants are gone.\n\nCould you check v1.2.0 and update your verdict?",
+        "version": "1.1.0"
       }
     ],
     "versions": [

@@ -84,6 +84,19 @@
         "status": "needs_revision",
         "comments": "## Summary\n**Needs revision.** Proposal ([issue #24](https://github.com/indicate-eu/data-dictionary/issues/24)): map the Ramsay scale to SNOMED 4105091 (Measurement domain, consistent with the other sedation/pain scales) instead of LOINC 1091379 (Observation domain). Note that 4105091 is currently an explicit exclusion in this set. Our CQL (QI07) uses 4105091, so no concept of the current set is referenced.\n\n## Use in our quality indicators\n- Used in QI07 (Pain, sedation, delirium).\n- CQL: no concept of this set is referenced by our libraries.\n\n## Suggestions\n- Replace LOINC 1091379 by SNOMED 4105091 (Measurement domain), see [issue #24](https://github.com/indicate-eu/data-dictionary/issues/24).\n",
         "version": "1.1.0"
+      },
+      {
+        "reviewId": 2,
+        "reviewer": {
+          "firstName": "Boris",
+          "lastName": "Delange",
+          "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+          "profession": "Medical Informatics and Intensive Care Physician",
+          "orcid": "0009-0002-6055-6935"
+        },
+        "reviewTimestamp": "2026-11-15T12:00:00.000Z",
+        "comments": "**Reply to the review of Gregor Lichtner**\n\nDone in v1.2.0: the set now holds the single SNOMED concept **4105091** *Ramsay sedation scale* (Measurement domain), the one QI07 uses, in place of the LOINC Survey concept 1091379 (Observation domain). This aligns it with the other sedation, pain and delirium scales (issues #19, #24).\n\nCould you check v1.2.0 and update your verdict?",
+        "version": "1.1.0"
       }
     ],
     "versions": [

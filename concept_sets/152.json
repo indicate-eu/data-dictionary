@@ -103,6 +103,19 @@
         "status": "needs_revision",
         "comments": "## Summary\n**Needs revision** Should \"37078026\tOxygen | Blood arterial | Chemistry - non-challenge\" be really part of the concept set? The two other concepts are otherwise approved.\n\n## Use in our quality indicators\n- Used in QI01 (Lung-protective ventilation in ARDS).\n- CQL: 2 of 3 concepts are referenced in [`IndicateQi01Ventilation.cql`](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi01Ventilation.cql?plain=1): [3022803](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi01Ventilation.cql?plain=1#L38), [3027801](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQi01Ventilation.cql?plain=1#L37) (each ID links to its code definition).\n- Not used by our indicators and not reviewed individually (1): 37078026 Oxygen | Blood arterial | Chemistry - non-challenge (classification concept). **shouldn't this be removed?**\n\n## Suggestions\n- None for the set itself; the unused concepts are a scope decision of our indicators, not a defect of the set.\n",
         "version": "1.2.0"
+      },
+      {
+        "reviewId": 2,
+        "reviewer": {
+          "firstName": "Boris",
+          "lastName": "Delange",
+          "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+          "profession": "Medical Informatics and Intensive Care Physician",
+          "orcid": "0009-0002-6055-6935"
+        },
+        "reviewTimestamp": "2026-11-15T12:00:00.000Z",
+        "comments": "**Reply to the review of Gregor Lichtner**\n\n**37078026** is a LOINC classification concept (a node of the LOINC hierarchy): it only anchors the expansion to its descendants and is not itself a member of the set. Since PR #34, `resolve.py` leaves classification concepts out of the resolved lists, so the set now resolves to exactly the two concepts QI01 uses: **3027801** *Oxygen [Partial pressure] in Arterial blood* and **3022803** *Oxygen [Partial pressure] adjusted to patient's actual temperature in Arterial blood*. The third descendant, **3015968** (pO2 at 50% saturation, i.e. P50, a different quantity), is excluded.\n\nWe keep the anchor rather than a flat list so that any arterial pO2 code LOINC adds later is picked up at the next vocabulary update.\n\nCould you check and update your verdict?",
+        "version": "1.2.0"
       }
     ],
     "versions": [],

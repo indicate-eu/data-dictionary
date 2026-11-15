@@ -276,6 +276,19 @@
         "status": "needs_revision",
         "comments": "Total PEEP should be distinguished where possible.",
         "version": "1.1.2"
+      },
+      {
+        "reviewId": 5,
+        "reviewer": {
+          "firstName": "Boris",
+          "lastName": "Delange",
+          "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+          "profession": "Medical Informatics and Intensive Care Physician",
+          "orcid": "0009-0002-6055-6935"
+        },
+        "reviewTimestamp": "2026-11-15T12:00:00.000Z",
+        "comments": "**Reply to the reviews of Gregor Lichtner and Nicolas Terzi**\n\n- **LOINC and SNOMED codes meaning the same** (Gregor): we normally keep both when both are standard, so that every site is captured whichever vocabulary it mapped to. Here, v1.2.0 drops the two SNOMED concepts, **4353713** *Positive end expiratory pressure* and **4216746** *Positive end expiratory pressure setting*, because they sit in the Observation domain while the rest of the set is in Measurement. Note for QI01: your CQL still references these two concepts; their counterparts in the set are **3016226** *PEEP Respiratory system* and **3022875** *Positive end expiratory pressure setting Ventilator*.\n- **Total PEEP** (Nicolas): each component has its own concept, so total PEEP can be told apart from set (extrinsic) and intrinsic PEEP: static total PEEP **42527140**, and since v1.3.0 dynamic total PEEP **42528517**, next to the extrinsic (42528515, 42528516) and intrinsic (3035822, 42527139) concepts. A study that needs total PEEP filters on these `concept_id`s.\n\nCould you check v1.3.0 and update your verdicts?",
+        "version": "1.1.2"
       }
     ],
     "versions": [
