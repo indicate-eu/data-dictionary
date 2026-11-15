@@ -16,6 +16,10 @@ concept_ancestor crosses vocabularies, so without this filter a SNOMED anchor pu
 ICDO3, Nebraska Lexicon or SNOMED Veterinary descendants, and an RxNorm ingredient
 pulls in HemOnc regimens. When the key is absent, every vocabulary is kept.
 
+Deprecated concept sets (metadata.reviewStatus == "deprecated") are frozen: a full run
+skips them, so a vocabulary update never rewrites their resolved list. `--id` still
+resolves one explicitly.
+
 Usage:
     python3 resolve.py --vocab /path/to/ohdsi_vocabularies.duckdb
     python3 resolve.py --vocab /path/to/athena_csv_folder
@@ -406,7 +410,14 @@ def main():
     resolved_count = 0
     total_concepts = 0
 
+    skipped_deprecated = []
     for idx, cs_id in enumerate(ids, 1):
+        # Deprecated sets are frozen (see module docstring).
+        with open(os.path.join(CS_DIR, f"{cs_id}.json"), "r", encoding="utf-8") as f:
+            status = ((json.load(f).get("metadata") or {}).get("reviewStatus") or "")
+        if status == "deprecated":
+            skipped_deprecated.append(cs_id)
+            continue
         result = resolve_one(con, cs_id, vocab_version, allowed)
         if result is not None:
             name, count = result
@@ -417,6 +428,9 @@ def main():
     con.close()
 
     print(f"\nResolved {resolved_count}/{total} concept sets -> {total_concepts} total concepts")
+    if skipped_deprecated:
+        print(f"Skipped {len(skipped_deprecated)} deprecated concept sets (frozen): "
+              f"{', '.join(str(i) for i in skipped_deprecated)}")
     print(f"Output: {OUT_DIR}/")
 
 

@@ -2,11 +2,11 @@
   "id": 122,
   "name": "[Deprecated] Insulin Aspart",
   "description": null,
-  "version": "1.1.1",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-11-15",
+  "modifiedDate": "2026-06-10",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -17,13 +17,13 @@
           "domainId": "Drug",
           "vocabularyId": "RxNorm Extension",
           "conceptClassId": "Ingredient",
-          "standardConcept": null,
-          "standardConceptCaption": "Non-Standard",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
           "conceptCode": "OMOP4819461",
           "validStartDate": "1970-01-01",
-          "validEndDate": "2026-01-13",
-          "invalidReason": "D",
-          "invalidReasonCaption": "Invalid"
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
         },
         "isExcluded": false,
         "includeDescendants": true,
@@ -83,12 +83,6 @@
         "date": "2026-06-10",
         "author": "Boris Delange",
         "message": "Deprecated. The source RxNorm Extension ingredient 'insulin aspart' (35198096) was deprecated in OMOP (RxNorm Extension 2026-01-14) and now maps to the standard RxNorm ingredient 'insulin aspart, human' (1567198). As a result this set became equivalent to concept set 123 'Insulin Aspart, Human', which already uses 1567198. Use concept set 123 instead."
-      },
-      {
-        "version": "1.1.1",
-        "date": "2026-11-15",
-        "author": "Boris Delange",
-        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26)."
       }
     ],
     "distributionStats": null

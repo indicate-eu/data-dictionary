@@ -88,7 +88,7 @@
         "version": "1.3.0",
         "date": "2026-11-15",
         "author": "Boris Delange",
-        "message": "Deprecated: the 'any Gram-negative bacterium' set (SNOMED organism hierarchy, ~9100 organisms) duplicates the species-specific sets and is not a protocol variable; Gram stain results are covered by set 240. Resolved list refreshed against OMOP vocabulary v5.0 29-AUG-26."
+        "message": "Deprecated: the 'any Gram-negative bacterium' set (SNOMED organism hierarchy, ~8900 organisms) duplicates the species-specific sets and is not a protocol variable; Gram stain results are covered by set 240."
       }
     ],
     "distributionStats": null

@@ -1,8 +1,8 @@
 {
   "conceptSetId": 238,
   "vocabularyVersion": {
-    "release": "v5.0 29-AUG-26",
-    "SNOMED": "2026-02-01 SNOMED CT International Edition; 2026-03-01 SNOMED CT US Edition; 2026-04-08 SNOMED CT UK Edition"
+    "release": "v5.0 27-FEB-26",
+    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
   },
   "resolvedConcepts": [
     {
@@ -2599,7 +2599,7 @@
     },
     {
       "conceptId": 1448002,
-      "conceptName": "EPEC (Enteropathogenic Escherichia coli) serotype O125:H6",
+      "conceptName": "EPEC (Enteropathogenic Escherichia coli) serotype O125:6",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -3009,6 +3009,15 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "840684000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3655075,
+      "conceptName": "Multidrug-resistant Salmonella paratyphi",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "840687007",
       "standardConcept": "S"
     },
     {
@@ -4371,6 +4380,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 4013647,
+      "conceptName": "Veillonella parvula ss atypica",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "114018001",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4013741,
       "conceptName": "Yersinia enterocolitica serogroup O:5",
       "vocabularyId": "SNOMED",
@@ -4606,7 +4624,7 @@
     },
     {
       "conceptId": 4013868,
-      "conceptName": "Chlamydia pneumoniae",
+      "conceptName": "Chlamydophila pneumoniae",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -4893,6 +4911,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 4014256,
+      "conceptName": "Anaerovibrio glycerini",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "113428005",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4014276,
       "conceptName": "Bordetella hinzii",
       "vocabularyId": "SNOMED",
@@ -5001,12 +5028,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4014560,
-      "conceptName": "Agrobacterium tumefaciens",
+      "conceptId": 4014562,
+      "conceptName": "Anaerovibrio burkinabensis",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "113423001",
+      "conceptCode": "113427000",
       "standardConcept": "S"
     },
     {
@@ -6081,6 +6108,24 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 4015122,
+      "conceptName": "Veillonella parvula ss parvula",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "114019009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4015123,
+      "conceptName": "Veillonella parvula ss rodentium",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "114020003",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4015225,
       "conceptName": "Variovorax",
       "vocabularyId": "SNOMED",
@@ -6208,7 +6253,7 @@
     },
     {
       "conceptId": 4015372,
-      "conceptName": "Chlamydia pecorum",
+      "conceptName": "Chlamydophila pecorum",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -6438,6 +6483,15 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "114149009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4015690,
+      "conceptName": "Porphyromonas cansulci",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "114158002",
       "standardConcept": "S"
     },
     {
@@ -10321,7 +10375,7 @@
     },
     {
       "conceptId": 4017290,
-      "conceptName": "Chlamydia trachomatis serovar L2",
+      "conceptName": "Chlamydia trachomatis, serotype L2",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -10330,7 +10384,7 @@
     },
     {
       "conceptId": 4017398,
-      "conceptName": "Chlamydia trachomatis serovar L3",
+      "conceptName": "Chlamydia trachomatis, serotype L3",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -11895,6 +11949,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 4018389,
+      "conceptName": "Vibrio panaeicida",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "115062001",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4018390,
       "conceptName": "Vibrio scophthalmi",
       "vocabularyId": "SNOMED",
@@ -13012,7 +13075,7 @@
     },
     {
       "conceptId": 4019185,
-      "conceptName": "Chlamydia trachomatis serovar L1",
+      "conceptName": "Chlamydia trachomatis, serotype L1",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -13147,7 +13210,7 @@
     },
     {
       "conceptId": 4019512,
-      "conceptName": "Chlamydia trachomatis serogroup L",
+      "conceptName": "Chlamydia trachomatis, serotype L",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -14506,7 +14569,7 @@
     },
     {
       "conceptId": 4032644,
-      "conceptName": "Chlamydia psittaci",
+      "conceptName": "Chlamydophila psittaci",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -14745,6 +14808,15 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "113699004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4034129,
+      "conceptName": "Shewanella geldimarina",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "113707000",
       "standardConcept": "S"
     },
     {
@@ -15297,6 +15369,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 4034618,
+      "conceptName": "Pseudomonas pseudoalcaligenes ss pseudoalcaligenes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "113934008",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4034623,
       "conceptName": "Spirillum volutans",
       "vocabularyId": "SNOMED",
@@ -15402,6 +15483,15 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "113706009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4034643,
+      "conceptName": "Roseomonas fauriae",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "113712004",
       "standardConcept": "S"
     },
     {
@@ -15963,6 +16053,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 4035107,
+      "conceptName": "Selenomonas acidaminovorans",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "113948008",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4035160,
       "conceptName": "Salmonella Riggil",
       "vocabularyId": "SNOMED",
@@ -16126,7 +16225,7 @@
     },
     {
       "conceptId": 4037906,
-      "conceptName": "Legionella pneumophila serogroup 10",
+      "conceptName": "Legionella pneumophilia serogroup 10",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -16135,7 +16234,7 @@
     },
     {
       "conceptId": 4037907,
-      "conceptName": "Legionella pneumophila serogroup 14",
+      "conceptName": "Legionella pneumophilia serogroup 14",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -16144,7 +16243,7 @@
     },
     {
       "conceptId": 4038275,
-      "conceptName": "Legionella pneumophila serogroup 11",
+      "conceptName": "Legionella pneumophilia serogroup 11",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -16153,7 +16252,7 @@
     },
     {
       "conceptId": 4038276,
-      "conceptName": "Legionella pneumophila serogroup 12",
+      "conceptName": "Legionella pneumophilia serogroup 12",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -16288,7 +16387,7 @@
     },
     {
       "conceptId": 4040167,
-      "conceptName": "Legionella pneumophila serogroup 13",
+      "conceptName": "Legionella pneumophilia serogroup 13",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -17647,7 +17746,7 @@
     },
     {
       "conceptId": 4066043,
-      "conceptName": "Halopseudomonas pertucinogena",
+      "conceptName": "Pseudomonas pertucinogena",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -18165,6 +18264,15 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "277504006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4080978,
+      "conceptName": "Chlamydophila psittaci variant ovis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "18279000",
       "standardConcept": "S"
     },
     {
@@ -19344,6 +19452,15 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "302569002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4116048,
+      "conceptName": "Aeromonas canina",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "302570001",
       "standardConcept": "S"
     },
     {
@@ -21210,15 +21327,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 4140460,
-      "conceptName": "Acetomicrobium mobile",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "427010002",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 4140507,
       "conceptName": "Anaplasma caudatum",
       "vocabularyId": "SNOMED",
@@ -21345,6 +21453,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 4140917,
+      "conceptName": "Aeromonas salmonicida pectinolytica",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "425833004",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4140921,
       "conceptName": "Aeromonas molluscorum",
       "vocabularyId": "SNOMED",
@@ -21423,15 +21540,6 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "426186006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 4141358,
-      "conceptName": "Acetomicrobium thermoterrenum",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "426747002",
       "standardConcept": "S"
     },
     {
@@ -22983,6 +23091,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 4149876,
+      "conceptName": "Pseudomonas pseudoalcaligenes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "30955004",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4150031,
       "conceptName": "Morococcus",
       "vocabularyId": "SNOMED",
@@ -23487,6 +23604,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 4160567,
+      "conceptName": "Oceanibulbus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "431008001",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4160570,
       "conceptName": "Genus Kaistia",
       "vocabularyId": "SNOMED",
@@ -23619,6 +23745,15 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "398620001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4160641,
+      "conceptName": "Chlamydophila",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "372926008",
       "standardConcept": "S"
     },
     {
@@ -25818,6 +25953,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 4164931,
+      "conceptName": "Chlamydophila psittaci variant bovis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "41090000",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4165040,
       "conceptName": "Salmonella Napoli",
       "vocabularyId": "SNOMED",
@@ -25887,6 +26031,15 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "47732006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4165863,
+      "conceptName": "Leptospira interrogans, serogroup Pomona",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "47840007",
       "standardConcept": "S"
     },
     {
@@ -26503,7 +26656,7 @@
     },
     {
       "conceptId": 4171360,
-      "conceptName": "Selenomonas ruminantium subsp. ruminantium",
+      "conceptName": "Selenomonas ruminantium ss. ruminantium",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -27291,6 +27444,15 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "428040003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4176441,
+      "conceptName": "Pseudomonas stanieri",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "42635006",
       "standardConcept": "S"
     },
     {
@@ -28798,7 +28960,7 @@
     },
     {
       "conceptId": 4185294,
-      "conceptName": "Chlamydia abortus",
+      "conceptName": "Chlamydophila abortus",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -28807,7 +28969,7 @@
     },
     {
       "conceptId": 4185296,
-      "conceptName": "Chlamydia caviae",
+      "conceptName": "Chlamydophila caviae",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -29113,7 +29275,7 @@
     },
     {
       "conceptId": 4186544,
-      "conceptName": "Brucella intermedia",
+      "conceptName": "Ochrobactrum intermedium",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -29280,6 +29442,15 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "46515002",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4186878,
+      "conceptName": "Caulobacter crescentus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "413775006",
       "standardConcept": "S"
     },
     {
@@ -29500,7 +29671,7 @@
     },
     {
       "conceptId": 4187464,
-      "conceptName": "Neorhizobium galegae",
+      "conceptName": "Rhizobium galegae",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -34566,6 +34737,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 4200628,
+      "conceptName": "Gluconacetobacter hansenii",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "434264007",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4200637,
       "conceptName": "Gluconacetobacter diazotrophicus",
       "vocabularyId": "SNOMED",
@@ -38202,6 +38382,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 4205632,
+      "conceptName": "Sphingomonas cloacae",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "438268002",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4205634,
       "conceptName": "Vibrio lentus",
       "vocabularyId": "SNOMED",
@@ -38262,6 +38451,15 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "439555004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4205919,
+      "conceptName": "Silicibacter",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "439561001",
       "standardConcept": "S"
     },
     {
@@ -38613,6 +38811,15 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "438095000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4206684,
+      "conceptName": "Rhizobium radiobacter",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "438107000",
       "standardConcept": "S"
     },
     {
@@ -39004,7 +39211,7 @@
     },
     {
       "conceptId": 4207734,
-      "conceptName": "Ruegeria lacuscaerulensis",
+      "conceptName": "Silicibacter lacuscaerulensis",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -39535,7 +39742,7 @@
     },
     {
       "conceptId": 4208929,
-      "conceptName": "Ruegeria pomeroyi",
+      "conceptName": "Silicibacter pomeroyi",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -40156,7 +40363,7 @@
     },
     {
       "conceptId": 4211642,
-      "conceptName": "Chlamydia felis",
+      "conceptName": "Chlamydophila felis",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -41343,6 +41550,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 4216278,
+      "conceptName": "Pseudomonas fulgida",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "415198008",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4216279,
       "conceptName": "Pseudomonas migulae",
       "vocabularyId": "SNOMED",
@@ -41578,7 +41794,7 @@
     },
     {
       "conceptId": 4217378,
-      "conceptName": "Neorhizobium huautlense",
+      "conceptName": "Rhizobium huautlense",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -45151,7 +45367,7 @@
     },
     {
       "conceptId": 4226650,
-      "conceptName": "Rahnella variigena",
+      "conceptName": "Rahnella genomospecies 2",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -46545,6 +46761,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 4229690,
+      "conceptName": "Vitellibacter",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "438314009",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4229695,
       "conceptName": "Xanthomonas arboricola",
       "vocabularyId": "SNOMED",
@@ -46869,6 +47094,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 4230430,
+      "conceptName": "Zymophilus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "438883001",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4230461,
       "conceptName": "Provisional shigella 3065-93",
       "vocabularyId": "SNOMED",
@@ -46983,6 +47217,15 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "439050003",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4230580,
+      "conceptName": "Shigella flexneri 5b [V:7,8]",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "406502005",
       "standardConcept": "S"
     },
     {
@@ -48495,6 +48738,15 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "438472001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4231995,
+      "conceptName": "Pseudomonas, group VA-1",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "90187004",
       "standardConcept": "S"
     },
     {
@@ -50110,7 +50362,7 @@
     },
     {
       "conceptId": 4235522,
-      "conceptName": "Propionispira paucivorans",
+      "conceptName": "Zymophilus paucivorans",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -50119,7 +50371,7 @@
     },
     {
       "conceptId": 4235523,
-      "conceptName": "Propionispira raffinosivorans",
+      "conceptName": "Zymophilus raffinosivorans",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -50718,6 +50970,15 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "406496004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4236132,
+      "conceptName": "Shigella flexneri 5a [V:3,4]",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "406501003",
       "standardConcept": "S"
     },
     {
@@ -52284,6 +52545,15 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "396952006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4246274,
+      "conceptName": "Acetobacter hansenii",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "396953001",
       "standardConcept": "S"
     },
     {
@@ -53971,7 +54241,7 @@
     },
     {
       "conceptId": 4259425,
-      "conceptName": "Xanthomonas sacchari",
+      "conceptName": "Xanthomonas saccari",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -53985,6 +54255,15 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "439696007",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4259433,
+      "conceptName": "Xanthomonas cynarae",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "439716002",
       "standardConcept": "S"
     },
     {
@@ -54115,7 +54394,7 @@
     },
     {
       "conceptId": 4259826,
-      "conceptName": "Aequorivita vladivostokensis",
+      "conceptName": "Vitellibacter vladivostokensis",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -55209,6 +55488,15 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "36282006",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4263866,
+      "conceptName": "Chlamydophila psittaci variant felis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "60927005",
       "standardConcept": "S"
     },
     {
@@ -57597,6 +57885,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 4294982,
+      "conceptName": "Vibrio splindidus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "76238007",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4295221,
       "conceptName": "Salmonella II 39:a:z39",
       "vocabularyId": "SNOMED",
@@ -57630,6 +57927,15 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "76073000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4295663,
+      "conceptName": "Mycoplasma haemosuis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "385447000",
       "standardConcept": "S"
     },
     {
@@ -59046,6 +59352,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 4307402,
+      "conceptName": "Acinetobacter grimontii",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "423329001",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4307512,
       "conceptName": "Salmonella II 1,40:g,t:e,n,x",
       "vocabularyId": "SNOMED",
@@ -59317,7 +59632,7 @@
     },
     {
       "conceptId": 4309850,
-      "conceptName": "Leucotrichaceae",
+      "conceptName": "Thiotrichaceae",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -59457,6 +59772,15 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "85538009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4310692,
+      "conceptName": "Thiotrichales",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "424069004",
       "standardConcept": "S"
     },
     {
@@ -60231,6 +60555,15 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "69891009",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4321455,
+      "conceptName": "Bdellovibrio stolpii",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "9752009",
       "standardConcept": "S"
     },
     {
@@ -61701,6 +62034,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 4328164,
+      "conceptName": "Flexibacter aurantiacus",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "431390009",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4328219,
       "conceptName": "Salmonella Abaetetuba",
       "vocabularyId": "SNOMED",
@@ -62242,7 +62584,7 @@
     },
     {
       "conceptId": 4330238,
-      "conceptName": "Piscirickettsiaceae",
+      "conceptName": "Family Piscirickettsiaceae",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -63249,6 +63591,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 4333751,
+      "conceptName": "Halomonas halodurans",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "431972002",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4333759,
       "conceptName": "Prosthecomicrobium",
       "vocabularyId": "SNOMED",
@@ -63510,6 +63861,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 4334650,
+      "conceptName": "Klebsiella singaporensis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "433047006",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4334655,
       "conceptName": "Chondromyces",
       "vocabularyId": "SNOMED",
@@ -63574,7 +63934,7 @@
     },
     {
       "conceptId": 4334816,
-      "conceptName": "Sulfitobacter indolifex",
+      "conceptName": "Oceanibulbus indolifex",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -64267,7 +64627,7 @@
     },
     {
       "conceptId": 4337658,
-      "conceptName": "Legionella sainthelensi",
+      "conceptName": "Legionella sainthelens",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -64482,6 +64842,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 4348168,
+      "conceptName": "Alcaligenes rhulandii",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "243331004",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4348169,
       "conceptName": "Bartonella bacilliformis",
       "vocabularyId": "SNOMED",
@@ -64635,6 +65004,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 4352630,
+      "conceptName": "Pasteurella lymphangitidis",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "243319001",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4352631,
       "conceptName": "Vibrio mediterranei",
       "vocabularyId": "SNOMED",
@@ -64659,6 +65037,15 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "243328000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4352636,
+      "conceptName": "Sphingobacterium yabuuchiae",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "243347002",
       "standardConcept": "S"
     },
     {
@@ -66903,6 +67290,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 36714398,
+      "conceptName": "Elizabethkingia endophytica",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "719605001",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 36714508,
       "conceptName": "Hydrogen sulfide producing Escherichia coli",
       "vocabularyId": "SNOMED",
@@ -68217,6 +68613,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 37016610,
+      "conceptName": "Sphingobium japonicum",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "6591000146103",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 37016611,
       "conceptName": "Sphingobium olei",
       "vocabularyId": "SNOMED",
@@ -68506,7 +68911,7 @@
     },
     {
       "conceptId": 37017619,
-      "conceptName": "Multidrug-resistant Escherichia coli",
+      "conceptName": "Multiple drug-resistant Escherichia coli",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -68515,7 +68920,7 @@
     },
     {
       "conceptId": 37017620,
-      "conceptName": "Multidrug-resistant Klebsiella pneumoniae subsp. ozaenae",
+      "conceptName": "Multiple drug-resistant Klebsiella pneumoniae subsp. ozaenae",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -68551,7 +68956,7 @@
     },
     {
       "conceptId": 37017939,
-      "conceptName": "Multidrug-resistant Proteus mirabilis",
+      "conceptName": "Multiple drug-resistant Proteus mirabilis",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -68560,7 +68965,7 @@
     },
     {
       "conceptId": 37017940,
-      "conceptName": "Multidrug-resistant Klebsiella pneumoniae",
+      "conceptName": "Multiple drug-resistant Klebsiella pneumoniae",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -68569,7 +68974,7 @@
     },
     {
       "conceptId": 37017941,
-      "conceptName": "Multidrug-resistant Enterobacter asburiae",
+      "conceptName": "Multiple drug-resistant Enterobacter asburiae",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -68578,7 +68983,7 @@
     },
     {
       "conceptId": 37017942,
-      "conceptName": "Multidrug-resistant Enterobacter cloacae",
+      "conceptName": "Multiple drug-resistant Enterobacter cloacae",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -71845,7 +72250,7 @@
     },
     {
       "conceptId": 37158349,
-      "conceptName": "Multidrug-resistant Stenotrophomonas maltophilia",
+      "conceptName": "Multiple drug-resistant Stenotrophomonas maltophilia",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -72057,24 +72462,6 @@
       "domainId": "Observation",
       "conceptClassId": "Organism",
       "conceptCode": "1280014008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37158965,
-      "conceptName": "AmpC beta-lactamase producing Enterobacteriaceae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1284964006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37158966,
-      "conceptName": "AmpC beta-lactamase producing Morganellaceae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1284965007",
       "standardConcept": "S"
     },
     {
@@ -73402,7 +73789,7 @@
     },
     {
       "conceptId": 37395686,
-      "conceptName": "Multidrug-resistant Citrobacter freundii",
+      "conceptName": "Multiple drug-resistant Citrobacter freundii",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -73420,7 +73807,7 @@
     },
     {
       "conceptId": 37395754,
-      "conceptName": "Multidrug-resistant Klebsiella aerogenes",
+      "conceptName": "Multiple drug-resistant Klebsiella aerogenes",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -73483,7 +73870,7 @@
     },
     {
       "conceptId": 37395792,
-      "conceptName": "Multidrug-resistant Acinetobacter baumannii",
+      "conceptName": "Multiple drug-resistant Acinetobacter baumannii",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -73492,7 +73879,7 @@
     },
     {
       "conceptId": 37395793,
-      "conceptName": "Multidrug-resistant Serratia marcescens",
+      "conceptName": "Multiple drug-resistant Serratia marcescens",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -73716,2190 +74103,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 37464316,
-      "conceptName": "E. coli O103:H19",
+      "conceptId": 37399724,
+      "conceptName": "Pseudomonas pertucinogena group",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
-      "conceptCode": "101000112107",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464317,
-      "conceptName": "Escherichia coli serotype O187:H52",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1011341000124101",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464318,
-      "conceptName": "Shiga toxin-producting Escherichia coli serotype O187",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1011351000124104",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464319,
-      "conceptName": "Escherichia coli serotype O187",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1011361000124102",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464320,
-      "conceptName": "Shiga toxin-producing Escherichia coli serotype O187:H52",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1011371000124109",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464321,
-      "conceptName": "Escherichia coli serotype O80:H42",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1011381000124107",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464322,
-      "conceptName": "Shiga toxin-producing Escherichia coli serogroup O80:H42",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1011391000124105",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464323,
-      "conceptName": "Escherichia coli serotype O:H21",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1011401000124107",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464330,
-      "conceptName": "Escherichia coli serotype O180:H10",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1077601000112103",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464331,
-      "conceptName": "Carbapenemase-producing Buttiauxella",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1087501000112108",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464332,
-      "conceptName": "Extended spectrum beta-lactamase producing Citrobacter amalonaticus",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1089201000112104",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464333,
-      "conceptName": "Extended spectrum beta-lactamase producing Citrobacter farmeri",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1089801000112103",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464334,
-      "conceptName": "Extended spectrum beta-lactamase producing Citrobacter freundii complex",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1090101000112104",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464335,
-      "conceptName": "Carbapenemase-producing Citrobacter gillenii",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1090201000112105",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464336,
-      "conceptName": "Extended spectrum beta-lactamase producing Citrobacter gillenii",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1090301000112102",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464337,
-      "conceptName": "Carbapenemase-producing Citrobacter murliniae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1090601000112107",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464338,
-      "conceptName": "Extended spectrum beta-lactamase producing Citrobacter murliniae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1090701000112103",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464339,
-      "conceptName": "Extended spectrum beta-lactamase producing Citrobacter rodentium",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1090901000112101",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464340,
-      "conceptName": "Carbapenemase-producing Citrobacter sedlakii",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1091001000112109",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464341,
-      "conceptName": "Extended spectrum beta-lactamase producing Citrobacter sedlakii",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1091101000112105",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464342,
-      "conceptName": "Extended spectrum beta-lactamase producing Citrobacter werkmanii",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1091301000112107",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464343,
-      "conceptName": "Extended spectrum beta-lactamase producing Citrobacter youngae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1091501000112101",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464344,
-      "conceptName": "Extended spectrum beta-lactamase producing Edwardsiella",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1092701000112104",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464345,
-      "conceptName": "Extended spectrum beta-lactamase producing Edwardsiella tarda",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1093301000112108",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464346,
-      "conceptName": "Extended spectrum beta-lactamase producing Enterobacter asburiae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1093701000112107",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464347,
-      "conceptName": "Extended spectrum beta-lactamase producing Enterobacter cancerogenus",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1093901000112109",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464348,
-      "conceptName": "Extended spectrum beta-lactamase producing Enterobacter cloacae subspecies dissolvens",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1094201000112102",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464349,
-      "conceptName": "Extended spectrum beta-lactamase producing Erwinia",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1094801000112101",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464350,
-      "conceptName": "Extended spectrum beta-lactamase producing Pseudescherichia vulneris",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1095701000112108",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464351,
-      "conceptName": "Carbapenemase-producing Hafnia",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1096401000112106",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464352,
-      "conceptName": "Extended spectrum beta-lactamase producing Hafnia",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1096501000112105",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464353,
-      "conceptName": "Carbapenemase-producing Hafnia alvei",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1096601000112109",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464354,
-      "conceptName": "Extended spectrum beta-lactamase producing Hafnia alvei",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1096701000112100",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464355,
-      "conceptName": "Extended spectrum beta-lactamase producing Klebsiella pneumoniae subspecies ozaenae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1097601000112106",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464356,
-      "conceptName": "Carbapenemase-producing Klebsiella pneumoniae subsp. ozaenae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1097701000112102",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464357,
-      "conceptName": "Extended spectrum beta-lactamase producing Kluyvera cryocrescens",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1099501000112100",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464358,
-      "conceptName": "Extended spectrum beta-lactamase producing Kluyvera intermedia",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1099901000112107",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464359,
-      "conceptName": "Extended spectrum beta-lactamase producing Leminorella",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1100501000112100",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464360,
-      "conceptName": "Extended spectrum beta-lactamase producing Leminorella grimontii",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1100701000112105",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464361,
-      "conceptName": "Carbapenemase-producing Moellerella wisconsensis",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1101201000112109",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464362,
-      "conceptName": "Extended spectrum beta-lactamase producing Moellerella wisconsensis",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1101301000112101",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464363,
-      "conceptName": "Carbapenemase-producing Morganella",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1101401000112108",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464364,
-      "conceptName": "Carbapenemase-producing Morganella morganii subspecies morganii",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1101801000112105",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464365,
-      "conceptName": "Carbapenemase-producing Pantoea",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1102001000112107",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464366,
-      "conceptName": "Extended spectrum beta-lactamase producing Pantoea",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1102101000112108",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464367,
-      "conceptName": "Carbapenemase-producing Pantoea agglomerans",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1102201000112102",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464368,
-      "conceptName": "Extended spectrum beta-lactamase producing Pantoea dispersa",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1102501000112104",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464369,
-      "conceptName": "Extended spectrum beta-lactamase producing Proteus",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1102701000112109",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464370,
-      "conceptName": "Extended spectrum beta-lactamase producing Providencia rettgeri",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1104101000112100",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464371,
-      "conceptName": "Carbapenemase-producing Raoultella terrigena",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1105801000112108",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464372,
-      "conceptName": "Extended spectrum beta-lactamase producing Raoultella terrigena",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1105901000112103",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464373,
-      "conceptName": "Carbapenemase-producing Serratia",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1106201000112101",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464374,
-      "conceptName": "Carbapenemase-producing Shigella",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1108301000112108",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464375,
-      "conceptName": "Extended spectrum beta-lactamase producing Yersinia",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1109201000112105",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464376,
-      "conceptName": "Extended spectrum beta-lactamase producing Lelliottia amnigena",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1112201000112100",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464377,
-      "conceptName": "Carbapenemase-producing Morganella morganii subspecies sibonii",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1112301000112108",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464379,
-      "conceptName": "Escherichia coli serotype O77:H45",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1114001000112104",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464380,
-      "conceptName": "E. coli O186:H11",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1116101000112105",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464381,
-      "conceptName": "E. coli O150:nonmotile",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1116201000112104",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464383,
-      "conceptName": "Escherichia coli serotype O17:H45",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "112651000112102",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464384,
-      "conceptName": "Escherichia coli serotype O81:H21",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "112661000112104",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464385,
-      "conceptName": "Escherichia coli serotype O71:H2",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "112901000112109",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464386,
-      "conceptName": "Escherichia coli serotype O75:H38",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "112931000112101",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464401,
-      "conceptName": "Prevotella ihumii",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "118811000181102",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464420,
-      "conceptName": "Weeksellaceae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1362103009",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464421,
-      "conceptName": "Epilithonimonas",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1362104003",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464440,
-      "conceptName": "Escherichia coli serotype O145:H7",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "133151000112106",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464441,
-      "conceptName": "Escherichia coli serotype O169:H9",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "133171000112100",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464442,
-      "conceptName": "Escherichia coli serotype O5:H19",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "133181000112103",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464636,
-      "conceptName": "Carbapenemase-producing Morganellaceae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1359790006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464637,
-      "conceptName": "Carbapenemase-producing Moellerella",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1359791005",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464638,
-      "conceptName": "Carbapenemase-producing Erwinaceae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1359792003",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464639,
-      "conceptName": "Carbapenemase-producing Yersiniaceae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1359793008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464647,
-      "conceptName": "Carbapenemase-producing Pseudomonadales",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1359801005",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464648,
-      "conceptName": "Carbapenemase-producing Moraxellaceae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1359809007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464649,
-      "conceptName": "Carbapenemase-producing Cronobacter",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1359810002",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464650,
-      "conceptName": "Carbapenemase-producing Escherichia",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1359811003",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464651,
-      "conceptName": "Carbapenemase-producing Pseudomonadaceae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1359812005",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464652,
-      "conceptName": "Carbapenemase-producing Pseudomonas",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1359813000",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464661,
-      "conceptName": "Extended spectrum beta-lactamase producing Cronobacter",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1359867006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464672,
-      "conceptName": "Extended spectrum beta-lactamase producing Escherichia",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1359878003",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464673,
-      "conceptName": "Extended spectrum beta-lactamase producing Shigella flexneri",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1359880009",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464677,
-      "conceptName": "Extended spectrum beta-lactamase producing Pseudomonadales",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1359904001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464678,
-      "conceptName": "Extended spectrum beta-lactamase producing Pseudomonadaceae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1359905000",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464679,
-      "conceptName": "Extended spectrum beta-lactamase producing Pseudomonas",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1359906004",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464680,
-      "conceptName": "Extended spectrum beta-lactamase producing Rahnella",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1359907008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464728,
-      "conceptName": "Extended spectrum beta-lactamase producing Pseudescherichia",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1360035003",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464732,
-      "conceptName": "Hafniaceae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1360041005",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464733,
-      "conceptName": "Extended spectrum beta-lactamase producing Hafniaceae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1360042003",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464741,
-      "conceptName": "Escherichia coli serogroup O17",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1362013004",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464743,
-      "conceptName": "Family Budviciaceae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1362027009",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464744,
-      "conceptName": "Extended spectrum beta-lactamase producing Budviciaceae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1362028004",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464753,
-      "conceptName": "Extended spectrum beta-lactamase producing Lelliottia",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1362044008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464784,
-      "conceptName": "Carbapenemase-producing Lelliottia",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1362138006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464803,
-      "conceptName": "Multidrug-resistant Gram-negative bacillus",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1363075007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464812,
-      "conceptName": "Escherichia coli serogroup O41",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1363174009",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464813,
-      "conceptName": "Escherichia coli serogroup O23",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1363175005",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464814,
-      "conceptName": "Escherichia coli serogroup O92",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1363179004",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464815,
-      "conceptName": "Escherichia coli serogroup O51",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1363180001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37464818,
-      "conceptName": "Escherichia coli serogroup O36",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1363186007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37465068,
-      "conceptName": "AmpC beta-lactamase producing Raoultella ornithinolytica",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1365879004",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37465069,
-      "conceptName": "AmpC beta-lactamase producing Escherichia",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1365880001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37465091,
-      "conceptName": "Sphingobacterium caeni",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1366001007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37465095,
-      "conceptName": "Klebsiella michiganensis",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1366023006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37465119,
-      "conceptName": "Campylobacter pinnipediorum",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1366083008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37465120,
-      "conceptName": "Campylobacter pinnipediorum subsp. pinnipediorum",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1366084002",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37465121,
-      "conceptName": "Campylobacter pinnipediorum subsp. caledonicus",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1366085001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37465122,
-      "conceptName": "Campylobacter troglodytis",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1366086000",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37465123,
-      "conceptName": "Campylobacter blaseri",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1366087009",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37465124,
-      "conceptName": "Campylobacter corcagiensis",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1366088004",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37465125,
-      "conceptName": "Campylobacter ornithocola",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1366089007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37465127,
-      "conceptName": "Haemophilus influenzae non-typeable",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1366122003",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37465134,
-      "conceptName": "Chlamydia trachomatis serovar L2b",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1366129007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37465150,
-      "conceptName": "Escherichia coli serogroup O4",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1366192008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37465520,
-      "conceptName": "Multidrug-resistant Salmonella Paratyphi",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1367982009",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37465521,
-      "conceptName": "Multidrug-resistant Salmonella Paratyphi A",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1367983004",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37465522,
-      "conceptName": "Multidrug-resistant Salmonella Paratyphi B",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1367984005",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37465523,
-      "conceptName": "Multidrug-resistant Salmonella Paratyphi C",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1367985006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37465575,
-      "conceptName": "AmpC beta-lactamase producing Erwiniaceae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1370934000",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37465611,
-      "conceptName": "Stutzerimonas",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1371055009",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37465634,
-      "conceptName": "Enterobacter hormaechei subsp. hoffmannii",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1371227000",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37466280,
-      "conceptName": "Vandammella animalimorsus",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1373644001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37466281,
-      "conceptName": "Vandammella",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1373645000",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37466344,
-      "conceptName": "Flavobacterium johnsoniae subsp. aurantiacum",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1375923001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37466370,
-      "conceptName": "Extended spectrum beta-lactamase-producing enteropathogenic Escherichia coli",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1376035009",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37466462,
-      "conceptName": "Komagataeibacter hansenii",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1381499001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37466472,
-      "conceptName": "Selenomonadaceae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1381517003",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37466573,
-      "conceptName": "Methylorubrum pseudosasae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1382107004",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37466586,
-      "conceptName": "Arcobacter lanthieri",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1382189003",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37466598,
-      "conceptName": "Luteimonas yindakuii",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1382210002",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37466601,
-      "conceptName": "Yersinia artesiana",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1382216008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37466602,
-      "conceptName": "Yersinia hibernica",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1382217004",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37466603,
-      "conceptName": "Yersinia alsatica",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1382218009",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37466615,
-      "conceptName": "Parabacteroides chongii",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1382236009",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37466620,
-      "conceptName": "Pseudomonas promysalinigenes",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1382245005",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37466621,
-      "conceptName": "Pseudomonas laurentiana",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1382246006",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37466622,
-      "conceptName": "Pseudomonas kurunegalensis",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1382247002",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37466623,
-      "conceptName": "Pseudomonas aylmerensis",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1382248007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37466624,
-      "conceptName": "Pseudomonas kitaguniensis",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1382249004",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37466625,
-      "conceptName": "Pseudomonas kairouanensis",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1382250004",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37466626,
-      "conceptName": "Pseudomonas wayambapalatensis",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1382251000",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37466627,
-      "conceptName": "Pseudomonas vlassakiae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1382252007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37466628,
-      "conceptName": "Pseudomonas petroselini",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1382253002",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37466632,
-      "conceptName": "Providencia sneebia",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1382265003",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37466634,
-      "conceptName": "Myroides albus",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1382269009",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37466646,
-      "conceptName": "Halopseudomonas",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1382312007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37466647,
-      "conceptName": "Chimaeribacter coloradensis",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1382313002",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37466648,
-      "conceptName": "Chimaeribacter californicus",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1382314008",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37466653,
-      "conceptName": "Eikenella glucosivorans",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1382327007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37466654,
-      "conceptName": "Enterobacter quasihormaechei",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1382340002",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37466656,
-      "conceptName": "Rhizobium rosettiformans",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1382343000",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37466658,
-      "conceptName": "Hydrotalea",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1384129004",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37466659,
-      "conceptName": "Hydrotalea flava",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1384130009",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37466662,
-      "conceptName": "Caballeronia grimmiae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1384139005",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37466663,
-      "conceptName": "Caballeronia cordobensis",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1384140007",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37466725,
-      "conceptName": "Neorhizobium",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1386314005",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37466730,
-      "conceptName": "Carbapenemase-producing Pluralibacter",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1388125003",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37467089,
-      "conceptName": "E. coli O116:H49",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "153661000112102",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37467092,
-      "conceptName": "E. coli O51:H41",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "153681000112108",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468034,
-      "conceptName": "E. coli O100:H20",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "194561000112105",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468035,
-      "conceptName": "E. coli O158:H20",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "194571000112101",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468038,
-      "conceptName": "Escherichia coli serotype O8:H17",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "194921000112105",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468039,
-      "conceptName": "Escherichia coli serotype O9:H7",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "194981000112106",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468042,
-      "conceptName": "Extended spectrum beta-lactamase producing Klebsiella pneumoniae complex",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "201000112101",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468043,
-      "conceptName": "Escherichia coli serotype O75:H8",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "215041000112104",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468047,
-      "conceptName": "Stutzerimonas nitrititolerans",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "231661000087104",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468052,
-      "conceptName": "Coprobacter",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "232561000087109",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468076,
-      "conceptName": "Multidrug-resistant Shigella flexneri",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "232881000087101",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468078,
-      "conceptName": "Escherichia coli serotype O20:H41",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "235281000087109",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468079,
-      "conceptName": "E. coli O71:H19",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "235831000112109",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468080,
-      "conceptName": "E. coli O156:H14",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "235841000112103",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468081,
-      "conceptName": "E. coli O113:H4",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "235851000112100",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468082,
-      "conceptName": "E. coli O22:H1",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "235861000112102",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468083,
-      "conceptName": "E. coli O174:H8",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "235871000112106",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468084,
-      "conceptName": "E. coli O108:H21",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "235911000112108",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468085,
-      "conceptName": "Salmonella Tirat-Zvi",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "235941000112109",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468087,
-      "conceptName": "E. coli O36:H42",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "236121000112108",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468088,
-      "conceptName": "E. coli O156:H7",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "236131000112105",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468089,
-      "conceptName": "E. coli O119:H2",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "236141000112104",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468132,
-      "conceptName": "E. coli O92:H33",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "256101000112101",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468133,
-      "conceptName": "E. coli O175:H5",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "256111000112104",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468144,
-      "conceptName": "Salmonella group O:9, not Salmonella Typhi",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "261000112102",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468265,
-      "conceptName": "E. coli O145:H12",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "296961000112108",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468266,
-      "conceptName": "E. coli O146:H8",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "296971000112104",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468267,
-      "conceptName": "E. coli O66:H45",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "296991000112100",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468268,
-      "conceptName": "E. coli O8:H51",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "297001000112108",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468269,
-      "conceptName": "E. coli O172:H25",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "297011000112105",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468275,
-      "conceptName": "Carbapenemase-producing Pluralibacter gergoviae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "308241000087107",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468276,
-      "conceptName": "E. coli O51:H14",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "317441000112109",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468277,
-      "conceptName": "E. coli O41:H26",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "317451000112107",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468278,
-      "conceptName": "E. coli O112:H8",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "317461000112105",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468279,
-      "conceptName": "E. coli O108:H19",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "317471000112101",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468281,
-      "conceptName": "AmpC beta-lactamase producing Raoultella",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "317531000112102",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468282,
-      "conceptName": "E. coli O156:H1",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "317571000112100",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468283,
-      "conceptName": "E. coli O15:H27",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "317581000112103",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468284,
-      "conceptName": "E. coli O23:H15",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "317591000112101",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468285,
-      "conceptName": "E. coli O2:H25",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "317601000112109",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468286,
-      "conceptName": "Salmonella Epalinges",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "317701000112100",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468288,
-      "conceptName": "Escherichia coli serotype O8:H7",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "327681000112108",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468327,
-      "conceptName": "Escherichia coli serotype O7:H2",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "337921000112104",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468328,
-      "conceptName": "Escherichia coli serotype O4:H2",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "337931000112102",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468331,
-      "conceptName": "AmpC beta-lactamase producing Citrobacter koseri",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "337991000112101",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468332,
-      "conceptName": "AmpC beta-lactamase producing Citrobacter sedlakii",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "338001000112107",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468333,
-      "conceptName": "AmpC beta-lactamase producing Cronobacter",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "338021000112101",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468334,
-      "conceptName": "AmpC beta-lactamase producing Citrobacter",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "338031000112104",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468335,
-      "conceptName": "AmpC beta-lactamase producing Cronobacter sakazakii",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "338041000112105",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468336,
-      "conceptName": "AmpC beta-lactamase producing Kluyvera",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "338051000112108",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468337,
-      "conceptName": "AmpC beta-lactamase producing Pantoea",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "338061000112106",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468338,
-      "conceptName": "AmpC beta-lactamase producing Pantoea agglomerans",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "338071000112102",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468339,
-      "conceptName": "AmpC beta-lactamase producing Pantoea dispersa",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "338081000112100",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468341,
-      "conceptName": "Escherichia coli serotype O88:H21",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "338161000112107",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468342,
-      "conceptName": "Escherichia coli serotype O8:H11",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "338171000112103",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468343,
-      "conceptName": "Escherichia coli serotype O78:H4",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "338181000112101",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468345,
-      "conceptName": "Escherichia coli serotype Orough:H6",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "348161000112106",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468347,
-      "conceptName": "E. coli O105:H7",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "358431000112107",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468348,
-      "conceptName": "Salmonella enterica subspecies enterica serovar O rough:r:e,n,x",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "358481000112106",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468356,
-      "conceptName": "Acinetobacter colistiniresistens",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "3751000181109",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468361,
-      "conceptName": "E. coli O113:H10",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "379051000112104",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468362,
-      "conceptName": "E. coli O49:H10",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "379061000112101",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468363,
-      "conceptName": "E. coli O180:H14",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "379081000112107",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468364,
-      "conceptName": "E. coli O166:H28",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "379191000112108",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468365,
-      "conceptName": "E. coli O9:H9",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "379201000112105",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468366,
-      "conceptName": "E. coli O96:H19",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "379211000112107",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468367,
-      "conceptName": "E. coli O79:H2",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "379221000112104",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468368,
-      "conceptName": "E. coli O93:H28",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "379231000112102",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468369,
-      "conceptName": "E. coli O147:H7",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "379241000112108",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468370,
-      "conceptName": "Escherichia coli serotype O15:H18",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "379261000112109",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468372,
-      "conceptName": "Serratia nevei",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "379401000087109",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468373,
-      "conceptName": "Alistipes ihumii",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "379411000087106",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468374,
-      "conceptName": "Neorhizobium turbinariae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "379471000087104",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468454,
-      "conceptName": "Shigella flexneri 6 Boyd 88",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "60631000087104",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468466,
-      "conceptName": "Nontoxigenic Vibrio cholerae serogroup O139",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "61091000087100",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468471,
-      "conceptName": "Extended spectrum beta-lactamase producing Shigella boydii",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "61251000087103",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468472,
-      "conceptName": "Extended spectrum beta-lactamase producing Shigella dysenteriae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "61261000087100",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468505,
-      "conceptName": "Acinetobacter bohemicus",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "76791000181104",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468506,
-      "conceptName": "Acinetobacter brisouii",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "76801000181100",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468507,
-      "conceptName": "Acinetobacter kookii",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "76811000181103",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468508,
-      "conceptName": "Acinetobacter puyangensis",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "76821000181107",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468511,
-      "conceptName": "Massilia oculi",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "77601000181102",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468571,
-      "conceptName": "Escherichia coli serotype O152:H8",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "93021000087101",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 37468572,
-      "conceptName": "Escherichia coli serotype O26:H18",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "93031000087104",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40260938,
-      "conceptName": "Agrobacterium radiobacter",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "1772001",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 40274097,
-      "conceptName": "Beggiatoaceae",
-      "vocabularyId": "SNOMED",
-      "domainId": "Observation",
-      "conceptClassId": "Organism",
-      "conceptCode": "115095007",
+      "conceptCode": "717668007",
       "standardConcept": "S"
     },
     {
@@ -80908,7 +79117,7 @@
     },
     {
       "conceptId": 45763649,
-      "conceptName": "Stutzerimonas xanthomarina",
+      "conceptName": "Pseudomonas xanthomarina",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -81231,6 +79440,15 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 45769726,
+      "conceptName": "Halomonas johnsoniae",
+      "vocabularyId": "SNOMED",
+      "domainId": "Observation",
+      "conceptClassId": "Organism",
+      "conceptCode": "708439006",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 45769729,
       "conceptName": "Flavobacterium chungangense",
       "vocabularyId": "SNOMED",
@@ -81385,7 +79603,7 @@
     },
     {
       "conceptId": 45772926,
-      "conceptName": "Multidrug-resistant Achromobacter xylosoxidans",
+      "conceptName": "Multidrug resistant Achromobacter xylosoxidans",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",
@@ -81439,7 +79657,7 @@
     },
     {
       "conceptId": 45773179,
-      "conceptName": "Cronobacter dublinensis subsp. lausannensis",
+      "conceptName": "Cronobacter dublinensis subspecies lausannensis",
       "vocabularyId": "SNOMED",
       "domainId": "Observation",
       "conceptClassId": "Organism",

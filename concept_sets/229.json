@@ -2,11 +2,11 @@
   "id": 229,
   "name": "[Deprecated] Corynebacterium species",
   "description": "Deprecated — genus-level set too broad; overlaps the species sets. Use the species-specific Corynebacterium sets (e.g. Corynebacterium amycolatum, Corynebacterium striatum) instead.",
-  "version": "1.2.0",
+  "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-11-15",
+  "modifiedDate": "2026-06-11",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -20,8 +20,8 @@
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
           "conceptCode": "77086004",
-          "validStartDate": "2002-01-31",
-          "validEndDate": "2099-12-31",
+          "validStartDate": "20020131",
+          "validEndDate": "20991231",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
         },
@@ -77,12 +77,6 @@
         "date": "2026-06-11",
         "author": "Boris Delange",
         "message": "Deprecated: genus-level Corynebacterium set is too broad and overlaps the per-species Corynebacterium sets."
-      },
-      {
-        "version": "1.2.0",
-        "date": "2026-11-15",
-        "author": "Boris Delange",
-        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26).\n160 → 159 concepts.\n\n**Removed (1) — made non-standard, now mapping outside the set:**\n\n- Corynebacterium mediolanum (4348157) → Agromyces mediolanus (4138166) — outside the set\n\n**Renamed (4) by the vocabulary:**\n\n- Corynebacterium diphtheriae type gravis → Corynebacterium diphtheriae biotype gravis (4306916)\n- Corynebacterium diphtheriae type intermedius → Corynebacterium diphtheriae biotype intermedius (4321988)\n- Corynebacterium diphtheriae type mitis → Corynebacterium diphtheriae biotype mitis (4028997)\n- Corynebacterium diphtheriae var belfanti → Corynebacterium diphtheriae biotype belfanti (4352617)"
       }
     ],
     "distributionStats": null
