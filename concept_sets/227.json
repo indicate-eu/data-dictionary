@@ -82,7 +82,7 @@
         "version": "1.2.0",
         "date": "2026-11-15",
         "author": "Boris Delange",
-        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 3 -> 4 concepts. Added 1 (new or reclassified descendants in the new release): AmpC beta-lactamase producing Citrobacter koseri (37468331)."
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26).\n3 → 4 concepts.\n\n**Added (1) — new or reclassified descendants in the new release:**\n\n- AmpC beta-lactamase producing Citrobacter koseri (37468331)"
       }
     ],
     "distributionStats": null

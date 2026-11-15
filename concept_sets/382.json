@@ -76,7 +76,7 @@
         "version": "1.1.0",
         "date": "2026-11-15",
         "author": "Boris Delange",
-        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 2673 -> 2679 concepts. Added 7 (new or reclassified descendants in the new release): Multidrug-resistant Salmonella Paratyphi A (37465521); Multidrug-resistant Salmonella Paratyphi B (37465522); Multidrug-resistant Salmonella Paratyphi C (37465523); Salmonella Tirat-Zvi (37468085); Salmonella group O:9, not Salmonella Typhi (37468144); and 2 more. Removed 1 concept made non-standard, mapping outside the set (Multidrug-resistant Salmonella Paratyphi (37465520)): Multidrug-resistant Salmonella paratyphi (3655075)."
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26).\n2673 → 2679 concepts.\n\n**Added (7) — new or reclassified descendants in the new release:**\n\n- Multidrug-resistant Salmonella Paratyphi A (37465521)\n- Multidrug-resistant Salmonella Paratyphi B (37465522)\n- Multidrug-resistant Salmonella Paratyphi C (37465523)\n- Salmonella Epalinges (37468286)\n- Salmonella Tirat-Zvi (37468085)\n- Salmonella enterica subspecies enterica serovar O rough:r:e,n,x (37468348)\n- Salmonella group O:9, not Salmonella Typhi (37468144)\n\n**Removed (1) — made non-standard, now mapping outside the set:**\n\n- Multidrug-resistant Salmonella paratyphi (3655075) → Multidrug-resistant Salmonella Paratyphi (37465520) — outside the set"
       }
     ],
     "distributionStats": null

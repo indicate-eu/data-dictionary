@@ -76,7 +76,7 @@
         "version": "1.1.0",
         "date": "2026-11-15",
         "author": "Boris Delange",
-        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 8 -> 10 concepts. Added 2 (new or reclassified descendants in the new release): Carbapenemase-producing Morganella morganii subspecies morganii (37464364); Carbapenemase-producing Morganella morganii subspecies sibonii (37464377)."
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26).\n8 → 10 concepts.\n\n**Added (2) — new or reclassified descendants in the new release:**\n\n- Carbapenemase-producing Morganella morganii subspecies morganii (37464364)\n- Carbapenemase-producing Morganella morganii subspecies sibonii (37464377)"
       }
     ],
     "distributionStats": null

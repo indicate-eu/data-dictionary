@@ -97,7 +97,7 @@
         "version": "1.1.0",
         "date": "2026-11-15",
         "author": "Boris Delange",
-        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 8582 -> 8578 concepts. Removed 4 concepts deprecated in the new release, whose replacement is already in the set: 10 ML prednisolone 10 MG/ML Ophthalmic Solution [PRED-FORTE] (42920775); 5 ML prednisolone 10 MG/ML Ophthalmic Solution [PRED-FORTE] (42921519); prednisolone 10 MG/ML Ophthalmic Solution [PRED-FORTE] (42970562); prednisolone Ophthalmic Solution [PRED-FORTE] (42970589)."
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26).\n8582 → 8578 concepts.\n\n**Removed (4) — deprecated in the new release:**\n\n- 10 ML prednisolone 10 MG/ML Ophthalmic Solution \\[PRED-FORTE\\] (42920775) → replaced by 10 ML prednisolone 10 MG/ML Ophthalmic Solution \\[Pred Forte\\] (21029063) — in the set\n- 5 ML prednisolone 10 MG/ML Ophthalmic Solution \\[PRED-FORTE\\] (42921519) → replaced by 5 ML prednisolone 10 MG/ML Ophthalmic Solution \\[Pred Forte\\] (21097583) — in the set\n- prednisolone 10 MG/ML Ophthalmic Solution \\[PRED-FORTE\\] (42970562) → replaced by prednisolone 10 MG/ML Ophthalmic Solution \\[Pred Forte\\] (42482156) — in the set\n- prednisolone Ophthalmic Solution \\[PRED-FORTE\\] (42970589) → replaced by prednisolone Ophthalmic Solution \\[Pred Forte\\] (42479191) — in the set"
       }
     ],
     "distributionStats": null

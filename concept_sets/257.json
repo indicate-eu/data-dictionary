@@ -82,7 +82,7 @@
         "version": "1.1.1",
         "date": "2026-11-15",
         "author": "Boris Delange",
-        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 2 concept names updated by the vocabulary (e.g. 'Non-multiple drug resistant methicillin resistant Staphylococcus aureus' -> 'Non-multidrug-resistant methicillin-resistant Staphylococcus aureus')."
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26).\n\n**Renamed (2) by the vocabulary:**\n\n- Multiple drug resistant methicillin resistant Staphylococcus aureus → Multidrug-resistant methicillin-resistant Staphylococcus aureus (37396650)\n- Non-multiple drug resistant methicillin resistant Staphylococcus aureus → Non-multidrug-resistant methicillin-resistant Staphylococcus aureus (37396649)"
       }
     ],
     "distributionStats": null

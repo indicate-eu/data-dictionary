@@ -82,7 +82,7 @@
         "version": "1.2.0",
         "date": "2026-11-15",
         "author": "Boris Delange",
-        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 12 -> 11 concepts. Removed 1 concept deprecated in the new release, whose replacement is already in the set: Bacillus weihenstephanensis (4186715)."
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26).\n12 → 11 concepts.\n\n**Removed (1) — deprecated in the new release:**\n\n- Bacillus weihenstephanensis (4186715) → replaced by Bacillus mycoides (4143451) — in the set"
       }
     ],
     "distributionStats": null

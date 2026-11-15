@@ -97,7 +97,7 @@
         "version": "1.1.0",
         "date": "2026-11-15",
         "author": "Boris Delange",
-        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 1278 -> 1278 concepts. Added 2 (new or reclassified descendants in the new release): clonidine hydrochloride 0.05 MG (1317227); clonidine hydrochloride 0.05 MG Oral Tablet (1317228). Removed 2 concepts deprecated in the new release, whose replacement is already in the set: clonidine 0.3 MG Oral Tablet [Catapres] (36945275); clonidine 0.025 MG Oral Tablet [Dixarit] (36968245)."
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26).\n1278 → 1278 concepts.\n\n**Added (2) — new or reclassified descendants in the new release:**\n\n- clonidine hydrochloride 0.05 MG (1317227)\n- clonidine hydrochloride 0.05 MG Oral Tablet (1317228)\n\n**Removed (2) — deprecated in the new release:**\n\n- clonidine 0.025 MG Oral Tablet \\[Dixarit\\] (36968245) → replaced by clonidine hydrochloride 0.025 MG Oral Tablet \\[Dixarit\\] (19011607) — in the set\n- clonidine 0.3 MG Oral Tablet \\[Catapres\\] (36945275) → replaced by clonidine hydrochloride 0.3 MG Oral Tablet \\[Catapres\\] (40168670) — in the set"
       }
     ],
     "distributionStats": null

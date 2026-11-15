@@ -97,7 +97,7 @@
         "version": "1.1.0",
         "date": "2026-11-15",
         "author": "Boris Delange",
-        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 1375 -> 1385 concepts. Added 10 (new or reclassified descendants in the new release): chlorhexidine 20 MG/ML / ketoconazole 10 MG/ML Topical Foam (1316835); chlorhexidine 20 MG/ML / ketoconazole 10 MG/ML [Suffusion] (1316836); chlorhexidine / ketoconazole Topical Foam [Suffusion] (1316838); chlorhexidine 20 MG/ML / ketoconazole 10 MG/ML Topical Foam [Suffusion] (1316839); chlorhexidine 0.02 MG/MG / ketoconazole 0.01 MG/MG [Suffusion] (1316840); and 5 more."
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26).\n1375 → 1385 concepts.\n\n**Added (10) — new or reclassified descendants in the new release:**\n\n- chlorhexidine / ketoconazole Medicated Pad \\[Suffusion\\] (1316842)\n- chlorhexidine / ketoconazole Topical Foam \\[Suffusion\\] (1316838)\n- chlorhexidine / ketoconazole Topical Spray \\[Suffusion\\] (1316845)\n- chlorhexidine 0.02 MG/MG / ketoconazole 0.01 MG/MG Medicated Pad \\[Suffusion\\] (1316843)\n- chlorhexidine 0.02 MG/MG / ketoconazole 0.01 MG/MG \\[Suffusion\\] (1316840)\n- chlorhexidine 20 MG/ML / ketoconazole 10 MG/ML Topical Foam (1316835)\n- chlorhexidine 20 MG/ML / ketoconazole 10 MG/ML Topical Foam \\[Suffusion\\] (1316839)\n- chlorhexidine 20 MG/ML / ketoconazole 10 MG/ML Topical Spray (1316844)\n- chlorhexidine 20 MG/ML / ketoconazole 10 MG/ML Topical Spray \\[Suffusion\\] (1316846)\n- chlorhexidine 20 MG/ML / ketoconazole 10 MG/ML \\[Suffusion\\] (1316836)"
       }
     ],
     "distributionStats": null

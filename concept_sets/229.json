@@ -82,7 +82,7 @@
         "version": "1.2.0",
         "date": "2026-11-15",
         "author": "Boris Delange",
-        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 160 -> 159 concepts. Removed 1 concept made non-standard, mapping outside the set (Agromyces mediolanus (4138166)): Corynebacterium mediolanum (4348157). 4 concept names updated by the vocabulary (e.g. 'Corynebacterium diphtheriae type mitis' -> 'Corynebacterium diphtheriae biotype mitis')."
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26).\n160 → 159 concepts.\n\n**Removed (1) — made non-standard, now mapping outside the set:**\n\n- Corynebacterium mediolanum (4348157) → Agromyces mediolanus (4138166) — outside the set\n\n**Renamed (4) by the vocabulary:**\n\n- Corynebacterium diphtheriae type gravis → Corynebacterium diphtheriae biotype gravis (4306916)\n- Corynebacterium diphtheriae type intermedius → Corynebacterium diphtheriae biotype intermedius (4321988)\n- Corynebacterium diphtheriae type mitis → Corynebacterium diphtheriae biotype mitis (4028997)\n- Corynebacterium diphtheriae var belfanti → Corynebacterium diphtheriae biotype belfanti (4352617)"
       }
     ],
     "distributionStats": null

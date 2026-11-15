@@ -97,7 +97,7 @@
         "version": "1.1.0",
         "date": "2026-11-15",
         "author": "Boris Delange",
-        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 13128 -> 13129 concepts. Added 3 (new or reclassified descendants in the new release): hydrocortisone butyrate 1 MG/ML [Evesse] (1317336); hydrocortisone Topical Lotion [Evesse] (1317338); hydrocortisone butyrate 1 MG/ML Topical Lotion [Evesse] (1317339). Removed 2 concepts deprecated in the new release, whose replacement is already in the set: hydrocortisone 1 MG/ML Topical Solution [Locoid] (36943323); hydrocortisone 0.001 MG/MG Topical Ointment [Locoid] (36956222)."
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26).\n13128 → 13129 concepts.\n\n**Added (3) — new or reclassified descendants in the new release:**\n\n- hydrocortisone Topical Lotion \\[Evesse\\] (1317338)\n- hydrocortisone butyrate 1 MG/ML Topical Lotion \\[Evesse\\] (1317339)\n- hydrocortisone butyrate 1 MG/ML \\[Evesse\\] (1317336)\n\n**Removed (2) — deprecated in the new release:**\n\n- hydrocortisone 0.001 MG/MG Topical Ointment \\[Locoid\\] (36956222) → replaced by hydrocortisone butyrate 0.001 MG/MG Topical Ointment \\[Locoid\\] (43013657) — in the set\n- hydrocortisone 1 MG/ML Topical Solution \\[Locoid\\] (36943323) → replaced by hydrocortisone butyrate 1 MG/ML Topical Solution \\[Locoid\\] (43013665) — in the set"
       }
     ],
     "distributionStats": null

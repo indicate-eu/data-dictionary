@@ -82,7 +82,7 @@
         "version": "1.2.0",
         "date": "2026-11-15",
         "author": "Boris Delange",
-        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 28 -> 26 concepts. Removed 2 concepts deprecated in the new release, whose replacement is already in the set: Hepatorenal syndrome as a complication of care (4308408); Hepatic failure as a complication of care (4309163)."
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26).\n28 → 26 concepts.\n\n**Removed (2) — deprecated in the new release:**\n\n- Hepatic failure as a complication of care (4309163) → replaced by Hepatic failure (4245975) — in the set\n- Hepatorenal syndrome as a complication of care (4308408) → replaced by Hepatorenal syndrome due to a procedure (4149888) — in the set"
       }
     ],
     "distributionStats": null

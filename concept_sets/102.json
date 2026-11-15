@@ -97,7 +97,7 @@
         "version": "1.1.0",
         "date": "2026-11-15",
         "author": "Boris Delange",
-        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 919 -> 914 concepts. Removed 5 concepts deprecated in the new release, whose replacement is already in the set: isoniazid / Rifampin Oral Tablet [Iso Eremfat] (44160829); isoniazid 150 MG / Rifampin 300 MG [Iso Eremfat] (44164409); isoniazid 100 MG / Rifampin 150 MG [Iso Eremfat] (44175673); isoniazid 100 MG / Rifampin 150 MG Oral Tablet [Iso Eremfat] (44184673); isoniazid 150 MG / Rifampin 300 MG Oral Tablet [Iso Eremfat] (44188527)."
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26).\n919 → 914 concepts.\n\n**Removed (5) — deprecated in the new release:**\n\n- isoniazid / Rifampin Oral Tablet \\[Iso Eremfat\\] (44160829) → replaced by isoniazid / Rifampin Oral Tablet \\[Iso-Eremfat\\] (43743374) — in the set\n- isoniazid 100 MG / Rifampin 150 MG Oral Tablet \\[Iso Eremfat\\] (44184673) → replaced by isoniazid 100 MG / Rifampin 150 MG Oral Tablet \\[Iso-Eremfat\\] (43815307) — in the set\n- isoniazid 100 MG / Rifampin 150 MG \\[Iso Eremfat\\] (44175673) → replaced by isoniazid 100 MG / Rifampin 150 MG \\[Iso-Eremfat\\] (43833399) — in the set\n- isoniazid 150 MG / Rifampin 300 MG Oral Tablet \\[Iso Eremfat\\] (44188527) → replaced by isoniazid 150 MG / Rifampin 300 MG Oral Tablet \\[Iso-Eremfat\\] (43743375) — in the set\n- isoniazid 150 MG / Rifampin 300 MG \\[Iso Eremfat\\] (44164409) → replaced by isoniazid 150 MG / Rifampin 300 MG \\[Iso-Eremfat\\] (43797193) — in the set"
       }
     ],
     "distributionStats": null

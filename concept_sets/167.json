@@ -101,7 +101,7 @@
         "version": "1.2.1",
         "date": "2026-11-15",
         "author": "Boris Delange",
-        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). Expression concept metadata refreshed from the vocabulary (1 renamed, e.g. 'Coagulation factor V activated [Units/volume] in Platelet poor plasma by Coagulation assay' -> 'Coagulation factor V activity [Units/volume] in Platelet poor plasma by Coagulation assay')."
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26).\n\n**Expression concepts renamed by the vocabulary (1):**\n\n- Coagulation factor V activated \\[Units/volume\\] in Platelet poor plasma by Coagulation assay → Coagulation factor V activity \\[Units/volume\\] in Platelet poor plasma by Coagulation assay (3006924)"
       }
     ],
     "distributionStats": null

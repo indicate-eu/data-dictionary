@@ -97,7 +97,7 @@
         "version": "1.1.0",
         "date": "2026-11-15",
         "author": "Boris Delange",
-        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 5987 -> 5985 concepts. Removed 2 concepts deprecated in the new release, whose replacement is already in the set: erythromycin 50 MG/ML Oral Suspension [Erythroped] (36945791); erythromycin 250 MG Oral Tablet [Erythrolar] (36959809)."
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26).\n5987 → 5985 concepts.\n\n**Removed (2) — deprecated in the new release:**\n\n- erythromycin 250 MG Oral Tablet \\[Erythrolar\\] (36959809) → replaced by erythromycin estolate 250 MG Oral Tablet \\[Erythrolar\\] (19001286) — in the set\n- erythromycin 50 MG/ML Oral Suspension \\[Erythroped\\] (36945791) → replaced by erythromycin stearate 50 MG/ML Oral Suspension \\[Erythroped\\] (19009353) — in the set"
       }
     ],
     "distributionStats": null

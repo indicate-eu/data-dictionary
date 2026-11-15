@@ -111,7 +111,7 @@
         "version": "1.1.0",
         "date": "2026-11-15",
         "author": "Boris Delange",
-        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 794 -> 797 concepts. Added 3 (new or reclassified descendants in the new release): Niacinamide 3 ML insulin aspart, human 100 UNT/ML Cartridge (1316467); Niacinamide 3 ML insulin aspart, human 100 UNT/ML Pen Injector (1316468); Niacinamide insulin aspart, human 100 UNT/ML Injectable Solution (1316469). 3 concept names updated by the vocabulary (e.g. 'insulin aspart, human 100 UNT/ML Injectable Solution [Fiasp]' -> 'Niacinamide insulin aspart, human 100 UNT/ML Injectable Solution [Fiasp]')."
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26).\n794 → 797 concepts.\n\n**Added (3) — new or reclassified descendants in the new release:**\n\n- Niacinamide 3 ML insulin aspart, human 100 UNT/ML Cartridge (1316467)\n- Niacinamide 3 ML insulin aspart, human 100 UNT/ML Pen Injector (1316468)\n- Niacinamide insulin aspart, human 100 UNT/ML Injectable Solution (1316469)\n\n**Renamed (3) by the vocabulary:**\n\n- 3 ML insulin aspart, human 100 UNT/ML Cartridge \\[Fiasp\\] → Niacinamide 3 ML insulin aspart, human 100 UNT/ML Cartridge \\[Fiasp\\] (37499740)\n- 3 ML insulin aspart, human 100 UNT/ML Pen Injector \\[Fiasp\\] → Niacinamide 3 ML insulin aspart, human 100 UNT/ML Pen Injector \\[Fiasp\\] (792697)\n- insulin aspart, human 100 UNT/ML Injectable Solution \\[Fiasp\\] → Niacinamide insulin aspart, human 100 UNT/ML Injectable Solution \\[Fiasp\\] (792695)"
       }
     ],
     "distributionStats": null

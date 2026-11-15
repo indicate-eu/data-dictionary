@@ -76,7 +76,7 @@
         "version": "1.0.1",
         "date": "2026-11-15",
         "author": "Boris Delange",
-        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 5 concept names updated by the vocabulary (e.g. 'Legionella pneumophilia serogroup 11' -> 'Legionella pneumophila serogroup 11')."
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26).\n\n**Renamed (5) by the vocabulary:**\n\n- Legionella pneumophilia serogroup 10 → Legionella pneumophila serogroup 10 (4037906)\n- Legionella pneumophilia serogroup 11 → Legionella pneumophila serogroup 11 (4038275)\n- Legionella pneumophilia serogroup 12 → Legionella pneumophila serogroup 12 (4038276)\n- Legionella pneumophilia serogroup 13 → Legionella pneumophila serogroup 13 (4040167)\n- Legionella pneumophilia serogroup 14 → Legionella pneumophila serogroup 14 (4037907)"
       }
     ],
     "distributionStats": null

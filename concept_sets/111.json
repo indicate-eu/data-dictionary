@@ -97,7 +97,7 @@
         "version": "1.1.0",
         "date": "2026-11-15",
         "author": "Boris Delange",
-        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 1544 -> 1539 concepts. Removed 5 concepts deprecated in the new release, whose replacement is already in the set: vancomycin 1000 MG Injection [VANCOCIN-CP] (2011857); vancomycin 1000 MG [VANCOCIN-CP] (2011858); vancomycin 500 MG Injection [VANCOCIN-CP] (2011861); vancomycin 500 MG [VANCOCIN-CP] (2011862); vancomycin Injection [VANCOCIN-CP] (2011863)."
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26).\n1544 → 1539 concepts.\n\n**Removed (5) — deprecated in the new release:**\n\n- vancomycin 1000 MG Injection \\[VANCOCIN-CP\\] (2011857) → replaced by Vancomycin 1000 MG Injection \\[Vancocin CP\\] (43290408) — in the set\n- vancomycin 1000 MG \\[VANCOCIN-CP\\] (2011858) → replaced by Vancomycin 1000 MG \\[Vancocin CP\\] (43263204) — in the set\n- vancomycin 500 MG Injection \\[VANCOCIN-CP\\] (2011861) → replaced by Vancomycin 500 MG Injection \\[Vancocin CP\\] (43279570) — in the set\n- vancomycin 500 MG \\[VANCOCIN-CP\\] (2011862) → replaced by Vancomycin 500 MG \\[Vancocin CP\\] (43279567) — in the set\n- vancomycin Injection \\[VANCOCIN-CP\\] (2011863) → replaced by Vancomycin Injection \\[Vancocin CP\\] (43295826) — in the set"
       }
     ],
     "distributionStats": null

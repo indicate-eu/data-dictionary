@@ -82,7 +82,7 @@
         "version": "1.2.0",
         "date": "2026-11-15",
         "author": "Boris Delange",
-        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 23 -> 27 concepts. Added 4 (new or reclassified descendants in the new release): Extended spectrum beta-lactamase producing Enterobacter asburiae (37464346); Extended spectrum beta-lactamase producing Enterobacter cancerogenus (37464347); Extended spectrum beta-lactamase producing Enterobacter cloacae subspecies dissolvens (37464348); Enterobacter hormaechei subsp. hoffmannii (37465634). 2 concept names updated by the vocabulary (e.g. 'Multiple drug-resistant Enterobacter asburiae' -> 'Multidrug-resistant Enterobacter asburiae')."
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26).\n23 → 27 concepts.\n\n**Added (4) — new or reclassified descendants in the new release:**\n\n- Enterobacter hormaechei subsp. hoffmannii (37465634)\n- Extended spectrum beta-lactamase producing Enterobacter asburiae (37464346)\n- Extended spectrum beta-lactamase producing Enterobacter cancerogenus (37464347)\n- Extended spectrum beta-lactamase producing Enterobacter cloacae subspecies dissolvens (37464348)\n\n**Renamed (2) by the vocabulary:**\n\n- Multiple drug-resistant Enterobacter asburiae → Multidrug-resistant Enterobacter asburiae (37017941)\n- Multiple drug-resistant Enterobacter cloacae → Multidrug-resistant Enterobacter cloacae (37017942)"
       }
     ],
     "distributionStats": null

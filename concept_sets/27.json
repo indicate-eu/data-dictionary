@@ -82,7 +82,7 @@
         "version": "1.2.0",
         "date": "2026-11-15",
         "author": "Boris Delange",
-        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 46 -> 47 concepts. Added 1 (new or reclassified descendants in the new release): Chronic obstructive pulmonary disease of unknown cause (37473073)."
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26).\n46 → 47 concepts.\n\n**Added (1) — new or reclassified descendants in the new release:**\n\n- Chronic obstructive pulmonary disease of unknown cause (37473073)"
       }
     ],
     "distributionStats": null

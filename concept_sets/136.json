@@ -97,7 +97,7 @@
         "version": "1.1.0",
         "date": "2026-11-15",
         "author": "Boris Delange",
-        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 1279 -> 1278 concepts. Removed 1 concept deprecated in the new release, whose replacement is already in the set: propofol 10 MG/ML Injectable Suspension [Propoven] (36928276)."
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26).\n1279 → 1278 concepts.\n\n**Removed (1) — deprecated in the new release:**\n\n- propofol 10 MG/ML Injectable Suspension \\[Propoven\\] (36928276) → replaced by propofol lipid emulsion 10 MG/ML Injectable Suspension \\[Propoven\\] (40168828) — in the set"
       }
     ],
     "distributionStats": null

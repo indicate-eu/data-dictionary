@@ -82,7 +82,7 @@
         "version": "1.2.0",
         "date": "2026-11-15",
         "author": "Boris Delange",
-        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 42 -> 53 concepts. Added 11 (new or reclassified descendants in the new release): Streptococcus gallolyticus (4015114); Streptococcus sanguinis (4015549); Streptococcus infantarius subspecies infantarius (4201202); Streptococcus bovis group (4214081); Streptococcus lutetiensis (4214083); and 6 more. 1 concept name updated by the vocabulary (e.g. 'Streptococcus sanguis II' -> 'Streptococcus sanguinis biotype II')."
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26).\n42 → 53 concepts.\n\n**Added (11) — new or reclassified descendants in the new release:**\n\n- Streptococcus bovis group (4214081)\n- Streptococcus equinus (4217676)\n- Streptococcus gallolyticus (4015114)\n- Streptococcus gallolyticus subspecies gallolyticus (4225328)\n- Streptococcus gallolyticus subspecies macedonicus (4227365)\n- Streptococcus gallolyticus subspecies pasteurianus (4222232)\n- Streptococcus infantarius (4217698)\n- Streptococcus infantarius subspecies coli (4229522)\n- Streptococcus infantarius subspecies infantarius (4201202)\n- Streptococcus lutetiensis (4214083)\n- Streptococcus sanguinis (4015549)\n\n**Renamed (1) by the vocabulary:**\n\n- Streptococcus sanguis II → Streptococcus sanguinis biotype II (4179971)"
       }
     ],
     "distributionStats": null

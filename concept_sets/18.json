@@ -82,7 +82,7 @@
         "version": "1.2.0",
         "date": "2026-11-15",
         "author": "Boris Delange",
-        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 151 -> 162 concepts. Added 11 (new or reclassified descendants in the new release): Methyl CCNU nephropathy (4029793); Penicillamine nephropathy (4030669); Chronic cyclosporin A nephrotoxicity (4030670); Chronic drug-induced tubulointerstitial nephritis (4128206); Chronic drug-induced renal disease (4128228); and 6 more. 1 concept name updated by the vocabulary (e.g. 'End stage renal failure untreated by renal replacement therapy' -> 'End stage renal failure without renal replacement therapy')."
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26).\n151 → 162 concepts.\n\n**Added (11) — new or reclassified descendants in the new release:**\n\n- Analgesic nephropathy (4244418)\n- Chronic cardiorenal syndrome (37472201)\n- Chronic cyclosporin A nephrotoxicity (4030670)\n- Chronic drug-induced renal disease (4128228)\n- Chronic drug-induced tubulointerstitial nephritis (4128206)\n- Chronic lithium nephrotoxicity (37471595)\n- Chronic renocardiac syndrome (37472202)\n- Drug-induced membranous nephropathy (36716200)\n- Focal segmental glomerulosclerosis caused by lithium (36716214)\n- Methyl CCNU nephropathy (4029793)\n- Penicillamine nephropathy (4030669)\n\n**Renamed (1) by the vocabulary:**\n\n- End stage renal failure untreated by renal replacement therapy → End stage renal failure without renal replacement therapy (4128200)"
       }
     ],
     "distributionStats": null

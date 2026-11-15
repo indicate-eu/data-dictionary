@@ -82,7 +82,7 @@
         "version": "1.2.0",
         "date": "2026-11-15",
         "author": "Boris Delange",
-        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 60 -> 61 concepts. Added 1 (new or reclassified descendants in the new release): Upper gastrointestinal hemorrhage due to cirrhosis of liver (37471653). 1 concept name updated by the vocabulary (e.g. 'Cirrhosis of liver with primary sclerosing cholangitis' -> 'Cirrhosis of liver due to primary sclerosing cholangitis')."
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26).\n60 → 61 concepts.\n\n**Added (1) — new or reclassified descendants in the new release:**\n\n- Upper gastrointestinal hemorrhage due to cirrhosis of liver (37471653)\n\n**Renamed (1) by the vocabulary:**\n\n- Cirrhosis of liver with primary sclerosing cholangitis → Cirrhosis of liver due to primary sclerosing cholangitis (42539566)"
       }
     ],
     "distributionStats": null

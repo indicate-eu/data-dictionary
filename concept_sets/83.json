@@ -97,7 +97,7 @@
         "version": "1.1.0",
         "date": "2026-11-15",
         "author": "Boris Delange",
-        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 3033 -> 3030 concepts. Removed 3 concepts deprecated in the new release, whose replacement is already in the set: doxycycline 100 MG Oral Capsule [Vibramycin] (36922848); doxycycline 20 MG Oral Tablet [Periostat] (36942995); doxycycline 50 MG Oral Capsule [Vibramycin] (36959043)."
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26).\n3033 → 3030 concepts.\n\n**Removed (3) — deprecated in the new release:**\n\n- doxycycline 100 MG Oral Capsule \\[Vibramycin\\] (36922848) → replaced by doxycycline hyclate 100 MG Oral Capsule \\[Vibramycin\\] (19029685) — in the set\n- doxycycline 20 MG Oral Tablet \\[Periostat\\] (36942995) → replaced by doxycycline hyclate 20 MG Oral Tablet \\[Periostat\\] (1738669) — in the set\n- doxycycline 50 MG Oral Capsule \\[Vibramycin\\] (36959043) → replaced by doxycycline hyclate 50 MG Oral Capsule \\[Vibramycin\\] (19025855) — in the set"
       }
     ],
     "distributionStats": null

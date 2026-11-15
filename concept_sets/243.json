@@ -82,7 +82,7 @@
         "version": "1.2.0",
         "date": "2026-11-15",
         "author": "Boris Delange",
-        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 13 -> 15 concepts. Added 2 (new or reclassified descendants in the new release): Extended spectrum beta-lactamase producing Klebsiella pneumoniae subspecies ozaenae (37464355); Carbapenemase-producing Klebsiella pneumoniae subsp. ozaenae (37464356). 2 concept names updated by the vocabulary (e.g. 'Multiple drug-resistant Klebsiella pneumoniae subsp. ozaenae' -> 'Multidrug-resistant Klebsiella pneumoniae subsp. ozaenae')."
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26).\n13 → 15 concepts.\n\n**Added (2) — new or reclassified descendants in the new release:**\n\n- Carbapenemase-producing Klebsiella pneumoniae subsp. ozaenae (37464356)\n- Extended spectrum beta-lactamase producing Klebsiella pneumoniae subspecies ozaenae (37464355)\n\n**Renamed (2) by the vocabulary:**\n\n- Multiple drug-resistant Klebsiella pneumoniae → Multidrug-resistant Klebsiella pneumoniae (37017940)\n- Multiple drug-resistant Klebsiella pneumoniae subsp. ozaenae → Multidrug-resistant Klebsiella pneumoniae subsp. ozaenae (37017620)"
       }
     ],
     "distributionStats": null

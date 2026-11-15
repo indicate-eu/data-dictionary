@@ -215,7 +215,7 @@
         "version": "1.1.2",
         "date": "2026-11-15",
         "author": "Boris Delange",
-        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 1 concept name updated by the vocabulary (e.g. 'Hemoglobin A1c/Hemoglobin.total in Blood by IFCC protocol' -> 'Hemoglobin A1c/Hemoglobin.total standardized per IFCC-RMP for CDT in Blood'). Expression concept metadata refreshed from the vocabulary (1 renamed, e.g. 'Hemoglobin A1c/Hemoglobin.total in Blood by IFCC protocol' -> 'Hemoglobin A1c/Hemoglobin.total standardized per IFCC-RMP for CDT in Blood')."
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26).\n\n**Renamed (1) by the vocabulary:**\n\n- Hemoglobin A1c/Hemoglobin.total in Blood by IFCC protocol → Hemoglobin A1c/Hemoglobin.total standardized per IFCC-RMP for CDT in Blood (40762352)"
       }
     ],
     "distributionStats": null

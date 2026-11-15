@@ -116,7 +116,7 @@
         "version": "1.1.0",
         "date": "2026-11-15",
         "author": "Boris Delange",
-        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 5934 -> 5930 concepts. Removed 4 concepts deprecated in the new release, whose replacement is already in the set: Penicillin G 1200000 UNT [Extencilline] (21027486); Penicillin G 1200000 UNT Injection [Extencilline] (21096154); Penicillin G 2400000 UNT [Extencilline] (21174742); Penicillin V Oral Tablet [V Cillin K] (44082523)."
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26).\n5934 → 5930 concepts.\n\n**Removed (4) — deprecated in the new release:**\n\n- Penicillin G 1200000 UNT Injection \\[Extencilline\\] (21096154) → replaced by penicillin G benzathine 1200000 UNT Injection \\[Extencilline\\] (747519) — in the set\n- Penicillin G 1200000 UNT \\[Extencilline\\] (21027486) → replaced by penicillin G benzathine 1200000 UNT \\[Extencilline\\] (747516) — in the set\n- Penicillin G 2400000 UNT \\[Extencilline\\] (21174742) → replaced by penicillin G benzathine 2400000 UNT \\[Extencilline\\] (747522) — in the set\n- Penicillin V Oral Tablet \\[V Cillin K\\] (44082523) → replaced by penicillin V Oral Tablet \\[V-Cillin K\\] (40067094) — in the set"
       }
     ],
     "distributionStats": null

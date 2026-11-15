@@ -97,7 +97,7 @@
         "version": "1.1.0",
         "date": "2026-11-15",
         "author": "Boris Delange",
-        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 1883 -> 1882 concepts. Removed 1 concept deprecated in the new release, whose replacement is already in the set: dexamethasone 1 MG/ML / tobramycin 3 MG/ML [TOBACIN-D] (2012201)."
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26).\n1883 → 1882 concepts.\n\n**Removed (1) — deprecated in the new release:**\n\n- dexamethasone 1 MG/ML / tobramycin 3 MG/ML \\[TOBACIN-D\\] (2012201) → replaced by Dexamethasone 1 MG/ML / Tobramycin 3 MG/ML \\[TOBACIN D\\] (42948484) — in the set"
       }
     ],
     "distributionStats": null

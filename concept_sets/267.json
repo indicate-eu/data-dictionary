@@ -82,7 +82,7 @@
         "version": "1.2.0",
         "date": "2026-11-15",
         "author": "Boris Delange",
-        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 15 -> 11 concepts. Removed 4 concepts still standard but no longer descendants of the set's anchor (reclassified in the vocabulary): Streptococcus gordonii (4015115); Streptococcus cristatus (4015546); Streptococcus sanguinis group (4019756); Streptococcus sanguis II (4179971)."
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26).\n15 → 11 concepts.\n\n**Removed (4) — still standard, but no longer descendants of the set's anchor (reclassified in the vocabulary):**\n\n- Streptococcus cristatus (4015546)\n- Streptococcus gordonii (4015115)\n- Streptococcus sanguinis group (4019756)\n- Streptococcus sanguis II (4179971)"
       }
     ],
     "distributionStats": null

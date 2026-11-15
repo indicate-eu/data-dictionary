@@ -82,7 +82,7 @@
         "version": "1.2.0",
         "date": "2026-11-15",
         "author": "Boris Delange",
-        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 17 -> 19 concepts. Added 2 (new or reclassified descendants in the new release): Infection associated with intra-aortic balloon catheter (37472245); Postoperative infection of bloodstream associated with vascular catheter (37472290)."
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26).\n17 → 19 concepts.\n\n**Added (2) — new or reclassified descendants in the new release:**\n\n- Infection associated with intra-aortic balloon catheter (37472245)\n- Postoperative infection of bloodstream associated with vascular catheter (37472290)"
       }
     ],
     "distributionStats": null

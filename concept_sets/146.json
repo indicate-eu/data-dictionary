@@ -97,7 +97,7 @@
         "version": "1.1.0",
         "date": "2026-11-15",
         "author": "Boris Delange",
-        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 7741 -> 7742 concepts. Added 2 (new or reclassified descendants in the new release): acetaminophen 43.3 MG/ML / dextromethorphan hydrobromide 1.33 MG/ML / doxylamine succinate 0.833 MG/ML / phenylephrine hydrochloride 0.667 MG/ML Oral Solution (1316660); acetaminophen 325 MG / dextromethorphan hydrobromide 15 MG / doxylamine succinate 6.25 MG / phenylephrine hydrochloride 5 MG Oral Capsule (1316699). Removed 1 concept deprecated in the new release, whose replacement is already in the set: phenylephrine 1.2 MG/ML Ophthalmic Solution [Isopto Frin] (36930775)."
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26).\n7741 → 7742 concepts.\n\n**Added (2) — new or reclassified descendants in the new release:**\n\n- acetaminophen 325 MG / dextromethorphan hydrobromide 15 MG / doxylamine succinate 6.25 MG / phenylephrine hydrochloride 5 MG Oral Capsule (1316699)\n- acetaminophen 43.3 MG/ML / dextromethorphan hydrobromide 1.33 MG/ML / doxylamine succinate 0.833 MG/ML / phenylephrine hydrochloride 0.667 MG/ML Oral Solution (1316660)\n\n**Removed (1) — deprecated in the new release:**\n\n- phenylephrine 1.2 MG/ML Ophthalmic Solution \\[Isopto Frin\\] (36930775) → replaced by phenylephrine hydrochloride 1.2 MG/ML Ophthalmic Solution \\[Isopto Frin\\] (45776333) — in the set"
       }
     ],
     "distributionStats": null

@@ -133,7 +133,7 @@
         "version": "1.2.0",
         "date": "2026-11-15",
         "author": "Boris Delange",
-        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). LOINC 2.82 remodelled its coagulation terms and deprecated the LOINC Hierarchy nodes the set was anchored on, leaving every test under 'Lab terms not yet categorized' with no replacement grouping (confirmed in LOINC 2.83). The expression is now an explicit list of the same LOINC concepts, without descendants; the exclusions it needed are dropped. Resolved concepts are unchanged. 1 concept name updated by the vocabulary (e.g. 'Prothrombin time (PT) in Platelet poor plasma by Coagulation assay --post heparin neutralization' -> 'Prothrombin time (PT) post heparin neutralization in Platelet poor plasma by Coagulation assay')."
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26).\n\nLOINC 2.82 remodelled its coagulation terms (generic component \"Coagulation\", the distinguishing part moved to the method axis) and deprecated the LOINC Hierarchy nodes this set was anchored on, leaving every test under \"Lab terms not yet categorized\" with no replacement grouping (confirmed in LOINC 2.83). The expression is now an explicit list of the same LOINC concepts, without descendants; the exclusions it needed are dropped. Resolved concepts are unchanged.\n\n**Renamed (1) by the vocabulary:**\n\n- Prothrombin time (PT) in Platelet poor plasma by Coagulation assay --post heparin neutralization → Prothrombin time (PT) post heparin neutralization in Platelet poor plasma by Coagulation assay (3039931)"
       }
     ],
     "distributionStats": null

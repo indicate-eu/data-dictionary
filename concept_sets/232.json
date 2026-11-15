@@ -82,7 +82,7 @@
         "version": "1.1.1",
         "date": "2026-11-15",
         "author": "Boris Delange",
-        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 1 concept name updated by the vocabulary (e.g. 'Multiple drug-resistant Klebsiella aerogenes' -> 'Multidrug-resistant Klebsiella aerogenes')."
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26).\n\n**Renamed (1) by the vocabulary:**\n\n- Multiple drug-resistant Klebsiella aerogenes → Multidrug-resistant Klebsiella aerogenes (37395754)"
       }
     ],
     "distributionStats": null

@@ -97,7 +97,7 @@
         "version": "1.1.0",
         "date": "2026-11-15",
         "author": "Boris Delange",
-        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 3294 -> 3293 concepts. Removed 1 concept deprecated in the new release, whose replacement is already in the set: Levofloxacin Oral Tablet [LEVO F] (42965604)."
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26).\n3294 → 3293 concepts.\n\n**Removed (1) — deprecated in the new release:**\n\n- Levofloxacin Oral Tablet \\[LEVO F\\] (42965604) → replaced by Levofloxacin Oral Tablet \\[LEVO-F\\] (42965566) — in the set"
       }
     ],
     "distributionStats": null

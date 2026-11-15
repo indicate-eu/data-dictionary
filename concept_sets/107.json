@@ -97,7 +97,7 @@
         "version": "1.1.0",
         "date": "2026-11-15",
         "author": "Boris Delange",
-        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 1377 -> 1377 concepts. Added 1 (new or reclassified descendants in the new release): tetracycline hydrochloride 30 MG/ML Topical Solution (1316554). Removed 1 concept deprecated in the new release, whose replacement is already in the set: tetracycline 2.2 MG/ML Topical Solution [Topicycline] (36920909)."
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26).\n1377 → 1377 concepts.\n\n**Added (1) — new or reclassified descendants in the new release:**\n\n- tetracycline hydrochloride 30 MG/ML Topical Solution (1316554)\n\n**Removed (1) — deprecated in the new release:**\n\n- tetracycline 2.2 MG/ML Topical Solution \\[Topicycline\\] (36920909) → replaced by tetracycline hydrochloride 2.2 MG/ML Topical Solution \\[Topicycline\\] (45775110) — in the set"
       }
     ],
     "distributionStats": null

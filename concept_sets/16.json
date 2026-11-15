@@ -82,7 +82,7 @@
         "version": "1.2.0",
         "date": "2026-11-15",
         "author": "Boris Delange",
-        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26). 75 -> 71 concepts. Removed 4 concepts made non-standard, mapping to a standard concept already in the set: Kaposi's sarcoma with AIDS (acquired immunodeficiency syndrome) (4224096); Malignant neoplasm with AIDS (acquired immunodeficiency syndrome) (4226357); Reticulosarcoma with AIDS (acquired immunodeficiency syndrome) (4226388); Primary lymphoma of brain with AIDS (acquired immunodeficiency syndrome) (4227969)."
+        "message": "Vocabulary update: re-resolved against OMOP vocabulary v5.0 29-AUG-26 (previously v5.0 27-FEB-26).\n75 → 71 concepts.\n\n**Removed (4) — compound concepts made non-standard and split into their components:**\n\n- Kaposi's sarcoma with AIDS (acquired immunodeficiency syndrome) (4224096) → AIDS (4267414) — in the set + Kaposi's sarcoma (clinical) (434584) — outside the set\n- Malignant neoplasm with AIDS (acquired immunodeficiency syndrome) (4226357) → AIDS (4267414) — in the set + Malignant neoplastic disease (443392) — outside the set\n- Primary lymphoma of brain with AIDS (acquired immunodeficiency syndrome) (4227969) → AIDS (4267414) — in the set + Primary cerebral lymphoma (4174769) — outside the set\n- Reticulosarcoma with AIDS (acquired immunodeficiency syndrome) (4226388) → AIDS (4267414) — in the set + Reticulosarcoma (436920) — outside the set"
       }
     ],
     "distributionStats": null
