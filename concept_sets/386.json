@@ -1,0 +1,84 @@
+{
+  "id": 386,
+  "name": "Driving Pressure (ΔP)",
+  "description": "Driving pressure (ΔP): plateau pressure minus total PEEP, in cmH2O. Local INDICATE concept, as no standard concept exists.",
+  "version": "1.0.0",
+  "createdBy": "Boris Delange",
+  "createdDate": "2026-11-15",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2026-11-15",
+  "createdByTool": "INDICATE Data Dictionary v1.2.6 (https://github.com/indicate-eu/data-dictionary)",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 2100000010,
+          "conceptName": "Driving pressure",
+          "domainId": "Measurement",
+          "vocabularyId": "INDICATE",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "",
+          "standardConceptCaption": "Non-standard",
+          "conceptCode": "driving-pressure",
+          "validStartDate": "2026-11-15",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "4bca0f5a-e227-45a9-bb10-709d93c22854",
+    "organization": {
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
+    },
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "Driving Pressure (ΔP)",
+        "category": "Ventilation",
+        "subcategory": "Ventilation parameters",
+        "shortDescription": "Driving pressure (ΔP): plateau pressure minus total PEEP, in cmH2O. Local INDICATE concept, as no standard concept exists.",
+        "longDescription": "## Definition & Clinical Context\n\nDriving pressure (ΔP) is the plateau pressure minus the total positive end-expiratory pressure (PEEP) [1]. It equals the tidal volume divided by the compliance of the respiratory system, that is, the tidal volume scaled to the size of the lung available for ventilation, and it is the ventilation variable most strongly associated with survival in ARDS [2]. It can be calculated this way only in a patient making no inspiratory effort [2].\n\nIn source data it is a single numeric value per patient-timestamp, in centimetres of water (cmH2O); some ventilators display mbar (1 cmH2O ≈ 0.98 mbar). It is recorded when the ventilator or the ICU information system computes it; otherwise it has to be derived from the plateau pressure and the total PEEP.\n\n## Included Concepts\n\nNo standard concept exists for driving pressure in LOINC, SNOMED CT or the other OMOP vocabularies (OMOP vocabulary release v5.0 29-AUG-26). The set holds a single **local INDICATE concept**:\n\n- *2100000010 / driving-pressure — Driving pressure (INDICATE)*: a local concept created because no standard term exists. Custom concepts use the INDICATE vocabulary and are non-standard by definition.\n\n**Note on units**: reported in **cmH2O** (`44777590 / cm[H2O] — centimeter watercolumn`, UCUM), the recommended unit, with a registered cmH2O↔mbar conversion (1 cmH2O = 0.98 mbar).\n\n## Mapping Notes\n\n- **Map here** a driving pressure recorded as such in the source (a field named driving pressure or ΔP).\n- **Do not compute it at ETL time** when the source does not record it: the plateau pressure and the total PEEP map to their own sets, *Plateau pressure (Pplat)* and *Total Positive End-Expiratory Pressure (Total PEEP)*, and the analysis derives the driving pressure from two measurements taken close in time.\n- **Computed with the applied PEEP**: a driving pressure computed as plateau pressure minus the PEEP set on the ventilator still maps here. It matches the definition only without auto-PEEP, total PEEP being the applied plus the intrinsic PEEP [3]; with auto-PEEP it is higher.\n- **Not the inspiratory pressure set above PEEP** in pressure-controlled or pressure-support modes: that is a ventilator setting, not a measured driving pressure.\n\n## References\n\n[1] Grasselli G, Calfee CS, Camporota L, et al. ESICM guidelines on acute respiratory distress syndrome: definition, phenotyping and respiratory support strategies. Intensive Care Med. 2023;49(7):727-59.\n    Available: <a href=\"https://doi.org/10.1007/s00134-023-07050-7\" target=\"_blank\">https://doi.org/10.1007/s00134-023-07050-7</a>\n\n[2] Amato MB, Meade MO, Slutsky AS, et al. Driving pressure and survival in the acute respiratory distress syndrome. N Engl J Med. 2015;372(8):747-55.\n    Available: <a href=\"https://doi.org/10.1056/NEJMsa1410639\" target=\"_blank\">https://doi.org/10.1056/NEJMsa1410639</a>\n\n[3] Brochard L. Intrinsic (or auto-) PEEP during controlled mechanical ventilation. Intensive Care Med. 2002;28(10):1376-8.\n    Available: <a href=\"https://doi.org/10.1007/s00134-002-1438-8\" target=\"_blank\">https://doi.org/10.1007/s00134-002-1438-8</a>"
+      },
+      "fr": {
+        "name": "Pression motrice (ΔP)",
+        "category": "Ventilation",
+        "subcategory": "Paramètres ventilatoires",
+        "shortDescription": "Pression motrice (ΔP) : pression de plateau moins PEP totale, en cmH2O. Concept local INDICATE, faute de concept standard.",
+        "longDescription": "## Définition et contexte clinique\n\nLa pression motrice (ΔP, *driving pressure*) est la pression de plateau moins la pression expiratoire positive (PEP) totale [1]. Elle est égale au volume courant divisé par la compliance du système respiratoire, c’est-à-dire au volume courant rapporté à la taille du poumon disponible pour la ventilation, et c’est la variable ventilatoire la plus fortement associée à la survie dans le SDRA [2]. Elle ne se calcule ainsi que chez un patient sans effort inspiratoire [2].\n\nDans les données sources, c’est une valeur numérique unique par patient et par horodatage, en centimètres d’eau (cmH2O) ; certains ventilateurs affichent des mbar (1 cmH2O ≈ 0,98 mbar). Elle est enregistrée quand le ventilateur ou le logiciel de réanimation la calcule ; sinon, elle doit être dérivée de la pression de plateau et de la PEP totale.\n\n## Concepts inclus\n\nAucun concept standard n’existe pour la pression motrice dans LOINC, SNOMED CT ni les autres vocabulaires OMOP (version des vocabulaires OMOP v5.0 29-AUG-26). Le set contient un unique **concept local INDICATE** :\n\n- *2100000010 / driving-pressure — Driving pressure (INDICATE)* : concept local créé faute de terme standard existant. Les concepts personnalisés utilisent le vocabulaire INDICATE et sont non standards par définition.\n\n**Unités** : en **cmH2O** (`44777590 / cm[H2O] — centimeter watercolumn`, UCUM), l’unité recommandée, avec une conversion cmH2O↔mbar enregistrée (1 cmH2O = 0,98 mbar).\n\n## Notes de mapping\n\n- **Mapper ici** une pression motrice enregistrée comme telle dans la source (un champ nommé pression motrice, *driving pressure* ou ΔP).\n- **Ne pas la calculer à l’ETL** quand la source ne l’enregistre pas : la pression de plateau et la PEP totale se mappent dans leurs propres sets, *Pression de plateau (Pplat)* et *Pression expiratoire positive totale (PEP totale)*, et l’analyse dérive la pression motrice de deux mesures proches dans le temps.\n- **Calculée avec la PEP appliquée** : une pression motrice calculée comme pression de plateau moins la PEP réglée sur le ventilateur se mappe quand même ici. Elle ne correspond à la définition qu’en l’absence d’auto-PEP, la PEP totale étant la PEP appliquée plus la PEP intrinsèque [3] ; en présence d’auto-PEP, elle est plus élevée.\n- **Pas la pression inspiratoire réglée au-dessus de la PEP** en mode pression contrôlée ou aide inspiratoire : c’est un réglage du ventilateur, pas une pression motrice mesurée.\n\n## Références\n\n[1] Grasselli G, Calfee CS, Camporota L, et al. ESICM guidelines on acute respiratory distress syndrome: definition, phenotyping and respiratory support strategies. Intensive Care Med. 2023;49(7):727-59.\n    Available: <a href=\"https://doi.org/10.1007/s00134-023-07050-7\" target=\"_blank\">https://doi.org/10.1007/s00134-023-07050-7</a>\n\n[2] Amato MB, Meade MO, Slutsky AS, et al. Driving pressure and survival in the acute respiratory distress syndrome. N Engl J Med. 2015;372(8):747-55.\n    Available: <a href=\"https://doi.org/10.1056/NEJMsa1410639\" target=\"_blank\">https://doi.org/10.1056/NEJMsa1410639</a>\n\n[3] Brochard L. Intrinsic (or auto-) PEEP during controlled mechanical ventilation. Intensive Care Med. 2002;28(10):1376-8.\n    Available: <a href=\"https://doi.org/10.1007/s00134-002-1438-8\" target=\"_blank\">https://doi.org/10.1007/s00134-002-1438-8</a>"
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [],
+    "versions": [
+      {
+        "version": "1.0.0",
+        "date": "2026-11-15",
+        "author": "Boris Delange",
+        "message": "Initial version: driving pressure (plateau pressure minus total PEEP), requested in Nicolas Terzi's review of Plateau pressure (Pplat) (320). No standard concept exists in the OMOP vocabularies: the set holds the local INDICATE concept 2100000010. Description sourced to the ESICM 2023 guidelines, Amato 2015 and Brochard 2002, all read in full."
+      }
+    ],
+    "distributionStats": null
+  }
+}

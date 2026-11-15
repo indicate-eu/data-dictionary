@@ -1,0 +1,17 @@
+{
+  "conceptSetId": 386,
+  "vocabularyVersion": {
+    "release": "v5.0 29-AUG-26"
+  },
+  "resolvedConcepts": [
+    {
+      "conceptId": 2100000010,
+      "conceptName": "Driving pressure",
+      "vocabularyId": "INDICATE",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "driving-pressure",
+      "standardConcept": ""
+    }
+  ]
+}

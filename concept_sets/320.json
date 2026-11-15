@@ -180,7 +180,7 @@
         "reviewer": {
           "firstName": "Nicolas",
           "lastName": "Terzi",
-          "affiliation": "",
+          "affiliation": "CHU Rennes, Médecine Intensive - Réanimation, F-35033 Rennes, France; Univ Rennes, Faculté de Médecine, Biosit, F-35043 Rennes, France",
           "profession": "Intensive Care Physician",
           "orcid": "0000-0003-4036-6245"
         },
@@ -200,6 +200,19 @@
         },
         "reviewTimestamp": "2026-11-15T12:00:00.000Z",
         "comments": "**Reply to the review of Gregor Lichtner**\n\n**37040392** is a LOINC classification concept (LOINC hierarchy node LP409162-7): it only anchors the expansion to its two descendants, **36304439** / 60829-9 *Pressure.plateau Respiratory system airway* and **36303946** / 76259-1 *Pressure.plateau Respiratory system airway --on ventilator*, added following issue #23. Since PR #34, `resolve.py` leaves classification concepts out of the resolved lists, so 37040392 no longer appears among the resolved concepts: the set resolves to 6 standard Measurement concepts.\n\nCould you check and update your verdict?",
+        "version": "1.2.0"
+      },
+      {
+        "reviewId": 5,
+        "reviewer": {
+          "firstName": "Boris",
+          "lastName": "Delange",
+          "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+          "profession": "Medical Informatics and Intensive Care Physician",
+          "orcid": "0009-0002-6055-6935"
+        },
+        "reviewTimestamp": "2026-11-15T12:00:00.000Z",
+        "comments": "**Reply to the review of Nicolas Terzi**\n\n**Driving pressure** now has its own concept set, *Driving Pressure (ΔP)* (386): plateau pressure minus total PEEP, as defined in the ESICM 2023 ARDS guidelines. No standard concept exists for it in LOINC, SNOMED CT or the other OMOP vocabularies, so the set holds a local INDICATE concept (**2100000010**) for sites that record it; otherwise the analysis derives it from this set and *Total Positive End-Expiratory Pressure (Total PEEP)* (385).\n\nCould you review set 386?",
         "version": "1.2.0"
       }
     ],
