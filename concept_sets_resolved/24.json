@@ -1,800 +1,4787 @@
 {
   "conceptSetId": 24,
   "vocabularyVersion": {
-    "release": "v5.0 27-FEB-26",
-    "SNOMED": "2025-02-01 SNOMED CT International Edition; 2025-03-01 SNOMED CT US Edition; 2025-04-09 SNOMED CT UK Edition"
+    "release": "v5.0 29-AUG-26",
+    "Cancer Modifier": "Cancer Modifier 20260722"
   },
   "resolvedConcepts": [
     {
-      "conceptId": 132570,
-      "conceptName": "Leukemic reticuloendotheliosis of lymph nodes of head, face and neck",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "188645002",
+      "conceptId": 704985,
+      "conceptName": "Metastasis to abdomen",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5117516",
       "standardConcept": "S"
     },
     {
-      "conceptId": 193429,
-      "conceptName": "Leukemic reticuloendotheliosis of intra-abdominal lymph nodes",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "93144003",
+      "conceptId": 704986,
+      "conceptName": "Metastasis to meninges",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5117515",
       "standardConcept": "S"
     },
     {
-      "conceptId": 196650,
-      "conceptName": "Leukemic reticuloendotheliosis of intrapelvic lymph nodes",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "93145002",
+      "conceptId": 712644,
+      "conceptName": "Metastasis to left kidney",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5160853",
       "standardConcept": "S"
     },
     {
-      "conceptId": 318989,
-      "conceptName": "Leukemic reticuloendotheliosis of lymph nodes of multiple sites",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "93150008",
+      "conceptId": 712645,
+      "conceptName": "Metastasis to right kidney",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5160854",
       "standardConcept": "S"
     },
     {
-      "conceptId": 432851,
-      "conceptName": "Metastatic malignant neoplasm",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "128462008",
+      "conceptId": 712646,
+      "conceptName": "Metastasis to left renal pelvis",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5160855",
       "standardConcept": "S"
     },
     {
-      "conceptId": 439268,
-      "conceptName": "Leukemic reticuloendotheliosis of lymph nodes of inguinal region and lower limb",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "188649008",
+      "conceptId": 712647,
+      "conceptName": "Metastasis to right renal pelvis",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5160856",
       "standardConcept": "S"
     },
     {
-      "conceptId": 439269,
-      "conceptName": "Leukemic reticuloendotheliosis of lymph nodes of axilla and upper limb",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "188648000",
+      "conceptId": 1345939,
+      "conceptName": "Metastasis to peripheral nerve",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Staging/Grading",
+      "conceptCode": "CM:MTS1",
       "standardConcept": "S"
     },
     {
-      "conceptId": 442095,
-      "conceptName": "Leukemic reticuloendotheliosis of intrathoracic lymph nodes",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "93146001",
+      "conceptId": 35225469,
+      "conceptName": "Metastasis to anal canal",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031483",
       "standardConcept": "S"
     },
     {
-      "conceptId": 604497,
-      "conceptName": "Metastatic adenocarcinoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "354081000119101",
+      "conceptId": 35225531,
+      "conceptName": "Metastasis to pharynx",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031805",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1075530,
-      "conceptName": "Metastatic malignant neoplasm to nipple",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1306321008",
+      "conceptId": 35225538,
+      "conceptName": "Metastasis to false vocal cord",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031616",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1075531,
-      "conceptName": "Metastatic malignant neoplasm to ectopic site of breast",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1306322001",
+      "conceptId": 35225539,
+      "conceptName": "Metastasis to epicardium",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031602",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1075532,
-      "conceptName": "Metastatic malignant neoplasm to areola",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1306323006",
+      "conceptId": 35225540,
+      "conceptName": "Metastasis to epididymis",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031603",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1075916,
-      "conceptName": "Metastatic balloon cell malignant melanoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1332483008",
+      "conceptId": 35225541,
+      "conceptName": "Metastasis to female breast",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031617",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1075917,
-      "conceptName": "Metastatic anaplastic thyroid carcinoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1332484002",
+      "conceptId": 35225542,
+      "conceptName": "Metastasis to mediastinum",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031723",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1075918,
-      "conceptName": "Metastatic endometrial stromal sarcoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1332485001",
+      "conceptId": 35225543,
+      "conceptName": "Metastasis to large intestine",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031678",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1075919,
-      "conceptName": "Metastatic amelanotic malignant melanoma to skin",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1332486000",
+      "conceptId": 35225544,
+      "conceptName": "Metastasis to muscle of pelvis",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031742",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1076162,
-      "conceptName": "Metastatic desmoplastic malignant melanoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1335987009",
+      "conceptId": 35225545,
+      "conceptName": "Metastasis to phalanx of hand",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031804",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1076216,
-      "conceptName": "Metastatic spindle cell rhabdomyosarcoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1336170004",
+      "conceptId": 35225547,
+      "conceptName": "Metastasis to mesentery",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031724",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1076217,
-      "conceptName": "Metastatic synovial sarcoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1336171000",
+      "conceptId": 35225549,
+      "conceptName": "Metastasis to pineal gland",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031806",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1076218,
-      "conceptName": "Metastatic ganglioneuroblastoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1336172007",
+      "conceptId": 35225550,
+      "conceptName": "Metastasis to inguinal region",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031655",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1076219,
-      "conceptName": "Metastatic superficial spreading melanoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1336173002",
+      "conceptId": 35225551,
+      "conceptName": "Metastasis to brain stem",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031546",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1076220,
-      "conceptName": "Metastatic fibrosarcoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1336176005",
+      "conceptId": 35225552,
+      "conceptName": "Metastasis to male breast",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031715",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1076221,
-      "conceptName": "Metastatic spindle cell melanoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1336177001",
+      "conceptId": 35225553,
+      "conceptName": "Metastasis to mesocolon",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031725",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1076222,
-      "conceptName": "Metastatic myxofibrosarcoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1336182008",
+      "conceptId": 35225554,
+      "conceptName": "Metastasis to metacarpal bone",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031726",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1076223,
-      "conceptName": "Metastatic pleomorphic rhabdomyosarcoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1336185005",
+      "conceptId": 35225555,
+      "conceptName": "Metastasis to paraganglion",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031783",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1076224,
-      "conceptName": "Metastatic lentigo maligna melanoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1336186006",
+      "conceptId": 35225556,
+      "conceptName": "Metastasis to breast",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031547",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1076225,
-      "conceptName": "Metastatic glassy cell carcinoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1336188007",
+      "conceptId": 35225558,
+      "conceptName": "Metastasis to fallopian tube",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031615",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1076227,
-      "conceptName": "Metastatic inflammatory carcinoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1336190008",
+      "conceptId": 35225559,
+      "conceptName": "Metastasis to abdominal esophagus",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031470",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1076300,
-      "conceptName": "Metastatic infantile fibrosarcoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1339049006",
+      "conceptId": 35225560,
+      "conceptName": "Metastasis to abducens nerve",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031471",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1076301,
-      "conceptName": "Metastatic malignant glioma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1339050006",
+      "conceptId": 35225561,
+      "conceptName": "Metastasis to accessory nerve",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031472",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1076302,
-      "conceptName": "Metastatic germinoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1339051005",
+      "conceptId": 35225562,
+      "conceptName": "Metastasis to accessory sinus",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031473",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1076511,
-      "conceptName": "Metastatic well-differentiated neuroendocrine tumor to regional lymph node",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "140633841000119106",
+      "conceptId": 35225563,
+      "conceptName": "Metastasis to acoustic nerve",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031474",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1244565,
-      "conceptName": "Metastatic well-differentiated neuroendocrine tumor",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1290060007",
+      "conceptId": 35225564,
+      "conceptName": "Metastasis to acromion",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031475",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1244716,
-      "conceptName": "Metastatic cholangiocarcinoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1290690001",
+      "conceptId": 35225565,
+      "conceptName": "Metastasis to adenoid",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031476",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1244718,
-      "conceptName": "Metastatic apocrine adenocarcinoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1290695006",
+      "conceptId": 35225566,
+      "conceptName": "Metastasis to adnexa of skin",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031477",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1244720,
-      "conceptName": "Metastatic eccrine porocarcinoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1290697003",
+      "conceptId": 35225567,
+      "conceptName": "Metastasis to adrenal cortex",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031478",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1244721,
-      "conceptName": "Metastatic pilomatrix carcinoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1290698008",
+      "conceptId": 35225568,
+      "conceptName": "Metastasis to adrenal gland",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031479",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1244722,
-      "conceptName": "Metastatic lobular carcinoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1290700004",
+      "conceptId": 35225569,
+      "conceptName": "Metastasis to adrenal medulla",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031480",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1245145,
-      "conceptName": "Metastatic malignant melanoma of unknown primary",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1296851009",
+      "conceptId": 35225570,
+      "conceptName": "Metastasis to alveolar ridge mucosa",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031481",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1450198,
-      "conceptName": "Metastatic well-differentiated neuroendocrine neoplasm to bone",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "16067571000119106",
+      "conceptId": 35225571,
+      "conceptName": "Metastasis to ampulla of vater",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031482",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1450199,
-      "conceptName": "Metastatic well-differentiated neuroendocrine neoplasm to peritoneum",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "16067651000119101",
+      "conceptId": 35225572,
+      "conceptName": "Metastasis to anterior aspect of epiglottis",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031484",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1450482,
-      "conceptName": "Metastatic nuclear protein in testis associated carcinoma to liver",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "417437921000119101",
+      "conceptId": 35225573,
+      "conceptName": "Metastasis to anterior mediastinum",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031485",
       "standardConcept": "S"
     },
     {
-      "conceptId": 1450873,
-      "conceptName": "Metastatic nuclear protein in testis associated carcinoma to bone",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "932947661000119102",
+      "conceptId": 35225574,
+      "conceptName": "Metastasis to anterior portion of floor of mouth",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031486",
       "standardConcept": "S"
     },
     {
-      "conceptId": 3654579,
-      "conceptName": "Lymphomatous infiltrate of kidney",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "836486002",
+      "conceptId": 35225575,
+      "conceptName": "Metastasis to exocervix",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031610",
       "standardConcept": "S"
     },
     {
-      "conceptId": 4080741,
-      "conceptName": "Malignant lymphoma of thyroid gland",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "278051002",
+      "conceptId": 35225576,
+      "conceptName": "Metastasis to ureter",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031985",
       "standardConcept": "S"
     },
     {
-      "conceptId": 4126118,
-      "conceptName": "Leukemic infiltrate of kidney",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "236512004",
+      "conceptId": 35225577,
+      "conceptName": "Metastasis to ureteric orifice of urinary bladder",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031986",
       "standardConcept": "S"
     },
     {
-      "conceptId": 4145870,
-      "conceptName": "Metastatic adenocarcinoma of unknown origin",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "307226002",
+      "conceptId": 35225578,
+      "conceptName": "Metastasis to urethra",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031987",
       "standardConcept": "S"
     },
     {
-      "conceptId": 4147162,
-      "conceptName": "Metastatic malignant neoplasm to respiratory and digestive systems",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "269473008",
+      "conceptId": 35225579,
+      "conceptName": "Metastasis to urinary bladder neck",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031988",
       "standardConcept": "S"
     },
     {
-      "conceptId": 4197152,
-      "conceptName": "Leukemic infiltrate of retina",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "314418005",
+      "conceptId": 35225580,
+      "conceptName": "Metastasis to urinary system",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031989",
       "standardConcept": "S"
     },
     {
-      "conceptId": 4199641,
-      "conceptName": "Leukemic infiltrate of choroid",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "314408000",
+      "conceptId": 35225581,
+      "conceptName": "Metastasis to uterine adnexa",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031990",
       "standardConcept": "S"
     },
     {
-      "conceptId": 4297353,
-      "conceptName": "Leukemic infiltration of skin (chronic T-cell lymphocytic leukemia)",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "404122003",
+      "conceptId": 35225582,
+      "conceptName": "Metastasis to uterine cervix",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031991",
       "standardConcept": "S"
     },
     {
-      "conceptId": 4298848,
-      "conceptName": "T-cell leukemic infiltration of skin",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "402879006",
+      "conceptId": 35225583,
+      "conceptName": "Metastasis to uterus",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031992",
       "standardConcept": "S"
     },
     {
-      "conceptId": 4299143,
-      "conceptName": "Leukemic infiltration of skin (T-cell lymphoblastic leukemia)",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "404124002",
+      "conceptId": 35225584,
+      "conceptName": "Metastasis to uveal tract",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031993",
       "standardConcept": "S"
     },
     {
-      "conceptId": 4299151,
-      "conceptName": "Leukemic infiltration of skin in hairy-cell leukemia",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "404139001",
+      "conceptId": 35225585,
+      "conceptName": "Metastasis to uvula",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031994",
       "standardConcept": "S"
     },
     {
-      "conceptId": 4299153,
-      "conceptName": "Leukemic infiltration of skin in myeloid leukemia",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "404151004",
+      "conceptId": 35225586,
+      "conceptName": "Metastasis to vagina",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031995",
       "standardConcept": "S"
     },
     {
-      "conceptId": 4299154,
-      "conceptName": "Leukemic infiltration of skin in chronic myeloid leukemia",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "404153001",
+      "conceptId": 35225587,
+      "conceptName": "Metastasis to vagus nerve",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031996",
       "standardConcept": "S"
     },
     {
-      "conceptId": 4299155,
-      "conceptName": "Leukemic infiltration of skin in monocytic leukemia",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "404154007",
+      "conceptId": 35225588,
+      "conceptName": "Metastasis to vallecula",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031997",
       "standardConcept": "S"
     },
     {
-      "conceptId": 4300784,
-      "conceptName": "Leukemic infiltration of skin in acute myeloid leukemia",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "404152006",
+      "conceptId": 35225589,
+      "conceptName": "Metastasis to vas deferens",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031998",
       "standardConcept": "S"
     },
     {
-      "conceptId": 4301510,
-      "conceptName": "Metastatic squamous cell carcinoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "403906006",
+      "conceptId": 35225590,
+      "conceptName": "Metastasis to ventral surface of tongue",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031999",
       "standardConcept": "S"
     },
     {
-      "conceptId": 4301665,
-      "conceptName": "Leukemic infiltration of skin (T-cell prolymphocytic leukemia)",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "404123008",
+      "conceptId": 35225591,
+      "conceptName": "Metastasis to vermilion border of lip",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5032000",
       "standardConcept": "S"
     },
     {
-      "conceptId": 4301780,
-      "conceptName": "Leukemic infiltration of skin",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "404156009",
+      "conceptId": 35225592,
+      "conceptName": "Metastasis to vermilion border of lower lip",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5032001",
       "standardConcept": "S"
     },
     {
-      "conceptId": 4301781,
-      "conceptName": "Specific skin infiltration in Hodgkin's disease",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "404157000",
+      "conceptId": 35225593,
+      "conceptName": "Metastasis to vermilion border of upper lip",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5032002",
       "standardConcept": "S"
     },
     {
-      "conceptId": 4307000,
-      "conceptName": "Leukemic infiltration of orbit",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "423032007",
+      "conceptId": 35225594,
+      "conceptName": "Metastasis to vertebral column",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5032003",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36684857,
-      "conceptName": "Metastatic non-small cell lung cancer",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "457721000124104",
+      "conceptId": 35225595,
+      "conceptName": "Metastasis to vestibule of nose",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5032004",
       "standardConcept": "S"
     },
     {
-      "conceptId": 36715103,
-      "conceptName": "Donor derived melanoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "720587009",
+      "conceptId": 35225596,
+      "conceptName": "Metastasis to vestibule of mouth",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5032005",
       "standardConcept": "S"
     },
     {
-      "conceptId": 37016150,
-      "conceptName": "Non-Hodgkin lymphoma of central nervous system metastatic to lymph node of lower limb",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "116811000119106",
+      "conceptId": 35225597,
+      "conceptName": "Metastasis to viscera",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5032006",
       "standardConcept": "S"
     },
     {
-      "conceptId": 37018877,
-      "conceptName": "Non-Hodgkin lymphoma of central nervous system metastatic to lymph node of upper limb",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "116821000119104",
+      "conceptId": 35225598,
+      "conceptName": "Metastasis to visceral pleura",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5032007",
       "standardConcept": "S"
     },
     {
-      "conceptId": 37162050,
-      "conceptName": "Metastatic hepatocellular carcinoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1186612004",
+      "conceptId": 35225599,
+      "conceptName": "Metastasis to vocal cord",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5032008",
       "standardConcept": "S"
     },
     {
-      "conceptId": 37162300,
-      "conceptName": "Metastatic clear cell renal cell carcinoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1187285005",
+      "conceptId": 35225600,
+      "conceptName": "Metastasis to vomer",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5032009",
       "standardConcept": "S"
     },
     {
-      "conceptId": 37162723,
-      "conceptName": "Metastatic carcinoma to lymph node of lower limb",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1197327004",
+      "conceptId": 35225601,
+      "conceptName": "Metastasis to ischium",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031663",
       "standardConcept": "S"
     },
     {
-      "conceptId": 37165127,
-      "conceptName": "Metastatic small cell neuroendocrine carcinoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1240362006",
+      "conceptId": 35225602,
+      "conceptName": "Metastasis to islets of langerhans",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031664",
       "standardConcept": "S"
     },
     {
-      "conceptId": 37165252,
-      "conceptName": "Metastatic neuroblastoma to paraspinal area",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1251459007",
+      "conceptId": 35225603,
+      "conceptName": "Metastasis to isthmus of uterus",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031665",
       "standardConcept": "S"
     },
     {
-      "conceptId": 37165253,
-      "conceptName": "Metastatic extraskeletal osteosarcoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1251465007",
+      "conceptId": 35225604,
+      "conceptName": "Metastasis to jaw",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031666",
       "standardConcept": "S"
     },
     {
-      "conceptId": 37165395,
-      "conceptName": "Metastatic acantholytic squamous cell carcinoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1254749009",
+      "conceptId": 35225605,
+      "conceptName": "Metastasis to jejunum",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031667",
       "standardConcept": "S"
     },
     {
-      "conceptId": 37165664,
-      "conceptName": "Oligometastatic malignant neoplasm",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1255358009",
+      "conceptId": 35225606,
+      "conceptName": "Metastasis to junctional region of epiglottis",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031668",
       "standardConcept": "S"
     },
     {
-      "conceptId": 37167258,
-      "conceptName": "Metastatic lymphoepithelial carcinoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1264068000",
+      "conceptId": 35225607,
+      "conceptName": "Metastasis to junctional zone of tongue",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031669",
       "standardConcept": "S"
     },
     {
-      "conceptId": 37167301,
-      "conceptName": "Metastatic adenosquamous carcinoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1264116009",
+      "conceptId": 35225609,
+      "conceptName": "Metastasis to labia majora",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031671",
       "standardConcept": "S"
     },
     {
-      "conceptId": 37167302,
-      "conceptName": "Metastatic oxyphilic adenocarcinoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1264118005",
+      "conceptId": 35225610,
+      "conceptName": "Metastasis to labia minora",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031672",
       "standardConcept": "S"
     },
     {
-      "conceptId": 37167409,
-      "conceptName": "Metastatic papillary squamous cell carcinoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1264258003",
+      "conceptId": 35225612,
+      "conceptName": "Metastasis to lacrimal drainage system",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031674",
       "standardConcept": "S"
     },
     {
-      "conceptId": 37167429,
-      "conceptName": "Metastatic sebaceous adenocarcinoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1264367001",
+      "conceptId": 35225613,
+      "conceptName": "Metastasis to lacrimal duct",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031675",
       "standardConcept": "S"
     },
     {
-      "conceptId": 37167895,
-      "conceptName": "Metastatic rhabdomyosarcoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1269121005",
+      "conceptId": 35225614,
+      "conceptName": "Metastasis to lacrimal gland",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031676",
       "standardConcept": "S"
     },
     {
-      "conceptId": 37168383,
-      "conceptName": "Metastatic embryonal rhabdomyosarcoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1279882001",
+      "conceptId": 35225615,
+      "conceptName": "Metastasis to lacrimal gland duct",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031677",
       "standardConcept": "S"
     },
     {
-      "conceptId": 37168858,
-      "conceptName": "Metastatic collecting duct renal cell carcinoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1286896000",
+      "conceptId": 35225617,
+      "conceptName": "Metastasis to laryngeal aspect of aryepiglottic fold",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031681",
       "standardConcept": "S"
     },
     {
-      "conceptId": 37168860,
-      "conceptName": "Metastatic cystic renal cell carcinoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "1286898004",
+      "conceptId": 35225618,
+      "conceptName": "Metastasis to laryngeal aspect of interarytenoid fold",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031682",
       "standardConcept": "S"
     },
     {
-      "conceptId": 40480137,
-      "conceptName": "Metastatic sarcoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "443144000",
+      "conceptId": 35225619,
+      "conceptName": "Metastasis to laryngeal commissure",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031683",
       "standardConcept": "S"
     },
     {
-      "conceptId": 40481908,
-      "conceptName": "Metastatic malignant melanoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "443493003",
+      "conceptId": 35225620,
+      "conceptName": "Metastasis to laryngeal surface of epiglottis",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031684",
       "standardConcept": "S"
     },
     {
-      "conceptId": 45772700,
-      "conceptName": "Metastatic neuroblastoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "704152002",
+      "conceptId": 35225621,
+      "conceptName": "Metastasis to larynx",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031685",
       "standardConcept": "S"
     },
     {
-      "conceptId": 45773365,
-      "conceptName": "Metastatic renal cell carcinoma",
-      "vocabularyId": "SNOMED",
-      "domainId": "Condition",
-      "conceptClassId": "Disorder",
-      "conceptCode": "702392008",
+      "conceptId": 35225622,
+      "conceptName": "Metastasis to lateral portion of floor of mouth",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031686",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225623,
+      "conceptName": "Metastasis to lateral wall of nasopharynx",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031687",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225624,
+      "conceptName": "Metastasis to lateral wall of oropharynx",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031688",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225625,
+      "conceptName": "Metastasis to lateral wall of urinary bladder",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031689",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225626,
+      "conceptName": "Metastasis to left adrenal gland",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031690",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225627,
+      "conceptName": "Metastasis to left fallopian tube",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031691",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225629,
+      "conceptName": "Metastasis to left lower lobe of lung",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031693",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225630,
+      "conceptName": "Metastasis to left lung",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031694",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225631,
+      "conceptName": "Metastasis to left ovary",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031695",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225632,
+      "conceptName": "Metastasis to left upper lobe of lung",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031696",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225633,
+      "conceptName": "Metastasis to leg",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031697",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225634,
+      "conceptName": "Metastasis to lesser curvature of stomach",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031698",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225635,
+      "conceptName": "Metastasis to lingual tonsil",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031699",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225636,
+      "conceptName": "Metastasis to lip",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031700",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225638,
+      "conceptName": "Metastasis to long bone of lower limb",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031702",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225639,
+      "conceptName": "Metastasis to long bone of upper limb",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031703",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225640,
+      "conceptName": "Metastasis to lower gum",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031704",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225641,
+      "conceptName": "Metastasis to lower inner quadrant of female breast",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031705",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225642,
+      "conceptName": "Metastasis to lower leg",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031706",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225643,
+      "conceptName": "Metastasis to lower limb",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031707",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225644,
+      "conceptName": "Metastasis to lower outer quadrant of female breast",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031708",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225645,
+      "conceptName": "Metastasis to lower third of esophagus",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031709",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225646,
+      "conceptName": "Metastasis to lumbar vertebral column",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031710",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225647,
+      "conceptName": "Metastasis to lumbosacral plexus",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031711",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225648,
+      "conceptName": "Metastasis to lunate bone",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031712",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225649,
+      "conceptName": "Metastasis to main bronchus",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031713",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225650,
+      "conceptName": "Metastasis to major salivary gland",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031714",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225651,
+      "conceptName": "Metastasis to male genital organ",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031716",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225653,
+      "conceptName": "Metastasis to mandible",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031718",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225654,
+      "conceptName": "Metastasis to mastoid air cells",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031719",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225655,
+      "conceptName": "Metastasis to maxilla",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031720",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225656,
+      "conceptName": "Metastasis to right ovary",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031848",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225657,
+      "conceptName": "Metastasis to right upper lobe of lung",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031849",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225658,
+      "conceptName": "Metastasis to round ligament of uterus",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031850",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225659,
+      "conceptName": "Metastasis to sacrococcygeal region",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031851",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225660,
+      "conceptName": "Metastasis to sacrum",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031852",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225661,
+      "conceptName": "Metastasis to scaphoid bone",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031853",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225662,
+      "conceptName": "Metastasis to scapula",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031854",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225663,
+      "conceptName": "Metastasis to sclera",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031855",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225664,
+      "conceptName": "Metastasis to scrotum",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031856",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225665,
+      "conceptName": "Metastasis to sebaceous gland",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031857",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225666,
+      "conceptName": "Metastasis to second cuneiform bone of foot",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031858",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225667,
+      "conceptName": "Metastasis to seminal vesicle",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031859",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225668,
+      "conceptName": "Metastasis to septum of nose",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031860",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225669,
+      "conceptName": "Metastasis to short bone of lower limb",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031861",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225670,
+      "conceptName": "Metastasis to short bone of upper limb",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031862",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225671,
+      "conceptName": "Metastasis to shoulder",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031863",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225672,
+      "conceptName": "Metastasis to sigmoid colon",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031864",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225673,
+      "conceptName": "Metastasis to skin",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031865",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225674,
+      "conceptName": "Metastasis to skin of abdomen",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031866",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225675,
+      "conceptName": "Metastasis to skin of ankle",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031867",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225676,
+      "conceptName": "Metastasis to skin of arm",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031868",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225677,
+      "conceptName": "Metastasis to skin of axilla",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031869",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225678,
+      "conceptName": "Metastasis to skin of back",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031870",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225679,
+      "conceptName": "Metastasis to skin of breast",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031871",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225680,
+      "conceptName": "Metastasis to skin of buttock",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031872",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225681,
+      "conceptName": "Metastasis to skin of cheek",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031873",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225682,
+      "conceptName": "Metastasis to skin of chest",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031874",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225683,
+      "conceptName": "Metastasis to skin of chin",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031875",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225684,
+      "conceptName": "Metastasis to skin of nose",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031876",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225685,
+      "conceptName": "Metastasis to skin of ear",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031877",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225686,
+      "conceptName": "Metastasis to skin of elbow",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031878",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225687,
+      "conceptName": "Metastasis to skin of external auditory canal",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031879",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225688,
+      "conceptName": "Metastasis to skin of eyebrow",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031880",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225689,
+      "conceptName": "Metastasis to skin of eyelid",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031881",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225690,
+      "conceptName": "Metastasis to skin of face",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031882",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225691,
+      "conceptName": "Metastasis to skin of finger",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031883",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225692,
+      "conceptName": "Metastasis to skin of foot",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031884",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225693,
+      "conceptName": "Metastasis to skin of forearm",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031885",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225694,
+      "conceptName": "Metastasis to skin of forehead",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031886",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225695,
+      "conceptName": "Metastasis to skin of groin",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031887",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225696,
+      "conceptName": "Metastasis to skin of hand",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031888",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225697,
+      "conceptName": "Metastasis to skin of head",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031889",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225698,
+      "conceptName": "Metastasis to skin of hip",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031890",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225700,
+      "conceptName": "Metastasis to skin of knee",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031892",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225701,
+      "conceptName": "Metastasis to skin of leg",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031893",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225702,
+      "conceptName": "Metastasis to skin of lip",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031894",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225703,
+      "conceptName": "Metastasis to skin of lower leg",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031895",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225704,
+      "conceptName": "Metastasis to skin of lower limb",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031896",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225705,
+      "conceptName": "Metastasis to skin of neck",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031897",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225706,
+      "conceptName": "Metastasis to skin of perineum",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031898",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225707,
+      "conceptName": "Metastasis to skin of popliteal area",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031899",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225708,
+      "conceptName": "Metastasis to skin of scalp",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031900",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225709,
+      "conceptName": "Metastasis to skin of shoulder",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031901",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225711,
+      "conceptName": "Metastasis to skin of temporal region",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031903",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225712,
+      "conceptName": "Metastasis to skin of thigh",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031904",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225713,
+      "conceptName": "Metastasis to skin of toe",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031905",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225714,
+      "conceptName": "Metastasis to skin of trunk",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031906",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225715,
+      "conceptName": "Metastasis to skin of umbilicus",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031907",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225716,
+      "conceptName": "Metastasis to skin of upper arm",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031908",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225717,
+      "conceptName": "Metastasis to skin of upper limb",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031909",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225718,
+      "conceptName": "Metastasis to skin of wrist",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031910",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225719,
+      "conceptName": "Metastasis to small intestine",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031911",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225723,
+      "conceptName": "Metastasis to soft palate",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031915",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225724,
+      "conceptName": "Metastasis to soft tissues",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031916",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225725,
+      "conceptName": "Metastasis to soft tissues of abdomen",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031917",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225726,
+      "conceptName": "Metastasis to soft tissues of axilla",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031918",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225727,
+      "conceptName": "Metastasis to soft tissues of buttock",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031919",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225728,
+      "conceptName": "Metastasis to soft tissues of face",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031920",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225729,
+      "conceptName": "Metastasis to soft tissues of head",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031921",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225730,
+      "conceptName": "Metastasis to soft tissues of hip",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031922",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225731,
+      "conceptName": "Metastasis to soft tissues of inguinal region",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031923",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225732,
+      "conceptName": "Metastasis to soft tissues of lower limb",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031924",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225733,
+      "conceptName": "Metastasis to soft tissues of neck",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031925",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225734,
+      "conceptName": "Metastasis to soft tissues of pelvis",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031926",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225735,
+      "conceptName": "Metastasis to soft tissues of perineum",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031927",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225736,
+      "conceptName": "Metastasis to soft tissues of shoulder",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031928",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225737,
+      "conceptName": "Metastasis to soft tissues of thorax",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031929",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225738,
+      "conceptName": "Metastasis to soft tissues of trunk",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031930",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225739,
+      "conceptName": "Metastasis to soft tissues of upper limb",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031931",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225740,
+      "conceptName": "Metastasis to spermatic cord",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031932",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225741,
+      "conceptName": "Metastasis to sphenoidal sinus",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031933",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225742,
+      "conceptName": "Metastasis to sphenoid bone",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031934",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225743,
+      "conceptName": "Metastasis to spinal cord",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031935",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225744,
+      "conceptName": "Metastasis to spinal meninges",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031936",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225745,
+      "conceptName": "Metastasis to splenic flexure of colon",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031937",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225746,
+      "conceptName": "Metastasis to sternum",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031938",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225747,
+      "conceptName": "Metastasis to stomach",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031939",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225748,
+      "conceptName": "Metastasis to subglottis",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031940",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225749,
+      "conceptName": "Metastasis to sublingual gland",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031941",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225750,
+      "conceptName": "Metastasis to submaxillary gland",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031942",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225751,
+      "conceptName": "Metastasis to superior wall of nasopharynx",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031943",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225752,
+      "conceptName": "Metastasis to supraclavicular region",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031944",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225753,
+      "conceptName": "Metastasis to supraglottis",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031945",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225754,
+      "conceptName": "Metastasis to sweat gland",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031946",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225755,
+      "conceptName": "Metastasis to tail of pancreas",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031947",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225756,
+      "conceptName": "Metastasis to talus",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031948",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225757,
+      "conceptName": "Metastasis to tarsal bone",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031949",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225758,
+      "conceptName": "Metastasis to temporal bone",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031950",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225759,
+      "conceptName": "Metastasis to temporal lobe",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031951",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225760,
+      "conceptName": "Metastasis to testis",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031952",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225761,
+      "conceptName": "Metastasis to thigh",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031953",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225762,
+      "conceptName": "Metastasis to third cuneiform bone of foot",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031954",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225763,
+      "conceptName": "Metastasis to thoracic esophagus",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031955",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225764,
+      "conceptName": "Metastasis to thoracic vertebral column",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031956",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225765,
+      "conceptName": "Metastasis to thymus",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031957",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225766,
+      "conceptName": "Metastasis to thyroglossal duct",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031958",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225767,
+      "conceptName": "Metastasis to thyroid gland",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031959",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225768,
+      "conceptName": "Metastasis to tibia",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031960",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225769,
+      "conceptName": "Metastasis to calcaneus",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031556",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225770,
+      "conceptName": "Metastasis to frontal bone",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031626",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225771,
+      "conceptName": "Metastasis to frontal lobe",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031627",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225772,
+      "conceptName": "Metastasis to frontal sinus",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031628",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225773,
+      "conceptName": "Metastasis to neck",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031756",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225774,
+      "conceptName": "Metastasis to cauda equina",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031562",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225775,
+      "conceptName": "Metastasis to nervous system",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031757",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225776,
+      "conceptName": "Metastasis to cecum",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031563",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225777,
+      "conceptName": "Metastasis to gallbladder",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031630",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225778,
+      "conceptName": "Metastasis to pyriform sinus",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031823",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225779,
+      "conceptName": "Metastasis to radius",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031824",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35225787,
+      "conceptName": "Metastasis to duodenum",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031595",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226024,
+      "conceptName": "Metastasis to anterior wall of nasopharynx",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031488",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226025,
+      "conceptName": "Metastasis to anterior wall of urinary bladder",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031489",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226026,
+      "conceptName": "Metastasis to anus",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031490",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226027,
+      "conceptName": "Metastasis to aortic body",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031491",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226028,
+      "conceptName": "Metastasis to apex of urinary bladder",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031492",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226029,
+      "conceptName": "Metastasis to appendix",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031493",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226030,
+      "conceptName": "Metastasis to areola of female breast",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031494",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226031,
+      "conceptName": "Metastasis to areola of male breast",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031495",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226032,
+      "conceptName": "Metastasis to arm",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031496",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226033,
+      "conceptName": "Metastasis to articular cartilage",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031497",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226034,
+      "conceptName": "Metastasis to ascending colon",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031498",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226035,
+      "conceptName": "Metastasis to axilla",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031499",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226036,
+      "conceptName": "Metastasis to axillary tail of breast",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031500",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226037,
+      "conceptName": "Metastasis to axillary tail of female breast",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031501",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226038,
+      "conceptName": "Metastasis to back",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031502",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226039,
+      "conceptName": "Metastasis to base of tongue",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031503",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226040,
+      "conceptName": "Metastasis to biliary tract",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031504",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226041,
+      "conceptName": "Metastasis to bladder",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031505",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226042,
+      "conceptName": "Metastasis to blood vessel",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031506",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226043,
+      "conceptName": "Metastasis to blood vessel of abdomen",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031507",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226044,
+      "conceptName": "Metastasis to blood vessel of arm",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031508",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226045,
+      "conceptName": "Metastasis to blood vessel of axilla",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031509",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226046,
+      "conceptName": "Metastasis to blood vessel of buttock",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031510",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226047,
+      "conceptName": "Metastasis to blood vessel of face",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031511",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226048,
+      "conceptName": "Metastasis to blood vessel of finger",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031512",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226049,
+      "conceptName": "Metastasis to blood vessel of foot",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031513",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226050,
+      "conceptName": "Metastasis to blood vessel of forearm",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031514",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226051,
+      "conceptName": "Metastasis to blood vessel of hand",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031515",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226052,
+      "conceptName": "Metastasis to blood vessel of head",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031516",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226053,
+      "conceptName": "Metastasis to blood vessel of hip",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031517",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226054,
+      "conceptName": "Metastasis to blood vessel of inguinal region",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031518",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226055,
+      "conceptName": "Metastasis to blood vessel of leg",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031519",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226056,
+      "conceptName": "Metastasis to blood vessel of lower leg",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031520",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226057,
+      "conceptName": "Metastasis to blood vessel of lower limb",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031521",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226058,
+      "conceptName": "Metastasis to blood vessel of neck",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031522",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226059,
+      "conceptName": "Metastasis to blood vessel of pelvis",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031523",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226060,
+      "conceptName": "Metastasis to blood vessel of perineum",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031524",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226061,
+      "conceptName": "Metastasis to blood vessel of popliteal space",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031525",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226062,
+      "conceptName": "Metastasis to blood vessel of shoulder",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031526",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226063,
+      "conceptName": "Metastasis to blood vessel of thigh",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031527",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226064,
+      "conceptName": "Metastasis to blood vessel of thorax",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031528",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226065,
+      "conceptName": "Metastasis to blood vessel of toe",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031529",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226066,
+      "conceptName": "Metastasis to blood vessel of trunk",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031530",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226067,
+      "conceptName": "Metastasis to blood vessel of upper arm",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031531",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226068,
+      "conceptName": "Metastasis to blood vessel of upper limb",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031532",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226069,
+      "conceptName": "Metastasis to body of pancreas",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031533",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226070,
+      "conceptName": "Metastasis to body of penis",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031534",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226071,
+      "conceptName": "Metastasis to body of stomach",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031535",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226072,
+      "conceptName": "Metastasis to body of uterus",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031536",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226074,
+      "conceptName": "Metastasis to bone marrow",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031538",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226075,
+      "conceptName": "Metastasis to bone of face",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031539",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226076,
+      "conceptName": "Metastasis to bone of lower limb",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031540",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226077,
+      "conceptName": "Metastasis to bone of skull",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031541",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226078,
+      "conceptName": "Metastasis to metatarsal bone",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031727",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226079,
+      "conceptName": "Metastasis to bone of upper limb",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031542",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226083,
+      "conceptName": "Metastasis to broad ligament",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031548",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226084,
+      "conceptName": "Metastasis to bronchus",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031549",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226085,
+      "conceptName": "Metastasis to bronchus of left lower lobe",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031550",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226086,
+      "conceptName": "Metastasis to bronchus of left upper lobe",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031551",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226087,
+      "conceptName": "Metastasis to bronchus of right lower lobe",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031552",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226088,
+      "conceptName": "Metastasis to bronchus of right middle lobe",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031553",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226089,
+      "conceptName": "Metastasis to bronchus of right upper lobe",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031554",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226090,
+      "conceptName": "Metastasis to buccal mucosa",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031555",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226091,
+      "conceptName": "Metastasis to cardia of stomach",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031557",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226092,
+      "conceptName": "Metastasis to carina",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031558",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226093,
+      "conceptName": "Metastasis to carotid body",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031559",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226094,
+      "conceptName": "Metastasis to carpal bone",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031560",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226095,
+      "conceptName": "Metastasis to cartilage of nose",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031561",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226096,
+      "conceptName": "Metastasis to central nervous system",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031564",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226097,
+      "conceptName": "Metastasis to central portion of female breast",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031565",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226098,
+      "conceptName": "Metastasis to cerebellum",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031566",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226099,
+      "conceptName": "Metastasis to cerebral meninges",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031567",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226100,
+      "conceptName": "Metastasis to cerebral ventricle",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031568",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226101,
+      "conceptName": "Metastasis to cerebrum",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031569",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226102,
+      "conceptName": "Metastasis to cervical esophagus",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031570",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226103,
+      "conceptName": "Metastasis to cervical vertebral column",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031571",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226105,
+      "conceptName": "Metastasis to cheek",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031573",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226106,
+      "conceptName": "Metastasis to chest wall",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031574",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226107,
+      "conceptName": "Metastasis to choroid",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031575",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226108,
+      "conceptName": "Metastasis to ciliary body",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031576",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226109,
+      "conceptName": "Metastasis to clavicle",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031577",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226110,
+      "conceptName": "Metastasis to clitoris",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031578",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226111,
+      "conceptName": "Metastasis to coccyx",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031579",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226112,
+      "conceptName": "Metastasis to colon",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031580",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226114,
+      "conceptName": "Metastasis to commissure of lip",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031582",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226115,
+      "conceptName": "Metastasis to common bile duct",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031583",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226116,
+      "conceptName": "Metastasis to conjunctiva",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031584",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226117,
+      "conceptName": "Metastasis to connective tissue and other soft tissues of extremities",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031585",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226119,
+      "conceptName": "Metastasis to cornea",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031587",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226120,
+      "conceptName": "Metastasis to cranial nerve",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031588",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226121,
+      "conceptName": "Metastasis to craniopharyngeal duct",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031589",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226122,
+      "conceptName": "Metastasis to cuboid",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031590",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226123,
+      "conceptName": "Metastasis to cystic duct",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031591",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226124,
+      "conceptName": "Metastasis to descending colon",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031592",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226125,
+      "conceptName": "Metastasis to diaphragm",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031593",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226126,
+      "conceptName": "Metastasis to dorsal surface of tongue",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031594",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226127,
+      "conceptName": "Metastasis to ectopic female breast tissue",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031596",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226128,
+      "conceptName": "Metastasis to ectopic male breast tissue",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031597",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226129,
+      "conceptName": "Metastasis to endocardium",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031598",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226130,
+      "conceptName": "Metastasis to endocervix",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031599",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226131,
+      "conceptName": "Metastasis to endocrine gland",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031600",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226132,
+      "conceptName": "Metastasis to endometrium",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031601",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226134,
+      "conceptName": "Metastasis to epiglottis",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031605",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226135,
+      "conceptName": "Metastasis to esophagus",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031606",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226136,
+      "conceptName": "Metastasis to ethmoidal sinus",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031607",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226137,
+      "conceptName": "Metastasis to ethmoid bone",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031608",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226138,
+      "conceptName": "Metastasis to eustachian tube",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031609",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226139,
+      "conceptName": "Metastasis to extrahepatic bile ducts",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031611",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226140,
+      "conceptName": "Metastasis to eye",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031612",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226141,
+      "conceptName": "Metastasis to face",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031613",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226142,
+      "conceptName": "Metastasis to facial nerve",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031614",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226143,
+      "conceptName": "Metastasis to female genital organ",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031618",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226144,
+      "conceptName": "Metastasis to femur",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031619",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226145,
+      "conceptName": "Metastasis to fibula",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031620",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226146,
+      "conceptName": "Metastasis to first cuneiform bone of foot",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031621",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226147,
+      "conceptName": "Metastasis to flank",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031622",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226148,
+      "conceptName": "Metastasis to floor of mouth",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031623",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226149,
+      "conceptName": "Metastasis to foot",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031624",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226150,
+      "conceptName": "Metastasis to forearm",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031625",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226151,
+      "conceptName": "Metastasis to fundus of stomach",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031629",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226152,
+      "conceptName": "Metastasis to genital organs",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031631",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226154,
+      "conceptName": "Metastasis to gingival mucosa",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031633",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226155,
+      "conceptName": "Metastasis to glans penis",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031634",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226156,
+      "conceptName": "Metastasis to glomus jugulare",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031635",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226157,
+      "conceptName": "Metastasis to glossopharyngeal nerve",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031636",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226158,
+      "conceptName": "Metastasis to glottis",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031637",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226159,
+      "conceptName": "Metastasis to greater curvature of stomach",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031638",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226160,
+      "conceptName": "Metastasis to great vessels",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031639",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226161,
+      "conceptName": "Metastasis to gum",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031640",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226162,
+      "conceptName": "Metastasis to hamate bone",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031641",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226163,
+      "conceptName": "Metastasis to hand",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031642",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226164,
+      "conceptName": "Metastasis to hard palate",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031643",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226165,
+      "conceptName": "Metastasis to head",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031644",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226166,
+      "conceptName": "Metastasis to head of pancreas",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031645",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226167,
+      "conceptName": "Metastasis to heart",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031646",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226168,
+      "conceptName": "Metastasis to hepatic flexure of colon",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031647",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226169,
+      "conceptName": "Metastasis to hilus of lung",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031648",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226170,
+      "conceptName": "Metastasis to hypoglossal nerve",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031649",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226171,
+      "conceptName": "Metastasis to hypopharyngeal aspect of aryepiglottic fold",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031650",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226172,
+      "conceptName": "Metastasis to hypopharyngeal aspect of interarytenoid fold",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031651",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226173,
+      "conceptName": "Metastasis to hypopharynx",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031652",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226174,
+      "conceptName": "Metastasis to ileum",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031653",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226175,
+      "conceptName": "Metastasis to ilium",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031654",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226176,
+      "conceptName": "Metastasis to inner aspect of lip",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031656",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226177,
+      "conceptName": "Metastasis to inner aspect of lower lip",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031657",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226178,
+      "conceptName": "Metastasis to inner aspect of upper lip",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031658",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226179,
+      "conceptName": "Metastasis to intestinal tract",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031659",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226180,
+      "conceptName": "Metastasis to intrahepatic bile ducts",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031661",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226181,
+      "conceptName": "Metastasis to intrathoracic organs",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031662",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226182,
+      "conceptName": "Metastasis to maxillary sinus",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031721",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226183,
+      "conceptName": "Metastasis to meckel's diverticulum",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031722",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226184,
+      "conceptName": "Metastasis to middle ear",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031728",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226185,
+      "conceptName": "Metastasis to middle third of esophagus",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031729",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226186,
+      "conceptName": "Metastasis to minor salivary gland",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031730",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226187,
+      "conceptName": "Metastasis to mouth",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031731",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226188,
+      "conceptName": "Metastasis to multiple endocrine glands",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031732",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226189,
+      "conceptName": "Metastasis to muscle",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031733",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226190,
+      "conceptName": "Metastasis to muscle of abdomen",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031734",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226191,
+      "conceptName": "Metastasis to muscle of buttock",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031735",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226192,
+      "conceptName": "Metastasis to muscle of face",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031736",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226193,
+      "conceptName": "Metastasis to muscle of head",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031737",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226194,
+      "conceptName": "Metastasis to muscle of hip",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031738",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226195,
+      "conceptName": "Metastasis to muscle of inguinal region",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031739",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226196,
+      "conceptName": "Metastasis to muscle of lower limb",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031740",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226197,
+      "conceptName": "Metastasis to muscle of neck",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031741",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226198,
+      "conceptName": "Metastasis to muscle of perineum",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031743",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226199,
+      "conceptName": "Metastasis to muscle of shoulder",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031744",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226200,
+      "conceptName": "Metastasis to muscle of thorax",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031745",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226201,
+      "conceptName": "Metastasis to muscle of trunk",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031746",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226202,
+      "conceptName": "Metastasis to muscle of upper limb",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031747",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226203,
+      "conceptName": "Metastasis to myocardium",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031748",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226204,
+      "conceptName": "Metastasis to myometrium",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031749",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226205,
+      "conceptName": "Metastasis to nasal bone",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031750",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226206,
+      "conceptName": "Metastasis to nasal cavity",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031751",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226207,
+      "conceptName": "Metastasis to nasal concha",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031752",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226208,
+      "conceptName": "Metastasis to nasopharyngeal wall",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031753",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226209,
+      "conceptName": "Metastasis to nasopharynx",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031754",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226210,
+      "conceptName": "Metastasis to navicular bone of foot",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031755",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226211,
+      "conceptName": "Metastasis to nipple of female breast",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031758",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226212,
+      "conceptName": "Metastasis to nipple of male breast",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031759",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226213,
+      "conceptName": "Metastasis to nose",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031760",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226214,
+      "conceptName": "Metastasis to occipital bone",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031761",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226215,
+      "conceptName": "Metastasis to occipital lobe",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031762",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226216,
+      "conceptName": "Metastasis to oculomotor nerve",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031763",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226217,
+      "conceptName": "Metastasis to olfactory nerve",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031764",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226218,
+      "conceptName": "Metastasis to omentum",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031765",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226219,
+      "conceptName": "Metastasis to optic nerve",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031766",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226220,
+      "conceptName": "Metastasis to orbit",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031767",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226221,
+      "conceptName": "Metastasis to oropharynx",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031768",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226222,
+      "conceptName": "Metastasis to digestive organ",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031769",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226230,
+      "conceptName": "Metastasis to ovary",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031777",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226231,
+      "conceptName": "Metastasis to palate",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031778",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226232,
+      "conceptName": "Metastasis to palatine bone",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031779",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226233,
+      "conceptName": "Metastasis to pancreas",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031780",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226234,
+      "conceptName": "Metastasis to pancreatic duct",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031781",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226235,
+      "conceptName": "Metastasis to parametrium",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031784",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226236,
+      "conceptName": "Metastasis to parathyroid gland",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031785",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226237,
+      "conceptName": "Metastasis to paraurethral glands",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031786",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226238,
+      "conceptName": "Metastasis to parietal bone",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031787",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226239,
+      "conceptName": "Metastasis to parietal lobe",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031788",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226240,
+      "conceptName": "Metastasis to parietal peritoneum",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031789",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226241,
+      "conceptName": "Metastasis to parietal pleura",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031790",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226242,
+      "conceptName": "Metastasis to parotid gland",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031791",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226243,
+      "conceptName": "Metastasis to patella",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031792",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226244,
+      "conceptName": "Metastasis to pelvic bone",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031793",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226245,
+      "conceptName": "Metastasis to pelvic peritoneum",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031794",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226246,
+      "conceptName": "Metastasis to pelvis",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031795",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226247,
+      "conceptName": "Metastasis to penis",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031796",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226248,
+      "conceptName": "Metastasis to periadrenal tissue",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031797",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226249,
+      "conceptName": "Metastasis to perianal skin",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031798",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226251,
+      "conceptName": "Metastasis to pericardium",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031800",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226252,
+      "conceptName": "Metastasis to perirenal tissue",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031801",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226253,
+      "conceptName": "Metastasis to peritoneum",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031802",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226254,
+      "conceptName": "Metastasis to phalanx of foot",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031803",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226255,
+      "conceptName": "Metastasis to pisiform bone of hand",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031807",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226256,
+      "conceptName": "Metastasis to pituitary gland",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031808",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226257,
+      "conceptName": "Metastasis to placenta",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031809",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226258,
+      "conceptName": "Metastasis to pleura",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031810",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226259,
+      "conceptName": "Metastasis to postcricoid region",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031811",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226260,
+      "conceptName": "Metastasis to posterior hypopharyngeal wall",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031812",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226261,
+      "conceptName": "Metastasis to posterior mediastinum",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031813",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226262,
+      "conceptName": "Metastasis to posterior wall of nasopharynx",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031814",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226263,
+      "conceptName": "Metastasis to posterior wall of oropharynx",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031815",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226264,
+      "conceptName": "Metastasis to posterior wall of urinary bladder",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031816",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226265,
+      "conceptName": "Metastasis to prepuce",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031817",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226266,
+      "conceptName": "Metastasis to presacral region",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031818",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226267,
+      "conceptName": "Metastasis to prostate",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031819",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226268,
+      "conceptName": "Metastasis to pubis",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031820",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226269,
+      "conceptName": "Metastasis to pyloric antrum",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031821",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226270,
+      "conceptName": "Metastasis to pylorus",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031822",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226271,
+      "conceptName": "Metastasis to rectosigmoid junction",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031825",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226272,
+      "conceptName": "Metastasis to rectouterine pouch",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031826",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226273,
+      "conceptName": "Metastasis to rectovaginal septum",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031827",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226274,
+      "conceptName": "Metastasis to rectovesical septum",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031828",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226275,
+      "conceptName": "Metastasis to rectum",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031829",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226276,
+      "conceptName": "Metastasis to renal pelvis",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031830",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226280,
+      "conceptName": "Metastasis to respiratory tract",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031834",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226281,
+      "conceptName": "Metastasis to retina",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031835",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226282,
+      "conceptName": "Metastasis to retrocecal tissue",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031836",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226283,
+      "conceptName": "Metastasis to retromolar area",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031837",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226284,
+      "conceptName": "Metastasis to retroperitoneum",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031838",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226287,
+      "conceptName": "Metastasis to rib",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031841",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226288,
+      "conceptName": "Metastasis to right adrenal gland",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031842",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226289,
+      "conceptName": "Metastasis to right fallopian tube",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031843",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226291,
+      "conceptName": "Metastasis to right lower lobe of lung",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031845",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226292,
+      "conceptName": "Metastasis to right lung",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031846",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226293,
+      "conceptName": "Metastasis to right middle lobe of lung",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031847",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226294,
+      "conceptName": "Metastasis to tip and lateral border of tongue",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031961",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226295,
+      "conceptName": "Metastasis to tongue",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031962",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226296,
+      "conceptName": "Metastasis to tonsil",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031963",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226297,
+      "conceptName": "Metastasis to tonsillar fossa",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031964",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226298,
+      "conceptName": "Metastasis to tonsillar pillar",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031965",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226299,
+      "conceptName": "Metastasis to trachea",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031966",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226300,
+      "conceptName": "Metastasis to transverse colon",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031967",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226301,
+      "conceptName": "Metastasis to trapezium",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031968",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226302,
+      "conceptName": "Metastasis to trapezoid bone",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031969",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226303,
+      "conceptName": "Metastasis to trigeminal nerve",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031970",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226304,
+      "conceptName": "Metastasis to trigone of urinary bladder",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031971",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226305,
+      "conceptName": "Metastasis to trochlear nerve",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031972",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226306,
+      "conceptName": "Metastasis to trunk",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031973",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226307,
+      "conceptName": "Metastasis to ulna",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031974",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226308,
+      "conceptName": "Metastasis to undescended testis",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031975",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226310,
+      "conceptName": "Metastasis to upper arm",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031977",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226311,
+      "conceptName": "Metastasis to upper gum",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031978",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226312,
+      "conceptName": "Metastasis to upper inner quadrant of female breast",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031979",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226313,
+      "conceptName": "Metastasis to upper limb",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031980",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226314,
+      "conceptName": "Metastasis to upper outer quadrant of female breast",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031981",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226315,
+      "conceptName": "Metastasis to upper respiratory tract",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031982",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226316,
+      "conceptName": "Metastasis to upper third of esophagus",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031983",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226317,
+      "conceptName": "Metastasis to urachus",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031984",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226318,
+      "conceptName": "Metastasis to vulva",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5032010",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226319,
+      "conceptName": "Metastasis to waldeyer's ring",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5032011",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226320,
+      "conceptName": "Metastasis to zygomatic bone",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5032012",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226326,
+      "conceptName": "Metastasis to para-aortic body",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031782",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226327,
+      "conceptName": "Metastasis to anterior two-thirds of tongue",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031487",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 35226338,
+      "conceptName": "Metastasis to intra-abdominal organs",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5031660",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36768082,
+      "conceptName": "Metastasis to kidney",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP4997757",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36768083,
+      "conceptName": "Metastasis to same lobe of lung",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP4997758",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36768130,
+      "conceptName": "Generalized metastases",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP4997805",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36768171,
+      "conceptName": "Metastasis to a different ipsilateral lobe of lung",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP4997846",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36768630,
+      "conceptName": "Metastasis to spleen",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP4998307",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36768862,
+      "conceptName": "Metastasis to brain",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP4998538",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36769180,
+      "conceptName": "Metastasis",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP4998856",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36769243,
+      "conceptName": "Distant lymph nodes",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Nodes",
+      "conceptCode": "OMOP4998920",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36769301,
+      "conceptName": "Metastasis to bone",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP4998978",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36769532,
+      "conceptName": "Metastasis to ipsilateral lung",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP4999209",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36769664,
+      "conceptName": "Circulating tumor cells",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP4999341",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36770024,
+      "conceptName": "Malignant pleural effusion",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP4999701",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36770040,
+      "conceptName": "Metastasis to gastrointestinal tract",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP4999718",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36770091,
+      "conceptName": "Metastasis to contralateral lobe of lung",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP4999769",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36770283,
+      "conceptName": "Metastasis to lung",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP4999962",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36770524,
+      "conceptName": "Malignant ascites",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5000204",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 36770544,
+      "conceptName": "Metastasis to liver",
+      "vocabularyId": "Cancer Modifier",
+      "domainId": "Measurement",
+      "conceptClassId": "Metastasis",
+      "conceptCode": "OMOP5000224",
       "standardConcept": "S"
     }
   ]
