@@ -1,0 +1,27 @@
+{
+  "conceptSetId": 385,
+  "vocabularyVersion": {
+    "release": "v5.0 29-AUG-26",
+    "LOINC": "LOINC 2.82"
+  },
+  "resolvedConcepts": [
+    {
+      "conceptId": 42527140,
+      "conceptName": "Total PEEP Respiratory system",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "76247-6",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 42528517,
+      "conceptName": "Total dynamic PEEP Respiratory system",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "83388-9",
+      "standardConcept": "S"
+    }
+  ]
+}

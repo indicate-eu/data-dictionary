@@ -1,12 +1,12 @@
 {
   "id": 318,
   "name": "Positive End-Expiratory Pressure (PEEP)",
-  "description": "Positive end-expiratory pressure (PEEP) — airway pressure at end-expiration, in cmH2O (generic, set, extrinsic, intrinsic/auto-PEEP, total; static and dynamic).",
-  "version": "1.3.0",
+  "description": "Positive end-expiratory pressure (PEEP) applied by the ventilator: set, displayed or extrinsic PEEP, in cmH2O. Intrinsic and total PEEP have their own sets.",
+  "version": "1.4.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-11-14",
+  "modifiedDate": "2026-11-15",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -88,44 +88,6 @@
       },
       {
         "concept": {
-          "conceptId": 3035822,
-          "conceptName": "Intrinsic PEEP Respiratory system",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Clinical Observation",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "38199-6",
-          "validStartDate": "1970-01-01",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 42527140,
-          "conceptName": "Total PEEP Respiratory system",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Clinical Observation",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "76247-6",
-          "validStartDate": "2017-02-21",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
           "conceptId": 42528516,
           "conceptName": "Extrinsic dynamic PEEP Respiratory system",
           "domainId": "Measurement",
@@ -134,44 +96,6 @@
           "standardConcept": "S",
           "standardConceptCaption": "Standard",
           "conceptCode": "83387-1",
-          "validStartDate": "2017-02-21",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 42527139,
-          "conceptName": "Intrinsic dynamic PEEP Respiratory system",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Clinical Observation",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "76246-8",
-          "validStartDate": "2017-02-21",
-          "validEndDate": "2099-12-31",
-          "invalidReason": null,
-          "invalidReasonCaption": "Valid"
-        },
-        "isExcluded": false,
-        "includeDescendants": false,
-        "includeMapped": false
-      },
-      {
-        "concept": {
-          "conceptId": 42528517,
-          "conceptName": "Total dynamic PEEP Respiratory system",
-          "domainId": "Measurement",
-          "vocabularyId": "LOINC",
-          "conceptClassId": "Clinical Observation",
-          "standardConcept": "S",
-          "standardConceptCaption": "Standard",
-          "conceptCode": "83388-9",
           "validStartDate": "2017-02-21",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
@@ -204,15 +128,15 @@
         "name": "Positive End-Expiratory Pressure (PEEP)",
         "category": "Ventilation",
         "subcategory": "Ventilation parameters",
-        "shortDescription": "Positive end-expiratory pressure (PEEP) — airway pressure at end-expiration, in cmH2O (generic, set, extrinsic, intrinsic/auto-PEEP, total; static and dynamic).",
-        "longDescription": "## Definition & Clinical Context\n\nPositive end-expiratory pressure (PEEP) is the airway pressure maintained above atmospheric at the end of expiration during mechanical ventilation, used to keep alveoli open and improve oxygenation. In source data it is a single numeric value per patient-timestamp, set on the ventilator or measured by it. It is recorded in intensive care and anaesthesia for ventilated patients. It is reported in centimetres of water (cmH2O); some ventilators display mbar, which is nearly equivalent (1 cmH2O ≈ 0.98 mbar).\n\nThe PEEP applied by the ventilator (extrinsic PEEP) is not always the pressure present in the lungs at end-expiration: when expiratory time is too short to empty the delivered tidal volume, trapped gas creates an intrinsic PEEP (auto-PEEP), and the total PEEP is the sum of the two. These components are measured either statically, during an end-expiratory occlusion, or dynamically, from the pressure and flow tracings without occlusion.\n\n## Included Concepts\n\nThe set lists the standard LOINC PEEP concepts of the Measurement domain, added one by one. All are reported in cmH2O.\n\n### Generic PEEP (default)\n\n- *3016226 / 20075-8 — PEEP Respiratory system (LOINC)*: the generic concept; the default.\n- *21490855 / 76248-4 — PEEP Respiratory system --on ventilator (LOINC)*: the same value, explicitly recorded on a ventilator.\n\n### Ventilator setting\n\n- *3022875 / 20077-4 — Positive end expiratory pressure setting Ventilator (LOINC)*: the PEEP set on the ventilator.\n\n### Extrinsic / intrinsic / total — static\n\n- *42528515 / 83386-3 — Extrinsic PEEP Respiratory system (LOINC)*: the PEEP applied by the ventilator.\n- *3035822 / 38199-6 — Intrinsic PEEP Respiratory system (LOINC)*: auto-PEEP — gas trapped when expiratory time is too short to empty the delivered tidal volume [1].\n- *42527140 / 76247-6 — Total PEEP Respiratory system (LOINC)*: the sum of extrinsic and intrinsic PEEP [2].\n\n### Extrinsic / intrinsic / total — dynamic\n\nThe same three components, measured without an end-expiratory occlusion:\n\n- *42528516 / 83387-1 — Extrinsic dynamic PEEP Respiratory system (LOINC)*.\n- *42527139 / 76246-8 — Intrinsic dynamic PEEP Respiratory system (LOINC)*.\n- *42528517 / 83388-9 — Total dynamic PEEP Respiratory system (LOINC)*.\n\n**Note on units**: reported in **cmH2O** (`44777590 / cm[H2O] — centimeter watercolumn`, UCUM), the recommended unit, with a registered cmH2O↔mbar conversion (1 cmH2O = 0.98 mbar).\n\n## Mapping Notes\n\n- **Default concept** when the source records a PEEP without qualification: *3016226 / 20075-8 — PEEP Respiratory system*. The PEEP set on the ventilator maps to *3022875 / 20077-4 — Positive end expiratory pressure setting Ventilator*.\n- **Intrinsic / extrinsic / total**: map to the intrinsic concept only for measured auto-PEEP, to the extrinsic concept for applied PEEP, and to the total concept for their sum. Use the static concepts by default, and the dynamic ones only when the source states that the value was measured without an end-expiratory occlusion. Use the generic concept if the source does not distinguish the components.\n- **Not other airway pressures**: peak, plateau and mean airway pressures are distinct measurements in their own concept sets.\n- **Why setting and measured share one set**: they are not the same quantity — under auto-PEEP the measured total PEEP exceeds the set PEEP, and that gap is itself the clinical signal — but they are one protocol variable. Depending on the centre, the ventilator and the mode, the same datum surfaces as a setting or as a measurement, often without a reliable label, so splitting them would force every ETL to choose arbitrarily and yield two half-empty columns. Keep both here and go down to the concept_id for an analysis that turns on the distinction.\n\n## References\n\n[1] Regenstrief Institute. LOINC code 38199-6 — Intrinsic PEEP Respiratory system.\n    Available: <a href=\"https://loinc.org/38199-6/\" target=\"_blank\">https://loinc.org/38199-6/</a>\n\n[2] Regenstrief Institute. LOINC code 76247-6 — Total PEEP Respiratory system.\n    Available: <a href=\"https://loinc.org/76247-6/\" target=\"_blank\">https://loinc.org/76247-6/</a>"
+        "shortDescription": "Positive end-expiratory pressure (PEEP) applied by the ventilator: set, displayed or extrinsic PEEP, in cmH2O. Intrinsic and total PEEP have their own sets.",
+        "longDescription": "## Definition & Clinical Context\n\nPositive end-expiratory pressure (PEEP) is the pressure the ventilator maintains in the airways at the end of expiration, above atmospheric pressure. It keeps alveoli open and improves oxygenation; higher levels may also reduce ventilator-induced lung injury, at the cost of possible circulatory depression and overdistension [1]. Most ventilated patients with ARDS receive 5 to 12 cmH2O, and trials have set it from tables combining PEEP and FiO2 [1]; the choice of PEEP is one of the respiratory support strategies covered by the ESICM guidelines on ARDS [2]. In source data it is a single numeric value per patient-timestamp, in centimetres of water (cmH2O); some ventilators display mbar, which is nearly equivalent (1 cmH2O ≈ 0.98 mbar).\n\nThis set holds the **applied** PEEP, also called extrinsic PEEP: the value set on the ventilator, or the end-expiratory pressure the ventilator displays. The two match, because gas trapped in the alveoli by an incomplete expiration is not apparent during normal ventilator operation: it only shows when the expiratory port is occluded at the end of expiration [3]. A PEEP recorded without qualification is therefore the applied PEEP.\n\nThe pressure actually present in the alveoli at end-expiration can be higher. The excess is the **intrinsic PEEP** (auto-PEEP), and the end-expiratory alveolar pressure is the **total PEEP**, the sum of applied and intrinsic PEEP. Both are distinct quantities, measured by a deliberate manoeuvre, and have their own concept sets: *Intrinsic PEEP (auto-PEEP)* and *Total PEEP*.\n\n## Included Concepts\n\nThe set lists the standard LOINC concepts of the applied PEEP, in the Measurement domain. All are reported in cmH2O.\n\n### Generic PEEP (default)\n\n- *3016226 / 20075-8 — PEEP Respiratory system (LOINC)*: the generic concept; the default.\n- *21490855 / 76248-4 — PEEP Respiratory system --on ventilator (LOINC)*: the same value, explicitly recorded on a ventilator.\n\n### Ventilator setting\n\n- *3022875 / 20077-4 — Positive end expiratory pressure setting Ventilator (LOINC)*: the PEEP set on the ventilator.\n\n### Extrinsic PEEP\n\nUsed by sources that record the applied PEEP next to an intrinsic or total PEEP measurement.\n\n- *42528515 / 83386-3 — Extrinsic PEEP Respiratory system (LOINC)*: the PEEP applied by the ventilator.\n- *42528516 / 83387-1 — Extrinsic dynamic PEEP Respiratory system (LOINC)*: the same, read from the pressure and flow tracings without an end-expiratory occlusion.\n\n**Note on units**: reported in **cmH2O** (`44777590 / cm[H2O] — centimeter watercolumn`, UCUM), the recommended unit, as listed by LOINC for these codes, with a registered cmH2O↔mbar conversion (1 cmH2O = 0.98 mbar).\n\n## Mapping Notes\n\n- **Default concept** when the source records a PEEP without qualification: *3016226 / 20075-8 — PEEP Respiratory system*. The PEEP set on the ventilator maps to *3022875 / 20077-4 — Positive end expiratory pressure setting Ventilator*.\n- **Extrinsic PEEP**: use *42528515 / 83386-3 — Extrinsic PEEP Respiratory system* when the source labels the value as extrinsic, typically next to an intrinsic or total PEEP measurement.\n- **Not intrinsic or total PEEP**: auto-PEEP belongs to the *Intrinsic PEEP (auto-PEEP)* set, and the pressure read during an end-expiratory occlusion to the *Total PEEP* set.\n- **Not other airway pressures**: peak, plateau and mean airway pressures are distinct measurements in their own concept sets.\n- **Why the setting and the displayed value share one set**: they are one protocol variable. Depending on the centre, the ventilator and the mode, the same datum surfaces as a setting or as a measurement, often without a reliable label, so splitting them would force every ETL to choose arbitrarily and yield two half-empty columns. Keep both here and go down to the concept_id for an analysis that turns on the distinction.\n\n## References\n\n[1] Brower RG, Lanken PN, MacIntyre N, et al. Higher versus lower positive end-expiratory pressures in patients with the acute respiratory distress syndrome. N Engl J Med. 2004;351(4):327-36.\n    Available: <a href=\"https://doi.org/10.1056/NEJMoa032193\" target=\"_blank\">https://doi.org/10.1056/NEJMoa032193</a>\n\n[2] Grasselli G, Calfee CS, Camporota L, et al. ESICM guidelines on acute respiratory distress syndrome: definition, phenotyping and respiratory support strategies. Intensive Care Med. 2023;49(7):727-59.\n    Available: <a href=\"https://doi.org/10.1007/s00134-023-07050-7\" target=\"_blank\">https://doi.org/10.1007/s00134-023-07050-7</a>\n\n[3] Pepe PE, Marini JJ. Occult positive end-expiratory pressure in mechanically ventilated patients with airflow obstruction: the auto-PEEP effect. Am Rev Respir Dis. 1982;126(1):166-70.\n    Available: <a href=\"https://doi.org/10.1164/arrd.1982.126.1.166\" target=\"_blank\">https://doi.org/10.1164/arrd.1982.126.1.166</a>"
       },
       "fr": {
         "name": "Pression expiratoire positive (PEP)",
         "category": "Ventilation",
         "subcategory": "Paramètres ventilatoires",
-        "shortDescription": "Pression expiratoire positive (PEP) — pression des voies aériennes en fin d’expiration, en cmH2O (générique, réglée, extrinsèque, intrinsèque/auto-PEP, totale ; statique et dynamique).",
-        "longDescription": "## Définition et contexte clinique\n\nLa pression expiratoire positive (PEP, ou PEEP) est la pression maintenue dans les voies aériennes au-dessus de la pression atmosphérique en fin d’expiration sous ventilation mécanique, pour maintenir les alvéoles ouvertes et améliorer l’oxygénation. Dans les données sources, c’est une valeur numérique unique par patient et par horodatage, réglée sur le ventilateur ou mesurée par celui-ci. Elle est recueillie en réanimation et en anesthésie chez les patients ventilés. Elle s’exprime en centimètres d’eau (cmH2O) ; certains ventilateurs affichent des mbar, quasi équivalents (1 cmH2O ≈ 0,98 mbar).\n\nLa PEP appliquée par le ventilateur (PEP extrinsèque) n’est pas toujours la pression réellement présente dans les poumons en fin d’expiration : quand le temps expiratoire est trop court pour vider le volume courant insufflé, le gaz piégé crée une PEP intrinsèque (auto-PEP), et la PEP totale est la somme des deux. Ces composantes se mesurent soit en statique, lors d’une occlusion télé-expiratoire, soit en dynamique, sur les courbes de pression et de débit, sans occlusion.\n\n## Concepts inclus\n\nLe set liste les concepts LOINC standard de PEP du domaine Measurement, ajoutés un par un. Tous s’expriment en cmH2O.\n\n### PEP générique (par défaut)\n\n- *3016226 / 20075-8 — PEEP Respiratory system (LOINC)* : le concept générique, à utiliser par défaut.\n- *21490855 / 76248-4 — PEEP Respiratory system --on ventilator (LOINC)* : la même valeur, explicitement recueillie sous ventilateur.\n\n### Réglage du ventilateur\n\n- *3022875 / 20077-4 — Positive end expiratory pressure setting Ventilator (LOINC)* : la PEP réglée sur le ventilateur.\n\n### Extrinsèque / intrinsèque / totale — statique\n\n- *42528515 / 83386-3 — Extrinsic PEEP Respiratory system (LOINC)* : la PEP appliquée par le ventilateur.\n- *3035822 / 38199-6 — Intrinsic PEEP Respiratory system (LOINC)* : l’auto-PEP — gaz piégé quand le temps expiratoire est trop court pour vider le volume courant insufflé [1].\n- *42527140 / 76247-6 — Total PEEP Respiratory system (LOINC)* : la somme des PEP extrinsèque et intrinsèque [2].\n\n### Extrinsèque / intrinsèque / totale — dynamique\n\nLes trois mêmes composantes, mesurées sans occlusion télé-expiratoire :\n\n- *42528516 / 83387-1 — Extrinsic dynamic PEEP Respiratory system (LOINC)*.\n- *42527139 / 76246-8 — Intrinsic dynamic PEEP Respiratory system (LOINC)*.\n- *42528517 / 83388-9 — Total dynamic PEEP Respiratory system (LOINC)*.\n\n**Unités** : en **cmH2O** (`44777590 / cm[H2O] — centimeter watercolumn`, UCUM), l’unité recommandée, avec une conversion cmH2O↔mbar enregistrée (1 cmH2O = 0,98 mbar).\n\n## Notes de mapping\n\n- **Concept par défaut** quand la source enregistre une PEP sans précision : *3016226 / 20075-8 — PEEP Respiratory system*. La PEP réglée sur le ventilateur se mappe sur *3022875 / 20077-4 — Positive end expiratory pressure setting Ventilator*.\n- **Intrinsèque / extrinsèque / totale** : utiliser le concept intrinsèque uniquement pour une auto-PEP mesurée, le concept extrinsèque pour la PEP appliquée et le concept total pour leur somme. Utiliser par défaut les concepts statiques, et les concepts dynamiques uniquement si la source indique une mesure sans occlusion télé-expiratoire. Utiliser le concept générique si la source ne distingue pas les composantes.\n- **Pas les autres pressions des voies aériennes** : les pressions de crête, de plateau et moyenne sont des mesures distinctes, dans leurs propres concept sets.\n- **Pourquoi réglage et mesure partagent un même set** : ce n’est pas la même grandeur — en cas d’auto-PEP, la PEP totale mesurée dépasse la PEP réglée, et cet écart est en soi le signal clinique — mais c’est une seule variable de protocole. Selon le centre, le ventilateur et le mode, la même donnée remonte comme un réglage ou comme une mesure, souvent sans étiquette fiable : les séparer obligerait chaque ETL à trancher arbitrairement et donnerait deux colonnes à moitié vides. Les garder ensemble ici, et descendre au concept_id pour une analyse qui repose sur la distinction.\n\n## Références\n\n[1] Regenstrief Institute. LOINC code 38199-6 — Intrinsic PEEP Respiratory system.\n    Available: <a href=\"https://loinc.org/38199-6/\" target=\"_blank\">https://loinc.org/38199-6/</a>\n\n[2] Regenstrief Institute. LOINC code 76247-6 — Total PEEP Respiratory system.\n    Available: <a href=\"https://loinc.org/76247-6/\" target=\"_blank\">https://loinc.org/76247-6/</a>"
+        "shortDescription": "Pression expiratoire positive (PEP) appliquée par le ventilateur : PEP réglée, affichée ou extrinsèque, en cmH2O. Les PEP intrinsèque et totale ont leurs propres sets.",
+        "longDescription": "## Définition et contexte clinique\n\nLa pression expiratoire positive (PEP, ou PEEP) est la pression que le ventilateur maintient dans les voies aériennes en fin d’expiration, au-dessus de la pression atmosphérique. Elle maintient les alvéoles ouvertes et améliore l’oxygénation ; des niveaux plus élevés peuvent aussi réduire les lésions pulmonaires induites par la ventilation, au prix d’une possible dépression circulatoire et d’une surdistension [1]. La plupart des patients ventilés pour un SDRA reçoivent 5 à 12 cmH2O, et les essais l’ont réglée à partir de tables associant PEP et FiO2 [1] ; le choix de la PEP fait partie des stratégies d’assistance respiratoire couvertes par les recommandations de l’ESICM sur le SDRA [2]. Dans les données sources, c’est une valeur numérique unique par patient et par horodatage, en centimètres d’eau (cmH2O) ; certains ventilateurs affichent des mbar, quasi équivalents (1 cmH2O ≈ 0,98 mbar).\n\nCe set contient la PEP **appliquée**, dite aussi PEP extrinsèque : la valeur réglée sur le ventilateur, ou la pression de fin d’expiration qu’il affiche. Les deux coïncident, car le gaz piégé dans les alvéoles par une expiration incomplète n’apparaît pas en fonctionnement normal du ventilateur : il ne se révèle que si l’on occlut la valve expiratoire en fin d’expiration [3]. Une PEP enregistrée sans précision est donc la PEP appliquée.\n\nLa pression réellement présente dans les alvéoles en fin d’expiration peut être plus élevée. L’excès est la **PEP intrinsèque** (auto-PEP), et la pression alvéolaire de fin d’expiration est la **PEP totale**, somme des PEP appliquée et intrinsèque. Ce sont deux grandeurs distinctes, mesurées par une manœuvre délibérée, qui ont leurs propres concept sets : *PEP intrinsèque (auto-PEP)* et *PEP totale*.\n\n## Concepts inclus\n\nLe set liste les concepts LOINC standard de la PEP appliquée, du domaine Measurement. Tous s’expriment en cmH2O.\n\n### PEP générique (par défaut)\n\n- *3016226 / 20075-8 — PEEP Respiratory system (LOINC)* : le concept générique, à utiliser par défaut.\n- *21490855 / 76248-4 — PEEP Respiratory system --on ventilator (LOINC)* : la même valeur, explicitement recueillie sous ventilateur.\n\n### Réglage du ventilateur\n\n- *3022875 / 20077-4 — Positive end expiratory pressure setting Ventilator (LOINC)* : la PEP réglée sur le ventilateur.\n\n### PEP extrinsèque\n\nUtilisée par les sources qui enregistrent la PEP appliquée à côté d’une mesure de PEP intrinsèque ou totale.\n\n- *42528515 / 83386-3 — Extrinsic PEEP Respiratory system (LOINC)* : la PEP appliquée par le ventilateur.\n- *42528516 / 83387-1 — Extrinsic dynamic PEEP Respiratory system (LOINC)* : la même, lue sur les courbes de pression et de débit, sans occlusion télé-expiratoire.\n\n**Unités** : en **cmH2O** (`44777590 / cm[H2O] — centimeter watercolumn`, UCUM), l’unité recommandée, celle qu’indique LOINC pour ces codes, avec une conversion cmH2O↔mbar enregistrée (1 cmH2O = 0,98 mbar).\n\n## Notes de mapping\n\n- **Concept par défaut** quand la source enregistre une PEP sans précision : *3016226 / 20075-8 — PEEP Respiratory system*. La PEP réglée sur le ventilateur se mappe sur *3022875 / 20077-4 — Positive end expiratory pressure setting Ventilator*.\n- **PEP extrinsèque** : utiliser *42528515 / 83386-3 — Extrinsic PEEP Respiratory system* quand la source qualifie la valeur d’extrinsèque, en général à côté d’une mesure de PEP intrinsèque ou totale.\n- **Pas la PEP intrinsèque ni la PEP totale** : l’auto-PEP relève du set *PEP intrinsèque (auto-PEP)*, et la pression lue pendant une occlusion télé-expiratoire du set *PEP totale*.\n- **Pas les autres pressions des voies aériennes** : les pressions de crête, de plateau et moyenne sont des mesures distinctes, dans leurs propres concept sets.\n- **Pourquoi le réglage et la valeur affichée partagent un même set** : c’est une seule variable de protocole. Selon le centre, le ventilateur et le mode, la même donnée remonte comme un réglage ou comme une mesure, souvent sans étiquette fiable : les séparer obligerait chaque ETL à trancher arbitrairement et donnerait deux colonnes à moitié vides. Les garder ensemble ici, et descendre au concept_id pour une analyse qui repose sur la distinction.\n\n## Références\n\n[1] Brower RG, Lanken PN, MacIntyre N, et al. Higher versus lower positive end-expiratory pressures in patients with the acute respiratory distress syndrome. N Engl J Med. 2004;351(4):327-36.\n    Available: <a href=\"https://doi.org/10.1056/NEJMoa032193\" target=\"_blank\">https://doi.org/10.1056/NEJMoa032193</a>\n\n[2] Grasselli G, Calfee CS, Camporota L, et al. ESICM guidelines on acute respiratory distress syndrome: definition, phenotyping and respiratory support strategies. Intensive Care Med. 2023;49(7):727-59.\n    Available: <a href=\"https://doi.org/10.1007/s00134-023-07050-7\" target=\"_blank\">https://doi.org/10.1007/s00134-023-07050-7</a>\n\n[3] Pepe PE, Marini JJ. Occult positive end-expiratory pressure in mechanically ventilated patients with airflow obstruction: the auto-PEEP effect. Am Rev Respir Dis. 1982;126(1):166-70.\n    Available: <a href=\"https://doi.org/10.1164/arrd.1982.126.1.166\" target=\"_blank\">https://doi.org/10.1164/arrd.1982.126.1.166</a>"
       }
     },
     "createdByDetails": {
@@ -287,7 +211,7 @@
           "orcid": "0009-0002-6055-6935"
         },
         "reviewTimestamp": "2026-11-15T12:00:00.000Z",
-        "comments": "**Reply to the reviews of Gregor Lichtner and Nicolas Terzi**\n\n- **LOINC and SNOMED codes meaning the same** (Gregor): we normally keep both when both are standard, so that every site is captured whichever vocabulary it mapped to. Here, v1.2.0 drops the two SNOMED concepts, **4353713** *Positive end expiratory pressure* and **4216746** *Positive end expiratory pressure setting*, because they sit in the Observation domain while the rest of the set is in Measurement. Note for QI01: your CQL still references these two concepts; their counterparts in the set are **3016226** *PEEP Respiratory system* and **3022875** *Positive end expiratory pressure setting Ventilator*.\n- **Total PEEP** (Nicolas): each component already has its own concept: total PEEP (static 42527140, dynamic 42528517), extrinsic PEEP (42528515, 42528516) and intrinsic PEEP, or auto-PEEP (3035822, 42527139), next to the generic and set PEEP. Today they all sit in this one set, and a study that needs one component filters on `concept_id`.\n\n**Question to all reviewers: should we split this set in three?**\n- **PEEP (applied)**: generic, on ventilator, ventilator setting and extrinsic PEEP. A PEEP recorded without qualification is almost always the set PEEP, or the end-expiratory pressure displayed by the ventilator, which matches it since auto-PEEP only shows during an end-expiratory occlusion. The generic concept would therefore stay here.\n- **Intrinsic PEEP (auto-PEEP)**: a distinct quantity, e.g. to assess dynamic hyperinflation in a COPD exacerbation. Pooling its values with the applied PEEP blurs both.\n- **Total PEEP**: measured by end-expiratory occlusion; it is the one to use for driving pressure (plateau pressure − total PEEP).\n\nStatic and dynamic measurements would stay together within each set. Gregor: QI01 references 42527140 (Total PEEP); for lung-protective ventilation, does it need the total PEEP or the applied PEEP?\n\nWhat do you think?",
+        "comments": "**Reply to the reviews of Gregor Lichtner and Nicolas Terzi**\n\n- **LOINC and SNOMED codes meaning the same** (Gregor): we normally keep both when both are standard, so that every site is captured whichever vocabulary it mapped to. Here, v1.2.0 drops the two SNOMED concepts, **4353713** *Positive end expiratory pressure* and **4216746** *Positive end expiratory pressure setting*, because they sit in the Observation domain while the rest of the set is in Measurement. Note for QI01: your CQL still references these two concepts; their counterparts in the set are **3016226** *PEEP Respiratory system* and **3022875** *Positive end expiratory pressure setting Ventilator*.\n- **Total PEEP** (Nicolas): done in v1.4.0. Intrinsic and total PEEP now have their own concept sets, *Intrinsic PEEP (auto-PEEP)* (384) and *Total PEEP* (385), each with its static and dynamic concepts. This set keeps the applied PEEP: generic, on ventilator, ventilator setting and extrinsic PEEP. A PEEP recorded without qualification stays here: it is the set PEEP, or the end-expiratory pressure displayed by the ventilator, which matches it since auto-PEEP only shows during an end-expiratory occlusion.\n\nGregor: QI01 references **42527140** *Total PEEP Respiratory system*, which now belongs to set 385. For lung-protective ventilation, does QI01 need the total PEEP or the applied PEEP?\n\nCould you check v1.4.0 and update your verdicts?",
         "version": "1.1.2"
       }
     ],
@@ -321,6 +245,12 @@
         "date": "2026-11-14",
         "author": "Boris Delange",
         "message": "Add the generic LOINC PEEP concepts (3016226 PEEP Respiratory system, default; 21490855 PEEP Respiratory system --on ventilator) and the dynamic extrinsic/intrinsic/total PEEP (42528516, 42527139, 42528517). Set now holds the 9 standard LOINC Measurement PEEP concepts, excluding ventilator limit and alarm settings."
+      },
+      {
+        "version": "1.4.0",
+        "date": "2026-11-15",
+        "author": "Boris Delange",
+        "message": "Split intrinsic and total PEEP into their own concept sets, Intrinsic PEEP (auto-PEEP) (384) and Total PEEP (385), following Nicolas Terzi's review: they are distinct quantities, measured by a deliberate manoeuvre. Removed 3035822, 42527139 (intrinsic) and 42527140, 42528517 (total). The set now holds the applied PEEP: generic, on ventilator, ventilator setting, extrinsic (static and dynamic). Description rewritten with literature references."
       }
     ],
     "distributionStats": null

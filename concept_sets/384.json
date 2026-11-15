@@ -1,0 +1,103 @@
+{
+  "id": 384,
+  "name": "Intrinsic PEEP (auto-PEEP)",
+  "description": "Intrinsic PEEP (auto-PEEP) — end-expiratory alveolar pressure above the applied PEEP, due to incomplete expiration, in cmH2O (static and dynamic).",
+  "version": "1.0.0",
+  "createdBy": "Boris Delange",
+  "createdDate": "2026-11-15",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2026-11-15",
+  "createdByTool": "INDICATE Data Dictionary v1.2.6 (https://github.com/indicate-eu/data-dictionary)",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 3035822,
+          "conceptName": "Intrinsic PEEP Respiratory system",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "38199-6",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 42527139,
+          "conceptName": "Intrinsic dynamic PEEP Respiratory system",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "76246-8",
+          "validStartDate": "2017-02-21",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "b5ac8d4a-54cc-41f8-b0d5-bd334aa343a9",
+    "organization": {
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
+    },
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "Intrinsic PEEP (auto-PEEP)",
+        "category": "Ventilation",
+        "subcategory": "Ventilation parameters",
+        "shortDescription": "Intrinsic PEEP (auto-PEEP) — end-expiratory alveolar pressure above the applied PEEP, due to incomplete expiration, in cmH2O (static and dynamic).",
+        "longDescription": "## Definition & Clinical Context\n\nIntrinsic PEEP (PEEPi), also called auto-PEEP or occult PEEP, is the end-expiratory alveolar pressure in excess of the PEEP applied by the ventilator. It arises when expiration is too short to empty the delivered tidal volume [1]: the trapped gas raises the end-expiratory lung volume (dynamic hyperinflation) and keeps alveolar pressure positive throughout the ventilatory cycle, even when no PEEP is applied [2]. Most mechanically ventilated patients with asthma or chronic obstructive pulmonary disease (COPD) have dynamic hyperinflation and auto-PEEP [3]. It can depress cardiac output [2], predispose to barotrauma, increase the work of breathing, disrupt patient-ventilator synchrony, and confuse the monitoring of haemodynamics and respiratory mechanics [4].\n\nAuto-PEEP is not apparent during normal ventilator operation [2]. It is measured in two ways:\n\n- **Static**, the routine method: the airway is occluded at the end of expiration, and the plateau pressure then reached, above the applied PEEP, represents the average intrinsic PEEP of a non-homogeneous lung [2, 5].\n- **Dynamic**: from the change in pressure needed to start inflating the lung, without occlusion [5]; in spontaneously breathing patients, from simultaneous oesophageal pressure and flow recordings [3]. The dynamic value reflects the lowest regional intrinsic PEEP and underestimates the static value in airway obstruction: 3.0 versus 9.3 cmH2O on average in patients with airway obstruction, but 4.6 versus 5.4 cmH2O in those without [5].\n\nIn source data it is a single numeric value per patient-timestamp, in cmH2O. It is a distinct variable from the applied PEEP (*Positive End-Expiratory Pressure (PEEP)* set) and from the total PEEP (*Total PEEP* set), the sum of applied and intrinsic PEEP.\n\n## Included Concepts\n\nThe set lists the two standard LOINC intrinsic PEEP concepts, in the Measurement domain.\n\n- *3035822 / 38199-6 — Intrinsic PEEP Respiratory system (LOINC)*: static intrinsic PEEP; the default [1].\n- *42527139 / 76246-8 — Intrinsic dynamic PEEP Respiratory system (LOINC)*: dynamic intrinsic PEEP, measured without an end-expiratory occlusion.\n\n**Note on units**: reported in **cmH2O** (`44777590 / cm[H2O] — centimeter watercolumn`, UCUM), the recommended unit, as listed by LOINC for these codes, with a registered cmH2O↔mbar conversion (1 cmH2O = 0.98 mbar).\n\n## Mapping Notes\n\n- **Default concept**: *3035822 / 38199-6 — Intrinsic PEEP Respiratory system*. Use *42527139 / 76246-8 — Intrinsic dynamic PEEP Respiratory system* only when the source states that the value was measured without an end-expiratory occlusion, for instance from oesophageal pressure.\n- **Static and dynamic values are not interchangeable**: the dynamic value is lower, markedly so in airway obstruction [5]. An analysis that pools them should check the concept_id.\n- **Not the occlusion pressure itself**: the pressure read during an end-expiratory occlusion is the total PEEP and belongs to the *Total PEEP* set. Map here only the intrinsic part, as reported by the ventilator or the source.\n- **Do not derive it at ETL time**: when a source records only total and applied PEEP, store each in its own set; an analysis can compute the difference.\n\n## References\n\n[1] Regenstrief Institute. LOINC code 38199-6 — Intrinsic PEEP Respiratory system.\n    Available: <a href=\"https://loinc.org/38199-6/\" target=\"_blank\">https://loinc.org/38199-6/</a>\n\n[2] Pepe PE, Marini JJ. Occult positive end-expiratory pressure in mechanically ventilated patients with airflow obstruction: the auto-PEEP effect. Am Rev Respir Dis. 1982;126(1):166-70.\n    Available: <a href=\"https://doi.org/10.1164/arrd.1982.126.1.166\" target=\"_blank\">https://doi.org/10.1164/arrd.1982.126.1.166</a>\n\n[3] Blanch L, Bernabé F, Lucangelo U. Measurement of air trapping, intrinsic positive end-expiratory pressure, and dynamic hyperinflation in mechanically ventilated patients. Respir Care. 2005;50(1):110-23.\n    Available: <a href=\"https://pubmed.ncbi.nlm.nih.gov/15636649/\" target=\"_blank\">https://pubmed.ncbi.nlm.nih.gov/15636649/</a>\n\n[4] Marini JJ. Dynamic hyperinflation and auto-positive end-expiratory pressure: lessons learned over 30 years. Am J Respir Crit Care Med. 2011;184(7):756-62.\n    Available: <a href=\"https://doi.org/10.1164/rccm.201102-0226PP\" target=\"_blank\">https://doi.org/10.1164/rccm.201102-0226PP</a>\n\n[5] Maltais F, Reissmann H, Navalesi P, et al. Comparison of static and dynamic measurements of intrinsic PEEP in mechanically ventilated patients. Am J Respir Crit Care Med. 1994;150(5 Pt 1):1318-24.\n    Available: <a href=\"https://doi.org/10.1164/ajrccm.150.5.7952559\" target=\"_blank\">https://doi.org/10.1164/ajrccm.150.5.7952559</a>"
+      },
+      "fr": {
+        "name": "PEP intrinsèque (auto-PEP)",
+        "category": "Ventilation",
+        "subcategory": "Paramètres ventilatoires",
+        "shortDescription": "PEP intrinsèque (auto-PEP) — pression alvéolaire de fin d’expiration au-delà de la PEP appliquée, due à une expiration incomplète, en cmH2O (statique et dynamique).",
+        "longDescription": "## Définition et contexte clinique\n\nLa PEP intrinsèque (PEPi), aussi appelée auto-PEP ou PEP occulte, est la pression alvéolaire de fin d’expiration qui excède la PEP appliquée par le ventilateur. Elle apparaît quand le temps expiratoire est trop court pour vider le volume courant insufflé [1] : le gaz piégé augmente le volume pulmonaire de fin d’expiration (hyperinflation dynamique) et maintient une pression alvéolaire positive tout au long du cycle ventilatoire, même sans PEP appliquée [2]. La plupart des patients asthmatiques ou atteints de bronchopneumopathie chronique obstructive (BPCO) sous ventilation mécanique présentent une hyperinflation dynamique et une auto-PEP [3]. Elle peut diminuer le débit cardiaque [2], favoriser le barotraumatisme, augmenter le travail respiratoire, perturber la synchronisation patient-ventilateur et fausser la surveillance de l’hémodynamique et de la mécanique respiratoire [4].\n\nL’auto-PEP n’apparaît pas en fonctionnement normal du ventilateur [2]. Elle se mesure de deux façons :\n\n- **Statique**, la méthode de routine : on occlut les voies aériennes en fin d’expiration, et la pression de plateau alors atteinte, au-dessus de la PEP appliquée, représente la PEP intrinsèque moyenne d’un poumon hétérogène [2, 5].\n- **Dynamique** : à partir de la variation de pression nécessaire pour commencer à insuffler le poumon, sans occlusion [5] ; chez le patient en ventilation spontanée, à partir d’enregistrements simultanés de la pression œsophagienne et du débit [3]. La valeur dynamique reflète la PEP intrinsèque régionale la plus basse et sous-estime la valeur statique en cas d’obstruction des voies aériennes : 3,0 contre 9,3 cmH2O en moyenne chez les patients obstructifs, mais 4,6 contre 5,4 cmH2O chez les autres [5].\n\nDans les données sources, c’est une valeur numérique unique par patient et par horodatage, en cmH2O. C’est une variable distincte de la PEP appliquée (set *Pression expiratoire positive (PEP)*) et de la PEP totale (set *PEP totale*), somme des PEP appliquée et intrinsèque.\n\n## Concepts inclus\n\nLe set liste les deux concepts LOINC standard de PEP intrinsèque, du domaine Measurement.\n\n- *3035822 / 38199-6 — Intrinsic PEEP Respiratory system (LOINC)* : PEP intrinsèque statique ; le concept par défaut [1].\n- *42527139 / 76246-8 — Intrinsic dynamic PEEP Respiratory system (LOINC)* : PEP intrinsèque dynamique, mesurée sans occlusion télé-expiratoire.\n\n**Unités** : en **cmH2O** (`44777590 / cm[H2O] — centimeter watercolumn`, UCUM), l’unité recommandée, celle qu’indique LOINC pour ces codes, avec une conversion cmH2O↔mbar enregistrée (1 cmH2O = 0,98 mbar).\n\n## Notes de mapping\n\n- **Concept par défaut** : *3035822 / 38199-6 — Intrinsic PEEP Respiratory system*. N’utiliser *42527139 / 76246-8 — Intrinsic dynamic PEEP Respiratory system* que si la source indique une mesure sans occlusion télé-expiratoire, par exemple par pression œsophagienne.\n- **Valeurs statiques et dynamiques non interchangeables** : la valeur dynamique est plus basse, nettement en cas d’obstruction des voies aériennes [5]. Une analyse qui les regroupe doit vérifier le concept_id.\n- **Pas la pression d’occlusion elle-même** : la pression lue pendant une occlusion télé-expiratoire est la PEP totale et relève du set *PEP totale*. Ne mapper ici que la part intrinsèque, telle que la rapporte le ventilateur ou la source.\n- **Ne pas la calculer à l’ETL** : quand une source n’enregistre que les PEP totale et appliquée, stocker chacune dans son set ; une analyse pourra calculer la différence.\n\n## Références\n\n[1] Regenstrief Institute. LOINC code 38199-6 — Intrinsic PEEP Respiratory system.\n    Available: <a href=\"https://loinc.org/38199-6/\" target=\"_blank\">https://loinc.org/38199-6/</a>\n\n[2] Pepe PE, Marini JJ. Occult positive end-expiratory pressure in mechanically ventilated patients with airflow obstruction: the auto-PEEP effect. Am Rev Respir Dis. 1982;126(1):166-70.\n    Available: <a href=\"https://doi.org/10.1164/arrd.1982.126.1.166\" target=\"_blank\">https://doi.org/10.1164/arrd.1982.126.1.166</a>\n\n[3] Blanch L, Bernabé F, Lucangelo U. Measurement of air trapping, intrinsic positive end-expiratory pressure, and dynamic hyperinflation in mechanically ventilated patients. Respir Care. 2005;50(1):110-23.\n    Available: <a href=\"https://pubmed.ncbi.nlm.nih.gov/15636649/\" target=\"_blank\">https://pubmed.ncbi.nlm.nih.gov/15636649/</a>\n\n[4] Marini JJ. Dynamic hyperinflation and auto-positive end-expiratory pressure: lessons learned over 30 years. Am J Respir Crit Care Med. 2011;184(7):756-62.\n    Available: <a href=\"https://doi.org/10.1164/rccm.201102-0226PP\" target=\"_blank\">https://doi.org/10.1164/rccm.201102-0226PP</a>\n\n[5] Maltais F, Reissmann H, Navalesi P, et al. Comparison of static and dynamic measurements of intrinsic PEEP in mechanically ventilated patients. Am J Respir Crit Care Med. 1994;150(5 Pt 1):1318-24.\n    Available: <a href=\"https://doi.org/10.1164/ajrccm.150.5.7952559\" target=\"_blank\">https://doi.org/10.1164/ajrccm.150.5.7952559</a>"
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [],
+    "versions": [
+      {
+        "version": "1.0.0",
+        "date": "2026-11-15",
+        "author": "Boris Delange",
+        "message": "Initial version: split from Positive End-Expiratory Pressure (PEEP) (318) v1.3.0, following Nicolas Terzi's review. Holds the 2 standard LOINC concepts (3035822, 42527139)."
+      }
+    ],
+    "distributionStats": null
+  }
+}

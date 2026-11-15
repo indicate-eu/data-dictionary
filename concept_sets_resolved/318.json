@@ -24,39 +24,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 3035822,
-      "conceptName": "Intrinsic PEEP Respiratory system",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "38199-6",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 21490855,
       "conceptName": "PEEP Respiratory system --on ventilator",
       "vocabularyId": "LOINC",
       "domainId": "Measurement",
       "conceptClassId": "Clinical Observation",
       "conceptCode": "76248-4",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42527139,
-      "conceptName": "Intrinsic dynamic PEEP Respiratory system",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "76246-8",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42527140,
-      "conceptName": "Total PEEP Respiratory system",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "76247-6",
       "standardConcept": "S"
     },
     {
@@ -75,15 +48,6 @@
       "domainId": "Measurement",
       "conceptClassId": "Clinical Observation",
       "conceptCode": "83387-1",
-      "standardConcept": "S"
-    },
-    {
-      "conceptId": 42528517,
-      "conceptName": "Total dynamic PEEP Respiratory system",
-      "vocabularyId": "LOINC",
-      "domainId": "Measurement",
-      "conceptClassId": "Clinical Observation",
-      "conceptCode": "83388-9",
       "standardConcept": "S"
     }
   ]

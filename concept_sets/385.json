@@ -1,0 +1,103 @@
+{
+  "id": 385,
+  "name": "Total PEEP",
+  "description": "Total PEEP — end-expiratory alveolar pressure (applied + intrinsic PEEP), measured by end-expiratory occlusion, in cmH2O (static and dynamic).",
+  "version": "1.0.0",
+  "createdBy": "Boris Delange",
+  "createdDate": "2026-11-15",
+  "modifiedBy": "Boris Delange",
+  "modifiedDate": "2026-11-15",
+  "createdByTool": "INDICATE Data Dictionary v1.2.6 (https://github.com/indicate-eu/data-dictionary)",
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 42527140,
+          "conceptName": "Total PEEP Respiratory system",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "76247-6",
+          "validStartDate": "2017-02-21",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 42528517,
+          "conceptName": "Total dynamic PEEP Respiratory system",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "83388-9",
+          "validStartDate": "2017-02-21",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "f5d47774-a9de-41e5-ad7b-fa6974b72fe2",
+    "organization": {
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
+    },
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "Total PEEP",
+        "category": "Ventilation",
+        "subcategory": "Ventilation parameters",
+        "shortDescription": "Total PEEP — end-expiratory alveolar pressure (applied + intrinsic PEEP), measured by end-expiratory occlusion, in cmH2O (static and dynamic).",
+        "longDescription": "## Definition & Clinical Context\n\nTotal PEEP is the alveolar pressure at the end of expiration: the sum of the PEEP applied by the ventilator (extrinsic PEEP) and of the intrinsic PEEP, or auto-PEEP, created by gas trapped when expiration is incomplete [1]. Without auto-PEEP it equals the applied PEEP; with auto-PEEP it is higher, and the gap is the intrinsic PEEP.\n\nIt cannot be read during normal ventilator operation, since trapped gas is not apparent then [2]. It is measured by occluding the airway at the end of expiration (end-expiratory hold): the pressure then reached at the airway opening reflects the end-expiratory alveolar pressure [2, 3]. Values derived from the pressure and flow tracings without occlusion are reported as dynamic total PEEP.\n\nTotal PEEP is the end-expiratory reference of respiratory mechanics. Driving pressure, the ventilation variable most strongly associated with survival in ARDS [4], is computed as plateau pressure minus total PEEP [5]; computing it with the applied PEEP overestimates it whenever auto-PEEP is present. In source data it is a single numeric value per patient-timestamp, in cmH2O.\n\n## Included Concepts\n\nThe set lists the two standard LOINC total PEEP concepts, in the Measurement domain.\n\n- *42527140 / 76247-6 — Total PEEP Respiratory system (LOINC)*: static total PEEP, measured during an end-expiratory occlusion; the default [1].\n- *42528517 / 83388-9 — Total dynamic PEEP Respiratory system (LOINC)*: dynamic total PEEP, measured without occlusion.\n\n**Note on units**: reported in **cmH2O** (`44777590 / cm[H2O] — centimeter watercolumn`, UCUM), the recommended unit, as listed by LOINC for these codes, with a registered cmH2O↔mbar conversion (1 cmH2O = 0.98 mbar).\n\n## Mapping Notes\n\n- **Default concept**: *42527140 / 76247-6 — Total PEEP Respiratory system*. Use *42528517 / 83388-9 — Total dynamic PEEP Respiratory system* only when the source states that the value was measured without an end-expiratory occlusion.\n- **A PEEP read during an end-expiratory hold is a total PEEP** and maps here, even when the source simply labels it \"PEEP\".\n- **Not the applied PEEP**: the PEEP set on or displayed by the ventilator belongs to the *Positive End-Expiratory Pressure (PEEP)* set, and the intrinsic part alone to the *Intrinsic PEEP (auto-PEEP)* set.\n\n## References\n\n[1] Regenstrief Institute. LOINC code 76247-6 — Total PEEP Respiratory system.\n    Available: <a href=\"https://loinc.org/76247-6/\" target=\"_blank\">https://loinc.org/76247-6/</a>\n\n[2] Pepe PE, Marini JJ. Occult positive end-expiratory pressure in mechanically ventilated patients with airflow obstruction: the auto-PEEP effect. Am Rev Respir Dis. 1982;126(1):166-70.\n    Available: <a href=\"https://doi.org/10.1164/arrd.1982.126.1.166\" target=\"_blank\">https://doi.org/10.1164/arrd.1982.126.1.166</a>\n\n[3] Maltais F, Reissmann H, Navalesi P, et al. Comparison of static and dynamic measurements of intrinsic PEEP in mechanically ventilated patients. Am J Respir Crit Care Med. 1994;150(5 Pt 1):1318-24.\n    Available: <a href=\"https://doi.org/10.1164/ajrccm.150.5.7952559\" target=\"_blank\">https://doi.org/10.1164/ajrccm.150.5.7952559</a>\n\n[4] Amato MB, Meade MO, Slutsky AS, et al. Driving pressure and survival in the acute respiratory distress syndrome. N Engl J Med. 2015;372(8):747-55.\n    Available: <a href=\"https://doi.org/10.1056/NEJMsa1410639\" target=\"_blank\">https://doi.org/10.1056/NEJMsa1410639</a>\n\n[5] Cruces P, Moreno D, Reveco S, et al. Plateau pressure and driving pressure in volume- and pressure-controlled ventilation: comparison of frictional and viscoelastic resistive components in pediatric acute respiratory distress syndrome. Pediatr Crit Care Med. 2023;24(9):750-9.\n    Available: <a href=\"https://doi.org/10.1097/PCC.0000000000003291\" target=\"_blank\">https://doi.org/10.1097/PCC.0000000000003291</a>"
+      },
+      "fr": {
+        "name": "PEP totale",
+        "category": "Ventilation",
+        "subcategory": "Paramètres ventilatoires",
+        "shortDescription": "PEP totale — pression alvéolaire de fin d’expiration (PEP appliquée + intrinsèque), mesurée par occlusion télé-expiratoire, en cmH2O (statique et dynamique).",
+        "longDescription": "## Définition et contexte clinique\n\nLa PEP totale est la pression alvéolaire en fin d’expiration : la somme de la PEP appliquée par le ventilateur (PEP extrinsèque) et de la PEP intrinsèque, ou auto-PEP, due au gaz piégé quand l’expiration est incomplète [1]. Sans auto-PEP, elle est égale à la PEP appliquée ; avec une auto-PEP, elle est plus élevée, et l’écart est la PEP intrinsèque.\n\nElle ne peut pas être lue en fonctionnement normal du ventilateur, puisque le gaz piégé n’y apparaît pas [2]. Elle se mesure en occluant les voies aériennes en fin d’expiration (pause télé-expiratoire) : la pression alors atteinte à l’entrée des voies aériennes reflète la pression alvéolaire de fin d’expiration [2, 3]. Les valeurs tirées des courbes de pression et de débit, sans occlusion, sont rapportées comme PEP totale dynamique.\n\nLa PEP totale est la référence de fin d’expiration de la mécanique respiratoire. La pression motrice, la variable ventilatoire la plus fortement associée à la survie dans le SDRA [4], se calcule comme la pression de plateau moins la PEP totale [5] ; la calculer avec la PEP appliquée la surestime dès qu’il existe une auto-PEP. Dans les données sources, c’est une valeur numérique unique par patient et par horodatage, en cmH2O.\n\n## Concepts inclus\n\nLe set liste les deux concepts LOINC standard de PEP totale, du domaine Measurement.\n\n- *42527140 / 76247-6 — Total PEEP Respiratory system (LOINC)* : PEP totale statique, mesurée pendant une occlusion télé-expiratoire ; le concept par défaut [1].\n- *42528517 / 83388-9 — Total dynamic PEEP Respiratory system (LOINC)* : PEP totale dynamique, mesurée sans occlusion.\n\n**Unités** : en **cmH2O** (`44777590 / cm[H2O] — centimeter watercolumn`, UCUM), l’unité recommandée, celle qu’indique LOINC pour ces codes, avec une conversion cmH2O↔mbar enregistrée (1 cmH2O = 0,98 mbar).\n\n## Notes de mapping\n\n- **Concept par défaut** : *42527140 / 76247-6 — Total PEEP Respiratory system*. N’utiliser *42528517 / 83388-9 — Total dynamic PEEP Respiratory system* que si la source indique une mesure sans occlusion télé-expiratoire.\n- **Une PEP lue pendant une pause télé-expiratoire est une PEP totale** et se mappe ici, même si la source l’appelle simplement « PEP ».\n- **Pas la PEP appliquée** : la PEP réglée ou affichée par le ventilateur relève du set *Pression expiratoire positive (PEP)*, et la seule part intrinsèque du set *PEP intrinsèque (auto-PEP)*.\n\n## Références\n\n[1] Regenstrief Institute. LOINC code 76247-6 — Total PEEP Respiratory system.\n    Available: <a href=\"https://loinc.org/76247-6/\" target=\"_blank\">https://loinc.org/76247-6/</a>\n\n[2] Pepe PE, Marini JJ. Occult positive end-expiratory pressure in mechanically ventilated patients with airflow obstruction: the auto-PEEP effect. Am Rev Respir Dis. 1982;126(1):166-70.\n    Available: <a href=\"https://doi.org/10.1164/arrd.1982.126.1.166\" target=\"_blank\">https://doi.org/10.1164/arrd.1982.126.1.166</a>\n\n[3] Maltais F, Reissmann H, Navalesi P, et al. Comparison of static and dynamic measurements of intrinsic PEEP in mechanically ventilated patients. Am J Respir Crit Care Med. 1994;150(5 Pt 1):1318-24.\n    Available: <a href=\"https://doi.org/10.1164/ajrccm.150.5.7952559\" target=\"_blank\">https://doi.org/10.1164/ajrccm.150.5.7952559</a>\n\n[4] Amato MB, Meade MO, Slutsky AS, et al. Driving pressure and survival in the acute respiratory distress syndrome. N Engl J Med. 2015;372(8):747-55.\n    Available: <a href=\"https://doi.org/10.1056/NEJMsa1410639\" target=\"_blank\">https://doi.org/10.1056/NEJMsa1410639</a>\n\n[5] Cruces P, Moreno D, Reveco S, et al. Plateau pressure and driving pressure in volume- and pressure-controlled ventilation: comparison of frictional and viscoelastic resistive components in pediatric acute respiratory distress syndrome. Pediatr Crit Care Med. 2023;24(9):750-9.\n    Available: <a href=\"https://doi.org/10.1097/PCC.0000000000003291\" target=\"_blank\">https://doi.org/10.1097/PCC.0000000000003291</a>"
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Boris",
+      "lastName": "Delange",
+      "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+      "profession": "Medical Informatics and Intensive Care Physician",
+      "orcid": "0009-0002-6055-6935"
+    },
+    "reviews": [],
+    "versions": [
+      {
+        "version": "1.0.0",
+        "date": "2026-11-15",
+        "author": "Boris Delange",
+        "message": "Initial version: split from Positive End-Expiratory Pressure (PEEP) (318) v1.3.0, following Nicolas Terzi's review. Holds the 2 standard LOINC concepts (42527140, 42528517)."
+      }
+    ],
+    "distributionStats": null
+  }
+}
