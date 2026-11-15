@@ -36903,5 +36903,60 @@
     "recommendedUnitName": "centimeter watercolumn",
     "recommendedUnitCode": "cm[H2O]",
     "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 3016226,
+    "conceptName": "PEEP Respiratory system",
+    "conceptCode": "20075-8",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 44777590,
+    "recommendedUnitName": "centimeter watercolumn",
+    "recommendedUnitCode": "cm[H2O]",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 21490855,
+    "conceptName": "PEEP Respiratory system --on ventilator",
+    "conceptCode": "76248-4",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 44777590,
+    "recommendedUnitName": "centimeter watercolumn",
+    "recommendedUnitCode": "cm[H2O]",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 42528516,
+    "conceptName": "Extrinsic dynamic PEEP Respiratory system",
+    "conceptCode": "83387-1",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 44777590,
+    "recommendedUnitName": "centimeter watercolumn",
+    "recommendedUnitCode": "cm[H2O]",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 42527139,
+    "conceptName": "Intrinsic dynamic PEEP Respiratory system",
+    "conceptCode": "76246-8",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 44777590,
+    "recommendedUnitName": "centimeter watercolumn",
+    "recommendedUnitCode": "cm[H2O]",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 42528517,
+    "conceptName": "Total dynamic PEEP Respiratory system",
+    "conceptCode": "83388-9",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 44777590,
+    "recommendedUnitName": "centimeter watercolumn",
+    "recommendedUnitCode": "cm[H2O]",
+    "recommendedUnitVocabularyId": "UCUM"
   }
 ]
