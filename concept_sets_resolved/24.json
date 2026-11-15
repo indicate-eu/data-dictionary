@@ -4722,15 +4722,6 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 36769664,
-      "conceptName": "Circulating tumor cells",
-      "vocabularyId": "Cancer Modifier",
-      "domainId": "Measurement",
-      "conceptClassId": "Metastasis",
-      "conceptCode": "OMOP4999341",
-      "standardConcept": "S"
-    },
-    {
       "conceptId": 36770024,
       "conceptName": "Malignant pleural effusion",
       "vocabularyId": "Cancer Modifier",
