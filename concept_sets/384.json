@@ -2,7 +2,7 @@
   "id": 384,
   "name": "Intrinsic Positive End-Expiratory Pressure (auto-PEEP)",
   "description": "Intrinsic positive end-expiratory pressure (auto-PEEP): end-expiratory alveolar pressure above the applied PEEP, due to incomplete expiration, in cmH2O (static and dynamic).",
-  "version": "1.0.3",
+  "version": "1.0.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-11-15",
   "modifiedBy": "Boris Delange",
@@ -96,24 +96,6 @@
         "date": "2026-11-15",
         "author": "Boris Delange",
         "message": "Initial version: split from Positive End-Expiratory Pressure (PEEP) (318) v1.3.0, following Nicolas Terzi's review. Holds the 2 standard LOINC concepts (3035822, 42527139)."
-      },
-      {
-        "version": "1.0.1",
-        "date": "2026-11-15",
-        "author": "Boris Delange",
-        "message": "Rename to Intrinsic Positive End-Expiratory Pressure (auto-PEEP). Description: the mechanism and both measurement methods are now sourced to Brochard 2002 (Intensive Care Med), read in full; add that a higher applied PEEP lowers the intrinsic PEEP without reducing dynamic hyperinflation; drop the static/dynamic averages from Maltais 1994. Concepts unchanged."
-      },
-      {
-        "version": "1.0.2",
-        "date": "2026-11-15",
-        "author": "Boris Delange",
-        "message": "References: Rossi 1995 and Brochard 2002 (Intensive Care Med), both read in full, now source the whole description; Pepe 1982, Blanch 2005, Marini 2011 and Maltais 1994, checked against their abstracts only, are dropped. Add the synonyms occult and inadvertent PEEP. Concepts unchanged."
-      },
-      {
-        "version": "1.0.3",
-        "date": "2026-11-15",
-        "author": "Boris Delange",
-        "message": "Description shortened to the level of detail of the other ventilation sets (definition, what to map where, analysis cautions); detailed physiology and measurement technique dropped. Concepts unchanged."
       }
     ],
     "distributionStats": null
