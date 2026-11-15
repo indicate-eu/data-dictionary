@@ -7,6 +7,87 @@
   },
   "resolvedConcepts": [
     {
+      "conceptId": 3005422,
+      "conceptName": "Body weight Measured --preoperative",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "8349-3",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3009617,
+      "conceptName": "Body weight Measured --post dialysis",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "8344-4",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3010147,
+      "conceptName": "Body weight Measured --post partum",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "8345-1",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3010220,
+      "conceptName": "Body weight Measured --with clothes",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "8350-1",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3011054,
+      "conceptName": "Body weight Measured --without clothes",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "8351-9",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3013762,
+      "conceptName": "Body weight Measured",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "3141-9",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3013853,
+      "conceptName": "Body weight Measured --ante partum",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "8338-6",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3015644,
+      "conceptName": "Body weight Measured --postoperative",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "8346-9",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3019336,
+      "conceptName": "Body weight Measured --pre dialysis",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "8347-7",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 3025315,
       "conceptName": "Body weight",
       "vocabularyId": "LOINC",
@@ -25,12 +106,39 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 4175354,
+      "conceptName": "Body weight without shoes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "425024002",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 4178502,
       "conceptName": "Body weight measure",
       "vocabularyId": "SNOMED",
       "domainId": "Measurement",
       "conceptClassId": "Observable Entity",
       "conceptCode": "363808001",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4310154,
+      "conceptName": "Body weight with shoes",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "424927000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37160438,
+      "conceptName": "Post-amputation measured body weight",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "1162415002",
       "standardConcept": "S"
     },
     {
@@ -52,12 +160,12 @@
       "standardConcept": "S"
     },
     {
-      "conceptId": 40484200,
-      "conceptName": "Dry body weight",
-      "vocabularyId": "SNOMED",
+      "conceptId": 40761330,
+      "conceptName": "Body weight Measured --when specimen taken",
+      "vocabularyId": "LOINC",
       "domainId": "Measurement",
-      "conceptClassId": "Observable Entity",
-      "conceptCode": "445541000",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "58229-6",
       "standardConcept": "S"
     },
     {
