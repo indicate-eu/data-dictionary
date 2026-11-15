@@ -1712,7 +1712,7 @@ var App = (function() {
     authors.forEach(function(a, i) {
       var opt = document.createElement('option');
       opt.value = i;
-      opt.textContent = a.firstName + ' ' + a.lastName + (a.affiliation ? ' — ' + a.affiliation : '');
+      opt.textContent = a.firstName + ' ' + a.lastName;
       select.appendChild(opt);
     });
     if (currentProfile && currentProfile.firstName && currentProfile.lastName) {
