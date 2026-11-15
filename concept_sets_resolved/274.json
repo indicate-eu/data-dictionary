@@ -25,6 +25,51 @@
       "standardConcept": "S"
     },
     {
+      "conceptId": 3008989,
+      "conceptName": "Body height --preoperative",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "8307-1",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3013842,
+      "conceptName": "Body height --post partum",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "8305-5",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3014149,
+      "conceptName": "Body height --lying",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "8306-3",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3015514,
+      "conceptName": "Body height --standing",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "8308-9",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 3023540,
+      "conceptName": "Body height Measured",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "3137-7",
+      "standardConcept": "S"
+    },
+    {
       "conceptId": 3036277,
       "conceptName": "Body height",
       "vocabularyId": "LOINC",
@@ -40,6 +85,24 @@
       "domainId": "Measurement",
       "conceptClassId": "Observable Entity",
       "conceptCode": "248333004",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 4177340,
+      "conceptName": "Body height measure",
+      "vocabularyId": "SNOMED",
+      "domainId": "Measurement",
+      "conceptClassId": "Observable Entity",
+      "conceptCode": "50373000",
+      "standardConcept": "S"
+    },
+    {
+      "conceptId": 37020737,
+      "conceptName": "Body height --used for drug calculation",
+      "vocabularyId": "LOINC",
+      "domainId": "Measurement",
+      "conceptClassId": "Clinical Observation",
+      "conceptCode": "91370-7",
       "standardConcept": "S"
     }
   ]

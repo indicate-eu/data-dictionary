@@ -2,11 +2,11 @@
   "id": 274,
   "name": "Body height",
   "description": "Body height (stature) — how tall the patient is, standing or recumbent; in centimetres (cm).",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
   "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-06-11",
+  "modifiedDate": "2026-11-15",
   "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
   "expression": {
     "items": [
@@ -40,6 +40,139 @@
           "standardConceptCaption": "Standard",
           "conceptCode": "8302-2",
           "validStartDate": "1996-09-06",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4177340,
+          "conceptName": "Body height measure",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "50373000",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3023540,
+          "conceptName": "Body height Measured",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "3137-7",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3015514,
+          "conceptName": "Body height --standing",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "8308-9",
+          "validStartDate": "1996-09-06",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3014149,
+          "conceptName": "Body height --lying",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "8306-3",
+          "validStartDate": "1996-09-06",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3008989,
+          "conceptName": "Body height --preoperative",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "8307-1",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 3013842,
+          "conceptName": "Body height --post partum",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "8305-5",
+          "validStartDate": "1996-09-06",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37020737,
+          "conceptName": "Body height --used for drug calculation",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "Clinical Observation",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "91370-7",
+          "validStartDate": "2019-06-21",
           "validEndDate": "2099-12-31",
           "invalidReason": null,
           "invalidReasonCaption": "Valid"
@@ -186,14 +319,14 @@
         "category": "Other",
         "subcategory": "Demographic data",
         "shortDescription": "Body height (stature) — how tall the patient is, standing or recumbent; in centimetres (cm).",
-        "longDescription": "## Definition & Clinical Context\n\nBody height produces a single numeric value per patient-timestamp, taken standing (stadiometer) or, for patients who cannot stand, lying down (recumbent length, typical for infants and bedridden ICU patients). It is recorded on admission and used for weight-for-height calculations, drug and ventilator settings, and nutritional assessment. It is reported in centimetres (cm).\n\n## Included Concepts\n\nThe set is anchored on the SNOMED *Body height* concept with its descendants, plus the generic LOINC body-height concept (LOINC carries no hierarchy, so it is listed flat). They are grouped below by measurement posture for readability only — all belong to the same `body_height` variable, all in cm.\n\n### Generic body height (default)\n\n- *607590 / 1153637007 — Body height (SNOMED)* and *3036277 / 8302-2 — Body height (LOINC)*: the default, posture not specified.\n\n### By posture\n\n- *4093975 / 248333004 — Standing height (SNOMED)*: measured standing.\n- *600652 / 1149101003 — Recumbent body height (SNOMED)*: measured lying down (infants, bedridden patients).\n\n**Note on units**: reported in **centimetres** (`8582 / cm — centimeter`, UCUM), the recommended unit.\n\n## Mapping Notes\n\n- **Default concept** when the source records a height without specifying posture: *607590 / 1153637007 — Body height* (SNOMED) or *3036277 / 8302-2 — Body height* (LOINC).\n- **Posture is an attribute, not a separate variable**: map to *Standing height* or *Recumbent body height* only when the source documents the posture; otherwise use the generic concept.\n- **Excluded from the set** (do not map here): self-reported height, estimated height, and pre-amputation estimated/measured height — these are not directly measured current heights. Birth length is also excluded because it has its own dedicated *Birth height* set.\n- This set is built symmetrically with the *Body weight* set (same anchoring strategy) so height and weight map consistently."
+        "longDescription": "## Definition & Clinical Context\n\nBody height produces a single numeric value per patient-timestamp, taken standing (stadiometer) or, for patients who cannot stand, lying down (recumbent length, typical for infants and bedridden ICU patients). It is recorded on admission and used for weight-for-height calculations, drug and ventilator settings, and nutritional assessment. It is reported in centimetres (cm).\n\n## Included Concepts\n\nThe set is anchored on the SNOMED *Body height* concept with its descendants, plus SNOMED *Body height measure* (not a descendant) and the LOINC body-height concepts (LOINC carries no hierarchy, so they are listed flat). They are grouped below for readability only — all belong to the same `body_height` variable, all in cm.\n\n### Generic body height (default)\n\n- *607590 / 1153637007 — Body height (SNOMED)* and *3036277 / 8302-2 — Body height (LOINC)*: the default, posture not specified.\n\n### Measured\n\n- *4177340 / 50373000 — Body height measure (SNOMED)* and *3023540 / 3137-7 — Body height Measured (LOINC)*: a height explicitly measured.\n\n### By posture\n\n- *4093975 / 248333004 — Standing height (SNOMED)* and *3015514 / 8308-9 — Body height --standing (LOINC)*: measured standing.\n- *600652 / 1149101003 — Recumbent body height (SNOMED)* and *3014149 / 8306-3 — Body height --lying (LOINC)*: measured lying down (infants, bedridden patients).\n\n### By context\n\n- *3008989 / 8307-1 — Body height --preoperative (LOINC)*: recorded before surgery.\n- *3013842 / 8305-5 — Body height --post partum (LOINC)*: recorded after delivery.\n- *37020737 / 91370-7 — Body height --used for drug calculation (LOINC)*: the height used to calculate drug doses.\n\n**Note on units**: reported in **centimetres** (`8582 / cm — centimeter`, UCUM), the recommended unit, with registered conversions from metres, millimetres and inches.\n\n## Mapping Notes\n\n- **Default concept** when the source records a height without specifying posture: *607590 / 1153637007 — Body height* (SNOMED) or *3036277 / 8302-2 — Body height* (LOINC).\n- **Posture, method and context are attributes, not separate variables**: map to a specific concept (standing, lying, measured, preoperative…) only when the source documents it; otherwise use the generic concept.\n- **Excluded from the set** (do not map here): self-reported height, estimated height, and pre-amputation estimated/measured height — these are not directly measured current heights. Birth length is also excluded because it has its own dedicated *Birth height* set.\n- This set is built symmetrically with the *Body weight* set (same anchoring strategy) so height and weight map consistently."
       },
       "fr": {
         "name": "Taille corporelle",
         "category": "Autres",
         "subcategory": "Données démographiques",
         "shortDescription": "Taille corporelle (stature) — stature du patient, debout ou couchée ; en centimètres (cm).",
-        "longDescription": "## Définition et contexte clinique\n\nLa taille corporelle produit une valeur numérique unique par patient-horodatage, prise debout (toise) ou, pour les patients ne pouvant se tenir debout, en position couchée (taille en décubitus, habituelle chez le nourrisson et le patient alité de réanimation). Elle est relevée à l'admission et sert aux calculs poids/taille, aux réglages médicamenteux et ventilatoires et à l'évaluation nutritionnelle. Elle est exprimée en centimètres (cm).\n\n## Concepts inclus\n\nLe jeu est ancré sur le concept SNOMED *Body height* et ses descendants, plus le concept LOINC générique de taille (LOINC n'a pas de hiérarchie, il est donc listé à plat). Ils sont regroupés ci-dessous par posture de mesure, à titre de lisibilité uniquement — tous relèvent de la même variable `body_height`, tous en cm.\n\n### Taille générique (par défaut)\n\n- *607590 / 1153637007 — Body height (SNOMED)* et *3036277 / 8302-2 — Body height (LOINC)* : par défaut, posture non précisée.\n\n### Par posture\n\n- *4093975 / 248333004 — Standing height (SNOMED)* : mesurée debout.\n- *600652 / 1149101003 — Recumbent body height (SNOMED)* : mesurée couchée (nourrissons, patients alités).\n\n**Note sur les unités** : exprimée en **centimètres** (`8582 / cm — centimeter`, UCUM), l'unité recommandée.\n\n## Notes de mapping\n\n- **Concept par défaut** quand la source enregistre une taille sans préciser la posture : *607590 / 1153637007 — Body height* (SNOMED) ou *3036277 / 8302-2 — Body height* (LOINC).\n- **La posture est un attribut, pas une variable distincte** : ne mapper vers *Standing height* ou *Recumbent body height* que si la source documente la posture ; sinon utiliser le concept générique.\n- **Exclus du jeu** (ne pas mapper ici) : taille auto-déclarée, taille estimée, taille pré-amputation estimée/mesurée — ce ne sont pas des tailles actuelles directement mesurées. La longueur de naissance est aussi exclue car elle dispose de son propre jeu *Birth height*.\n- Ce jeu est construit symétriquement au jeu *Body weight* (même stratégie d'ancrage), pour un mapping cohérent taille/poids."
+        "longDescription": "## Définition et contexte clinique\n\nLa taille corporelle produit une valeur numérique unique par patient-horodatage, prise debout (toise) ou, pour les patients ne pouvant se tenir debout, en position couchée (taille en décubitus, habituelle chez le nourrisson et le patient alité de réanimation). Elle est relevée à l'admission et sert aux calculs poids/taille, aux réglages médicamenteux et ventilatoires et à l'évaluation nutritionnelle. Elle est exprimée en centimètres (cm).\n\n## Concepts inclus\n\nLe jeu est ancré sur le concept SNOMED *Body height* et ses descendants, plus le SNOMED *Body height measure* (qui n'en est pas un descendant) et les concepts LOINC de taille (LOINC n'a pas de hiérarchie, ils sont donc listés à plat). Ils sont regroupés ci-dessous à titre de lisibilité uniquement — tous relèvent de la même variable `body_height`, tous en cm.\n\n### Taille générique (par défaut)\n\n- *607590 / 1153637007 — Body height (SNOMED)* et *3036277 / 8302-2 — Body height (LOINC)* : par défaut, posture non précisée.\n\n### Mesurée\n\n- *4177340 / 50373000 — Body height measure (SNOMED)* et *3023540 / 3137-7 — Body height Measured (LOINC)* : une taille explicitement mesurée.\n\n### Par posture\n\n- *4093975 / 248333004 — Standing height (SNOMED)* et *3015514 / 8308-9 — Body height --standing (LOINC)* : mesurée debout.\n- *600652 / 1149101003 — Recumbent body height (SNOMED)* et *3014149 / 8306-3 — Body height --lying (LOINC)* : mesurée couchée (nourrissons, patients alités).\n\n### Selon le contexte\n\n- *3008989 / 8307-1 — Body height --preoperative (LOINC)* : relevée avant une intervention.\n- *3013842 / 8305-5 — Body height --post partum (LOINC)* : relevée après l'accouchement.\n- *37020737 / 91370-7 — Body height --used for drug calculation (LOINC)* : la taille utilisée pour calculer les doses de médicaments.\n\n**Note sur les unités** : exprimée en **centimètres** (`8582 / cm — centimeter`, UCUM), l'unité recommandée, avec des conversions enregistrées depuis les mètres, les millimètres et les pouces.\n\n## Notes de mapping\n\n- **Concept par défaut** quand la source enregistre une taille sans préciser la posture : *607590 / 1153637007 — Body height* (SNOMED) ou *3036277 / 8302-2 — Body height* (LOINC).\n- **La posture, la méthode et le contexte sont des attributs, pas des variables distinctes** : ne mapper vers un concept spécifique (debout, couchée, mesurée, préopératoire…) que si la source le documente ; sinon utiliser le concept générique.\n- **Exclus du jeu** (ne pas mapper ici) : taille auto-déclarée, taille estimée, taille pré-amputation estimée/mesurée — ce ne sont pas des tailles actuelles directement mesurées. La longueur de naissance est aussi exclue car elle dispose de son propre jeu *Birth height*.\n- Ce jeu est construit symétriquement au jeu *Body weight* (même stratégie d'ancrage), pour un mapping cohérent taille/poids."
       }
     },
     "createdByDetails": {
@@ -217,6 +350,19 @@
         "status": "needs_revision",
         "comments": "## Summary\n**Needs revision** Why are multiple concepts available for body height? Should be a single one, otherwise it's not clear which one to use?\n\n## Use in our quality indicators\n- Used in QI01 (Lung-protective ventilation in ARDS), QI03 (Feeding).\n- CQL: 1 of 4 concepts are referenced in [`IndicateQiElements.cql`](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQiElements.cql?plain=1): [3036277](https://github.com/umg-minai/cql-indicate-qi/blob/d63eb84a308d5586fcede0b7e3fa73abf6b6761c/cql/IndicateQiElements.cql?plain=1#L32) (each ID links to its code definition).\n- Not used by our indicators and not reviewed individually (3): 600652 Recumbent body height, 607590 Body height, 4093975 Standing height.\n\n## Suggestions\n- Remove all but the LOINC or the SNOMED concept\n",
         "version": "1.1.0"
+      },
+      {
+        "reviewId": 2,
+        "reviewer": {
+          "firstName": "Boris",
+          "lastName": "Delange",
+          "affiliation": "Univ Rennes, CHU Rennes, INSERM, LTSI-UMR 1099, Rennes, France",
+          "profession": "Medical Informatics and Intensive Care Physician",
+          "orcid": "0009-0002-6055-6935"
+        },
+        "reviewTimestamp": "2026-11-15T12:00:00.000Z",
+        "comments": "**Reply to the review of Gregor Lichtner**\n\nNeeds discussion:\n- **Keep several concepts?** The aim of a concept set is to be broad enough that, whatever concept a site mapped its data to locally, the set captures it, provided the concept has the same clinical definition and the same dimension. Body height has standard concepts in both SNOMED and LOINC, all in the Measurement domain and in cm, at several levels of detail (generic, measured, standing, lying). They all record the same variable, and for a site any of them is correct.\n- v1.2.0 therefore keeps them all and adds the missing ones: LOINC *Body height --lying*, *--standing*, *Measured*, *--preoperative*, *--post partum* and *--used for drug calculation*, and SNOMED *Body height measure*.\n\nWhat do you think?",
+        "version": "1.1.0"
       }
     ],
     "versions": [
@@ -225,6 +371,12 @@
         "date": "2026-06-11",
         "author": "Boris Delange",
         "message": "Resolves issue #2: rebuilt symmetrically with Body weight — anchored on SNOMED Body height with descendants, plus generic LOINC, excluding self-reported/estimated/pre-amputation variants; birth length kept. Added clinical description and mapping notes. Birth length is excluded because it has its own Birth height set. Moved to pending review."
+      },
+      {
+        "version": "1.2.0",
+        "date": "2026-11-15",
+        "author": "Boris Delange",
+        "message": "Added the missing standard concepts of the same variable (Measurement, cm): SNOMED 4177340 Body height measure; LOINC 3023540 Body height Measured, 3015514 --standing, 3014149 --lying, 3008989 --preoperative, 3013842 --post partum, 37020737 --used for drug calculation. Recommended unit cm for all; conversions from m, mm and inches."
       }
     ],
     "distributionStats": null
