@@ -1304,6 +1304,9 @@ a.version-current-badge:hover { background: #c2e9d2; border-color: #64b98a; }
   background: #f6c9c9;
   border-color: #d47f7f;
 }
+/* Version message preview: opens the full message in its own modal. */
+.version-msg-cell { cursor: pointer; }
+.version-msg-cell:hover { color: var(--primary, #0f60af); text-decoration: underline; }
 
 .export-btn {
   padding: 6px 14px;

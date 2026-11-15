@@ -4839,7 +4839,8 @@ var ConceptSetsPage = (function() {
       return;
     }
     container.style.display = '';
-    var rows = versions.slice().reverse().map(function(v) {
+    versionHistoryRows = versions.slice().reverse();
+    var rows = versionHistoryRows.map(function(v, i) {
       // The whole row is the click target, not just the version number: a narrow
       // cell is an awkward thing to aim at.
       var attrs = (v.version && v.version !== cs.version)
@@ -4848,7 +4849,10 @@ var ConceptSetsPage = (function() {
         : '';
       return '<tr' + attrs + '>' +
         '<td style="white-space:nowrap; font-weight:600">' + versionLinkCell(cs, v.version) + '</td>' +
-        '<td style="white-space:pre-wrap">' + App.escapeHtml(v.message || v.summary || '') + '</td>' +
+        // Truncated preview; the full message opens in its own modal (like reviews).
+        '<td class="version-msg-cell" data-version-msg-idx="' + i + '" title="' +
+          App.escapeHtml(App.i18n('Click to view the full message')) + '">' +
+          App.escapeHtml(App.truncate(markdownPreview(v.message || v.summary || ''), 180)) + '</td>' +
         '<td style="white-space:nowrap">' + versionAuthorCell(v) + '</td>' +
         '<td style="white-space:nowrap; color:var(--text-muted); font-size:12px">' + App.escapeHtml(v.date || '') + '</td>' +
         '</tr>';
@@ -4859,6 +4863,43 @@ var ConceptSetsPage = (function() {
       '<th style="white-space:nowrap">' + App.escapeHtml(App.i18n('Author')) + '</th>' +
       '<th style="white-space:nowrap">' + App.escapeHtml(App.i18n('Date')) + '</th>' +
       '</tr></thead><tbody>' + rows + '</tbody></table>';
+  }
+
+  // Rows of the version history table, newest first (index used by the message modal).
+  var versionHistoryRows = [];
+
+  // One-line plain-text preview of a Markdown version message (bold markers,
+  // escapes and list bullets removed; the modal shows the rendered message).
+  function markdownPreview(s) {
+    return String(s)
+      .replace(/\\([\\*_\[\]])/g, '$1')
+      .replace(/\*\*/g, '')
+      .replace(/\n+\s*- /g, ' • ')
+      .replace(/\s*\n+\s*/g, ' ')
+      .trim();
+  }
+
+  // Full version message in its own modal, stacked over the Versions modal. The
+  // title carries the version badge: clicking an earlier version opens it.
+  function openVersionMessageModal(idx) {
+    var v = versionHistoryRows[idx];
+    if (!v || !selectedConceptSet) return;
+    var badge = (v.version && v.version !== selectedConceptSet.version)
+      ? '<span class="version-old-badge version-history-link" data-goto-version="' + App.escapeHtml(v.version) +
+        '" title="' + App.escapeHtml(App.i18n('View this version')) + '">' + App.escapeHtml(v.version) + '</span>'
+      : versionLinkCell(selectedConceptSet, v.version);
+    var meta = [v.author, v.date].filter(Boolean).map(App.escapeHtml).join(' — ');
+    document.getElementById('cs-version-msg-title').innerHTML =
+      App.escapeHtml(App.i18n('Version')) + ' ' + badge + (meta ? ' <span style="font-weight:400; color:var(--text-muted)">' + meta + '</span>' : '');
+    var msg = (v.message || v.summary || '').trim();
+    document.getElementById('cs-version-msg-body').innerHTML = msg
+      ? App.renderMarkdown(msg)
+      : '<p style="color:var(--text-muted); font-style:italic">' + App.escapeHtml(App.i18n('No message for this version.')) + '</p>';
+    document.getElementById('cs-version-msg-modal').style.display = 'flex';
+  }
+
+  function closeVersionMessageModal() {
+    document.getElementById('cs-version-msg-modal').style.display = 'none';
   }
 
   // Version cell for a history row: a green badge for the current version, a link
@@ -7606,13 +7647,36 @@ var ConceptSetsPage = (function() {
     });
     document.getElementById('cs-version-modal').addEventListener('click', function(e) {
       if (e.target === document.getElementById('cs-version-modal')) { closeVersionModal(); return; }
-      // Clicking anywhere on a history row opens that snapshot. Skip clicks inside
+      // The message cell opens the full message instead of navigating.
+      var msgCell = e.target.closest('[data-version-msg-idx]');
+      if (msgCell) { openVersionMessageModal(parseInt(msgCell.dataset.versionMsgIdx, 10)); return; }
+      // Clicking anywhere else on a history row opens that snapshot. Skip clicks inside
       // the author badge, whose tooltip carries its own ORCID link.
       var row = e.target.closest('tr[data-goto-version]');
       if (!row || e.target.closest('.author-badge-wrap')) return;
       closeVersionModal();
       Router.navigate('/concept-sets', { id: selectedConceptSet.id, version: row.dataset.gotoVersion });
     });
+
+    // Version message modal (stacked over the Versions modal)
+    document.getElementById('cs-version-msg-close').addEventListener('click', closeVersionMessageModal);
+    document.getElementById('cs-version-msg-modal').addEventListener('click', function(e) {
+      if (e.target === document.getElementById('cs-version-msg-modal')) { closeVersionMessageModal(); return; }
+      // Earlier-version badge in the title: open that version (closing both modals).
+      var badge = e.target.closest('[data-goto-version]');
+      if (!badge) return;
+      closeVersionMessageModal();
+      closeVersionModal();
+      Router.navigate('/concept-sets', { id: selectedConceptSet.id, version: badge.dataset.gotoVersion });
+    });
+    // Escape closes this modal first: the global handler (spa-init.js) closes the
+    // first open overlay in DOM order, which would be the Versions modal beneath.
+    document.addEventListener('keydown', function(e) {
+      if (e.key !== 'Escape') return;
+      if (document.getElementById('cs-version-msg-modal').style.display === 'none') return;
+      e.stopImmediatePropagation();
+      closeVersionMessageModal();
+    }, true);
 
     // Status modal events
     document.getElementById('cs-status-close').addEventListener('click', closeStatusModal);

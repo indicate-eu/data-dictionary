@@ -1751,6 +1751,19 @@ Enter your review comments here using Markdown syntax.
   </div>
 </div>
 
+<!-- Version Message Modal (full message of a version, stacked over the Versions modal) -->
+<div class="modal-overlay" id="cs-version-msg-modal" style="display:none; z-index:510">
+  <div class="modal-box" style="width:760px; max-width:90vw">
+    <div class="modal-header">
+      <h3><i class="fas fa-code-branch"></i> <span id="cs-version-msg-title"></span></h3>
+      <button class="modal-close" id="cs-version-msg-close">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="markdown-body" id="cs-version-msg-body" style="max-height:65vh; overflow-y:auto"></div>
+    </div>
+  </div>
+</div>
+
 <!-- Status Modal -->
 <div class="modal-overlay" id="cs-status-modal" style="display:none">
   <div class="modal" style="max-width:400px">

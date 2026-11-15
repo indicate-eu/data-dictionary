@@ -997,6 +997,8 @@ var App = (function() {
     'A project with this name already exists.': { fr: 'Un projet avec ce nom existe déjà.' },
     'Click to view the full review':  { fr: 'Cliquez pour afficher la review complète' },
     'No comments in this review.':    { fr: 'Aucun commentaire dans cette review.' },
+    'Click to view the full message': { fr: 'Cliquez pour afficher le message complet' },
+    'No message for this version.':   { fr: 'Aucun message pour cette version.' },
     'No reviews match the current filters.': { fr: 'Aucune review ne correspond aux filtres actuels.' },
     'The requested version {pinned} is not available (it was never published or snapshotted). The latest version is {latest}.': { fr: 'La version demandée {pinned} n\'est pas disponible (elle n\'a jamais été publiée ou snapshotée). La dernière version est {latest}.' },
     'Version {pinned} could not be loaded from the repository — check your connection and try again. The latest version is {latest}.': { fr: 'La version {pinned} n\'a pas pu être chargée depuis le dépôt — vérifiez votre connexion et réessayez. La dernière version est {latest}.' },
