@@ -33099,6 +33099,138 @@
     "recommendedUnitVocabularyId": "UCUM"
   },
   {
+    "conceptId": 4310154,
+    "conceptName": "Body weight with shoes",
+    "conceptCode": "424927000",
+    "vocabularyId": "SNOMED",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 9529,
+    "recommendedUnitName": "kilogram",
+    "recommendedUnitCode": "kg",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 4175354,
+    "conceptName": "Body weight without shoes",
+    "conceptCode": "425024002",
+    "vocabularyId": "SNOMED",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 9529,
+    "recommendedUnitName": "kilogram",
+    "recommendedUnitCode": "kg",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 37160438,
+    "conceptName": "Post-amputation measured body weight",
+    "conceptCode": "1162415002",
+    "vocabularyId": "SNOMED",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 9529,
+    "recommendedUnitName": "kilogram",
+    "recommendedUnitCode": "kg",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 3013762,
+    "conceptName": "Body weight Measured",
+    "conceptCode": "3141-9",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 9529,
+    "recommendedUnitName": "kilogram",
+    "recommendedUnitCode": "kg",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 3019336,
+    "conceptName": "Body weight Measured --pre dialysis",
+    "conceptCode": "8347-7",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 9529,
+    "recommendedUnitName": "kilogram",
+    "recommendedUnitCode": "kg",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 3005422,
+    "conceptName": "Body weight Measured --preoperative",
+    "conceptCode": "8349-3",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 9529,
+    "recommendedUnitName": "kilogram",
+    "recommendedUnitCode": "kg",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 3015644,
+    "conceptName": "Body weight Measured --postoperative",
+    "conceptCode": "8346-9",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 9529,
+    "recommendedUnitName": "kilogram",
+    "recommendedUnitCode": "kg",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 3013853,
+    "conceptName": "Body weight Measured --ante partum",
+    "conceptCode": "8338-6",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 9529,
+    "recommendedUnitName": "kilogram",
+    "recommendedUnitCode": "kg",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 3010147,
+    "conceptName": "Body weight Measured --post partum",
+    "conceptCode": "8345-1",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 9529,
+    "recommendedUnitName": "kilogram",
+    "recommendedUnitCode": "kg",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 40761330,
+    "conceptName": "Body weight Measured --when specimen taken",
+    "conceptCode": "58229-6",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 9529,
+    "recommendedUnitName": "kilogram",
+    "recommendedUnitCode": "kg",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 3010220,
+    "conceptName": "Body weight Measured --with clothes",
+    "conceptCode": "8350-1",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 9529,
+    "recommendedUnitName": "kilogram",
+    "recommendedUnitCode": "kg",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
+    "conceptId": 3011054,
+    "conceptName": "Body weight Measured --without clothes",
+    "conceptCode": "8351-9",
+    "vocabularyId": "LOINC",
+    "domainId": "Measurement",
+    "recommendedUnitConceptId": 9529,
+    "recommendedUnitName": "kilogram",
+    "recommendedUnitCode": "kg",
+    "recommendedUnitVocabularyId": "UCUM"
+  },
+  {
     "conceptId": 3011043,
     "conceptName": "Birth weight Measured",
     "conceptCode": "8339-4",
