@@ -1,0 +1,84 @@
+{
+  "id": 387,
+  "name": "Insulin, Regular, Human",
+  "description": "Regular human insulin (e.g. Actrapid, Humulin R, Novolin R), the standard insulin for intravenous infusion in the ICU. RxNorm ingredient with all descendants.",
+  "version": "1.0.0",
+  "createdBy": "Gregor Lichtner",
+  "createdDate": "2026-11-18",
+  "modifiedBy": "Gregor Lichtner",
+  "modifiedDate": "2026-11-18",
+  "createdByTool": null,
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 1596977,
+          "conceptName": "insulin, regular, human",
+          "domainId": "Drug",
+          "vocabularyId": "RxNorm",
+          "conceptClassId": "Ingredient",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "253182",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "a1963a0f-cd79-4f00-a106-a67f59ae18bc",
+    "organization": {
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
+    },
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "Insulin, Regular, Human",
+        "category": "Medications",
+        "subcategory": "Other drugs",
+        "shortDescription": "Regular human insulin (e.g. Actrapid, Humulin R, Novolin R), the standard insulin for intravenous infusion in the ICU. RxNorm ingredient with all descendants.",
+        "longDescription": null
+      },
+      "fr": {
+        "name": "Insuline humaine régulière",
+        "category": "Médicaments",
+        "subcategory": "Autres médicaments",
+        "shortDescription": "Insuline humaine régulière (p. ex. Actrapid, Humulin R, Novolin R), l'insuline standard des perfusions intraveineuses en réanimation. Ingrédient RxNorm avec tous ses descendants.",
+        "longDescription": null
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Gregor",
+      "lastName": "Lichtner",
+      "affiliation": "Universitätsmedizin Greifswald",
+      "profession": "Medical Informatics",
+      "orcid": "0000-0002-5890-1958"
+    },
+    "reviews": [],
+    "versions": [
+      {
+        "version": "1.0.0",
+        "date": "2026-11-18",
+        "author": "Gregor Lichtner",
+        "message": "Initial version: the RxNorm ingredient insulin, regular, human (1596977) with all descendants, following the other insulin concept sets (123-127). Regular human insulin had no concept set, although it is the insulin given by intravenous infusion in the ICU and QI03 (Feeding) depends on the insulin rate."
+      }
+    ],
+    "distributionStats": null
+  }
+}

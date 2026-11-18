@@ -1,0 +1,84 @@
+{
+  "id": 389,
+  "name": "Insulin Lispro",
+  "description": "Insulin lispro (e.g. Humalog), including premixed products that contain it. RxNorm ingredient with all descendants.",
+  "version": "1.0.0",
+  "createdBy": "Gregor Lichtner",
+  "createdDate": "2026-11-18",
+  "modifiedBy": "Gregor Lichtner",
+  "modifiedDate": "2026-11-18",
+  "createdByTool": null,
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 1550023,
+          "conceptName": "insulin lispro",
+          "domainId": "Drug",
+          "vocabularyId": "RxNorm",
+          "conceptClassId": "Ingredient",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "86009",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "9e3f6709-55c7-4a0c-9278-95f07c9abc08",
+    "organization": {
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
+    },
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "Insulin Lispro",
+        "category": "Medications",
+        "subcategory": "Other drugs",
+        "shortDescription": "Insulin lispro (e.g. Humalog), including premixed products that contain it. RxNorm ingredient with all descendants.",
+        "longDescription": null
+      },
+      "fr": {
+        "name": "Insuline lispro",
+        "category": "Médicaments",
+        "subcategory": "Autres médicaments",
+        "shortDescription": "Insuline lispro (p. ex. Humalog), y compris les insulines prémélangées qui en contiennent. Ingrédient RxNorm avec tous ses descendants.",
+        "longDescription": null
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Gregor",
+      "lastName": "Lichtner",
+      "affiliation": "Universitätsmedizin Greifswald",
+      "profession": "Medical Informatics",
+      "orcid": "0000-0002-5890-1958"
+    },
+    "reviews": [],
+    "versions": [
+      {
+        "version": "1.0.0",
+        "date": "2026-11-18",
+        "author": "Gregor Lichtner",
+        "message": "Initial version: the RxNorm ingredient insulin lispro (1550023) with all descendants, following the other insulin concept sets (123-127)."
+      }
+    ],
+    "distributionStats": null
+  }
+}
