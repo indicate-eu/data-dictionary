@@ -4490,10 +4490,20 @@ var ConceptSetsPage = (function() {
       var cmp;
       if (reviewSort.key === 'version') {
         cmp = App.compareVersions(a.version, b.version);
+      } else if (reviewSort.key === 'date') {
+        // Day, then version, then full timestamp: same-day reviews often carry the
+        // same (or a placeholder) time, so the version they refer to orders them
+        // (a reply on 1.1.0 below the approval of 1.1.1 made the same day).
+        var da = reviewDay(a), db = reviewDay(b);
+        cmp = da < db ? -1 : da > db ? 1 : 0;
+        if (!cmp) cmp = App.compareVersions(a.version, b.version);
+        if (!cmp) {
+          var ta = a.reviewTimestamp || a.reviewDate || '', tb = b.reviewTimestamp || b.reviewDate || '';
+          cmp = ta < tb ? -1 : ta > tb ? 1 : 0;
+        }
       } else {
         var acc = {
           reviewer: function(r) { return reviewerName(r).toLowerCase(); },
-          date: function(r) { return r.reviewTimestamp || r.reviewDate || ''; }, // full timestamp → tie-breaks same-day reviews
           status: function(r) { return r.status || ''; },
           comments: function(r) { return (r.comments || '').toLowerCase(); }
         }[reviewSort.key];
