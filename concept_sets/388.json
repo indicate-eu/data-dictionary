@@ -1,0 +1,84 @@
+{
+  "id": 388,
+  "name": "Insulin Isophane",
+  "description": "Insulin isophane (NPH, e.g. Insulatard, Humulin N), including premixed products that contain it. RxNorm ingredient with all descendants.",
+  "version": "1.0.0",
+  "createdBy": "Gregor Lichtner",
+  "createdDate": "2026-11-18",
+  "modifiedBy": "Gregor Lichtner",
+  "modifiedDate": "2026-11-18",
+  "createdByTool": null,
+  "expression": {
+    "items": [
+      {
+        "concept": {
+          "conceptId": 46221581,
+          "conceptName": "insulin isophane",
+          "domainId": "Drug",
+          "vocabularyId": "RxNorm",
+          "conceptClassId": "Ingredient",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "1605101",
+          "validStartDate": "2015-05-04",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      }
+    ]
+  },
+  "tags": [],
+  "metadata": {
+    "uniqueId": "ddf66d54-7568-4274-916a-cdbcef301e92",
+    "organization": {
+      "created": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      },
+      "current": {
+        "name": "INDICATE Consortium",
+        "url": "https://indicate-eu.org"
+      }
+    },
+    "sourceRepo": "https://github.com/indicate-eu/data-dictionary",
+    "reviewStatus": "pending_review",
+    "origin": null,
+    "translations": {
+      "en": {
+        "name": "Insulin Isophane",
+        "category": "Medications",
+        "subcategory": "Other drugs",
+        "shortDescription": "Insulin isophane (NPH, e.g. Insulatard, Humulin N), including premixed products that contain it. RxNorm ingredient with all descendants.",
+        "longDescription": null
+      },
+      "fr": {
+        "name": "Insuline isophane",
+        "category": "Médicaments",
+        "subcategory": "Autres médicaments",
+        "shortDescription": "Insuline isophane (NPH, p. ex. Insulatard, Humulin N), y compris les insulines prémélangées qui en contiennent. Ingrédient RxNorm avec tous ses descendants.",
+        "longDescription": null
+      }
+    },
+    "createdByDetails": {
+      "firstName": "Gregor",
+      "lastName": "Lichtner",
+      "affiliation": "Universitätsmedizin Greifswald",
+      "profession": "Medical Informatics",
+      "orcid": "0000-0002-5890-1958"
+    },
+    "reviews": [],
+    "versions": [
+      {
+        "version": "1.0.0",
+        "date": "2026-11-18",
+        "author": "Gregor Lichtner",
+        "message": "Initial version: the RxNorm ingredient insulin isophane (46221581) with all descendants, following the other insulin concept sets (123-127)."
+      }
+    ],
+    "distributionStats": null
+  }
+}
