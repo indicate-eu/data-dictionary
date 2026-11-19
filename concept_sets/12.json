@@ -5,9 +5,9 @@
   "version": "1.1.0",
   "createdBy": "Boris Delange",
   "createdDate": "2026-02-12",
-  "modifiedBy": "Boris Delange",
-  "modifiedDate": "2026-05-27",
-  "createdByTool": "INDICATE Data Dictionary (Web) v1.0.0",
+  "modifiedBy": "Maxim Moinat",
+  "modifiedDate": "2026-11-19",
+  "createdByTool": "INDICATE Data Dictionary v1.2.6 (https://github.com/indicate-eu/data-dictionary)",
   "expression": {
     "items": [
       {
@@ -46,6 +46,101 @@
         },
         "isExcluded": false,
         "includeDescendants": false,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37046283,
+          "conceptName": "Pupil diameter | Right eye | Ophthalmology and Optometry",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP404675-3",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 37037031,
+          "conceptName": "Pupil diameter | Left eye | Ophthalmology and Optometry",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP404674-6",
+          "validStartDate": "1970-01-01",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 4237865,
+          "conceptName": "Size of pupil",
+          "domainId": "Measurement",
+          "vocabularyId": "SNOMED",
+          "conceptClassId": "Observable Entity",
+          "standardConcept": "S",
+          "standardConceptCaption": "Standard",
+          "conceptCode": "363953003",
+          "validStartDate": "2002-01-31",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 36660998,
+          "conceptName": "Diameter | Left pupil | Refraction",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP419208-6",
+          "validStartDate": "2020-06-17",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
+        "includeMapped": false
+      },
+      {
+        "concept": {
+          "conceptId": 36660848,
+          "conceptName": "Diameter | Right pupil | Refraction",
+          "domainId": "Measurement",
+          "vocabularyId": "LOINC",
+          "conceptClassId": "LOINC Hierarchy",
+          "standardConcept": "C",
+          "standardConceptCaption": "Classification",
+          "conceptCode": "LP419209-4",
+          "validStartDate": "2020-06-17",
+          "validEndDate": "2099-12-31",
+          "invalidReason": null,
+          "invalidReasonCaption": "Valid"
+        },
+        "isExcluded": false,
+        "includeDescendants": true,
         "includeMapped": false
       }
     ]
@@ -89,7 +184,21 @@
       "profession": "Medical Informatics and Intensive Care Physician",
       "orcid": "0009-0002-6055-6935"
     },
-    "reviews": [],
+    "reviews": [
+      {
+        "reviewId": 1,
+        "reviewer": {
+          "firstName": "Maxim",
+          "lastName": "Moinat",
+          "affiliation": "Erasmus MC",
+          "profession": "Data Engineer",
+          "orcid": "0000-0001-8473-2433"
+        },
+        "reviewTimestamp": "2026-11-09T11:12:18.004Z",
+        "comments": "# Review Comments\n\nConcept set too narrowly defined, need to include generic concepts as well\n\n## Suggestions\n\nAdd 4237865 Size of pupil including descendants.\n\nOthers to include as well, e.g. 36660609 - Left pupil Diameter by Keratometry",
+        "version": "1.1.0"
+      }
+    ],
     "versions": [],
     "distributionStats": null
   }
