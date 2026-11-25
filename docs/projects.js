@@ -307,7 +307,6 @@ var ProjectsPage = (function() {
       }
     }
 
-    document.getElementById('proj-export-csv').style.display = (isVars && !editMode) ? '' : 'none';
 
     // Update all button: only on variables tab in read mode, and only if there are outdated CS
     var updateAllBtn = document.getElementById('proj-update-all-btn');
@@ -1599,14 +1598,6 @@ var ProjectsPage = (function() {
       return '"' + s.replace(/"/g, '""') + '"';
     }
 
-    // CSV export for project concepts
-    document.getElementById('proj-export-csv').addEventListener('click', function() {
-      if (!selectedProject) return;
-      // A pinned version too large to embed is fetched from the repository. Without
-      // this, getConceptSet returns null below and those concept sets drop out of
-      // the export silently.
-      App.fetchPinnedVersions(selectedProject).then(exportProjectCSV);
-    });
 
     function exportProjectCSV() {
       if (!selectedProject) return;
@@ -1655,33 +1646,106 @@ var ProjectsPage = (function() {
 
       // BOM so Excel detects UTF-8 (accented French names) on double-click open.
       var csv = '\uFEFF' + rows.join('\n');
-      var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      var projTr = App.tProj(selectedProject);
+      downloadBlob(new Blob([csv], { type: 'text/csv;charset=utf-8;' }),
+        (projTr.name || 'project').normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+          .replace(/[^a-zA-Z0-9]+/g, '_').replace(/^_|_$/g, '') +
+          '_concepts_' + new Date().toISOString().slice(0, 10) + '.csv');
+    }
+
+    // ==================== PROJECT EXPORT MODAL ====================
+    // Step 1 picks what to export (concept sets, or the project JSON); "concept
+    // sets" leads to step 2, Excel or CSV.
+    var exportModal = document.getElementById('proj-export-modal');
+    var exportBusy = false;
+
+    function showExportStep(step) {
+      document.getElementById('proj-export-step-method').style.display = step === 'method' ? '' : 'none';
+      document.getElementById('proj-export-step-format').style.display = step === 'format' ? '' : 'none';
+      document.getElementById('proj-export-back').style.display = step === 'format' ? '' : 'none';
+    }
+    function closeProjExportModal() {
+      if (exportBusy) return;
+      exportModal.style.display = 'none';
+    }
+
+    document.getElementById('proj-export-json').addEventListener('click', function() {
+      if (!selectedProject) return;
+      document.getElementById('proj-export-file-desc').textContent =
+        App.i18n('Download as {file}').replace('{file}', selectedProject.id + '.json');
+      showExportStep('method');
+      exportModal.style.display = 'flex';
+    });
+    document.getElementById('proj-export-modal-close').addEventListener('click', closeProjExportModal);
+    document.getElementById('proj-export-cancel').addEventListener('click', closeProjExportModal);
+    document.getElementById('proj-export-back').addEventListener('click', function() {
+      if (!exportBusy) showExportStep('method');
+    });
+    exportModal.addEventListener('click', function(e) {
+      if (e.target === exportModal) closeProjExportModal();
+    });
+
+    document.getElementById('proj-export-step-method').addEventListener('click', function(e) {
+      var opt = e.target.closest('.export-option[data-action]');
+      if (!opt || !selectedProject) return;
+      var action = opt.dataset.action;
+      if (action === 'concept-sets') { showExportStep('format'); return; }
+      var json = JSON.stringify(selectedProject, null, 2);
+      var file = selectedProject.id + '.json';
+      if (action === 'file') {
+        downloadBlob(new Blob([json], { type: 'application/json' }), file);
+      } else if (action === 'clipboard') {
+        App.copyToClipboard(json).then(function(ok) {
+          App.showToast(App.i18n(ok ? 'Copied to clipboard!' : 'Could not copy to clipboard.'), ok ? 'success' : 'error');
+        });
+      } else if (action === 'github') {
+        // Path + isNew rather than a prebuilt edit URL: a project created in the
+        // SPA is not in the repo, so it needs the forge's create-file route.
+        App.proposeOnForge('projects/' + file, json, App.isNewProject(selectedProject.id));
+      }
+      closeProjExportModal();
+    });
+
+    document.getElementById('proj-export-step-format').addEventListener('click', function(e) {
+      var opt = e.target.closest('.export-option[data-format]');
+      if (!opt || !selectedProject || exportBusy) return;
+      if (opt.dataset.format === 'csv') {
+        // A pinned version too large to embed is fetched from the repository. Without
+        // this, getConceptSet returns null below and those concept sets drop out of
+        // the export silently.
+        App.fetchPinnedVersions(selectedProject).then(exportProjectCSV);
+        closeProjExportModal();
+        return;
+      }
+      // Excel: ExcelJS loads on first use and large projects take a few seconds,
+      // so keep the modal open with a spinner until the download starts.
+      exportBusy = true;
+      var icon = opt.querySelector('.export-option-icon i');
+      var iconClass = icon.className;
+      icon.className = 'fas fa-spinner fa-spin';
+      opt.style.pointerEvents = 'none';
+      ExcelExport.exportProject(selectedProject, function(rule) {
+        return App.i18n((RULE_META[rule] || {}).i18n || rule);
+      }).catch(function(err) {
+        console.error('Excel export failed:', err);
+        App.showToast(App.i18n('Excel export failed.') + ' ' + (err && err.message ? err.message : ''), 'error');
+      }).then(function() {
+        exportBusy = false;
+        icon.className = iconClass;
+        opt.style.pointerEvents = '';
+        closeProjExportModal();
+      });
+    });
+
+    function downloadBlob(blob, filename) {
       var url = URL.createObjectURL(blob);
       var a = document.createElement('a');
       a.href = url;
-      var projTr = App.tProj(selectedProject);
-      a.download = (projTr.name || 'project').replace(/[^a-zA-Z0-9]/g, '_') + '_concepts.csv';
+      a.download = filename;
       a.click();
-      URL.revokeObjectURL(url);
+      // Deferred: revoking synchronously can abort the download in some browsers.
+      setTimeout(function() { URL.revokeObjectURL(url); }, 0);
     }
-
-    // Project JSON export
-    document.getElementById('proj-export-json').addEventListener('click', function() {
-      if (!selectedProject) return;
-      var json = JSON.stringify(selectedProject, null, 2);
-      App.openExportModal({
-        title: App.i18n('Export Project'),
-        content: json,
-        filename: selectedProject.id + '.json',
-        type: 'application/json',
-        clipboardDesc: App.i18n('Copy JSON to clipboard'),
-        fileDesc: App.i18n('Download as {file}').replace('{file}', selectedProject.id + '.json'),
-        // Path + isNew rather than a prebuilt edit URL: a project created in the
-        // SPA is not in the repo, so it needs the forge's create-file route.
-        githubPath: 'projects/' + selectedProject.id + '.json',
-        githubIsNew: App.isNewProject(selectedProject.id)
-      });
-    });
 
     // ==================== EDIT MODE EVENTS ====================
     document.getElementById('proj-edit-btn').addEventListener('click', enterEditMode);

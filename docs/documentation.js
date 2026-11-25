@@ -1808,37 +1808,15 @@ var DocumentationPage = (function() {
       + 'Example: Plasma creatinine concept set SQL query with unit conversions.</p>'
       + sqlExample
 
-      // ===== PROJECT CSV =====
+      // ===== PROJECT EXPORT =====
       + '<h2>Project Export</h2>'
       + '<p>From a project\u2019s detail view, click '
       + '<button class="btn-primary-custom" style="cursor:default"><i class="fas fa-download"></i> Export</button>'
       + ' to open the export modal:</p>'
-      + mockGenericExportModal('en', 'Export Project')
-      + '<p>The Concept Sets tab also provides '
-      + '<button class="btn-primary-custom" style="cursor:default"><i class="fas fa-file-csv"></i> Export CSV</button>'
-      + ' to download all OMOP concepts from the project\u2019s concept sets as CSV, '
-      + 'useful for analysis pipelines.</p>';
-  }
-
-  function mockGenericExportModal(lang, title) {
-    var en = lang === 'en';
-    return '<div class="doc-mock-modal" style="max-width:480px">'
-      + '<div class="modal-header"><h3 style="margin:0; font-size:14px"><i class="fas fa-download"></i> '
-      + (en ? title : title) + '</h3>'
-      + '<span class="modal-close" style="cursor:default">&times;</span></div>'
-      + '<div style="padding:12px"><div class="export-options-container" style="gap:8px; padding:4px 0">'
-      + mockExportOpt('fas fa-file-download', '#0f60af',
-        en ? 'Download File' : 'T\u00e9l\u00e9charger',
-        en ? 'Download as a file' : 'T\u00e9l\u00e9charger en fichier')
-      + mockExportOpt('fas fa-clipboard', '#28a745',
-        en ? 'Copy to Clipboard' : 'Copier',
-        en ? 'Copy the content to clipboard' : 'Copier le contenu dans le presse-papiers')
-      + mockExportOpt('fab fa-github', '#6f42c1',
-        en ? 'Propose on GitHub' : 'Proposer sur GitHub',
-        en ? 'Copy to clipboard and open GitHub editor' : 'Copier et ouvrir l\u2019\u00e9diteur GitHub')
-      + '</div></div>'
-      + '<div class="modal-footer"><button class="btn-cancel" disabled>' + (en ? 'Cancel' : 'Annuler') + '</button></div>'
-      + '</div>';
+      + mockProjectExportModal('en')
+      + '<p><strong>Download Concept Sets</strong> then offers <strong>Excel</strong>, a readable workbook of the '
+      + 'project\u2019s concept sets and their resolved concepts meant for data providers, or <strong>CSV</strong>, '
+      + 'the expression items of every concept set, useful for analysis pipelines.</p>';
   }
 
   var _docSqlEditor = null;
@@ -2487,16 +2465,34 @@ var DocumentationPage = (function() {
       + 'pinned versions are unaffected.</p>'
 
       + '<h2>Exporting</h2>'
-      + '<p>The project detail view offers two export options:</p>'
-
-      + '<h3>JSON Export</h3>'
-      + '<p>Click the <strong>Export</strong> button in the project header to export the project definition as JSON. '
-      + 'You can download it as a file, copy to clipboard, or propose changes on GitHub.</p>'
+      + '<p>Click the <strong>Export</strong> button in the project header to open the export modal:</p>'
       + mockProjectExportModal('en')
+      + '<ul>'
+      + '<li><strong>Download Concept Sets</strong> \u2014 the project\u2019s concept sets and their concepts, as Excel or CSV (see below).</li>'
+      + '<li><strong>Download Project JSON</strong>, <strong>Copy to Clipboard</strong>, <strong>Propose on GitHub</strong> \u2014 '
+      + 'the project definition as JSON: download it, copy it, or propose your changes on GitHub.</li>'
+      + '</ul>'
+
+      + '<h3>Excel Export</h3>'
+      + '<p>Choose <strong>Download Concept Sets</strong>, then <strong>Excel</strong>, to download a workbook meant to be read '
+      + 'by data providers. It describes the project at the versions it pins and has four sheets:</p>'
+      + '<ul>'
+      + '<li><strong>Concept sets</strong> \u2014 one row per concept set, with the same columns as the Concept Sets tab '
+      + '(group, rule, category, name, description, review status, pinned and latest version, update status), plus the '
+      + 'number of concepts, the date and change note of the pinned version, and a link back to the app. '
+      + 'Click a name to jump to its concepts.</li>'
+      + '<li><strong>Concepts</strong> \u2014 the resolved OMOP concepts of each concept set, as listed in the concept set '
+      + 'detail view (descendants and mapped concepts expanded, exclusions removed), with the recommended unit and an '
+      + 'Athena link. Every column has a filter: pick one concept set in the <em>Concept set</em> filter to see its concepts only.</li>'
+      + '<li><strong>Version history</strong> \u2014 every version of each concept set, most recent first, with its change '
+      + 'note; versions newer than the pinned one are flagged, so you can see at a glance what changed since the project was set up.</li>'
+      + '<li><strong>About</strong> \u2014 the project, export date, dictionary build and OMOP vocabulary release, and how to read the file.</li>'
+      + '</ul>'
+      + '<p>The file is named after the project and the export date. Its labels follow the app\u2019s current language.</p>'
 
       + '<h3>CSV Export</h3>'
-      + '<p>In the Concept Sets tab (read mode), click the <strong>CSV</strong> button to download all OMOP concepts '
-      + 'from the project\'s concept sets as a CSV file. The export includes concept set metadata '
+      + '<p>Choose <strong>Download Concept Sets</strong>, then <strong>CSV</strong>, to download the expression items '
+      + 'of the project\'s concept sets as a CSV file. The export includes concept set metadata '
       + '(ID, name, category, subcategory) and expression flags (excluded, descendants, mapped) for each concept.</p>';
   }
 
@@ -2646,8 +2642,11 @@ var DocumentationPage = (function() {
       + (en ? 'Export Project' : 'Exporter le projet') + '</h3>'
       + '<span class="modal-close" style="cursor:default">&times;</span></div>'
       + '<div style="padding:12px"><div class="export-options-container" style="gap:8px; padding:4px 0">'
+      + mockExportOpt('fas fa-table', '#1d6f42',
+        en ? 'Download Concept Sets' : 'T\u00e9l\u00e9charger les jeux de concepts',
+        en ? 'The project\u2019s concept sets and their concepts, as Excel or CSV' : 'Les jeux de concepts du projet et leurs concepts, en Excel ou CSV')
       + mockExportOpt('fas fa-file-download', '#0f60af',
-        en ? 'Download File' : 'T\u00e9l\u00e9charger le fichier',
+        en ? 'Download Project JSON' : 'T\u00e9l\u00e9charger le JSON du projet',
         en ? 'Download as a JSON file' : 'T\u00e9l\u00e9charger en tant que fichier JSON')
       + mockExportOpt('fas fa-clipboard', '#28a745',
         en ? 'Copy to Clipboard' : 'Copier dans le presse-papiers',
@@ -4085,11 +4084,10 @@ var DocumentationPage = (function() {
       + '<p>Depuis la vue d\u00e9taill\u00e9e d\u2019un projet, cliquez '
       + '<button class="btn-primary-custom" style="cursor:default"><i class="fas fa-download"></i> Exporter</button>'
       + ' pour ouvrir le modal d\u2019export\u00a0:</p>'
-      + mockGenericExportModal('fr', 'Exporter le projet')
-      + '<p>L\u2019onglet Jeux de concepts propose \u00e9galement '
-      + '<button class="btn-primary-custom" style="cursor:default"><i class="fas fa-file-csv"></i> Exporter CSV</button>'
-      + ' pour t\u00e9l\u00e9charger tous les concepts OMOP des jeux de concepts du projet en CSV, '
-      + 'utile pour les pipelines d\u2019analyse.</p>';
+      + mockProjectExportModal('fr')
+      + '<p><strong>T\u00e9l\u00e9charger les jeux de concepts</strong> propose ensuite <strong>Excel</strong>, un classeur '
+      + 'lisible des jeux de concepts du projet et de leurs concepts r\u00e9solus pens\u00e9 pour les fournisseurs de donn\u00e9es, '
+      + 'ou <strong>CSV</strong>, les \u00e9l\u00e9ments d\u2019expression de chaque jeu, utile pour les pipelines d\u2019analyse.</p>';
   }
 
   function sourcesFR() {
@@ -4404,16 +4402,36 @@ var DocumentationPage = (function() {
       + 'dans le projet \u2014 les autres versions \u00e9pingl\u00e9es ne sont pas affect\u00e9es.</p>'
 
       + '<h2>Export</h2>'
-      + '<p>La vue d\u00e9taill\u00e9e du projet propose deux options d\u2019export\u00a0:</p>'
-
-      + '<h3>Export JSON</h3>'
-      + '<p>Cliquez sur le bouton <strong>Export</strong> dans l\u2019en-t\u00eate du projet pour exporter la d\u00e9finition du projet en JSON. '
-      + 'Vous pouvez t\u00e9l\u00e9charger le fichier, copier dans le presse-papiers ou proposer des modifications sur GitHub.</p>'
+      + '<p>Cliquez sur le bouton <strong>Exporter</strong> dans l\u2019en-t\u00eate du projet pour ouvrir le modal d\u2019export\u00a0:</p>'
       + mockProjectExportModal('fr')
+      + '<ul>'
+      + '<li><strong>T\u00e9l\u00e9charger les jeux de concepts</strong> \u2014 les jeux de concepts du projet et leurs concepts, en Excel ou CSV (voir ci-dessous).</li>'
+      + '<li><strong>T\u00e9l\u00e9charger le JSON du projet</strong>, <strong>Copier dans le presse-papiers</strong>, <strong>Proposer sur GitHub</strong> \u2014 '
+      + 'la d\u00e9finition du projet en JSON\u00a0: la t\u00e9l\u00e9charger, la copier ou proposer vos modifications sur GitHub.</li>'
+      + '</ul>'
+
+      + '<h3>Export Excel</h3>'
+      + '<p>Choisissez <strong>T\u00e9l\u00e9charger les jeux de concepts</strong>, puis <strong>Excel</strong>, pour t\u00e9l\u00e9charger '
+      + 'un classeur destin\u00e9 aux fournisseurs de donn\u00e9es. Il d\u00e9crit le projet aux versions qu\u2019il \u00e9pingle et compte quatre onglets\u00a0:</p>'
+      + '<ul>'
+      + '<li><strong>Jeux de concepts</strong> \u2014 une ligne par jeu, avec les m\u00eames colonnes que l\u2019onglet Jeux de concepts '
+      + '(groupe, r\u00e8gle, cat\u00e9gorie, nom, description, statut de relecture, version \u00e9pingl\u00e9e et derni\u00e8re version, mise \u00e0 jour), '
+      + 'plus le nombre de concepts, la date et la note de la version \u00e9pingl\u00e9e, et un lien vers l\u2019application. '
+      + 'Cliquez sur un nom pour aller \u00e0 ses concepts.</li>'
+      + '<li><strong>Concepts</strong> \u2014 les concepts OMOP r\u00e9solus de chaque jeu, tels que list\u00e9s dans la vue d\u00e9taill\u00e9e '
+      + '(descendants et concepts mapp\u00e9s d\u00e9velopp\u00e9s, exclusions retir\u00e9es), avec l\u2019unit\u00e9 recommand\u00e9e et un lien Athena. '
+      + 'Chaque colonne a un filtre\u00a0: choisissez un jeu dans le filtre <em>Jeu de concepts</em> pour n\u2019afficher que ses concepts.</li>'
+      + '<li><strong>Historique des versions</strong> \u2014 toutes les versions de chaque jeu, de la plus r\u00e9cente \u00e0 la plus ancienne, '
+      + 'avec leur note\u00a0; les versions plus r\u00e9centes que la version \u00e9pingl\u00e9e sont signal\u00e9es, pour voir d\u2019un coup d\u2019\u0153il '
+      + 'ce qui a chang\u00e9 depuis la constitution du projet.</li>'
+      + '<li><strong>\u00c0 propos</strong> \u2014 le projet, la date d\u2019export, la version du dictionnaire et des vocabulaires OMOP, '
+      + 'et comment lire le fichier.</li>'
+      + '</ul>'
+      + '<p>Le fichier porte le nom du projet et la date d\u2019export. Ses libell\u00e9s suivent la langue courante de l\u2019application.</p>'
 
       + '<h3>Export CSV</h3>'
-      + '<p>Dans l\u2019onglet Jeux de concepts (mode lecture), cliquez sur le bouton <strong>CSV</strong> pour t\u00e9l\u00e9charger '
-      + 'tous les concepts OMOP des jeux du projet en fichier CSV. L\u2019export inclut les m\u00e9tadonn\u00e9es du jeu '
+      + '<p>Choisissez <strong>T\u00e9l\u00e9charger les jeux de concepts</strong>, puis <strong>CSV</strong>, pour t\u00e9l\u00e9charger '
+      + 'les \u00e9l\u00e9ments d\u2019expression des jeux du projet en fichier CSV. L\u2019export inclut les m\u00e9tadonn\u00e9es du jeu '
       + '(ID, nom, cat\u00e9gorie, sous-cat\u00e9gorie) et les options de l\u2019expression (exclu, descendants, mapp\u00e9) pour chaque concept.</p>';
   }
 

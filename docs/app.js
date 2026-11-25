@@ -688,7 +688,13 @@ var App = (function() {
     'Long description (FR)':         { fr: 'Description longue (FR)' },
     'Enter long description in English (Markdown supported)...': { fr: 'Saisir la description longue en anglais (Markdown supporté)...' },
     'Enter long description in French (Markdown supported)...': { fr: 'Saisir la description longue en français (Markdown supporté)...' },
-    'Export CSV':                    { fr: 'Exporter CSV' },
+    'Download Concept Sets':         { fr: 'Télécharger les jeux de concepts' },
+    'The project\'s concept sets and their concepts, as Excel or CSV': { fr: 'Les jeux de concepts du projet et leurs concepts, en Excel ou CSV' },
+    'Download Project JSON':         { fr: 'Télécharger le JSON du projet' },
+    'Copy the project JSON to clipboard': { fr: 'Copier le JSON du projet dans le presse-papiers' },
+    'Readable workbook: concept sets, their resolved concepts and version history': { fr: 'Classeur lisible : jeux de concepts, leurs concepts résolus et l\'historique des versions' },
+    'One row per expression item, for analysis pipelines': { fr: 'Une ligne par élément d\'expression, pour les pipelines d\'analyse' },
+    'Excel export failed.':          { fr: 'L\'export Excel a échoué.' },
 
     // Profile modal
     'Edit Profile':                  { fr: 'Modifier le profil' },

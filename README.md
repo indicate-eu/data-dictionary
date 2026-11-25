@@ -52,7 +52,7 @@ The INDICATE Data Dictionary fills that gap with an **extension of the OHDSI Con
 - **Overview page** — the validation status of the whole dictionary at a glance: counts per status, overall and per category, each linking to the filtered catalog.
 - **Auto-generated SQL** — pick a concept set, pick your reference unit, get a ready-to-run OMOP query targeting the right CDM table for the concept set's domain (Measurement, Observation, Drug Exposure, etc.), with per-concept unit conversion baked in (`CASE WHEN unit_concept_id = ... THEN value_as_number * factor`).
 - **Unit harmonization** — for laboratory concepts, the recommended unit follows a [defined methodology](https://indicate-eu.github.io/data-dictionary/#/documentation?section=sources) (NPU as primary source, LOINC `EXAMPLE_UCUM_UNITS` as fallback), with an explicit conversion table for every non-canonical unit encountered in source data.
-- **Projects** — group concept sets by study / use case, export the list as CSV, or use them to scope ETL mapping priorities.
+- **Projects** — group concept sets by study / use case, export them as a readable Excel workbook (concept sets, resolved concepts, version history) or as CSV, or use them to scope ETL mapping priorities.
 - **Dev Tools** — in-browser SQL editor (Ace + DuckDB-WASM) against loaded OHDSI vocabularies, plus an ERD visualization of the OMOP CDM.
 - **Mapping recommendations** — multilingual guidance on how to map common source concepts, with examples.
 

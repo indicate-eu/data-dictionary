@@ -440,9 +440,6 @@
       <button class="btn-primary-custom btn-green" id="proj-update-all-btn" style="margin-left:auto; display:none" title="Update all outdated concept sets to their latest version">
         <i class="fas fa-arrow-up"></i> <span data-i18n="Update all">Update all</span><span class="update-all-count"></span>
       </button>
-      <button class="btn-primary-custom" id="proj-export-csv" style="margin-left:auto; display:none" title="Export all concepts to CSV">
-        <i class="fas fa-file-csv"></i> <span data-i18n="Export CSV">Export CSV</span>
-      </button>
     </div>
 
     <!-- Context tab (read mode) -->
@@ -2162,6 +2159,72 @@ Enter your review comments here using Markdown syntax.
      ═══════════════════════════════════════════════════════════ -->
 
 <!-- Settings Export Modal (simple: clipboard or file, optional GitHub) -->
+<!-- Project Export Modal — step 1: what to export; step 2: concept sets format -->
+<div class="modal-overlay" id="proj-export-modal" style="display:none">
+  <div class="modal" style="max-width:500px">
+    <div class="modal-header">
+      <h3><i class="fas fa-download"></i> <span data-i18n="Export Project">Export Project</span></h3>
+      <button class="modal-close" id="proj-export-modal-close">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div id="proj-export-step-method">
+        <div class="export-options-container">
+          <div class="export-option" data-action="concept-sets">
+            <div class="export-option-icon"><i class="fas fa-table" style="color:#1d6f42"></i></div>
+            <div class="export-option-content">
+              <h5 class="export-option-title" data-i18n="Download Concept Sets">Download Concept Sets</h5>
+              <p class="export-option-subtitle" data-i18n="The project's concept sets and their concepts, as Excel or CSV">The project's concept sets and their concepts, as Excel or CSV</p>
+            </div>
+          </div>
+          <div class="export-option" data-action="file">
+            <div class="export-option-icon"><i class="fas fa-file-download" style="color:#0f60af"></i></div>
+            <div class="export-option-content">
+              <h5 class="export-option-title" data-i18n="Download Project JSON">Download Project JSON</h5>
+              <p class="export-option-subtitle" id="proj-export-file-desc">Download as a JSON file</p>
+            </div>
+          </div>
+          <div class="export-option" data-action="clipboard">
+            <div class="export-option-icon"><i class="fas fa-clipboard" style="color:#28a745"></i></div>
+            <div class="export-option-content">
+              <h5 class="export-option-title" data-i18n="Copy to Clipboard">Copy to Clipboard</h5>
+              <p class="export-option-subtitle" data-i18n="Copy the project JSON to clipboard">Copy the project JSON to clipboard</p>
+            </div>
+          </div>
+          <div class="export-option" data-action="github">
+            <div class="export-option-icon"><i class="fab fa-github" style="color:#6f42c1"></i></div>
+            <div class="export-option-content">
+              <h5 class="export-option-title" data-i18n="Propose on GitHub">Propose on GitHub</h5>
+              <p class="export-option-subtitle" data-i18n="Copy to clipboard and open GitHub editor">Copy to clipboard and open GitHub editor</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="proj-export-step-format" style="display:none">
+        <div class="export-options-container">
+          <div class="export-option" data-format="xlsx">
+            <div class="export-option-icon"><i class="fas fa-file-excel" style="color:#1d6f42"></i></div>
+            <div class="export-option-content">
+              <h5 class="export-option-title">Excel</h5>
+              <p class="export-option-subtitle" data-i18n="Readable workbook: concept sets, their resolved concepts and version history">Readable workbook: concept sets, their resolved concepts and version history</p>
+            </div>
+          </div>
+          <div class="export-option" data-format="csv">
+            <div class="export-option-icon"><i class="fas fa-file-csv" style="color:#0f60af"></i></div>
+            <div class="export-option-content">
+              <h5 class="export-option-title">CSV</h5>
+              <p class="export-option-subtitle" data-i18n="One row per expression item, for analysis pipelines">One row per expression item, for analysis pipelines</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" id="proj-export-back" style="display:none"><i class="fas fa-arrow-left"></i> <span data-i18n="Back">Back</span></button>
+      <button class="btn-cancel" id="proj-export-cancel" data-i18n="Cancel">Cancel</button>
+    </div>
+  </div>
+</div>
+
 <div class="modal-overlay" id="settings-export-modal" style="display:none">
   <div class="modal" style="max-width:500px">
     <div class="modal-header">
@@ -2511,6 +2574,7 @@ Enter your review comments here using Markdown syntax.
 
 <script src="router.js"></script>
 <script src="concept-sets.js"></script>
+<script src="excel-export.js"></script>
 <script src="projects.js"></script>
 <script src="mapping.js"></script>
 <script src="settings.js"></script>
