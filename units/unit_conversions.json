@@ -49,7 +49,7 @@
     "sourceUnitConceptId": 8845,
     "sourceUnitCode": "pg/mL",
     "sourceUnitName": "picogram per milliliter",
-    "conversionFactor": 9.43,
+    "conversionFactor": 0.106,
     "targetUnitConceptId": 8729,
     "targetUnitCode": "pmol/L",
     "targetUnitName": "picomole per liter"
@@ -126,7 +126,7 @@
     "sourceUnitConceptId": 8751,
     "sourceUnitCode": "mg/L",
     "sourceUnitName": "milligram per liter",
-    "conversionFactor": 113.636,
+    "conversionFactor": 0.00884017,
     "targetUnitConceptId": 8753,
     "targetUnitCode": "mmol/L",
     "targetUnitName": "millimole per liter"
@@ -467,7 +467,7 @@
     "sourceUnitConceptId": 8749,
     "sourceUnitCode": "umol/L",
     "sourceUnitName": "micromole per liter",
-    "conversionFactor": 79.6,
+    "conversionFactor": 0.056,
     "targetUnitConceptId": 8751,
     "targetUnitCode": "mg/L",
     "targetUnitName": "milligram per liter"
@@ -511,7 +511,7 @@
     "sourceUnitConceptId": 8729,
     "sourceUnitCode": "pmol/L",
     "sourceUnitName": "picomole per liter",
-    "conversionFactor": 0.106,
+    "conversionFactor": 9.43,
     "targetUnitConceptId": 8845,
     "targetUnitCode": "pg/mL",
     "targetUnitName": "picogram per milliliter"
@@ -566,7 +566,7 @@
     "sourceUnitConceptId": 8753,
     "sourceUnitCode": "mmol/L",
     "sourceUnitName": "millimole per liter",
-    "conversionFactor": 0.0088,
+    "conversionFactor": 113.12,
     "targetUnitConceptId": 8751,
     "targetUnitCode": "mg/L",
     "targetUnitName": "milligram per liter"
@@ -786,7 +786,7 @@
     "sourceUnitConceptId": 8751,
     "sourceUnitCode": "mg/L",
     "sourceUnitName": "milligram per liter",
-    "conversionFactor": 0.0126,
+    "conversionFactor": 17.91,
     "targetUnitConceptId": 8749,
     "targetUnitCode": "umol/L",
     "targetUnitName": "micromole per liter"
@@ -1017,7 +1017,7 @@
     "sourceUnitConceptId": 8842,
     "sourceUnitCode": "ng/mL",
     "sourceUnitName": "nanogram per milliliter",
-    "conversionFactor": 0.318,
+    "conversionFactor": 3.18,
     "targetUnitConceptId": 8736,
     "targetUnitCode": "nmol/L",
     "targetUnitName": "nanomole per liter"
@@ -1039,7 +1039,7 @@
     "sourceUnitConceptId": 8636,
     "sourceUnitCode": "g/L",
     "sourceUnitName": "gram per liter",
-    "conversionFactor": 16.65,
+    "conversionFactor": 35.7,
     "targetUnitConceptId": 8753,
     "targetUnitCode": "mmol/L",
     "targetUnitName": "millimole per liter"
